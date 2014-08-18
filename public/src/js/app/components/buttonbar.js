@@ -7,10 +7,10 @@ function(Game, Container, ButtonGrid){
 	
 	var ButtonBar = function(options){
 		ButtonGrid.call(this, options);
-		if(options.numX == 1){
+		if(options.numX === 1){
 			this.direction = ButtonBar.VERTICAL;
 		}
-		else if(options.numY == 1){
+		else if(options.numY === 1){
 			this.direction = ButtonBar.HORIZONTAL;
 		}
 		if(!this.direction){

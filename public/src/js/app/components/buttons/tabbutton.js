@@ -6,7 +6,6 @@ define(['app/components/buttons/abstractbutton'],function(AbstractButton){
 	var TabButton = function(options){
 		var num = options.index || '1';
 		options.asset = 'tabbutton' + num;
-		console.log('asset '+options.asset);
 		AbstractButton.call(this, options);
 	};
 	

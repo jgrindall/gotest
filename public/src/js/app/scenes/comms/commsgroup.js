@@ -34,7 +34,7 @@ define(['app/game','app/scenes/comms/commslayout', 'app/consts/leveldata'], func
 	
 	CommsGroup.prototype.drawGfx = function(){
 		this.forEach(function(sprite){
-			console.log(sprite.block+" "+sprite.block.id);
+			//console.log(sprite.block+" "+sprite.block.id);
 		});
 		this.gfx.beginFill(0xFF3300);
    		this.gfx.lineStyle(10, 0xffd900, 1);

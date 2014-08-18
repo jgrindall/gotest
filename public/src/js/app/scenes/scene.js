@@ -28,13 +28,7 @@ define(['app/game', 'app/components/background'], function(Game, Background){
 	};
 	
 	Scene.prototype.addChildren = function() {
-		var w, h, bounds;
-		w = Game.getWidth();
-		h = Game.getHeight();
-		bounds = {'x':0, 'y':0, 'w':w, 'h':h};
-		this.bg = new Background({"asset":'sky', "bounds":bounds});
-		this.bg.create();
-		this.world.add(this.bg.sprite);
+		
 	};
 	
 	Scene.prototype.create = function() {

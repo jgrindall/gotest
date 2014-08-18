@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 					findNestedDependencies: true,
 					paths: {
 						jquery: 			'lib/jquery.min',
-						phaser: 			'lib/phaser.min',
+						phaser: 			'lib/phaser',
 						phaserstatetrans: 	'lib/phaser-state-transition.min'
 					}
     			}

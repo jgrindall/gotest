@@ -101,7 +101,6 @@ function(){
 		var w, h;
 		w = Game.getWidth();
     	h = Game.getHeight();
-    	console.log("size "+window.devicePixelRatio, document.body.offsetWidth, document.body.offsetHeight);
 		Game.instance = new Phaser.Game(w, h, Phaser.AUTO, 'game', Game.config);
 		Game.setupScale();
 	};

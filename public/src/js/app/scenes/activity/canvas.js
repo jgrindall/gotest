@@ -1,7 +1,15 @@
 
-define(['app/game', 'app/components/container', 'app/components/background', 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton'],
+define(['app/game', 'app/components/container', 'app/components/background',
 
-function(Game, Container, Background, TabButtonBar, TabButton){
+'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
+
+'app/scenes/activity/map', 'app/scenes/activity/turtle'],
+
+function(Game, Container, Background,
+
+TabButtonBar, TabButton,
+
+Map, Turtle){
 	
 	"use strict";
 	
@@ -26,15 +34,20 @@ function(Game, Container, Background, TabButtonBar, TabButton){
 	Canvas.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addBg();
-		this.addTabs();
+		this.addMap();
+		this.addTurtle();
 	};
 	
-	Canvas.prototype.addTabs = function() {
+	Canvas.prototype.addTurtle = function() {
 		var bounds = {'x':50, 'y':50, 'w':600, 'h':50};
-		this.tabButtonBar = new TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
-		this.group.add(this.tabButtonBar.group);
-		this.tabButtonBar.select(0);
-		console.log("tabbuttonbar " +this.tabButtonBar);
+		this.turtle = new Turtle({'bounds':bounds});
+		this.group.add(this.turtle.group);
+	};
+	
+	Canvas.prototype.addMap = function() {
+		var bounds = {'x':50, 'y':50, 'w':600, 'h':50};
+		this.map = new Map({'bounds':bounds});
+		this.group.add(this.map.group);
 	};
 	
 	Canvas.prototype.addButton = function() {
@@ -44,6 +57,8 @@ function(Game, Container, Background, TabButtonBar, TabButton){
 	};
 	
 	Canvas.prototype.destroy = function() {
+		Container.prototype.destroy.call(this);
+		this.map.destroy();
 		this.bg.destroy();
 	};
 	

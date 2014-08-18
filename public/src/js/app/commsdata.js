@@ -87,7 +87,6 @@ function(CommsLayout, LevelData, GameMode, ObjectState) {
 	
 	CommsData.prototype.currentTiles = function(){
 		var tiles = this.tiles[this.selectedIndex];
-		console.log("tiles "+JSON.stringify(this.tiles)+" , "+this.selectedIndex);
 		return tiles;
 	};
 
@@ -108,7 +107,6 @@ function(CommsLayout, LevelData, GameMode, ObjectState) {
 
 	CommsData.prototype.drop = function(block){
 		var pos = this.getDropPosition(block);
-		console.log("index "+pos.y+",  "+pos.indents);
 		var tiles = this.currentTiles();
 		tiles.splice(pos.y, 0, block.id);
 		this.layoutCurrentTiles();

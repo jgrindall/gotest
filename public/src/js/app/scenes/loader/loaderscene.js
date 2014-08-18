@@ -38,7 +38,7 @@ function(Scene, Preloader, NavButton, CommGameView, LayoutData, BulbButton, Load
 	};
 	
 	LoaderScene.prototype.addText = function() {
-		this.label = TextFactory.make(Game.cx() - 300, 0, "Loading...", TextFactory.LARGE);
+		this.label = TextFactory.make(Game.cx() - 300, 0, "Loading 2Go...", TextFactory.LARGE);
 		Game.getInstance().world.add(this.label);
 	};
 	

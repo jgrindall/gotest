@@ -23,7 +23,7 @@ LoaderBar){
 	ActivityScene.prototype.create = function() {
 		Scene.prototype.create.call(this);
 		this.addCanvas();
-		//this.addControls();
+		this.addControls();
 	};
 	
 	ActivityScene.prototype.addText = function() {
@@ -38,8 +38,8 @@ LoaderBar){
 	};
 
 	ActivityScene.prototype.addControls = function() {
-		//var bounds = {"x":Game.w()/2, "y":0, "w":Game.w()/2, "h":Game.h()};
-		//this.controls = new Controls({"bounds":bounds});
+		var bounds = {"x":Game.w()/2, "y":0, "w":Game.w()/2, "h":Game.h()};
+		this.controls = new Controls({"bounds":bounds});
 	};
 	
 	ActivityScene.prototype.shutdown = function() {

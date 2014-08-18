@@ -10,6 +10,7 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 
 	Preloader.BG_KEY = 					'background';
 	Preloader.MAP_KEY = 				'map';
+	Preloader.TURTLE_KEY = 				'turtle';
 	Preloader.LIST_KEY = 				'list';
 	Preloader.SOUND1_KEY = 				'sound1';
 	Preloader.SOUND2_KEY = 				'sound2';
@@ -74,6 +75,7 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	Preloader.IMAGES = [
 		{"type":"image", 		"asset":"assets/images/bg/background2.png", 			"key":Preloader.BG_KEY},
 		{"type":"image", 		"asset":"assets/images/london.jpg", 					"key":Preloader.MAP_KEY},
+		{"type":"image", 		"asset":"assets/images/turtle.png", 					"key":Preloader.TURTLE_KEY},
 		{"type":"image", 		"asset":LevelData.BLOCK0, 								"key":Preloader.BLOCK_KEY0},
 		{"type":"image", 		"asset":LevelData.BLOCK1, 								"key":Preloader.BLOCK_KEY1},
 		{"type":"image", 		"asset":LevelData.BLOCK2, 								"key":Preloader.BLOCK_KEY2},

@@ -30,10 +30,10 @@ function(Game, Container, Background, TabButtonBar, TabButton){
 	};
 
 	Controls.prototype.addTabs = function() {
-		var bounds = {'x':this.bounds.x, 'y':0, 'w':200, 'h':50};
+		var bounds = {'x':this.bounds.x, 'y':50, 'w':600, 'h':50};
 		this.tabButtonBar = new TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
 		this.group.add(this.tabButtonBar.group);
-		this.tabButtonBar.select(1);
+		this.tabButtonBar.select(0);
 	};
 	
 	Controls.prototype.destroy = function() {
