@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/components/container'],
+define(['app/game', 'app/components/container', 'app/consts/colors'],
 
-function(Game, Container){
+function(Game, Container, Colors){
 	
 	"use strict";
 	
@@ -33,9 +33,11 @@ function(Game, Container){
 	};
 	
 	Paths.prototype.drawGfx = function(){
-		this.gfx.beginFill(0xFF3300);
-   		this.gfx.lineStyle(10, 0xffd900, 1);
-    	this.gfx.drawRect(50, 250, 100 + Math.random()*40, 100 + Math.random()*40);
+   		this.gfx.lineStyle(6, Colors.GREEN, 1);
+   		//this.gfx.beginPath();
+   		this.gfx.moveTo(100, 100);
+   		this.gfx.lineTo(200, 200);
+    	//this.gfx.stroke();
 	};
 	
 	Paths.prototype.create = function() {

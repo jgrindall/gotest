@@ -155,7 +155,7 @@ function(BlocksFactory, Game, CommsLayout, CommsGroup){
 
 	Commands.prototype.blockUp = function(data) {
 		var input =  Game.getInput();
-		input.onUp.removeAll();
+		input.onUp.removeAll(this);
 		input.moveCallback = null;
 		var block = data.target;
 		var sprite = block.sprite;

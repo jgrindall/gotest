@@ -1,7 +1,15 @@
 
-define(['app/game', 'app/components/container', 'app/components/background', 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton'],
+define(['app/game', 'app/components/container', 'app/components/background',
 
-function(Game, Container, Background, TabButtonBar, TabButton){
+'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
+
+'app/components/buttons/multibutton'],
+
+function(Game, Container, Background,
+
+TabButtonBar, TabButton,
+
+MultiButton){
 	
 	"use strict";
 	
@@ -27,8 +35,15 @@ function(Game, Container, Background, TabButtonBar, TabButton){
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addTabs();
+		this.addColorPicker();
 	};
-
+	
+	Controls.prototype.addColorPicker = function() {
+		var bounds = {'x':this.bounds.x, 'y':450, 'w':137, 'h':66};
+		this.colorPicker = new MultiButton({"bounds":bounds, "asset":'pens', "num":8});
+		this.group.add(this.colorPicker.sprite);
+	};
+	
 	Controls.prototype.addTabs = function() {
 		var bounds = {'x':this.bounds.x, 'y':50, 'w':600, 'h':50};
 		this.tabButtonBar = new TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});

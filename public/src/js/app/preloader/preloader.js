@@ -43,6 +43,7 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	Preloader.LEVEL_BUTTON_DONE = 		'levelbuttondone';
 	Preloader.LEVEL_BUTTON_LOCKED = 	'levelbuttonlocked';
 	Preloader.KILLAREA = 				'killarea';
+	Preloader.PENS = 					'pens';
 	
 	Preloader.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButton.png", 			"key":Preloader.LEVEL_BUTTON, 				"w":150, 	"h":150},
@@ -63,7 +64,7 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 		{"type":"spritesheet", 	"asset":"assets/images/game/enemy.png", 					"key":Preloader.ENEMY_KEY, 					"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Preloader.MARKER_KEY, 				"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/game/firstaid.png", 					"key":Preloader.KILLAREA, 					"w":32, 	"h":32},
-		
+		{"type":"spritesheet", 	"asset":"assets/images/pens.png", 							"key":Preloader.PENS, 						"w":137, 	"h":66}
 	];
 	
 	Preloader.SOUNDS = [
