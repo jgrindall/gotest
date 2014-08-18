@@ -21,6 +21,8 @@ commModel){
 		this.create();
 	};
 	
+	Drawing.DIST = 100;
+	
 	Drawing.prototype = Object.create(Container.prototype);
 	Drawing.prototype.constructor = Drawing;
 	
@@ -36,8 +38,8 @@ commModel){
 		angles = [135, 90, 45, 180, 0, 0, 225, -90, -45];
 		this.angle = -angles[command];
 		console.log(this.angle);
-		dx = 50*Math.cos(this.angle * 3.14159/180);
-		dy = 50*Math.sin(this.angle * 3.14159/180);
+		dx = Drawing.DIST * Math.cos(this.angle * 3.14159/180);
+		dy = Drawing.DIST * Math.sin(this.angle * 3.14159/180);
 		this.newPos = {x:this.startPos.x + dx, y:this.startPos.y + dy};
 	};
 	

@@ -1,7 +1,7 @@
 
-define(['app/game'],
+define(['app/game', 'app/scenes/activity/commspeed'],
 
-function(Game){
+function(Game, CommSpeed){
 	
 	"use strict";
 	
@@ -9,12 +9,13 @@ function(Game){
 		this.commands = [];
 		this.playing = false;
 		this.commandNum = 0;
-		this.speed = 3;
+		this.speed = CommSpeed.MED;
 		this.addSignal = new Phaser.Signal();
 		this.executeSignal = new Phaser.Signal();
 	};
 	
-	CommModel.SUBDIV = 5;
+	CommModel.SUBDIV = 20;
+	CommModel.SPEED_FACTOR = 10;
 	
 	CommModel.prototype.performCommand = function() {
 		this.sub = 0;
@@ -31,7 +32,7 @@ function(Game){
 		command = this.commands[this.commandNum];
 		fraction = this.sub / CommModel.SUBDIV;
 		this.executeSignal.dispatch({"command":command, "fraction":fraction});
-		this.timeout = setTimeout($.proxy(this.nextInterval, this), this.speed*100);
+		this.timeout = setTimeout($.proxy(this.nextInterval, this), this.speed*CommModel.SPEED_FACTOR);
 	};
 	
 	CommModel.prototype.nextInterval = function() {
