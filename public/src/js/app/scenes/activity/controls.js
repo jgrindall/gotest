@@ -3,13 +3,13 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/components/buttons/multibutton'],
+'app/components/buttons/multibutton', 'app/scenes/activity/commandspanel'],
 
 function(Game, Container, Background,
 
 TabButtonBar, TabButton,
 
-MultiButton){
+MultiButton, CommandsPanel){
 	
 	"use strict";
 	
@@ -36,6 +36,13 @@ MultiButton){
 		this.addBg();
 		this.addTabs();
 		this.addColorPicker();
+		this.addCommandsPanel();
+	};
+	
+	Controls.prototype.addCommandsPanel = function() {
+		var bounds = {'x':this.bounds.x, 'y':40, 'w':300, 'h':300};
+		this.commandsPanel = new CommandsPanel({"bounds":bounds});
+		this.group.add(this.commandsPanel.group);
 	};
 	
 	Controls.prototype.addColorPicker = function() {

@@ -8,6 +8,9 @@ define(['app/components/buttons/abstractbutton'], function(AbstractButton){
 		AbstractButton.call(this, options);
 	};
 	
+	CloseButton.WIDTH = 50;
+	CloseButton.HEIGHT = 50;
+	
 	CloseButton.prototype = Object.create(AbstractButton.prototype);
 	CloseButton.prototype.constructor = CloseButton;
 
