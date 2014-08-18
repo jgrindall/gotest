@@ -8,6 +8,7 @@ function(Game){
 	var CommModel  = function(){
 		this.commands = [];
 		this.playing = false;
+		this.commandNum = 0;
 		this.speed = 3;
 		this.addSignal = new Phaser.Signal();
 		this.executeSignal = new Phaser.Signal();
@@ -15,24 +16,14 @@ function(Game){
 	
 	CommModel.SUBDIV = 5;
 	
-	CommModel.prototype.nextCommand = function() {
-		console.log("next command!");
-		this.commandNum++;
-		if(this.commandNum === this.commands.length){
-			this.stop();		
-		}
-		else{
-			this.sub = 0;
-			this.triggerEvent();
-		}
+	CommModel.prototype.performCommand = function() {
+		this.sub = 0;
+		this.triggerEvent();
 	};
 	
-	CommModel.prototype.start = function(command) {
-		console.log("start");
+	CommModel.prototype.restart = function(command) {
 		this.playing = true;
-		this.commandNum = -1;
-		this.nextCommand();
-		this.interval = setInterval($.proxy(this.checkInterval, this), this.speed*400);
+		this.performCommand();
 	};
 	
 	CommModel.prototype.triggerEvent = function() {
@@ -40,31 +31,33 @@ function(Game){
 		command = this.commands[this.commandNum];
 		fraction = this.sub / CommModel.SUBDIV;
 		this.executeSignal.dispatch({"command":command, "fraction":fraction});
+		this.timeout = setTimeout($.proxy(this.nextInterval, this), this.speed*100);
 	};
 	
-	CommModel.prototype.checkInterval = function() {
+	CommModel.prototype.nextInterval = function() {
 		this.sub++;
-		this.triggerEvent();
-		if(this.sub === CommModel.SUBDIV){
-			this.nextCommand();
+		if(this.sub === CommModel.SUBDIV + 1){
+			this.commandNum++;
+			if(this.commandNum === this.commands.length){
+				this.stop();		
+			}
+			else{
+				this.performCommand();
+			}
+		}
+		else{
+			this.triggerEvent();
 		}
 	};
 	
 	CommModel.prototype.stop = function() {
-		console.log("stop");
-		if(this.interval){
-			clearInterval(this.interval);
-		}
-		this.commandNum = 0;
 		this.playing = false;
-		this.sub = 0;
 	};
 	
 	CommModel.prototype.add = function(command) {
-		console.log("add");
 		this.commands.push(command);
 		if(!this.playing){
-			this.start();
+			this.restart();
 		}
 	};
 	

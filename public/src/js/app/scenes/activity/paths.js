@@ -7,7 +7,6 @@ function(Game, Container, Colors){
 	
 	var Paths  = function(options){
 		Container.call(this, options);
-		this.currentPos = {x:300, y:300};
 		this.create();
 	};
 	
@@ -22,32 +21,13 @@ function(Game, Container, Colors){
 		}
 	};
 	
-	Paths.prototype.setHeading = function(command) {
-		if(command === 0){
-			this.newPos = {x:this.currentPos.x - 50, y:this.currentPos.y - 50};
-		}
-		else if(command === 1){
-			this.newPos = {x:this.currentPos.x, y:this.currentPos.y - 50};
-		}
-		else if(command === 2){
-			this.newPos = {x:this.currentPos.x + 50, y:this.currentPos.y - 50};
-		}
-	};
-	
-	Paths.prototype.execute = function(command, fraction) {
-		var px, py;
-		if(fraction === 0){
-			this.setHeading(command);
-		}
+	Paths.prototype.line = function(p0, p1) {
 		this.gfx.lineStyle(6, Colors.GREEN, 1);
-   		this.gfx.moveTo(this.currentPos.x, this.currentPos.y);
-   		px =  this.currentPos.x + fraction * (this.newPos.x - this.currentPos.x);
-   		py =  this.currentPos.y + fraction * (this.newPos.y - this.currentPos.y);
-   		this.gfx.lineTo(px, py);
+   		this.gfx.moveTo(p0.x, p0.y);
+   		this.gfx.lineTo(p1.x, p1.y);
    		this.gfx.lineStyle(0, 0, 0);
    		this.gfx.beginFill(Colors.GREEN, 1);
-		this.gfx.drawCircle(px, py, 3);
-   		this.currentPos = {x:px, y:py};
+		this.gfx.drawCircle(p1.x, p1.y, 3);
 	};
 	
 	Paths.prototype.addGfx = function() {

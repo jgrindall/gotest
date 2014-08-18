@@ -16,6 +16,8 @@ commModel){
 	var Drawing  = function(options){
 		Container.call(this, options);
 		commModel.executeSignal.add(this.commandExecute, this);
+		this.currentPos = {x:300, y:300};
+		this.startPos = {x:this.currentPos.x, y:this.currentPos.y};
 		this.create();
 	};
 	
@@ -26,9 +28,31 @@ commModel){
 		var command, fraction;
 		command = data.command;
 		fraction = data.fraction;
-		console.log("c "+command+", "+fraction);
-		this.paths.execute(command, fraction);
-		//this.turtle.execute(command, fraction);
+		this.execute(command, fraction);
+	};
+	
+	Drawing.prototype.setHeading = function(command) {
+		var dx, dy, angles;
+		angles = [135, 90, 45, 180, 0, 0, 225, -90, -45];
+		this.angle = -angles[command];
+		console.log(this.angle);
+		dx = 50*Math.cos(this.angle * 3.14159/180);
+		dy = 50*Math.sin(this.angle * 3.14159/180);
+		this.newPos = {x:this.startPos.x + dx, y:this.startPos.y + dy};
+	};
+	
+	Drawing.prototype.execute = function(command, fraction) {
+		var px, py, endPos;
+		if(fraction === 0){
+			this.startPos = {x:this.currentPos.x, y:this.currentPos.y};
+			this.setHeading(command);
+		}
+		px =  this.startPos.x + fraction * (this.newPos.x - this.startPos.x);
+   		py =  this.startPos.y + fraction * (this.newPos.y - this.startPos.y);
+		endPos = {x:px, y:py};
+		this.paths.line(this.currentPos, endPos);
+		this.turtle.move(endPos, this.angle);
+		this.currentPos = {x:endPos.x, y:endPos.y};
 	};
 	
 	Drawing.prototype.create = function() {

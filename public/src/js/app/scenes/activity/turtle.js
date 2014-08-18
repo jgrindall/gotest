@@ -16,11 +16,13 @@ function(Game, Container){
 	Turtle.prototype.addImage = function() {
 		this.sprite = new Phaser.Image(Game.getInstance(), 300, 300, 'turtle');
 		this.group.add(this.sprite);
+		this.sprite.anchor.setTo(0.5, 0.5);
 	};
 	
-	Turtle.prototype.execute = function(command) {
-		console.log(command);
-		this.sprite.y += 100;
+	Turtle.prototype.move = function(p, theta) {
+		this.sprite.x = p.x;
+		this.sprite.y = p.y;
+		this.sprite.angle = theta + 90;
 	};
 
 	Turtle.prototype.create = function() {
