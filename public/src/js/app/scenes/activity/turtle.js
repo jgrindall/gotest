@@ -6,9 +6,7 @@ function(Game, Container){
 	"use strict";
 	
 	var Turtle  = function(options){
-		console.log("turtle "+JSON.stringify(options));
 		Container.call(this, options);
-		console.log("turtle "+JSON.stringify(options));
 		this.create();
 	};
 	
