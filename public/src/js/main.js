@@ -3,18 +3,20 @@
 require.config({
 	paths: {
 		jquery: 					'lib/jquery.min',
-		phaser: 					'lib/phaser.min',
+		phaser: 					'lib/phaser',
 		phaserstatetrans: 			'lib/phaser-state-transition.min'
 	}
 });
 
 
 
-require(['phaser'], function(){
-
+require(['phaser'], function(Phaser){
+	
+	console.log("Phaser "+Phaser);
+	
 	require(['app/boot/boot', 'app/utils/implementations'], function(Boot){
 	
-		Boot.start();
+		(new Boot()).start();
 	
 	});
 

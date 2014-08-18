@@ -8,23 +8,31 @@ function($, SceneManager, Game) {
 
     };
 	
-	Boot.launch = function(){
-		var config, sceneManager;
-		sceneManager = new SceneManager();
-		config = {
-			"create":$.proxy(sceneManager.create, sceneManager),
-			"preload":$.proxy(sceneManager.preload, sceneManager)
+	Boot.prototype.launch = function(){
+		var config = {
+			"create":$.proxy(this.create, this),
+			"preload":$.proxy(this.preload, this)
 		};
+		this.sceneManager = new SceneManager();
 		Game.init(config);
 	};
 	
-	Boot.resize = function(){
-		console.log("resize");
+	Boot.prototype.create = function(){
+		this.resize();
+		this.sceneManager.create();
 	};
 	
-	Boot.start = function(){
-		$(window).resize($.proxy(Boot.resize, this));
-		$(document).ready(Boot.launch);
+	Boot.prototype.preload = function(){
+		this.sceneManager.preload();
+	};
+	
+	Boot.prototype.resize = function(){
+		$("#game").width(Game.w()).height(Game.h());
+	};
+	
+	Boot.prototype.start = function(){
+		$(window).resize($.proxy(this.resize, this));
+		$(document).ready($.proxy(this.launch, this));
 	};
 	
 	return Boot;

@@ -4,8 +4,9 @@ define(['app/components/buttons/abstractbutton'],function(AbstractButton){
 	"use strict";
 	
 	var TabButton = function(options){
-		var num = options.num || '0';
+		var num = options.index || '1';
 		options.asset = 'tabbutton' + num;
+		console.log('asset '+options.asset);
 		AbstractButton.call(this, options);
 	};
 	

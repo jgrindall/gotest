@@ -17,7 +17,7 @@ function(Game, Container, Background, TabButtonBar, TabButton){
 		var w, h, bounds;
 		w = Game.getWidth();
 		h = Game.getHeight();
-		bounds = {'x':w/2, 'y':0, 'w':w/2, 'h':h};
+		bounds = {'x':this.bounds.x, 'y':0, 'w':w/2, 'h':h};
 		this.bg = new Background({"asset":'sky', "bounds":bounds});
 		this.bg.create();
 		this.group.add(this.bg.sprite);
@@ -30,8 +30,8 @@ function(Game, Container, Background, TabButtonBar, TabButton){
 	};
 
 	Controls.prototype.addTabs = function() {
-		var bounds = {'x':0, 'y':0, 'w':200, 'h':50};
-		this.tabButtonBar = new TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":5, "numY":1});
+		var bounds = {'x':this.bounds.x, 'y':0, 'w':200, 'h':50};
+		this.tabButtonBar = new TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
 		this.group.add(this.tabButtonBar.group);
 		this.tabButtonBar.select(1);
 	};

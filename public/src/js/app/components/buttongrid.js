@@ -7,6 +7,7 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 		Container.call(this, options);
 		this.data = this.options.data || [];
 		this.spaceX = this.bounds.w / this.options.numX;
+		console.log("spx "+this.bounds.w+", "+this.spaceX);
 		this.spaceY = this.bounds.h / this.options.numY;
 		this.marginX = (this.spaceX - this.options.buttonClass.WIDTH)/2;
 		this.marginY = (this.spaceY - this.options.buttonClass.HEIGHT)/2;
@@ -35,8 +36,6 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	ButtonGrid.prototype.addButtons = function(){
 		var pos, i, j, b, n = 0, options;
 		this.buttonGroup = new Phaser.Group(Game.getInstance(), 0, 0);
-		console.log("addButtons \n\n1"+this.group+" \n\n2"+this.options.buttonClass+"  \n\n3"+this.buttonGroup);
-		console.log("bounds "+JSON.stringify(this.bounds));
 		for(i = 1; i <= this.options.numY; i++){
 			for(j = 1; j <= this.options.numX; j++){
 				pos = {"x":this.bounds.x + this.spaceX * (j - 1), "y":this.bounds.y + this.spaceY * (i - 1)};
@@ -44,7 +43,6 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 				pos.y += this.marginY;
 				options = {"bounds":pos, "index":n, "data":this.data[n]};
 				b = new this.options.buttonClass(options);
-				console.log("new button "+JSON.stringify(options)+"  "+this.options.buttonClass+" \n\nb:"+b);
 				b.mouseUpSignal.add(this.buttonUp, this);
 				this.buttonGroup.add(b.group || b.sprite);
 				this.buttons.push(b);
@@ -68,7 +66,7 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	
 	ButtonGrid.prototype.buttonUp = function(data) {
 		var target = data.target.group || data.target.sprite;
-		this.selectedIndex = this.buttonGroup.getIndex(target);
+		var index = this.buttonGroup.getIndex(target);
 		this.select(index);
 	};
 	

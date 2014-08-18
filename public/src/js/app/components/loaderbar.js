@@ -5,6 +5,7 @@ define(['app/game'], function(Game){
 	
 	var LoaderBar = function(options){
 		this.options = options;
+		this.create();
 	};
 	
 	LoaderBar.WIDTH = 500;

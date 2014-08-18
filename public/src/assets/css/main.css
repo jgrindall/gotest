@@ -10,11 +10,17 @@ html, body{
 	background:#fff;
 	height:100%;
 	width:100%;
+	background:black;
 }
 
 div{
 	padding:0;
 	margin:0;
+}
+
+div#game{
+	margin-left:auto;
+	margin-right:auto;
 }
 
 p{

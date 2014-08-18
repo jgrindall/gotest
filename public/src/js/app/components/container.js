@@ -5,9 +5,6 @@ define(['app/game'],function(Game){
 	
 	var Container = function(options){
 		this.options = options || {};
-		if(!this.options.bounds){
-			this.options.bounds = {};
-		}
 		this.bounds = this.options.bounds;
 	};
 

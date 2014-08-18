@@ -7,6 +7,7 @@ define(['app/game', 'app/components/background'], function(Game, Background){
 		this.key = key;
 		this.navigationSignal = new Phaser.Signal();
 		this.world = Game.getInstance().world;
+		Game.alertSignal.add($.proxy(this.onAlert, this));
 	};
 	
 	Scene.prototype.onAlert = function(data) {
@@ -38,7 +39,6 @@ define(['app/game', 'app/components/background'], function(Game, Background){
 	
 	Scene.prototype.create = function() {
 		this.addChildren();
-		Game.alertSignal.add($.proxy(this.onAlert, this));
 	};
 
 	Scene.prototype.update = function() {

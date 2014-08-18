@@ -16,6 +16,7 @@ function(Game, Container, ButtonGrid){
 		if(!this.direction){
 			throw "Not a button bar";
 		}
+		console.log("asset "+JSON.stringify(options));
 	};
 	
 	ButtonBar.HORIZONTAL = "horizontal";

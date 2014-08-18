@@ -34,7 +34,6 @@ function(Scene, Preloader, NavButton, CommGameView, LayoutData, BulbButton, Load
 		y = Game.cy() - 20;
 		options = {"x":x, "y":y};
 		this.loaderBar = new LoaderBar(options);
-		this.loaderBar.create();
 		this.world.add(this.loaderBar.sprite);
 	};
 	
