@@ -3,13 +3,13 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/scenes/activity/map', 'app/scenes/activity/turtle', 'app/scenes/activity/paths'],
+'app/scenes/activity/map', 'app/scenes/activity/drawing'],
 
 function(Game, Container, Background,
 
 TabButtonBar, TabButton,
 
-Map, Turtle, Paths){
+Map, Drawing){
 	
 	"use strict";
 	
@@ -35,20 +35,12 @@ Map, Turtle, Paths){
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addMap();
-		this.addPaths();
-		this.addTurtle();
+		this.addDrawing();
 	};
 	
-	Canvas.prototype.addTurtle = function() {
-		var bounds = {'x':50, 'y':50, 'w':600, 'h':50};
-		this.turtle = new Turtle({'bounds':bounds});
-		this.group.add(this.turtle.group);
-	};
-	
-	Canvas.prototype.addPaths = function() {
-		var bounds = {'x':50, 'y':50, 'w':600, 'h':50};
-		this.paths = new Paths({'bounds':bounds});
-		this.group.add(this.paths.group);
+	Canvas.prototype.addDrawing = function() {
+		this.drawing = new Drawing({'bounds':this.bounds});
+		this.group.add(this.drawing.group);
 	};
 	
 	Canvas.prototype.addMap = function() {

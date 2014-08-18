@@ -14,10 +14,15 @@ function(Game, Container){
 	Turtle.prototype.constructor = Turtle;
 	
 	Turtle.prototype.addImage = function() {
-		this.sprite = new Phaser.Image(Game.getInstance(), 100, 100, 'turtle');
+		this.sprite = new Phaser.Image(Game.getInstance(), 300, 300, 'turtle');
 		this.group.add(this.sprite);
 	};
 	
+	Turtle.prototype.execute = function(command) {
+		console.log(command);
+		this.sprite.y += 100;
+	};
+
 	Turtle.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addImage();

@@ -3,13 +3,17 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/components/buttons/closebutton', 'app/components/buttongrid'
+'app/components/buttons/closebutton', 'app/components/buttongrid',
+
+'app/scenes/activity/commmodel'
 
 ],
 
 function(Game, Container, Background,
 
-TabButtonBar, TabButton, CloseButton, ButtonGrid){
+TabButtonBar, TabButton, CloseButton, ButtonGrid,
+
+commModel){
 	
 	"use strict";
 	
@@ -37,8 +41,9 @@ TabButtonBar, TabButton, CloseButton, ButtonGrid){
 		this.grid.signal.add(this.selectComm, this);
 		this.group.add(this.grid.group);
 	};
+	
 	CommandsPanel.prototype.selectComm = function(data){
-		console.log("SELECT "+data.index);
+		commModel.add(data.index);
 	};
 	
 	CommandsPanel.prototype.destroy = function() {
