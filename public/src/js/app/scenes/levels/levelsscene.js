@@ -21,9 +21,9 @@ function($, Scene, Scroller, Pager, TextFactory, LevelsButton, HomeButton, Game,
 		this.text = TextFactory.make(Game.cx() - 300, 0, "Choose a level", TextFactory.LARGE);
 		this.backButton = new HomeButton({"x":0, "y":0});
 		this.backButton.create();
-		Game.getInstance().world.add(this.backButton.sprite);
-		Game.getInstance().world.add(this.scroller.group);
-		Game.getInstance().world.add(this.text);
+		this.world.add(this.backButton.sprite);
+		this.world.add(this.scroller.group);
+		this.world.add(this.text);
 		this.backButton.mouseUpSignal.add(this.backButtonClicked, this);
 	};
 	

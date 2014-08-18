@@ -16,7 +16,7 @@ function(Scene, NavButton, PauseButton, CommsData, LocData, Controls, GameMode, 
 	GameScene.prototype.addControls = function() {
 		this.controls = new Controls({"bounds":{"x":0, "y":0}});
 		this.controls.create();
-		Game.getInstance().world.add(this.controls.group);
+		this.world.add(this.controls.group);
 		this.controls.upSignal.add(this.gameView.controlUp, this.gameView);
 		this.controls.downSignal.add(this.gameView.controlDown, this.gameView);
 	};
@@ -34,7 +34,7 @@ function(Scene, NavButton, PauseButton, CommsData, LocData, Controls, GameMode, 
 	    this.pauseButton.create();
 		this.pauseButton.sprite.fixedToCamera = true;
 		this.pauseButton.mouseUpSignal.add(this.buttonClicked, this);
-		Game.getInstance().world.add(this.pauseButton.sprite);
+		this.world.add(this.pauseButton.sprite);
 		if(LocData.getInstance().getMode() !== GameMode.COMMANDS){
 			this.addControls();
 		}
@@ -75,7 +75,7 @@ function(Scene, NavButton, PauseButton, CommsData, LocData, Controls, GameMode, 
 		if(!this.gameMenu){
 			this.gameMenu = new GameMenu(options);
 			this.gameMenu.create();
-			Game.getInstance().world.add(this.gameMenu.group);
+			this.world.add(this.gameMenu.group);
 			this.gameMenu.selectSignal.add(this.menuClick, this);
 		}
 	};
@@ -105,7 +105,7 @@ function(Scene, NavButton, PauseButton, CommsData, LocData, Controls, GameMode, 
 	
 	GameScene.prototype.hideMenu = function(data) {
 		Game.unPausePhysics();
-		Game.getInstance().world.remove(this.gameMenu.group);
+		this.world.remove(this.gameMenu.group);
 		this.gameMenu.selectSignal.removeAll(this);
 		this.gameMenu.destroy();
 		this.gameMenu = null;

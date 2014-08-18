@@ -19,7 +19,11 @@ function(Game, Player, Enemy, KillArea, Gunner, Background, Stars, CommsData, Lo
 	};
 	
 	GameView.prototype.addBg = function() {
-		this.bg = new Background({"asset":'background'});
+		var w, h, bounds;
+		w = Game.getWidth();
+		h = Game.getHeight();
+		bounds = {'x':0, 'y':0, 'w':w, 'h':h};
+		this.bg = new Background({"asset":'background', "bounds":bounds});
 		this.bg.create();
 		Game.getInstance().world.add(this.bg.sprite);
 	};

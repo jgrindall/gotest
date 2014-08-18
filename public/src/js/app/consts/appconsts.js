@@ -17,6 +17,7 @@ define([], function() {
 	AppConsts.MAIN_SCENE = "mainScene";
 	AppConsts.LEVELS_SCENE = "levelsScene";
 	AppConsts.LOADER_SCENE = "loaderScene";
+	AppConsts.ACTIVITY_SCENE = "activityScene";
 	
 	return AppConsts;
 });

@@ -7,7 +7,7 @@ function(LevelsButton, Game, Container, TextFactory, LevelState){
 		
 	var LevelBadge = function(options){
 		Container.call(this, options);
-		this.state = this.options.state;
+		this.state = this.options.data;
 		this.mouseUpSignal = new Phaser.Signal();
 	};
 	

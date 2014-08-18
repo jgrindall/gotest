@@ -5,6 +5,7 @@ define(['app/game'], function(Game){
 	
 	var Background = function(options){
 		this.options = options;
+		this.bounds = this.options.bounds;
 	};
 	
 	Background.prototype.destroy = function(){
@@ -13,10 +14,7 @@ define(['app/game'], function(Game){
 	};
 	
 	Background.prototype.create = function(){
-		var w, h;
-		w = Game.getWidth();
-    	h = Game.getHeight();
-    	this.sprite = new Phaser.TileSprite(Game.getInstance(), 0, 0, w, h, this.options.asset);
+    	this.sprite = new Phaser.TileSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, this.options.asset);
 	    this.sprite.fixedToCamera = true;
 	};
 	

@@ -18,8 +18,8 @@ function(Scene, Preloader, HomeButton, TextFactory, Game){
 		this.startButton = new HomeButton({"x":0, "y":0});
 		this.startButton.create();
 		this.startButton.mouseUpSignal.add(this.startButtonClicked, this);
-		Game.getInstance().world.add(this.startButton.sprite);
-		Game.getInstance().world.add(this.label);
+		this.world.add(this.startButton.sprite);
+		this.world.add(this.label);
 	};
 
 	TutorialScene.prototype.startButtonClicked = function(data) {

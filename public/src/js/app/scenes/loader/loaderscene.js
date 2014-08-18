@@ -35,7 +35,7 @@ function(Scene, Preloader, NavButton, CommGameView, LayoutData, BulbButton, Load
 		options = {"x":x, "y":y};
 		this.loaderBar = new LoaderBar(options);
 		this.loaderBar.create();
-		Game.getInstance().world.add(this.loaderBar.sprite);
+		this.world.add(this.loaderBar.sprite);
 	};
 	
 	LoaderScene.prototype.addText = function() {

@@ -16,6 +16,7 @@ function(AppConsts, TextFactory, LevelData, SceneFactory, CommsData, LocData, Ga
 		this.addScene(AppConsts.LEVELS_SCENE);
 		this.addScene(AppConsts.TUTORIAL_SCENE);
 		this.addScene(AppConsts.LOADER_SCENE);
+		this.addScene(AppConsts.ACTIVITY_SCENE);
 	};
 
 	SceneManager.prototype.addScene = function(key) {
@@ -65,7 +66,7 @@ function(AppConsts, TextFactory, LevelData, SceneFactory, CommsData, LocData, Ga
 	};
 	
 	SceneManager.prototype.loaderNavigationClicked = function(data){
-		this.go(AppConsts.MAIN_SCENE);
+		this.go(AppConsts.ACTIVITY_SCENE);
 	};
 	
 	SceneManager.prototype.tutorialNavigationClicked = function(data){

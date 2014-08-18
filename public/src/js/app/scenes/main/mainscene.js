@@ -29,7 +29,7 @@ function(Scene, Preloader, NavButton, CommGameView, LayoutData, BulbButton, Load
 	
 	MainScene.prototype.addText = function() {
 		this.label = TextFactory.make(Game.cx() - 300, 0, "Main menu", TextFactory.LARGE);
-		Game.getInstance().world.add(this.label);
+		this.world.add(this.label);
 	};
 	
 	MainScene.prototype.addButtons = function() {
@@ -40,8 +40,8 @@ function(Scene, Preloader, NavButton, CommGameView, LayoutData, BulbButton, Load
 		this.tutorialButton.create();
 		this.startButton.mouseUpSignal.add(this.startButtonClicked, this);
 		this.tutorialButton.mouseUpSignal.add(this.tutorialButtonClicked, this);
-		Game.getInstance().world.add(this.startButton.sprite);
-		Game.getInstance().world.add(this.tutorialButton.sprite);
+		this.world.add(this.startButton.sprite);
+		this.world.add(this.tutorialButton.sprite);
 	};
 
 	MainScene.prototype.create = function() {

@@ -5,12 +5,15 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	
 	var ButtonGrid = function(options){
 		Container.call(this, options);
-		this.config = this.options.config || [];
+		this.data = this.options.data || [];
 		this.spaceX = this.bounds.w / this.options.numX;
 		this.spaceY = this.bounds.h / this.options.numY;
 		this.marginX = (this.spaceX - this.options.buttonClass.WIDTH)/2;
 		this.marginY = (this.spaceY - this.options.buttonClass.HEIGHT)/2;
 		this.signal = new Phaser.Signal();
+		this.selectedIndex = -1;
+		this.buttons = [];
+		this.create();
 	};
 	
 	ButtonGrid.prototype = Object.create(Container.prototype);
@@ -23,22 +26,28 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	};
 	
 	ButtonGrid.prototype.addBg = function(){
-		this.panel = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, 'panel');
-		this.group.add(this.panel);
+		if(this.options.bgAsset){
+			this.bg = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgAsset);
+			this.group.add(this.bg);
+		}
 	};
 	
 	ButtonGrid.prototype.addButtons = function(){
-		var pos, i, j, b, n = 0;
+		var pos, i, j, b, n = 0, options;
 		this.buttonGroup = new Phaser.Group(Game.getInstance(), 0, 0);
+		console.log("addButtons \n\n1"+this.group+" \n\n2"+this.options.buttonClass+"  \n\n3"+this.buttonGroup);
+		console.log("bounds "+JSON.stringify(this.bounds));
 		for(i = 1; i <= this.options.numY; i++){
 			for(j = 1; j <= this.options.numX; j++){
 				pos = {"x":this.bounds.x + this.spaceX * (j - 1), "y":this.bounds.y + this.spaceY * (i - 1)};
 				pos.x += this.marginX;
 				pos.y += this.marginY;
-				b = new this.options.buttonClass({"bounds":pos, "index":n, "state":this.config[n]});
-				b.create();
+				options = {"bounds":pos, "index":n, "data":this.data[n]};
+				b = new this.options.buttonClass(options);
+				console.log("new button "+JSON.stringify(options)+"  "+this.options.buttonClass+" \n\nb:"+b);
 				b.mouseUpSignal.add(this.buttonUp, this);
-				this.buttonGroup.add(b.group);
+				this.buttonGroup.add(b.group || b.sprite);
+				this.buttons.push(b);
 				n++;
 			}
 		}
@@ -47,11 +56,20 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	
 	ButtonGrid.prototype.destroy = function() {
 		Container.prototype.destroy.call(this);
+		this.buttonGroup.destroy(true);
+		this.bg = null;
+		this.buttons = [];
+		this.signal = null;
+	};
+	
+	ButtonGrid.prototype.select = function(index) {
+		this.signal.dispatch({"index":index, "grid":this});
 	};
 	
 	ButtonGrid.prototype.buttonUp = function(data) {
-		var index = this.buttonGroup.getIndex(data.target.group);
-		this.signal.dispatch({"index":index, "grid":this});
+		var target = data.target.group || data.target.sprite;
+		this.selectedIndex = this.buttonGroup.getIndex(target);
+		this.select(index);
 	};
 	
 	return ButtonGrid;
