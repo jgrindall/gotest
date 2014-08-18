@@ -1,7 +1,7 @@
 
-define(['app/scenes/comms/blocksfactory', 'app/game', 'app/scenes/comms/commslayout', 'app/scenes/comms/commsgroup'],
+define(['jquery', 'app/scenes/comms/blocksfactory', 'app/game', 'app/scenes/comms/commslayout', 'app/scenes/comms/commsgroup'],
 
-function(BlocksFactory, Game, CommsLayout, CommsGroup){
+function($, locksFactory, Game, CommsLayout, CommsGroup){
 	
 	"use strict";
 	

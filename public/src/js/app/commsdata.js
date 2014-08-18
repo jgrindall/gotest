@@ -1,6 +1,6 @@
-define(['app/scenes/comms/commslayout', 'app/consts/leveldata', 'app/scenes/game/gamemode', 'app/scenes/game/objectstate'],
+define(['jquery', 'app/scenes/comms/commslayout', 'app/consts/leveldata', 'app/scenes/game/gamemode', 'app/scenes/game/objectstate'],
 
-function(CommsLayout, LevelData, GameMode, ObjectState) {
+function($, CommsLayout, LevelData, GameMode, ObjectState) {
 	
 	"use strict";
 	

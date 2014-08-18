@@ -1,7 +1,19 @@
 
-define(['app/scenes/scene', 'app/components/buttons/navbutton', 'app/components/buttons/pausebutton', 'app/commsdata', 'app/locdata', 'app/scenes/game/controls', 'app/scenes/game/gamemode', 'app/scenes/game/commgameview', 'app/scenes/game/gamemenu', 'app/game', 'app/consts/layoutdata'],
+define(['jquery', 'app/scenes/scene', 'app/components/buttons/navbutton',
 
-function(Scene, NavButton, PauseButton, CommsData, LocData, Controls, GameMode, CommGameView, GameMenu, Game, LayoutData){
+'app/components/buttons/pausebutton', 'app/commsdata', 'app/locdata',
+
+'app/scenes/game/controls', 'app/scenes/game/gamemode', 'app/scenes/game/commgameview',
+
+'app/scenes/game/gamemenu', 'app/game', 'app/consts/layoutdata'],
+
+function($, Scene, NavButton,
+
+PauseButton, CommsData, LocData,
+
+Controls, GameMode, CommGameView,
+
+GameMenu, Game, LayoutData){
 	
 	"use strict";
 	

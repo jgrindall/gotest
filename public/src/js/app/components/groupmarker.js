@@ -1,5 +1,7 @@
 
-define(['app/game', 'app/components/buttons/markerbutton', 'app/components/container'],function(Game, MarkerButton, Container){
+define(['jquery', 'app/game', 'app/components/buttons/markerbutton', 'app/components/container'],
+
+function($, Game, MarkerButton, Container){
 	
 	"use strict";
 	

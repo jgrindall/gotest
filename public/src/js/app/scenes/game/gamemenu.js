@@ -1,7 +1,11 @@
 
-define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game', 'app/components/buttons/listbutton', 'app/components/buttons/homebutton', 'app/components/container'],
+define(['jquery', 'app/components/buttons/navbutton', 'app/components/buttons/closebutton',
 
-function(NavButton, CloseButton, Game, ListButton, HomeButton, Container){
+'app/game', 'app/components/buttons/listbutton', 'app/components/buttons/homebutton', 'app/components/container'],
+
+function($, NavButton, CloseButton,
+
+Game, ListButton, HomeButton, Container){
 	
 	"use strict";
 		

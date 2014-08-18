@@ -1,7 +1,7 @@
 
-define(['app/components/buttons/tickbutton', 'app/game', 'app/components/container', 'app/utils/textfactory'],
+define(['jquery', 'app/components/buttons/tickbutton', 'app/game', 'app/components/container', 'app/utils/textfactory'],
 
-function(TickButton, Game, Container, TextFactory){
+function($, TickButton, Game, Container, TextFactory){
 	
 	"use strict";
 		

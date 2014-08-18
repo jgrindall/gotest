@@ -31,13 +31,18 @@ TabButtonBar, TabButton, CloseButton, ButtonGrid){
 		data = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 		w = Game.w();
 		h = Game.h();
-		bounds = {"x":w/2, "y":0, "w":400, "h":400};
+		bounds = {"x":w/2, "y":70, "w":400, "h":400};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": CloseButton, "data":data};
 		this.grid = new ButtonGrid(options);
+		this.grid.signal.add(this.selectComm, this);
 		this.group.add(this.grid.group);
+	};
+	CommandsPanel.prototype.selectComm = function(data){
+		console.log("SELECT "+data.index);
 	};
 	
 	CommandsPanel.prototype.destroy = function() {
+		this.grid.signal.removeAll(this);
 		Container.prototype.destroy.call(this);
 		this.grid.destroy();
 	};
