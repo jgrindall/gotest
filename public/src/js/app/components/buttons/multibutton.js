@@ -12,7 +12,15 @@ define(['app/game'], function(Game){
 	MultiButton.prototype.goToFrame = function(i){
 		this.sprite.animations.play('frame'+i);
 	};
-
+	
+	MultiButton.prototype.enableInput = function(){
+		this.sprite.inputEnabled = true;
+	};
+	
+	MultiButton.prototype.disableInput = function(){
+		this.sprite.inputEnabled = false;
+	};
+	
 	MultiButton.prototype.create = function(){
 		var i;
 		this.sprite = new Phaser.Sprite(Game.getInstance(), this.options.x, this.options.y, this.options.asset);
@@ -27,6 +35,9 @@ define(['app/game'], function(Game){
 
 	MultiButton.prototype.mouseUp = function(data){
 		var input, hits, pointer, localPoint, p, frame;
+		if(!this.sprite.inputEnabled){
+			return;
+		}
 		input = Game.getInput();
 		pointer = input.activePointer;
 		localPoint = input.getLocalPosition(this.sprite, pointer);
@@ -37,14 +48,6 @@ define(['app/game'], function(Game){
 			this.goToFrame(frame);
 			this.mouseUpSignal.dispatch({"num":frame});
 		}
-	};
-	
-	MultiButton.prototype.enableInput = function(){
-		this.sprite.inputEnabled = true;
-	};
-	
-	MultiButton.prototype.disableInput = function(){
-		this.sprite.inputEnabled = false;
 	};
 	
 	MultiButton.prototype.destroy = function(){

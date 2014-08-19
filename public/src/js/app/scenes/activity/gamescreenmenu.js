@@ -68,7 +68,7 @@ Pager
 	};
 	
 	GameScreenMenu.prototype.addOkButton = function () {
-		this.okButton = new OkButton({"bounds":{'x':300, 'y':250}});
+		this.okButton = new OkButton({"bounds":{'x':Game.cx(), 'y':Game.h() - 80}});
 		this.okButton.mouseUpSignal.add(this.okClicked, this);
 		this.group.add(this.okButton.sprite);
 	};
@@ -82,7 +82,7 @@ Pager
 	};
 	
 	GameScreenMenu.prototype.addCloseButton = function () {
-		this.closeButton = new CloseButton({"bounds":{'x':160, 'y':50}});
+		this.closeButton = new CloseButton({"bounds":{'x':Game.w() - 50, 'y':50}});
 		this.closeButton.mouseUpSignal.add(this.closeClicked, this);
 		this.group.add(this.closeButton.sprite);
 	};

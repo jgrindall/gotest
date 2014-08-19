@@ -71,7 +71,7 @@ AlertManager){
 		data = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 		w = Game.w();
 		h = Game.h();
-		bounds = {"x":w/2, "y":320, "w":220, "h":220};
+		bounds = {"x":w/2, "y":300, "w":220, "h":220};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": KeyButton, "data":data};
 		this.keys = new ButtonGrid(options);
 		this.keys.signal.add(this.selectKey, this);

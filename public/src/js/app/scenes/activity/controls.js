@@ -21,11 +21,32 @@ commModel){
 	
 	var Controls  = function(options){
 		Container.call(this, options);
+		Game.alertSignal.add($.proxy(this.onAlert, this));
 		this.create();
 	};
-	
+
 	Controls.prototype = Object.create(Container.prototype);
 	Controls.prototype.constructor = Controls;
+	
+	Controls.prototype.onAlert = function(data) {
+		console.log("ENABLE "+data.show);
+		if(data.show){
+			this.disableAllInput();
+		}
+		else{
+			this.enableAllInput();
+		}
+	};
+	
+	Controls.prototype.disableAllInput = function() {
+		console.log("picker disable");
+		this.colorPicker.disableInput();
+	};
+	
+	Controls.prototype.enableAllInput = function() {
+		console.log("picker enable");
+		this.colorPicker.enableInput();
+	};
 	
 	Controls.prototype.addBg = function() {
 		var w, h, bounds;
@@ -52,7 +73,7 @@ commModel){
 	};
 	
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':this.bounds.x, 'y':450, 'w':137, 'h':66};
+		var bounds = {'x':this.bounds.x, 'y':490, 'w':137, 'h':66};
 		this.colorPicker = new MultiButton({"bounds":bounds, "asset":'pens', "num":8});
 		this.colorPicker.mouseUpSignal.add(this.colorChosen, this);
 		this.group.add(this.colorPicker.sprite);
@@ -63,7 +84,7 @@ commModel){
 	};
 	
 	Controls.prototype.addTabs = function() {
-		var bounds = {'x':this.bounds.x, 'y':50, 'w':600, 'h':50};
+		var bounds = {'x':this.bounds.x, 'y':5, 'w':600, 'h':50};
 		this.tabButtonBar = new TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
 		this.group.add(this.tabButtonBar.group);
 		this.tabButtonBar.select(0);

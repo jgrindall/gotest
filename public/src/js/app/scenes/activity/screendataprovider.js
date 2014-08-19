@@ -14,13 +14,13 @@ ScreenPanel, Storage){
 	};
 	
 	ScreenDataProvider.prototype.getNumPages = function(){
-		return 2;
+		return 3;
 	};
 	
 	ScreenDataProvider.prototype.addPage = function(i, scroller){
 		var options, panel, bounds, w, h, paddingX, paddingY, top;
 		top = 50;
-		w = Game.w()/2;
+		w = Game.w();
 		h = Game.h();
 		paddingX = 50;
 		paddingY = 50;
@@ -34,9 +34,6 @@ ScreenPanel, Storage){
 		this.addPage(0, scroller);
 		this.addPage(1, scroller);
 		this.addPage(2, scroller);
-		this.addPage(3, scroller);
-		this.addPage(4, scroller);
-		this.addPage(5, scroller);
 	};
 	
 	return ScreenDataProvider;
