@@ -1,7 +1,11 @@
 
-define(['app/game', 'app/components/container', 'app/components/buttons/navbutton'],
+define(['app/game', 'app/components/container',
 
-function(Game, Container, NavButton){
+'app/components/buttons/navbutton', 'app/components/buttons/interactivesprite'],
+
+function(Game, Container,
+
+NavButton, InteractiveSprite){
 	
 	"use strict";
 	
@@ -23,9 +27,33 @@ function(Game, Container, NavButton){
 		this.addBg();
 	};
 	
+	ScreenChoice.prototype.select = function(){
+		this.panel.alpha = 1;
+	};
+	
+	ScreenChoice.prototype.deselect = function(){
+		this.panel.alpha = 0.4;
+	};
+	
+	ScreenChoice.prototype.mouseUp = function(){
+		console.log(" ---- click on screen choice");
+		this.mouseUpSignal.dispatch({"target":this});
+	};
+	
 	ScreenChoice.prototype.addBg = function(){
-		this.panel = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
+		console.log("addBg screenchoice");
+		this.panel = new InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
+		this.panel.name = "screen choice"
+		this.panel.enableInput();
+		console.log("addBg enabled " + this.panel.mouseUpSignal);
+		this.panel.mouseUpSignal.add(this.mouseUp, this);
+		console.log("addBg enabled " + this.panel.mouseUpSignal);
 		this.group.add(this.panel);
+		console.log("addBg added");
+	};
+	
+	ScreenChoice.prototype.destroy = function(){
+		this.panel.destroy(true);
 	};
 	
 	return ScreenChoice;

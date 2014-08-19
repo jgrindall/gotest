@@ -12,8 +12,6 @@ require.config({
 
 require(['phaser'], function(Phaser){
 	
-	console.log("Phaser "+Phaser);
-	
 	require(['app/boot/boot', 'app/utils/implementations'], function(Boot){
 	
 		(new Boot()).start();

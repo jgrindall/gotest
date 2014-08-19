@@ -73,7 +73,7 @@ commModel){
 	};
 	
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':this.bounds.x, 'y':490, 'w':137, 'h':66};
+		var bounds = {'x':500, 'y':500, 'w':137, 'h':66};
 		this.colorPicker = new MultiButton({"bounds":bounds, "asset":'pens', "num":8});
 		this.colorPicker.mouseUpSignal.add(this.colorChosen, this);
 		this.group.add(this.colorPicker.sprite);

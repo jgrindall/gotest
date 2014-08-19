@@ -17,22 +17,6 @@ function($, ButtonBar, Game, Container){
 		this.setSelected(0);
 	};
 	
-	TabButtonBar.prototype.setSelected = function(index) {
-		$.each(this.buttons, function(i, button){
-			if(i === index){
-				button.select();
-			}
-			else{
-				button.deselect();
-			}
-		});	
-	};
-	
-	TabButtonBar.prototype.select = function(index) {
-		ButtonBar.prototype.select.call(this, index);
-		this.setSelected(index);
-	};
-	
 	return TabButtonBar;
 	
 });

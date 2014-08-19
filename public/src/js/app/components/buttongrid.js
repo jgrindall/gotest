@@ -43,6 +43,17 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 		}
 	};
 	
+	ButtonGrid.prototype.setSelected = function(index) {
+		$.each(this.buttons, function(i, button){
+			if(i === index){
+				button.select();
+			}
+			else{
+				button.deselect();
+			}
+		});	
+	};
+	
 	ButtonGrid.prototype.addButtons = function(){
 		var pos, i, j, b, n = 0, options;
 		this.buttonGroup = new Phaser.Group(Game.getInstance(), 0, 0);
@@ -71,6 +82,7 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	};
 	
 	ButtonGrid.prototype.select = function(index) {
+		this.setSelected(index);
 		this.signal.dispatch({"index":index, "grid":this});
 	};
 	
