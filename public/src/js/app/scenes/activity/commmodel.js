@@ -9,9 +9,11 @@ function(Game, CommSpeed){
 		this.commands = [];
 		this.playing = false;
 		this.commandNum = 0;
+		this.color = 0;
 		this.speed = CommSpeed.MED;
 		this.addSignal = new Phaser.Signal();
 		this.executeSignal = new Phaser.Signal();
+		this.colorSignal = new Phaser.Signal();
 	};
 	
 	CommModel.SUBDIV = 20;
@@ -20,6 +22,11 @@ function(Game, CommSpeed){
 	CommModel.prototype.performCommand = function() {
 		this.sub = 0;
 		this.triggerEvent();
+	};
+	
+	CommModel.prototype.setColor = function(i) {
+		this.color = i;
+		this.colorSignal.dispatch({"color":this.color});
 	};
 	
 	CommModel.prototype.restart = function(command) {

@@ -14,7 +14,7 @@ function(Game, Container){
 	Map.prototype.constructor = Map;
 	
 	Map.prototype.addImage = function() {
-		this.sprite = new Phaser.Image(Game.getInstance(), 0, 0, 'map');
+		this.sprite = new Phaser.Image(Game.getInstance(), this.bounds.x, this.bounds.y, 'map');
 		this.group.add(this.sprite);
 	};
 	

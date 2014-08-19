@@ -7,7 +7,9 @@ function(Game, GameView, CommsData, GameMode, LocData){
 	
 	var CommGameView  = function(options){
 		GameView.call(this, options);
+		this.still = false;
 		this.stackCompleteSignal = new Phaser.Signal();
+		this.stillSignal = new Phaser.Signal();
 	};
 	
 	CommGameView.prototype = Object.create(GameView.prototype);
@@ -33,15 +35,29 @@ function(Game, GameView, CommsData, GameMode, LocData){
 		this.commandNum = -1;
 	};
 	
-	CommGameView.prototype.checkCommands = function() {
-		if(LocData.getInstance().getMode() === GameMode.COMMANDS){
-			this.checkStill();
+	CommGameView.prototype.readyForCommand = function() {
+		var mode = LocData.getInstance().getMode();
+		if(mode === GameMode.COMMANDS){
+			this.nextCommand();
 		}
+		else if(mode === GameMode.INTERACTIVE){
+			this.stillSignal.dispatch({});
+		}
+	};
+	
+	CommGameView.prototype.becomeStill = function() {
+		var that = this;
+		if(this.checkEndTimeout){
+			clearTimeout(this.checkEndTimeout);
+		}
+		this.checkEndTimeout = setTimeout(function(){
+			that.readyForCommand();
+		}, GameView.CHECK_STILL);
 	};
 	
 	CommGameView.prototype.update = function() {
 	    GameView.prototype.update.call(this);
-		this.checkCommands();
+	    this.checkStill();
 	};
 	
 	CommGameView.prototype.playBack = function(){
@@ -49,16 +65,10 @@ function(Game, GameView, CommsData, GameMode, LocData){
 	};
 	
 	CommGameView.prototype.checkStill = function(){
-		var that = this;
 		if(this.player && !this.player.dead && this.player.isStill()){
 			if(!this.still){
 				this.still = true;
-				if(this.checkEndTimeout){
-					clearTimeout(this.checkEndTimeout);
-				}
-				this.checkEndTimeout = setTimeout(function(){
-					that.nextCommand();
-				}, GameView.CHECK_STILL);
+				this.becomeStill();
 			}
 		}
 		else{

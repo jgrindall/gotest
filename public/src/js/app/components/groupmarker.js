@@ -8,6 +8,7 @@ function($, Game, MarkerButton, Container){
 	var GroupMarker = function(options){
 		Container.call(this, options);
 		this.buttons = [];
+		this.create();
 	};
 	
 	GroupMarker.prototype = Object.create(Container.prototype);
@@ -18,7 +19,7 @@ function($, Game, MarkerButton, Container){
 		var b, i, x;
 		for(i = 0; i <= this.options.num - 1; i++){
 			x = Game.cx() - 20 * this.options.num + i * 40;
-			b = new MarkerButton({"x":x, "y":Game.h() - 40});
+			b = new MarkerButton({'bounds':{"x":x, "y":Game.h() - 40}});
 			b.create();
 			this.group.add(b.sprite);
 			this.buttons.push(b);

@@ -3,13 +3,19 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/components/buttons/multibutton', 'app/scenes/activity/commandspanel'],
+'app/components/buttons/multibutton', 'app/scenes/activity/commandspanel',
+
+'app/scenes/activity/commmodel'
+
+],
 
 function(Game, Container, Background,
 
 TabButtonBar, TabButton,
 
-MultiButton, CommandsPanel){
+MultiButton, CommandsPanel,
+
+commModel){
 	
 	"use strict";
 	
@@ -48,7 +54,12 @@ MultiButton, CommandsPanel){
 	Controls.prototype.addColorPicker = function() {
 		var bounds = {'x':this.bounds.x, 'y':450, 'w':137, 'h':66};
 		this.colorPicker = new MultiButton({"bounds":bounds, "asset":'pens', "num":8});
+		this.colorPicker.mouseUpSignal.add(this.colorChosen, this);
 		this.group.add(this.colorPicker.sprite);
+	};
+	
+	Controls.prototype.colorChosen = function(data) {
+		commModel.setColor(data.num);
 	};
 	
 	Controls.prototype.addTabs = function() {

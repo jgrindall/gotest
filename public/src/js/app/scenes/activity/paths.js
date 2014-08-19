@@ -7,11 +7,19 @@ function(Game, Container, Colors){
 	
 	var Paths  = function(options){
 		Container.call(this, options);
+		this.color = 0;
 		this.create();
 	};
 	
+	Paths.WIDTH = 6;
+	
 	Paths.prototype = Object.create(Container.prototype);
 	Paths.prototype.constructor = Paths;
+	
+	Paths.prototype.setColor = function(i) {
+		console.log("set "+i);
+		this.color = i;
+	};
 	
 	Paths.prototype.removeGfx = function() {
 		if(this.gfx){
@@ -22,12 +30,13 @@ function(Game, Container, Colors){
 	};
 	
 	Paths.prototype.line = function(p0, p1) {
-		this.gfx.lineStyle(6, Colors.GREEN, 1);
+		var c = Colors.ALL[this.color];
+		this.gfx.lineStyle(Paths.WIDTH, c, 1);
    		this.gfx.moveTo(p0.x, p0.y);
    		this.gfx.lineTo(p1.x, p1.y);
-   		this.gfx.lineStyle(0, 0, 0);
-   		this.gfx.beginFill(Colors.GREEN, 1);
-		this.gfx.drawCircle(p1.x, p1.y, 3);
+   		//TODO this.gfx.lineStyle(0, 0, 0);
+   		//this.gfx.beginFill(c, 1);
+		//this.gfx.drawCircle(p1.x, p1.y, Paths.WIDTH/2);
 	};
 	
 	Paths.prototype.addGfx = function() {

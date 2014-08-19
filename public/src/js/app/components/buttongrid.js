@@ -24,6 +24,18 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 		this.addButtons();
 	};
 	
+	ButtonGrid.prototype.disableAll = function(){
+		$.each(this.buttons, function(i, b){
+			b.disableInput();
+		});
+	};
+	
+	ButtonGrid.prototype.enableAll = function(){
+		$.each(this.buttons, function(i, b){
+			b.enableInput();
+		});
+	};
+	
 	ButtonGrid.prototype.addBg = function(){
 		if(this.options.bgAsset){
 			this.bg = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgAsset);

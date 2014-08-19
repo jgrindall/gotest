@@ -9,12 +9,15 @@ define(['jquery', 'app/game'],function($, Game){
 		this.dragging = false;
 		this.minX = 0;
 		this.selectSignal = new Phaser.Signal();
+		this.create();
 	};
 	
 	Scroller.MIN_MOVE = 10;
 	
 	Scroller.prototype.create = function(){
 		this.group = new Phaser.Group(Game.getInstance());
+		this.contentGroup = new Phaser.Group(Game.getInstance());
+		this.group.add(this.contentGroup);
 		this.addChildren();
 	    Game.getInput().onDown.add($.proxy(this.onDown, this));
 		Game.getInput().mouse.mouseOutCallback = $.proxy(this.mouseOutCallback, this);
@@ -25,7 +28,7 @@ define(['jquery', 'app/game'],function($, Game){
 	};
 	
 	Scroller.prototype.add = function(child) {
-		this.group.add(child.group);
+		this.contentGroup.add(child.group);
 		var x, w, worldWidth;
 		x = child.options.bounds.x;
 		w = child.options.bounds.w;
@@ -50,13 +53,14 @@ define(['jquery', 'app/game'],function($, Game){
 	};
 	
 	Scroller.prototype.onUp = function() {
+		console.log("onUp");
 		this.dragging = false;
 		Game.getInput().moveCallback = null;
 		this.snap();
 	};
 	
 	Scroller.prototype.snap = function() {
-		var x = this.options.snapX * Math.round(this.group.x / this.options.snapX);
+		var x = this.options.snapX * Math.round(this.contentGroup.x / this.options.snapX);
 		Game.getInstance().add.tween(this.group).to({'x': x}, 250, Phaser.Easing.Quadratic.Out, true, 20, false);
 	};
 
@@ -73,18 +77,20 @@ define(['jquery', 'app/game'],function($, Game){
 	};
 
 	Scroller.prototype.move = function(pointer, x, y) {
-		var xpos, minX;
+		var xpos;
 		if(this.x0 === null){
 			this.x0 = x;
 		}
 		this.dx = this.x0 - x;
 		xpos = this.startX - this.dx;
 		xpos = Math.min(Math.max(xpos, this.minX), 0);
-		this.group.x = xpos;
+		console.log("xpos "+xpos);
+		this.contentGroup.x = xpos;
 	};
 	
 	Scroller.prototype.startDragging = function(data) {
-		this.startX = this.group.x;
+		console.log("SD!");
+		this.startX = this.contentGroup.x;
 		this.dx = 0;
 		this.x0 = null;
 		this.dragging = true;
@@ -94,7 +100,9 @@ define(['jquery', 'app/game'],function($, Game){
 	
 	Scroller.prototype.destroy = function() {
 		Game.getInput().onDown.removeAll(this);
+		Game.getInput().onUp.removeAll(this);
 		Game.getInput().mouse.mouseOutCallback = null;
+		this.contentGroup.destroy(true);
 		this.group.destroy(true);
 		this.options = null;
 		this.selectSignal = null;

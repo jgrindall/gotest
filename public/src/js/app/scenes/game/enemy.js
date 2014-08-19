@@ -7,6 +7,7 @@ define(['app/scenes/game/character', 'app/game'], function(Character, Game){
 		options.asset = 'enemy';
 		this.prevx = 0;
 		Character.call(this, options);
+		this.create();
 	};
 
 	Enemy.prototype = Object.create(Character.prototype);

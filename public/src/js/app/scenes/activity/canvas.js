@@ -25,7 +25,7 @@ Map, Drawing){
 		var w, h, bounds;
 		w = Game.w();
 		h = Game.h();
-		bounds = {'x':0, 'y':0, 'w':w/2, 'h':h};
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':w/2, 'h':h};
 		this.bg = new Background({"asset":'background', "bounds":bounds});
 		this.bg.create();
 		this.group.add(this.bg.sprite);

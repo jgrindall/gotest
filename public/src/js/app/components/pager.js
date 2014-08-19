@@ -14,13 +14,13 @@ define(['app/game', 'app/components/scroller', 'app/components/groupmarker'],fun
 	Pager.prototype.addChildren = function(){
 		Scroller.prototype.addChildren.call(this);
 		this.groupMarker = new GroupMarker({"num":this.options.dataProvider.getNumPages()});
-		this.groupMarker.create();
-		Game.getInstance().world.add(this.groupMarker.group);
+		this.group.add(this.groupMarker.group);
 	};
 	
 	Pager.prototype.destroy = function() {
-		Scroller.prototype.destroy.call(this);
+		this.groupMarker.destroy();
 		this.groupMarker = null;
+		Scroller.prototype.destroy.call(this);
 	};
 	
 	Pager.prototype.snap = function() {

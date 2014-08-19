@@ -35,7 +35,10 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	Preloader.LEFT_KEY = 				'left';
 	Preloader.RIGHT_KEY = 				'right';
 	Preloader.UP_KEY = 					'up';
+	Preloader.OK_BUTTON_KEY = 			'okbutton';
 	Preloader.DOWN_KEY = 				'down';
+	Preloader.DIR_BUTTON = 				'dirbutton';
+	Preloader.KEY_BUTTON = 				'keybutton';
 	Preloader.TAB_BUTTON0 = 			'tabbutton0';
 	Preloader.TAB_BUTTON1 = 			'tabbutton1';
 	Preloader.TAB_BUTTON2 = 			'tabbutton2';
@@ -47,6 +50,8 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	
 	Preloader.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButton.png", 			"key":Preloader.LEVEL_BUTTON, 				"w":150, 	"h":150},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dirbutton.png", 				"key":Preloader.DIR_BUTTON, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/keybutton.png", 				"key":Preloader.KEY_BUTTON, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 		"key":Preloader.LEVEL_BUTTON_DONE, 			"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonLocked.png", 		"key":Preloader.LEVEL_BUTTON_LOCKED, 		"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton0.png", 			"key":Preloader.TAB_BUTTON0, 				"w":244, 	"h":52},
@@ -58,6 +63,7 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/yellowDown.png", 			"key":Preloader.DOWN_KEY, 					"w":120, 	"h":120},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 					"key":Preloader.CLOSE_KEY, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 					"key":Preloader.TICK_KEY, 					"w":80, 	"h":80},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Preloader.OK_BUTTON_KEY, 				"w":250, 	"h":75},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/yellowList.png", 			"key":Preloader.LIST_KEY, 					"w":120, 	"h":120},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/greenHome.png", 				"key":Preloader.HOME_KEY, 					"w":120, 	"h":120},
 		{"type":"spritesheet", 	"asset":"assets/images/game/dude.png", 						"key":Preloader.HERO_KEY, 					"w":32, 	"h":48},

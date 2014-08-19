@@ -5,6 +5,7 @@ define(['app/game'], function(Game){
 	
 	var Platforms = function(options){
 		this.options = options;
+		this.create();
 	};
 
 	Platforms.prototype.create = function () {

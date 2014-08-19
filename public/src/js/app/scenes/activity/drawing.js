@@ -16,6 +16,7 @@ commModel){
 	var Drawing  = function(options){
 		Container.call(this, options);
 		commModel.executeSignal.add(this.commandExecute, this);
+		commModel.colorSignal.add(this.colorChange, this);
 		this.currentPos = {x:300, y:300};
 		this.startPos = {x:this.currentPos.x, y:this.currentPos.y};
 		this.create();
@@ -25,6 +26,10 @@ commModel){
 	
 	Drawing.prototype = Object.create(Container.prototype);
 	Drawing.prototype.constructor = Drawing;
+	
+	Drawing.prototype.colorChange = function(data){
+		this.paths.setColor(data.color);
+	};
 	
 	Drawing.prototype.commandExecute = function(data){
 		var command, fraction;
@@ -37,7 +42,6 @@ commModel){
 		var dx, dy, angles;
 		angles = [135, 90, 45, 180, 0, 0, 225, -90, -45];
 		this.angle = -angles[command];
-		console.log(this.angle);
 		dx = Drawing.DIST * Math.cos(this.angle * 3.14159/180);
 		dy = Drawing.DIST * Math.sin(this.angle * 3.14159/180);
 		this.newPos = {x:this.startPos.x + dx, y:this.startPos.y + dy};

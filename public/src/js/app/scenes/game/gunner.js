@@ -5,12 +5,42 @@ define(['app/game'], function(Game){
 	
 	var Gunner = function(options){
 		options.asset = 'killarea';
+		options.interval = 4000;
 		this.options = options;
 		this.shootSignal = new Phaser.Signal();
+		Game.pauseSignal.add(this.pauseChanged, this);
+		this.create();
+	};
+	
+	Gunner.prototype.pauseChanged = function(){
+		var paused = Game.physicsPaused;
+		if(paused){
+			this.pause();
+		}
+		else{
+			this.unPause();
+		}
+	};
+	
+	Gunner.prototype.pause = function () {
+		if(!this.interval){
+			clearInterval(this.interval);
+		}
+	};
+	
+	Gunner.prototype.unPause = function () {
+		if(!this.interval){
+			this.interval = setInterval($.proxy(this.shoot, this), this.options.interval);
+		}
 	};
 	
 	Gunner.prototype.create = function () {
 		this.makeSprite();
+		this.unPause();
+	};
+	
+	Gunner.prototype.shoot = function() {
+		this.shootSignal.dispatch({"target":this});
 	};
 	
 	Gunner.prototype.makeSprite = function() {
@@ -22,13 +52,12 @@ define(['app/game'], function(Game){
 	};
 	
 	Gunner.prototype.update = function () {
-		if(Math.random() < 0.003){
-			this.shootSignal.dispatch({"target":this});
-		}
+		
 	};
 	
 	Gunner.prototype.destroy = function () {
 		this.shootSignal.removeAll(this);
+		clearInterval(this.interval);
 		this.sprite.destroy(true);
 		this.sprite = null;
 	};
@@ -36,5 +65,4 @@ define(['app/game'], function(Game){
 	return Gunner;
 	
 });
-
 

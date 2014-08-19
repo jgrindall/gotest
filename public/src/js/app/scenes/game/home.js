@@ -3,17 +3,17 @@ define(['app/game'], function(Game){
 	
 	"use strict";
 	
-	var KillArea = function(options){
-		options.asset = 'killarea';
+	var Home = function(options){
+		options.asset = 'home';
 		this.options = options;
 		this.create();
 	};
 	
-	KillArea.prototype.create = function () {
+	Home.prototype.create = function () {
 		this.makeSprite();
 	};
 	
-	KillArea.prototype.makeSprite = function() {
+	Home.prototype.makeSprite = function() {
 	    this.sprite = new Phaser.Sprite(Game.getInstance(), this.options.x, this.options.y, this.options.asset);
 		this.sprite.enableBody = true;
 		Game.getInstance().physics.enable(this.sprite, Phaser.Physics.ARCADE);
@@ -21,12 +21,12 @@ define(['app/game'], function(Game){
 		this.body.allowGravity = false;
 	};
 	
-	KillArea.prototype.destroy = function () {
+	Home.prototype.destroy = function () {
 		this.sprite.destroy(true);
 		this.sprite = null;
 	};
 	
-	return KillArea;
+	return Home;
 	
 });
 
