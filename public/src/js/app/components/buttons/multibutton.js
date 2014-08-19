@@ -14,10 +14,12 @@ define(['app/game'], function(Game){
 	};
 	
 	MultiButton.prototype.enableInput = function(){
+		console.log("enable Input multibutton");
 		this.sprite.inputEnabled = true;
 	};
 	
 	MultiButton.prototype.disableInput = function(){
+		console.log("disable Input multibutton");
 		this.sprite.inputEnabled = false;
 	};
 	
@@ -34,6 +36,7 @@ define(['app/game'], function(Game){
 	};
 
 	MultiButton.prototype.mouseUp = function(data){
+		console.log("mouse up on MB   "+this.sprite.inputEnabled);
 		var input, hits, pointer, localPoint, p, frame;
 		if(!this.sprite.inputEnabled){
 			return;
