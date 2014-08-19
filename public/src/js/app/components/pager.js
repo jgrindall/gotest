@@ -1,5 +1,7 @@
 
-define(['app/game', 'app/components/scroller', 'app/components/groupmarker'],function(Game, Scroller, GroupMarker){
+define(['app/game', 'app/components/scroller', 'app/components/groupmarker'],
+
+function(Game, Scroller, GroupMarker){
 	
 	"use strict";
 	
@@ -12,9 +14,10 @@ define(['app/game', 'app/components/scroller', 'app/components/groupmarker'],fun
 	Pager.prototype.constructor = Pager;
 	
 	Pager.prototype.addChildren = function(){
-		var numPages = this.options.dataProvider.getNumPages();
+		var numPages;
+		Scroller.prototype.addChildren.call(this);
+		numPages = this.options.dataProvider.getNumPages();
 		if(numPages >= 2){
-			Scroller.prototype.addChildren.call(this);
 			this.groupMarker = new GroupMarker({"num":numPages});
 			this.group.add(this.groupMarker.group);
 		}
@@ -30,7 +33,7 @@ define(['app/game', 'app/components/scroller', 'app/components/groupmarker'],fun
 	
 	Pager.prototype.snap = function() {
 		Scroller.prototype.snap.call(this);
-		var pageNum = -1 * Math.round(this.group.x / Game.w());
+		var pageNum = -1 * Math.round(this.contentGroup.x / Game.w());
 		if(this.groupMarker){
 			this.groupMarker.setSelected(pageNum);
 		}

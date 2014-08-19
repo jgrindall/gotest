@@ -1,13 +1,22 @@
 
-define(['app/game', 'app/components/container', 'app/components/buttons/navbutton'],
+define(['app/game', 'app/components/container',
 
-function(Game, Container, NavButton){
+'app/components/buttons/navbutton', 'app/components/screenchoice',
+
+'app/components/buttongrid'],
+
+function(Game, Container, 
+
+NavButton, ScreenChoice,
+
+ButtonGrid){
 	
 	"use strict";
 	
 	var ScreenPanel = function(options){
 		Container.call(this, options);
 		this.signal = new Phaser.Signal();
+		this.panels = [];
 		this.create();
 	};
 	
@@ -16,18 +25,15 @@ function(Game, Container, NavButton){
 	
 	ScreenPanel.prototype.create = function(){
 		Container.prototype.create.call(this);
-		this.addBg();
-		this.addPanel();
+		this.addPanels();
 	};
 	
-	ScreenPanel.prototype.addPanel = function(){
-		this.bg = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgAsset);
-		this.group.add(this.bg);
-	};
-	
-	ScreenPanel.prototype.addBg = function(){
-		this.button = new NavButton({"bounds":{'x':100, 'y':100}});
-		this.group.add(this.button.sprite);
+	ScreenPanel.prototype.addPanels = function(){
+		var bounds, options;
+		bounds = {"x":this.bounds.x, "y":this.bounds.y, "w":700, "h":500};
+		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
+		this.grid = new ButtonGrid(options);
+		this.group.add(this.grid.group);
 	};
 	
 	return ScreenPanel;

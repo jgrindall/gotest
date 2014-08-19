@@ -34,9 +34,9 @@ function(Game, Container, Colors){
 		this.gfx.lineStyle(Paths.WIDTH, c, 1);
    		this.gfx.moveTo(p0.x, p0.y);
    		this.gfx.lineTo(p1.x, p1.y);
-   		//TODO this.gfx.lineStyle(0, 0, 0);
-   		//this.gfx.beginFill(c, 1);
-		//this.gfx.drawCircle(p1.x, p1.y, Paths.WIDTH/2);
+   		this.gfx.lineStyle(0, 0, 0);
+   		this.gfx.beginFill(c, 1);
+		this.gfx.drawCircle(p1.x, p1.y, Paths.WIDTH/2);
 	};
 	
 	Paths.prototype.addGfx = function() {

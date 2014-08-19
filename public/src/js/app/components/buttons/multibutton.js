@@ -14,13 +14,13 @@ define(['app/game'], function(Game){
 	};
 	
 	MultiButton.prototype.enableInput = function(){
-		console.log("enable Input multibutton");
 		this.sprite.inputEnabled = true;
+		Game.getInput().onUp.add(this.mouseUp, this);
 	};
 	
 	MultiButton.prototype.disableInput = function(){
-		console.log("disable Input multibutton");
 		this.sprite.inputEnabled = false;
+		Game.getInput().onUp.removeAll(this);
 	};
 	
 	MultiButton.prototype.create = function(){
@@ -28,7 +28,6 @@ define(['app/game'], function(Game){
 		this.sprite = new Phaser.Sprite(Game.getInstance(), this.options.x, this.options.y, this.options.asset);
 		this.sprite.x = this.options.bounds.x;
 		this.sprite.y = this.options.bounds.y;
-		Game.getInstance().input.onUp.add(this.mouseUp, this);
 		for(i = 0; i<= this.options.num - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 500, true);	
 		}
@@ -36,7 +35,6 @@ define(['app/game'], function(Game){
 	};
 
 	MultiButton.prototype.mouseUp = function(data){
-		console.log("mouse up on MB   "+this.sprite.inputEnabled);
 		var input, hits, pointer, localPoint, p, frame;
 		if(!this.sprite.inputEnabled){
 			return;
@@ -54,7 +52,7 @@ define(['app/game'], function(Game){
 	};
 	
 	MultiButton.prototype.destroy = function(){
-		this.sprite.inputEnabled = false;
+		this.disableInput();
 		this.sprite.destroy(true);
 		this.mouseUpSignal = null;
 	};

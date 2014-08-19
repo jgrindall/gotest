@@ -14,26 +14,27 @@ ScreenPanel, Storage){
 	};
 	
 	ScreenDataProvider.prototype.getNumPages = function(){
-		return 3;
+		return 1;
 	};
 	
 	ScreenDataProvider.prototype.addPage = function(i, scroller){
 		var options, panel, bounds, w, h, paddingX, paddingY, top;
-		top = 50;
+		top = 20;
 		w = Game.w();
 		h = Game.h();
 		paddingX = 50;
 		paddingY = 50;
-		bounds = {"x":i * w + paddingX, "y":paddingY, "w":400, "h":200};
-		options = {"bounds":bounds, "bgAsset":'panel'};
+		bounds = {"x":i * w + paddingX, "y":paddingY, "w":w, "h":h};
+		options = {"bounds":bounds, "bgasset":'smallpanel'};
 		panel = new ScreenPanel(options);
 		scroller.add(panel);
 	};
 	
 	ScreenDataProvider.prototype.addAll = function(scroller){
+		console.log("ScreenDataProvider add All");
 		this.addPage(0, scroller);
-		this.addPage(1, scroller);
-		this.addPage(2, scroller);
+		//this.addPage(1, scroller);
+		
 	};
 	
 	return ScreenDataProvider;

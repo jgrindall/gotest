@@ -34,7 +34,7 @@ Pager
 	GameScreenMenu.prototype.constructor = GameScreenMenu;
 	
 	GameScreenMenu.prototype.addPager = function () {
-		var options = {"snapX":100, "dataProvider" : new ScreenDataProvider()};
+		var options = {"snapX":100, "dataProvider" : new ScreenDataProvider(), 'bgasset':'panel'};
 		this.pager = new Pager(options);
 		this.group.add(this.pager.group);
 	};

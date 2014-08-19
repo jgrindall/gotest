@@ -37,8 +37,8 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	};
 	
 	ButtonGrid.prototype.addBg = function(){
-		if(this.options.bgAsset){
-			this.bg = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgAsset);
+		if(this.options.bgasset){
+			this.bg = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
 			this.group.add(this.bg);
 		}
 	};

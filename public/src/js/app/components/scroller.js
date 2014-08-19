@@ -17,9 +17,14 @@ define(['jquery', 'app/game'],function($, Game){
 	Scroller.prototype.create = function(){
 		this.group = new Phaser.Group(Game.getInstance());
 		this.contentGroup = new Phaser.Group(Game.getInstance());
-		this.group.add(this.contentGroup);
+		this.addBg();
 		this.addChildren();
-	    Game.getInput().onDown.add($.proxy(this.onDown, this));
+	    this.addListeners();
+	    this.group.add(this.contentGroup);
+	};
+	
+	Scroller.prototype.addListeners = function() {
+		Game.getInput().onDown.add($.proxy(this.onDown, this));
 		Game.getInput().mouse.mouseOutCallback = $.proxy(this.mouseOutCallback, this);
 	};
 	
@@ -27,14 +32,21 @@ define(['jquery', 'app/game'],function($, Game){
 		this.onUp();
 	};
 	
+	Scroller.prototype.addBg = function() {
+		if(this.options.bgasset){
+			this.panel = new Phaser.Sprite(Game.getInstance(),0, 0, this.options.bgasset);
+			this.group.add(this.panel);
+		}
+	};	
+	
 	Scroller.prototype.add = function(child) {
 		this.contentGroup.add(child.group);
-		var x, w, worldWidth;
+		var x, w, m;
 		x = child.options.bounds.x;
 		w = child.options.bounds.w;
-		worldWidth = Game.w();
-		this.minX = Math.min(this.minX, -1*(x + w - worldWidth));
-		child.signal.add($.proxy(this.select, this));
+		m = -1*(x + w - Game.w());
+		this.minX = Math.min(this.minX, m);
+		//child.signal.add($.proxy(this.select, this));
 	};
 	
 	Scroller.prototype.select = function(data){
@@ -53,7 +65,6 @@ define(['jquery', 'app/game'],function($, Game){
 	};
 	
 	Scroller.prototype.onUp = function() {
-		console.log("onUp");
 		this.dragging = false;
 		Game.getInput().moveCallback = null;
 		this.snap();
@@ -61,7 +72,7 @@ define(['jquery', 'app/game'],function($, Game){
 	
 	Scroller.prototype.snap = function() {
 		var x = this.options.snapX * Math.round(this.contentGroup.x / this.options.snapX);
-		Game.getInstance().add.tween(this.group).to({'x': x}, 250, Phaser.Easing.Quadratic.Out, true, 20, false);
+		Game.getInstance().add.tween(this.contentGroup).to({'x': x}, 250, Phaser.Easing.Quadratic.Out, true, 20, false);
 	};
 
 	Scroller.prototype.buttonUp = function(data) {
@@ -70,9 +81,6 @@ define(['jquery', 'app/game'],function($, Game){
 		var targetIndex = this.group.getIndex(data.target.sprite);
 		if(Math.abs(this.dx) > Scroller.MIN_MOVE){
 			this.snap();
-		}
-		else{
-			// button up?
 		}
 	};
 
@@ -84,12 +92,10 @@ define(['jquery', 'app/game'],function($, Game){
 		this.dx = this.x0 - x;
 		xpos = this.startX - this.dx;
 		xpos = Math.min(Math.max(xpos, this.minX), 0);
-		console.log("xpos "+xpos);
 		this.contentGroup.x = xpos;
 	};
 	
 	Scroller.prototype.startDragging = function(data) {
-		console.log("SD!");
 		this.startX = this.contentGroup.x;
 		this.dx = 0;
 		this.x0 = null;
