@@ -15,6 +15,7 @@ function(Game, CommSpeed, CommandTypes){
 		this.speed = CommSpeed.MED;
 		this.addSignal = new Phaser.Signal();
 		this.executeSignal = new Phaser.Signal();
+		this.resetSignal = new Phaser.Signal();
 		this.colorSignal = new Phaser.Signal();
 		this.typeSignal = new Phaser.Signal();
 	};
@@ -46,12 +47,50 @@ function(Game, CommSpeed, CommandTypes){
 		this.performCommand();
 	};
 	
+	CommModel.prototype.playAllFromToIncluding = function(i0, i1) {
+		var i, command;
+		for(i = i0; i <= i1; i++){
+			command = this.commands[i];
+			this.executeSignal.dispatch({"command":command, "fraction":0});
+			this.executeSignal.dispatch({"command":command, "fraction":1});
+		}
+	};
+	
+	CommModel.prototype.playAll = function() {
+		if(this.commands.length >= 1){
+			this.playAllFromToIncluding(0, this.commands.length - 1);
+		}
+	};
+	
+	CommModel.prototype.empty = function() {
+		this.commands = [];
+	};
+	
+	CommModel.prototype.undo = function() {
+		if(!this.playing && this.commands.length >= 1){
+			this.commands.pop();
+			this.resetSignal.dispatch();
+			this.playAll();
+		}
+	};
+	
+	CommModel.prototype.stop = function() {
+		if(this.playing){
+			this.playing = false;
+			this.commands = [];
+			this.commandNum = 0;
+			this.resetSignal.dispatch();
+		}
+	};
+	
 	CommModel.prototype.triggerEvent = function() {
 		var command, fraction;
-		command = this.commands[this.commandNum];
-		fraction = this.sub / CommModel.SUBDIV;
-		this.executeSignal.dispatch({"command":command, "fraction":fraction});
-		this.timeout = setTimeout($.proxy(this.nextInterval, this), this.speed*CommModel.SPEED_FACTOR);
+		if(this.playing){
+			command = this.commands[this.commandNum];
+			fraction = this.sub / CommModel.SUBDIV;
+			this.executeSignal.dispatch({"command":command, "fraction":fraction});
+			this.timeout = setTimeout($.proxy(this.nextInterval, this), this.speed*CommModel.SPEED_FACTOR);
+		}
 	};
 	
 	CommModel.prototype.nextInterval = function() {
@@ -59,7 +98,7 @@ function(Game, CommSpeed, CommandTypes){
 		if(this.sub === CommModel.SUBDIV + 1){
 			this.commandNum++;
 			if(this.commandNum === this.commands.length){
-				this.stop();		
+				this.finished();		
 			}
 			else{
 				this.performCommand();
@@ -70,7 +109,7 @@ function(Game, CommSpeed, CommandTypes){
 		}
 	};
 	
-	CommModel.prototype.stop = function() {
+	CommModel.prototype.finished = function() {
 		this.playing = false;
 	};
 	

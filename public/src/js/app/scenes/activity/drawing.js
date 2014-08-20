@@ -16,19 +16,29 @@ commModel){
 	var Drawing  = function(options){
 		Container.call(this, options);
 		commModel.executeSignal.add(this.commandExecute, this);
+		commModel.resetSignal.add(this.reset, this);
 		commModel.colorSignal.add(this.colorChange, this);
-		this.currentPos = {x:300, y:300};
-		this.startPos = {x:this.currentPos.x, y:this.currentPos.y};
 		this.create();
+		this.reset();
 	};
 	
 	Drawing.DIST = 100;
+	Drawing.PI180 = 3.14159/180;
+	Drawing.START_POS = {x:300, y:300};
 	
 	Drawing.prototype = Object.create(Container.prototype);
 	Drawing.prototype.constructor = Drawing;
 	
 	Drawing.prototype.colorChange = function(data){
 		this.paths.setColor(data.color);
+	};
+	
+	Drawing.prototype.reset = function(){
+		this.currentPos = $.extend({}, Drawing.START_POS);
+		this.startPos = $.extend({}, Drawing.START_POS);
+		this.turtle.move(this.startPos, 0);
+		this.angle = 0;
+		this.paths.clear();
 	};
 	
 	Drawing.prototype.commandExecute = function(data){
@@ -39,26 +49,27 @@ commModel){
 	};
 	
 	Drawing.prototype.setHeading = function(command) {
-		var dx, dy, angles;
+		var dx, dy, angles, thetaRad;
 		angles = [135, 90, 45, 180, 0, 0, 225, -90, -45];
 		this.angle = -angles[command];
-		dx = Drawing.DIST * Math.cos(this.angle * 3.14159/180);
-		dy = Drawing.DIST * Math.sin(this.angle * 3.14159/180);
-		this.newPos = {x:this.startPos.x + dx, y:this.startPos.y + dy};
+		thetaRad = this.angle * Drawing.PI180;
+		dx = Drawing.DIST * Math.cos(thetaRad);
+		dy = Drawing.DIST * Math.sin(thetaRad);
+		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
 	};
 	
 	Drawing.prototype.execute = function(command, fraction) {
 		var px, py, endPos;
 		if(fraction === 0){
-			this.startPos = {x:this.currentPos.x, y:this.currentPos.y};
+			this.startPos = {'x':this.currentPos.x, 'y':this.currentPos.y};
 			this.setHeading(command);
 		}
-		px =  this.startPos.x + fraction * (this.newPos.x - this.startPos.x);
-   		py =  this.startPos.y + fraction * (this.newPos.y - this.startPos.y);
-		endPos = {x:px, y:py};
+		px =  this.startPos.x + fraction * (this.endPos.x - this.startPos.x);
+   		py =  this.startPos.y + fraction * (this.endPos.y - this.startPos.y);
+		endPos = {'x':px, 'y':py};
 		this.paths.line(this.currentPos, endPos);
 		this.turtle.move(endPos, this.angle);
-		this.currentPos = {x:endPos.x, y:endPos.y};
+		this.currentPos = {'x':endPos.x, 'y':endPos.y};
 	};
 	
 	Drawing.prototype.create = function() {

@@ -11,7 +11,7 @@ function(Game, Container, Colors){
 		this.create();
 	};
 	
-	Paths.WIDTH = 6;
+	Paths.WIDTH = 10;
 	
 	Paths.prototype = Object.create(Container.prototype);
 	Paths.prototype.constructor = Paths;
@@ -26,6 +26,10 @@ function(Game, Container, Colors){
 			this.group.remove(this, this.gfx);
 			this.gfx = null;
 		}
+	};
+	
+	Paths.prototype.clear = function() {
+		this.addGfx();
 	};
 	
 	Paths.prototype.line = function(p0, p1) {

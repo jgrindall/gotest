@@ -63,6 +63,12 @@ layoutModel){
 		if(i === 0){
 			AlertManager.makeBgMenu($.proxy(this.bgChosen, this));
 		}
+		else if(i === 1){
+			commModel.stop();
+		}
+		else if(i === 2){
+			commModel.undo();
+		} 
 	};
 	
 	ActivityScene.prototype.addControls = function() {
