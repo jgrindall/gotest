@@ -1,19 +1,22 @@
 
-define(['app/game', 'app/scenes/activity/commspeed'],
+define(['app/game', 'app/scenes/activity/commspeed', 'app/scenes/activity/commandtypes'],
 
-function(Game, CommSpeed){
+function(Game, CommSpeed, CommandTypes){
 	
 	"use strict";
 	
 	var CommModel  = function(){
 		this.commands = [];
 		this.playing = false;
+		this.input = null;
+		this.type = CommandTypes.NSEW;
 		this.commandNum = 0;
 		this.color = 0;
 		this.speed = CommSpeed.MED;
 		this.addSignal = new Phaser.Signal();
 		this.executeSignal = new Phaser.Signal();
 		this.colorSignal = new Phaser.Signal();
+		this.typeSignal = new Phaser.Signal();
 	};
 	
 	CommModel.SUBDIV = 20;
@@ -22,6 +25,17 @@ function(Game, CommSpeed){
 	CommModel.prototype.performCommand = function() {
 		this.sub = 0;
 		this.triggerEvent();
+	};
+	
+	CommModel.prototype.load = function() {
+		console.log("load type 0");
+		this.typeSignal.dispatch({"type":this.type});
+	};
+	
+	CommModel.prototype.setType = function(i) {
+		this.type = i;
+		console.log("setType "+i);
+		this.typeSignal.dispatch({"type":this.type});
 	};
 	
 	CommModel.prototype.setColor = function(i) {

@@ -5,7 +5,7 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scene
 
 'app/components/buttons/keybutton', 'app/components/buttons/okbutton',
 
-'app/components/loaderbar', 'app/scenes/activity/menu'],
+'app/components/loaderbar', 'app/scenes/activity/menu', 'app/scenes/activity/commmodel'],
 
 function(Game, Scene, Canvas, Controls,
 
@@ -13,7 +13,7 @@ TextFactory, TabButton, CloseButton,
 
 KeyButton, OkButton,
 
-LoaderBar, Menu){
+LoaderBar, Menu, commModel){
 	
 	"use strict";
 	
@@ -29,6 +29,7 @@ LoaderBar, Menu){
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
+		commModel.load();
 	};
 	
 	ActivityScene.prototype.addText = function() {

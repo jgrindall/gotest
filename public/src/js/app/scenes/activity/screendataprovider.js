@@ -31,10 +31,7 @@ ScreenPanel, Storage){
 	};
 	
 	ScreenDataProvider.prototype.addAll = function(scroller){
-		console.log("ScreenDataProvider add All");
 		this.addPage(0, scroller);
-		//this.addPage(1, scroller);
-		
 	};
 	
 	return ScreenDataProvider;

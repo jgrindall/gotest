@@ -12,7 +12,6 @@ define(['phaser'], function(Phaser){
 	InteractiveSprite.prototype.constructor = InteractiveSprite;
 	
 	InteractiveSprite.prototype.enableInput = function(){
-		console.log("enable ISprite " + this.name);
 		if(!this.inputEnabled){
 			this.inputEnabled = true;
 			this.game.input.onUp.add(this.onMouseUp, this);
@@ -20,7 +19,6 @@ define(['phaser'], function(Phaser){
 	};
 	
 	InteractiveSprite.prototype.disableInput = function(){
-		console.log("disable ISprite " + this.name);
 		if(this.inputEnabled && this.game.input){
 			this.game.input.onUp.remove(this.onMouseUp, this);
 			this.inputEnabled = false;
@@ -28,7 +26,6 @@ define(['phaser'], function(Phaser){
 	};
 
 	InteractiveSprite.prototype.onMouseUp = function(data){
-		console.log("OMU ISprite "+this.name);
 		var input, hits, pointer, localPoint;
 		input = this.game.input;
 		if(!this.inputEnabled){
@@ -37,7 +34,6 @@ define(['phaser'], function(Phaser){
 		pointer = input.activePointer;
 		localPoint = input.getLocalPosition(this, pointer);
 		hits = input.hitTest(this, pointer, localPoint);
-		console.log("hits "+hits);
 		if(hits){
 			this.mouseUpSignal.dispatch({"localPoint":localPoint});
 		}

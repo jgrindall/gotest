@@ -5,7 +5,7 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 
 'app/components/container', 'app/components/abstractpopup', 'app/scenes/activity/screendataprovider',
 
-'app/components/pager'
+'app/components/pager', 'app/scenes/activity/commmodel'
 
 ],
 
@@ -15,7 +15,7 @@ ListButton, OkButton, ResetButton,
 
 Container, AbstractPopup, ScreenDataProvider,
 
-Pager
+Pager, commModel
 
 ){
 	
@@ -24,6 +24,7 @@ Pager
 	var GameScreenMenu = function(options){
 		Container.call(this, options);
 		this.selectSignal = new Phaser.Signal();
+		this.selectedIndex = 0;
 		this.create();
 	};
 	
@@ -36,7 +37,12 @@ Pager
 	GameScreenMenu.prototype.addPager = function () {
 		var options = {"snapX":100, "dataProvider" : new ScreenDataProvider(), 'bgasset':'panel'};
 		this.pager = new Pager(options);
+		this.pager.selectSignal.add(this.choose, this);
 		this.group.add(this.pager.group);
+	};
+	
+	GameScreenMenu.prototype.choose = function (data) {
+		this.selectedIndex = data.index;
 	};
 	
 	GameScreenMenu.prototype.addBg = function () {
@@ -60,7 +66,9 @@ Pager
 	};
 	
 	GameScreenMenu.prototype.okClicked = function () {
-		this.selectSignal.dispatch({"index":0});
+		var data;
+		data = {"index":0, "selectedIndex":this.selectedIndex};
+		this.selectSignal.dispatch(data);
 	};
 	
 	GameScreenMenu.prototype.closeClicked = function () {

@@ -1,7 +1,19 @@
 
-define(['app/consts/appconsts', 'app/utils/textfactory', 'app/consts/leveldata', 'app/scenemanager/scenefactory', 'app/commsdata', 'app/locdata', 'app/game', 'phaserstatetrans', 'app/utils/storage', 'app/levelstatus', 'app/utils/alertmanager'],
+define(['app/consts/appconsts', 'app/utils/textfactory', 'app/consts/leveldata',
 
-function(AppConsts, TextFactory, LevelData, SceneFactory, CommsData, LocData, Game, PhaserStateTrans, Storage, LevelStatus, AlertManager){
+'app/scenemanager/scenefactory', 'app/commsdata', 'app/locdata', 'app/game',
+
+'phaserstatetrans', 'app/utils/storage', 'app/levelstatus',
+
+'app/utils/alertmanager', 'app/scenes/activity/commmodel'],
+
+function(AppConsts, TextFactory, LevelData,
+
+SceneFactory, CommsData, LocData, Game,
+
+PhaserStateTrans, Storage, LevelStatus,
+
+AlertManager, commModel){
 	
 	"use strict";
 	

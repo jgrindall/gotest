@@ -46,13 +46,14 @@ define(['jquery', 'app/game'],function($, Game){
 		w = child.options.bounds.w;
 		m = -1*(x + w - Game.w());
 		this.minX = Math.min(this.minX, m);
-		//child.signal.add($.proxy(this.select, this));
+		child.signal.add($.proxy(this.select, this));
 	};
 	
 	Scroller.prototype.select = function(data){
+		// check if moved or not!
 		if(Math.abs(this.dx) < Scroller.MIN_MOVE){
 			var page = this.group.getIndex(data.grid.group);
-			this.selectSignal.dispatch({"key":this.key, "level":data.index, "page":page});
+			this.selectSignal.dispatch({"index":data.index, "page":page});
 		}
 	};
 	

@@ -5,6 +5,7 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	
 	var ButtonGrid = function(options){
 		Container.call(this, options);
+		this.selectedIndex = -1;
 		this.data = this.options.data || [];
 		this.spaceX = this.bounds.w / this.options.numX;
 		this.spaceY = this.bounds.h / this.options.numY;
@@ -44,6 +45,7 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	};
 	
 	ButtonGrid.prototype.setSelected = function(index) {
+		this.selectedIndex = index;
 		$.each(this.buttons, function(i, button){
 			if(i === index){
 				button.select();

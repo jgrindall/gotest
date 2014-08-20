@@ -3,9 +3,11 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/components/buttons/multibutton', 'app/scenes/activity/commandspanel',
+'app/components/buttons/multibutton', 'app/scenes/activity/commands/nsewcommandspanel',
 
-'app/scenes/activity/commmodel'
+'app/scenes/activity/commmodel', 'app/utils/alertmanager', 'app/components/buttons/dirbutton',
+
+'app/scenes/activity/commandspanelfactory'
 
 ],
 
@@ -13,23 +15,28 @@ function(Game, Container, Background,
 
 TabButtonBar, TabButton,
 
-MultiButton, CommandsPanel,
+MultiButton, NSEWCommandsPanel,
 
-commModel){
+commModel, AlertManager, DirButton, CommandsPanelFactory){
 	
 	"use strict";
 	
 	var Controls  = function(options){
 		Container.call(this, options);
 		Game.alertSignal.add($.proxy(this.onAlert, this));
+		commModel.typeSignal.add(this.typeChanged, this);
 		this.create();
 	};
 
 	Controls.prototype = Object.create(Container.prototype);
 	Controls.prototype.constructor = Controls;
 	
+	Controls.prototype.typeChanged = function(data) {
+		console.log('typechanged');
+		this.addCommandsPanel(data.type);
+	};
+	
 	Controls.prototype.onAlert = function(data) {
-		console.log("ENABLE "+data.show);
 		if(data.show){
 			this.disableAllInput();
 		}
@@ -39,12 +46,10 @@ commModel){
 	};
 	
 	Controls.prototype.disableAllInput = function() {
-		console.log("picker disable");
 		this.colorPicker.disableInput();
 	};
 	
 	Controls.prototype.enableAllInput = function() {
-		console.log("picker enable");
 		this.colorPicker.enableInput();
 	};
 	
@@ -63,12 +68,30 @@ commModel){
 		this.addBg();
 		this.addTabs();
 		this.addColorPicker();
-		this.addCommandsPanel();
+		this.addChangeButton();
 	};
 	
-	Controls.prototype.addCommandsPanel = function() {
+	Controls.prototype.addChangeButton = function() {
+		this.changeButton = new DirButton({"bounds":{"x":Game.w()/2, "y":0}});
+		this.changeButton.mouseUpSignal.add(this.changeButtonClicked, this);
+		this.group.add(this.changeButton.sprite);
+	};
+	
+	Controls.prototype.onChanged = function(data) {
+		commModel.setType(data.selectedIndex);
+	};
+	
+	Controls.prototype.changeButtonClicked = function(data) {
+		AlertManager.makeScreenMenu($.proxy(this.onChanged, this));
+	};
+	
+	Controls.prototype.addCommandsPanel = function(type) {
+		if(this.commandsPanel){
+			this.commandsPanel.destroy();
+			this.commandsPanel = null;
+		}
 		var bounds = {'x':this.bounds.x, 'y':40, 'w':300, 'h':300};
-		this.commandsPanel = new CommandsPanel({"bounds":bounds});
+		this.commandsPanel = CommandsPanelFactory.make(type, bounds);
 		this.group.add(this.commandsPanel.group);
 	};
 	

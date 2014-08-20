@@ -52,8 +52,8 @@ GameScreenMenu, Growl){
 		}
 	};
 	
-	AlertManager.makeScreenMenu = function(){
-		AlertManager.make(GameScreenMenu, "text", null);
+	AlertManager.makeScreenMenu = function(callback){
+		AlertManager.make(GameScreenMenu, "text", callback);
 	};
 	
 	AlertManager.makeGrowl = function(label, callback){

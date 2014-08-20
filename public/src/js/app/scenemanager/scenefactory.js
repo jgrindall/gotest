@@ -10,7 +10,6 @@ function(AppConsts, GameScene, LoaderScene, CommScene, MainScene, TutorialScene,
 	};
 	
 	SceneFactory.getForKey = function(key){
-		console.log("get "+key);
 		var ClassRef = SceneFactory.getClassForKey(key);
 		return new ClassRef(key);
 	};

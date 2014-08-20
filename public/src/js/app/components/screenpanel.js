@@ -28,11 +28,16 @@ ButtonGrid){
 		this.addPanels();
 	};
 	
+	ScreenPanel.prototype.select = function(data){
+		this.signal.dispatch(data);
+	};
+	
 	ScreenPanel.prototype.addPanels = function(){
 		var bounds, options;
 		bounds = {"x":this.bounds.x, "y":this.bounds.y, "w":700, "h":500};
 		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
 		this.grid = new ButtonGrid(options);
+		this.grid.signal.add(this.select, this);
 		this.group.add(this.grid.group);
 	};
 	
