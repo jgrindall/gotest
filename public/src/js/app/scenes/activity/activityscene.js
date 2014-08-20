@@ -3,17 +3,21 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scene
 
 'app/utils/textfactory', 'app/components/buttons/tabbutton', 'app/components/buttons/closebutton',
 
-'app/components/buttons/keybutton', 'app/components/buttons/okbutton',
+'app/components/buttons/keybutton', 'app/components/buttons/okbutton', 'app/utils/alertmanager',
 
-'app/components/loaderbar', 'app/scenes/activity/menu', 'app/scenes/activity/commmodel'],
+'app/components/loaderbar', 'app/scenes/activity/menu', 'app/scenes/activity/commmodel',
+
+'app/scenes/activity/layoutmodel'],
 
 function(Game, Scene, Canvas, Controls,
 
 TextFactory, TabButton, CloseButton,
 
-KeyButton, OkButton,
+KeyButton, OkButton, AlertManager,
 
-LoaderBar, Menu, commModel){
+LoaderBar, Menu, commModel,
+
+layoutModel){
 	
 	"use strict";
 	
@@ -50,10 +54,14 @@ LoaderBar, Menu, commModel){
 		this.world.add(this.menu.group);
 	};
 	
+	ActivityScene.prototype.bgChosen = function(data) {
+		layoutModel.setBg(data.selectedIndex);
+	};
+	
 	ActivityScene.prototype.menuSelected = function(data) {
 		var i = data.index;
 		if(i === 0){
-			// new file	
+			AlertManager.makeBgMenu($.proxy(this.bgChosen, this));
 		}
 	};
 	

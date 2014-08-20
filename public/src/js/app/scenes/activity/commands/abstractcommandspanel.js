@@ -71,8 +71,16 @@ ButtonGrid, GameScreenMenu, commModel){
 		
 	};
 	
-	AbstractCommandsPanel.prototype.addCommand = function(data){
-		commModel.add(data.index);
+	AbstractCommandsPanel.prototype.addCommand = function(index){
+		commModel.add(index);
+	};
+	
+	AbstractCommandsPanel.prototype.addCommands = function(index, num){
+		if(num >= 1){
+			for(var i = 1; i <= num; i++){
+				commModel.add(index);
+			}
+		}
 	};
 	
 	AbstractCommandsPanel.prototype.destroy = function() {

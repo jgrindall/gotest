@@ -37,11 +37,7 @@ ButtonGrid, AbstractCommandsPanel, commModel){
 	};
 	
 	NSEWCommandsPanel.prototype.selectComm = function(data){
-		this.addCommand(data);
-	};
-	
-	NSEWCommandsPanel.prototype.selectKey = function(data){
-		this.addCommand(data);
+		this.addCommand(data.index);
 	};
 	
 	NSEWCommandsPanel.prototype.destroy = function() {

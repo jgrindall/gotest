@@ -1,13 +1,17 @@
 
 define(['app/game', 'app/components/container', 'app/components/background',
 
-'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
+'app/components/tabbuttonbar', 'app/components/buttons/tabbutton', 'app/scenes/activity/commmodel',
+
+'app/scenes/activity/layoutmodel',
 
 'app/scenes/activity/map', 'app/scenes/activity/drawing'],
 
 function(Game, Container, Background,
 
-TabButtonBar, TabButton,
+TabButtonBar, TabButton, commModel,
+
+layoutModel,
 
 Map, Drawing){
 	
@@ -15,11 +19,16 @@ Map, Drawing){
 	
 	var Canvas  = function(options){
 		Container.call(this, options);
+		layoutModel.bgSignal.add(this.changeBg, this);
 		this.create();
 	};
 	
 	Canvas.prototype = Object.create(Container.prototype);
 	Canvas.prototype.constructor = Canvas;
+	
+	Canvas.prototype.changeBg = function(data) {
+		this.map.setBg(data.bg);
+	};
 	
 	Canvas.prototype.addBg = function() {
 		var w, h, bounds;

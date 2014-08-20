@@ -11,7 +11,7 @@ NavButton, InteractiveSprite){
 	
 	var ScreenChoice = function(options){
 		Container.call(this, options);
-		options.bgasset = 'smallpanel'
+		options.bgasset = 'smallpanel';
 		this.mouseUpSignal = new Phaser.Signal();
 		this.create();
 	};
@@ -41,7 +41,7 @@ NavButton, InteractiveSprite){
 	
 	ScreenChoice.prototype.addBg = function(){
 		this.panel = new InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
-		this.panel.name = "screen choice"
+		this.panel.name = "screen choice";
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
 		this.group.add(this.panel);

@@ -49,7 +49,7 @@ define(['app/scenes/game/character', 'app/scenes/game/objectstate', 'app/game'],
 	
 	Player.prototype.spin = function(data) {
 		Game.getInstance().add.tween(this.sprite).to({angle: 360*4}, 3000, Phaser.Easing.Cubic.In, true, 100, false);
-		Game.getInstance().add.tween(this.sprite).to({scale: {'x': .75, 'y': 0.75}}, 2400, Phaser.Easing.Cubic.In, true, 100, false);
+		Game.getInstance().add.tween(this.sprite).to({scale: {'x': 0.75, 'y': 0.75}}, 2400, Phaser.Easing.Cubic.In, true, 100, false);
 	};
 	
 	Player.prototype.controlDown = function(data) {

@@ -45,11 +45,11 @@ ButtonGrid, AbstractCommandsPanel, commModel){
 	};
 	
 	KeysCommandsPanel.prototype.selectComm = function(data){
-		this.addCommand(data);
+		this.selectedCommand = data.index;
 	};
 	
 	KeysCommandsPanel.prototype.selectKey = function(data){
-		this.addCommand(data);
+		this.addCommands(this.selectedCommand, data.index);
 	};
 	
 	KeysCommandsPanel.prototype.destroy = function() {

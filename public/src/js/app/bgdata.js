@@ -8,7 +8,7 @@ function() {
 		
 	};
 
-	BgData.BACKGROUNDS = ['map', 'map', 'map'];
+	BgData.BACKGROUNDS = ['map0', 'map1', 'map2'];
 
   	return BgData;
 });

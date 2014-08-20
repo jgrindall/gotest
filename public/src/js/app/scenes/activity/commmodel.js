@@ -28,13 +28,11 @@ function(Game, CommSpeed, CommandTypes){
 	};
 	
 	CommModel.prototype.load = function() {
-		console.log("load type 0");
 		this.typeSignal.dispatch({"type":this.type});
 	};
 	
 	CommModel.prototype.setType = function(i) {
 		this.type = i;
-		console.log("setType "+i);
 		this.typeSignal.dispatch({"type":this.type});
 	};
 	

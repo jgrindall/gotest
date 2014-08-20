@@ -17,7 +17,6 @@ function(Game, Container, Colors){
 	Paths.prototype.constructor = Paths;
 	
 	Paths.prototype.setColor = function(i) {
-		console.log("set "+i);
 		this.color = i;
 	};
 	
@@ -43,7 +42,7 @@ function(Game, Container, Colors){
 		this.removeGfx();
 		this.gfx = new Phaser.Graphics(Game.getInstance(), 0, 0);
 		this.group.add(this.gfx);
-	}
+	};
 	
 	Paths.prototype.clear = function(){
 		this.removeGfx();

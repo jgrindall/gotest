@@ -3,13 +3,13 @@ define(['app/game', 'app/components/alert', 'app/scenes/game/gamepausemenu',
 
 'app/scenes/game/gameovermenusuccess', 'app/scenes/game/gameovermenufail',
 
-'app/scenes/activity/gamescreenmenu', 'app/components/growl'], 
+'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/gamebgmenu', 'app/components/growl'], 
 
 function(Game, Alert, GamePauseMenu,
 
 GameOverMenuSuccess, GameOverMenuFail,
 
-GameScreenMenu, Growl){
+GameScreenMenu, GameBgMenu, Growl){
 	
 	"use strict";
 	
@@ -54,6 +54,10 @@ GameScreenMenu, Growl){
 	
 	AlertManager.makeScreenMenu = function(callback){
 		AlertManager.make(GameScreenMenu, "text", callback);
+	};
+	
+	AlertManager.makeBgMenu = function(callback){
+		AlertManager.make(GameBgMenu, "text", callback);
 	};
 	
 	AlertManager.makeGrowl = function(label, callback){

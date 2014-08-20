@@ -8,6 +8,7 @@ function(Game, Scroller, GroupMarker){
 	var Pager = function(options){
 		options.snapX = Game.w();
 		Scroller.call(this, options);
+		this.pageSignal = new Phaser.Signal();
 	};
 	
 	Pager.prototype = Object.create(Scroller.prototype);
@@ -28,6 +29,7 @@ function(Game, Scroller, GroupMarker){
 			this.groupMarker.destroy();
 			this.groupMarker = null;
 		}
+		this.pageSignal = null;
 		Scroller.prototype.destroy.call(this);
 	};
 	
@@ -37,6 +39,7 @@ function(Game, Scroller, GroupMarker){
 		if(this.groupMarker){
 			this.groupMarker.setSelected(pageNum);
 		}
+		this.pageSignal.dispatch({"page":pageNum});
 	};
 
 	return Pager;
