@@ -43,6 +43,7 @@ function(Game, CommSpeed, CommandTypes){
 	};
 	
 	CommModel.prototype.restart = function(command) {
+		console.log("restart");
 		this.playing = true;
 		this.performCommand();
 	};
@@ -69,6 +70,7 @@ function(Game, CommSpeed, CommandTypes){
 	CommModel.prototype.undo = function() {
 		if(!this.playing && this.commands.length >= 1){
 			this.commands.pop();
+			this.commandNum --;
 			this.resetSignal.dispatch();
 			this.playAll();
 		}
@@ -86,6 +88,7 @@ function(Game, CommSpeed, CommandTypes){
 	CommModel.prototype.triggerEvent = function() {
 		var command, fraction;
 		if(this.playing){
+			console.log("this.commandNum "+this.commandNum+"  len = "+this.commands.length);
 			command = this.commands[this.commandNum];
 			fraction = this.sub / CommModel.SUBDIV;
 			this.executeSignal.dispatch({"command":command, "fraction":fraction});
@@ -97,6 +100,7 @@ function(Game, CommSpeed, CommandTypes){
 		this.sub++;
 		if(this.sub === CommModel.SUBDIV + 1){
 			this.commandNum++;
+			console.log("next command now this.commandNum = "+this.commandNum);
 			if(this.commandNum === this.commands.length){
 				this.finished();		
 			}
