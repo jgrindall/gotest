@@ -40,8 +40,25 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	Preloader.UP_KEY = 					'up';
 	Preloader.OK_BUTTON_KEY = 			'okbutton';
 	Preloader.DOWN_KEY = 				'down';
-	Preloader.DIR_BUTTON = 				'dirbutton';
-	Preloader.KEY_BUTTON = 				'keybutton';
+	Preloader.MENU_BUTTON = 			'menubutton';
+	Preloader.DIR_BUTTON0 = 			'dirbutton0';
+	Preloader.DIR_BUTTON1 = 			'dirbutton1';
+	Preloader.DIR_BUTTON2 = 			'dirbutton2';
+	Preloader.DIR_BUTTON3 = 			'dirbutton3';
+	Preloader.DIR_BUTTON4 = 			'dirbutton4';
+	Preloader.DIR_BUTTON5 = 			'dirbutton5';
+	Preloader.DIR_BUTTON6 = 			'dirbutton6';
+	Preloader.DIR_BUTTON7 = 			'dirbutton7';
+	Preloader.DIR_BUTTON8 = 			'dirbutton8';
+	Preloader.KEY_BUTTON1 = 			'keybutton1';
+	Preloader.KEY_BUTTON2 = 			'keybutton2';
+	Preloader.KEY_BUTTON3 = 			'keybutton3';
+	Preloader.KEY_BUTTON4 = 			'keybutton4';
+	Preloader.KEY_BUTTON5 = 			'keybutton5';
+	Preloader.KEY_BUTTON6 = 			'keybutton6';
+	Preloader.KEY_BUTTON7 = 			'keybutton7';
+	Preloader.KEY_BUTTON8 = 			'keybutton8';
+	Preloader.KEY_BUTTON9 = 			'keybutton9';
 	Preloader.TAB_BUTTON0 = 			'tabbutton0';
 	Preloader.TAB_BUTTON1 = 			'tabbutton1';
 	Preloader.TAB_BUTTON2 = 			'tabbutton2';
@@ -53,8 +70,25 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	
 	Preloader.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButton.png", 			"key":Preloader.LEVEL_BUTTON, 				"w":150, 	"h":150},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dirbutton.png", 				"key":Preloader.DIR_BUTTON, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/keybutton.png", 				"key":Preloader.KEY_BUTTON, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton0.png", 		"key":Preloader.DIR_BUTTON0, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton1.png", 		"key":Preloader.DIR_BUTTON1, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton2.png", 		"key":Preloader.DIR_BUTTON2, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton3.png", 		"key":Preloader.DIR_BUTTON3, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton4.png", 		"key":Preloader.DIR_BUTTON4, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton5.png", 		"key":Preloader.DIR_BUTTON5, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton6.png", 		"key":Preloader.DIR_BUTTON6, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton7.png", 		"key":Preloader.DIR_BUTTON7, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton8.png", 		"key":Preloader.DIR_BUTTON8, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton1.png", 		"key":Preloader.KEY_BUTTON1, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton2.png", 		"key":Preloader.KEY_BUTTON2, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton3.png", 		"key":Preloader.KEY_BUTTON3, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton4.png", 		"key":Preloader.KEY_BUTTON4, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton5.png", 		"key":Preloader.KEY_BUTTON5, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton6.png", 		"key":Preloader.KEY_BUTTON6, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton7.png", 		"key":Preloader.KEY_BUTTON7, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton8.png", 		"key":Preloader.KEY_BUTTON8, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton9.png", 		"key":Preloader.KEY_BUTTON9, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menubutton.png", 			"key":Preloader.MENU_BUTTON, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 		"key":Preloader.LEVEL_BUTTON_DONE, 			"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonLocked.png", 		"key":Preloader.LEVEL_BUTTON_LOCKED, 		"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton0.png", 			"key":Preloader.TAB_BUTTON0, 				"w":244, 	"h":52},

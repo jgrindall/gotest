@@ -4,7 +4,7 @@ define(['app/components/buttons/abstractbutton'], function(AbstractButton){
 	"use strict";
 	
 	var KeyButton = function(options){
-		options.asset = 'keybutton';
+		options.asset = 'keybutton' + (options.data + 1);
 		AbstractButton.call(this, options);
 	};
 	

@@ -5,7 +5,7 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/buttons/multibutton', 'app/scenes/activity/commands/nsewcommandspanel',
 
-'app/scenes/activity/commmodel', 'app/utils/alertmanager', 'app/components/buttons/dirbutton',
+'app/scenes/activity/commmodel', 'app/utils/alertmanager', 'app/components/buttons/menubutton',
 
 'app/scenes/activity/commandspanelfactory'
 
@@ -17,7 +17,7 @@ TabButtonBar, TabButton,
 
 MultiButton, NSEWCommandsPanel,
 
-commModel, AlertManager, DirButton, CommandsPanelFactory){
+commModel, AlertManager, MenuButton, CommandsPanelFactory){
 	
 	"use strict";
 	
@@ -32,7 +32,6 @@ commModel, AlertManager, DirButton, CommandsPanelFactory){
 	Controls.prototype.constructor = Controls;
 	
 	Controls.prototype.typeChanged = function(data) {
-		console.log('typechanged');
 		this.addCommandsPanel(data.type);
 	};
 	
@@ -72,7 +71,7 @@ commModel, AlertManager, DirButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.addChangeButton = function() {
-		this.changeButton = new DirButton({"bounds":{"x":Game.w()/2, "y":0}});
+		this.changeButton = new MenuButton({"bounds":{"x":Game.w()/2, "y":0}});
 		this.changeButton.mouseUpSignal.add(this.changeButtonClicked, this);
 		this.group.add(this.changeButton.sprite);
 	};

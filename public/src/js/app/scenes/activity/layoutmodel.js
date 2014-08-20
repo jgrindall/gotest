@@ -11,8 +11,10 @@ function(Game, CommSpeed, CommandTypes){
 	};
 	
 	LayoutModel.prototype.setBg = function(i) {
-		this.bg = i;
-		this.bgSignal.dispatch({"bg":this.bg});
+		if(this.bg !== i){
+			this.bg = i;
+			this.bgSignal.dispatch({"bg":this.bg});
+		}
 	};
 	
 	return new LayoutModel();

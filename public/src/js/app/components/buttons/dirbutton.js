@@ -4,7 +4,7 @@ define(['app/components/buttons/abstractbutton'], function(AbstractButton){
 	"use strict";
 	
 	var DirButton = function(options){
-		options.asset = 'dirbutton';
+		options.asset = 'dirbutton' + options.data;
 		AbstractButton.call(this, options);
 	};
 	
