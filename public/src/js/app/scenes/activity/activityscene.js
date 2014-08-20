@@ -49,7 +49,7 @@ layoutModel){
 	
 	ActivityScene.prototype.addMenu = function() {
 		var bounds = {'x':5, 'y':5, 'w':500, 'h':50};
-		this.menu = new Menu({"bounds":bounds, "buttonClass":MenuButton, "numX":5, "numY":1});
+		this.menu = new Menu({"bounds":bounds, "buttonClass":MenuButton, "numX":3, "numY":1, "data":[0, 1, 2]});
 		this.menu.signal.add(this.menuSelected, this);
 		this.world.add(this.menu.group);
 	};

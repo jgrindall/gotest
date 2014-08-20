@@ -40,7 +40,9 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	Preloader.UP_KEY = 					'up';
 	Preloader.OK_BUTTON_KEY = 			'okbutton';
 	Preloader.DOWN_KEY = 				'down';
-	Preloader.MENU_BUTTON = 			'menubutton';
+	Preloader.MENU_BUTTON0 = 			'menubutton0';
+	Preloader.MENU_BUTTON1 = 			'menubutton1';
+	Preloader.MENU_BUTTON2 = 			'menubutton2';
 	Preloader.DIR_BUTTON0 = 			'dirbutton0';
 	Preloader.DIR_BUTTON1 = 			'dirbutton1';
 	Preloader.DIR_BUTTON2 = 			'dirbutton2';
@@ -88,7 +90,9 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton7.png", 		"key":Preloader.KEY_BUTTON7, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton8.png", 		"key":Preloader.KEY_BUTTON8, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton9.png", 		"key":Preloader.KEY_BUTTON9, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menubutton.png", 			"key":Preloader.MENU_BUTTON, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton0.png", 		"key":Preloader.MENU_BUTTON0, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton1.png", 		"key":Preloader.MENU_BUTTON1, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton2.png", 		"key":Preloader.MENU_BUTTON2, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 		"key":Preloader.LEVEL_BUTTON_DONE, 			"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonLocked.png", 		"key":Preloader.LEVEL_BUTTON_LOCKED, 		"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton0.png", 			"key":Preloader.TAB_BUTTON0, 				"w":244, 	"h":52},
