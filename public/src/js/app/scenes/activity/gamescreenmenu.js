@@ -1,7 +1,9 @@
 
 define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
 
-'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/resetbutton',
+'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/dirbutton',
+
+'app/components/buttons/resetbutton',
 
 'app/components/container', 'app/components/abstractpopup', 'app/scenes/activity/screendataprovider',
 
@@ -11,7 +13,9 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 
 function(NavButton, CloseButton, Game,
 
-ListButton, OkButton, ResetButton,
+ListButton, OkButton, DirButton, 
+
+ResetButton,
 
 Container, AbstractPopup, ScreenDataProvider,
 
@@ -59,6 +63,17 @@ Pager, commModel
 		this.addPager();
 		this.addOkButton();
 		this.addCloseButton();
+		this.addLRButtons();
+	};
+	
+	GameScreenMenu.prototype.addLRButtons = function () {
+		this.leftButton = new DirButton({"data":3, "bounds":{'x':10, 'y':Game.cy()}});
+		this.leftButton.mouseUpSignal.add(this.leftClicked, this);
+		this.group.add(this.leftButton.sprite);
+	};
+	
+	GameScreenMenu.prototype.leftClicked = function () {
+		this.pager.prev();
 	};
 	
 	GameScreenMenu.prototype.showMenu = function () {

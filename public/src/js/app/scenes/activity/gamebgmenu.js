@@ -3,6 +3,8 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 
 'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/resetbutton',
 
+'app/components/buttons/dirbutton',
+
 'app/components/container', 'app/components/abstractpopup', 'app/scenes/activity/bgdataprovider',
 
 'app/components/pager', 'app/scenes/activity/commmodel'
@@ -12,6 +14,8 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 function(NavButton, CloseButton, Game,
 
 ListButton, OkButton, ResetButton,
+
+DirButton,
 
 Container, AbstractPopup, BgDataProvider,
 
@@ -53,12 +57,30 @@ Pager, commModel
 		this.group.add(this.rect);
 	};
 	
+	GameBgMenu.prototype.addLRButtons = function () {
+		this.leftButton = new DirButton({"data":3, "bounds":{'x':20, 'y':Game.cy()}});
+		this.leftButton.mouseUpSignal.add(this.leftClicked, this);
+		this.rightButton = new DirButton({"data":5, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
+		this.rightButton.mouseUpSignal.add(this.rightClicked, this);
+		this.group.add(this.leftButton.sprite);
+		this.group.add(this.rightButton.sprite);
+	};
+	
+	GameBgMenu.prototype.leftClicked = function () {
+		this.pager.prev();
+	};
+	
+	GameBgMenu.prototype.rightClicked = function () {
+		this.pager.next();
+	};
+	
 	GameBgMenu.prototype.create = function () {
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addPager();
 		this.addOkButton();
 		this.addCloseButton();
+		this.addLRButtons();
 	};
 	
 	GameBgMenu.prototype.showMenu = function () {

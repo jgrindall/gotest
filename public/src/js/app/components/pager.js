@@ -6,9 +6,8 @@ function(Game, Scroller, GroupMarker){
 	"use strict";
 	
 	var Pager = function(options){
-		options.snapX = Game.w();
+		options.snapX = Game.w(); // has to be this
 		Scroller.call(this, options);
-		this.pageSignal = new Phaser.Signal();
 	};
 	
 	Pager.prototype = Object.create(Scroller.prototype);
@@ -33,13 +32,16 @@ function(Game, Scroller, GroupMarker){
 		Scroller.prototype.destroy.call(this);
 	};
 	
-	Pager.prototype.snap = function() {
-		Scroller.prototype.snap.call(this);
-		var pageNum = -1 * Math.round(this.contentGroup.x / Game.w());
+	Pager.prototype.updateMarker = function() {
+		console.log("pager update "+this.pageNum);
 		if(this.groupMarker){
-			this.groupMarker.setSelected(pageNum);
+			this.groupMarker.setSelected(this.pageNum);
 		}
-		this.pageSignal.dispatch({"page":pageNum});
+	};
+	
+	Pager.prototype.gotoPage = function(p) {
+		Scroller.prototype.gotoPage.call(this, p);
+		this.updateMarker();
 	};
 
 	return Pager;

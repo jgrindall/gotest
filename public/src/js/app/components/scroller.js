@@ -8,7 +8,9 @@ define(['jquery', 'app/game'],function($, Game){
 		this.x0 = null;
 		this.dragging = false;
 		this.minX = 0;
+		this.pageNum = 0;
 		this.selectSignal = new Phaser.Signal();
+		this.pageSignal = new Phaser.Signal();
 		this.create();
 	};
 	
@@ -49,6 +51,24 @@ define(['jquery', 'app/game'],function($, Game){
 		child.signal.add($.proxy(this.select, this));
 	};
 	
+	Scroller.prototype.gotoPage = function(p) {
+		this.pageNum = p;
+		this.pageSignal.dispatch({"pageNum":p});
+		this.tweenTo(-this.options.snapX * p);
+	};
+	
+	Scroller.prototype.next = function() {
+		this.gotoPage(this.pageNum + 1);
+	};
+	
+	Scroller.prototype.prev = function() {
+		this.gotoPage(this.pageNum - 1);
+	};
+	
+	Scroller.prototype.tweenTo = function(x) {
+		Game.getInstance().add.tween(this.contentGroup).to({'x': x}, 250, Phaser.Easing.Quadratic.Out, true, 20, false);
+	};
+	
 	Scroller.prototype.select = function(data){
 		// check if moved or not!
 		if(Math.abs(this.dx) < Scroller.MIN_MOVE){
@@ -72,8 +92,8 @@ define(['jquery', 'app/game'],function($, Game){
 	};
 	
 	Scroller.prototype.snap = function() {
-		var x = this.options.snapX * Math.round(this.contentGroup.x / this.options.snapX);
-		Game.getInstance().add.tween(this.contentGroup).to({'x': x}, 250, Phaser.Easing.Quadratic.Out, true, 20, false);
+		var pageNum = -Math.round(this.contentGroup.x / this.options.snapX);
+		this.gotoPage(pageNum);
 	};
 
 	Scroller.prototype.buttonUp = function(data) {
