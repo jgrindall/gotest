@@ -30,7 +30,6 @@ Game, ListButton, HomeButton, Container){
 	
 	GameMenu.prototype.addButton = function (ClassRef, x, y) {
 		var b = new ClassRef({"x":x, "y":y});
-		b.create();
 		b.mouseUpSignal.add(this.buttonUp, this);
 		this.buttonGroup.add(b.sprite);
 		this.buttons.push(b);

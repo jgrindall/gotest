@@ -31,12 +31,8 @@ function(Scene, Commands, TabButtonBar, TabButton, LocData, CommsData, NavButton
 		// var index = this.commsData.selectedIndex;
 		// this.locData = this.options.locData;
 		// this.commsData = this.options.commsData;
-		this.goButton.create();
-		this.tabButtonBar.create();
-		this.commands.create();
 		this.tabButtonBar.signal.add(this.tabSelected, this);
 		this.backButton = new HomeButton({"x":0, "y":0});
-		this.backButton.create();
 		this.world.add(this.goButton.sprite);
 		this.world.add(this.tabs.group);
 		this.world.add(this.backButton.sprite);

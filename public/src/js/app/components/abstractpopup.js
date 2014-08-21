@@ -6,10 +6,9 @@ function(CloseButton, Game, Container, TextFactory){
 	"use strict";
 		
 	var AbstractPopup = function(options){
+		this.children = [];
 		Container.call(this, options);
 		this.selectSignal = new Phaser.Signal();
-		this.children = [];
-		this.create();
 	};
 	
 	AbstractPopup.prototype = Object.create(Container.prototype);

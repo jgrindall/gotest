@@ -30,7 +30,6 @@ function(LevelsButton, Game, Container, TextFactory, LevelState){
 	
 	LevelBadge.prototype.addMain = function () {
 		this.button = new LevelsButton({"x":this.options.bounds.x, "y":this.options.bounds.y, "asset":this.getAsset()});
-		this.button.create();
 		this.button.mouseUpSignal.add(this.select, this);
 		this.group.add(this.button.sprite);
 	};

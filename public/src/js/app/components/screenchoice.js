@@ -10,10 +10,9 @@ NavButton, InteractiveSprite){
 	"use strict";
 	
 	var ScreenChoice = function(options){
-		Container.call(this, options);
 		options.bgasset = 'smallpanel';
+		Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
-		this.create();
 	};
 	
 	ScreenChoice.WIDTH = 200;

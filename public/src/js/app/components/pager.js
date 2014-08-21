@@ -6,7 +6,7 @@ function(Game, Scroller, GroupMarker){
 	"use strict";
 	
 	var Pager = function(options){
-		options.snapX = Game.w(); // has to be this
+		options.snapX = Game.w(); // has to be this!
 		Scroller.call(this, options);
 	};
 	
@@ -14,13 +14,16 @@ function(Game, Scroller, GroupMarker){
 	Pager.prototype.constructor = Pager;
 	
 	Pager.prototype.addChildren = function(){
-		var numPages;
 		Scroller.prototype.addChildren.call(this);
-		numPages = this.options.dataProvider.getNumPages();
+		var numPages = this.numPages();
 		if(numPages >= 2){
 			this.groupMarker = new GroupMarker({"num":numPages});
 			this.group.add(this.groupMarker.group);
 		}
+	};
+	
+	Pager.prototype.numPages = function() {
+		return this.options.dataProvider.getNumPages();
 	};
 	
 	Pager.prototype.destroy = function() {
@@ -33,7 +36,6 @@ function(Game, Scroller, GroupMarker){
 	};
 	
 	Pager.prototype.updateMarker = function() {
-		console.log("pager update "+this.pageNum);
 		if(this.groupMarker){
 			this.groupMarker.setSelected(this.pageNum);
 		}

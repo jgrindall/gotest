@@ -53,7 +53,6 @@ function($, locksFactory, Game, CommsLayout, CommsGroup){
 		$.each(levelData.tiles, function(type, v){
 			$.each(new Array(v), function(i) {
 				b = BlocksFactory.create(type);
-				b.create();
 				b.clickSignal.add($.proxy(that.blockDown, that));
 				b.releaseSignal.add($.proxy(that.blockUp, that));
 				b.origPos = {"x":b.sprite.x, "y":b.sprite.y};

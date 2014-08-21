@@ -20,7 +20,6 @@ ButtonGrid, GameScreenMenu, commModel){
 	var AbstractCommandsPanel  = function(options){
 		Container.call(this, options);
 		Game.alertSignal.add($.proxy(this.onAlert, this));
-		this.create();
 	};
 	
 	AbstractCommandsPanel.prototype = Object.create(Container.prototype);

@@ -7,6 +7,7 @@ define(['app/game'], function(Game){
 		this.img = img;
 		this.clickSignal = new Phaser.Signal();
 		this.releaseSignal = new Phaser.Signal();
+		this.create();
 	};
 
 	Block.prototype.toString = function(){

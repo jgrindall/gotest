@@ -26,10 +26,9 @@ Pager, commModel
 	"use strict";
 		
 	var GameScreenMenu = function(options){
+		this.selectedIndex = 0;
 		Container.call(this, options);
 		this.selectSignal = new Phaser.Signal();
-		this.selectedIndex = 0;
-		this.create();
 	};
 	
 	GameScreenMenu.WIDTH = 800;
@@ -49,32 +48,13 @@ Pager, commModel
 		this.selectedIndex = data.index;
 	};
 	
-	GameScreenMenu.prototype.addBg = function () {
-		this.rect = new Phaser.Graphics(Game.getInstance(), 0, 0);
-		this.rect.beginFill(0x000000);
-		this.rect.alpha = 0.7;
-    	this.rect.drawRect(0, 0, Game.w(), Game.h());
-		this.group.add(this.rect);
-	};
-	
 	GameScreenMenu.prototype.create = function () {
 		Container.prototype.create.call(this);
-		this.addBg();
 		this.addPager();
 		this.addOkButton();
 		this.addCloseButton();
-		this.addLRButtons();
 	};
-	
-	GameScreenMenu.prototype.addLRButtons = function () {
-		this.leftButton = new DirButton({"data":3, "bounds":{'x':10, 'y':Game.cy()}});
-		this.leftButton.mouseUpSignal.add(this.leftClicked, this);
-		this.group.add(this.leftButton.sprite);
-	};
-	
-	GameScreenMenu.prototype.leftClicked = function () {
-		this.pager.prev();
-	};
+
 	
 	GameScreenMenu.prototype.showMenu = function () {
 		Game.getInstance().add.tween(this.group).to( {x: 0, y: 0}, 700, Phaser.Easing.Back.InOut, true, 0, false);
@@ -97,9 +77,9 @@ Pager, commModel
 	};
 	
 	GameScreenMenu.prototype.destroy = function () {
-		this.rect.destroy();
-		this.rect = null;
 		this.pager.destroy();
+		this.okButton.destroy();
+		this.okButton = null;
 		this.pager = null;
 		Container.prototype.destroy.call(this);
 	};

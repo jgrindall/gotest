@@ -4,22 +4,23 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	"use strict";
 	
 	var ButtonGrid = function(options){
-		Container.call(this, options);
+		console.log("bgrid construco");
 		this.selectedIndex = -1;
-		this.data = this.options.data || [];
-		this.spaceX = this.bounds.w / this.options.numX;
-		this.spaceY = this.bounds.h / this.options.numY;
-		this.marginX = (this.spaceX - this.options.buttonClass.WIDTH)/2;
-		this.marginY = (this.spaceY - this.options.buttonClass.HEIGHT)/2;
-		this.signal = new Phaser.Signal();
+		this.data = options.data || [];
+		this.spaceX = options.bounds.w / options.numX;
+		this.spaceY = options.bounds.h / options.numY;
+		this.marginX = (this.spaceX - options.buttonClass.WIDTH)/2;
+		this.marginY = (this.spaceY - options.buttonClass.HEIGHT)/2;
 		this.buttons = [];
-		this.create();
+		Container.call(this, options);
+		this.signal = new Phaser.Signal();	
 	};
 	
 	ButtonGrid.prototype = Object.create(Container.prototype);
 	ButtonGrid.prototype.constructor = ButtonGrid;
 	
 	ButtonGrid.prototype.create = function(){
+		console.log("create button grid");
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addButtons();

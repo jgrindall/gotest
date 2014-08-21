@@ -36,8 +36,6 @@ function(Scene, Preloader, NavButton, CommGameView, LayoutData, BulbButton, Load
 		var padding = 100;
 		this.startButton = new NavButton({"x":Game.cx() - NavButton.WIDTH - padding, "y":Game.h() + 100});
 		this.tutorialButton = new BulbButton({"x":Game.cx() + padding, "y":Game.h() + 100});
-		this.startButton.create();
-		this.tutorialButton.create();
 		this.startButton.mouseUpSignal.add(this.startButtonClicked, this);
 		this.tutorialButton.mouseUpSignal.add(this.tutorialButtonClicked, this);
 		this.world.add(this.startButton.sprite);

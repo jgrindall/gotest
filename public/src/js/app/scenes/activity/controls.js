@@ -5,7 +5,7 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/buttons/multibutton', 'app/scenes/activity/commands/nsewcommandspanel',
 
-'app/scenes/activity/commmodel', 'app/utils/alertmanager', 'app/components/buttons/menubutton',
+'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/utils/alertmanager', 'app/components/buttons/menubutton',
 
 'app/scenes/activity/commandspanelfactory'
 
@@ -17,7 +17,7 @@ TabButtonBar, TabButton,
 
 MultiButton, NSEWCommandsPanel,
 
-commModel, AlertManager, MenuButton, CommandsPanelFactory){
+commModel, colorModel, AlertManager, MenuButton, CommandsPanelFactory){
 	
 	"use strict";
 	
@@ -25,7 +25,6 @@ commModel, AlertManager, MenuButton, CommandsPanelFactory){
 		Container.call(this, options);
 		Game.alertSignal.add($.proxy(this.onAlert, this));
 		commModel.typeSignal.add(this.typeChanged, this);
-		this.create();
 	};
 
 	Controls.prototype = Object.create(Container.prototype);
@@ -58,14 +57,13 @@ commModel, AlertManager, MenuButton, CommandsPanelFactory){
 		h = Game.getHeight();
 		bounds = {'x':this.bounds.x, 'y':0, 'w':w/2, 'h':h};
 		this.bg = new Background({"asset":'sky', "bounds":bounds});
-		this.bg.create();
 		this.group.add(this.bg.sprite);
 	};
 	
 	Controls.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addBg();
-		this.addTabs();
+		//this.addTabs();
 		this.addColorPicker();
 		this.addChangeButton();
 	};
@@ -102,7 +100,7 @@ commModel, AlertManager, MenuButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.colorChosen = function(data) {
-		commModel.setColor(data.num);
+		colorModel.setColor(data.num);
 	};
 	
 	Controls.prototype.addTabs = function() {

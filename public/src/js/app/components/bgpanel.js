@@ -14,10 +14,9 @@ ButtonGrid){
 	"use strict";
 	
 	var BgPanel = function(options){
+		this.panels = [];
 		Container.call(this, options);
 		this.signal = new Phaser.Signal();
-		this.panels = [];
-		this.create();
 	};
 	
 	BgPanel.prototype = Object.create(Container.prototype);

@@ -8,7 +8,6 @@ function(Game, Container, Colors){
 	var Paths  = function(options){
 		Container.call(this, options);
 		this.color = 0;
-		this.create();
 	};
 	
 	Paths.WIDTH = 10;

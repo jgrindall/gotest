@@ -6,6 +6,7 @@ define(['app/game'], function(Game){
 	var Background = function(options){
 		this.options = options;
 		this.bounds = this.options.bounds;
+		this.create();
 	};
 	
 	Background.prototype.destroy = function(){

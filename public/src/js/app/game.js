@@ -52,19 +52,19 @@ function(){
 	};
 	
 	Game.getWidth = function(){
-		var pRatio, w;
-		pRatio = window.devicePixelRatio;
-		w = Math.min(1024, document.body.offsetWidth);
-		return pRatio * w;
+		return 1024;
+		//var pRatio, w;
+		//pRatio = window.devicePixelRatio;
+		//w = Math.min(1024, document.body.offsetWidth);
+		//return pRatio * w;
 	};
 	
-	// 800 x 600??
-	
 	Game.getHeight = function(){
-		var pRatio, h;
-		pRatio = window.devicePixelRatio;
-		h = Math.min(768, document.body.offsetHeight);
-		return pRatio * h;
+		return 768;
+		//var pRatio, h;
+		//pRatio = window.devicePixelRatio;
+		//h = Math.min(768, document.body.offsetHeight);
+		//return pRatio * h;
 	};
 	
 	Game.gonePortrait = function(){

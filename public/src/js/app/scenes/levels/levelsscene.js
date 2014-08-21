@@ -16,11 +16,9 @@ function($, Scene, Scroller, Pager, TextFactory, LevelsButton, HomeButton, Game,
 		Scene.prototype.create.apply(this, arguments);
 		var options = {"snapX":100, "dataProvider" : new LevelDataProvider()};
 		this.scroller = new Pager(options);
-		this.scroller.create();
 		this.scroller.selectSignal.add(this.levelSelect, this);
 		this.text = TextFactory.make(Game.cx() - 300, 0, "Choose a level", TextFactory.LARGE);
 		this.backButton = new HomeButton({"x":0, "y":0});
-		this.backButton.create();
 		this.world.add(this.backButton.sprite);
 		this.world.add(this.scroller.group);
 		this.world.add(this.text);

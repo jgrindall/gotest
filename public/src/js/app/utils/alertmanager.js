@@ -21,6 +21,8 @@ GameScreenMenu, GameBgMenu, Growl){
 		if(AlertManager.alert){
 			AlertManager.alert.selectSignal.removeAll(AlertManager);
 			AlertManager.alert.destroy();
+			AlertManager.bg.destroy();
+			AlertManager.bg = null;
 			AlertManager.alert = null;
 			Game.alertSignal.dispatch({"show":false});
 			Game.unPausePhysics();
@@ -31,16 +33,25 @@ GameScreenMenu, GameBgMenu, Growl){
 		AlertManager.closeAlert();
 	};
 	
+	AlertManager.addBg = function(){
+		AlertManager.bg = new Phaser.Graphics(Game.getInstance(), 0, 0);
+		AlertManager.bg.beginFill(0x000000);
+		AlertManager.bg.alpha = 0.7;
+    	AlertManager.bg.drawRect(0, 0, Game.w(), Game.h());
+		Game.getInstance().world.add(AlertManager.bg);
+	};
+	
 	AlertManager.make = function(ClassRef, label, callback){
 		var x, y;
 		x = (Game.w() - ClassRef.WIDTH)/2;
 		y = (Game.h() - ClassRef.HEIGHT)/2;
+		AlertManager.addBg();
 		AlertManager.close();
 		AlertManager.alert = new ClassRef({"label":label, "bounds":{"x":x, "y":y, "w":ClassRef.WIDTH, "h":ClassRef.HEIGHT}});
 		AlertManager.alert.selectSignal.add($.proxy(this.buttonClick, this, callback));
+		Game.getInstance().world.add(AlertManager.alert.group);
 		Game.alertSignal.dispatch({"show":true});
 		setTimeout(function(){
-			Game.getInstance().world.add(AlertManager.alert.group);
 			AlertManager.alert.showMenu();
 		}, 300);
 	};

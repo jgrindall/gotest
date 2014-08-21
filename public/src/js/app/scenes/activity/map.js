@@ -6,9 +6,8 @@ function(Game, Container){
 	"use strict";
 	
 	var Map  = function(options){
-		Container.call(this, options);
 		this.bg = 0;
-		this.create();
+		Container.call(this, options);
 	};
 	
 	Map.prototype = Object.create(Container.prototype);

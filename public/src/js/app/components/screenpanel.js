@@ -14,10 +14,9 @@ ButtonGrid){
 	"use strict";
 	
 	var ScreenPanel = function(options){
+		this.panels = [];
 		Container.call(this, options);
 		this.signal = new Phaser.Signal();
-		this.panels = [];
-		this.create();
 	};
 	
 	ScreenPanel.prototype = Object.create(Container.prototype);

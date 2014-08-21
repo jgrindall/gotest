@@ -3,13 +3,13 @@ define(['app/game', 'app/components/container',
 
 'app/scenes/activity/map', 'app/scenes/activity/turtle', 'app/scenes/activity/paths',
 
-'app/scenes/activity/commmodel'],
+'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel'],
 
 function(Game, Container,
 
 Map, Turtle, Paths,
 
-commModel){
+commModel, colorModel){
 	
 	"use strict";
 	
@@ -17,8 +17,7 @@ commModel){
 		Container.call(this, options);
 		commModel.executeSignal.add(this.commandExecute, this);
 		commModel.resetSignal.add(this.reset, this);
-		commModel.colorSignal.add(this.colorChange, this);
-		this.create();
+		colorModel.changeSignal.add(this.colorChange, this);
 		this.reset();
 	};
 	

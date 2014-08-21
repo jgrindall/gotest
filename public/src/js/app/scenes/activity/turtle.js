@@ -7,7 +7,6 @@ function(Game, Container){
 	
 	var Turtle  = function(options){
 		Container.call(this, options);
-		this.create();
 	};
 	
 	Turtle.prototype = Object.create(Container.prototype);

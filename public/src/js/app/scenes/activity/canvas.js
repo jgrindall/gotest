@@ -20,7 +20,6 @@ Map, Drawing){
 	var Canvas  = function(options){
 		Container.call(this, options);
 		layoutModel.bgSignal.add(this.changeBg, this);
-		this.create();
 	};
 	
 	Canvas.prototype = Object.create(Container.prototype);
@@ -36,7 +35,6 @@ Map, Drawing){
 		h = Game.h();
 		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':w/2, 'h':h};
 		this.bg = new Background({"asset":'background', "bounds":bounds});
-		this.bg.create();
 		this.group.add(this.bg.sprite);
 	};
 	

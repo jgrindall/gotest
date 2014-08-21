@@ -1,23 +1,29 @@
 
-define(['jquery', 'app/game'],function($, Game){
+define(['jquery', 'app/game', 'app/components/container'],
+
+function($, Game, Container){
 	
 	"use strict";
-	
+
 	var Scroller = function(options){
-		this.options = options;
 		this.x0 = null;
 		this.dragging = false;
 		this.minX = 0;
 		this.pageNum = 0;
 		this.selectSignal = new Phaser.Signal();
 		this.pageSignal = new Phaser.Signal();
-		this.create();
+		console.log("Scroller constructor");
+		Container.call(this, options);
 	};
+	
+	Scroller.prototype = Object.create(Container.prototype);
+	Scroller.prototype.constructor = Scroller;
 	
 	Scroller.MIN_MOVE = 10;
 	
 	Scroller.prototype.create = function(){
-		this.group = new Phaser.Group(Game.getInstance());
+		console.log("create scroller");
+		Container.prototype.create.call(this);
 		this.contentGroup = new Phaser.Group(Game.getInstance());
 		this.addBg();
 		this.addChildren();
@@ -36,7 +42,7 @@ define(['jquery', 'app/game'],function($, Game){
 	
 	Scroller.prototype.addBg = function() {
 		if(this.options.bgasset){
-			this.panel = new Phaser.Sprite(Game.getInstance(),0, 0, this.options.bgasset);
+			this.panel = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
 			this.group.add(this.panel);
 		}
 	};	
@@ -132,7 +138,9 @@ define(['jquery', 'app/game'],function($, Game){
 		this.contentGroup.destroy(true);
 		this.group.destroy(true);
 		this.options = null;
+		this.pageSignal = null;
 		this.selectSignal = null;
+		Container.prototype.destroy.call(this);
 	};
 	
 	return Scroller;
