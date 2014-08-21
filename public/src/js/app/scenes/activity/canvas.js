@@ -3,7 +3,7 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton', 'app/scenes/activity/commmodel',
 
-'app/scenes/activity/layoutmodel',
+'app/scenes/activity/bgmodel',
 
 'app/scenes/activity/map', 'app/scenes/activity/drawing'],
 
@@ -11,7 +11,7 @@ function(Game, Container, Background,
 
 TabButtonBar, TabButton, commModel,
 
-layoutModel,
+bgModel,
 
 Map, Drawing){
 	
@@ -19,7 +19,7 @@ Map, Drawing){
 	
 	var Canvas  = function(options){
 		Container.call(this, options);
-		layoutModel.bgSignal.add(this.changeBg, this);
+		bgModel.changeSignal.add(this.changeBg, this);
 	};
 	
 	Canvas.prototype = Object.create(Container.prototype);

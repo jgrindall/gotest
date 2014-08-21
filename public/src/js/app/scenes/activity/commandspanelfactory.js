@@ -1,7 +1,7 @@
 
 define(['app/game', 'app/scenes/activity/commspeed', 'app/scenes/activity/commandtypes',
 
-'app/scenes/activity/commands/nsewcommandspanel', 'app/scenes/activity/commands/keyscommandspanel'
+'app/scenes/activity/commandpanels/nsewcommandspanel', 'app/scenes/activity/commandpanels/keyscommandspanel'
 
 ],
 

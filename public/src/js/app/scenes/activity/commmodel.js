@@ -1,38 +1,28 @@
 
-define(['app/game', 'app/scenes/activity/commspeed', 'app/scenes/activity/commandtypes'],
+define(['app/game', 'app/scenes/activity/commspeed',
 
-function(Game, CommSpeed, CommandTypes){
+'app/scenes/activity/commandtypes', 'app/scenes/activity/speedmodel'],
+
+function(Game, CommSpeed,
+
+CommandTypes, speedModel){
 	
 	"use strict";
 	
 	var CommModel  = function(){
 		this.commands = [];
 		this.playing = false;
-		this.input = null;
-		this.type = CommandTypes.NSEW;
 		this.commandNum = 0;
-		this.speed = CommSpeed.MED;
-		this.addSignal = new Phaser.Signal();
 		this.executeSignal = new Phaser.Signal();
 		this.resetSignal = new Phaser.Signal();
-		this.typeSignal = new Phaser.Signal();
 	};
 	
-	CommModel.SUBDIV = 20;
-	CommModel.SPEED_FACTOR = 10;
+	CommModel.SUBDIV = 20;			// number of subsections of the line
+	CommModel.SPEED_FACTOR = 10;	// scale factor for speed
 	
 	CommModel.prototype.performCommand = function() {
 		this.sub = 0;
 		this.triggerEvent();
-	};
-	
-	CommModel.prototype.load = function() {
-		this.typeSignal.dispatch({"type":this.type});
-	};
-	
-	CommModel.prototype.setType = function(i) {
-		this.type = i;
-		this.typeSignal.dispatch({"type":this.type});
 	};
 	
 	CommModel.prototype.restart = function(command) {
@@ -84,8 +74,9 @@ function(Game, CommSpeed, CommandTypes){
 			console.log("this.commandNum "+this.commandNum+"  len = "+this.commands.length);
 			command = this.commands[this.commandNum];
 			fraction = this.sub / CommModel.SUBDIV;
+			console.log("execute "+command.index+" "+command.num);
 			this.executeSignal.dispatch({"command":command, "fraction":fraction});
-			this.timeout = setTimeout($.proxy(this.nextInterval, this), this.speed*CommModel.SPEED_FACTOR);
+			this.timeout = setTimeout($.proxy(this.nextInterval, this), speedModel.speed*CommModel.SPEED_FACTOR);
 		}
 	};
 	
@@ -111,6 +102,7 @@ function(Game, CommSpeed, CommandTypes){
 	};
 	
 	CommModel.prototype.add = function(command) {
+		console.log("add "+command.index+" "+command.num);
 		this.commands.push(command);
 		if(!this.playing){
 			this.restart();

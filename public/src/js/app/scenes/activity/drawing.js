@@ -50,14 +50,15 @@ commModel, colorModel){
 	Drawing.prototype.setHeading = function(command) {
 		var dx, dy, angles, thetaRad;
 		angles = [135, 90, 45, 180, 0, 0, 225, -90, -45];
-		this.angle = -angles[command];
+		this.angle = -angles[command.index];
 		thetaRad = this.angle * Drawing.PI180;
-		dx = Drawing.DIST * Math.cos(thetaRad);
-		dy = Drawing.DIST * Math.sin(thetaRad);
+		dx = Drawing.DIST * command.num * Math.cos(thetaRad);
+		dy = Drawing.DIST * command.num * Math.sin(thetaRad);
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
 	};
 	
 	Drawing.prototype.execute = function(command, fraction) {
+		console.log("command "+command.index+" / /"+command.num+" / "+fraction);
 		var px, py, endPos;
 		if(fraction === 0){
 			this.startPos = {'x':this.currentPos.x, 'y':this.currentPos.y};

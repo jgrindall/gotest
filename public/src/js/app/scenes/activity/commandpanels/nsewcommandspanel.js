@@ -3,13 +3,17 @@ define(['app/game', 'app/components/container',
 
 'app/components/buttons/dirbutton', 'app/components/buttons/keybutton',
 
-'app/components/buttongrid', 'app/scenes/activity/commands/abstractcommandspanel', 'app/scenes/activity/commmodel'
+'app/components/buttongrid', 'app/scenes/activity/commandpanels/abstractcommandspanel',
+
+'app/scenes/activity/commmodel'
 
 ],
 
 function(Game, Container, DirButton, KeyButton,
 
-ButtonGrid, AbstractCommandsPanel, commModel){
+ButtonGrid, AbstractCommandsPanel,
+
+commModel){
 	
 	"use strict";
 	

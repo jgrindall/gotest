@@ -3,7 +3,7 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/components/buttons/dirbutton', 'app/components/buttons/keybutton',
+'app/components/buttons/dirbutton', 'app/components/buttons/keybutton', 'app/scenes/activity/commands/abstractcommand',
 
 'app/components/buttongrid', 'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/commmodel'
 
@@ -11,7 +11,7 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 function(Game, Container, Background,
 
-TabButtonBar, TabButton, DirButton, KeyButton,
+TabButtonBar, TabButton, DirButton, KeyButton, AbstractCommand,
 
 ButtonGrid, GameScreenMenu, commModel){
 	
@@ -71,15 +71,13 @@ ButtonGrid, GameScreenMenu, commModel){
 	};
 	
 	AbstractCommandsPanel.prototype.addCommand = function(index){
-		commModel.add(index);
+		this.addCommands(index, 1);
 	};
 	
 	AbstractCommandsPanel.prototype.addCommands = function(index, num){
-		if(num >= 1){
-			for(var i = 1; i <= num; i++){
-				commModel.add(index);
-			}
-		}
+		console.log("add from panel "+index  +"  "+num);
+		var c = new AbstractCommand(index, num);
+		commModel.add(c);
 	};
 	
 	AbstractCommandsPanel.prototype.destroy = function() {

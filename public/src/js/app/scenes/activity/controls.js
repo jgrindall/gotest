@@ -3,9 +3,11 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/components/buttons/multibutton', 'app/scenes/activity/commands/nsewcommandspanel',
+'app/components/buttons/multibutton', 'app/scenes/activity/commandpanels/nsewcommandspanel',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/utils/alertmanager', 'app/components/buttons/menubutton',
+'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/layoutmodel',
+
+'app/utils/alertmanager', 'app/components/buttons/menubutton',
 
 'app/scenes/activity/commandspanelfactory'
 
@@ -17,20 +19,23 @@ TabButtonBar, TabButton,
 
 MultiButton, NSEWCommandsPanel,
 
-commModel, colorModel, AlertManager, MenuButton, CommandsPanelFactory){
+commModel, colorModel, layoutModel,
+
+AlertManager, MenuButton, CommandsPanelFactory){
 	
 	"use strict";
 	
 	var Controls  = function(options){
 		Container.call(this, options);
 		Game.alertSignal.add($.proxy(this.onAlert, this));
-		commModel.typeSignal.add(this.typeChanged, this);
+		layoutModel.changeSignal.add(this.typeChanged, this);
 	};
 
 	Controls.prototype = Object.create(Container.prototype);
 	Controls.prototype.constructor = Controls;
 	
 	Controls.prototype.typeChanged = function(data) {
+		console.log("type changed "+data.type);
 		this.addCommandsPanel(data.type);
 	};
 	
@@ -75,7 +80,7 @@ commModel, colorModel, AlertManager, MenuButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.onChanged = function(data) {
-		commModel.setType(data.selectedIndex);
+		layoutModel.setType(data.selectedIndex);
 	};
 	
 	Controls.prototype.changeButtonClicked = function(data) {
@@ -93,7 +98,7 @@ commModel, colorModel, AlertManager, MenuButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':500, 'y':500, 'w':137, 'h':66};
+		var bounds = {'x':600, 'y':Game.h() - 60, 'w':137, 'h':66};
 		this.colorPicker = new MultiButton({"bounds":bounds, "asset":'pens', "num":8});
 		this.colorPicker.mouseUpSignal.add(this.colorChosen, this);
 		this.group.add(this.colorPicker.sprite);

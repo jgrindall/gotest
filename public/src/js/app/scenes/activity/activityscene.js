@@ -5,9 +5,11 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scene
 
 'app/components/buttons/menubutton', 'app/components/buttons/okbutton', 'app/utils/alertmanager',
 
-'app/components/loaderbar', 'app/scenes/activity/menu', 'app/scenes/activity/commmodel',
+'app/components/loaderbar', 'app/scenes/activity/menu',
 
-'app/scenes/activity/layoutmodel'],
+'app/scenes/activity/commmodel', 'app/scenes/activity/layoutmodel',
+
+'app/scenes/activity/bgmodel'],
 
 function(Game, Scene, Canvas, Controls,
 
@@ -15,9 +17,11 @@ TextFactory, TabButton, CloseButton,
 
 MenuButton, OkButton, AlertManager,
 
-LoaderBar, Menu, commModel,
+LoaderBar, Menu,
 
-layoutModel){
+commModel, layoutModel,
+
+bgModel){
 	
 	"use strict";
 	
@@ -33,7 +37,7 @@ layoutModel){
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
-		commModel.load();
+		layoutModel.load();
 	};
 	
 	ActivityScene.prototype.addText = function() {
@@ -56,7 +60,7 @@ layoutModel){
 	};
 	
 	ActivityScene.prototype.bgChosen = function(data) {
-		layoutModel.setBg(data.selectedIndex);
+		bgModel.setBg(data.selectedIndex);
 	};
 	
 	ActivityScene.prototype.menuSelected = function(data) {
