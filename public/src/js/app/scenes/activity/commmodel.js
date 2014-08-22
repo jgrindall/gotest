@@ -37,7 +37,6 @@ colorModel){
 	};
 	
 	CommModel.prototype.changeColor = function(data) {
-		console.log("changecolor "+data.color);
 		if(this.playing){
 			var nextCommand = this.getNextCommand();
 			if(nextCommand){
@@ -58,7 +57,8 @@ colorModel){
 		var i, command;
 		for(i = i0; i <= i1; i++){
 			command = this.commands[i];
-			this.executeSignal.dispatch({"command":command});
+			this.executeSignal.dispatch({"command":command,"fraction":0, "totalTime":0});
+			this.executeSignal.dispatch({"command":command,"fraction":1, "totalTime":0});
 		}
 	};
 	

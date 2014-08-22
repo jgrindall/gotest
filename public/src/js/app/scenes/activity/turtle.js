@@ -23,19 +23,24 @@ function(Game, Container){
 		Game.getInstance().add.tween(this.sprite).to( {'angle':theta + 90}, 100, Phaser.Easing.Linear.None, true, 0, false);
 	};
 	
-	Turtle.prototype.tweenTo = function(p, t) {
+	Turtle.prototype.tweenTo = function(p, time) {
 		if(this.tween){
 			this.tween.stop();
 			this.tween = null;
 		}
-		this.tween = Game.getInstance().add.tween(this.sprite).to( {'x':p.x, 'y':p.y}, t, Phaser.Easing.Linear.None, true, 0, false);
+		if(time === 0){
+			this.move(p);	
+		}
+		else{
+			this.tween = Game.getInstance().add.tween(this.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
+		}
 	};
 	
-	Turtle.prototype.move = function(p, theta) {
-		//this.sprite.x = p.x;
-		//this.sprite.y = p.y;
+	Turtle.prototype.move = function(p) {
+		this.sprite.x = p.x;
+		this.sprite.y = p.y;
 	};
-
+	
 	Turtle.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addImage();

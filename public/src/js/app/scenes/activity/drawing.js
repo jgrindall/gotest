@@ -35,7 +35,8 @@ commModel, colorModel){
 	Drawing.prototype.onReset = function(){
 		this.currentPos = $.extend({}, Drawing.START_POS);
 		this.startPos = $.extend({}, Drawing.START_POS);
-		this.turtle.move(this.startPos, 0);
+		this.turtle.rotate(0);
+		this.turtle.move(this.startPos);
 		this.angle = 0;
 		this.paths.clear();
 	};
@@ -55,7 +56,6 @@ commModel, colorModel){
 	};
 	
 	Drawing.prototype.execute = function(command, fraction, totalTime) {
-		console.log("execute "+fraction);
 		var px, py, endPos;
 		if(fraction === 0){
 			this.startPos = {'x':this.currentPos.x, 'y':this.currentPos.y};

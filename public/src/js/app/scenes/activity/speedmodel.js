@@ -10,7 +10,7 @@ AbstractModel){
 	"use strict";
 	
 	var SpeedModel  = function(){
-		this.speed = CommSpeed.VFAST;
+		this.speed = CommSpeed.VSLOW;
 	};
 	
 	SpeedModel.prototype = Object.create(AbstractModel.prototype);
