@@ -33,7 +33,7 @@ Map, Drawing){
 		var w, h, bounds;
 		w = Game.w();
 		h = Game.h();
-		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':w/2, 'h':h};
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
 		this.bg = new Background({"asset":'background', "bounds":bounds});
 		this.group.add(this.bg.sprite);
 	};
@@ -51,7 +51,7 @@ Map, Drawing){
 	};
 	
 	Canvas.prototype.addMap = function() {
-		var bounds = {'x':50, 'y':50, 'w':600, 'h':50};
+		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
 		this.map = new Map({'bounds':bounds});
 		this.group.add(this.map.group);
 	};

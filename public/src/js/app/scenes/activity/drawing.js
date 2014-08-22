@@ -16,9 +16,9 @@ commModel, colorModel){
 	var Drawing  = function(options){
 		Container.call(this, options);
 		commModel.executeSignal.add(this.commandExecute, this);
-		commModel.resetSignal.add(this.reset, this);
-		colorModel.changeSignal.add(this.colorChange, this);
-		this.reset();
+		commModel.resetSignal.add(this.onReset, this);
+		commModel.undoSignal.add(this.onUndo, this);
+		this.onReset();
 	};
 	
 	Drawing.DIST = 100;
@@ -28,11 +28,11 @@ commModel, colorModel){
 	Drawing.prototype = Object.create(Container.prototype);
 	Drawing.prototype.constructor = Drawing;
 	
-	Drawing.prototype.colorChange = function(data){
-		this.paths.setColor(data.color);
+	Drawing.prototype.onUndo = function(){
+		
 	};
 	
-	Drawing.prototype.reset = function(){
+	Drawing.prototype.onReset = function(){
 		this.currentPos = $.extend({}, Drawing.START_POS);
 		this.startPos = $.extend({}, Drawing.START_POS);
 		this.turtle.move(this.startPos, 0);
@@ -41,34 +41,33 @@ commModel, colorModel){
 	};
 	
 	Drawing.prototype.commandExecute = function(data){
-		var command, fraction;
-		command = data.command;
-		fraction = data.fraction;
-		this.execute(command, fraction);
+		this.execute(data.command, data.fraction, data.totalTime);
 	};
 	
 	Drawing.prototype.setHeading = function(command) {
 		var dx, dy, angles, thetaRad;
 		angles = [135, 90, 45, 180, 0, 0, 225, -90, -45];
-		this.angle = -angles[command.index];
+		this.angle = -angles[command.direction];
 		thetaRad = this.angle * Drawing.PI180;
-		dx = Drawing.DIST * command.num * Math.cos(thetaRad);
-		dy = Drawing.DIST * command.num * Math.sin(thetaRad);
+		dx = Drawing.DIST *  Math.cos(thetaRad);
+		dy = Drawing.DIST *  Math.sin(thetaRad);
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
 	};
 	
-	Drawing.prototype.execute = function(command, fraction) {
-		console.log("command "+command.index+" / /"+command.num+" / "+fraction);
+	Drawing.prototype.execute = function(command, fraction, totalTime) {
+		console.log("execute "+fraction);
 		var px, py, endPos;
 		if(fraction === 0){
 			this.startPos = {'x':this.currentPos.x, 'y':this.currentPos.y};
 			this.setHeading(command);
+			this.turtle.rotate(this.angle);
+			this.turtle.tweenTo(this.endPos, totalTime);
 		}
 		px =  this.startPos.x + fraction * (this.endPos.x - this.startPos.x);
    		py =  this.startPos.y + fraction * (this.endPos.y - this.startPos.y);
 		endPos = {'x':px, 'y':py};
-		this.paths.line(this.currentPos, endPos);
-		this.turtle.move(endPos, this.angle);
+		this.paths.line(this.currentPos, endPos, command.color);
+		this.turtle.move(endPos);
 		this.currentPos = {'x':endPos.x, 'y':endPos.y};
 	};
 	

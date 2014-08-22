@@ -5,7 +5,7 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/buttons/dirbutton', 'app/components/buttons/keybutton', 'app/scenes/activity/commands/abstractcommand',
 
-'app/components/buttongrid', 'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/commmodel'
+'app/components/buttongrid', 'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel'
 
 ],
 
@@ -13,7 +13,7 @@ function(Game, Container, Background,
 
 TabButtonBar, TabButton, DirButton, KeyButton, AbstractCommand,
 
-ButtonGrid, GameScreenMenu, commModel){
+ButtonGrid, GameScreenMenu, commModel, colorModel){
 	
 	"use strict";
 	
@@ -76,8 +76,12 @@ ButtonGrid, GameScreenMenu, commModel){
 	
 	AbstractCommandsPanel.prototype.addCommands = function(index, num){
 		console.log("add from panel "+index  +"  "+num);
-		var c = new AbstractCommand(index, num);
-		commModel.add(c);
+		var i, c;
+		for(i = 0; i < num; i++){
+			c = new AbstractCommand(index, colorModel.color, i, num);
+			console.log("set color for new command "+colorModel.color);
+			commModel.add(c);
+		}
 	};
 	
 	AbstractCommandsPanel.prototype.destroy = function() {

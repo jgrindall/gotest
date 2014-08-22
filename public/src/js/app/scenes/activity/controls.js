@@ -3,7 +3,7 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/components/buttons/multibutton', 'app/scenes/activity/commandpanels/nsewcommandspanel',
+'app/scenes/activity/colorpicker', 'app/scenes/activity/commandpanels/nsewcommandspanel',
 
 'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/layoutmodel',
 
@@ -17,7 +17,7 @@ function(Game, Container, Background,
 
 TabButtonBar, TabButton,
 
-MultiButton, NSEWCommandsPanel,
+ColorPicker, NSEWCommandsPanel,
 
 commModel, colorModel, layoutModel,
 
@@ -31,6 +31,8 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		layoutModel.changeSignal.add(this.typeChanged, this);
 	};
 
+	Controls.WIDTH = 400;
+	
 	Controls.prototype = Object.create(Container.prototype);
 	Controls.prototype.constructor = Controls;
 	
@@ -71,12 +73,19 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		//this.addTabs();
 		this.addColorPicker();
 		this.addChangeButton();
+		this.addTeacherButton();
 	};
 	
 	Controls.prototype.addChangeButton = function() {
-		this.changeButton = new MenuButton({"bounds":{"x":Game.w()/2, "y":0}});
+		this.changeButton = new MenuButton({"data":1,"bounds":{"x":Game.w()/2, "y":0}});
 		this.changeButton.mouseUpSignal.add(this.changeButtonClicked, this);
 		this.group.add(this.changeButton.sprite);
+	};
+	
+	Controls.prototype.addTeacherButton = function() {
+		this.teacherButton = new MenuButton({"data":2,"bounds":{"x":Game.w()/2 + 70, "y":0}});
+		this.teacherButton.mouseUpSignal.add(this.teacherButtonClicked, this);
+		this.group.add(this.teacherButton.sprite);
 	};
 	
 	Controls.prototype.onChanged = function(data) {
@@ -87,19 +96,23 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		AlertManager.makeScreenMenu($.proxy(this.onChanged, this));
 	};
 	
+	Controls.prototype.teacherButtonClicked = function(data) {
+		AlertManager.makeScreenMenu($.proxy(this.onChanged, this));
+	};
+	
 	Controls.prototype.addCommandsPanel = function(type) {
 		if(this.commandsPanel){
 			this.commandsPanel.destroy();
 			this.commandsPanel = null;
 		}
-		var bounds = {'x':this.bounds.x, 'y':40, 'w':300, 'h':300};
+		var bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, bounds);
 		this.group.add(this.commandsPanel.group);
 	};
 	
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':600, 'y':Game.h() - 60, 'w':137, 'h':66};
-		this.colorPicker = new MultiButton({"bounds":bounds, "asset":'pens', "num":8});
+		var bounds = {'x':this.bounds.x, 'y':Game.h() - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
+		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8});
 		this.colorPicker.mouseUpSignal.add(this.colorChosen, this);
 		this.group.add(this.colorPicker.sprite);
 	};

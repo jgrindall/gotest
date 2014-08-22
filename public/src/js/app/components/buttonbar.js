@@ -30,6 +30,18 @@ function(Game, Container, ButtonGrid){
 		ButtonGrid.prototype.create.call(this);
 	};
 	
+	ButtonBar.prototype.enableButtonAt = function(i){
+		this.getButtonAt(i).enableInput();
+	};
+	
+	ButtonBar.prototype.disableButtonAt = function(i){
+		this.getButtonAt(i).disableInput();
+	};
+	
+	ButtonBar.prototype.getButtonAt = function(i){
+		return this.buttons[i];
+	};
+	
 	ButtonBar.prototype.addButtons = function(){
 		ButtonGrid.prototype.addButtons.call(this);
 	};

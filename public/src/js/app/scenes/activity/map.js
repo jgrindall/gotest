@@ -24,6 +24,7 @@ function(Game, Container){
 			this.sprite = null;
 		}
 		this.sprite = new Phaser.Image(Game.getInstance(), this.bounds.x, this.bounds.y, 'map'+this.bg);
+		this.sprite.scale = {x:this.bounds.w/this.sprite.width, y:this.bounds.h/this.sprite.height};
 		this.group.add(this.sprite);
 	};
 	

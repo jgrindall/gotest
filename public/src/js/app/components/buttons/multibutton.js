@@ -29,6 +29,7 @@ InteractiveSprite){
 	
 	MultiButton.prototype.create = function(){
 		var i;
+		console.log("create "+JSON.stringify(this.options));
 		this.sprite = new InteractiveSprite(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset);
 		this.sprite.name = "colorpicker";
 		for(i = 0; i<= this.options.num - 1; i++){

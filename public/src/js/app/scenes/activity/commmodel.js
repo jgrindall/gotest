@@ -1,11 +1,15 @@
 
 define(['app/game', 'app/scenes/activity/commspeed',
 
-'app/scenes/activity/commandtypes', 'app/scenes/activity/speedmodel'],
+'app/scenes/activity/commandtypes', 'app/scenes/activity/speedmodel',
+
+'app/scenes/activity/colormodel'],
 
 function(Game, CommSpeed,
 
-CommandTypes, speedModel){
+CommandTypes, speedModel,
+
+colorModel){
 	
 	"use strict";
 	
@@ -15,28 +19,46 @@ CommandTypes, speedModel){
 		this.commandNum = 0;
 		this.executeSignal = new Phaser.Signal();
 		this.resetSignal = new Phaser.Signal();
+		this.undoSignal = new Phaser.Signal();
+		this.statusSignal = new Phaser.Signal();
+		colorModel.changeSignal.add(this.changeColor, this);
 	};
 	
-	CommModel.SUBDIV = 20;			// number of subsections of the line
 	CommModel.SPEED_FACTOR = 10;	// scale factor for speed
+	CommModel.STEPS = 8;
+	CommModel.PAUSE = 30;
 	
 	CommModel.prototype.performCommand = function() {
-		this.sub = 0;
-		this.triggerEvent();
+		var that = this;
+		setTimeout(function(){
+			that.step = 0;
+			that.triggerEvent();
+		}, CommModel.PAUSE*speedModel.speed);
+	};
+	
+	CommModel.prototype.changeColor = function(data) {
+		console.log("changecolor "+data.color);
+		if(this.playing){
+			var nextCommand = this.getNextCommand();
+			if(nextCommand){
+				nextCommand.color = data.color;
+			}
+		}
 	};
 	
 	CommModel.prototype.restart = function(command) {
-		console.log("restart");
-		this.playing = true;
-		this.performCommand();
+		if(!this.playing){
+			this.playing = true;
+			this.statusSignal.dispatch({"playing":this.playing});
+			this.performCommand();
+		}
 	};
 	
 	CommModel.prototype.playAllFromToIncluding = function(i0, i1) {
 		var i, command;
 		for(i = i0; i <= i1; i++){
 			command = this.commands[i];
-			this.executeSignal.dispatch({"command":command, "fraction":0});
-			this.executeSignal.dispatch({"command":command, "fraction":1});
+			this.executeSignal.dispatch({"command":command});
 		}
 	};
 	
@@ -50,10 +72,19 @@ CommandTypes, speedModel){
 		this.commands = [];
 	};
 	
-	CommModel.prototype.undo = function() {
-		if(!this.playing && this.commands.length >= 1){
+	CommModel.prototype.removeCommands = function() {
+		var topCommand, numToRemove, i;
+		topCommand = this.commands[this.commands.length - 1];
+		numToRemove = topCommand.total;
+		for(i = 1; i<= numToRemove; i++){
 			this.commands.pop();
 			this.commandNum --;
+		}
+	};
+	
+	CommModel.prototype.undo = function() {
+		if(!this.playing && this.commands.length >= 1){
+			this.removeCommands();
 			this.resetSignal.dispatch();
 			this.playAll();
 		}
@@ -62,29 +93,40 @@ CommandTypes, speedModel){
 	CommModel.prototype.stop = function() {
 		if(this.playing){
 			this.playing = false;
+			this.statusSignal.dispatch({"playing":this.playing});
 			this.commands = [];
 			this.commandNum = 0;
 			this.resetSignal.dispatch();
 		}
 	};
 	
+	CommModel.prototype.getNextCommand = function() {
+		return this.commands[this.commandNum + 1];
+	};
+	
+	CommModel.prototype.getCurrentCommand = function() {
+		return this.commands[this.commandNum];
+	};
+	
+	CommModel.prototype.scheduleNext = function() {
+		var interval;
+		interval = speedModel.speed * CommModel.SPEED_FACTOR;
+		this.timeout = setTimeout($.proxy(this.nextInterval, this), interval);
+	};
+	
 	CommModel.prototype.triggerEvent = function() {
 		var command, fraction;
 		if(this.playing){
-			console.log("this.commandNum "+this.commandNum+"  len = "+this.commands.length);
-			command = this.commands[this.commandNum];
-			fraction = this.sub / CommModel.SUBDIV;
-			console.log("execute "+command.index+" "+command.num);
-			this.executeSignal.dispatch({"command":command, "fraction":fraction});
-			this.timeout = setTimeout($.proxy(this.nextInterval, this), speedModel.speed*CommModel.SPEED_FACTOR);
+			command = this.getCurrentCommand();
+			this.executeSignal.dispatch({"command":command, "fraction":this.step/CommModel.STEPS, "totalTime":CommModel.STEPS * speedModel.speed * CommModel.SPEED_FACTOR});
+			this.scheduleNext();
 		}
 	};
 	
 	CommModel.prototype.nextInterval = function() {
-		this.sub++;
-		if(this.sub === CommModel.SUBDIV + 1){
+		this.step++
+		if(this.step === CommModel.STEPS + 1){
 			this.commandNum++;
-			console.log("next command now this.commandNum = "+this.commandNum);
 			if(this.commandNum === this.commands.length){
 				this.finished();		
 			}
@@ -99,10 +141,10 @@ CommandTypes, speedModel){
 	
 	CommModel.prototype.finished = function() {
 		this.playing = false;
+		this.statusSignal.dispatch({"playing":this.playing});
 	};
 	
 	CommModel.prototype.add = function(command) {
-		console.log("add "+command.index+" "+command.num);
 		this.commands.push(command);
 		if(!this.playing){
 			this.restart();
@@ -111,6 +153,18 @@ CommandTypes, speedModel){
 	
 	CommModel.prototype.clear = function(command) {
 		this.commands = [];
+	};
+	
+	CommModel.prototype.destroy = function(){
+		AbstractModel.prototype.destroy.call(this);
+		this.commands = [];
+		this.executeSignal.dispose();
+		this.resetSignal.dispose();
+		this.executeSignal = null;
+		this.resetSignal = null;
+		if(this.timeout){
+			clearTimeout(this.timeout);
+		}
 	};
 	
 	return new CommModel();
