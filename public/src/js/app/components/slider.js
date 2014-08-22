@@ -8,7 +8,6 @@ define(['app/game', 'app/components/container'], function(Game, Container){
 		this.changeSignal = new Phaser.Signal();
 	};
 	
-	Slider.NUM = 5;
 	Slider.WIDTH = 200;
 	Slider.HEIGHT = 40;
 	Slider.HANDLEWIDTH = 40;
@@ -29,7 +28,7 @@ define(['app/game', 'app/components/container'], function(Game, Container){
 	
 	Slider.prototype.snap = function() {
 		var num, stepDist;
-		stepDist = Slider.WIDTH / Slider.NUM;
+		stepDist = Slider.WIDTH / this.options.num;
 		num = Math.round ( (this.handle.x - this.bounds.x) / stepDist );
 		this.handle.x = this.bounds.x + num * stepDist;
 		this.changeSignal.dispatch({"num":num});

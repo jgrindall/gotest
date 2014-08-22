@@ -82,12 +82,11 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.changeSpeed = function(data) {
-		console.log("SPEED "+data.num);
 		speedModel.setSpeed(data.num);
 	};
 	
 	Controls.prototype.addSpeedButton = function() {
-		this.speedSlider = new Slider({"bounds":{"x":Game.w()/2 + 150, "y":0}});
+		this.speedSlider = new Slider({"num":4, "bounds":{"x":Game.w()/2 + 150, "y":0}});
 		this.speedSlider.changeSignal.add(this.changeSpeed, this);
 		this.group.add(this.speedSlider.group);
 		console.log("set to : "+speedModel.getData());
