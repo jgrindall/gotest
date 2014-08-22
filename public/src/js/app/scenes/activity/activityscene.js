@@ -52,24 +52,16 @@ bgModel){
 	};
 	
 	ActivityScene.prototype.addMenu = function() {
-		var bounds = {'x':0, 'y':0, 'w':200, 'h':50};
-		this.menu = new Menu({"bounds":bounds, "buttonClass":MenuButton, "numX":3, "numY":1, "data":[0, 1, 2]});
+		var bounds = {'x':0, 'y':0, 'w':300, 'h':50};
+		this.menu = new Menu({"bounds":bounds});
 		this.menu.signal.add(this.menuSelected, this);
-		console.log("menu gp "+this.menu.group);
 		this.world.add(this.menu.group);
 	};
-	548/4
-	
-	274/2
-	
-	137
-	
-	137/8
-	
-	
 	
 	ActivityScene.prototype.bgChosen = function(data) {
-		bgModel.setBg(data.selectedIndex);
+		if(data.index === 1){
+			bgModel.setBg(data.selectedIndex);
+		}
 	};
 	
 	ActivityScene.prototype.menuSelected = function(data) {

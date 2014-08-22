@@ -33,6 +33,7 @@ ButtonGrid){
 	
 	BgPanel.prototype.addImage = function(){
 		this.sprite = new Phaser.Image(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
+		this.sprite.scale = {x:this.bounds.w/this.sprite.width, y:this.bounds.h/this.sprite.height};
 		this.group.add(this.sprite);
 	};
 	

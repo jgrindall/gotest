@@ -15,7 +15,6 @@ function(Game, Container, ButtonGrid){
 		if(!this.direction){
 			throw "Not a button bar";
 		}
-		console.log("bbar constrcutor");
 		ButtonGrid.call(this, options);
 	};
 	
@@ -26,7 +25,6 @@ function(Game, Container, ButtonGrid){
 	ButtonBar.prototype.constructor = ButtonBar;
 	
 	ButtonBar.prototype.create = function(){
-		console.log("bbar create");
 		ButtonGrid.prototype.create.call(this);
 	};
 	

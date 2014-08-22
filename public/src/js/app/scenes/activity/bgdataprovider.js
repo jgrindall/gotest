@@ -18,13 +18,12 @@ BgPanel, Storage, BgData){
 	};
 	
 	BgDataProvider.prototype.addPage = function(i, scroller){
-		var options, panel, bounds, w, h, paddingX, paddingY, top;
-		top = 20;
-		w = Game.w();
-		h = Game.h();
-		paddingX = 50;
-		paddingY = 50;
-		bounds = {"x":i * w + paddingX, "y":paddingY, "w":w, "h":h};
+		var options, panel, bounds, w, h, top;
+		var paddingX = 50;
+		var paddingY = 50;
+		w = scroller.bounds.w - 2*paddingX;
+		h = scroller.bounds.h - 2*paddingY;
+		bounds = {"x":paddingX + scroller.bounds.x + i * Game.w(), "y":paddingY + scroller.bounds.y, "w":w, "h":h};
 		options = {"bounds":bounds, "bgasset":'map'+i};
 		panel = new BgPanel(options);
 		scroller.add(panel);

@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/container', 'app/components/background',
+define(['app/game', 'app/components/container', 'app/components/background', 'app/components/slider',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
@@ -7,19 +7,23 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/layoutmodel',
 
+'app/scenes/activity/speedmodel', 'app/scenes/activity/commspeed',
+
 'app/utils/alertmanager', 'app/components/buttons/menubutton',
 
 'app/scenes/activity/commandspanelfactory'
 
 ],
 
-function(Game, Container, Background,
+function(Game, Container, Background, Slider,
 
 TabButtonBar, TabButton,
 
 ColorPicker, NSEWCommandsPanel,
 
 commModel, colorModel, layoutModel,
+
+speedModel, CommSpeed,
 
 AlertManager, MenuButton, CommandsPanelFactory){
 	
@@ -74,6 +78,19 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		this.addColorPicker();
 		this.addChangeButton();
 		this.addTeacherButton();
+		this.addSpeedButton();
+	};
+	
+	Controls.prototype.changeSpeed = function(data) {
+		console.log("SPEED "+data.num);
+		speedModel.setSpeed(data.num);
+	};
+	
+	Controls.prototype.addSpeedButton = function() {
+		this.speedSlider = new Slider({"bounds":{"x":Game.w()/2 + 150, "y":0}});
+		this.speedSlider.changeSignal.add(this.changeSpeed, this);
+		this.group.add(this.speedSlider.group);
+		console.log("set to : "+speedModel.getData());
 	};
 	
 	Controls.prototype.addChangeButton = function() {

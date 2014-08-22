@@ -43,7 +43,12 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	Preloader.MENU_BUTTON0 = 			'menubutton0';
 	Preloader.MENU_BUTTON1 = 			'menubutton1';
 	Preloader.MENU_BUTTON2 = 			'menubutton2';
+	Preloader.MENU_BUTTON3 = 			'menubutton3';
+	Preloader.MENU_BUTTON4 = 			'menubutton4';
+	Preloader.MENU_BUTTON5 = 			'menubutton5';
 	Preloader.DIR_BUTTON0 = 			'dirbutton0';
+	Preloader.SLIDERBG = 				'sliderbg';
+	Preloader.SLIDERHANDLE = 			'sliderhandle';
 	Preloader.DIR_BUTTON1 = 			'dirbutton1';
 	Preloader.DIR_BUTTON2 = 			'dirbutton2';
 	Preloader.DIR_BUTTON3 = 			'dirbutton3';
@@ -93,6 +98,9 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton0.png", 		"key":Preloader.MENU_BUTTON0, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton1.png", 		"key":Preloader.MENU_BUTTON1, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton2.png", 		"key":Preloader.MENU_BUTTON2, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton3.png", 		"key":Preloader.MENU_BUTTON3, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton4.png", 		"key":Preloader.MENU_BUTTON4, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton5.png", 		"key":Preloader.MENU_BUTTON5, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 		"key":Preloader.LEVEL_BUTTON_DONE, 			"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonLocked.png", 		"key":Preloader.LEVEL_BUTTON_LOCKED, 		"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton0.png", 			"key":Preloader.TAB_BUTTON0, 				"w":244, 	"h":52},
@@ -122,6 +130,8 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	
 	Preloader.IMAGES = [
 		{"type":"image", 		"asset":"assets/images/bg/background2.png", 			"key":Preloader.BG_KEY},
+		{"type":"image", 		"asset":"assets/images/other/sliderbg.png", 			"key":Preloader.SLIDERBG},
+		{"type":"image", 		"asset":"assets/images/other/sliderhandle.png", 		"key":Preloader.SLIDERHANDLE},
 		{"type":"image", 		"asset":"assets/images/paris.jpg", 						"key":Preloader.MAP0_KEY},
 		{"type":"image", 		"asset":"assets/images/london.jpg", 					"key":Preloader.MAP1_KEY},
 		{"type":"image", 		"asset":"assets/images/paris.jpg", 						"key":Preloader.MAP2_KEY},

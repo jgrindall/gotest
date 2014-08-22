@@ -4,7 +4,6 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	"use strict";
 	
 	var ButtonGrid = function(options){
-		console.log("bgrid construco");
 		this.selectedIndex = -1;
 		this.data = options.data || [];
 		this.spaceX = options.bounds.w / options.numX;
@@ -20,7 +19,6 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	ButtonGrid.prototype.constructor = ButtonGrid;
 	
 	ButtonGrid.prototype.create = function(){
-		console.log("create button grid");
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addButtons();

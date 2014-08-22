@@ -33,7 +33,7 @@ colorModel){
 		setTimeout(function(){
 			that.step = 0;
 			that.triggerEvent();
-		}, CommModel.PAUSE*speedModel.speed);
+		}, CommModel.PAUSE*speedModel.getData().actualSpeed);
 	};
 	
 	CommModel.prototype.changeColor = function(data) {
@@ -108,9 +108,12 @@ colorModel){
 		return this.commands[this.commandNum];
 	};
 	
+	CommModel.prototype.getInterval = function() {
+		return speedModel.getData().actualSpeed * CommModel.SPEED_FACTOR;
+	};
+	
 	CommModel.prototype.scheduleNext = function() {
-		var interval;
-		interval = speedModel.speed * CommModel.SPEED_FACTOR;
+		var interval = this.getInterval();
 		this.timeout = setTimeout($.proxy(this.nextInterval, this), interval);
 	};
 	
@@ -118,7 +121,7 @@ colorModel){
 		var command, fraction;
 		if(this.playing){
 			command = this.getCurrentCommand();
-			this.executeSignal.dispatch({"command":command, "fraction":this.step/CommModel.STEPS, "totalTime":CommModel.STEPS * speedModel.speed * CommModel.SPEED_FACTOR});
+			this.executeSignal.dispatch({"command":command, "fraction":this.step/CommModel.STEPS, "totalTime":CommModel.STEPS * this.getInterval()});
 			this.scheduleNext();
 		}
 	};

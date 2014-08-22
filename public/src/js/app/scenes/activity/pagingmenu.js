@@ -1,5 +1,5 @@
 
-define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
+define(['jquery', 'app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
 
 'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/resetbutton',
 
@@ -11,7 +11,7 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 
 ],
 
-function(NavButton, CloseButton, Game,
+function($, NavButton, CloseButton, Game,
 
 ListButton, OkButton, ResetButton,
 
@@ -38,17 +38,14 @@ Pager, commModel
 	PagingMenu.prototype.constructor = PagingMenu;
 	
 	PagingMenu.prototype.addPager = function () {
-		var options = {"dataProvider" : this.options.dataProvider, 'bgasset':'panel'};
+		var options = $.extend({}, this.options, {"dataProvider" : this.options.dataProvider, 'bgasset':'panel'});
 		this.pager = new Pager(options);
-		console.log("pager group "+this.pager.group);
 		this.pager.pageSignal.add(this.choose, this);
-		console.log("pager group "+this.pager.group);
 		this.group.add(this.pager.group);
 	};
 	
 	PagingMenu.prototype.create = function () {
 		Container.prototype.create.call(this);
-		console.log("create pagingmenu "+this.group);
 		this.addPager();
 		this.addOkButton();
 		this.addCloseButton();
@@ -76,9 +73,10 @@ Pager, commModel
 	};
 	
 	PagingMenu.prototype.addLRButtons = function () {
-		this.leftButton = new DirButton({"data":3, "bounds":{'x':20, 'y':Game.cy()}});
+		console.log("add lr buttons");
+		this.leftButton = new DirButton({"data":{"num":3, "visible":true}, "bounds":{'x':20, 'y':Game.cy()}});
 		this.leftButton.mouseUpSignal.add(this.leftClicked, this);
-		this.rightButton = new DirButton({"data":5, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
+		this.rightButton = new DirButton({"data":{"num":5, "visible":true}, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
 		this.rightButton.mouseUpSignal.add(this.rightClicked, this);
 		this.group.add(this.leftButton.sprite);
 		this.group.add(this.rightButton.sprite);
@@ -99,16 +97,17 @@ Pager, commModel
 	
 	PagingMenu.prototype.okClicked = function () {
 		var data;
-		data = {"index":0, "selectedIndex":this.selectedIndex};
+		data = {"index":1, "selectedIndex":this.selectedIndex};
 		this.selectSignal.dispatch(data);
 	};
 	
 	PagingMenu.prototype.closeClicked = function () {
-		this.selectSignal.dispatch({"index":1});
+		this.selectSignal.dispatch({"index":0});
 	};
 	
 	PagingMenu.prototype.addOkButton = function () {
-		this.okButton = new OkButton({"bounds":{'x':Game.cx(), 'y':Game.h() - 80}});
+		var bounds = {'x':Game.w() - OkButton.WIDTH - 10, 'y':Game.h() - 80};
+		this.okButton = new OkButton({"bounds":bounds});
 		this.okButton.mouseUpSignal.add(this.okClicked, this);
 		this.group.add(this.okButton.sprite);
 	};
@@ -123,7 +122,8 @@ Pager, commModel
 	};
 	
 	PagingMenu.prototype.addCloseButton = function () {
-		this.closeButton = new CloseButton({"bounds":{'x':Game.w() - 50, 'y':50}});
+		var bounds = {'x':Game.w()/2 + PagingMenu.WIDTH/2 - 50, 'y':20 + (Game.h() -  PagingMenu.HEIGHT)/2};
+		this.closeButton = new CloseButton({"bounds":bounds});
 		this.closeButton.mouseUpSignal.add(this.closeClicked, this);
 		this.group.add(this.closeButton.sprite);
 	};

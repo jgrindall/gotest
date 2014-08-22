@@ -7,6 +7,7 @@ function(Game, Scroller, GroupMarker){
 	
 	var Pager = function(options){
 		options.snapX = Game.w(); // has to be this!
+		console.log("pager options "+JSON.stringify(options));
 		Scroller.call(this, options);
 	};
 	

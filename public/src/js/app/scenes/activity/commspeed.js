@@ -9,11 +9,13 @@ function(){
 		
 	};
 	
-	CommSpeed.VSLOW = 20;
-	CommSpeed.SLOW = 10;
-	CommSpeed.MED = 6;
-	CommSpeed.FAST = 3;
-	CommSpeed.VFAST = 1;
+	CommSpeed.VSLOW = 	0;
+	CommSpeed.SLOW = 	1;
+	CommSpeed.MED = 	2;
+	CommSpeed.FAST = 	3;
+	CommSpeed.VFAST = 	4;
+	
+	CommSpeed.ALL = [20, 10, 6, 3, 1];
 	
 	return CommSpeed;
 

@@ -10,6 +10,7 @@ AbstractModel){
 	"use strict";
 	
 	var SpeedModel  = function(){
+		AbstractModel.call(this);
 		this.speed = CommSpeed.VSLOW;
 	};
 	
@@ -17,11 +18,11 @@ AbstractModel){
 	SpeedModel.prototype.constructor = SpeedModel;
 	
 	SpeedModel.prototype.getData = function() {
-		return {"speed":this.speed};
+		return {"speed":this.speed, "actualSpeed":CommSpeed.ALL[this.speed]};
 	};
 	
 	SpeedModel.prototype.setSpeed = function(s) {
-		if(this.speed !== i){
+		if(this.speed !== s){
 			this.speed = s;
 			this.trigger();
 		}

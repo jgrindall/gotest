@@ -10,7 +10,6 @@ define(['app/game'],function(Game){
 	};
 
 	Container.prototype.create = function(){
-		console.log("create container");
 		this.group = new Phaser.Group(Game.getInstance());
 	};
 	

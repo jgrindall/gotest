@@ -22,7 +22,6 @@ function($, Game, Container){
 	Scroller.MIN_MOVE = 10;
 	
 	Scroller.prototype.create = function(){
-		console.log("create scroller");
 		Container.prototype.create.call(this);
 		this.contentGroup = new Phaser.Group(Game.getInstance());
 		this.addBg();
@@ -41,6 +40,7 @@ function($, Game, Container){
 	};
 	
 	Scroller.prototype.addBg = function() {
+		console.log("scroller bg "+JSON.stringify(this.options));
 		if(this.options.bgasset){
 			this.panel = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
 			this.group.add(this.panel);
