@@ -10,6 +10,16 @@ function(Game, Container){
 		this.theta = 0;
 	};
 	
+	Turtle.getAngle = function(t, a){
+		while(t - a > 180){
+			t -= 360;
+		}
+		while(t - a < -180){
+			t += 360;
+		}
+		return t;
+	};
+	
 	Turtle.prototype = Object.create(Container.prototype);
 	Turtle.prototype.constructor = Turtle;
 	
@@ -20,14 +30,27 @@ function(Game, Container){
 	};
 	
 	Turtle.prototype.rotate = function(theta) {
-		Game.getInstance().add.tween(this.sprite).to( {'angle':theta + 90}, 100, Phaser.Easing.Linear.None, true, 0, false);
+		var target = theta + 90;
+		// eg 359 to zero should go to 360 instead of zero
+		target = Turtle.getAngle(target, this.sprite.angle);
+		Game.getInstance().add.tween(this.sprite).to( {'angle':target}, 100, Phaser.Easing.Linear.None, true, 0, false);
 	};
 	
-	Turtle.prototype.tweenTo = function(p, time) {
+	Turtle.prototype.reset = function(p){
+		this.stopTween();
+		this.rotate(0);
+		this.move(p);
+	};
+	
+	Turtle.prototype.stopTween = function() {
 		if(this.tween){
 			this.tween.stop();
 			this.tween = null;
 		}
+	};
+	
+	Turtle.prototype.tweenTo = function(p, time) {
+		this.stopTween();
 		if(time === 0){
 			this.move(p);	
 		}
