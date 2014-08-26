@@ -37,7 +37,7 @@ GameScreenMenu, GameBgMenu, Growl){
 		Game.getInstance().world.add(AlertManager.bg);
 	};
 	
-	AlertManager.make = function(ClassRef, label, callback){
+	AlertManager.make = function(ClassRef, data, callback){
 		console.log("make "+ClassRef);
 		var x, y;
 		this.callbackProxy = $.proxy(this.buttonClick, AlertManager, callback);
@@ -45,7 +45,7 @@ GameScreenMenu, GameBgMenu, Growl){
 		y = (Game.h() - ClassRef.HEIGHT)/2;
 		AlertManager.addBg();
 		AlertManager.close();
-		AlertManager.alert = new ClassRef({"label":label, "bounds":{"x":x, "y":y, "w":ClassRef.WIDTH, "h":ClassRef.HEIGHT}});
+		AlertManager.alert = new ClassRef({"data":data, "bounds":{"x":x, "y":y, "w":ClassRef.WIDTH, "h":ClassRef.HEIGHT}});
 		AlertManager.alert.selectSignal.add(this.callbackProxy);
 		Game.getInstance().world.add(AlertManager.alert.group);
 		Game.alertSignal.dispatch({"show":true});
@@ -62,21 +62,20 @@ GameScreenMenu, GameBgMenu, Growl){
 		}
 	};
 	
-	AlertManager.makeScreenMenu = function(callback){
-		console.log("makeScreenMenu "+callback);
-		AlertManager.make(GameScreenMenu, "text", callback);
+	AlertManager.makeScreenMenu = function(data, callback){
+		AlertManager.make(GameScreenMenu, data, callback);
 	};
 	
-	AlertManager.makeBgMenu = function(callback){
-		AlertManager.make(GameBgMenu, "text", callback);
+	AlertManager.makeBgMenu = function(data, callback){
+		AlertManager.make(GameBgMenu, data, callback);
 	};
 	
-	AlertManager.makeGrowl = function(label, callback){
-		AlertManager.make(Growl, label, callback);
+	AlertManager.makeGrowl = function(data, callback){
+		AlertManager.make(Growl, data, callback);
 	};
 	
-	AlertManager.makeAlert = function(label, callback){
-		AlertManager.make(Alert, label, callback);
+	AlertManager.makeAlert = function(data, callback){
+		AlertManager.make(Alert, data, callback);
 	};
 	
 	return AlertManager;

@@ -28,6 +28,10 @@ Pager, commModel, ArrowSelectorMenu
 	var GameScreenMenu = function(options){
 		options.dataProvider = new ScreenDataProvider();
 		ArrowSelectorMenu.call(this, options);
+		if(options.data){
+			this.gotoPage(options.data.page);
+			this.setSelected(options.data.index);
+		}
 	};
 	
 	GameScreenMenu.WIDTH = 800;

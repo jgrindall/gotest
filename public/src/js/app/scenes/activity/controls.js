@@ -109,10 +109,10 @@ AlertManager, MenuButton, CommandsPanelFactory){
 			commModel.undo();
 		}
 		else if(index === 2){
-			AlertManager.makeScreenMenu($.proxy(this.onChanged, this));
+			AlertManager.makeScreenMenu({"page":0, "index":layoutModel.getData().type}, $.proxy(this.onChanged, this));
 		}
 		else if(index === 3){
-			AlertManager.makeScreenMenu($.proxy(this.onChanged, this)); 
+			AlertManager.makeScreenMenu({"page":0, "index":layoutModel.getData().type}, $.proxy(this.onChanged, this)); 
 		} 
 	};
 	

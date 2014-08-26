@@ -29,9 +29,7 @@ ButtonGridModel){
 	ButtonGrid.prototype.onSelectedChanged = function(data){
 		var index = data.selected;
 		console.log("index "+index);
-		if(this.options.peformSelect){
-			this.showSelected(index);
-		}
+		this.showSelected(index);
 		this.changeSignal.dispatch({"index":index, "grid":this});
 	};
 	
@@ -94,7 +92,9 @@ ButtonGridModel){
 	ButtonGrid.prototype.buttonUp = function(data) {
 		var target = data.target.group || data.target.sprite;
 		var index = this.buttonGroup.getIndex(target);
-		this.model.setSelected(index);
+		if(this.options.peformSelect){
+			this.model.setSelected(index);
+		}
 		this.clickSignal.dispatch({"index":index, "grid":this});
 	};
 	

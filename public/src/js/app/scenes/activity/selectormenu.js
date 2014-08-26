@@ -57,13 +57,11 @@ Pager, commModel
 	};
 	
 	SelectorMenu.prototype.okClicked = function () {
-		console.log("okc 0");
 		var data = this.getData();
 		this.selectSignal.dispatch($.extend({"index":0}, data));
 	};
 	
 	SelectorMenu.prototype.closeClicked = function () {
-		console.log("cc 1");
 		this.selectSignal.dispatch({"index":1});
 	};
 	

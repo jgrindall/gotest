@@ -44,6 +44,14 @@ Pager, commModel
 		}
 	};
 	
+	ArrowSelectorMenu.prototype.gotoPage = function (p) {
+		this.pager.gotoPage(p);
+	};
+	
+	ArrowSelectorMenu.prototype.setSelected = function (i) {
+		this.pager.setSelected(i);
+	};
+	
 	ArrowSelectorMenu.prototype.addUI = function () {
 		var options = $.extend({}, this.options, {'bgasset':'panel'});
 		this.pager = new Pager(options);

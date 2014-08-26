@@ -58,6 +58,14 @@ function($, Game, Container){
 		}
 	};
 	
+	Scroller.prototype.getCurrentPage = function() {
+		return this.children[this.pageNum];
+	};
+	
+	Scroller.prototype.setSelected = function(i) {
+		this.getCurrentPage().model.setSelected(i);
+	};
+	
 	Scroller.prototype.gotoPage = function(p) {
 		this.pageNum = p;
 		this.pageSignal.dispatch({"pageNum":p});
