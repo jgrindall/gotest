@@ -1,7 +1,7 @@
 
-define(['app/consts/appconsts','app/scenes/game/gamescene', 'app/scenes/loader/loaderscene', 'app/scenes/comms/commscene','app/scenes/main/mainscene','app/scenes/tutorial/tutorialscene','app/scenes/levels/levelsscene', 'app/scenes/activity/activityscene'],
+define(['app/consts/appconsts','app/scenes/loader/loaderscene', 'app/scenes/activity/activityscene'],
 
-function(AppConsts, GameScene, LoaderScene, CommScene, MainScene, TutorialScene, LevelsScene, ActivityScene){
+function(AppConsts, LoaderScene, ActivityScene){
 	
 	"use strict";
 	
@@ -15,23 +15,8 @@ function(AppConsts, GameScene, LoaderScene, CommScene, MainScene, TutorialScene,
 	};
 	
 	SceneFactory.getClassForKey = function(key){
-		if(key === AppConsts.GAME_SCENE){
-			return GameScene;
-		}
-		else if(key === AppConsts.COMM_SCENE){
-			return CommScene;
-		}
-		else if(key === AppConsts.LOADER_SCENE){
+		if(key === AppConsts.LOADER_SCENE){
 			return LoaderScene;
-		}
-		else if(key === AppConsts.MAIN_SCENE){
-			return MainScene;
-		}
-		else if(key === AppConsts.LEVELS_SCENE){
-			return LevelsScene;
-		}
-		else if(key === AppConsts.TUTORIAL_SCENE){
-			return TutorialScene;
 		}
 		else if(key === AppConsts.ACTIVITY_SCENE){
 			return ActivityScene;

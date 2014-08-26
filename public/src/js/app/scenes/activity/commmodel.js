@@ -3,11 +3,15 @@ define(['app/game', 'app/scenes/activity/commspeed',
 
 'app/scenes/activity/commandtypes', 'app/scenes/activity/speedmodel',
 
+'app/scenes/activity/playingmodel',
+
 'app/scenes/activity/colormodel'],
 
 function(Game, CommSpeed,
 
 CommandTypes, speedModel,
+
+playingModel,
 
 colorModel){
 	
@@ -15,12 +19,10 @@ colorModel){
 	
 	var CommModel  = function(){
 		this.commands = [];
-		this.playing = false;
 		this.commandNum = 0;
 		this.executeSignal = new Phaser.Signal();
 		this.resetSignal = new Phaser.Signal();
 		this.undoSignal = new Phaser.Signal();
-		this.statusSignal = new Phaser.Signal();
 		colorModel.changeSignal.add(this.changeColor, this);
 	};
 	
@@ -38,15 +40,14 @@ colorModel){
 	
 	CommModel.prototype.changeColor = function(data) {
 		var nextCommand = this.getNextCommand();
-		if(this.playing && nextCommand){
+		if(playingModel.getData().playing && nextCommand){
 			nextCommand.color = data.color;
 		}
 	};
 	
 	CommModel.prototype.restart = function(command) {
-		if(!this.playing){
-			this.playing = true;
-			this.statusSignal.dispatch({"playing":this.playing});
+		if(!playingModel.getData().playing){
+			playingModel.setData(true);
 			this.performCommand();
 		}
 	};
@@ -54,12 +55,18 @@ colorModel){
 	CommModel.prototype.playAllFromToIncluding = function(i0, i1) {
 		var i, command;
 		this.commandNum = i0;
+		playingModel.setData(true);
 		for(i = i0; i <= i1; i++){
 			command = this.getCurrentCommand();
 			this.executeSignal.dispatch({"command":command,"fraction":0, "totalTime":0});
 			this.executeSignal.dispatch({"command":command,"fraction":1, "totalTime":0});
 			this.commandNum++;
 		}
+		playingModel.setData(false);
+	};
+	
+	CommModel.prototype.toJSON = function() {
+		return JSON.stringify(this.commands);
 	};
 	
 	CommModel.prototype.playAll = function() {
@@ -83,7 +90,7 @@ colorModel){
 	};
 	
 	CommModel.prototype.undo = function() {
-		if(!this.playing && this.commands.length >= 1){
+		if(!playingModel.getData().playing && this.commands.length >= 1){
 			this.removeCommands();
 			this.resetSignal.dispatch();
 			this.playAll();
@@ -91,9 +98,8 @@ colorModel){
 	};
 	
 	CommModel.prototype.stop = function() {
-		if(this.playing){
-			this.playing = false;
-			this.statusSignal.dispatch({"playing":this.playing});
+		if(playingModel.getData().playing){
+			playingModel.setData(false);
 			this.commands = [];
 			this.commandNum = 0;
 			this.resetSignal.dispatch();
@@ -119,7 +125,7 @@ colorModel){
 	
 	CommModel.prototype.triggerEvent = function() {
 		var command, fraction;
-		if(this.playing){
+		if(playingModel.getData().playing){
 			command = this.getCurrentCommand();
 			this.executeSignal.dispatch({"command":command, "fraction":this.step/CommModel.STEPS, "totalTime":CommModel.STEPS * this.getInterval()});
 			this.scheduleNext();
@@ -143,13 +149,12 @@ colorModel){
 	};
 	
 	CommModel.prototype.finished = function() {
-		this.playing = false;
-		this.statusSignal.dispatch({"playing":this.playing});
+		playingModel.setData(false);
 	};
 	
 	CommModel.prototype.add = function(command, play) {
 		this.commands.push(command);
-		if(!this.playing && play){
+		if(!playingModel.getData().playing && play){
 			this.restart();
 		}
 	};

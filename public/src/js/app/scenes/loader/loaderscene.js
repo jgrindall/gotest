@@ -1,7 +1,15 @@
 
-define(['app/scenes/scene', 'app/preloader/preloader', 'app/components/buttons/navbutton', 'app/scenes/game/commgameview', 'app/consts/layoutdata', 'app/components/buttons/bulbbutton', 'app/components/loaderbar', 'app/utils/textfactory', 'app/game'],
+define(['app/scenes/scene', 'app/preloader/preloader', 'app/components/buttons/navbutton',
 
-function(Scene, Preloader, NavButton, CommGameView, LayoutData, BulbButton, LoaderBar, TextFactory, Game){
+'app/consts/layoutdata', 'app/components/buttons/bulbbutton', 'app/components/loaderbar',
+
+'app/utils/textfactory', 'app/game'],
+
+function(Scene, Preloader, NavButton,
+
+LayoutData, BulbButton, LoaderBar,
+
+TextFactory, Game){
 	
 	"use strict";
 	

@@ -47,7 +47,7 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	Controls.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addBg();
-		//this.addColorPicker();
+		this.addColorPicker();
 		this.addButtons();
 		this.addSpeedButton();
 	};

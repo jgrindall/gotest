@@ -1,13 +1,9 @@
 
-define(['app/game', 'app/components/alert', 'app/scenes/game/gamepausemenu',
-
-'app/scenes/game/gameovermenusuccess', 'app/scenes/game/gameovermenufail',
+define(['app/game', 'app/components/alert', 
 
 'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/gamebgmenu', 'app/components/growl'], 
 
-function(Game, Alert, GamePauseMenu,
-
-GameOverMenuSuccess, GameOverMenuFail,
+function(Game, Alert, 
 
 GameScreenMenu, GameBgMenu, Growl){
 	
@@ -75,23 +71,8 @@ GameScreenMenu, GameBgMenu, Growl){
 		AlertManager.make(Growl, label, callback);
 	};
 	
-	AlertManager.makePauseMenu = function(label, callback){
-		AlertManager.make(GamePauseMenu, label, callback);
-		Game.pausePhysics();
-	};
-	
-	AlertManager.makeGameOverMenuSuccess = function(label, callback){
-		AlertManager.make(GameOverMenuSuccess, label, callback);
-		Game.pausePhysics();
-	};
-	
 	AlertManager.makePager = function(label, callback){
 		AlertManager.make(GameScreenMenu, label, callback);
-	};
-	
-	AlertManager.makeGameOverMenuFail = function(label, callback){
-		AlertManager.make(GameOverMenuFail, label, callback);
-		Game.pausePhysics();
 	};
 	
 	AlertManager.makeAlert = function(label, callback){

@@ -11,7 +11,7 @@ define([], function(){
 	};
 	
 	AbstractCommand.fromJson = function(json){
-		return new AbstractCommand(json.index, json.color, json.index, json.total);
+		return new AbstractCommand(json.direction, json.color, json.index, json.total);
 	};
 	
 	return AbstractCommand;

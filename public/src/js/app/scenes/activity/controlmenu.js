@@ -1,11 +1,11 @@
 
 define(['app/game', 'app/components/container', 'app/components/buttons/menubutton',
 
-'app/components/buttonbar', 'app/scenes/activity/commmodel'],
+'app/components/buttonbar', 'app/scenes/activity/commmodel', 'app/scenes/activity/playingmodel'],
 
 function(Game, Container, MenuButton,
 
-ButtonBar, commModel){
+ButtonBar, commModel, playingModel){
 	
 	"use strict";
 	
@@ -15,7 +15,7 @@ ButtonBar, commModel){
 		options.numY = 1;
 		options.data = [4, 5, 6, 7];
 		ButtonBar.call(this, options);
-		commModel.statusSignal.add(this.playingChanged, this);
+		playingModel.changeSignal.add(this.playingChanged, this);
 		this.disableButtonAt(1);
 	};
 	
