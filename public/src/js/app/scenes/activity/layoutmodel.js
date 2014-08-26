@@ -11,7 +11,7 @@ CommandTypes){
 	
 	var LayoutModel  = function(){
 		AbstractModel.call(this);
-		this.type = CommandTypes.NSEW;
+		this.type = null;
 	};
 	
 	LayoutModel.prototype = Object.create(AbstractModel.prototype);
@@ -21,8 +21,8 @@ CommandTypes){
 		return {"type":this.type};
 	};
 	
-	LayoutModel.prototype.load = function() {
-		this.changeSignal.dispatch({"type":this.type});
+	LayoutModel.prototype.setData = function(n) {
+		this.setType(n);
 	};
 	
 	LayoutModel.prototype.setType = function(i) {

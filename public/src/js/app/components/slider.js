@@ -1,25 +1,40 @@
 
-define(['app/game', 'app/components/container', 'app/components/buttons/interactivesprite'],
+define(['app/game', 'app/components/container',
 
-function(Game, Container, InteractiveSprite){
+'app/components/buttons/interactivesprite', 'phaser'],
+
+function(Game, Container,
+
+InteractiveSprite, Phaser){
 	
 	"use strict";
 	
 	var Slider = function(options){
+		var speed;
+		this.model = options.model;
+		this.stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / options.num;
+		this.model.changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
-		this.changeSignal = new Phaser.Signal();
+		speed = this.model.getData().speed;
+		if(speed !== null){
+			this.goTo(speed);
+		}
 	};
 	
-	Slider.WIDTH = 200;
-	Slider.HEIGHT = 40;
-	Slider.HANDLEWIDTH = 40;
-	Slider.HANDLEHEIGHT = 40;
+	Slider.WIDTH = 			200;
+	Slider.HEIGHT = 		40;
+	Slider.HANDLEWIDTH = 	40;
+	Slider.HANDLEHEIGHT = 	40;
 	
 	Slider.prototype = Object.create(Container.prototype);
 	Slider.prototype.constructor = Slider;
 	
-	Slider.prototype.goToPercent = function(p){
-		
+	Slider.prototype.onChanged = function(data){
+		this.goTo(data.speed);
+	};
+	
+	Slider.prototype.goTo = function(n) {
+		this.handle.x = this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist);
 	};
 	
 	Slider.prototype.onUp = function() {
@@ -31,11 +46,11 @@ function(Game, Container, InteractiveSprite){
 	};
 	
 	Slider.prototype.snap = function() {
-		var num, stepDist;
-		stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / this.options.num;
-		num = Math.round ( (this.handle.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / stepDist );
-		this.handle.x = this.bounds.x + num * stepDist + Slider.HANDLEWIDTH/2;
-		this.changeSignal.dispatch({"num":num});
+		var num;
+		num = (this.handle.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
+		num = Math.round(num);
+		this.goTo(num);
+		this.model.setData(num);
 	};
 
 	Slider.prototype.isOutside = function(x, y) {
@@ -49,11 +64,14 @@ function(Game, Container, InteractiveSprite){
 	};
 	
 	Slider.prototype.move = function(pointer, x, y) {
+		var xpos, xmin, xmax;
 		if(this.isOutside(x, y)){
 			this.onUp();
 		}
 		else{
-			var xpos = Math.min(Math.max(x, this.bounds.x + Slider.HANDLEWIDTH/2), this.bounds.x + Slider.WIDTH - Slider.HANDLEWIDTH/2);
+			xmin = this.bounds.x + Slider.HANDLEWIDTH/2;
+			xmax = this.bounds.x + Slider.WIDTH - Slider.HANDLEWIDTH/2;
+			xpos = Math.min(Math.max(x, xmin), xmax);
 			this.handle.x =  xpos;
 		}
 	};
@@ -77,14 +95,25 @@ function(Game, Container, InteractiveSprite){
 		this.onUp();
 	};
 	
-	Slider.prototype.create = function(){
-		Container.prototype.create.call(this);
-		this.bg = new Phaser.Sprite(Game.getInstance(),  this.bounds.x, this.bounds.y, 'sliderbg');
-		this.handle = new InteractiveSprite(Game.getInstance(), this.bounds.x + Slider.HANDLEHEIGHT/2, this.bounds.y + Slider.HANDLEHEIGHT/2, 'sliderhandle');
+	Slider.prototype.addHandle = function(){
+		var x, y;
+		x = this.bounds.x + Slider.HANDLEHEIGHT/2;
+		y = this.bounds.y + Slider.HANDLEHEIGHT/2;
+		this.handle = new InteractiveSprite(Game.getInstance(), x, y, 'sliderhandle');
 		this.handle.enableInput();
 		this.handle.anchor.setTo(0.5, 0.5);
-		this.group.add(this.bg);
 		this.group.add(this.handle);
+	};
+	
+	Slider.prototype.addBg = function(){
+		this.bg = new Phaser.Sprite(Game.getInstance(),  this.bounds.x, this.bounds.y, 'sliderbg');
+		this.group.add(this.bg);
+	};
+	
+	Slider.prototype.create = function(){
+		Container.prototype.create.call(this);
+		this.addBg();
+		this.addHandle();
 		this.addListeners();
 	};
 	

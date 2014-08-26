@@ -75,12 +75,10 @@ ButtonGrid, GameScreenMenu, commModel, colorModel){
 	};
 	
 	AbstractCommandsPanel.prototype.addCommands = function(index, num){
-		console.log("add from panel "+index  +"  "+num);
 		var i, c;
 		for(i = 0; i < num; i++){
 			c = new AbstractCommand(index, colorModel.color, i, num);
-			console.log("set color for new command "+colorModel.color);
-			commModel.add(c);
+			commModel.add(c, true);
 		}
 	};
 	

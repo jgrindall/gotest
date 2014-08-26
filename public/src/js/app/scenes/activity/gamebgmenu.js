@@ -3,7 +3,7 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 
 'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/resetbutton',
 
-'app/components/buttons/dirbutton', 'app/scenes/activity/pagingmenu',
+'app/components/buttons/dirbutton', 'app/scenes/activity/arrowselectormenu',
 
 'app/components/container', 'app/components/abstractpopup', 'app/scenes/activity/bgdataprovider',
 
@@ -15,7 +15,7 @@ function(NavButton, CloseButton, Game,
 
 ListButton, OkButton, ResetButton,
 
-DirButton, PagingMenu,
+DirButton, ArrowSelectorMenu,
 
 Container, AbstractPopup, BgDataProvider,
 
@@ -27,13 +27,13 @@ Pager, commModel
 		
 	var GameBgMenu = function(options){
 		options.dataProvider = new BgDataProvider();
-		PagingMenu.call(this, options);
+		ArrowSelectorMenu.call(this, options);
 	};
 	
 	GameBgMenu.WIDTH = 800;
 	GameBgMenu.HEIGHT = 600;
 	
-	GameBgMenu.prototype = Object.create(PagingMenu.prototype);
+	GameBgMenu.prototype = Object.create(ArrowSelectorMenu.prototype);
 	GameBgMenu.prototype.constructor = GameBgMenu;
 	
 	return GameBgMenu;

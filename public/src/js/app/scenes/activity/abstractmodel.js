@@ -13,6 +13,10 @@ function(Phaser){
 		this.changeSignal.dispatch(this.getData());
 	};
 	
+	AbstractModel.prototype.setData = function(n) {
+		
+	};
+	
 	AbstractModel.prototype.getData = function() {
 		return {};
 	};

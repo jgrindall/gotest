@@ -5,7 +5,7 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scene
 
 'app/components/buttons/menubutton', 'app/components/buttons/okbutton', 'app/utils/alertmanager',
 
-'app/components/loaderbar', 'app/scenes/activity/menu',
+'app/components/loaderbar', 'app/scenes/activity/menu', 'app/persistence',
 
 'app/scenes/activity/commmodel', 'app/scenes/activity/layoutmodel',
 
@@ -17,7 +17,7 @@ TextFactory, TabButton, CloseButton,
 
 MenuButton, OkButton, AlertManager,
 
-LoaderBar, Menu,
+LoaderBar, Menu, Persistence,
 
 commModel, layoutModel,
 
@@ -37,7 +37,7 @@ bgModel){
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
-		layoutModel.load();
+		Persistence.getInstance().loadDefaults();
 	};
 	
 	ActivityScene.prototype.addText = function() {
@@ -69,10 +69,10 @@ bgModel){
 		if(i === 0){
 			AlertManager.makeBgMenu($.proxy(this.bgChosen, this));
 		}
-		else if(i === 1){
+		else if(i === 4){
 			commModel.stop();
 		}
-		else if(i === 2){
+		else if(i === 5){
 			commModel.undo();
 		} 
 	};

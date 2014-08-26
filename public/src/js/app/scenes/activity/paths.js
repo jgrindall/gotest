@@ -41,11 +41,12 @@ function(Game, Container, Colors){
 	
 	Paths.prototype.line = function(p0, p1, clrIndex) {
 		var clr = Colors.ALL[clrIndex];
-		this.circle(p0, clr);
+		//this.circle(p0, clr);
 		this.gfx.lineStyle(Paths.WIDTH, clr, 1);
    		this.gfx.moveTo(p0.x, p0.y);
    		this.gfx.lineTo(p1.x, p1.y);
-   		this.circle(p1, clr);
+   		console.log(p0.x, p0.y, p1.x, p1.y);
+   		//this.circle(p1, clr);
 	};
 	
 	Paths.prototype.addGfx = function() {

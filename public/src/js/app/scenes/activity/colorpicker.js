@@ -1,7 +1,13 @@
 
-define(['app/game', 'app/components/buttons/multibutton'],
+define(['app/game', 'app/components/buttons/multibutton',
 
-function(Game, MultiButton){
+'app/scenes/activity/colormodel'
+
+],
+
+function(Game, MultiButton,
+
+ColorModel){
 	
 	"use strict";
 	

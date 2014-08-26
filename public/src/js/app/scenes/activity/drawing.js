@@ -21,7 +21,7 @@ commModel, colorModel){
 		this.onReset();
 	};
 	
-	Drawing.DIST = 100;
+	Drawing.DIST = 70;
 	Drawing.PI180 = 3.14159/180;
 	Drawing.START_POS = {x:300, y:300};
 	
@@ -35,8 +35,7 @@ commModel, colorModel){
 	Drawing.prototype.onReset = function(){
 		this.currentPos = $.extend({}, Drawing.START_POS);
 		this.startPos = $.extend({}, Drawing.START_POS);
-		this.turtle.rotate(0);
-		this.turtle.move(this.startPos);
+		this.turtle.reset(this.startPos);
 		this.angle = 0;
 		this.paths.clear();
 	};

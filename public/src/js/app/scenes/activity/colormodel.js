@@ -14,7 +14,11 @@ function(Game, AbstractModel){
 	ColorModel.prototype.constructor = ColorModel;
 	
 	ColorModel.prototype.getData = function(){
-		return {"color":this.color};
+		return {"index":this.color};
+	};
+	
+	ColorModel.prototype.setData = function(n) {
+		this.setColor(n);
 	};
 	
 	ColorModel.prototype.setColor = function(i) {

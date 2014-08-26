@@ -46,6 +46,8 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 	Preloader.MENU_BUTTON3 = 			'menubutton3';
 	Preloader.MENU_BUTTON4 = 			'menubutton4';
 	Preloader.MENU_BUTTON5 = 			'menubutton5';
+	Preloader.MENU_BUTTON6 = 			'menubutton6';
+	Preloader.MENU_BUTTON7 = 			'menubutton7';
 	Preloader.DIR_BUTTON0 = 			'dirbutton0';
 	Preloader.SLIDERBG = 				'sliderbg';
 	Preloader.SLIDERHANDLE = 			'sliderhandle';
@@ -101,6 +103,8 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton3.png", 		"key":Preloader.MENU_BUTTON3, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton4.png", 		"key":Preloader.MENU_BUTTON4, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton5.png", 		"key":Preloader.MENU_BUTTON5, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton6.png", 		"key":Preloader.MENU_BUTTON6, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton7.png", 		"key":Preloader.MENU_BUTTON7, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 		"key":Preloader.LEVEL_BUTTON_DONE, 			"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonLocked.png", 		"key":Preloader.LEVEL_BUTTON_LOCKED, 		"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton0.png", 			"key":Preloader.TAB_BUTTON0, 				"w":244, 	"h":52},

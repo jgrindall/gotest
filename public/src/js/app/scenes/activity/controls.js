@@ -5,7 +5,9 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/scenes/activity/colorpicker', 'app/scenes/activity/commandpanels/nsewcommandspanel',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/layoutmodel',
+'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/layoutmodel', 
+
+'app/scenes/activity/controlmenu',
 
 'app/scenes/activity/speedmodel', 'app/scenes/activity/commspeed',
 
@@ -22,6 +24,8 @@ TabButtonBar, TabButton,
 ColorPicker, NSEWCommandsPanel,
 
 commModel, colorModel, layoutModel,
+
+ControlMenu,
 
 speedModel, CommSpeed,
 
@@ -41,8 +45,8 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	Controls.prototype.constructor = Controls;
 	
 	Controls.prototype.typeChanged = function(data) {
-		console.log("type changed "+data.type);
 		this.addCommandsPanel(data.type);
+		// and load the data
 	};
 	
 	Controls.prototype.onAlert = function(data) {
@@ -74,46 +78,41 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	Controls.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addBg();
-		//this.addTabs();
 		this.addColorPicker();
-		this.addChangeButton();
-		this.addTeacherButton();
+		this.addButtons();
 		this.addSpeedButton();
 	};
 	
-	Controls.prototype.changeSpeed = function(data) {
-		speedModel.setSpeed(data.num);
+	Controls.prototype.addButtons = function() {
+		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':300, 'h':50};
+		this.menu = new ControlMenu({"num":4, "bounds":bounds});
+		this.menu.signal.add(this.menuSelected, this);
+		this.group.add(this.menu.group);
 	};
 	
 	Controls.prototype.addSpeedButton = function() {
-		this.speedSlider = new Slider({"num":4, "bounds":{"x":Game.w()/2 + 150, "y":0}});
-		this.speedSlider.changeSignal.add(this.changeSpeed, this);
+		this.speedSlider = new Slider({"model": speedModel, "num":4, "bounds":{"x":Game.w()/2 - 150, "y":0}});
 		this.group.add(this.speedSlider.group);
-		console.log("set to : "+speedModel.getData());
 	};
 	
-	Controls.prototype.addChangeButton = function() {
-		this.changeButton = new MenuButton({"data":1,"bounds":{"x":Game.w()/2, "y":0}});
-		this.changeButton.mouseUpSignal.add(this.changeButtonClicked, this);
-		this.group.add(this.changeButton.sprite);
-	};
-	
-	Controls.prototype.addTeacherButton = function() {
-		this.teacherButton = new MenuButton({"data":2,"bounds":{"x":Game.w()/2 + 70, "y":0}});
-		this.teacherButton.mouseUpSignal.add(this.teacherButtonClicked, this);
-		this.group.add(this.teacherButton.sprite);
+	Controls.prototype.menuSelected = function(data) {
+		var i = data.index;
+		if(i === 0){
+			commModel.stop();
+		}
+		else if(i === 1){
+			commModel.undo();
+		}
+		else if(i === 2){
+			AlertManager.makeScreenMenu($.proxy(this.onChanged, this));
+		}
+		else if(i === 3){
+			AlertManager.makeScreenMenu($.proxy(this.onChanged, this)); 
+		} 
 	};
 	
 	Controls.prototype.onChanged = function(data) {
 		layoutModel.setType(data.selectedIndex);
-	};
-	
-	Controls.prototype.changeButtonClicked = function(data) {
-		AlertManager.makeScreenMenu($.proxy(this.onChanged, this));
-	};
-	
-	Controls.prototype.teacherButtonClicked = function(data) {
-		AlertManager.makeScreenMenu($.proxy(this.onChanged, this));
 	};
 	
 	Controls.prototype.addCommandsPanel = function(type) {
@@ -128,13 +127,8 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	
 	Controls.prototype.addColorPicker = function() {
 		var bounds = {'x':this.bounds.x, 'y':Game.h() - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
-		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8});
-		this.colorPicker.mouseUpSignal.add(this.colorChosen, this);
+		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8, "model":colorModel});	
 		this.group.add(this.colorPicker.sprite);
-	};
-	
-	Controls.prototype.colorChosen = function(data) {
-		colorModel.setColor(data.num);
 	};
 	
 	Controls.prototype.addTabs = function() {

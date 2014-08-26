@@ -3,7 +3,7 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton', 'app/scenes/activity/commmodel',
 
-'app/scenes/activity/bgmodel',
+'app/scenes/activity/bgmodel', 'app/phasercomponents',
 
 'app/scenes/activity/map', 'app/scenes/activity/drawing'],
 
@@ -11,7 +11,7 @@ function(Game, Container, Background,
 
 TabButtonBar, TabButton, commModel,
 
-bgModel,
+bgModel, PhaserComponents,
 
 Map, Drawing){
 	
@@ -19,15 +19,10 @@ Map, Drawing){
 	
 	var Canvas  = function(options){
 		Container.call(this, options);
-		bgModel.changeSignal.add(this.changeBg, this);
 	};
 	
 	Canvas.prototype = Object.create(Container.prototype);
 	Canvas.prototype.constructor = Canvas;
-	
-	Canvas.prototype.changeBg = function(data) {
-		this.map.setBg(data.bg);
-	};
 	
 	Canvas.prototype.addBg = function() {
 		var w, h, bounds;
@@ -52,6 +47,7 @@ Map, Drawing){
 	
 	Canvas.prototype.addMap = function() {
 		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
+		console.log("map " + Map);
 		this.map = new Map({'bounds':bounds});
 		this.group.add(this.map.group);
 	};

@@ -73,7 +73,6 @@ Pager, commModel
 	};
 	
 	PagingMenu.prototype.addLRButtons = function () {
-		console.log("add lr buttons");
 		this.leftButton = new DirButton({"data":{"num":3, "visible":true}, "bounds":{'x':20, 'y':Game.cy()}});
 		this.leftButton.mouseUpSignal.add(this.leftClicked, this);
 		this.rightButton = new DirButton({"data":{"num":5, "visible":true}, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
@@ -118,6 +117,13 @@ Pager, commModel
 		this.okButton.destroy();
 		this.okButton = null;
 		this.pager = null;
+		if(this.leftButton){
+			this.leftButton.destroy();
+		}
+		if(this.rightButton){
+			this.rightButton.destroy();
+		}
+		this.closeButton.destroy();
 		Container.prototype.destroy.call(this);
 	};
 	

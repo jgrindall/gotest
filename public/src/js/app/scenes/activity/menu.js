@@ -11,27 +11,14 @@ ButtonBar, commModel){
 	
 	var Menu  = function(options){
 		options.buttonClass = MenuButton;
-		options.numX = 6;
+		options.numX = 4;
 		options.numY = 1;
-		options.data = [0, 1, 2, 3, 4, 5];
+		options.data = [0, 1, 2, 3];
 		ButtonBar.call(this, options);
-		commModel.statusSignal.add(this.playingChanged, this);
-		this.disableButtonAt(1);
 	};
 	
 	Menu.prototype = Object.create(ButtonBar.prototype);
 	Menu.prototype.constructor = Menu;
-	
-	Menu.prototype.playingChanged = function(data){
-		if(data.playing){
-			this.enableButtonAt(1);
-			this.disableButtonAt(2);
-		}
-		else{
-			this.disableButtonAt(1);
-			this.enableButtonAt(2);
-		}
-	};
 	
 	return Menu;
 

@@ -10,9 +10,20 @@ InteractiveSprite){
 	"use strict";
 	
 	var MultiButton = function(options){
+		var index;
 		this.options = options;
+		this.model = this.options.model;
+		this.options.model.changeSignal.add(this.onChanged, this);
 		this.mouseUpSignal = new Phaser.Signal();
 		this.create();
+		index = this.model.getData().index;
+		if(index !== null){
+			this.goToFrame(index);
+		}
+	};
+
+	MultiButton.prototype.onChanged = function(data){
+		this.goToFrame(data.index);
 	};
 
 	MultiButton.prototype.goToFrame = function(i){
@@ -29,9 +40,7 @@ InteractiveSprite){
 	
 	MultiButton.prototype.create = function(){
 		var i;
-		console.log("create "+JSON.stringify(this.options));
 		this.sprite = new InteractiveSprite(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset);
-		this.sprite.name = "colorpicker";
 		for(i = 0; i<= this.options.num - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 500, true);	
 		}
@@ -43,14 +52,14 @@ InteractiveSprite){
 		var p, frame;
 		p = data.localPoint.x / this.options.bounds.w;
 		frame = Math.floor(this.options.num * p);
-		this.goToFrame(frame);
-		this.mouseUpSignal.dispatch({"num":frame});
+		this.model.setData(frame);
 	};
 	
 	MultiButton.prototype.destroy = function(){
 		this.disableInput();
+		this.model.changeSignal.remove(this.onChanged, this);
+		this.model = null;
 		this.sprite.destroy(true);
-		this.mouseUpSignal = null;
 	};
 
 	return MultiButton;

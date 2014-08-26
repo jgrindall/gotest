@@ -25,7 +25,7 @@ colorModel){
 	};
 	
 	CommModel.SPEED_FACTOR = 10;	// scale factor for speed
-	CommModel.STEPS = 8;
+	CommModel.STEPS = 5;
 	CommModel.PAUSE = 30;
 	
 	CommModel.prototype.performCommand = function() {
@@ -37,11 +37,9 @@ colorModel){
 	};
 	
 	CommModel.prototype.changeColor = function(data) {
-		if(this.playing){
-			var nextCommand = this.getNextCommand();
-			if(nextCommand){
-				nextCommand.color = data.color;
-			}
+		var nextCommand = this.getNextCommand();
+		if(this.playing && nextCommand){
+			nextCommand.color = data.color;
 		}
 	};
 	
@@ -147,9 +145,9 @@ colorModel){
 		this.statusSignal.dispatch({"playing":this.playing});
 	};
 	
-	CommModel.prototype.add = function(command) {
+	CommModel.prototype.add = function(command, play) {
 		this.commands.push(command);
-		if(!this.playing){
+		if(!this.playing && play){
 			this.restart();
 		}
 	};
