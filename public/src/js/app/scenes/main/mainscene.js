@@ -71,8 +71,8 @@ function(Scene, Preloader, NavButton, CommGameView, LayoutData, BulbButton, Load
 
 	MainScene.prototype.shutdown = function() {
 		Scene.prototype.shutdown.apply(this, arguments);
-		this.startButton.mouseUpSignal.removeAll(this);
-		this.tutorialButton.mouseUpSignal.removeAll(this);
+		this.startButton.mouseUpSignal.remove(this.startButtonClicked, this);
+		this.tutorialButton.mouseUpSignal.remove(this.tutorialButtonClicked, this);
 		this.startButton = null;
 		this.tutorialButton = null;
 	};

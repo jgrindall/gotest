@@ -47,24 +47,13 @@ GameScreenMenu, GameBgMenu, Growl){
 		y = (Game.h() - ClassRef.HEIGHT)/2;
 		AlertManager.addBg();
 		AlertManager.close();
-		
-		
-		setTimeout(function(){
-			AlertManager.close();
-		}, 10000);
-		
 		AlertManager.alert = new ClassRef({"label":label, "bounds":{"x":x, "y":y, "w":ClassRef.WIDTH, "h":ClassRef.HEIGHT}});
-		//AlertManager.alert.selectSignal.add($.proxy(this.buttonClick, this, callback));
-		return;
-		/*
-		
-		
+		AlertManager.alert.selectSignal.add($.proxy(this.buttonClick, this, callback));
 		Game.getInstance().world.add(AlertManager.alert.group);
 		Game.alertSignal.dispatch({"show":true});
 		setTimeout(function(){
 			AlertManager.alert.showMenu();
 		}, 300);
-		*/
 	};
 	
 	AlertManager.buttonClick = function(callback, data){

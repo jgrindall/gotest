@@ -84,7 +84,7 @@ Pager, commModel
 	};
 	
 	ArrowSelectorMenu.prototype.destroy = function () {
-		this.pager.pageSignal.removeAll(this);
+		this.pager.pageSignal.remove(this.choose, this);
 		this.pager.destroy();
 		if(this.leftButton){
 			this.leftButton.destroy();

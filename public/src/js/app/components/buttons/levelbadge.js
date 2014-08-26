@@ -41,7 +41,7 @@ function(LevelsButton, Game, Container, TextFactory, LevelState){
 	};
 	
 	LevelBadge.prototype.destroy = function () {
-		this.button.mouseUpSignal.removeAll(this);
+		this.button.mouseUpSignal.remove(this.select, this);
 		Container.prototype.destroy.call(this);
 		this.mouseUpSignal = null;
 		this.label = null;

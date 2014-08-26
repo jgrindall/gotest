@@ -46,7 +46,7 @@ commModel){
 	};
 	
 	NSEWCommandsPanel.prototype.destroy = function() {
-		this.grid.signal.removeAll(this);
+		this.grid.signal.remove(this.selectComm, this);
 		AbstractCommandsPanel.prototype.destroy.call(this);
 	};
 	
