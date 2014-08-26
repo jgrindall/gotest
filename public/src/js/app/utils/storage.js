@@ -1,7 +1,15 @@
 
-define(['jquery', 'app/levelstate'],
+define(['jquery', 'app/game',
 
-function($, LevelState){
+'app/scenes/activity/commmodel', 'app/scenes/activity/layoutmodel', 'app/scenes/activity/bgmodel', 
+
+'app/scenes/activity/colormodel', 'app/scenes/activity/speedmodel'],
+
+function($, Game,
+
+commModel, layoutModel, bgModel,
+
+colorModel, speedModel){
 	
 	"use strict";
 	
@@ -9,21 +17,40 @@ function($, LevelState){
 		
 	};
 	
-	Storage.LEVEL_PROGESS_KEY = "levelData";
+	Storage.SETTINGS_KEY = "settings";
 	
-	Storage.DEFAULT_PROGRESS = [];
-	Storage.DEFAULT_PROGRESS.push([LevelState.OPEN, LevelState.OPEN, LevelState.OPEN, LevelState.OPEN, LevelState.OPEN, LevelState.OPEN, LevelState.OPEN, LevelState.OPEN, LevelState.OPEN]);
-	Storage.DEFAULT_PROGRESS.push([LevelState.LOCKED, LevelState.LOCKED, LevelState.LOCKED, LevelState.LOCKED, LevelState.LOCKED, LevelState.LOCKED, LevelState.LOCKED, LevelState.LOCKED, LevelState.LOCKED]);
-	Storage.DEFAULT_PROGRESS.push([LevelState.COMPLETED, LevelState.COMPLETED, LevelState.COMPLETED, LevelState.COMPLETED, LevelState.COMPLETED, LevelState.COMPLETED, LevelState.COMPLETED, LevelState.COMPLETED, LevelState.COMPLETED]);
+	Storage.DEFAULT = {
+		"bg":1,
+		"screen":0,
+		"speed":2,
+		"color":2,
+		"commands":[
+			{'direction':0, 'color':0, 'index':0, 'total':5},
+			{'direction':5, 'color':1, 'index':1, 'total':5},
+			{'direction':5, 'color':1, 'index':2, 'total':5},
+			{'direction':5, 'color':1, 'index':3, 'total':5},
+			{'direction':3, 'color':2, 'index':4, 'total':5},
+			{'direction':2, 'color':3, 'index':0, 'total':1}
+		]
+	};
+	
+	Storage.prototype.load = function(){
+		var json = this.getForKey(Storage.SETTINGS_KEY) || Storage.DEFAULT;
+		layoutModel.setData(json.screen);
+		colorModel.setData(json.color);
+		speedModel.setData(json.speed);
+		bgModel.setData(json.bg);
+		commModel.addFromJson(json.commands);
+		commModel.playAll();
+	};
+	
+	Storage.prototype.save = function(){
+		this.saveForKey(Storage.SETTINGS_KEY, this.makeJson());
+	};
 	
 	Storage.prototype.init = function(){
-		var data;
 		this.cache = [];
 		this.persistence = localStorage;
-		data = this.loadAllLevelData();
-		if(!data){
-			this.saveForKey(Storage.LEVEL_PROGESS_KEY, Storage.DEFAULT_PROGRESS);
-		}
 	};
 	
 	Storage.prototype.saveForKey = function(key, data){
@@ -31,28 +58,18 @@ function($, LevelState){
 		this.addToCache(key, data);
 	};
 	
-	Storage.prototype.loadAllLevelData = function(){
-		return this.getForKey(Storage.LEVEL_PROGESS_KEY);
-	};
-	
-	Storage.prototype.setLevelDataForPageAndLevel = function(page, level, i){
-		var levelData = this.loadAllLevelData();
-		levelData[page][level] = i;
-		this.saveForKey(Storage.LEVEL_PROGESS_KEY, levelData);
-	};
-	
-	Storage.prototype.loadLevelDataForPageAndLevel = function(page, level){
-		var levelData = this.loadLevelDataForPage(page);
-		return levelData[level];
-	};
-	
-	Storage.prototype.loadLevelDataForPage = function(page){
-		var levelData = this.loadAllLevelData();
-		return levelData[page];
-	};
-	
 	Storage.prototype.addToCache = function(key, data){
 		this.cache[key] = data;
+	};
+	
+	Storage.prototype.makeJson = function(){
+		var json = {};
+		json.bg = 			bgModel.getData().bg;
+		json.screen = 		layoutModel.getData().bg;
+		json.speed = 		speedModel.getData().speed;
+		json.color =	 	colorModel.getData().color;
+		json.commands = 	commModel.toJSON();
+		return json;
 	};
 	
 	Storage.prototype.getForKey = function(key){

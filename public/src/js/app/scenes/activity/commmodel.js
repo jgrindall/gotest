@@ -3,7 +3,7 @@ define(['app/game', 'app/scenes/activity/commspeed',
 
 'app/scenes/activity/commandtypes', 'app/scenes/activity/speedmodel',
 
-'app/scenes/activity/playingmodel', 'app/scenes/activity/bgmodel',
+'app/scenes/activity/playingmodel', 'app/scenes/activity/bgmodel', 'app/scenes/activity/commands/abstractcommand',
 
 'app/scenes/activity/colormodel'],
 
@@ -11,7 +11,7 @@ function(Game, CommSpeed,
 
 CommandTypes, speedModel,
 
-playingModel, bgModel,
+playingModel, bgModel, AbstractCommand, 
 
 colorModel){
 	
@@ -75,6 +75,13 @@ colorModel){
 			this.commandNum++;
 		}
 		playingModel.setData(false);
+	};
+	
+	CommModel.prototype.addFromJson = function(commands) {
+		var that = this;
+		$.each(commands, function(i, c){
+			that.add(AbstractCommand.fromJson(c), false);
+		});	
 	};
 	
 	CommModel.prototype.toJSON = function() {
