@@ -3,7 +3,7 @@ define(['app/game', 'app/scenes/activity/commspeed',
 
 'app/scenes/activity/commandtypes', 'app/scenes/activity/speedmodel',
 
-'app/scenes/activity/playingmodel',
+'app/scenes/activity/playingmodel', 'app/scenes/activity/bgmodel',
 
 'app/scenes/activity/colormodel'],
 
@@ -11,7 +11,7 @@ function(Game, CommSpeed,
 
 CommandTypes, speedModel,
 
-playingModel,
+playingModel, bgModel,
 
 colorModel){
 	
@@ -24,6 +24,7 @@ colorModel){
 		this.resetSignal = new Phaser.Signal();
 		this.undoSignal = new Phaser.Signal();
 		colorModel.changeSignal.add(this.changeColor, this);
+		bgModel.changeSignal.add(this.changeBg, this);
 	};
 	
 	CommModel.SPEED_FACTOR = 10;	// scale factor for speed
@@ -36,6 +37,17 @@ colorModel){
 			that.step = 0;
 			that.triggerEvent();
 		}, CommModel.PAUSE*speedModel.getData().actualSpeed);
+	};
+	
+	CommModel.prototype.reset = function(){
+		playingModel.setData(false);
+		this.commands = [];
+		this.commandNum = 0;
+		this.resetSignal.dispatch();
+	};
+	
+	CommModel.prototype.changeBg = function(data) {
+		this.reset();
 	};
 	
 	CommModel.prototype.changeColor = function(data) {
@@ -99,10 +111,7 @@ colorModel){
 	
 	CommModel.prototype.stop = function() {
 		if(playingModel.getData().playing){
-			playingModel.setData(false);
-			this.commands = [];
-			this.commandNum = 0;
-			this.resetSignal.dispatch();
+			this.reset();
 		}
 	};
 	

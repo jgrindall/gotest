@@ -49,9 +49,6 @@ AlertManager, commModel){
 	SceneManager.prototype.preload = function(){
 		this.transitions = Game.getInstance().plugins.add(PhaserStateTrans);
 		this.transitions.settings({'duration': 300,	'properties': {'alpha': 0, 'scale': {'x': 1.05, 'y': 1.05}}});
-		Game.getInstance().load.spritesheet('play', 'assets/images/buttons/yellowPlay.png', 120, 120);
-		Game.getInstance().load.spritesheet('bulb', 'assets/images/buttons/yellowBulb.png', 120, 120);
-		Game.getInstance().load.spritesheet('pause', 'assets/images/buttons/yellowPause.png', 120, 120);
 		Game.getInstance().load.image('sky', 'assets/images/bg/sky.png');
 		Game.getInstance().load.spritesheet('loaderBar', 'assets/images/other/bar.png', 500, 60);
 		var testLabel = TextFactory.make(Game.cx() - 300, 0, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", TextFactory.LARGE);
