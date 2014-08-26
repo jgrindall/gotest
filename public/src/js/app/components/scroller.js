@@ -12,7 +12,6 @@ function($, Game, Container){
 		this.pageNum = 0;
 		this.selectSignal = new Phaser.Signal();
 		this.pageSignal = new Phaser.Signal();
-		console.log("Scroller constructor");
 		Container.call(this, options);
 	};
 	
@@ -31,7 +30,7 @@ function($, Game, Container){
 	};
 	
 	Scroller.prototype.addListeners = function() {
-		Game.getInput().onDown.add($.proxy(this.onDown, this));
+		Game.getInput().onDown.add(this.onDown, this);
 		Game.getInput().mouse.mouseOutCallback = $.proxy(this.mouseOutCallback, this);
 	};
 	
@@ -40,7 +39,6 @@ function($, Game, Container){
 	};
 	
 	Scroller.prototype.addBg = function() {
-		console.log("scroller bg "+JSON.stringify(this.options));
 		if(this.options.bgasset){
 			this.panel = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
 			this.group.add(this.panel);
@@ -127,13 +125,13 @@ function($, Game, Container){
 		this.dx = 0;
 		this.x0 = null;
 		this.dragging = true;
-		Game.getInput().onUp.add($.proxy(this.onUp, this));
+		Game.getInput().onUp.add(this.onUp, this);
 		Game.getInput().moveCallback = $.proxy(this.move, this);
 	};
 	
 	Scroller.prototype.destroy = function() {
-		Game.getInput().onDown.removeAll(this);
-		Game.getInput().onUp.removeAll(this);
+		Game.getInput().onDown.remove(this.onDown, this);
+		Game.getInput().onUp.remove(this.onUp, this);
 		Game.getInput().mouse.mouseOutCallback = null;
 		this.contentGroup.destroy(true);
 		this.group.destroy(true);

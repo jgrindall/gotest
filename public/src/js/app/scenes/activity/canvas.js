@@ -47,7 +47,6 @@ Map, Drawing){
 	
 	Canvas.prototype.addMap = function() {
 		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
-		console.log("map " + Map);
 		this.map = new Map({'bounds':bounds});
 		this.group.add(this.map.group);
 	};

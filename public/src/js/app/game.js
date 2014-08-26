@@ -97,6 +97,10 @@ function(){
 		Game.scaleManager.forceOrientation(true, false);
 	};
 	
+	Game.setMoveCallback = function(f){
+		
+	};
+	
 	Game.create = function(){
 		var w, h;
 		w = Game.getWidth();

@@ -44,6 +44,14 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	Controls.prototype = Object.create(Container.prototype);
 	Controls.prototype.constructor = Controls;
 	
+	Controls.prototype.create = function() {
+		Container.prototype.create.call(this);
+		this.addBg();
+		//this.addColorPicker();
+		this.addButtons();
+		this.addSpeedButton();
+	};
+	
 	Controls.prototype.typeChanged = function(data) {
 		this.addCommandsPanel(data.type);
 		// and load the data
@@ -59,11 +67,15 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.disableAllInput = function() {
-		this.colorPicker.disableInput();
+		if(this.colorPicker){
+			this.colorPicker.disableInput();
+		}
 	};
 	
 	Controls.prototype.enableAllInput = function() {
-		this.colorPicker.enableInput();
+		if(this.colorPicker){
+			this.colorPicker.enableInput();
+		}
 	};
 	
 	Controls.prototype.addBg = function() {
@@ -73,14 +85,6 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		bounds = {'x':this.bounds.x, 'y':0, 'w':w/2, 'h':h};
 		this.bg = new Background({"asset":'sky', "bounds":bounds});
 		this.group.add(this.bg.sprite);
-	};
-	
-	Controls.prototype.create = function() {
-		Container.prototype.create.call(this);
-		this.addBg();
-		this.addColorPicker();
-		this.addButtons();
-		this.addSpeedButton();
 	};
 	
 	Controls.prototype.addButtons = function() {

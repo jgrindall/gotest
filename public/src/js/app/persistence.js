@@ -39,9 +39,11 @@ colorModel, speedModel
 		"speed":2,
 		"color":2,
 		"commands":[
-			{index:0, color:0, i:0, num:3},
-			{index:5, color:1, i:1, num:3},
-			{index:3, color:2, i:2, num:3},
+			{index:0, color:0, i:0, num:5},
+			{index:5, color:1, i:1, num:5},
+			{index:5, color:1, i:2, num:5},
+			{index:5, color:1, i:3, num:5},
+			{index:3, color:2, i:4, num:5},
 			{index:2, color:3, i:0, num:1}
 		]
 	};

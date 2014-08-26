@@ -59,8 +59,8 @@ commModel){
 	};
 	
 	KeysCommandsPanel.prototype.destroy = function() {
-		this.grid.signal.removeAll(this);
-		this.keys.signal.removeAll(this);
+		this.grid.signal.remove(this.selectComm, this);
+		this.keys.signal.remove(this.selectKey, this);
 		AbstractCommandsPanel.prototype.destroy.call(this);
 	};
 	

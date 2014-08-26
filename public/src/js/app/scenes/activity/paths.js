@@ -45,7 +45,6 @@ function(Game, Container, Colors){
 		this.gfx.lineStyle(Paths.WIDTH, clr, 1);
    		this.gfx.moveTo(p0.x, p0.y);
    		this.gfx.lineTo(p1.x, p1.y);
-   		console.log(p0.x, p0.y, p1.x, p1.y);
    		//this.circle(p1, clr);
 	};
 	

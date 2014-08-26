@@ -53,10 +53,12 @@ colorModel){
 	
 	CommModel.prototype.playAllFromToIncluding = function(i0, i1) {
 		var i, command;
+		this.commandNum = i0;
 		for(i = i0; i <= i1; i++){
-			command = this.commands[i];
+			command = this.getCurrentCommand();
 			this.executeSignal.dispatch({"command":command,"fraction":0, "totalTime":0});
 			this.executeSignal.dispatch({"command":command,"fraction":1, "totalTime":0});
+			this.commandNum++;
 		}
 	};
 	

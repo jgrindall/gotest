@@ -63,7 +63,7 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 				pos = {"x":this.bounds.x + this.spaceX * (j - 1), "y":this.bounds.y + this.spaceY * (i - 1)};
 				pos.x += this.marginX;
 				pos.y += this.marginY;
-				options = {"bounds":pos, "index":n, "data":this.data[n]};
+				options = {"bounds":pos, "index":n, "data":this.data[n], "frames":[0, 1, 2, 3]};
 				b = new this.options.buttonClass(options);
 				b.mouseUpSignal.add(this.buttonUp, this);
 				this.buttonGroup.add(b.group || b.sprite);

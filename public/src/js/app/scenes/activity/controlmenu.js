@@ -23,7 +23,6 @@ ButtonBar, commModel){
 	ControlMenu.prototype.constructor = ControlMenu;
 	
 	ControlMenu.prototype.playingChanged = function(data){
-		console.log("playingChanged "+data.playing);
 		if(data.playing){
 			this.enableButtonAt(0);
 			this.disableButtonAt(1);

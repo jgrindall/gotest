@@ -95,7 +95,7 @@ function(CloseButton, Game, Container, TextFactory){
 	
 	AbstractPopup.prototype.destroy = function() {
 		$.each(this.children, function(i, b){
-			b.mouseUpSignal.removeAll(this);
+			b.mouseUpSignal.remove(this.buttonUp, this);
 			b.destroy();
 		});
 		Container.prototype.destroy.call(this);
