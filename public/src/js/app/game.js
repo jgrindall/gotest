@@ -18,37 +18,8 @@ function(){
 		Game.getInstance();
 	};
 	
-	Game.getPhysics = function(){
-		return Game.getInstance().physics.arcade;
-	};
-	
 	Game.getInput = function(){
 		return Game.getInstance().input;
-	};
-	
-	Game.unPausePhysics = function(){
-		if(Game.physicsPaused){
-			Game.physicsPaused = false;
-			Game.pauseSignal.dispatch();
-		}
-	};
-	
-	Game.pausePhysics = function(){
-		if(!Game.physicsPaused){
-			Game.physicsPaused = true;
-			Game.pauseSignal.dispatch();
-		}
-	};
-	
-	Game.startPhysics = function(){
-		if(!Game.physicsStarted){
-			Game.physicsPaused = false;
-			Game.getInstance().physics.startSystem(Phaser.Physics.ARCADE);
-			Game.getPhysics().gravity.y = Game.GRAVITY;
-		}
-		else{
-			Game.unpausePhysics();
-		}
 	};
 	
 	Game.getWidth = function(){

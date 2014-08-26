@@ -27,7 +27,7 @@ colorModel){
 	};
 	
 	CommModel.SPEED_FACTOR = 10;	// scale factor for speed
-	CommModel.STEPS = 5;
+	CommModel.STEPS = 4;
 	CommModel.PAUSE = 30;
 	
 	CommModel.prototype.performCommand = function() {

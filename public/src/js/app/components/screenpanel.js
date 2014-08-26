@@ -1,13 +1,13 @@
 
-define(['app/game', 'app/components/container',
+define(['jquery', 'app/game', 'app/components/container',
 
-'app/components/buttons/navbutton', 'app/components/screenchoice',
+'app/components/buttons/navbutton', 'app/components/screenchoice', 'app/scenes/activity/buttongridmodel',
 
 'app/components/buttongrid'],
 
-function(Game, Container, 
+function($, Game, Container, 
 
-NavButton, ScreenChoice,
+NavButton, ScreenChoice, ButtonGridModel,
 
 ButtonGrid){
 	
@@ -28,13 +28,15 @@ ButtonGrid){
 	};
 	
 	ScreenPanel.prototype.select = function(data){
+		console.log("ScreenPanel select "+data);
 		this.signal.dispatch(data);
 	};
 	
 	ScreenPanel.prototype.addPanels = function(){
-		var bounds, options;
+		var bounds, options, model;
+		model = new ButtonGridModel();
 		bounds = this.bounds;
-		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
+		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice, "model":model};
 		this.grid = new ButtonGrid(options);
 		this.grid.signal.add(this.select, this);
 		this.group.add(this.grid.group);

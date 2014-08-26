@@ -40,7 +40,7 @@ define(['jquery', 'app/game', 'app/components/background'], function($, Game, Ba
 	};
 
 	Scene.prototype.shutdown = function() {
-		Game.alertSignal.removeAll(this.onAlert, this);
+		Game.alertSignal.remove(this.onAlert, this);
 	};
 	
 	return Scene;

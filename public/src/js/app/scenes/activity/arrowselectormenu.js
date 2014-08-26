@@ -48,12 +48,22 @@ Pager, commModel
 		var options = $.extend({}, this.options, {'bgasset':'panel'});
 		this.pager = new Pager(options);
 		this.pager.pageSignal.add(this.choose, this);
+		this.pager.selectSignal.add(this.onSelected, this);
 		this.group.add(this.pager.group);
+	};
+	
+	ArrowSelectorMenu.prototype.onSelected = function (data) {
+		this.selectedPage = data.page;
+		this.selectedIndex = data.index;
+	};
+	
+	ArrowSelectorMenu.prototype.getData = function () {
+		return {"selectedPage":this.selectedPage, "selectedIndex": this.selectedIndex};
 	};
 	
 	ArrowSelectorMenu.prototype.enableButtons = function () {
 		if(this.leftButton){
-			if(this.selectedIndex>=1){
+			if(this.selectedPage>=1){
 				this.leftButton.enableInput();
 			}
 			else{
@@ -61,7 +71,7 @@ Pager, commModel
 			}
 		}
 		if(this.rightButton){
-			if(this.selectedIndex <= this.pager.numPages() - 2){
+			if(this.selectedPage <= this.pager.numPages() - 2){
 				this.rightButton.enableInput();
 			}
 			else{
@@ -71,7 +81,7 @@ Pager, commModel
 	};
 	
 	ArrowSelectorMenu.prototype.choose = function (data) {
-		this.selectedIndex = data.pageNum;
+		this.selectedPage = data.pageNum;
 		this.enableButtons();
 	};
 	
@@ -86,6 +96,7 @@ Pager, commModel
 	ArrowSelectorMenu.prototype.destroy = function () {
 		if(this.pager){
 			this.pager.pageSignal.remove(this.choose, this);
+			this.pager.selectSignal.remove(this.onSelected, this);
 			this.pager.destroy();
 		}
 		if(this.leftButton){

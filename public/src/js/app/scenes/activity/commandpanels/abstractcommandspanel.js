@@ -3,23 +3,27 @@ define(['app/game', 'app/components/container', 'app/components/background',
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/components/buttons/dirbutton', 'app/components/buttons/keybutton', 'app/scenes/activity/commands/abstractcommand',
+'app/components/buttons/dirbutton', 'app/components/buttons/keybutton',
 
-'app/components/buttongrid', 'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel'
+'app/scenes/activity/commands/abstractcommand',
+
+'app/components/buttongrid', 'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel'
 
 ],
 
 function(Game, Container, Background,
 
-TabButtonBar, TabButton, DirButton, KeyButton, AbstractCommand,
+TabButtonBar, TabButton, DirButton, KeyButton,
 
-ButtonGrid, GameScreenMenu, commModel, colorModel){
+AbstractCommand,
+
+ButtonGrid, commModel, colorModel){
 	
 	"use strict";
 	
 	var AbstractCommandsPanel  = function(options){
 		Container.call(this, options);
-		Game.alertSignal.add($.proxy(this.onAlert, this));
+		Game.alertSignal.add(this.onAlert, this);
 	};
 	
 	AbstractCommandsPanel.prototype = Object.create(Container.prototype);

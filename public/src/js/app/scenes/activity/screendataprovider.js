@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/components/buttongrid',
+define(['app/game', 'app/components/buttongrid', 'app/scenes/activity/buttongridmodel',
 
-'app/components/screenpanel', 'app/utils/storage'],
+'app/components/screenpanel', 'app/utils/storage', 'app/components/screenchoice'],
 
-function(Game, ButtonGrid,
+function(Game, ButtonGrid, ButtonGridModel,
 
-ScreenPanel, Storage){
+ScreenPanel, Storage, ScreenChoice){
 	
 	"use strict";
 	
@@ -18,16 +18,16 @@ ScreenPanel, Storage){
 	};
 	
 	ScreenDataProvider.prototype.addPage = function(i, scroller){
-		var options, panel, bounds, w, h, top, paddingX, paddingY;
+		var options, bounds, w, h, top, paddingX, paddingY, bounds, options, model, grid;
 		paddingX = 50;
 		paddingY = 50;
+		model = new ButtonGridModel();
 		w = scroller.bounds.w - 2*paddingX;
 		h = scroller.bounds.h - 2*paddingY;
 		bounds = {"x":paddingX + scroller.bounds.x + i * Game.w(), "y":paddingY + scroller.bounds.y, "w":w, "h":h};
-		options = {"bounds":bounds};
-		console.log("screen panel bounds "+JSON.stringify(bounds));
-		panel = new ScreenPanel(options);
-		scroller.add(panel);
+		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice, "model":model};
+		grid = new ButtonGrid(options);
+		scroller.add(grid);
 	};
 	
 	ScreenDataProvider.prototype.addAll = function(scroller){

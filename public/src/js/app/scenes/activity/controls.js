@@ -35,7 +35,7 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	
 	var Controls  = function(options){
 		Container.call(this, options);
-		Game.alertSignal.add($.proxy(this.onAlert, this));
+		Game.alertSignal.add(this.onAlert, this);
 		layoutModel.changeSignal.add(this.typeChanged, this);
 	};
 
@@ -90,7 +90,7 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	Controls.prototype.addButtons = function() {
 		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':300, 'h':50};
 		this.menu = new ControlMenu({"num":4, "bounds":bounds});
-		this.menu.signal.add(this.menuSelected, this);
+		this.menu.clickSignal.add(this.menuClick, this);
 		this.group.add(this.menu.group);
 	};
 	
@@ -99,24 +99,26 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		this.group.add(this.speedSlider.group);
 	};
 	
-	Controls.prototype.menuSelected = function(data) {
-		var i = data.index;
-		if(i === 0){
+	Controls.prototype.menuClick = function(data) {
+		console.log("MS!  "+data.index);
+		var index = data.index;
+		if(index === 0){
 			commModel.stop();
 		}
-		else if(i === 1){
+		else if(index === 1){
 			commModel.undo();
 		}
-		else if(i === 2){
+		else if(index === 2){
 			AlertManager.makeScreenMenu($.proxy(this.onChanged, this));
 		}
-		else if(i === 3){
+		else if(index === 3){
 			AlertManager.makeScreenMenu($.proxy(this.onChanged, this)); 
 		} 
 	};
 	
 	Controls.prototype.onChanged = function(data) {
-		layoutModel.setType(data.selectedIndex);
+		console.log(">>>>> CHANGE onc "+JSON.stringify(data));
+		layoutModel.setData(data.selectedIndex);
 	};
 	
 	Controls.prototype.addCommandsPanel = function(type) {
@@ -143,9 +145,18 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.destroy = function() {
-		Controls.prototype.destroy.call(this);
 		this.bg.destroy();
-		this.tabButtonBar.destroy();
+		this.colorPicker.destroy();
+		this.menu.signal.remove(this.menuSelected, this);
+		this.menu.destroy();
+		this.bg = null;
+		this.colorPicker = null;
+		this.menu = null;
+		if(this.commandsPanel){
+			this.commandsPanel.destroy();
+			this.commandsPanel = null;
+		}
+		Container.prototype.destroy.call(this);
 	};
 	
 	return Controls;

@@ -54,7 +54,7 @@ bgModel){
 	ActivityScene.prototype.addMenu = function() {
 		var bounds = {'x':0, 'y':0, 'w':300, 'h':50};
 		this.menu = new Menu({"bounds":bounds});
-		this.menu.signal.add(this.menuSelected, this);
+		this.menu.clickSignal.add(this.menuClick, this);
 		this.world.add(this.menu.group);
 	};
 	
@@ -64,7 +64,7 @@ bgModel){
 		}
 	};
 	
-	ActivityScene.prototype.menuSelected = function(data) {
+	ActivityScene.prototype.menuClick = function(data) {
 		var i = data.index;
 		if(i === 0){
 			AlertManager.makeBgMenu($.proxy(this.bgChosen, this));

@@ -1,5 +1,5 @@
 
-define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
+define(['jquery', 'app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
 
 'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/dirbutton',
 
@@ -11,7 +11,7 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 
 ],
 
-function(NavButton, CloseButton, Game,
+function($, NavButton, CloseButton, Game,
 
 ListButton, OkButton, DirButton, 
 
@@ -53,15 +53,17 @@ Pager, commModel
 	};
 	
 	SelectorMenu.prototype.showMenu = function () {
-		Game.getInstance().add.tween(this.group).to( {x: 0, y: 0}, 700, Phaser.Easing.Back.InOut, true, 0, false);
+		Game.getInstance().add.tween(this.group).to( {'x': 0, 'y': 0}, 700, Phaser.Easing.Back.InOut, true, 0, false);
 	};
 	
 	SelectorMenu.prototype.okClicked = function () {
-		var data = {"index":0, "selectedIndex":this.selectedIndex};
-		this.selectSignal.dispatch(data);
+		console.log("okc 0");
+		var data = this.getData();
+		this.selectSignal.dispatch($.extend({"index":0}, data));
 	};
 	
 	SelectorMenu.prototype.closeClicked = function () {
+		console.log("cc 1");
 		this.selectSignal.dispatch({"index":1});
 	};
 	

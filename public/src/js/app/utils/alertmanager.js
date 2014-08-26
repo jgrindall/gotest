@@ -16,13 +16,12 @@ GameScreenMenu, GameBgMenu, Growl){
 	AlertManager.close = function(){
 		console.log("close! ");
 		if(AlertManager.alert){
-			AlertManager.alert.selectSignal.removeAll(AlertManager);
+			AlertManager.alert.selectSignal.remove(this.callbackProxy);
 			AlertManager.alert.destroy();
 			AlertManager.bg.destroy();
 			AlertManager.bg = null;
 			AlertManager.alert = null;
 			Game.alertSignal.dispatch({"show":false});
-			Game.unPausePhysics();
 		}
 	};
 	
@@ -39,13 +38,15 @@ GameScreenMenu, GameBgMenu, Growl){
 	};
 	
 	AlertManager.make = function(ClassRef, label, callback){
+		console.log("make "+ClassRef);
 		var x, y;
+		this.callbackProxy = $.proxy(this.buttonClick, AlertManager, callback);
 		x = (Game.w() - ClassRef.WIDTH)/2;
 		y = (Game.h() - ClassRef.HEIGHT)/2;
 		AlertManager.addBg();
 		AlertManager.close();
 		AlertManager.alert = new ClassRef({"label":label, "bounds":{"x":x, "y":y, "w":ClassRef.WIDTH, "h":ClassRef.HEIGHT}});
-		AlertManager.alert.selectSignal.add($.proxy(this.buttonClick, this, callback));
+		AlertManager.alert.selectSignal.add(this.callbackProxy);
 		Game.getInstance().world.add(AlertManager.alert.group);
 		Game.alertSignal.dispatch({"show":true});
 		setTimeout(function(){
@@ -62,6 +63,7 @@ GameScreenMenu, GameBgMenu, Growl){
 	};
 	
 	AlertManager.makeScreenMenu = function(callback){
+		console.log("makeScreenMenu "+callback);
 		AlertManager.make(GameScreenMenu, "text", callback);
 	};
 	
@@ -71,10 +73,6 @@ GameScreenMenu, GameBgMenu, Growl){
 	
 	AlertManager.makeGrowl = function(label, callback){
 		AlertManager.make(Growl, label, callback);
-	};
-	
-	AlertManager.makePager = function(label, callback){
-		AlertManager.make(GameScreenMenu, label, callback);
 	};
 	
 	AlertManager.makeAlert = function(label, callback){

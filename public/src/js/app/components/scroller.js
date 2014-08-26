@@ -53,7 +53,7 @@ function($, Game, Container){
 		w = child.options.bounds.w;
 		m = -1*(x + w - Game.w());
 		this.minX = Math.min(this.minX, m);
-		child.signal.add(this.select, this);
+		child.clickSignal.add(this.select, this);
 	};
 	
 	Scroller.prototype.gotoPage = function(p) {
@@ -75,10 +75,10 @@ function($, Game, Container){
 	};
 	
 	Scroller.prototype.select = function(data){
-		// check if moved or not!
+		var page = this.contentGroup.getIndex(data.grid.group);
 		if(Math.abs(this.dx) < Scroller.MIN_MOVE){
-			var page = this.group.getIndex(data.grid.group);
 			this.selectSignal.dispatch({"index":data.index, "page":page});
+			data.grid.showSelected(data.index);
 		}
 	};
 	
@@ -142,7 +142,7 @@ function($, Game, Container){
 		var that = this;
 		$.each(this.children, function(i, child){
 			console.log("destroy scroller child "+i+", "+child);
-			child.signal.remove(that.select, that);
+			child.clickSignal.remove(that.select, that);
 			child.destroy();
 		});
 		this.removeListeners();

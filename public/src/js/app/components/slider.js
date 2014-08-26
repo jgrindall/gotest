@@ -13,6 +13,7 @@ InteractiveSprite, Phaser){
 		var speed;
 		this.model = options.model;
 		this.stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / options.num;
+		Game.alertSignal.add(this.onAlert, this);
 		this.model.changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
 		speed = this.model.getData().speed;
@@ -36,6 +37,25 @@ InteractiveSprite, Phaser){
 	Slider.prototype.goTo = function(n) {
 		this.handle.x = this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist);
 	};
+	
+	Slider.prototype.onAlert = function(data) {
+		if(data.show){
+			this.disableAllInput();
+		}
+		else{
+			this.enableAllInput();
+		}
+	};
+	
+	Slider.prototype.disableAllInput = function() {
+		this.handle.disableInput();
+		this.removeListeners();
+	};
+	
+	Slider.prototype.enableAllInput = function() {
+		this.handle.enableInput();
+		this.addListeners();
+	};	
 	
 	Slider.prototype.onUp = function() {
 		this.dragging = false;
@@ -100,7 +120,6 @@ InteractiveSprite, Phaser){
 		x = this.bounds.x + Slider.HANDLEHEIGHT/2;
 		y = this.bounds.y + Slider.HANDLEHEIGHT/2;
 		this.handle = new InteractiveSprite(Game.getInstance(), x, y, 'sliderhandle', 'sliderhandle');
-		this.handle.enableInput();
 		this.handle.anchor.setTo(0.5, 0.5);
 		this.group.add(this.handle);
 	};
@@ -114,7 +133,7 @@ InteractiveSprite, Phaser){
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addHandle();
-		this.addListeners();
+		this.enableAllInput();
 	};
 	
 	Slider.prototype.destroy = function(){
