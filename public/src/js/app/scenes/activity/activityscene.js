@@ -59,8 +59,9 @@ bgModel){
 	};
 	
 	ActivityScene.prototype.bgChosen = function(data) {
-		if(data.index === 1){
-			bgModel.setBg(data.selectedIndex);
+		if(data.index === 0){
+			bgModel.setBg(data.selectedPage);
+			//TODO - clear it!
 		}
 	};
 	
@@ -68,6 +69,15 @@ bgModel){
 		var i = data.index;
 		if(i === 0){
 			AlertManager.makeBgMenu($.proxy(this.bgChosen, this));
+		}
+		else if(i === 1){
+			//commModel.stop();
+		}
+		else if(i === 2){
+			//commModel.stop();
+		}
+		else if(i === 3){
+			//commModel.stop();
 		}
 		else if(i === 4){
 			commModel.stop();

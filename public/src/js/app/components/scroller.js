@@ -53,7 +53,9 @@ function($, Game, Container){
 		w = child.options.bounds.w;
 		m = -1*(x + w - Game.w());
 		this.minX = Math.min(this.minX, m);
-		child.clickSignal.add(this.select, this);
+		if(child.clickSignal){
+			child.clickSignal.add(this.select, this);
+		}
 	};
 	
 	Scroller.prototype.gotoPage = function(p) {
@@ -142,7 +144,9 @@ function($, Game, Container){
 		var that = this;
 		$.each(this.children, function(i, child){
 			console.log("destroy scroller child "+i+", "+child);
-			child.clickSignal.remove(that.select, that);
+			if(child.clickSignal){
+				child.clickSignal.remove(that.select, that);
+			}
 			child.destroy();
 		});
 		this.removeListeners();

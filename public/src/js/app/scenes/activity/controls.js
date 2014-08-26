@@ -7,7 +7,7 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/layoutmodel', 
 
-'app/scenes/activity/controlmenu',
+'app/scenes/activity/controlmenu', 'app/scenes/activity/commandpanels/abstractcommandspanel',
 
 'app/scenes/activity/speedmodel', 'app/scenes/activity/commspeed',
 
@@ -25,7 +25,7 @@ ColorPicker, NSEWCommandsPanel,
 
 commModel, colorModel, layoutModel,
 
-ControlMenu,
+ControlMenu, AbstractCommandsPanel,
 
 speedModel, CommSpeed,
 
@@ -39,7 +39,7 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		layoutModel.changeSignal.add(this.typeChanged, this);
 	};
 
-	Controls.WIDTH = 400;
+	Controls.WIDTH = 290;
 	
 	Controls.prototype = Object.create(Container.prototype);
 	Controls.prototype.constructor = Controls;
@@ -126,7 +126,7 @@ AlertManager, MenuButton, CommandsPanelFactory){
 			this.commandsPanel.destroy();
 			this.commandsPanel = null;
 		}
-		var bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
+		var bounds = {'x':this.bounds.x, 'y':50, 'w':AbstractCommandsPanel.WIDTH, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, bounds);
 		this.group.add(this.commandsPanel.group);
 	};

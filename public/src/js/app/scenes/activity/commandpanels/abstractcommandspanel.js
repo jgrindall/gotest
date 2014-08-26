@@ -26,6 +26,8 @@ ButtonGrid, commModel, colorModel){
 		Game.alertSignal.add(this.onAlert, this);
 	};
 	
+	AbstractCommandsPanel.WIDTH = 190;
+	
 	AbstractCommandsPanel.prototype = Object.create(Container.prototype);
 	AbstractCommandsPanel.prototype.constructor = AbstractCommandsPanel;
 	
