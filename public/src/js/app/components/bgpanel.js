@@ -1,13 +1,13 @@
 
 define(['app/game', 'app/components/container',
 
-'app/components/buttons/navbutton', 'app/components/screenchoice', 'app/bgdata',
+'app/components/buttons/navbutton', 'app/bgdata',
 
 'app/components/buttongrid'],
 
 function(Game, Container, 
 
-NavButton, ScreenChoice, BgData,
+NavButton, BgData,
 
 ButtonGrid){
 	

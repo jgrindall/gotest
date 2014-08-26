@@ -14,6 +14,7 @@ GameScreenMenu, GameBgMenu, Growl){
 	};
 	
 	AlertManager.close = function(){
+		console.log("close! ");
 		if(AlertManager.alert){
 			AlertManager.alert.selectSignal.removeAll(AlertManager);
 			AlertManager.alert.destroy();
@@ -53,6 +54,7 @@ GameScreenMenu, GameBgMenu, Growl){
 	};
 	
 	AlertManager.buttonClick = function(callback, data){
+		console.log("buttonClick "+data.index);
 		AlertManager.close();
 		if(callback){
 			callback(data);

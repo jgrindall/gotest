@@ -40,7 +40,7 @@ InteractiveSprite){
 	
 	MultiButton.prototype.create = function(){
 		var i;
-		this.sprite = new InteractiveSprite(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset);
+		this.sprite = new InteractiveSprite(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset, 'multibutton');
 		for(i = 0; i<= this.options.num - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 500, true);	
 		}

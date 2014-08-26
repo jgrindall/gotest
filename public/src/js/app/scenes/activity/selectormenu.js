@@ -5,7 +5,7 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 
 'app/components/buttons/resetbutton',
 
-'app/components/container', 'app/components/abstractpopup', 'app/scenes/activity/screendataprovider',
+'app/components/container', 'app/components/abstractpopup',
 
 'app/components/pager', 'app/scenes/activity/commmodel'
 
@@ -17,7 +17,7 @@ ListButton, OkButton, DirButton,
 
 ResetButton,
 
-Container, AbstractPopup, ScreenDataProvider,
+Container, AbstractPopup,
 
 Pager, commModel
 

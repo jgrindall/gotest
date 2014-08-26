@@ -39,7 +39,7 @@ NavButton, InteractiveSprite){
 	};
 	
 	ScreenChoice.prototype.addBg = function(){
-		this.panel = new InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
+		this.panel = new InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset, 'screenchoice');
 		this.panel.name = "screen choice";
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
@@ -47,6 +47,8 @@ NavButton, InteractiveSprite){
 	};
 	
 	ScreenChoice.prototype.destroy = function(){
+		console.log(">>>  destroy screenchoice");
+		this.panel.mouseUpSignal.remove(this.mouseUp, this);
 		this.panel.destroy(true);
 	};
 	

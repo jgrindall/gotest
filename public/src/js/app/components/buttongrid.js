@@ -75,6 +75,11 @@ define(['app/game', 'app/components/container'],function(Game, Container){
 	};
 	
 	ButtonGrid.prototype.destroy = function() {
+		var that = this;
+		$.each(this.buttons, function(i, b){
+			b.mouseUpSignal.remove(that.buttonUp, that);
+			b.destroy();
+		});
 		Container.prototype.destroy.call(this);
 		this.buttonGroup.destroy(true);
 		this.bg = null;

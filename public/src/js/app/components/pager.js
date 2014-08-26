@@ -32,7 +32,6 @@ function(Game, Scroller, GroupMarker){
 			this.groupMarker.destroy();
 			this.groupMarker = null;
 		}
-		this.pageSignal = null;
 		Scroller.prototype.destroy.call(this);
 	};
 	

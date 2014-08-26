@@ -18,13 +18,14 @@ ScreenPanel, Storage){
 	};
 	
 	ScreenDataProvider.prototype.addPage = function(i, scroller){
-		var options, panel, bounds, w, h, top;
-		var paddingX = 50;
-		var paddingY = 50;
+		var options, panel, bounds, w, h, top, paddingX, paddingY;
+		paddingX = 50;
+		paddingY = 50;
 		w = scroller.bounds.w - 2*paddingX;
 		h = scroller.bounds.h - 2*paddingY;
 		bounds = {"x":paddingX + scroller.bounds.x + i * Game.w(), "y":paddingY + scroller.bounds.y, "w":w, "h":h};
-		options = {"bounds":bounds, "bgasset":'map'+i};
+		options = {"bounds":bounds};
+		console.log("screen panel bounds "+JSON.stringify(bounds));
 		panel = new ScreenPanel(options);
 		scroller.add(panel);
 	};

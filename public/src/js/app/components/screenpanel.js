@@ -33,11 +33,19 @@ ButtonGrid){
 	
 	ScreenPanel.prototype.addPanels = function(){
 		var bounds, options;
-		bounds = {"x":this.bounds.x, "y":this.bounds.y, "w":700, "h":500};
+		bounds = this.bounds;
 		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
 		this.grid = new ButtonGrid(options);
 		this.grid.signal.add(this.select, this);
 		this.group.add(this.grid.group);
+	};
+	
+	ScreenPanel.prototype.destroy = function(){
+		console.log("destroy screen panel");
+		this.grid.signal.remove(this.select, this);
+		this.grid.destroy();
+		this.grid = null;
+		Container.prototype.destroy.call(this);
 	};
 	
 	return ScreenPanel;

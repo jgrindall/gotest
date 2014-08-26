@@ -5,7 +5,7 @@ define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton'
 
 'app/components/buttons/resetbutton', 'app/scenes/activity/selectormenu',
 
-'app/components/container', 'app/components/abstractpopup', 'app/scenes/activity/screendataprovider',
+'app/components/container', 'app/components/abstractpopup',
 
 'app/components/pager', 'app/scenes/activity/commmodel'
 
@@ -17,7 +17,7 @@ ListButton, OkButton, DirButton,
 
 ResetButton, SelectorMenu,
 
-Container, AbstractPopup, ScreenDataProvider,
+Container, AbstractPopup,
 
 Pager, commModel
 
@@ -84,8 +84,10 @@ Pager, commModel
 	};
 	
 	ArrowSelectorMenu.prototype.destroy = function () {
-		this.pager.pageSignal.remove(this.choose, this);
-		this.pager.destroy();
+		if(this.pager){
+			this.pager.pageSignal.remove(this.choose, this);
+			this.pager.destroy();
+		}
 		if(this.leftButton){
 			this.leftButton.destroy();
 			this.leftButton = null;

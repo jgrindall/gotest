@@ -7,6 +7,7 @@ function($, Game, Container){
 
 	var Scroller = function(options){
 		this.x0 = null;
+		this.children = [];
 		this.dragging = false;
 		this.minX = 0;
 		this.pageNum = 0;
@@ -31,7 +32,6 @@ function($, Game, Container){
 	
 	Scroller.prototype.addListeners = function() {
 		Game.getInput().onDown.add(this.onDown, this);
-		Game.getInput().mouse.mouseOutCallback = $.proxy(this.mouseOutCallback, this);
 	};
 	
 	Scroller.prototype.mouseOutCallback = function() {
@@ -47,12 +47,13 @@ function($, Game, Container){
 	
 	Scroller.prototype.add = function(child) {
 		this.contentGroup.add(child.group);
+		this.children.push(child);
 		var x, w, m;
 		x = child.options.bounds.x;
 		w = child.options.bounds.w;
 		m = -1*(x + w - Game.w());
 		this.minX = Math.min(this.minX, m);
-		child.signal.add($.proxy(this.select, this));
+		child.signal.add(this.select, this);
 	};
 	
 	Scroller.prototype.gotoPage = function(p) {
@@ -126,16 +127,27 @@ function($, Game, Container){
 		this.x0 = null;
 		this.dragging = true;
 		Game.getInput().onUp.add(this.onUp, this);
+		Game.getInput().mouse.mouseOutCallback = $.proxy(this.mouseOutCallback, this);
 		Game.getInput().moveCallback = $.proxy(this.move, this);
 	};
 	
-	Scroller.prototype.destroy = function() {
+	Scroller.prototype.removeListeners = function() {
 		Game.getInput().onDown.remove(this.onDown, this);
 		Game.getInput().onUp.remove(this.onUp, this);
+		Game.getInput().moveCallback = null;
 		Game.getInput().mouse.mouseOutCallback = null;
-		this.contentGroup.destroy(true);
-		this.group.destroy(true);
-		this.options = null;
+	};
+	
+	Scroller.prototype.destroy = function() {
+		var that = this;
+		$.each(this.children, function(i, child){
+			console.log("destroy scroller child "+i+", "+child);
+			child.signal.remove(that.select, that);
+			child.destroy();
+		});
+		this.removeListeners();
+		this.pageSignal.dispose();
+		this.selectSignal.dispose();
 		this.pageSignal = null;
 		this.selectSignal = null;
 		Container.prototype.destroy.call(this);

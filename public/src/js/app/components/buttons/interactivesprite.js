@@ -3,8 +3,9 @@ define(['phaser'], function(Phaser){
 	
 	"use strict";
 	
-	var InteractiveSprite = function(game, x, y, asset){
+	var InteractiveSprite = function(game, x, y, asset, name){
 		Phaser.Sprite.call(this, game, x, y, asset);
+		this.name = name;
 		this.mouseUpSignal = new Phaser.Signal();
 		this.mouseDownSignal = new Phaser.Signal();
 	};
@@ -38,6 +39,7 @@ define(['phaser'], function(Phaser){
 
 	InteractiveSprite.prototype.hitData = function(data){
 		var input, hits, pointer, localPoint;
+		console.log("hitData for "+this.name);
 		input = this.game.input;
 		if(!this.inputEnabled){
 			return {'hits':false};
@@ -66,6 +68,8 @@ define(['phaser'], function(Phaser){
 		this.disableInput();
 		this.mouseDownSignal.dispose();
 		this.mouseUpSignal.dispose();
+		this.mouseDownSignal = null;
+		this.mouseUpSignal = null;
 		Phaser.Sprite.prototype.destroy.call(this, children);
 	};
 
