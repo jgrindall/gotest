@@ -47,7 +47,6 @@ NavButton, InteractiveSprite){
 	};
 	
 	ScreenChoice.prototype.destroy = function(){
-		console.log(">>>  destroy screenchoice");
 		this.panel.mouseUpSignal.remove(this.mouseUp, this);
 		this.panel.destroy(true);
 	};

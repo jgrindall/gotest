@@ -7,7 +7,7 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scene
 
 'app/components/loaderbar', 'app/scenes/activity/menu', 'app/persistence',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/layoutmodel',
+'app/scenes/activity/commmodel', 'app/scenes/activity/layoutmodel', 'app/components/background',
 
 'app/scenes/activity/bgmodel'],
 
@@ -19,7 +19,7 @@ MenuButton, OkButton, AlertManager,
 
 LoaderBar, Menu, Persistence,
 
-commModel, layoutModel,
+commModel, layoutModel, Background,
 
 bgModel){
 	
@@ -34,10 +34,20 @@ bgModel){
 
 	ActivityScene.prototype.create = function() {
 		Scene.prototype.create.call(this);
+		this.addBg();
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
 		Persistence.getInstance().loadDefaults();
+	};
+	
+	ActivityScene.prototype.addBg = function() {
+		var w, h, bounds;
+		w = Game.getWidth();
+		h = Game.getHeight();
+		bounds = {'x':0, 'y':0, 'w':w, 'h':h};
+		this.bg = new Background({"asset":'sky', "bounds":bounds});
+		this.world.add(this.bg.sprite);
 	};
 	
 	ActivityScene.prototype.addText = function() {
@@ -68,7 +78,7 @@ bgModel){
 	ActivityScene.prototype.menuClick = function(data) {
 		var i = data.index;
 		if(i === 0){
-			AlertManager.makeBgMenu($.proxy(this.bgChosen, this));
+			AlertManager.makeBgMenu({}, $.proxy(this.bgChosen, this));
 		}
 		else if(i === 1){
 			//commModel.stop();

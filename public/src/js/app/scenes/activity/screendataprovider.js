@@ -18,7 +18,7 @@ ScreenPanel, Storage, ScreenChoice){
 	};
 	
 	ScreenDataProvider.prototype.addPage = function(i, scroller){
-		var options, bounds, w, h, top, paddingX, paddingY, bounds, options, model, grid;
+		var options, w, h, top, paddingX, paddingY, bounds, model, grid;
 		paddingX = 50;
 		paddingY = 50;
 		model = new ButtonGridModel();

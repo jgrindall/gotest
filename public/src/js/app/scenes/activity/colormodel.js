@@ -22,7 +22,7 @@ function(Game, AbstractModel){
 	};
 	
 	ColorModel.prototype.setColor = function(i) {
-		if(this.color != i){
+		if(this.color !== i){
 			this.color = i;
 			this.trigger();
 		}

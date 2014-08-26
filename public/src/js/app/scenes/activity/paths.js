@@ -37,15 +37,16 @@ function(Game, Container, Colors){
    		this.gfx.lineStyle(0, 0, 0);
    		this.gfx.beginFill(clr, 1);
 		this.gfx.drawCircle(p.x, p.y, Paths.WIDTH/2);
+		this.gfx.endFill();
 	};
 	
 	Paths.prototype.line = function(p0, p1, clrIndex) {
 		var clr = Colors.ALL[clrIndex];
-		//this.circle(p0, clr);
+		this.circle(p0, clr);
 		this.gfx.lineStyle(Paths.WIDTH, clr, 1);
    		this.gfx.moveTo(p0.x, p0.y);
    		this.gfx.lineTo(p1.x, p1.y);
-   		//this.circle(p1, clr);
+   		this.circle(p1, clr);
 	};
 	
 	Paths.prototype.addGfx = function() {

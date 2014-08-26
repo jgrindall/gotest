@@ -22,7 +22,6 @@ CommandTypes){
 	};
 	
 	LayoutModel.prototype.setData = function(n) {
-		console.log("setData " + n);
 		this.setType(n);
 	};
 	

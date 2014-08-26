@@ -82,7 +82,7 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		var w, h, bounds;
 		w = Game.getWidth();
 		h = Game.getHeight();
-		bounds = {'x':this.bounds.x, 'y':0, 'w':w/2, 'h':h};
+		bounds = {'x':this.bounds.x, 'y':0, 'w':this.bounds.w, 'h':h};
 		this.bg = new Background({"asset":'sky', "bounds":bounds});
 		this.group.add(this.bg.sprite);
 	};
@@ -100,7 +100,6 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.menuClick = function(data) {
-		console.log("MS!  "+data.index);
 		var index = data.index;
 		if(index === 0){
 			commModel.stop();
@@ -117,7 +116,6 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.onChanged = function(data) {
-		console.log(">>>>> CHANGE onc "+JSON.stringify(data));
 		layoutModel.setData(data.selectedIndex);
 	};
 	
@@ -126,13 +124,13 @@ AlertManager, MenuButton, CommandsPanelFactory){
 			this.commandsPanel.destroy();
 			this.commandsPanel = null;
 		}
-		var bounds = {'x':this.bounds.x, 'y':50, 'w':AbstractCommandsPanel.WIDTH, 'h':this.bounds.h - 50};
+		var bounds = {'x':this.bounds.x + (this.bounds.w - AbstractCommandsPanel.WIDTH)/2, 'y':50, 'w':AbstractCommandsPanel.WIDTH, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, bounds);
 		this.group.add(this.commandsPanel.group);
 	};
 	
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':this.bounds.x, 'y':Game.h() - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
+		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':Game.h() - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
 		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8, "model":colorModel});	
 		this.group.add(this.colorPicker.sprite);
 	};

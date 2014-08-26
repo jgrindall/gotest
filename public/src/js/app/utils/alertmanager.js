@@ -14,7 +14,6 @@ GameScreenMenu, GameBgMenu, Growl){
 	};
 	
 	AlertManager.close = function(){
-		console.log("close! ");
 		if(AlertManager.alert){
 			AlertManager.alert.selectSignal.remove(this.callbackProxy);
 			AlertManager.alert.destroy();
@@ -38,7 +37,6 @@ GameScreenMenu, GameBgMenu, Growl){
 	};
 	
 	AlertManager.make = function(ClassRef, data, callback){
-		console.log("make "+ClassRef);
 		var x, y;
 		this.callbackProxy = $.proxy(this.buttonClick, AlertManager, callback);
 		x = (Game.w() - ClassRef.WIDTH)/2;

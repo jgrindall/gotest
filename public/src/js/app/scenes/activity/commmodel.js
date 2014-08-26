@@ -142,7 +142,7 @@ colorModel){
 	};
 	
 	CommModel.prototype.nextInterval = function() {
-		this.step++
+		this.step++;
 		if(this.step === CommModel.STEPS + 1){
 			this.commandNum++;
 			if(this.commandNum === this.commands.length){

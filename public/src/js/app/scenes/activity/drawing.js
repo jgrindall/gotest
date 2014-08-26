@@ -3,13 +3,17 @@ define(['app/game', 'app/components/container',
 
 'app/scenes/activity/map', 'app/scenes/activity/turtle', 'app/scenes/activity/paths',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel'],
+'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel',
+
+'app/scenes/activity/scalemodel'],
 
 function(Game, Container,
 
 Map, Turtle, Paths,
 
-commModel, colorModel){
+commModel, colorModel,
+
+scaleModel){
 	
 	"use strict";
 	
@@ -21,10 +25,13 @@ commModel, colorModel){
 		this.onReset();
 	};
 	
-	Drawing.DIST = 70;
-	Drawing.PI180 = 3.14159/180;
+	Drawing.DIST = 100;
+	Drawing.PI180 = 3.14159265359/180;
+	Drawing.ONE_RT2 = 1/1.4142135624;
 	Drawing.START_POS = {x:300, y:300};
-	
+	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
+	Drawing.SCALES = [Drawing.ONE_RT2, 1, Drawing.ONE_RT2, 1, 1, 1, Drawing.ONE_RT2, 1, Drawing.ONE_RT2]; 
+		
 	Drawing.prototype = Object.create(Container.prototype);
 	Drawing.prototype.constructor = Drawing;
 	
@@ -45,12 +52,15 @@ commModel, colorModel){
 	};
 	
 	Drawing.prototype.setHeading = function(command) {
-		var dx, dy, angles, thetaRad;
-		angles = [135, 90, 45, 180, 0, 0, 225, -90, -45];
-		this.angle = -angles[command.direction];
+		var dx, dy, thetaRad;
+		this.angle = -Drawing.ANGLES[command.direction];
 		thetaRad = this.angle * Drawing.PI180;
-		dx = Drawing.DIST *  Math.cos(thetaRad);
-		dy = Drawing.DIST *  Math.sin(thetaRad);
+		dx = Drawing.DIST * Math.cos(thetaRad);
+		dy = Drawing.DIST * Math.sin(thetaRad);
+		if(scaleModel.getData().scale){
+			dx *= Drawing.SCALES[command.direction];
+			dy *= Drawing.SCALES[command.direction];
+		}
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
 	};
 	

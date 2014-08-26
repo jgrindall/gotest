@@ -39,7 +39,6 @@ define(['phaser'], function(Phaser){
 
 	InteractiveSprite.prototype.hitData = function(data){
 		var input, hits, pointer, localPoint;
-		console.log("hitData for "+this.name);
 		input = this.game.input;
 		if(!this.inputEnabled){
 			return {'hits':false};

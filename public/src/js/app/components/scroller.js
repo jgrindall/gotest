@@ -151,7 +151,6 @@ function($, Game, Container){
 	Scroller.prototype.destroy = function() {
 		var that = this;
 		$.each(this.children, function(i, child){
-			console.log("destroy scroller child "+i+", "+child);
 			if(child.clickSignal){
 				child.clickSignal.remove(that.select, that);
 			}

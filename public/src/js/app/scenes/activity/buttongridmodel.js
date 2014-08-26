@@ -22,7 +22,7 @@ function(Game, AbstractModel){
 	};
 	
 	ButtonGridModel.prototype.setSelected = function(i) {
-		if(this.selected != i){
+		if(this.selected !== i){
 			this.selected = i;
 			this.trigger();
 		}
