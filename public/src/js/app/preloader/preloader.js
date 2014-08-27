@@ -110,7 +110,6 @@ define(['app/game'], function(Game){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 					"key":Preloader.CLOSE_KEY, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 					"key":Preloader.TICK_KEY, 					"w":80, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Preloader.OK_BUTTON_KEY, 				"w":250, 	"h":75},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/greenHome.png", 				"key":Preloader.HOME_KEY, 					"w":120, 	"h":120},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Preloader.MARKER_KEY, 				"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/pens.png", 							"key":Preloader.PENS, 						"w":160, 	"h":80}
 	];
