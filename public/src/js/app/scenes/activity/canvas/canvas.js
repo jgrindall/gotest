@@ -1,11 +1,15 @@
 
 define(['app/game', 'app/components/container', 'app/components/background',
 
-'app/scenes/activity/canvas/map', 'app/scenes/activity/canvas/drawing'],
+'app/scenes/activity/canvas/map', 'app/scenes/activity/canvas/drawing',
+
+'app/scenes/activity/components/indicator'],
 
 function(Game, Container, Background,
 
-Map, Drawing){
+Map, Drawing,
+
+Indicator){
 	
 	"use strict";
 	
@@ -29,12 +33,13 @@ Map, Drawing){
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addMap();
-		this.addIndicator();
 		this.addDrawing();
+		this.addIndicator();
 	};
 	
 	Canvas.prototype.addIndicator = function() {
-		
+		this.indicator = new Indicator({'bounds':{'x':100, 'y':100}});
+		this.group.add(this.indicator.gfx);
 	};
 	
 	Canvas.prototype.addDrawing = function() {
