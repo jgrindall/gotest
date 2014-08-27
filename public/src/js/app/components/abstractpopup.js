@@ -13,6 +13,7 @@ Container, TextFactory){
 		this.buttons = [];
 		this.selectSignal = new Phaser.Signal();
 		Container.call(this, options);
+		this.group.y = Game.h() + 50;
 	};
 	
 	AbstractPopup.prototype = Object.create(Container.prototype);
@@ -23,9 +24,13 @@ Container, TextFactory){
 		this.group.add(this.panel);
 	};
 	
+	AbstractPopup.prototype.getData = function() {
+		return {};
+	};
+	
 	AbstractPopup.prototype.buttonUp = function(data) {
 		var index = this.buttonGroup.getIndex(data.target.sprite);
-		this.selectSignal.dispatch({"index":index});
+		this.selectSignal.dispatch({"index":index, "data":this.getData()});
 	};
 	
 	AbstractPopup.prototype.addButton = function (ClassRef, bounds) {

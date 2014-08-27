@@ -108,7 +108,7 @@ AlertManager, CommandsPanelFactory){
 			commModel.undo();
 		}
 		else if(index === 2){
-			AlertManager.makeScreenMenu({"page":0, "index":screenModel.getData().screen}, $.proxy(this.onScreenChanged, this));
+			AlertManager.makeGrowl({"label":"Teacher login with password?"}, null);
 		}
 		else if(index === 3){
 			AlertManager.makeScreenMenu({"page":0, "index":screenModel.getData().screen}, $.proxy(this.onScreenChanged, this)); 

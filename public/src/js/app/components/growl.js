@@ -16,7 +16,6 @@ OkButton, CloseButton){
 	var Growl = function(options){
 		options.bgasset = 'alert';
 		AbstractPopup.call(this, options);
-		this.group.y = Game.h();
 	};
 	
 	Growl.prototype = Object.create(AbstractPopup.prototype);
