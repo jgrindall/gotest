@@ -10,16 +10,25 @@ function(Game){
 		this.create();
 	};
 
-	Indicator.RADIUS = 100;
+	Indicator.RADIUS = 40;
+	
+	Indicator.prototype.setProgress = function(num, total){
+		this.drawArc(1 - num/total);
+	};
 	
 	Indicator.prototype.drawArc = function(percent){
-		var x, y, r, angle;
+		var r, x, y, angle;
 		angle = percent * 2 * 3.14159265;
 		r = Indicator.RADIUS;
+		x = r + Math.cos(angle);
+		y = r + Math.sin(angle);
 		this.gfx.clear();
-		this.gfx.lineStyle(10, 0x990099, 1);
+		this.gfx.lineStyle(0, 0x990099, 0);
 		this.gfx.beginFill(0x990000, 1);
-		this.gfx.arc(r, r, r, 0, -angle);
+		this.gfx.moveTo(r, r);
+		this.gfx.lineTo(x, y);
+		this.gfx.arc(r, r, r, -angle, 0);
+		this.gfx.lineTo(r, r);
 		this.gfx.endFill();
 		
 	};
@@ -27,7 +36,6 @@ function(Game){
 	Indicator.prototype.create = function(){
 		console.log(JSON.stringify(this.options));
 		this.gfx = new Phaser.Graphics(Game.getInstance(), this.options.bounds.x, this.options.bounds.y);
-		this.drawArc(0.7);
 	};
 	
 	return Indicator;
