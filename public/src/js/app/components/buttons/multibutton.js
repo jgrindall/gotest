@@ -1,7 +1,7 @@
 
 define(['app/game', 'phaser',
 
-'app/components/buttons/interactivesprite'],
+'app/components/interactivesprite'],
 
 function(Game, Phaser,
 

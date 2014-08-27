@@ -3,9 +3,9 @@ define(['app/game', 'app/components/container',
 
 'app/components/buttons/dirbutton', 'app/components/buttons/keybutton',
 
-'app/components/buttongrid', 'app/scenes/activity/commandpanels/abstractcommandspanel',
+'app/components/buttongrid/buttongrid', 'app/scenes/activity/commandpanels/abstractcommandspanel',
 
-'app/scenes/activity/buttongridmodel'
+'app/components/buttongrid/buttongridmodel'
 
 ],
 

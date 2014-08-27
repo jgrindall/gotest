@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scenes/activity/controls',
+define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas/canvas', 'app/scenes/activity/controls/controls',
 
-'app/utils/textfactory', 'app/utils/alertmanager', 'app/scenes/activity/menu', 'app/utils/storage',
+'app/utils/textfactory', 'app/utils/alertmanager', 'app/scenes/activity/components/menu', 'app/utils/storage',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/screenmodel', 'app/components/background',
+'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/screenmodel', 'app/components/background',
 
-'app/scenes/activity/bgmodel'],
+'app/scenes/activity/models/bgmodel'],
 
 function(Game, Scene, Canvas, Controls,
 
@@ -30,7 +30,7 @@ bgModel){
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
-		Storage.getInstance().load();
+		Storage.getInstance().loadDefaults();
 	};
 	
 	ActivityScene.prototype.addBg = function() {
@@ -61,8 +61,9 @@ bgModel){
 	};
 	
 	ActivityScene.prototype.bgChosen = function(data) {
-		if(data.index === 0){
-			bgModel.setBg(data.selectedPage);
+		console.log("bgChosen "+JSON.stringify(data));
+		if(data.index === 1){
+			bgModel.setBg(data.selection.selectedPage);
 			//TODO - clear it!
 		}
 	};
@@ -73,7 +74,7 @@ bgModel){
 			AlertManager.makeBgMenu({}, $.proxy(this.bgChosen, this));
 		}
 		else if(i === 1){
-			Storage.getInstance().load();
+			Storage.getInstance().load($.proxy(this.onLoaded, this));
 		}
 		else if(i === 2){
 			Storage.getInstance().save();
@@ -87,6 +88,10 @@ bgModel){
 		else if(i === 5){
 			commModel.undo();
 		} 
+	};
+	
+	ActivityScene.prototype.onLoaded = function(){
+		AlertManager.makeGrowl({"label":"Loaded your file"}, null);
 	};
 	
 	ActivityScene.prototype.print = function(){

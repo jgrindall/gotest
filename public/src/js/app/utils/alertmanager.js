@@ -1,9 +1,9 @@
 
 define(['app/game', 
 
-'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/gamebgmenu',
+'app/scenes/activity/popups/gamescreenmenu', 'app/scenes/activity/popups/gamebgmenu',
 
-'app/components/growl'], 
+'app/components/popups/growl'], 
 
 function(Game,
 
@@ -53,7 +53,7 @@ Growl){
 		Game.alertSignal.dispatch({"show":true});
 		setTimeout(function(){
 			AlertManager.alert.showMe();
-		}, 300);
+		}, 100);
 	};
 	
 	AlertManager.buttonClick = function(callback, data){

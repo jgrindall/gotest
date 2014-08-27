@@ -1,9 +1,9 @@
 
 define(['app/components/container',
 
-'app/components/screenchoice', 'app/scenes/activity/buttongridmodel',
+'app/components/screenchoice', 'app/components/buttongrid/buttongridmodel',
 
-'app/components/buttongrid'],
+'app/components/buttongrid/buttongrid'],
 
 function(Container, 
 

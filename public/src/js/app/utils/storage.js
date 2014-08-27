@@ -1,9 +1,9 @@
 
 define(['jquery', 'app/game',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/screenmodel', 'app/scenes/activity/bgmodel', 
+'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/screenmodel', 'app/scenes/activity/models/bgmodel', 
 
-'app/scenes/activity/colormodel', 'app/scenes/activity/speedmodel', 'app/utils/alertmanager'],
+'app/scenes/activity/models/colormodel', 'app/scenes/activity/models/speedmodel', 'app/utils/alertmanager'],
 
 function($, Game,
 
@@ -29,14 +29,20 @@ colorModel, speedModel, AlertManager){
 		commands:[]
 	};
 	
-	Storage.prototype.load = function(){
+	Storage.prototype.loadDefaults = function(){
+		this.setModels(Storage.DEFAULT);
+	};
+	
+	Storage.prototype.load = function(callback){
 		var that = this;
 		this.getForKey(Storage.SETTINGS_KEY, function(options){
 			var json;
 			if(options.success){
 				json = options.data || Storage.DEFAULT;
 				that.setModels(json);
-				AlertManager.makeGrowl({"label":"Loaded"}, null);
+				if(callback){
+					callback({"success":true});
+				}
 			}
 			else{
 				AlertManager.makeGrowl({"label":"Error loading"}, null);

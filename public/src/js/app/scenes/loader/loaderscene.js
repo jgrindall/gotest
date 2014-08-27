@@ -1,5 +1,5 @@
 
-define(['app/scenes/scene', 'app/preloader/preloader', 'app/components/loaderbar',
+define(['app/scenes/scene', 'app/preloader/preloader', 'app/components/loaderbar/loaderbar',
 
 'app/utils/textfactory', 'app/game'],
 
@@ -33,11 +33,11 @@ TextFactory, Game){
 	};
 	
 	LoaderScene.prototype.addBar = function() {
-		var x, y, options;
+		var x, y, bounds;
 		x = Game.cx() - LoaderBar.WIDTH/2;
 		y = Game.cy() - 20;
-		options = {"x":x, "y":y};
-		this.loaderBar = new LoaderBar(options);
+		bounds = {"x":x, "y":y};
+		this.loaderBar = new LoaderBar({'bounds':bounds});
 		this.world.add(this.loaderBar.sprite);
 	};
 	
@@ -57,7 +57,7 @@ TextFactory, Game){
 		this.loaderBar.goToPercent(100);
 		setTimeout(function(){
 			that.navigationSignal.dispatch({"key":that.key});
-		}, 700);
+		}, 1000);
 	};
 
 	LoaderScene.prototype.update = function() {

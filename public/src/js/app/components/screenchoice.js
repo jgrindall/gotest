@@ -1,7 +1,7 @@
 
 define(['app/game', 'app/components/container',
 
-'app/components/buttons/interactivesprite'],
+'app/components/interactivesprite'],
 
 function(Game, Container,
 
