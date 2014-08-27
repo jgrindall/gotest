@@ -1,11 +1,7 @@
 
 define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scenes/activity/controls',
 
-'app/utils/textfactory', 'app/components/buttons/tabbutton', 'app/components/buttons/closebutton',
-
-'app/components/buttons/menubutton', 'app/components/buttons/okbutton', 'app/utils/alertmanager',
-
-'app/components/loaderbar', 'app/scenes/activity/menu', 'app/utils/storage',
+'app/utils/textfactory', 'app/utils/alertmanager', 'app/scenes/activity/menu', 'app/utils/storage',
 
 'app/scenes/activity/commmodel', 'app/scenes/activity/screenmodel', 'app/components/background',
 
@@ -13,11 +9,7 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scene
 
 function(Game, Scene, Canvas, Controls,
 
-TextFactory, TabButton, CloseButton,
-
-MenuButton, OkButton, AlertManager,
-
-LoaderBar, Menu, Storage,
+TextFactory, AlertManager, Menu, Storage,
 
 commModel, screenModel, Background,
 
@@ -87,7 +79,7 @@ bgModel){
 			Storage.getInstance().save();
 		}
 		else if(i === 3){
-			//commModel.stop();
+			this.print();
 		}
 		else if(i === 4){
 			commModel.stop();
@@ -95,6 +87,10 @@ bgModel){
 		else if(i === 5){
 			commModel.undo();
 		} 
+	};
+	
+	ActivityScene.prototype.print = function(){
+		AlertManager.makeGrowl({"label":"No printers found"}, null);
 	};
 	
 	ActivityScene.prototype.addControls = function() {

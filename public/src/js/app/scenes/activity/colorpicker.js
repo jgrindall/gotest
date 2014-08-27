@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/components/buttons/multibutton',
+define(['app/components/buttons/multibutton',
 
 'app/scenes/activity/colormodel'
 
 ],
 
-function(Game, MultiButton,
+function(MultiButton,
 
 ColorModel){
 	

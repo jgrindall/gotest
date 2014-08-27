@@ -1,5 +1,5 @@
 
-define(function(require, exports){
+define([], function(){
 	
 	"use strict";
 	

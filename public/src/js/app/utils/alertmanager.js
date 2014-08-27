@@ -1,11 +1,15 @@
 
 define(['app/game', 'app/components/alert', 
 
-'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/gamebgmenu', 'app/components/growl'], 
+'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/gamebgmenu',
+
+'app/components/growl'], 
 
 function(Game, Alert, 
 
-GameScreenMenu, GameBgMenu, Growl){
+GameScreenMenu, GameBgMenu,
+
+Growl){
 	
 	"use strict";
 	
@@ -15,7 +19,7 @@ GameScreenMenu, GameBgMenu, Growl){
 	
 	AlertManager.close = function(){
 		if(AlertManager.alert){
-			AlertManager.alert.selectSignal.remove(this.callbackProxy);
+			AlertManager.alert.selectSignal.remove(AlertManager.callbackProxy);
 			AlertManager.alert.destroy();
 			AlertManager.bg.destroy();
 			AlertManager.bg = null;
@@ -38,7 +42,7 @@ GameScreenMenu, GameBgMenu, Growl){
 	
 	AlertManager.make = function(ClassRef, data, callback){
 		var x, y;
-		this.callbackProxy = $.proxy(this.buttonClick, AlertManager, callback);
+		AlertManager.callbackProxy = $.proxy(this.buttonClick, AlertManager, callback);
 		x = (Game.w() - ClassRef.WIDTH)/2;
 		y = (Game.h() - ClassRef.HEIGHT)/2;
 		AlertManager.addBg();
@@ -53,7 +57,6 @@ GameScreenMenu, GameBgMenu, Growl){
 	};
 	
 	AlertManager.buttonClick = function(callback, data){
-		console.log("buttonClick "+data.index);
 		AlertManager.close();
 		if(callback){
 			callback(data);
@@ -74,6 +77,13 @@ GameScreenMenu, GameBgMenu, Growl){
 	
 	AlertManager.makeAlert = function(data, callback){
 		AlertManager.make(Alert, data, callback);
+	};
+	
+	AlertManager.getInstance = function(){
+		if(!AlertManager.instance){
+			AlertManager.instance = new AlertManager();
+		}
+		return AlertManager.instance;
 	};
 	
 	return AlertManager;

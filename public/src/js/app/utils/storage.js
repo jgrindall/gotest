@@ -3,13 +3,13 @@ define(['jquery', 'app/game',
 
 'app/scenes/activity/commmodel', 'app/scenes/activity/screenmodel', 'app/scenes/activity/bgmodel', 
 
-'app/scenes/activity/colormodel', 'app/scenes/activity/speedmodel'],
+'app/scenes/activity/colormodel', 'app/scenes/activity/speedmodel', 'app/utils/alertmanager'],
 
 function($, Game,
 
 commModel, screenModel, bgModel,
 
-colorModel, speedModel){
+colorModel, speedModel, AlertManager){
 	
 	"use strict";
 	
@@ -17,7 +17,7 @@ colorModel, speedModel){
 		
 	};
 	
-	Storage.VERSION = "1.0";
+	Storage.VERSION = "v1.0";
 	
 	Storage.SETTINGS_KEY = "2go_settings" + Storage.VERSION;
 	
@@ -36,16 +36,15 @@ colorModel, speedModel){
 			if(options.success){
 				json = options.data || Storage.DEFAULT;
 				that.setModels(json);
-				alert("loaded");	
+				AlertManager.makeGrowl({"label":"Loaded"}, null);
 			}
 			else{
-				alert("error loading");	
+				AlertManager.makeGrowl({"label":"Error loading"}, null);
 			}
 		});
 	};
 	
 	Storage.prototype.setModels = function(json){
-		console.log("set the models "+JSON.stringify(json));
 		screenModel.setData(json.screen);
 		colorModel.setData(json.color);
 		speedModel.setData(json.speed);
@@ -57,10 +56,10 @@ colorModel, speedModel){
 	Storage.prototype.save = function(){
 		this.saveForKey(Storage.SETTINGS_KEY, this.makeJson(), function(options){
 			if(options.success){
-				alert("saved");
+				AlertManager.makeGrowl({"label":"Saved"}, null);
 			}
 			else{
-				alert("error saving");
+				AlertManager.makeGrowl({"label":"Error saving"}, null);
 			}
 		});
 	};

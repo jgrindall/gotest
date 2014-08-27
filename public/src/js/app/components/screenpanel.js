@@ -1,13 +1,13 @@
 
-define(['jquery', 'app/game', 'app/components/container',
+define(['app/components/container',
 
-'app/components/buttons/navbutton', 'app/components/screenchoice', 'app/scenes/activity/buttongridmodel',
+'app/components/screenchoice', 'app/scenes/activity/buttongridmodel',
 
 'app/components/buttongrid'],
 
-function($, Game, Container, 
+function(Container, 
 
-NavButton, ScreenChoice, ButtonGridModel,
+ScreenChoice, ButtonGridModel,
 
 ButtonGrid){
 	

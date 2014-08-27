@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/scenes/activity/commspeed', 'app/scenes/activity/commandtypes',
+define(['app/game', 'app/scenes/activity/commandtypes',
 
 'app/scenes/activity/commandpanels/nsewcommandspanel', 'app/scenes/activity/commandpanels/keyscommandspanel'
 
 ],
 
-function(Game, CommSpeed, CommandTypes,
+function(Game, CommandTypes,
 
 NSEWCommandsPanel, KeysCommandsPanel){
 	

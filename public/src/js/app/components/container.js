@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/phasercomponents'],
+define(['app/game'],
 
-function(Game, PhaserComponents){
+function(Game){
 	
 	"use strict";
 	
@@ -18,8 +18,6 @@ function(Game, PhaserComponents){
 	Container.prototype.destroy = function() {
 		this.group.removeAll(true);
 	};
-	
-	PhaserComponents.Container = Container;
 	
 	return Container;
 

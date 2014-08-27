@@ -1,11 +1,11 @@
 
 define(['app/game', 'app/components/buttongrid', 'app/scenes/activity/buttongridmodel',
 
-'app/components/screenpanel', 'app/utils/storage', 'app/components/screenchoice'],
+'app/components/screenchoice'],
 
 function(Game, ButtonGrid, ButtonGridModel,
 
-ScreenPanel, Storage, ScreenChoice){
+ScreenChoice){
 	
 	"use strict";
 	

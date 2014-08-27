@@ -1,23 +1,17 @@
 
-define(['app/game', 'app/components/container', 'app/components/background',
-
-'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
-
-'app/components/buttons/dirbutton', 'app/components/buttons/keybutton',
+define(['app/game', 'app/components/container',
 
 'app/scenes/activity/commands/abstractcommand',
 
-'app/components/buttongrid', 'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel'
+'app/scenes/activity/commmodel', 'app/scenes/activity/clormodel'
 
 ],
 
-function(Game, Container, Background,
-
-TabButtonBar, TabButton, DirButton, KeyButton,
+function(Game, Container,
 
 AbstractCommand,
 
-ButtonGrid, commModel, colorModel){
+commModel, colorModel){
 	
 	"use strict";
 	

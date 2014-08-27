@@ -1,5 +1,5 @@
 
-define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
+define(['app/game'], function(Game){
 	
 	"use strict";
 	
@@ -135,10 +135,6 @@ define(['app/consts/leveldata', 'app/game'], function(LevelData, Game){
 		{"type":"image", 		"asset":"assets/images/london.jpg", 					"key":Preloader.MAP1_KEY},
 		{"type":"image", 		"asset":"assets/images/paris.jpg", 						"key":Preloader.MAP2_KEY},
 		{"type":"image", 		"asset":"assets/images/turtle.png", 					"key":Preloader.TURTLE_KEY},
-		{"type":"image", 		"asset":LevelData.BLOCK0, 								"key":Preloader.BLOCK_KEY0},
-		{"type":"image", 		"asset":LevelData.BLOCK1, 								"key":Preloader.BLOCK_KEY1},
-		{"type":"image", 		"asset":LevelData.BLOCK2, 								"key":Preloader.BLOCK_KEY2},
-		{"type":"image", 		"asset":LevelData.BLOCK3, 								"key":Preloader.BLOCK_KEY3},
 		{"type":"image", 		"asset":"assets/images/game/star2.png", 				"key":Preloader.STAR_KEY},
 		{"type":"image", 		"asset":"assets/levels/tiles1.png",	 					"key":Preloader.LEVEL1_TILES_KEY},
 		{"type":"image", 		"asset":"assets/images/other/panel.png",	 			"key":Preloader.PANEL_KEY},

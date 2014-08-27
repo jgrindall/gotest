@@ -1,11 +1,11 @@
 
 define(['app/game', 'app/components/buttongrid',
 
-'app/components/bgpanel', 'app/utils/storage', 'app/bgdata'],
+'app/components/bgpanel', 'app/bgdata'],
 
 function(Game, ButtonGrid,
 
-BgPanel, Storage, BgData){
+BgPanel, BgData){
 	
 	"use strict";
 	

@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/scenes/activity/abstractmodel'],
+define(['app/scenes/activity/abstractmodel'],
 
-function(Game, AbstractModel){
+function(AbstractModel){
 	
 	"use strict";
 	

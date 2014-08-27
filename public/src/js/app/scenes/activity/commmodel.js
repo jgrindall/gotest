@@ -1,15 +1,15 @@
 
-define(['app/game', 'app/scenes/activity/commspeed',
+define(['app/game',
 
-'app/scenes/activity/commandtypes', 'app/scenes/activity/speedmodel',
+'app/scenes/activity/speedmodel',
 
 'app/scenes/activity/playingmodel', 'app/scenes/activity/bgmodel', 'app/scenes/activity/commands/abstractcommand',
 
 'app/scenes/activity/colormodel'],
 
-function(Game, CommSpeed,
+function(Game,
 
-CommandTypes, speedModel,
+speedModel,
 
 playingModel, bgModel, AbstractCommand, 
 

@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/components/container', 'app/components/buttons/menubutton',
+define(['app/game', 'app/components/buttons/menubutton',
 
-'app/components/buttonbar', 'app/scenes/activity/commmodel', 'app/scenes/activity/playingmodel'],
+'app/components/buttonbar', 'app/scenes/activity/playingmodel'],
 
-function(Game, Container, MenuButton,
+function(Game, MenuButton,
 
-ButtonBar, commModel, playingModel){
+ButtonBar, playingModel){
 	
 	"use strict";
 	

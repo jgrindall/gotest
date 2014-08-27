@@ -1,15 +1,11 @@
 
-define(['app/game', 'app/components/container',
+define(['app/game', 'app/components/container', 'phaser'
 
-'app/components/buttons/navbutton', 'app/bgdata',
+],
 
-'app/components/buttongrid'],
+function(Game, Container, Phaser
 
-function(Game, Container, 
-
-NavButton, BgData,
-
-ButtonGrid){
+){
 	
 	"use strict";
 	

@@ -1,5 +1,5 @@
 
-define(['app/game'], function(Game){
+define(['app/game', 'phaser'], function(Game, Phaser){
 	
 	"use strict";
 	

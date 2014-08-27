@@ -1,7 +1,7 @@
 
-define(['app/components/buttons/tickbutton', 'app/game', 'app/components/container', 'app/utils/textfactory', 'app/components/abstractpopup'],
+define(['app/components/buttons/tickbutton', 'app/components/abstractpopup'],
 
-function(TickButton, Game, Container, TextFactory, AbstractPopup){
+function(TickButton, AbstractPopup){
 	
 	"use strict";
 		
@@ -17,7 +17,7 @@ function(TickButton, Game, Container, TextFactory, AbstractPopup){
 	Growl.HEIGHT = 200;
 	
 	Growl.prototype.addOk = function () {
-		this.addButton(TickButton, 'bottom');
+		this.addButton(TickButton, 'bottom', 0, 1);
 	};
 	
 	Growl.prototype.addButtons = function () {

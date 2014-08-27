@@ -3,7 +3,7 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/components/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/scenes/activity/colorpicker', 'app/scenes/activity/commandpanels/nsewcommandspanel',
+'app/scenes/activity/colorpicker',
 
 'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/screenmodel', 
 
@@ -11,7 +11,7 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/scenes/activity/speedmodel', 'app/scenes/activity/commspeed',
 
-'app/utils/alertmanager', 'app/components/buttons/menubutton',
+'app/utils/alertmanager',
 
 'app/scenes/activity/commandspanelfactory'
 
@@ -21,7 +21,7 @@ function(Game, Container, Background, Slider,
 
 TabButtonBar, TabButton,
 
-ColorPicker, NSEWCommandsPanel,
+ColorPicker,
 
 commModel, colorModel, screenModel,
 
@@ -29,7 +29,7 @@ ControlMenu, AbstractCommandsPanel,
 
 speedModel, CommSpeed,
 
-AlertManager, MenuButton, CommandsPanelFactory){
+AlertManager, CommandsPanelFactory){
 	
 	"use strict";
 	

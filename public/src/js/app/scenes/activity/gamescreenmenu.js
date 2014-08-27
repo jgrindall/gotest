@@ -1,25 +1,13 @@
 
-define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
+define(['app/scenes/activity/screendataprovider',
 
-'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/dirbutton',
-
-'app/components/buttons/resetbutton', 'app/scenes/activity/selectormenu',
-
-'app/components/container', 'app/components/abstractpopup', 'app/scenes/activity/screendataprovider',
-
-'app/components/pager', 'app/scenes/activity/commmodel', 'app/scenes/activity/arrowselectormenu'
+'app/scenes/activity/arrowselectormenu'
 
 ],
 
-function(NavButton, CloseButton, Game,
+function(ScreenDataProvider,
 
-ListButton, OkButton, DirButton, 
-
-ResetButton, SelectorMenu,
-
-Container, AbstractPopup, ScreenDataProvider,
-
-Pager, commModel, ArrowSelectorMenu
+ArrowSelectorMenu
 
 ){
 	

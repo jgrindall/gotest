@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/components/container',
+define(['app/components/container',
 
-'app/components/buttons/navbutton', 'app/components/buttons/interactivesprite'],
+'app/components/buttons/interactivesprite'],
 
-function(Game, Container,
+function(Container,
 
-NavButton, InteractiveSprite){
+InteractiveSprite){
 	
 	"use strict";
 	

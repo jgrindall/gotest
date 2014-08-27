@@ -1,25 +1,21 @@
 
-define(['jquery', 'app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
+define(['jquery', 'app/components/buttons/closebutton', 'app/game',
 
-'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/dirbutton',
+'app/components/buttons/okbutton', 
 
 'app/components/buttons/resetbutton',
 
-'app/components/container', 'app/components/abstractpopup',
-
-'app/components/pager', 'app/scenes/activity/commmodel'
+'app/components/container'
 
 ],
 
-function($, NavButton, CloseButton, Game,
+function($, CloseButton, Game,
 
-ListButton, OkButton, DirButton, 
+OkButton, 
 
 ResetButton,
 
-Container, AbstractPopup,
-
-Pager, commModel
+Container
 
 ){
 	

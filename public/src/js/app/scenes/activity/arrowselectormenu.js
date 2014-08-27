@@ -1,27 +1,16 @@
 
-define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
+define(['app/game', 'app/components/buttons/dirbutton',
 
-'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/dirbutton',
-
-'app/components/buttons/resetbutton', 'app/scenes/activity/selectormenu',
-
-'app/components/container', 'app/components/abstractpopup',
-
-'app/components/pager', 'app/scenes/activity/commmodel'
+'app/scenes/activity/selectormenu', 'app/components/container', 'app/components/pager'
 
 ],
 
-function(NavButton, CloseButton, Game,
+function(Game, DirButton, 
 
-ListButton, OkButton, DirButton, 
+SelectorMenu, Container, Pager
+)
 
-ResetButton, SelectorMenu,
-
-Container, AbstractPopup,
-
-Pager, commModel
-
-){
+{
 	
 	"use strict";
 		

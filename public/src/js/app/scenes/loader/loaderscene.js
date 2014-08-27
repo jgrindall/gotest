@@ -1,13 +1,9 @@
 
-define(['app/scenes/scene', 'app/preloader/preloader', 'app/components/buttons/navbutton',
-
-'app/consts/layoutdata', 'app/components/buttons/bulbbutton', 'app/components/loaderbar',
+define(['app/scenes/scene', 'app/preloader/preloader', 'app/components/loaderbar',
 
 'app/utils/textfactory', 'app/game'],
 
-function(Scene, Preloader, NavButton,
-
-LayoutData, BulbButton, LoaderBar,
+function(Scene, Preloader,LoaderBar,
 
 TextFactory, Game){
 	

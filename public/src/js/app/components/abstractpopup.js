@@ -1,7 +1,11 @@
 
-define(['app/components/buttons/closebutton', 'app/game', 'app/components/container', 'app/utils/textfactory'],
+define(['app/components/buttons/closebutton', 'app/game',
 
-function(CloseButton, Game, Container, TextFactory){
+'app/components/container', 'app/utils/textfactory'],
+
+function(CloseButton, Game,
+
+Container, TextFactory){
 	
 	"use strict";
 		
@@ -19,16 +23,8 @@ function(CloseButton, Game, Container, TextFactory){
 		this.containerGroup.add(this.panel);
 	};
 	
-	AbstractPopup.prototype.addBg = function () {
-		this.rect = new Phaser.Graphics(Game.getInstance(), 0, 0);
-		this.rect.beginFill(0x000000);
-		this.rect.alpha = 0.7;
-    	this.rect.drawRect(0, 0, Game.w(), Game.h());
-		this.group.add(this.rect);
-	};
-	
 	AbstractPopup.prototype.addText = function () {
-		this.label = TextFactory.make(Game.cx() - 150, this.bounds.y + 20, this.options.label, TextFactory.SMALL);
+		this.label = TextFactory.make(Game.cx() - 150, this.bounds.y + 20, this.options.data.label, TextFactory.SMALL);
 		this.containerGroup.add(this.label);
 	};
 	
@@ -71,7 +67,7 @@ function(CloseButton, Game, Container, TextFactory){
 	AbstractPopup.prototype.addButton = function (ClassRef, pos, i, num) {
 		var p, b;
 		p = this.getPosition(ClassRef, pos, i, num);
-		b = new ClassRef({"x":p.x, "y":p.y});
+		b = new ClassRef({'bounds':{"x":p.x, "y":p.y}});
 		b.pos = pos;
 		b.mouseUpSignal.add(this.buttonUp, this);
 		this.buttonGroup.add(b.sprite);
@@ -80,7 +76,6 @@ function(CloseButton, Game, Container, TextFactory){
 	
 	AbstractPopup.prototype.create = function () {
 		Container.prototype.create.call(this);
-		this.addBg();
 		this.addContainer();
 		this.addPanel();
 		this.addText();
@@ -94,8 +89,9 @@ function(CloseButton, Game, Container, TextFactory){
 	};
 	
 	AbstractPopup.prototype.destroy = function() {
+		var that = this;
 		$.each(this.children, function(i, b){
-			b.mouseUpSignal.remove(this.buttonUp, this);
+			b.mouseUpSignal.remove(that.buttonUp, that);
 			b.destroy();
 		});
 		Container.prototype.destroy.call(this);

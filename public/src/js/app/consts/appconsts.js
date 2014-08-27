@@ -1,7 +1,3 @@
-/********************/
-
-/*  app consts  */
-
 
 define([], function() {
 	

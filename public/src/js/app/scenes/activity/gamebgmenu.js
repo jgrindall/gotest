@@ -1,25 +1,15 @@
 
-define(['app/components/buttons/navbutton', 'app/components/buttons/closebutton', 'app/game',
+define(['app/scenes/activity/arrowselectormenu',
 
-'app/components/buttons/listbutton', 'app/components/buttons/okbutton', 'app/components/buttons/resetbutton',
-
-'app/components/buttons/dirbutton', 'app/scenes/activity/arrowselectormenu',
-
-'app/components/container', 'app/components/abstractpopup', 'app/scenes/activity/bgdataprovider',
-
-'app/components/pager', 'app/scenes/activity/commmodel'
+'app/scenes/activity/bgdataprovider'
 
 ],
 
-function(NavButton, CloseButton, Game,
+function(
 
-ListButton, OkButton, ResetButton,
+ArrowSelectorMenu,
 
-DirButton, ArrowSelectorMenu,
-
-Container, AbstractPopup, BgDataProvider,
-
-Pager, commModel
+BgDataProvider
 
 ){
 	

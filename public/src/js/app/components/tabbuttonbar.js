@@ -1,7 +1,7 @@
 
-define(['jquery', 'app/components/buttonbar', 'app/game', 'app/components/container'],
+define(['app/components/buttonbar', 'app/components/container'],
 
-function($, ButtonBar, Game, Container){
+function(ButtonBar, Container){
 	
 	"use strict";
 	

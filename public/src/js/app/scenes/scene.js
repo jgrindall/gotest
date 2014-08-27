@@ -1,5 +1,5 @@
 
-define(['jquery', 'app/game', 'app/components/background'], function($, Game, Background){
+define(['jquery', 'app/game'], function($, Game){
 	
 	"use strict";
 	

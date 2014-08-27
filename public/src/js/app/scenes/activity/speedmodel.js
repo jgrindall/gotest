@@ -1,9 +1,9 @@
 
-define(['app/game', 'app/scenes/activity/commspeed',
+define(['app/scenes/activity/commspeed',
 
 'app/scenes/activity/abstractmodel'],
 
-function(Game, CommSpeed,
+function(CommSpeed,
 
 AbstractModel){
 	

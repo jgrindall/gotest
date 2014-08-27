@@ -1,17 +1,9 @@
 
 define(['app/game', 'app/components/container', 'app/components/background',
 
-'app/components/tabbuttonbar', 'app/components/buttons/tabbutton', 'app/scenes/activity/commmodel',
-
-'app/scenes/activity/bgmodel', 'app/phasercomponents',
-
 'app/scenes/activity/map', 'app/scenes/activity/drawing'],
 
 function(Game, Container, Background,
-
-TabButtonBar, TabButton, commModel,
-
-bgModel, PhaserComponents,
 
 Map, Drawing){
 	
