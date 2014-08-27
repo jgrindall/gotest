@@ -44,7 +44,7 @@ scaleModel){
 	Drawing.DIST = 100;
 	Drawing.PI180 = 3.14159265359/180;
 	Drawing.ONE_RT2 = 1/1.4142135624;
-	Drawing.START_POS = {x:300, y:300};
+	Drawing.START_POS = {x:300, y:300};  //TODO - middle?
 	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
 	Drawing.ROTATE_45 = [0, 0, 0, -45, 0, 45, 0, 0, 0];
 	Drawing.ROTATE_90 = [0, 0, 0, 90, 0, -90, 0, 0, 0];
@@ -79,16 +79,18 @@ scaleModel){
 		thetaRad = this.angle * Drawing.PI180;
 		dx = Drawing.DIST * Math.cos(thetaRad);
 		dy = Drawing.DIST * Math.sin(thetaRad);
-		console.log("dx dy",this.angle, dx, dy);
 		if(scaleModel.getData().scale){
 			dx *= Drawing.SCALES[command.direction];
 			dy *= Drawing.SCALES[command.direction];
+		}
+		if( (command instanceof FdCommand) && command.direction === 7){
+			dx *= -1;
+			dy *= -1;
 		}
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
 	};
 	
 	Drawing.prototype.executeFd = function(command, fraction, totalTime) {
-		console.log("execute fd " ,  JSON.stringify(command.toJson()),fraction,totalTime);
 		if(fraction === 0){
 			this.startPos = {'x':this.currentPos.x, 'y':this.currentPos.y};
 			this.setEndPoint(command);

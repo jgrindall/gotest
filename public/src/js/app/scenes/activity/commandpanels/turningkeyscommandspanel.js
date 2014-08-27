@@ -63,10 +63,8 @@ commModel, ButtonGridModel){
 	};
 	
 	TurningKeysCommandsPanel.prototype.selectKey = function(data){
-		console.log(this.selectedCommand);
 		var type;
 		if(this.selectedCommand === 1 || this.selectedCommand === 7){
-			console.log("fd");
 			type = CommandTypes.FD;
 		}
 		else{
