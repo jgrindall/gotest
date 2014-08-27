@@ -124,9 +124,9 @@ define(['app/game'], function(Game){
 	Preloader.IMAGES = [
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Preloader.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Preloader.SLIDERHANDLE},
-		{"type":"image", 		"asset":"assets/images/bg/paris.jpg", 					"key":Preloader.MAP0_KEY},
-		{"type":"image", 		"asset":"assets/images/bg/london.jpg", 					"key":Preloader.MAP1_KEY},
-		{"type":"image", 		"asset":"assets/images/bg/paris.jpg", 					"key":Preloader.MAP2_KEY},
+		{"type":"image", 		"asset":"assets/images/bg/bg0.jpg", 					"key":Preloader.MAP0_KEY},
+		{"type":"image", 		"asset":"assets/images/bg/bg1.jpg", 					"key":Preloader.MAP1_KEY},
+		{"type":"image", 		"asset":"assets/images/bg/bg2.jpg", 					"key":Preloader.MAP2_KEY},
 		{"type":"image", 		"asset":"assets/images/turtle.png", 					"key":Preloader.TURTLE_KEY},
 		{"type":"image", 		"asset":"assets/images/other/panel.png",	 			"key":Preloader.PANEL_KEY},
 		{"type":"image", 		"asset":"assets/images/other/smallpanel.png",	 		"key":Preloader.SMALL_PANEL_KEY},

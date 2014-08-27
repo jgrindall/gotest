@@ -29,27 +29,21 @@ function(Game, Container){
 		this.sprite.anchor.setTo(0.5, 0.5);
 	};
 	
-	Turtle.prototype.incrementRotate = function(theta, time) {
-		var target = this.sprite.angle + theta;
-		Game.getInstance().add.tween(this.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
-	};
-	
-	Turtle.prototype.rotate = function(theta) {
+	Turtle.prototype.rotate = function(theta, time) {
 		var target = theta + 90;
 		target = Turtle.getAngle(target, this.sprite.angle);
-		Game.getInstance().add.tween(this.sprite).to( {'angle':target}, 100, Phaser.Easing.Linear.None, true, 0, false);
+		Game.getInstance().add.tween(this.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
 	};
 	
 	Turtle.prototype.reset = function(p){
 		this.stopTween();
-		this.rotate(0);
 		this.move(p);
 	};
 	
 	Turtle.prototype.stopTween = function() {
-		if(this.tween){
-			this.tween.stop();
-			this.tween = null;
+		if(this.moveTween){
+			this.moveTween.stop();
+			this.moveTween = null;
 		}
 	};
 	
@@ -59,7 +53,7 @@ function(Game, Container){
 			this.move(p);	
 		}
 		else{
-			this.tween = Game.getInstance().add.tween(this.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
+			this.moveTween = Game.getInstance().add.tween(this.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
 		}
 	};
 	
