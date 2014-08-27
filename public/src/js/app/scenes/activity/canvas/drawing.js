@@ -5,6 +5,12 @@ define(['app/game', 'app/components/container',
 
 'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel',
 
+'app/scenes/activity/commands/commandtypes',
+
+'app/scenes/activity/commands/movecommand',
+
+'app/scenes/activity/commands/turncommand',
+
 'app/scenes/activity/models/scalemodel'],
 
 function(Game, Container,
@@ -12,6 +18,12 @@ function(Game, Container,
 Map, Turtle, Paths,
 
 commModel, colorModel,
+
+CommandTypes,
+
+MoveCommand,
+
+TurnCommand,
 
 scaleModel){
 	
@@ -30,6 +42,8 @@ scaleModel){
 	Drawing.ONE_RT2 = 1/1.4142135624;
 	Drawing.START_POS = {x:300, y:300};
 	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
+	Drawing.ROTATE_45 = [0, 0, 0, 45, 0, 45, 0, 0, 0];
+	Drawing.ROTATE_90 = [0, 0, 0, 90, 0, 90, 0, 0, 0];
 	Drawing.SCALES = [Drawing.ONE_RT2, 1, Drawing.ONE_RT2, 1, 1, 1, Drawing.ONE_RT2, 1, Drawing.ONE_RT2]; 
 		
 	Drawing.prototype = Object.create(Container.prototype);
@@ -64,7 +78,7 @@ scaleModel){
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
 	};
 	
-	Drawing.prototype.execute = function(command, fraction, totalTime) {
+	Drawing.prototype.executeMove = function(command, fraction, totalTime) {
 		var px, py, endPos;
 		if(fraction === 0){
 			this.startPos = {'x':this.currentPos.x, 'y':this.currentPos.y};
@@ -78,6 +92,23 @@ scaleModel){
 		this.paths.line(this.currentPos, endPos, command.color);
 		this.turtle.move(endPos);
 		this.currentPos = {'x':endPos.x, 'y':endPos.y};
+	};
+	
+	Drawing.prototype.executeTurn = function(command, fraction, totalTime) {
+		if(fraction === 0){
+			this.angle = Drawing.ROTATE_45[command.direction];
+			this.turtle.incrementRotate(this.angle, totalTime);
+		}
+	};
+	
+	Drawing.prototype.execute = function(command, fraction, totalTime) {
+		console.log("execute "+ (typeof command)+" ,   "+JSON.stringify(command.toJson())+"  "+fraction+"  "+totalTime);
+		if(command instanceof MoveCommand){
+			this.executeMove(command, fraction, totalTime);
+		}
+		else if(command instanceof TurnCommand){
+			this.executeTurn(command, fraction, totalTime);
+		}
 	};
 	
 	Drawing.prototype.create = function() {

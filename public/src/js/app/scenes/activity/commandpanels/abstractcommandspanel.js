@@ -1,22 +1,26 @@
 
 define(['app/game', 'app/components/container',
 
-'app/scenes/activity/commands/abstractcommand',
+'app/scenes/activity/commands/abstractcommandfactory',
 
-'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel'
+'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel',
 
+'app/scenes/activity/commandpanels/marker'
 ],
 
 function(Game, Container,
 
-AbstractCommand,
+AbstractCommandFactory,
 
-commModel, colorModel){
+commModel, colorModel,
+
+Marker){
 	
 	"use strict";
 	
 	var AbstractCommandsPanel  = function(options){
 		Container.call(this, options);
+		this.selectedCommand = null;
 		Game.alertSignal.add(this.onAlert, this);
 	};
 	
@@ -47,11 +51,17 @@ commModel, colorModel){
 		}
 	};
 	
+	AbstractCommandsPanel.prototype.setSelectedCommand = function(i) {
+		this.selectedCommand = i;
+		this.marker.goTo(i);
+		this.enableKeys();
+	};
+	
 	AbstractCommandsPanel.prototype.enableAllInput = function() {
 		if(this.grid){
 			this.grid.enableAll();
 		}
-		if(this.keys){
+		if(this.keys && this.selectedCommand !== null){
 			this.keys.enableAll();
 		}
 	};
@@ -60,6 +70,30 @@ commModel, colorModel){
 		Container.prototype.create.call(this);
 		this.addGrid();
 		this.addKeys();
+		this.addMarker();
+		this.disableKeys();
+	};
+	
+	AbstractCommandsPanel.prototype.disableKeys = function() {
+		if(this.keys){
+			this.keys.disableAll();
+			this.keys.alpha = 0.1;
+		}
+	};
+	
+	AbstractCommandsPanel.prototype.enableKeys = function() {
+		if(this.keys){
+			this.keys.enableAll();
+			this.keys.alpha = 1;
+		}
+	};
+	
+	AbstractCommandsPanel.prototype.addMarker = function() {
+		var x, y;
+		x = this.bounds.x + this.bounds.w/2 - Marker.WIDTH/2;
+		y = this.bounds.y + this.bounds.w/2 - Marker.HEIGHT/2;
+		this.marker = new Marker({'bounds':{'x':x, 'y':y}});
+		this.group.add(this.marker.sprite);
 	};
 	
 	AbstractCommandsPanel.prototype.addKeys = function() {
@@ -70,14 +104,15 @@ commModel, colorModel){
 		
 	};
 	
-	AbstractCommandsPanel.prototype.addCommand = function(index){
-		this.addCommands(index, 1);
+	AbstractCommandsPanel.prototype.addCommand = function(direction, type){
+		this.addCommands(direction, type, 1);
 	};
 	
-	AbstractCommandsPanel.prototype.addCommands = function(direction, num){
-		var index, c;
-		for(index = 0; index < num; index++){
-			c = new AbstractCommand(direction, colorModel.color, index, num);
+	AbstractCommandsPanel.prototype.addCommands = function(direction, type, total){
+		var index, c, json;
+		for(index = 0; index < total; index++){
+			json = {'type':type, 'direction':direction, 'color':colorModel.color, 'index':index, 'total':total};
+			c = new AbstractCommandFactory.fromJson(json);
 			commModel.add(c, true);
 		}
 	};

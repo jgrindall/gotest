@@ -32,11 +32,9 @@ define(['app/game'], function(Game){
 	};
 
 	AbstractButton.prototype.create = function(){
-		this.sprite = new Phaser.Button(Game.getInstance(), 0, 0, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
+		this.sprite = new Phaser.Button(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
 		this.sprite.events.onInputUp.add(this.mouseUp, this);
 		this.sprite.events.onInputDown.add(this.mouseDown, this);
-		this.sprite.x = this.options.bounds.x;
-		this.sprite.y = this.options.bounds.y;
 		this.resetFrames();
 		this.enableInput();
 	};

@@ -5,6 +5,8 @@ define(['app/game', 'app/components/container',
 
 'app/components/buttongrid/buttongrid', 'app/scenes/activity/commandpanels/abstractcommandspanel',
 
+'app/scenes/activity/commands/commandtypes',
+
 'app/scenes/activity/models/commmodel', 'app/components/buttongrid/buttongridmodel'
 
 ],
@@ -12,6 +14,8 @@ define(['app/game', 'app/components/container',
 function(Game, Container, DirButton, KeyButton,
 
 ButtonGrid, AbstractCommandsPanel,
+
+CommandTypes,
 
 commModel, ButtonGridModel){
 	
@@ -53,7 +57,11 @@ commModel, ButtonGridModel){
 	};
 	
 	NSEW45KeysCommandsPanel.prototype.selectComm = function(data){
-		this.addCommand(data.index);
+		this.setSelectedCommand(data.index);
+	};
+	
+	NSEW45KeysCommandsPanel.prototype.selectKey = function(data){
+		this.addCommands(this.selectedCommand, CommandTypes.MOVE, data.index + 1);
 	};
 	
 	NSEW45KeysCommandsPanel.prototype.destroy = function() {

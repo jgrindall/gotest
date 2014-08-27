@@ -3,7 +3,11 @@ define(['app/game', 'app/components/container',
 
 'app/components/buttons/dirbutton', 'app/components/buttons/keybutton',
 
-'app/components/buttongrid/buttongrid', 'app/scenes/activity/commandpanels/abstractcommandspanel',
+'app/components/buttongrid/buttongrid',
+
+'app/scenes/activity/commandpanels/abstractcommandspanel',
+
+'app/scenes/activity/commands/commandtypes',
 
 'app/scenes/activity/models/commmodel', 'app/components/buttongrid/buttongridmodel'
 
@@ -12,6 +16,8 @@ define(['app/game', 'app/components/container',
 function(Game, Container, DirButton, KeyButton,
 
 ButtonGrid, AbstractCommandsPanel,
+
+CommandTypes,
 
 commModel, ButtonGridModel){
 	
@@ -53,7 +59,18 @@ commModel, ButtonGridModel){
 	};
 	
 	TurningKeysCommandsPanel.prototype.selectComm = function(data){
-		this.addCommand(data.index);
+		this.setSelectedCommand(data.index);
+	};
+	
+	TurningKeysCommandsPanel.prototype.selectKey = function(data){
+		var type;
+		if(data.selectedCommand === 1 || data.selectedCommand === 7){
+			type = CommandTypes.MOVE;
+		}
+		else{
+			type = CommandTypes.TURN;
+		}
+		this.addCommands(this.selectedCommand, type, data.index + 1);
 	};
 	
 	TurningKeysCommandsPanel.prototype.destroy = function() {

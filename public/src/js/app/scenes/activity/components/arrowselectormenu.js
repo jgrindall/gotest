@@ -29,12 +29,16 @@ Pager)
 	ArrowSelectorMenu.prototype.addArrows = function () {
 		if(this.options.dataProvider.getNumPages() >= 2){
 			this.leftButton = new DirButton({"data":{"num":3, "visible":true}, "bounds":{'x':20, 'y':Game.cy()}});
+			this.leftButton.sprite.alpha = 0;
 			this.leftButton.mouseUpSignal.add(this.leftClicked, this);
 			this.rightButton = new DirButton({"data":{"num":5, "visible":true}, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
 			this.rightButton.mouseUpSignal.add(this.rightClicked, this);
+			this.rightButton.sprite.alpha = 0;
 			this.group.add(this.leftButton.sprite);
 			this.group.add(this.rightButton.sprite);
 			this.leftButton.disableInput();
+			Game.getInstance().add.tween(this.leftButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
+			Game.getInstance().add.tween(this.rightButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
 		}
 	};
 	

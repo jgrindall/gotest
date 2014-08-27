@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/consts/commandtypes',
+define(['app/game', 'app/consts/commandpaneltypes',
 
 'app/scenes/activity/commandpanels/nsewcommandspanel',
 

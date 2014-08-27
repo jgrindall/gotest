@@ -29,9 +29,13 @@ function(Game, Container){
 		this.sprite.anchor.setTo(0.5, 0.5);
 	};
 	
+	Turtle.prototype.incrementRotate = function(theta, time) {
+		var target = this.sprite.angle + theta;
+		Game.getInstance().add.tween(this.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
+	};
+	
 	Turtle.prototype.rotate = function(theta) {
 		var target = theta + 90;
-		// eg 359 to zero should go to 360 instead of zero
 		target = Turtle.getAngle(target, this.sprite.angle);
 		Game.getInstance().add.tween(this.sprite).to( {'angle':target}, 100, Phaser.Easing.Linear.None, true, 0, false);
 	};

@@ -10,8 +10,8 @@ define([], function(){
 		this.color = color;
 	};
 	
-	AbstractCommand.fromJson = function(json){
-		return new AbstractCommand(json.direction, json.color, json.index, json.total);
+	AbstractCommand.prototype.toJson = function(){
+		return {'direction':this.direction, 'index':this.index, 'total':this.total, 'color':this.color};
 	};
 	
 	return AbstractCommand;

@@ -1,15 +1,15 @@
 
-define(['app/game',
+define(['app/game', 'app/scenes/activity/commands/abstractcommandfactory',
 
-'app/scenes/activity/models/speedmodel',
+'app/scenes/activity/models/speedmodel', 'app/scenes/activity/commands/movecommand', 'app/scenes/activity/commands/turncommand',
 
 'app/scenes/activity/models/playingmodel', 'app/scenes/activity/models/bgmodel', 'app/scenes/activity/commands/abstractcommand',
 
 'app/scenes/activity/models/colormodel'],
 
-function(Game,
+function(Game, AbstractCommandFactory,
 
-speedModel,
+speedModel, MoveCommand, TurnCommand,
 
 playingModel, bgModel, AbstractCommand, 
 
@@ -57,6 +57,16 @@ colorModel){
 		}
 	};
 	
+	CommModel.prototype.isMove = function() {
+		var command = this.getCurrentCommand();
+		return (command instanceof MoveCommand);
+	};
+	
+	CommModel.prototype.isTurn = function() {
+		var command = this.getCurrentCommand();
+		return (command instanceof TurnCommand);
+	};
+	
 	CommModel.prototype.restart = function(command) {
 		if(!playingModel.getData().playing){
 			playingModel.setData(true);
@@ -70,8 +80,8 @@ colorModel){
 		playingModel.setData(true);
 		for(i = i0; i <= i1; i++){
 			command = this.getCurrentCommand();
-			this.executeSignal.dispatch({"command":command,"fraction":0, "totalTime":0});
-			this.executeSignal.dispatch({"command":command,"fraction":1, "totalTime":0});
+			this.executeSignal.dispatch({"command":command, "fraction":0, "totalTime":0});
+			this.executeSignal.dispatch({"command":command, "fraction":1, "totalTime":0});
 			this.commandNum++;
 		}
 		playingModel.setData(false);
@@ -81,12 +91,16 @@ colorModel){
 		var that = this;
 		this.reset();
 		$.each(commands, function(i, c){
-			that.add(AbstractCommand.fromJson(c), false);
+			that.add(AbstractCommandFactory.fromJson(c), false);
 		});	
 	};
 	
 	CommModel.prototype.toJson = function() {
-		return this.commands;
+		var jsonArray = [];
+		$.each(this.commands, function(i,c){
+			jsonArray.push(c.toJson());
+		});
+		return jsonArray;
 	};
 	
 	CommModel.prototype.playAll = function() {
@@ -151,7 +165,7 @@ colorModel){
 	
 	CommModel.prototype.nextInterval = function() {
 		this.step++;
-		if(this.step === CommModel.STEPS + 1){
+		if(this.isTurn() || this.step === CommModel.STEPS + 1){
 			this.commandNum++;
 			if(this.commandNum === this.commands.length){
 				this.finished();		

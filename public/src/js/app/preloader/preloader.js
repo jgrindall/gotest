@@ -46,6 +46,7 @@ define(['app/game'], function(Game){
 	Preloader.MENU_BUTTON6 = 			'menubutton6';
 	Preloader.MENU_BUTTON7 = 			'menubutton7';
 	Preloader.DIR_BUTTON0 = 			'dirbutton0';
+	Preloader.MARKERS = 				'markers';
 	Preloader.SLIDERBG = 				'sliderbg';
 	Preloader.SLIDERHANDLE = 			'sliderhandle';
 	Preloader.DIR_BUTTON1 = 			'dirbutton1';
@@ -75,6 +76,7 @@ define(['app/game'], function(Game){
 	Preloader.PENS = 					'pens';
 	
 	Preloader.SPRITESHEETS = [
+		{"type":"spritesheet", 	"asset":"assets/images/markers.png", 						"key":Preloader.MARKERS, 					"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButton.png", 			"key":Preloader.LEVEL_BUTTON, 				"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton0.png", 		"key":Preloader.DIR_BUTTON0, 				"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton1.png", 		"key":Preloader.DIR_BUTTON1, 				"w":52, 	"h":52},
