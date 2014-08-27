@@ -31,24 +31,43 @@ function(Game, Container){
 	
 	Turtle.prototype.rotate = function(theta, time) {
 		var target = theta + 90;
+		this.stopTurnTween();
 		target = Turtle.getAngle(target, this.sprite.angle);
-		Game.getInstance().add.tween(this.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
+		if(time === 0){
+			this.sprite.angle = target;
+		}
+		else{
+			this.turnTween = Game.getInstance().add.tween(this.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
+		}
 	};
 	
 	Turtle.prototype.reset = function(p){
-		this.stopTween();
+		this.stopTweens();
 		this.move(p);
+		this.rotate(-90, 0);
 	};
 	
-	Turtle.prototype.stopTween = function() {
+	Turtle.prototype.stopMoveTween = function() {
 		if(this.moveTween){
 			this.moveTween.stop();
 			this.moveTween = null;
 		}
 	};
 	
+	Turtle.prototype.stopTurnTween = function() {
+		if(this.turnTween){
+			this.turnTween.stop();
+			this.turnTween = null;
+		}
+	};
+	
+	Turtle.prototype.stopTweens = function() {
+		this.stopMoveTween();
+		this.stopTurnTween();
+	};
+	
 	Turtle.prototype.tweenTo = function(p, time) {
-		this.stopTween();
+		this.stopMoveTween();
 		if(time === 0){
 			this.move(p);	
 		}
@@ -68,6 +87,7 @@ function(Game, Container){
 	};
 	
 	Turtle.prototype.destroy = function() {
+		this.stopTweens();
 		Container.prototype.destroy.call(this);
 		this.sprite.destroy(true);
 	};
