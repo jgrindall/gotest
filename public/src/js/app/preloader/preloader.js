@@ -8,7 +8,6 @@ define(['app/game'], function(Game){
 		this.loadSignal = new Phaser.Signal();
 	};
 
-	Preloader.BG_KEY = 					'background';
 	Preloader.MAP0_KEY = 				'map0';
 	Preloader.MAP1_KEY = 				'map1';
 	Preloader.MAP2_KEY = 				'map2';
@@ -30,8 +29,6 @@ define(['app/game'], function(Game){
 	Preloader.HERO_KEY = 				'hero';
 	Preloader.STAR_KEY = 				'star';
 	Preloader.ENEMY_KEY = 				'enemy';
-	Preloader.LEVEL1_JSON_KEY = 		'level1';
-	Preloader.LEVEL1_TILES_KEY = 		'tiles1';
 	Preloader.PANEL_KEY = 				'panel';
 	Preloader.SMALL_PANEL_KEY = 		'smallpanel';
 	Preloader.ALERT_KEY = 				'alert';
@@ -114,10 +111,7 @@ define(['app/game'], function(Game){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 					"key":Preloader.TICK_KEY, 					"w":80, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Preloader.OK_BUTTON_KEY, 				"w":250, 	"h":75},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/greenHome.png", 				"key":Preloader.HOME_KEY, 					"w":120, 	"h":120},
-		{"type":"spritesheet", 	"asset":"assets/images/game/dude.png", 						"key":Preloader.HERO_KEY, 					"w":32, 	"h":48},
-		{"type":"spritesheet", 	"asset":"assets/images/game/enemy.png", 					"key":Preloader.ENEMY_KEY, 					"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Preloader.MARKER_KEY, 				"w":40, 	"h":40},
-		{"type":"spritesheet", 	"asset":"assets/images/game/firstaid.png", 					"key":Preloader.KILLAREA, 					"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/pens.png", 							"key":Preloader.PENS, 						"w":160, 	"h":80}
 	];
 	
@@ -128,25 +122,19 @@ define(['app/game'], function(Game){
 	];
 	
 	Preloader.IMAGES = [
-		{"type":"image", 		"asset":"assets/images/bg/background2.png", 			"key":Preloader.BG_KEY},
-		{"type":"image", 		"asset":"assets/images/other/sliderbg.png", 			"key":Preloader.SLIDERBG},
-		{"type":"image", 		"asset":"assets/images/other/sliderhandle.png", 		"key":Preloader.SLIDERHANDLE},
-		{"type":"image", 		"asset":"assets/images/paris.jpg", 						"key":Preloader.MAP0_KEY},
-		{"type":"image", 		"asset":"assets/images/london.jpg", 					"key":Preloader.MAP1_KEY},
-		{"type":"image", 		"asset":"assets/images/paris.jpg", 						"key":Preloader.MAP2_KEY},
+		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Preloader.SLIDERBG},
+		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Preloader.SLIDERHANDLE},
+		{"type":"image", 		"asset":"assets/images/bg/paris.jpg", 					"key":Preloader.MAP0_KEY},
+		{"type":"image", 		"asset":"assets/images/bg/london.jpg", 					"key":Preloader.MAP1_KEY},
+		{"type":"image", 		"asset":"assets/images/bg/paris.jpg", 					"key":Preloader.MAP2_KEY},
 		{"type":"image", 		"asset":"assets/images/turtle.png", 					"key":Preloader.TURTLE_KEY},
-		{"type":"image", 		"asset":"assets/images/game/star2.png", 				"key":Preloader.STAR_KEY},
-		{"type":"image", 		"asset":"assets/levels/tiles1.png",	 					"key":Preloader.LEVEL1_TILES_KEY},
 		{"type":"image", 		"asset":"assets/images/other/panel.png",	 			"key":Preloader.PANEL_KEY},
 		{"type":"image", 		"asset":"assets/images/other/smallpanel.png",	 		"key":Preloader.SMALL_PANEL_KEY},
 		{"type":"image", 		"asset":"assets/images/other/alert.png",	 			"key":Preloader.ALERT_KEY}
 	];
 	
-	Preloader.TILES = [
-		{"type":"tilemap", 		"asset":"assets/levels/level1.json", 					"key":Preloader.LEVEL1_JSON_KEY}
-	];
 	
-	Preloader.DATA = Preloader.SPRITESHEETS.concat(Preloader.SOUNDS).concat(Preloader.IMAGES).concat(Preloader.TILES);
+	Preloader.DATA = Preloader.SPRITESHEETS.concat(Preloader.SOUNDS).concat(Preloader.IMAGES);
 	
 	Preloader.prototype.loadNext = function(){
 		var obj, type, game;

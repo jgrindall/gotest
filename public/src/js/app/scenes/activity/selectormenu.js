@@ -1,9 +1,7 @@
 
 define(['jquery', 'app/components/buttons/closebutton', 'app/game',
 
-'app/components/buttons/okbutton', 
-
-'app/components/buttons/resetbutton',
+'app/components/buttons/okbutton',
 
 'app/components/container'
 
@@ -11,9 +9,7 @@ define(['jquery', 'app/components/buttons/closebutton', 'app/game',
 
 function($, CloseButton, Game,
 
-OkButton, 
-
-ResetButton,
+OkButton,
 
 Container
 
@@ -24,6 +20,7 @@ Container
 	var SelectorMenu = function(options){
 		Container.call(this, options);
 		this.selectSignal = new Phaser.Signal();
+		this.group.y = 800;
 	};
 	
 	SelectorMenu.WIDTH = 800;
@@ -48,7 +45,7 @@ Container
 		
 	};
 	
-	SelectorMenu.prototype.showMenu = function () {
+	SelectorMenu.prototype.showMe = function () {
 		Game.getInstance().add.tween(this.group).to( {'x': 0, 'y': 0}, 700, Phaser.Easing.Back.InOut, true, 0, false);
 	};
 	
@@ -69,8 +66,8 @@ Container
 	
 	SelectorMenu.prototype.destroy = function () {
 		this.okButton.destroy();
-		this.okButton = null;
 		this.closeButton.destroy();
+		this.okButton = null;
 		this.closeButton = null;
 		Container.prototype.destroy.call(this);
 	};

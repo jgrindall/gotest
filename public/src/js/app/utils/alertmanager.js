@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/components/alert', 
+define(['app/game', 
 
 'app/scenes/activity/gamescreenmenu', 'app/scenes/activity/gamebgmenu',
 
 'app/components/growl'], 
 
-function(Game, Alert, 
+function(Game,
 
 GameScreenMenu, GameBgMenu,
 
@@ -52,7 +52,7 @@ Growl){
 		Game.getInstance().world.add(AlertManager.alert.group);
 		Game.alertSignal.dispatch({"show":true});
 		setTimeout(function(){
-			AlertManager.alert.showMenu();
+			AlertManager.alert.showMe();
 		}, 300);
 	};
 	

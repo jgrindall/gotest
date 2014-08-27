@@ -7,8 +7,7 @@ define(['app/game', 'app/components/buttons/dirbutton',
 
 function(Game, DirButton, 
 
-SelectorMenu, Container, Pager
-)
+SelectorMenu, Container, Pager)
 
 {
 	

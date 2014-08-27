@@ -26,6 +26,7 @@ define(['phaser'], function(Phaser){
 	InteractiveSprite.prototype.enableInput = function(){
 		if(!this.inputEnabled){
 			this.inputEnabled = true;
+			this.input.useHandCursor = true;
 			this.addListeners();
 		}
 	};

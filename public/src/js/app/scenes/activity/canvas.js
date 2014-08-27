@@ -21,7 +21,7 @@ Map, Drawing){
 		w = Game.w();
 		h = Game.h();
 		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
-		this.bg = new Background({"asset":'background', "bounds":bounds});
+		this.bg = new Background({"asset":'sky', "bounds":bounds});
 		this.group.add(this.bg.sprite);
 	};
 	

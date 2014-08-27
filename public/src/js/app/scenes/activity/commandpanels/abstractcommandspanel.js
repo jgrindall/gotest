@@ -3,7 +3,7 @@ define(['app/game', 'app/components/container',
 
 'app/scenes/activity/commands/abstractcommand',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/clormodel'
+'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel'
 
 ],
 

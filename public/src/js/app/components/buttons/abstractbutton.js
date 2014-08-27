@@ -47,6 +47,7 @@ define(['app/game'], function(Game){
 	
 	AbstractButton.prototype.enableInput = function(){
 		this.sprite.inputEnabled = true;
+		this.sprite.input.useHandCursor = true;
 	};
 	
 	AbstractButton.prototype.disableInput = function(){

@@ -10,9 +10,9 @@ Container, TextFactory){
 	"use strict";
 		
 	var AbstractPopup = function(options){
-		this.children = [];
-		Container.call(this, options);
+		this.buttons = [];
 		this.selectSignal = new Phaser.Signal();
+		Container.call(this, options);
 	};
 	
 	AbstractPopup.prototype = Object.create(Container.prototype);
@@ -20,67 +20,7 @@ Container, TextFactory){
 	
 	AbstractPopup.prototype.addPanel = function () {
 		this.panel = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
-		this.containerGroup.add(this.panel);
-	};
-	
-	AbstractPopup.prototype.addText = function () {
-		this.label = TextFactory.make(Game.cx() - 150, this.bounds.y + 20, this.options.data.label, TextFactory.SMALL);
-		this.containerGroup.add(this.label);
-	};
-	
-	AbstractPopup.prototype.getPosition = function (ClassRef, pos, i, num) {
-		var x0 = this.bounds.x + this.bounds.w/2 - num*(ClassRef.WIDTH)/2;
-		if(pos === 'topright'){
-			return {"x":this.bounds.x + this.bounds.w - 50, "y":this.bounds.y + 10};
-		}
-		else if(pos === 'middle'){
-			return {"x":x0 + i * ClassRef.WIDTH, "y":this.bounds.y + this.bounds.h/2 - ClassRef.HEIGHT/2};
-		}
-		else if(pos === 'bottom'){
-			return {"x":Game.cx() - ClassRef.WIDTH/2, "y":this.bounds.y + this.bounds.h - ClassRef.HEIGHT};
-		}
-	};
-	
-	AbstractPopup.prototype.showMenu = function () {
-		Game.getInstance().add.tween(this.containerGroup).to( {x: 0, y: 0}, 700, Phaser.Easing.Back.InOut, true, 0, false);
-	};
-	
-	AbstractPopup.prototype.addButtonGroup = function () {
-		this.buttonGroup = new Phaser.Group(Game.getInstance(), 0, 0);
-		this.containerGroup.add(this.buttonGroup);
-		this.containerGroup.y = Game.h();
-	};
-	
-	AbstractPopup.prototype.addContainer = function () {
-		this.containerGroup = new Phaser.Group(Game.getInstance(), 0, 0);
-		this.group.add(this.containerGroup);
-	};
-	
-	AbstractPopup.prototype.addCloseButton = function () {
-		this.addButton(CloseButton, 'topright');
-	};
-	
-	AbstractPopup.prototype.addButtons = function () {
-		
-	};
-	
-	AbstractPopup.prototype.addButton = function (ClassRef, pos, i, num) {
-		var p, b;
-		p = this.getPosition(ClassRef, pos, i, num);
-		b = new ClassRef({'bounds':{"x":p.x, "y":p.y}});
-		b.pos = pos;
-		b.mouseUpSignal.add(this.buttonUp, this);
-		this.buttonGroup.add(b.sprite);
-		this.children.push(b);
-	};
-	
-	AbstractPopup.prototype.create = function () {
-		Container.prototype.create.call(this);
-		this.addContainer();
-		this.addPanel();
-		this.addText();
-		this.addButtonGroup();
-		this.addButtons();
+		this.group.add(this.panel);
 	};
 	
 	AbstractPopup.prototype.buttonUp = function(data) {
@@ -88,13 +28,22 @@ Container, TextFactory){
 		this.selectSignal.dispatch({"index":index});
 	};
 	
-	AbstractPopup.prototype.destroy = function() {
-		var that = this;
-		$.each(this.children, function(i, b){
-			b.mouseUpSignal.remove(that.buttonUp, that);
-			b.destroy();
-		});
-		Container.prototype.destroy.call(this);
+	AbstractPopup.prototype.addButton = function (ClassRef, bounds) {
+		var b = new ClassRef({'bounds':bounds});
+		b.mouseUpSignal.add(this.buttonUp, this);
+		this.buttonGroup.add(b.sprite);
+		this.buttons.push(b);
+	};
+	
+	AbstractPopup.prototype.addButtonGroup = function () {
+		this.buttonGroup = new Phaser.Group(Game.getInstance(), 0, 0);
+		this.group.add(this.buttonGroup);
+	};
+	
+	AbstractPopup.prototype.create = function () {
+		Container.prototype.create.call(this);
+		this.addPanel();
+		this.addButtonGroup();
 	};
 	
 	return AbstractPopup;

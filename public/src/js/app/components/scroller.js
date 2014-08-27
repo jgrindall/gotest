@@ -24,7 +24,6 @@ function($, Game, Container){
 	Scroller.prototype.create = function(){
 		Container.prototype.create.call(this);
 		this.contentGroup = new Phaser.Group(Game.getInstance());
-		this.addBg();
 		this.addChildren();
 	    this.addListeners();
 	    this.group.add(this.contentGroup);
@@ -37,13 +36,6 @@ function($, Game, Container){
 	Scroller.prototype.mouseOutCallback = function() {
 		this.onUp();
 	};
-	
-	Scroller.prototype.addBg = function() {
-		if(this.options.bgasset){
-			this.panel = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
-			this.group.add(this.panel);
-		}
-	};	
 	
 	Scroller.prototype.add = function(child) {
 		this.contentGroup.add(child.group);

@@ -1,9 +1,9 @@
 
-define(['app/components/container',
+define(['app/game', 'app/components/container',
 
 'app/components/buttons/interactivesprite'],
 
-function(Container,
+function(Game, Container,
 
 InteractiveSprite){
 	
