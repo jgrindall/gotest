@@ -7,7 +7,7 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas', 'app/scene
 
 'app/components/loaderbar', 'app/scenes/activity/menu', 'app/utils/storage',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/layoutmodel', 'app/components/background',
+'app/scenes/activity/commmodel', 'app/scenes/activity/screenmodel', 'app/components/background',
 
 'app/scenes/activity/bgmodel'],
 
@@ -19,7 +19,7 @@ MenuButton, OkButton, AlertManager,
 
 LoaderBar, Menu, Storage,
 
-commModel, layoutModel, Background,
+commModel, screenModel, Background,
 
 bgModel){
 	

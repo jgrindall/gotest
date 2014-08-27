@@ -79,13 +79,14 @@ colorModel){
 	
 	CommModel.prototype.addFromJson = function(commands) {
 		var that = this;
+		this.reset();
 		$.each(commands, function(i, c){
 			that.add(AbstractCommand.fromJson(c), false);
 		});	
 	};
 	
-	CommModel.prototype.toJSON = function() {
-		return JSON.stringify(this.commands);
+	CommModel.prototype.toJson = function() {
+		return this.commands;
 	};
 	
 	CommModel.prototype.playAll = function() {

@@ -1,13 +1,13 @@
 
 define(['jquery', 'app/game',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/layoutmodel', 'app/scenes/activity/bgmodel', 
+'app/scenes/activity/commmodel', 'app/scenes/activity/screenmodel', 'app/scenes/activity/bgmodel', 
 
 'app/scenes/activity/colormodel', 'app/scenes/activity/speedmodel'],
 
 function($, Game,
 
-commModel, layoutModel, bgModel,
+commModel, screenModel, bgModel,
 
 colorModel, speedModel){
 	
@@ -17,35 +17,52 @@ colorModel, speedModel){
 		
 	};
 	
-	Storage.SETTINGS_KEY = "settings";
+	Storage.VERSION = "1.0";
+	
+	Storage.SETTINGS_KEY = "2go_settings" + Storage.VERSION;
 	
 	Storage.DEFAULT = {
-		"bg":1,
-		"screen":0,
-		"speed":2,
-		"color":2,
-		"commands":[
-			{'direction':0, 'color':0, 'index':0, 'total':5},
-			{'direction':5, 'color':1, 'index':1, 'total':5},
-			{'direction':5, 'color':1, 'index':2, 'total':5},
-			{'direction':5, 'color':1, 'index':3, 'total':5},
-			{'direction':3, 'color':2, 'index':4, 'total':5},
-			{'direction':2, 'color':3, 'index':0, 'total':1}
-		]
+		bg:0,
+		screen:0,
+		speed:2,
+		color:0,
+		commands:[]
 	};
 	
 	Storage.prototype.load = function(){
-		var json = this.getForKey(Storage.SETTINGS_KEY) || Storage.DEFAULT;
-		layoutModel.setData(json.screen);
+		var that = this;
+		this.getForKey(Storage.SETTINGS_KEY, function(options){
+			var json;
+			if(options.success){
+				json = options.data || Storage.DEFAULT;
+				that.setModels(json);
+				alert("loaded");	
+			}
+			else{
+				alert("error loading");	
+			}
+		});
+	};
+	
+	Storage.prototype.setModels = function(json){
+		console.log("set the models "+JSON.stringify(json));
+		screenModel.setData(json.screen);
 		colorModel.setData(json.color);
 		speedModel.setData(json.speed);
 		bgModel.setData(json.bg);
 		commModel.addFromJson(json.commands);
 		commModel.playAll();
 	};
-	
+		
 	Storage.prototype.save = function(){
-		this.saveForKey(Storage.SETTINGS_KEY, this.makeJson());
+		this.saveForKey(Storage.SETTINGS_KEY, this.makeJson(), function(options){
+			if(options.success){
+				alert("saved");
+			}
+			else{
+				alert("error saving");
+			}
+		});
 	};
 	
 	Storage.prototype.init = function(){
@@ -53,9 +70,10 @@ colorModel, speedModel){
 		this.persistence = localStorage;
 	};
 	
-	Storage.prototype.saveForKey = function(key, data){
+	Storage.prototype.saveForKey = function(key, data, callback){
 		this.persistence.setItem(key, JSON.stringify(data));
 		this.addToCache(key, data);
+		callback({success:true});
 	};
 	
 	Storage.prototype.addToCache = function(key, data){
@@ -65,14 +83,14 @@ colorModel, speedModel){
 	Storage.prototype.makeJson = function(){
 		var json = {};
 		json.bg = 			bgModel.getData().bg;
-		json.screen = 		layoutModel.getData().bg;
+		json.screen = 		screenModel.getData().screen;
 		json.speed = 		speedModel.getData().speed;
 		json.color =	 	colorModel.getData().color;
-		json.commands = 	commModel.toJSON();
+		json.commands = 	commModel.toJson();
 		return json;
 	};
 	
-	Storage.prototype.getForKey = function(key){
+	Storage.prototype.getForKey = function(key, callback){
 		var data;
 		data = this.cache[key];
 		if(!data){
@@ -82,7 +100,7 @@ colorModel, speedModel){
 				this.addToCache(key, data);
 			}
 		}
-		return data;
+		callback({'success':true, 'data':data});
 	};
 	
 	Storage.getInstance = function(){

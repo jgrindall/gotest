@@ -5,7 +5,7 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/scenes/activity/colorpicker', 'app/scenes/activity/commandpanels/nsewcommandspanel',
 
-'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/layoutmodel', 
+'app/scenes/activity/commmodel', 'app/scenes/activity/colormodel', 'app/scenes/activity/screenmodel', 
 
 'app/scenes/activity/controlmenu', 'app/scenes/activity/commandpanels/abstractcommandspanel',
 
@@ -23,7 +23,7 @@ TabButtonBar, TabButton,
 
 ColorPicker, NSEWCommandsPanel,
 
-commModel, colorModel, layoutModel,
+commModel, colorModel, screenModel,
 
 ControlMenu, AbstractCommandsPanel,
 
@@ -36,7 +36,7 @@ AlertManager, MenuButton, CommandsPanelFactory){
 	var Controls  = function(options){
 		Container.call(this, options);
 		Game.alertSignal.add(this.onAlert, this);
-		layoutModel.changeSignal.add(this.typeChanged, this);
+		screenModel.changeSignal.add(this.screenChanged, this);
 	};
 
 	Controls.WIDTH = 290;
@@ -52,8 +52,8 @@ AlertManager, MenuButton, CommandsPanelFactory){
 		this.addSpeedButton();
 	};
 	
-	Controls.prototype.typeChanged = function(data) {
-		this.addCommandsPanel(data.type);
+	Controls.prototype.screenChanged = function(data) {
+		this.addCommandsPanel(data.screen);
 		// and load the data
 	};
 	
@@ -108,15 +108,15 @@ AlertManager, MenuButton, CommandsPanelFactory){
 			commModel.undo();
 		}
 		else if(index === 2){
-			AlertManager.makeScreenMenu({"page":0, "index":layoutModel.getData().type}, $.proxy(this.onChanged, this));
+			AlertManager.makeScreenMenu({"page":0, "index":screenModel.getData().screen}, $.proxy(this.onScreenChanged, this));
 		}
 		else if(index === 3){
-			AlertManager.makeScreenMenu({"page":0, "index":layoutModel.getData().type}, $.proxy(this.onChanged, this)); 
+			AlertManager.makeScreenMenu({"page":0, "index":screenModel.getData().screen}, $.proxy(this.onScreenChanged, this)); 
 		} 
 	};
 	
 	Controls.prototype.onChanged = function(data) {
-		layoutModel.setData(data.selectedIndex);
+		screenModel.setData(data.selectedIndex);
 	};
 	
 	Controls.prototype.addCommandsPanel = function(type) {
