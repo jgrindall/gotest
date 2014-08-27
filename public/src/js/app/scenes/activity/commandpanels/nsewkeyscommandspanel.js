@@ -5,7 +5,7 @@ define(['app/game', 'app/components/container',
 
 'app/components/buttongrid/buttongrid', 'app/scenes/activity/commandpanels/abstractcommandspanel',
 
-'app/components/buttongrid/buttongridmodel'
+'app/scenes/activity/models/commmodel', 'app/components/buttongrid/buttongridmodel'
 
 ],
 
@@ -13,18 +13,18 @@ function(Game, Container, DirButton, KeyButton,
 
 ButtonGrid, AbstractCommandsPanel,
 
-ButtonGridModel){
+commModel, ButtonGridModel){
 	
 	"use strict";
 	
-	var KeysCommandsPanel  = function(options){
+	var NSEWKeysCommandsPanel  = function(options){
 		AbstractCommandsPanel.call(this, options);
 	};
 	
-	KeysCommandsPanel.prototype = Object.create(AbstractCommandsPanel.prototype);
-	KeysCommandsPanel.prototype.constructor = KeysCommandsPanel;
+	NSEWKeysCommandsPanel.prototype = Object.create(AbstractCommandsPanel.prototype);
+	NSEWKeysCommandsPanel.prototype.constructor = NSEWKeysCommandsPanel;
 
-	KeysCommandsPanel.prototype.addKeys = function() {
+	NSEWKeysCommandsPanel.prototype.addKeys = function() {
 		var options, bounds, w, h, data, size, model;
 		data = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 		model = new ButtonGridModel();
@@ -38,10 +38,10 @@ ButtonGridModel){
 		this.group.add(this.keys.group);
 	};
 	
-	KeysCommandsPanel.prototype.addGrid = function() {
+	NSEWKeysCommandsPanel.prototype.addGrid = function() {
 		var options, bounds, w, h, data, size, model;
 		model = new ButtonGridModel();
-		data = [{num:0, visible:true}, {num:1, visible:true}, {num:2, visible:true}, {num:3, visible:true}, {num:4, visible:false}, {num:5, visible:true}, {num:6, visible:true}, {num:7, visible:true}, {num:8, visible:true}];
+		data = [{num:0, visible:false}, {num:1, visible:true}, {num:2, visible:false}, {num:3, visible:true}, {num:4, visible:false}, {num:5, visible:true}, {num:6, visible:false}, {num:7, visible:true}, {num:8, visible:false}];
 		w = Game.w();
 		h = Game.h();
 		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
@@ -52,21 +52,16 @@ ButtonGridModel){
 		this.group.add(this.grid.group);
 	};
 	
-	KeysCommandsPanel.prototype.selectComm = function(data){
-		this.selectedCommand = data.index;
+	NSEWKeysCommandsPanel.prototype.selectComm = function(data){
+		this.addCommand(data.index);
 	};
 	
-	KeysCommandsPanel.prototype.selectKey = function(data){
-		this.addCommands(this.selectedCommand, data.index + 1);
-	};
-	
-	KeysCommandsPanel.prototype.destroy = function() {
+	NSEWKeysCommandsPanel.prototype.destroy = function() {
 		this.grid.clickSignal.remove(this.selectComm, this);
-		this.keys.clickSignal.remove(this.selectKey, this);
 		AbstractCommandsPanel.prototype.destroy.call(this);
 	};
 	
-	return KeysCommandsPanel;
+	return NSEWKeysCommandsPanel;
 });
 	
 	

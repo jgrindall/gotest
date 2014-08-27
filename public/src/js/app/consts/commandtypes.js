@@ -11,9 +11,8 @@ function(Game){
 	
 	CommandTypes.NSEW = 			0;
 	CommandTypes.NSEW_KEYS = 		1;
-	CommandTypes.DIAG = 			2;
-	CommandTypes.DIAG_KEYS = 		3;
-	CommandTypes.TURNING_KEYS = 	4;
+	CommandTypes.NSEW_45_KEYS = 	2;
+	CommandTypes.TURNING_KEYS = 	3;
 	
 	return CommandTypes;
 });

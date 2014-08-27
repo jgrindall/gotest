@@ -1,13 +1,27 @@
 
 define(['app/game', 'app/consts/commandtypes',
 
-'app/scenes/activity/commandpanels/nsewcommandspanel', 'app/scenes/activity/commandpanels/keyscommandspanel'
+'app/scenes/activity/commandpanels/nsewcommandspanel',
+
+'app/scenes/activity/commandpanels/nsewkeyscommandspanel',
+
+'app/scenes/activity/commandpanels/nsew45keyscommandspanel',
+
+'app/scenes/activity/commandpanels/turningkeyscommandspanel'
 
 ],
 
 function(Game, CommandTypes,
 
-NSEWCommandsPanel, KeysCommandsPanel){
+NSEWCommandsPanel,
+
+NSEWKeysCommandsPanel,
+
+NSEW45KeysCommandsPanel,
+
+TurningKeysCommandsPanel
+
+){
 	
 	"use strict";
 	
@@ -20,8 +34,14 @@ NSEWCommandsPanel, KeysCommandsPanel){
 		if(type === CommandTypes.NSEW){
 			panel = new NSEWCommandsPanel({"bounds":bounds});
 		}
-		else{
-			panel = new KeysCommandsPanel({"bounds":bounds});
+		else if(type === CommandTypes.NSEW_KEYS){
+			panel = new NSEWKeysCommandsPanel({"bounds":bounds});
+		}
+		else if(type === CommandTypes.NSEW_45_KEYS){
+			panel = new NSEW45KeysCommandsPanel({"bounds":bounds});
+		}
+		else if(type === CommandTypes.TURNING_KEYS){
+			panel = new TurningKeysCommandsPanel({"bounds":bounds});
 		}
 		return panel;
 	};
@@ -29,4 +49,3 @@ NSEWCommandsPanel, KeysCommandsPanel){
 	return CommandsPanelFactory;
 
 });
-	
