@@ -1,7 +1,7 @@
 
 define(['app/game', 'app/components/buttongrid/buttongrid',
 
-'app/components/bgpanel', 'app/bgdata'],
+'app/components/bgpanel', 'app/consts/bgdata'],
 
 function(Game, ButtonGrid,
 
