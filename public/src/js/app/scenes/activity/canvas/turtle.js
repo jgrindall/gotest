@@ -81,9 +81,19 @@ function(Game, Container){
 		this.sprite.y = p.y;
 	};
 	
+	Turtle.prototype.addMask = function() {
+		this.mask = new Phaser.Graphics(Game.getInstance(), 0, 0);
+		this.mask.beginFill(0xff0000);
+    	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
+    	this.mask.endFill();
+    	this.group.add(this.mask);
+	};
+	
 	Turtle.prototype.create = function() {
 		Container.prototype.create.call(this);
+		this.addMask();
 		this.addImage();
+		this.sprite.mask = this.mask;
 	};
 	
 	Turtle.prototype.destroy = function() {

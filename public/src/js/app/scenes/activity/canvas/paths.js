@@ -60,9 +60,19 @@ function(Game, Container, Colors){
 		this.addGfx();
 	};
 	
+	Paths.prototype.addMask = function() {
+		this.mask = new Phaser.Graphics(Game.getInstance(), 0, 0);
+		this.mask.beginFill(0xff0000);
+    	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
+    	this.mask.endFill();
+    	this.group.add(this.mask);
+	};
+	
 	Paths.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addGfx();
+		this.addMask();
+		this.gfx.mask = this.mask;
 	};
 	
 	Paths.prototype.destroy = function() {
