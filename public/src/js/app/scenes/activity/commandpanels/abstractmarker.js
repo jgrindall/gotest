@@ -8,6 +8,7 @@ define(['app/game', 'app/components/movieclip'], function(Game, MovieClip){
 		options.asset = 'markers';
 		options.num = 11;
 		MovieClip.call(this, options);
+		this.sprite.alpha = 0.6;
 	};
 	
 	AbstractMarker.prototype = Object.create(MovieClip.prototype);

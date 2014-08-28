@@ -3,7 +3,7 @@ define(['app/game', 'app/components/container',
 
 'app/scenes/activity/canvas/map', 'app/scenes/activity/canvas/turtle', 'app/scenes/activity/canvas/paths',
 
-'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel',
+'app/scenes/activity/models/commtickermodel', 'app/scenes/activity/models/colormodel',
 
 'app/scenes/activity/commands/commandtypes',
 
@@ -19,7 +19,7 @@ function(Game, Container,
 
 Map, Turtle, Paths,
 
-commModel, colorModel,
+commTickerModel, colorModel,
 
 CommandTypes,
 
@@ -35,9 +35,8 @@ scaleModel){
 	
 	var Drawing  = function(options){
 		Container.call(this, options);
-		commModel.executeSignal.add(this.commandExecute, this);
-		commModel.resetSignal.add(this.onReset, this);
-		commModel.undoSignal.add(this.onUndo, this);
+		commTickerModel.executeSignal.add(this.commandExecute, this);
+		commTickerModel.resetSignal.add(this.onReset, this);
 		this.onReset();
 	};
 	

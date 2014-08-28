@@ -1,23 +1,15 @@
 
-define(['app/game', 'app/components/container',
+define(['app/scenes/activity/commandpanels/abstractcommandspanel',
 
-'app/components/buttons/dirbutton', 'app/components/buttons/keybutton',
-
-'app/components/buttongrid/buttongrid', 'app/scenes/activity/commandpanels/abstractcommandspanel',
-
-'app/scenes/activity/commands/commandtypes',
-
-'app/scenes/activity/models/commmodel', 'app/components/buttongrid/buttongridmodel'
+'app/scenes/activity/commands/commandtypes'
 
 ],
 
-function(Game, Container, DirButton, KeyButton,
+function(AbstractCommandsPanel,
 
-ButtonGrid, AbstractCommandsPanel,
+CommandTypes
 
-CommandTypes,
-
-commModel, ButtonGridModel){
+){
 	
 	"use strict";
 	

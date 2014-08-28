@@ -3,7 +3,7 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas/canvas', 'ap
 
 'app/utils/textfactory', 'app/utils/alertmanager', 'app/scenes/activity/components/menu', 'app/utils/storage',
 
-'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/screenmodel', 'app/components/background',
+'app/scenes/activity/models/screenmodel', 'app/components/background',
 
 'app/scenes/activity/models/bgmodel'],
 
@@ -11,7 +11,7 @@ function(Game, Scene, Canvas, Controls,
 
 TextFactory, AlertManager, Menu, Storage,
 
-commModel, screenModel, Background,
+screenModel, Background,
 
 bgModel){
 	
@@ -82,12 +82,6 @@ bgModel){
 		else if(i === 3){
 			this.print();
 		}
-		else if(i === 4){
-			commModel.stop();
-		}
-		else if(i === 5){
-			commModel.undo();
-		} 
 	};
 	
 	ActivityScene.prototype.onLoaded = function(){

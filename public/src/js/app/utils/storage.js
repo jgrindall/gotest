@@ -1,13 +1,17 @@
 
 define(['jquery', 'app/game',
 
-'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/screenmodel', 'app/scenes/activity/models/bgmodel', 
+'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/commtickermodel',
+
+'app/scenes/activity/models/screenmodel', 'app/scenes/activity/models/bgmodel', 
 
 'app/scenes/activity/models/colormodel', 'app/scenes/activity/models/speedmodel', 'app/utils/alertmanager'],
 
 function($, Game,
 
-commModel, screenModel, bgModel,
+commModel, commTickerModel,
+
+screenModel, bgModel,
 
 colorModel, speedModel, AlertManager){
 	
@@ -56,7 +60,7 @@ colorModel, speedModel, AlertManager){
 		speedModel.setData(json.speed);
 		bgModel.setData(json.bg);
 		commModel.addFromJson(json.commands);
-		commModel.playAll();
+		commTickerModel.replay();
 	};
 		
 	Storage.prototype.save = function(){

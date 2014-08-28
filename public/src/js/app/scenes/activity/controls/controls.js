@@ -102,7 +102,7 @@ AlertManager, CommandsPanelFactory){
 	Controls.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
-			commModel.stop();
+			commTickerModel.stop();
 		}
 		else if(index === 1){
 			commModel.undo();

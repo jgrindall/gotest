@@ -9,7 +9,7 @@ define(['app/game', 'app/components/container',
 
 'app/scenes/activity/commands/commandtypes',
 
-'app/scenes/activity/models/commmodel', 'app/components/buttongrid/buttongridmodel'
+'app/components/buttongrid/buttongridmodel'
 
 ],
 
@@ -19,7 +19,7 @@ ButtonGrid, AbstractCommandsPanel,
 
 CommandTypes,
 
-commModel, ButtonGridModel){
+ButtonGridModel){
 	
 	"use strict";
 	
