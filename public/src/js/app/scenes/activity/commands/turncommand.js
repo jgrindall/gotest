@@ -22,7 +22,7 @@ CommandTypes){
 		return json;
 	};
 	
-	return TurnCommand
+	return TurnCommand;
 });
 
 
