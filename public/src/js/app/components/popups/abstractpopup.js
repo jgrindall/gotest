@@ -29,10 +29,10 @@ Container, TextFactory){
 	};
 	
 	AbstractPopup.prototype.buttonUp = function(data) {
-		var index, data;
+		var index, selectionData;
 		index = this.buttonGroup.getIndex(data.target.sprite);
-		data = this.getData();
-		this.selectSignal.dispatch({"index":index, "selection":this.getData()});
+		selectionData = this.getData();
+		this.selectSignal.dispatch({"index":index, "selection":selectionData});
 	};
 	
 	AbstractPopup.prototype.addButton = function (ClassRef, bounds) {
