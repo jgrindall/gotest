@@ -3,7 +3,7 @@ define(['app/components/buttons/abstractbutton'], function(AbstractButton){
 	
 	"use strict";
 	
-	var MenuButton = function(options){
+	var ControlMenuButton = function(options){
 		var startFrame, frame0;
 		options.asset = 'button';
 		startFrame = 9 * 4;
@@ -12,12 +12,12 @@ define(['app/components/buttons/abstractbutton'], function(AbstractButton){
 		AbstractButton.call(this, options);
 	};
 	
-	MenuButton.WIDTH = 50;
-	MenuButton.HEIGHT = 50;
+	ControlMenuButton.WIDTH = 50;
+	ControlMenuButton.HEIGHT = 50;
 	
-	MenuButton.prototype = Object.create(AbstractButton.prototype);
-	MenuButton.prototype.constructor = MenuButton;
+	ControlMenuButton.prototype = Object.create(AbstractButton.prototype);
+	ControlMenuButton.prototype.constructor = ControlMenuButton;
 
-	return MenuButton;
+	return ControlMenuButton;
 	
 });

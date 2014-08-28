@@ -37,35 +37,10 @@ define(['app/game'], function(Game){
 	Preloader.UP_KEY = 					'up';
 	Preloader.OK_BUTTON_KEY = 			'okbutton';
 	Preloader.DOWN_KEY = 				'down';
-	Preloader.MENU_BUTTON0 = 			'menubutton0';
-	Preloader.MENU_BUTTON1 = 			'menubutton1';
-	Preloader.MENU_BUTTON2 = 			'menubutton2';
-	Preloader.MENU_BUTTON3 = 			'menubutton3';
-	Preloader.MENU_BUTTON4 = 			'menubutton4';
-	Preloader.MENU_BUTTON5 = 			'menubutton5';
-	Preloader.MENU_BUTTON6 = 			'menubutton6';
-	Preloader.MENU_BUTTON7 = 			'menubutton7';
-	Preloader.DIR_BUTTON0 = 			'dirbutton0';
+	Preloader.BUTTON = 					'button';
 	Preloader.MARKERS = 				'markers';
 	Preloader.SLIDERBG = 				'sliderbg';
 	Preloader.SLIDERHANDLE = 			'sliderhandle';
-	Preloader.DIR_BUTTON1 = 			'dirbutton1';
-	Preloader.DIR_BUTTON2 = 			'dirbutton2';
-	Preloader.DIR_BUTTON3 = 			'dirbutton3';
-	Preloader.DIR_BUTTON4 = 			'dirbutton4';
-	Preloader.DIR_BUTTON5 = 			'dirbutton5';
-	Preloader.DIR_BUTTON6 = 			'dirbutton6';
-	Preloader.DIR_BUTTON7 = 			'dirbutton7';
-	Preloader.DIR_BUTTON8 = 			'dirbutton8';
-	Preloader.KEY_BUTTON1 = 			'keybutton1';
-	Preloader.KEY_BUTTON2 = 			'keybutton2';
-	Preloader.KEY_BUTTON3 = 			'keybutton3';
-	Preloader.KEY_BUTTON4 = 			'keybutton4';
-	Preloader.KEY_BUTTON5 = 			'keybutton5';
-	Preloader.KEY_BUTTON6 = 			'keybutton6';
-	Preloader.KEY_BUTTON7 = 			'keybutton7';
-	Preloader.KEY_BUTTON8 = 			'keybutton8';
-	Preloader.KEY_BUTTON9 = 			'keybutton9';
 	Preloader.TAB_BUTTON0 = 			'tabbutton0';
 	Preloader.TAB_BUTTON1 = 			'tabbutton1';
 	Preloader.TAB_BUTTON2 = 			'tabbutton2';
@@ -76,34 +51,9 @@ define(['app/game'], function(Game){
 	Preloader.PENS = 					'pens';
 	
 	Preloader.SPRITESHEETS = [
-		{"type":"spritesheet", 	"asset":"assets/images/markers.png", 						"key":Preloader.MARKERS, 					"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/markers.png", 				"key":Preloader.MARKERS, 					"w":52, 	"h":52},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButton.png", 			"key":Preloader.LEVEL_BUTTON, 				"w":150, 	"h":150},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton0.png", 		"key":Preloader.DIR_BUTTON0, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton1.png", 		"key":Preloader.DIR_BUTTON1, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton2.png", 		"key":Preloader.DIR_BUTTON2, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton3.png", 		"key":Preloader.DIR_BUTTON3, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton4.png", 		"key":Preloader.DIR_BUTTON4, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton5.png", 		"key":Preloader.DIR_BUTTON5, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton6.png", 		"key":Preloader.DIR_BUTTON6, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton7.png", 		"key":Preloader.DIR_BUTTON7, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/dir/dirbutton8.png", 		"key":Preloader.DIR_BUTTON8, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton1.png", 		"key":Preloader.KEY_BUTTON1, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton2.png", 		"key":Preloader.KEY_BUTTON2, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton3.png", 		"key":Preloader.KEY_BUTTON3, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton4.png", 		"key":Preloader.KEY_BUTTON4, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton5.png", 		"key":Preloader.KEY_BUTTON5, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton6.png", 		"key":Preloader.KEY_BUTTON6, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton7.png", 		"key":Preloader.KEY_BUTTON7, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton8.png", 		"key":Preloader.KEY_BUTTON8, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/key/keybutton9.png", 		"key":Preloader.KEY_BUTTON9, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton0.png", 		"key":Preloader.MENU_BUTTON0, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton1.png", 		"key":Preloader.MENU_BUTTON1, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton2.png", 		"key":Preloader.MENU_BUTTON2, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton3.png", 		"key":Preloader.MENU_BUTTON3, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton4.png", 		"key":Preloader.MENU_BUTTON4, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton5.png", 		"key":Preloader.MENU_BUTTON5, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton6.png", 		"key":Preloader.MENU_BUTTON6, 				"w":52, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/menu/menubutton7.png", 		"key":Preloader.MENU_BUTTON7, 				"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/buttons.png", 				"key":Preloader.BUTTON, 				"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 		"key":Preloader.LEVEL_BUTTON_DONE, 			"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonLocked.png", 		"key":Preloader.LEVEL_BUTTON_LOCKED, 		"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton0.png", 			"key":Preloader.TAB_BUTTON0, 				"w":244, 	"h":52},
@@ -112,7 +62,7 @@ define(['app/game'], function(Game){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 					"key":Preloader.TICK_KEY, 					"w":80, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Preloader.OK_BUTTON_KEY, 				"w":250, 	"h":75},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Preloader.MARKER_KEY, 				"w":40, 	"h":40},
-		{"type":"spritesheet", 	"asset":"assets/images/pens.png", 							"key":Preloader.PENS, 						"w":160, 	"h":80}
+		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 						"key":Preloader.PENS, 						"w":160, 	"h":80}
 	];
 	
 	Preloader.SOUNDS = [
@@ -127,7 +77,7 @@ define(['app/game'], function(Game){
 		{"type":"image", 		"asset":"assets/images/bg/bg0.jpg", 					"key":Preloader.MAP0_KEY},
 		{"type":"image", 		"asset":"assets/images/bg/bg1.jpg", 					"key":Preloader.MAP1_KEY},
 		{"type":"image", 		"asset":"assets/images/bg/bg2.jpg", 					"key":Preloader.MAP2_KEY},
-		{"type":"image", 		"asset":"assets/images/turtle.png", 					"key":Preloader.TURTLE_KEY},
+		{"type":"image", 		"asset":"assets/images/turtle/turtle.png", 				"key":Preloader.TURTLE_KEY},
 		{"type":"image", 		"asset":"assets/images/other/panel.png",	 			"key":Preloader.PANEL_KEY},
 		{"type":"image", 		"asset":"assets/images/other/smallpanel.png",	 		"key":Preloader.SMALL_PANEL_KEY},
 		{"type":"image", 		"asset":"assets/images/other/alert.png",	 			"key":Preloader.ALERT_KEY}

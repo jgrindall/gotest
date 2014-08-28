@@ -13,7 +13,7 @@ ButtonBar){
 		options.buttonClass = MenuButton;
 		options.numX = 4;
 		options.numY = 1;
-		options.data = [0, 1, 2, 3];
+		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}];
 		ButtonBar.call(this, options);
 	};
 	

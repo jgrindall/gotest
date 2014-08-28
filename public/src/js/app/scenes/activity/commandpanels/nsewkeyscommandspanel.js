@@ -32,7 +32,7 @@ commModel, ButtonGridModel){
 
 	NSEWKeysCommandsPanel.prototype.addKeys = function() {
 		var options, bounds, w, h, data, size, model;
-		data = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+		data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}, {'num':4}, {'num':5}, {'num':6}, {'num':7}, {'num':8}];
 		model = new ButtonGridModel();
 		w = Game.w();
 		h = Game.h();

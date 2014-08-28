@@ -1,19 +1,20 @@
 
-define(['app/game', 'app/components/buttons/menubutton',
+define(['app/game', 'app/components/buttons/controlmenubutton',
 
 'app/components/buttongrid/buttonbar', 'app/scenes/activity/models/playingmodel'],
 
-function(Game, MenuButton,
+function(Game, ControlMenuButton,
 
 ButtonBar, playingModel){
 	
 	"use strict";
 	
 	var ControlMenu  = function(options){
-		options.buttonClass = MenuButton;
+		options.buttonClass = ControlMenuButton;
 		options.numX = 4;
 		options.numY = 1;
-		options.data = [4, 5, 6, 7];
+		
+		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}];
 		ButtonBar.call(this, options);
 		playingModel.changeSignal.add(this.playingChanged, this);
 		this.disableButtonAt(1);

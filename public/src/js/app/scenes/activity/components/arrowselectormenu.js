@@ -37,8 +37,8 @@ Pager)
 			this.group.add(this.leftButton.sprite);
 			this.group.add(this.rightButton.sprite);
 			this.leftButton.disableInput();
-			Game.getInstance().add.tween(this.leftButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
-			Game.getInstance().add.tween(this.rightButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
+			this.leftTween = Game.getInstance().add.tween(this.leftButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
+			this.rightTween = Game.getInstance().add.tween(this.rightButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
 		}
 	};
 	
@@ -106,12 +106,27 @@ Pager)
 		this.pager.next();
 	};
 	
-	ArrowSelectorMenu.prototype.destroy = function () {
+	ArrowSelectorMenu.prototype.removePager = function () {
 		if(this.pager){
 			this.pager.pageSignal.remove(this.choose, this);
 			this.pager.selectSignal.remove(this.onSelected, this);
 			this.pager.destroy();
+			this.pager = null;
 		}
+	};
+	
+	ArrowSelectorMenu.prototype.removeTweens = function () {
+		if(this.leftTween){
+			this.leftTween.stop();
+			this.leftTween = null;
+		}
+		if(this.rightTween){
+			this.rightTween.stop();
+			this.rightTween = null;
+		}
+	};
+	
+	ArrowSelectorMenu.prototype.removeButtons = function () {
 		if(this.leftButton){
 			this.leftButton.destroy();
 			this.leftButton = null;
@@ -120,7 +135,12 @@ Pager)
 			this.rightButton.destroy();
 			this.rightButton = null;
 		}
-		this.pager = null;
+	};
+	
+	ArrowSelectorMenu.prototype.destroy = function () {
+		this.removePager();
+		this.removeTweens();
+		this.removeButtons();
 		SelectorMenu.prototype.destroy.call(this);
 	};
 
