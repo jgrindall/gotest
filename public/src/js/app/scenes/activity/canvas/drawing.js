@@ -41,7 +41,7 @@ scaleModel){
 		this.onReset();
 	};
 	
-	Drawing.DIST = 100;
+	Drawing.DIST = 80;
 	Drawing.PI180 = 3.14159265359/180;
 	Drawing.ONE_RT2 = 1/1.4142135624;
 	Drawing.START_POS = {x:300, y:300};  //TODO - middle?
@@ -158,14 +158,12 @@ scaleModel){
 	};
 	
 	Drawing.prototype.addTurtle = function() {
-		var bounds = {'x':50, 'y':50, 'w':600, 'h':50};
-		this.turtle = new Turtle({'bounds':bounds});
+		this.turtle = new Turtle({'bounds':this.bounds});
 		this.group.add(this.turtle.group);
 	};
 	
 	Drawing.prototype.addPaths = function() {
-		var bounds = {'x':50, 'y':50, 'w':600, 'h':50};
-		this.paths = new Paths({'bounds':bounds});
+		this.paths = new Paths({'bounds':this.bounds});
 		this.group.add(this.paths.group);
 	};
 	
