@@ -116,7 +116,9 @@ AlertManager, CommandsPanelFactory){
 	};
 	
 	Controls.prototype.onScreenChosen = function(data) {
-		screenModel.setData(data.selection.selectedIndex);
+		if(data.index === 1){
+			screenModel.setData(data.selection.selectedIndex);
+		}
 	};
 	
 	Controls.prototype.addCommandsPanel = function(type) {

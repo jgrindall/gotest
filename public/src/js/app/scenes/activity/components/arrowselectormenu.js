@@ -29,17 +29,30 @@ Pager)
 	ArrowSelectorMenu.prototype.addArrows = function () {
 		if(this.options.dataProvider.getNumPages() >= 2){
 			this.leftButton = new DirButton({"data":{"num":3, "visible":true}, "bounds":{'x':20, 'y':Game.cy()}});
-			this.leftButton.sprite.alpha = 0;
-			this.leftButton.mouseUpSignal.add(this.leftClicked, this);
 			this.rightButton = new DirButton({"data":{"num":5, "visible":true}, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
-			this.rightButton.mouseUpSignal.add(this.rightClicked, this);
+			this.leftButton.sprite.alpha = 0;
 			this.rightButton.sprite.alpha = 0;
 			this.group.add(this.leftButton.sprite);
 			this.group.add(this.rightButton.sprite);
-			this.leftButton.disableInput();
-			this.leftTween = Game.getInstance().add.tween(this.leftButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
-			this.rightTween = Game.getInstance().add.tween(this.rightButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
+			this.addArrowListeners();
+			this.showArrows();
 		}
+	};
+	
+	ArrowSelectorMenu.prototype.showArrows = function () {
+		this.leftTween = Game.getInstance().add.tween(this.leftButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
+		this.rightTween = Game.getInstance().add.tween(this.rightButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
+		this.leftTween.onComplete.add(this.onArrowsShown, this);
+	};
+	
+	ArrowSelectorMenu.prototype.onArrowsShown = function () {
+		this.leftButton.disableInput();
+		this.leftTween.onComplete.remove(this.onArrowsShown, this);
+	};
+	
+	ArrowSelectorMenu.prototype.addArrowListeners = function () {
+		this.leftButton.mouseUpSignal.add(this.leftClicked, this);
+		this.rightButton.mouseUpSignal.add(this.rightClicked, this);
 	};
 	
 	ArrowSelectorMenu.prototype.gotoPage = function (p) {
@@ -117,6 +130,7 @@ Pager)
 	
 	ArrowSelectorMenu.prototype.removeTweens = function () {
 		if(this.leftTween){
+			this.leftTween.onComplete.remove(this.onArrowsShown, this);
 			this.leftTween.stop();
 			this.leftTween = null;
 		}

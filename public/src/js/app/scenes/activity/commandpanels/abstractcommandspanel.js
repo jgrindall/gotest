@@ -1,20 +1,28 @@
 
 define(['app/game', 'app/components/container',
 
-'app/scenes/activity/commands/abstractcommandfactory',
+'app/scenes/activity/commands/abstractcommandfactory', 'app/components/buttons/dirbutton',
 
 'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel',
 
-'app/scenes/activity/commandpanels/marker'
+'app/components/buttongrid/buttongrid', 'app/components/buttongrid/buttongridmodel',
+
+'app/scenes/activity/commandpanels/markerfactory', 
+
+'app/scenes/activity/commandpanels/markertypes',
+
+'app/scenes/activity/commandpanels/abstractmarker'
 ],
 
 function(Game, Container,
 
-AbstractCommandFactory,
+AbstractCommandFactory, DirButton,
 
 commModel, colorModel,
 
-Marker){
+ButtonGrid, ButtonGridModel,
+
+MarkerFactory, MarkerTypes, AbstractMarker){
 	
 	"use strict";
 	
@@ -46,62 +54,50 @@ Marker){
 		if(this.grid){
 			this.grid.disableAll();
 		}
-		if(this.keys){
-			this.keys.disableAll();
-		}
 	};
 	
 	AbstractCommandsPanel.prototype.setSelectedCommand = function(i) {
 		this.selectedCommand = i;
 		this.marker.goTo(i);
-		this.enableKeys();
 	};
 	
 	AbstractCommandsPanel.prototype.enableAllInput = function() {
 		if(this.grid){
 			this.grid.enableAll();
 		}
-		if(this.keys && this.selectedCommand !== null){
-			this.keys.enableAll();
-		}
 	};
 	
 	AbstractCommandsPanel.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addGrid();
-		this.addKeys();
 		this.addMarker();
-		this.disableKeys();
-	};
-	
-	AbstractCommandsPanel.prototype.disableKeys = function() {
-		if(this.keys){
-			this.keys.disableAll();
-			this.keys.alpha = 0.1;
-		}
-	};
-	
-	AbstractCommandsPanel.prototype.enableKeys = function() {
-		if(this.keys){
-			this.keys.enableAll();
-			this.keys.alpha = 1;
-		}
 	};
 	
 	AbstractCommandsPanel.prototype.addMarker = function() {
-		var x, y;
-		x = this.bounds.x + this.bounds.w/2 - Marker.WIDTH/2;
-		y = this.bounds.y + this.bounds.w/2 - Marker.HEIGHT/2;
-		this.marker = new Marker({'bounds':{'x':x, 'y':y}});
+		var x, y, options;
+		x = this.bounds.x + this.bounds.w/2 - AbstractMarker.WIDTH/2;
+		y = this.bounds.y + this.bounds.w/2 - AbstractMarker.HEIGHT/2;
+		options = {'bounds':{'x':x, 'y':y}};
+		this.marker = MarkerFactory.make(this.options.markerType, options);
 		this.group.add(this.marker.sprite);
 	};
 	
-	AbstractCommandsPanel.prototype.addKeys = function() {
-		
+	AbstractCommandsPanel.prototype.addGrid = function() {
+		var options, bounds, w, h, data, size, model;
+		model = new ButtonGridModel();
+		data = this.getGridData();
+		w = Game.w();
+		h = Game.h();
+		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
+		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y, "w":size, "h":size};
+		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data, "model":model};
+		this.grid = new ButtonGrid(options);
+		this.grid.clickSignal.add(this.selectComm, this);
+		this.group.add(this.grid.group);
 	};
 	
-	AbstractCommandsPanel.prototype.addGrid = function() {
-		
+	AbstractCommandsPanel.prototype.getGridData = function() {
+		return [{'num':0, 'visible':false}, {'num':1, 'visible':true}, {'num':2, 'visible':false}, {'num':3, 'visible':true}, {'num':4, 'visible':false}, {'num':5, 'visible':true}, {'num':6, 'visible':false}, {'num':7, 'visible':true}, {'num':8, 'visible':false}];
 	};
 	
 	AbstractCommandsPanel.prototype.addCommand = function(direction, type){
@@ -119,10 +115,8 @@ Marker){
 	
 	AbstractCommandsPanel.prototype.destroy = function() {
 		if(this.grid){
+			this.grid.clickSignal.remove(this.selectComm, this);
 			this.grid.destroy();
-		}
-		if(this.keys){
-			this.keys.destroy();
 		}
 		Container.prototype.destroy.call(this);
 	};

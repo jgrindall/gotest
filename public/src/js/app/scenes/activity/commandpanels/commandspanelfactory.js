@@ -7,7 +7,9 @@ define(['app/game', 'app/consts/commandpaneltypes',
 
 'app/scenes/activity/commandpanels/nsew45keyscommandspanel',
 
-'app/scenes/activity/commandpanels/turningkeyscommandspanel'
+'app/scenes/activity/commandpanels/nsturnkeyscommandspanel',
+
+'app/scenes/activity/commandpanels/markertypes'
 
 ],
 
@@ -19,7 +21,9 @@ NSEWKeysCommandsPanel,
 
 NSEW45KeysCommandsPanel,
 
-TurningKeysCommandsPanel
+NSTurnKeysCommandsPanel,
+
+MarkerTypes
 
 ){
 	
@@ -32,16 +36,16 @@ TurningKeysCommandsPanel
 	CommandsPanelFactory.make = function(type, bounds) {
 		var panel;
 		if(type === CommandTypes.NSEW){
-			panel = new NSEWCommandsPanel({"bounds":bounds});
+			panel = new NSEWCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
 		}
 		else if(type === CommandTypes.NSEW_KEYS){
-			panel = new NSEWKeysCommandsPanel({"bounds":bounds});
+			panel = new NSEWKeysCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
 		}
 		else if(type === CommandTypes.NSEW_45_KEYS){
-			panel = new NSEW45KeysCommandsPanel({"bounds":bounds});
+			panel = new NSEW45KeysCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
 		}
 		else if(type === CommandTypes.TURNING_KEYS){
-			panel = new TurningKeysCommandsPanel({"bounds":bounds});
+			panel = new NSTurnKeysCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.TURN});
 		}
 		return panel;
 	};

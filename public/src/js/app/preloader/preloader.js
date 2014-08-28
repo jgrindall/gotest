@@ -51,7 +51,7 @@ define(['app/game'], function(Game){
 	Preloader.PENS = 					'pens';
 	
 	Preloader.SPRITESHEETS = [
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/markers.png", 				"key":Preloader.MARKERS, 					"w":52, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/markers.png", 				"key":Preloader.MARKERS, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButton.png", 			"key":Preloader.LEVEL_BUTTON, 				"w":150, 	"h":150},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/buttons.png", 				"key":Preloader.BUTTON, 				"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 		"key":Preloader.LEVEL_BUTTON_DONE, 			"w":150, 	"h":150},
