@@ -37,6 +37,7 @@ Growl){
 		AlertManager.bg.beginFill(0x000000);
 		AlertManager.bg.alpha = 0.7;
     	AlertManager.bg.drawRect(0, 0, Game.w(), Game.h());
+    	AlertManager.bg.endFill();
 		Game.getInstance().world.add(AlertManager.bg);
 	};
 	

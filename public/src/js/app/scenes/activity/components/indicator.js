@@ -34,7 +34,6 @@ function(Game){
 	};
 	
 	Indicator.prototype.create = function(){
-		console.log(JSON.stringify(this.options));
 		this.gfx = new Phaser.Graphics(Game.getInstance(), this.options.bounds.x, this.options.bounds.y);
 	};
 	
