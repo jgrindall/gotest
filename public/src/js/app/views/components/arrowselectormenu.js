@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/buttons/dirbutton',
+define(['app/game', 'app/components/buttons/arrowbutton',
 
 'app/views/components/selectormenu', 'app/components/container',
 
@@ -7,7 +7,7 @@ define(['app/game', 'app/components/buttons/dirbutton',
 
 ],
 
-function(Game, DirButton, 
+function(Game, ArrowButton, 
 
 SelectorMenu, Container,
 
@@ -28,8 +28,8 @@ Pager)
 	
 	ArrowSelectorMenu.prototype.addArrows = function () {
 		if(this.options.dataProvider.getNumPages() >= 2){
-			this.leftButton = new DirButton({"data":{"num":3, "visible":true}, "bounds":{'x':20, 'y':Game.cy()}});
-			this.rightButton = new DirButton({"data":{"num":5, "visible":true}, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
+			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':20, 'y':Game.cy()}});
+			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
 			this.leftButton.sprite.alpha = 0;
 			this.rightButton.sprite.alpha = 0;
 			this.group.add(this.leftButton.sprite);

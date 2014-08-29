@@ -51,7 +51,7 @@ define(['app/game'], function(Game){
 	
 	AbstractButton.prototype.disableInput = function(){
 		this.sprite.inputEnabled = false;
-		this.sprite.alpha = 0.675;
+		this.sprite.alpha = 0.6;
 	};
 	
 	AbstractButton.prototype.mouseDown = function(){
