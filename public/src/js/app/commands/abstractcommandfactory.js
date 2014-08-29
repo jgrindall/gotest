@@ -1,11 +1,11 @@
 
-define(['app/activity//commands/movecommand',
+define(['app/commands/movecommand',
 
-'app/activity//commands/turncommand',
+'app/commands/turncommand',
 
-'app/activity//commands/fdcommand',
+'app/commands/fdcommand',
 
-'app/activity//commands/commandtypes'],
+'app/commands/commandtypes'],
 
 function(MoveCommand, TurnCommand,
 

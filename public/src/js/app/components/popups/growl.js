@@ -1,7 +1,7 @@
 
 define(['app/game', 'app/components/buttons/tickbutton',
 
-'app/components/popups/abstractpopup', 'app/utils/textfactory',
+'app/components/popups/abstractpopup', 'app/text/textfactory',
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 

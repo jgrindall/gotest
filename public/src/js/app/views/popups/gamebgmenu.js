@@ -1,7 +1,7 @@
 
-define(['app/activity//components/arrowselectormenu',
+define(['app/views/components/arrowselectormenu',
 
-'app/activity//dataproviders/bgdataprovider'
+'app/dataproviders/bgdataprovider'
 
 ],
 

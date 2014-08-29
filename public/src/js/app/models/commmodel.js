@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/activity//commands/abstractcommandfactory',
+define(['app/game', 'app/commands/abstractcommandfactory',
 
-'app/activity//models/commtickermodel'],
+'app/models/commtickermodel'],
 
 function(Game, AbstractCommandFactory,
 

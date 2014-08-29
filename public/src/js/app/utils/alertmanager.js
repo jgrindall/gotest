@@ -1,7 +1,7 @@
 
 define(['app/game', 
 
-'app/activity/popups/gamescreenmenu', 'app/activity/popups/gamebgmenu',
+'app/views/popups/gamescreenmenu', 'app/views/popups/gamebgmenu',
 
 'app/components/popups/growl'], 
 

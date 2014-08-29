@@ -1,7 +1,7 @@
 
 define(['app/game', 'app/components/container',
 
-'app/activity//models/bgmodel'],
+'app/models/bgmodel'],
 
 function(Game, Container,
 

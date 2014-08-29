@@ -1,11 +1,11 @@
 
 define(['jquery', 'app/game',
 
-'app/activity/models/commmodel', 'app/activity/models/commtickermodel',
+'app/models/commmodel', 'app/models/commtickermodel',
 
-'app/activity/models/screenmodel', 'app/activity/models/bgmodel', 
+'app/models/screenmodel', 'app/models/bgmodel', 
 
-'app/activity/models/colormodel', 'app/activity/models/speedmodel', 'app/utils/alertmanager'],
+'app/models/colormodel', 'app/models/speedmodel', 'app/utils/alertmanager'],
 
 function($, Game,
 
@@ -60,7 +60,7 @@ colorModel, speedModel, AlertManager){
 		speedModel.setData(json.speed);
 		bgModel.setData(json.bg);
 		commModel.addFromJson(json.commands);
-		//commTickerModel.replay();
+		commTickerModel.replay();
 	};
 		
 	Storage.prototype.save = function(callback){

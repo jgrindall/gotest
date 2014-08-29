@@ -1,7 +1,7 @@
 
 define(['app/game', 'app/components/buttons/dirbutton',
 
-'app/activity//components/selectormenu', 'app/components/container',
+'app/views/components/selectormenu', 'app/components/container',
 
 'app/components/scroller/pager'
 

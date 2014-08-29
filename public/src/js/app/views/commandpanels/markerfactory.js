@@ -1,11 +1,11 @@
 
 define(['app/game', 
 
-'app/activity//commandpanels/markertypes',
+'app/views/commandpanels/markertypes',
 
-'app/activity//commandpanels/marker',
+'app/views/commandpanels/marker',
 
-'app/activity//commandpanels/turnmarker'
+'app/views/commandpanels/turnmarker'
 
 ],
 

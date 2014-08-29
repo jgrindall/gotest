@@ -1,5 +1,5 @@
 
-define(['app/activity//models/abstractmodel'],
+define(['app/models/abstractmodel'],
 
 function(AbstractModel){
 	

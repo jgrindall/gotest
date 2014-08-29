@@ -3,19 +3,19 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/components/buttongrid/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/activity//components/colorpicker',
+'app/views/components/colorpicker',
 
-'app/activity//models/colormodel',
+'app/models/colormodel',
 
-'app/activity//models/screenmodel', 'app/activity//models/commtickermodel',
+'app/models/screenmodel', 'app/models/commtickermodel',
 
-'app/activity//controls/controlmenu', 'app/activity//commandpanels/abstractcommandspanel',
+'app/views/controls/controlmenu', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/activity//models/speedmodel', 'app/consts/commspeed',
+'app/models/speedmodel', 'app/consts/commspeed',
 
 'app/utils/alertmanager',
 
-'app/activity//commandpanels/commandspanelfactory',
+'app/views/commandpanels/commandspanelfactory',
 
 'app/events/eventdispatcher', 'app/events/events'
 

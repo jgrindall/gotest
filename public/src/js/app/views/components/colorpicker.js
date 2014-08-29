@@ -1,7 +1,7 @@
 
 define(['app/components/buttons/multibutton',
 
-'app/activity//models/colormodel'
+'app/models/colormodel'
 
 ],
 

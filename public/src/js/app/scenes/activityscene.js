@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/scenes/scene', 'app/activity//canvas/canvas', 'app/activity//controls/controls',
+define(['app/game', 'app/scenes/scene', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
-'app/utils/textfactory', 'app/utils/alertmanager', 'app/activity//components/menu', 'app/utils/storage',
+'app/text/textfactory', 'app/utils/alertmanager', 'app/views/components/menu', 'app/utils/storage',
 
 'app/components/background', 'app/events/eventdispatcher',
 

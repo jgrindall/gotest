@@ -1,9 +1,9 @@
 
 define(['app/game', 'app/components/container', 'app/components/background',
 
-'app/activity//canvas/map', 'app/activity//canvas/drawing',
+'app/views/canvas/map', 'app/views/canvas/drawing',
 
-'app/activity//components/indicator'],
+'app/views/components/indicator'],
 
 function(Game, Container, Background,
 

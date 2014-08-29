@@ -1,15 +1,15 @@
 
 define(['app/game', 'app/consts/commandpaneltypes',
 
-'app/activity//commandpanels/nsewcommandspanel',
+'app/views/commandpanels/nsewcommandspanel',
 
-'app/activity//commandpanels/nsewkeyscommandspanel',
+'app/views/commandpanels/nsewkeyscommandspanel',
 
-'app/activity//commandpanels/nsew45keyscommandspanel',
+'app/views/commandpanels/nsew45keyscommandspanel',
 
-'app/activity//commandpanels/nsturnkeyscommandspanel',
+'app/views/commandpanels/nsturnkeyscommandspanel',
 
-'app/activity//commandpanels/markertypes'
+'app/views/commandpanels/markertypes'
 
 ],
 

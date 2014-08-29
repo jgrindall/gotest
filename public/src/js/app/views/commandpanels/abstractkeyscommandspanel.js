@@ -5,9 +5,9 @@ define(['app/game', 'app/components/container',
 
 'app/components/buttongrid/buttongrid',
 
-'app/activity//commandpanels/abstractcommandspanel',
+'app/views/commandpanels/abstractcommandspanel',
 
-'app/activity//commands/commandtypes',
+'app/commands/commandtypes',
 
 'app/components/buttongrid/buttongridmodel'
 

@@ -5,11 +5,11 @@ define(['app/game', 'app/components/container',
 
 'app/components/buttongrid/buttongrid', 'app/components/buttongrid/buttongridmodel',
 
-'app/activity//commandpanels/markerfactory', 
+'app/views/commandpanels/markerfactory', 
 
-'app/activity//commandpanels/markertypes',
+'app/views/commandpanels/markertypes',
 
-'app/activity//commandpanels/abstractmarker',
+'app/views/commandpanels/abstractmarker',
 
 'app/events/eventdispatcher', 'app/events/events'
 ],

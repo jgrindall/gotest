@@ -1,4 +1,4 @@
-define(['app/activity/models/commmodel'],
+define(['app/models/commmodel'],
 
 function(commModel) {
 	

@@ -1,4 +1,4 @@
-define(['app/utils/alertmanager', 'app/activity/models/screenmodel'],
+define(['app/utils/alertmanager', 'app/models/screenmodel'],
 
 function(AlertManager, screenModel) {
 	

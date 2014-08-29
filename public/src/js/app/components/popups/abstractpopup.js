@@ -1,7 +1,7 @@
 
 define(['app/components/buttons/closebutton', 'app/game',
 
-'app/components/container', 'app/utils/textfactory'],
+'app/components/container', 'app/text/textfactory'],
 
 function(CloseButton, Game,
 

@@ -1,19 +1,19 @@
 
 define(['app/game', 'app/components/container',
 
-'app/activity//canvas/map', 'app/activity//canvas/turtle', 'app/activity//canvas/paths',
+'app/views/canvas/map', 'app/views/canvas/turtle', 'app/views/canvas/paths',
 
-'app/activity//models/commtickermodel', 'app/activity//models/colormodel',
+'app/models/commtickermodel', 'app/models/colormodel',
 
-'app/activity//commands/commandtypes',
+'app/commands/commandtypes',
 
-'app/activity//commands/movecommand',
+'app/commands/movecommand',
 
-'app/activity//commands/turncommand',
+'app/commands/turncommand',
 
-'app/activity//commands/fdcommand',
+'app/commands/fdcommand',
 
-'app/activity//models/scalemodel'],
+'app/models/scalemodel'],
 
 function(Game, Container,
 

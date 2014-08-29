@@ -1,7 +1,7 @@
 
 define(['app/game', 'app/components/container',
 
-'app/consts/colors', 'app/activity//canvas/linedrawer'],
+'app/consts/colors', 'app/views/canvas/linedrawer'],
 
 function(Game, Container,
 

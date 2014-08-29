@@ -3,7 +3,7 @@ define(['app/game', 'app/components/buttons/controlmenubutton',
 
 'app/components/buttongrid/buttonbar',
 
-'app/activity//models/playingmodel', 'app/consts/playingstate'],
+'app/models/playingmodel', 'app/consts/playingstate'],
 
 function(Game, ControlMenuButton,
 

@@ -1,7 +1,7 @@
 
 define(['app/scenes/scene', 'app/preloader/preloader', 'app/components/loaderbar/loaderbar',
 
-'app/utils/textfactory', 'app/game'],
+'app/text/textfactory', 'app/game'],
 
 function(Scene, Preloader,LoaderBar,
 

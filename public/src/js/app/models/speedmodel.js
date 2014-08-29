@@ -1,7 +1,7 @@
 
 define(['app/consts/commspeed',
 
-'app/activity//models/abstractmodel'],
+'app/models/abstractmodel'],
 
 function(CommSpeed,
 

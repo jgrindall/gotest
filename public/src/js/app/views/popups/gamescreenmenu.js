@@ -1,7 +1,7 @@
 
-define(['app/activity//dataproviders/screendataprovider',
+define(['app/dataproviders/screendataprovider',
 
-'app/activity//components/arrowselectormenu'
+'app/views/components/arrowselectormenu'
 
 ],
 

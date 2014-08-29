@@ -1,7 +1,7 @@
 
-define(['app/activity//commandpanels/abstractcommandspanel',
+define(['app/views/commandpanels/abstractcommandspanel',
 
-'app/activity//commands/commandtypes'
+'app/commands/commandtypes'
 
 ],
 

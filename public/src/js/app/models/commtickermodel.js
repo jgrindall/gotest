@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/activity//commands/abstractcommandfactory',
+define(['app/game', 'app/commands/abstractcommandfactory',
 
-'app/activity//models/speedmodel', 'app/activity//commands/movecommand', 'app/activity//commands/turncommand',
+'app/models/speedmodel', 'app/commands/movecommand', 'app/commands/turncommand',
 
-'app/activity//models/playingmodel', 'app/activity//models/bgmodel', 'app/activity//commands/abstractcommand',
+'app/models/playingmodel', 'app/models/bgmodel', 'app/commands/abstractcommand',
 
-'app/activity//models/colormodel', 'app/consts/playingstate'],
+'app/models/colormodel', 'app/consts/playingstate'],
 
 function(Game, AbstractCommandFactory,
 
