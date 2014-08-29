@@ -14,6 +14,10 @@ define([], function(){
 		return {'direction':this.direction, 'index':this.index, 'total':this.total, 'color':this.color};
 	};
 	
+	AbstractCommand.prototype.toString = function(){
+		return JSON.stringify(this.toJson());
+	};
+	
 	return AbstractCommand;
 
 });

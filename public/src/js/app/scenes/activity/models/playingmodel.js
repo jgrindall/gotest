@@ -26,7 +26,6 @@ PlayingState){
 	};
 	
 	PlayingModel.prototype.setPlaying = function(p) {
-		console.log("setPlaying "+p);
 		if(this.playing !== p){
 			this.playing = p;
 			this.trigger();

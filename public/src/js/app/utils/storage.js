@@ -55,7 +55,6 @@ colorModel, speedModel, AlertManager){
 	};
 	
 	Storage.prototype.setModels = function(json){
-		console.log("setModels");
 		screenModel.setData(json.screen);
 		colorModel.setData(json.color);
 		speedModel.setData(json.speed);

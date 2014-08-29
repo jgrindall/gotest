@@ -1,7 +1,7 @@
 
-define(['app/game'],
+define(['app/game', 'app/consts/colors'],
 
-function(Game){
+function(Game, Colors){
 	
 	"use strict";
 	
@@ -11,9 +11,9 @@ function(Game){
 	};
 	
 	LineDrawer.STEPS = 4;
+	LineDrawer.WIDTH = 8;
 	
 	LineDrawer.prototype.drawLine = function(p0, p1, command, duration, width) {
-		console.log("drawLine ", p0.x, p0.y, p1.x, p1.y, duration);
 		this.step = 0;
 		this.command = command;
 		this.duration = duration;
@@ -21,6 +21,7 @@ function(Game){
 		this.p0 = p0;
 		this.pos = $.extend({}, p0);
 		this.p1 = p1;
+		this.circle(p0);
 		if(duration === 0){
 			this.segment(p1);
 			this.endLine();
@@ -37,38 +38,49 @@ function(Game){
 	};
 	
 	LineDrawer.prototype.tick = function() {
-		var fraction, p, x, y;
 		this.step++;
 		if(this.step === LineDrawer.STEPS + 1){
 			this.endLine();
 		}
 		else{
-			fraction = this.step / LineDrawer.STEPS;
-			x = this.p0.x + fraction * (this.p1.x - this.p0.x);
-			y = this.p0.y + fraction * (this.p1.y - this.p0.y);
-			p = {'x':x, 'y':y};
-			this.segment(p);
-			this.pos = p;
+			this.tickLine();
+			
 		}
 	};
 	
+	LineDrawer.prototype.tickLine = function() {
+		var fraction, p, x, y;
+		fraction = this.step / LineDrawer.STEPS;
+		x = this.p0.x + fraction * (this.p1.x - this.p0.x);
+		y = this.p0.y + fraction * (this.p1.y - this.p0.y);
+		p = {'x':x, 'y':y};
+		this.segment(p);
+		this.pos = p;
+	};
+	
+	LineDrawer.prototype.getColor = function() {
+		console.log("getColor!!   "+this.command.toString());
+		return Colors.ALL[this.command.color];
+	};
+	
 	LineDrawer.prototype.endLine = function() {
+		this.circle(this.p1);
 		this.stop();
 		this.endSignal.dispatch({});
 	};
 	
 	LineDrawer.prototype.segment = function(p) {
-		var clr = 0x000000;
-		this.context2d.lineStyle(10, clr, 1);
+		var clr = this.getColor();
+		this.context2d.lineStyle(LineDrawer.WIDTH, clr, 1);
    		this.context2d.moveTo(this.pos.x, this.pos.y);
    		this.context2d.lineTo(p.x, p.y);
 	};
 	
-	LineDrawer.prototype.circle = function() {
-		this.context2d.lineStyle(this.width, clr, 1);
+	LineDrawer.prototype.circle = function(p) {
+   		var clr = this.getColor();
    		this.context2d.lineStyle(0, 0, 0);
    		this.context2d.beginFill(clr, 1);
-		this.context2d.drawCircle(p.x, p.y, Paths.WIDTH/2);
+		this.context2d.drawCircle(p.x, p.y, LineDrawer.WIDTH/2);
 		this.context2d.endFill();
 	};
 	

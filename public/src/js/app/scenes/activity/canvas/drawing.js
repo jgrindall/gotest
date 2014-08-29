@@ -57,18 +57,16 @@ scaleModel){
 	};
 	
 	Drawing.prototype.onReset = function(){
-		console.log("Drawing  onReset!");
 		this.startPos = $.extend({}, this.centre);
 		this.turtle.reset(this.startPos);
 		this.angle = -90;
-		this.rotateTurtle(0);
+		this.setTurtle();
 		this.paths.clear();
 	};
 	
 	Drawing.prototype.commandExecute = function(data){
 		this.command = data.command;
 		this.duration = data.duration;
-		console.log("execute "+JSON.stringify(data.command.toJson())+"   duration = "+data.duration);
 		if(this.command instanceof MoveCommand){
 			this.executeMove();
 		}
@@ -112,13 +110,17 @@ scaleModel){
 		this.turtle.rotateTo(this.angle, duration);
 	};
 	
+	Drawing.prototype.setTurtle = function() {
+		this.turtle.setTo(this.angle);
+	};
+	
 	Drawing.prototype.createLine = function() {
 		this.paths.drawLine(this.startPos, this.endPos, this.command, this.duration);
 	};
 	
 	Drawing.prototype.executeMove = function() {
 		this.setAngle();
-		this.rotateTurtle(0);
+		this.setTurtle();
 		this.setEndPoint();
 		this.moveTurtle();
 		this.createLine();
@@ -143,23 +145,25 @@ scaleModel){
 	
 	Drawing.prototype.addTurtle = function() {
 		this.turtle = new Turtle({'bounds':this.bounds});
+		this.turtle.endSignal.add(this.commandFinished, this);
 		this.group.add(this.turtle.group);
 	};
 	
-	Drawing.prototype.lineFinished = function() {
+	Drawing.prototype.commandFinished = function() {
 		this.startPos = this.endPos;
 		commTickerModel.nextCommand();
 	};
 	
 	Drawing.prototype.addPaths = function() {
 		this.paths = new Paths({'bounds':this.bounds});
-		this.paths.endSignal.add(this.lineFinished, this);
+		this.paths.endSignal.add(this.commandFinished, this);
 		this.group.add(this.paths.group);
 	};
 	
 	Drawing.prototype.destroy = function() {
 		Container.prototype.destroy.call(this);
-		this.paths.endSignal.remove(this.lineFinished, this);
+		this.paths.endSignal.remove(this.commandFinished, this);
+		this.turtle.endSignal.remove(this.commandFinished, this);
 		this.paths.destroy();
 		this.turtle.destroy();
 	};

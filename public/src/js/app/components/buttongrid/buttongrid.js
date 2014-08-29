@@ -28,7 +28,6 @@ ButtonGridModel){
 	
 	ButtonGrid.prototype.onSelectedChanged = function(data){
 		var index = data.selected;
-		console.log("index "+index);
 		this.showSelected(index);
 		this.changeSignal.dispatch({"index":index, "grid":this});
 	};

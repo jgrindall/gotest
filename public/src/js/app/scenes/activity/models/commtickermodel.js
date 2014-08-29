@@ -26,18 +26,19 @@ colorModel, PlayingState){
 		bgModel.changeSignal.add(this.changeBg, this);
 	};
 	
-	CommTickerModel.SPEED_FACTOR = 90;
+	CommTickerModel.SPEED_FACTOR = 120;
 	
 	CommTickerModel.prototype.performCommand = function() {
-		console.log("performCommand");
-		var command, fraction, data;
+		var command, data, duration, that = this;
+		duration = this.getDuration();
 		command = this.getCurrentCommand();
-		data = {"command":command, "duration":this.getDuration()};
-		this.dispatch(data);
+		data = {"command":command, "duration":duration};
+		setTimeout(function(){
+			that.dispatch(data);
+		}, duration/2);
 	};
 	
 	CommTickerModel.prototype.reset = function(){
-		console.log("reset!!");
 		playingModel.setData(PlayingState.NOT_PLAYING);
 		this.commandNum = 0;
 		this.resetSignal.dispatch();
@@ -59,7 +60,6 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.start = function() {
-		console.log("added, start, playing = "+playingModel.getData().playing);
 		if(playingModel.getData().playing !== PlayingState.PLAYING){
 			playingModel.setData(PlayingState.PLAYING);
 			this.performCommand();
@@ -68,10 +68,8 @@ colorModel, PlayingState){
 	
 	CommTickerModel.prototype.playAll = function() {
 		if(this.getNum() === 0){
-			console.log("nothing to replay");
 			return;
 		}
-		console.log("set to zero and play");
 		playingModel.setData(PlayingState.REPLAYING);
 		this.performCommand();
 	};
@@ -81,9 +79,7 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.replay = function() {
-		console.log("replay");
 		this.resetSignal.dispatch();
-		console.log("reset done");
 		this.commandNum = 0;
 		this.playAll();
 	};
@@ -99,7 +95,6 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.stop = function() {
-		console.log("stop");
 		if(playingModel.getData().playing !== PlayingState.NOT_PLAYING){
 			this.reset();
 		}
@@ -115,7 +110,6 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.nextCommand = function() {
-		console.log("nextCommand   commandNum = ", this.commandNum, "  total = "+  this.getNum());
 		this.commandNum++;
 		if(this.commandNum === this.getNum()){
 			this.finished();		
@@ -138,7 +132,6 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.getCurrentCommand = function() {
-		console.log("getCurrentCommand,  commandNum "+this.commandNum);
 		return this.commandProvider.getCommandAt(this.commandNum);
 	};
 	
