@@ -33,9 +33,14 @@ colorModel, PlayingState){
 		duration = this.getDuration();
 		command = this.getCurrentCommand();
 		data = {"command":command, "duration":duration};
-		setTimeout(function(){
-			that.dispatch(data);
-		}, duration/2);
+		if(duration === 0){
+			this.dispatch(data);
+		}
+		else{
+			setTimeout(function(){
+				that.dispatch(data);
+			}, duration/2);
+		}
 	};
 	
 	CommTickerModel.prototype.reset = function(){

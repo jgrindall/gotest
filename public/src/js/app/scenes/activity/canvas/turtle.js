@@ -92,6 +92,7 @@ function(Game, Container){
 	};
 	
 	Turtle.prototype.move = function(p) {
+		console.log("move", p.x, p.y);
 		this.sprite.x = p.x;
 		this.sprite.y = p.y;
 	};
