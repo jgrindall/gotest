@@ -8,7 +8,8 @@ define(['app/game', 'app/components/movieclip'], function(Game, MovieClip){
 		options.asset = 'markers';
 		options.num = 11;
 		MovieClip.call(this, options);
-		this.sprite.alpha = 0.6;
+		this.sprite.anchor.setTo(0.5, 0.5);
+		this.sprite.alpha = 0.5;
 	};
 	
 	AbstractMarker.prototype = Object.create(MovieClip.prototype);
@@ -17,6 +18,12 @@ define(['app/game', 'app/components/movieclip'], function(Game, MovieClip){
 	AbstractMarker.WIDTH = 50;
 	AbstractMarker.HEIGHT = 50;
 
+	AbstractMarker.prototype.goTo = function(i){
+		MovieClip.prototype.goTo.call(this, i);
+		Game.getInstance().add.tween(this.sprite.scale).to( {'x':1.2, 	'y':1.2}, 200, Phaser.Easing.Back.InOut, true, 0, false);
+		Game.getInstance().add.tween(this.sprite.scale).to( {'x':1, 	'y':1}, 200, Phaser.Easing.Back.InOut, true, 200, false);
+	};
+	
 	return AbstractMarker;
 
 });

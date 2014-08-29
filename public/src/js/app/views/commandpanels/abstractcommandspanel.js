@@ -76,8 +76,8 @@ eventDispatcher, Events){
 	
 	AbstractCommandsPanel.prototype.addMarker = function() {
 		var x, y, options;
-		x = this.bounds.x + this.bounds.w/2 - AbstractMarker.WIDTH/2;
-		y = this.bounds.y + this.bounds.w/2 - AbstractMarker.HEIGHT/2;
+		x = this.bounds.x + this.bounds.w/2;
+		y = this.bounds.y + this.bounds.w/2;
 		options = {'bounds':{'x':x, 'y':y}};
 		this.marker = MarkerFactory.make(this.options.markerType, options);
 		this.group.add(this.marker.sprite);
