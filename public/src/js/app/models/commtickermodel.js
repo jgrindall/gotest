@@ -56,7 +56,7 @@ colorModel, PlayingState){
 	CommTickerModel.prototype.changeColor = function(data) {
 		var nextCommand = this.getNextCommand();
 		if(playingModel.getData().playing === PlayingState.PLAYING && nextCommand){
-			nextCommand.color = data.color;
+			nextCommand.color = data.index;
 		}
 	};
 	
