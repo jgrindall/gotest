@@ -1,11 +1,15 @@
 
 define(['app/game', 'app/components/buttons/controlmenubutton',
 
-'app/components/buttongrid/buttonbar', 'app/scenes/activity/models/playingmodel'],
+'app/components/buttongrid/buttonbar',
+
+'app/scenes/activity/models/playingmodel', 'app/consts/playingstate'],
 
 function(Game, ControlMenuButton,
 
-ButtonBar, playingModel){
+ButtonBar,
+
+playingModel, PlayingState){
 	
 	"use strict";
 	
@@ -24,11 +28,11 @@ ButtonBar, playingModel){
 	ControlMenu.prototype.constructor = ControlMenu;
 	
 	ControlMenu.prototype.playingChanged = function(data){
-		if(data.playing){
+		if(data.playing === PlayingState.PLAYING){
 			this.enableButtonAt(0);
 			this.disableButtonAt(1);
 		}
-		else{
+		else if(data.playing === PlayingState.NOT_PLAYING){
 			this.disableButtonAt(0);
 			this.enableButtonAt(1);
 		}

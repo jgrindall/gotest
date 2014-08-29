@@ -34,6 +34,7 @@ scaleModel){
 	"use strict";
 	
 	var Drawing  = function(options){
+		this.centre = {'x':options.bounds.x + options.bounds.w/2, 'y':options.bounds.y + options.bounds.h/2};
 		Container.call(this, options);
 		commTickerModel.executeSignal.add(this.commandExecute, this);
 		commTickerModel.resetSignal.add(this.onReset, this);
@@ -43,7 +44,6 @@ scaleModel){
 	Drawing.DIST = 80;
 	Drawing.PI180 = 3.14159265359/180;
 	Drawing.ONE_RT2 = 1/1.4142135624;
-	Drawing.START_POS = {x:300, y:300};  //TODO - middle?
 	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
 	Drawing.ROTATE_45 = [0, 0, 0, -45, 0, 45, 0, 0, 0];
 	Drawing.ROTATE_90 = [0, 0, 0, 90, 0, -90, 0, 0, 0];
@@ -57,97 +57,80 @@ scaleModel){
 	};
 	
 	Drawing.prototype.onReset = function(){
-		this.currentPos = $.extend({}, Drawing.START_POS);
-		this.startPos = $.extend({}, Drawing.START_POS);
+		this.startPos = $.extend({}, this.centre);
 		this.turtle.reset(this.startPos);
 		this.angle = -90;
-		this.turtle.rotate(this.angle);
+		this.rotateTurtle(0);
 		this.paths.clear();
 	};
 	
 	Drawing.prototype.commandExecute = function(data){
-		this.execute(data.command, data.fraction, data.totalTime);
+		this.command = data.command;
+		this.duration = data.duration;
+		if(this.command instanceof MoveCommand){
+			this.executeMove();
+		}
+		else if(this.command instanceof TurnCommand){
+			this.executeTurn();
+		}
+		else if(this.command instanceof FdCommand){
+			this.executeFd();
+		}
 	};
 	
-	Drawing.prototype.setAngle = function(command) {
-		this.angle = -Drawing.ANGLES[command.direction];
+	Drawing.prototype.setAngle = function() {
+		this.angle = -Drawing.ANGLES[this.command.direction];
 	};
 	
-	Drawing.prototype.setEndPoint = function(command) {
+	Drawing.prototype.isBackwards = function() {
+		return (this.command instanceof FdCommand && this.command.direction === 7);
+	};
+	
+	Drawing.prototype.setEndPoint = function() {
 		var dx, dy, thetaRad;
 		thetaRad = this.angle * Drawing.PI180;
 		dx = Drawing.DIST * Math.cos(thetaRad);
 		dy = Drawing.DIST * Math.sin(thetaRad);
 		if(scaleModel.getData().scale){
-			dx *= Drawing.SCALES[command.direction];
-			dy *= Drawing.SCALES[command.direction];
+			dx *= Drawing.SCALES[this.command.direction];
+			dy *= Drawing.SCALES[this.command.direction];
 		}
-		if( (command instanceof FdCommand) && command.direction === 7){
+		if(this.isBackwards()){
 			dx *= -1;
 			dy *= -1;
 		}
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
 	};
 	
-	Drawing.prototype.executeFd = function(command, fraction, totalTime) {
-		if(fraction === 0){
-			this.startPos = {'x':this.currentPos.x, 'y':this.currentPos.y};
-			this.setEndPoint(command);
-			this.moveTurtleToEnd(totalTime);
-		}
-		this.createLine(command.color, fraction);
+	Drawing.prototype.moveTurtle = function() {
+		this.turtle.tweenTo(this.endPos, this.duration);
 	};
 	
-	Drawing.prototype.moveTurtleToEnd = function(totalTime) {
-		this.turtle.tweenTo(this.endPos, totalTime);
+	Drawing.prototype.rotateTurtle = function(duration) {
+		this.turtle.rotateTo(this.angle, duration);
 	};
 	
-	Drawing.prototype.rotateTurtle = function(time) {
-		if(time === undefined){
-			time = 100;
-		}
-		this.turtle.rotate(this.angle, time);
+	Drawing.prototype.createLine = function() {
+		this.paths.drawLine(this.startPos, this.endPos, this.command, this.duration);
 	};
 	
-	Drawing.prototype.createLine = function(clr, fraction) {
-		var px, py, pos;
-		px =  this.startPos.x + fraction * (this.endPos.x - this.startPos.x);
-   		py =  this.startPos.y + fraction * (this.endPos.y - this.startPos.y);
-		pos = {'x':px, 'y':py};
-		this.paths.line(this.currentPos, pos, clr);
-		this.turtle.move(pos);
-		this.currentPos = {'x':pos.x, 'y':pos.y};
+	Drawing.prototype.executeMove = function() {
+		this.setAngle();
+		this.rotateTurtle(0);
+		this.setEndPoint();
+		this.moveTurtle();
+		this.createLine();
 	};
 	
-	Drawing.prototype.executeMove = function(command, fraction, totalTime) {
-		if(fraction === 0){
-			this.startPos = {'x':this.currentPos.x, 'y':this.currentPos.y};
-			this.setAngle(command);
-			this.setEndPoint(command);
-			this.rotateTurtle();
-			this.moveTurtleToEnd(totalTime);
-		}
-		this.createLine(command.color, fraction);
-		
+	Drawing.prototype.executeFd = function() {
+		this.setEndPoint();
+		this.moveTurtle();
+		this.createLine();
 	};
 	
-	Drawing.prototype.executeTurn = function(command, fraction, totalTime) {
-		if(fraction === 0){
-			this.angle = this.angle + Drawing.ROTATE_45[command.direction];
-			this.rotateTurtle(totalTime/2);
-		}
-	};
-	
-	Drawing.prototype.execute = function(command, fraction, totalTime) {
-		if(command instanceof MoveCommand){
-			this.executeMove(command, fraction, totalTime);
-		}
-		else if(command instanceof TurnCommand){
-			this.executeTurn(command, fraction, totalTime);
-		}
-		else if(command instanceof FdCommand){
-			this.executeFd(command, fraction, totalTime);
-		}
+	Drawing.prototype.executeTurn = function() {
+		this.angle = this.angle + Drawing.ROTATE_45[this.command.direction];
+		this.rotateTurtle(this.duration);
 	};
 	
 	Drawing.prototype.create = function() {
@@ -161,13 +144,20 @@ scaleModel){
 		this.group.add(this.turtle.group);
 	};
 	
+	Drawing.prototype.lineFinished = function() {
+		this.startPos = this.endPos;
+		commTickerModel.nextCommand();
+	};
+	
 	Drawing.prototype.addPaths = function() {
 		this.paths = new Paths({'bounds':this.bounds});
+		this.paths.endSignal.add(this.lineFinished, this);
 		this.group.add(this.paths.group);
 	};
 	
 	Drawing.prototype.destroy = function() {
 		Container.prototype.destroy.call(this);
+		this.paths.endSignal.remove(this.lineFinished, this);
 		this.paths.destroy();
 		this.turtle.destroy();
 	};

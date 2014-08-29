@@ -1,13 +1,17 @@
 
-define(['app/scenes/activity/models/abstractmodel'],
+define(['app/scenes/activity/models/abstractmodel',
 
-function(AbstractModel){
+'app/consts/playingstate'],
+
+function(AbstractModel,
+
+PlayingState){
 	
 	"use strict";
 	
 	var PlayingModel  = function(){
 		AbstractModel.call(this);
-		this.playing = false;
+		this.playing = PlayingState.NOT_PLAYING;
 	};
 	
 	PlayingModel.prototype = Object.create(AbstractModel.prototype);
@@ -22,6 +26,7 @@ function(AbstractModel){
 	};
 	
 	PlayingModel.prototype.setPlaying = function(p) {
+		console.log("setPlaying "+p);
 		if(this.playing !== p){
 			this.playing = p;
 			this.trigger();

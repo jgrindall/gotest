@@ -1,63 +1,58 @@
 
-define(['app/game', 'app/components/container', 'app/consts/colors'],
+define(['app/game', 'app/components/container',
 
-function(Game, Container, Colors){
+'app/consts/colors', 'app/scenes/activity/canvas/linedrawer'],
+
+function(Game, Container,
+
+Colors, LineDrawer){
 	
 	"use strict";
 	
 	var Paths  = function(options){
 		Container.call(this, options);
-		this.lines = [];
-		this.color = 0;
+		this.endSignal = new Phaser.Signal();
 	};
 	
-	Paths.WIDTH = 10;
+	Paths.WIDTH = 8;
 	
 	Paths.prototype = Object.create(Container.prototype);
 	Paths.prototype.constructor = Paths;
 	
-	Paths.prototype.setColor = function(i) {
-		this.color = i;
-	};
-	
 	Paths.prototype.removeGfx = function() {
 		if(this.gfx){
 			this.gfx.destroy();
-			this.group.remove(this, this.gfx);
+			this.group.remove(this.gfx);
 			this.gfx = null;
+		}
+		if(this.lineDrawer){
+			this.lineDrawer.destroy();
+			this.lineDrawer = null;
+		}
+		if(this.mask){
+			this.mask.destroy();
+			this.group.remove(this.mask);
+			this.mask = null;
 		}
 	};
 	
 	Paths.prototype.clear = function() {
-		this.addGfx();
+		this.gfx.clear();
 	};
 	
-	Paths.prototype.circle = function(p, clr) {
-		this.gfx.lineStyle(Paths.WIDTH, clr, 1);
-   		this.gfx.lineStyle(0, 0, 0);
-   		this.gfx.beginFill(clr, 1);
-		this.gfx.drawCircle(p.x, p.y, Paths.WIDTH/2);
-		this.gfx.endFill();
-	};
-	
-	Paths.prototype.line = function(p0, p1, clrIndex) {
-		var clr = Colors.ALL[clrIndex];
-		this.circle(p0, clr);
-		this.gfx.lineStyle(Paths.WIDTH, clr, 1);
-   		this.gfx.moveTo(p0.x, p0.y);
-   		this.gfx.lineTo(p1.x, p1.y);
-   		this.circle(p1, clr);
+	Paths.prototype.drawLine = function(p0, p1, command, duration) {
+		this.lineDrawer.drawLine(p0, p1, command, duration);
 	};
 	
 	Paths.prototype.addGfx = function() {
-		this.removeGfx();
 		this.gfx = new Phaser.Graphics(Game.getInstance(), 0, 0);
+		this.lineDrawer = new LineDrawer(this.gfx);
+		this.lineDrawer.endSignal.add(this.onDrawerEnd, this);
 		this.group.add(this.gfx);
 	};
 	
-	Paths.prototype.clear = function(){
-		this.removeGfx();
-		this.addGfx();
+	Paths.prototype.onDrawerEnd = function() {
+		this.endSignal.dispatch({});
 	};
 	
 	Paths.prototype.addMask = function() {
@@ -77,6 +72,9 @@ function(Game, Container, Colors){
 	
 	Paths.prototype.destroy = function() {
 		Container.prototype.destroy.call(this);
+		this.gfx.endSignal.remove(this.onDrawerEnd, this);
+		this.endSignal.dispose();
+		this.endSignal = null;
 		this.removeGfx();
 	};
 	

@@ -8,9 +8,11 @@ function(Game, Container){
 	var Turtle  = function(options){
 		Container.call(this, options);
 		this.theta = 0;
+		this.endSignal = new Phaser.Signal();
 	};
 	
 	Turtle.getAngle = function(t, a){
+		// to stop it going from 359 to 0 via 180 for example!
 		while(t - a > 180){
 			t -= 360;
 		}
@@ -29,7 +31,7 @@ function(Game, Container){
 		this.sprite.anchor.setTo(0.5, 0.5);
 	};
 	
-	Turtle.prototype.rotate = function(theta, time) {
+	Turtle.prototype.rotateTo = function(theta, time) {
 		var target = theta + 90;
 		this.stopTurnTween();
 		target = Turtle.getAngle(target, this.sprite.angle);
@@ -44,7 +46,7 @@ function(Game, Container){
 	Turtle.prototype.reset = function(p){
 		this.stopTweens();
 		this.move(p);
-		this.rotate(-90, 0);
+		this.rotateTo(-90, 0);
 	};
 	
 	Turtle.prototype.stopMoveTween = function() {
@@ -69,7 +71,7 @@ function(Game, Container){
 	Turtle.prototype.tweenTo = function(p, time) {
 		this.stopMoveTween();
 		if(time === 0){
-			this.move(p);	
+			this.move(p);
 		}
 		else{
 			this.moveTween = Game.getInstance().add.tween(this.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
@@ -98,6 +100,8 @@ function(Game, Container){
 	
 	Turtle.prototype.destroy = function() {
 		this.stopTweens();
+		this.endSignal.dispose();
+		this.endSignal = null;
 		Container.prototype.destroy.call(this);
 		this.sprite.destroy(true);
 	};

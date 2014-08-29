@@ -109,7 +109,7 @@ MarkerFactory, MarkerTypes, AbstractMarker){
 		for(index = 0; index < total; index++){
 			json = {'type':type, 'direction':direction, 'color':colorModel.color, 'index':index, 'total':total};
 			c = new AbstractCommandFactory.fromJson(json);
-			commModel.add(c, true);
+			commModel.add(c);
 		}
 	};
 	
