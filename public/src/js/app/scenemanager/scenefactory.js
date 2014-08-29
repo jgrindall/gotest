@@ -1,5 +1,5 @@
 
-define(['app/consts/appconsts','app/scenes/loader/loaderscene', 'app/scenes/activity/activityscene'],
+define(['app/consts/appconsts','app/loader/loaderscene', 'app/activity/activityscene'],
 
 function(AppConsts, LoaderScene, ActivityScene){
 	

@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/scenes/activity/models/abstractmodel'],
+define(['app/game', 'app/activity/models/abstractmodel'],
 
 function(Game, AbstractModel){
 	

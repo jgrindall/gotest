@@ -1,4 +1,4 @@
-define(['app/scenes/activity/models/commmodel'],
+define(['app/activity/models/commmodel'],
 
 function(commModel) {
 	

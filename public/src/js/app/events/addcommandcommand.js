@@ -1,8 +1,8 @@
-define(['app/scenes/activity/models/commmodel',
+define(['app/activity//models/commmodel',
 
-'app/scenes/activity/models/colormodel',
+'app/activity//models/colormodel',
 
-'app/scenes/activity/commands/abstractcommandfactory'],
+'app/activity//commands/abstractcommandfactory'],
 
 function(commModel, colorModel, AbstractCommandFactory) {
 	

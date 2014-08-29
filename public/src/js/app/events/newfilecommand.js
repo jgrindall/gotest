@@ -1,4 +1,4 @@
-define(['app/utils/alertmanager', 'app/scenes/activity/models/bgmodel'],
+define(['app/utils/alertmanager', 'app/activity/models/bgmodel'],
 
 function(AlertManager, bgModel) {
 	
