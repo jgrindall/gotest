@@ -47,6 +47,11 @@ commTickerModel){
 		return this.commands[i];
 	};
 	
+	CommModel.prototype.stop = function() {
+		this.empty();
+		commTickerModel.stop();
+	};
+	
 	CommModel.prototype.empty = function() {
 		this.commands = [];
 	};

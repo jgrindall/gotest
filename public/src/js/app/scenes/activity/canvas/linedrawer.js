@@ -30,6 +30,12 @@ function(Game){
 		}
 	};
 	
+	LineDrawer.prototype.stop = function() {
+		if(this.interval){
+			clearInterval(this.interval);
+		}
+	};
+	
 	LineDrawer.prototype.tick = function() {
 		var fraction, p, x, y;
 		this.step++;
@@ -47,9 +53,7 @@ function(Game){
 	};
 	
 	LineDrawer.prototype.endLine = function() {
-		if(this.interval){
-			clearInterval(this.interval);
-		}
+		this.stop();
 		this.endSignal.dispatch({});
 	};
 	
@@ -69,9 +73,7 @@ function(Game){
 	};
 	
 	LineDrawer.prototype.destroy = function() {
-		if(this.interval){
-			clearInterval(this.interval);
-		}
+		this.stop();
 		this.endSignal.dispose();
 		this.endSignal = null;
 	};

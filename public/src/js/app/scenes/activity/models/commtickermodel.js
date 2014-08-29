@@ -37,6 +37,7 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.reset = function(){
+		console.log("reset!!");
 		playingModel.setData(PlayingState.NOT_PLAYING);
 		this.commandNum = 0;
 		this.resetSignal.dispatch();
@@ -58,7 +59,7 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.start = function() {
-		console.log("start "+playingModel.getData().playing);
+		console.log("added, start, playing = "+playingModel.getData().playing);
 		if(playingModel.getData().playing !== PlayingState.PLAYING){
 			playingModel.setData(PlayingState.PLAYING);
 			this.performCommand();
@@ -67,9 +68,10 @@ colorModel, PlayingState){
 	
 	CommTickerModel.prototype.playAll = function() {
 		if(this.getNum() === 0){
+			console.log("nothing to replay");
 			return;
 		}
-		this.commandNum = 0;
+		console.log("set to zero and play");
 		playingModel.setData(PlayingState.REPLAYING);
 		this.performCommand();
 	};
@@ -79,7 +81,10 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.replay = function() {
+		console.log("replay");
 		this.resetSignal.dispatch();
+		console.log("reset done");
+		this.commandNum = 0;
 		this.playAll();
 	};
 	
@@ -94,7 +99,8 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.stop = function() {
-		if(playingModel.getData().playing === PlayingState.PLAYING){
+		console.log("stop");
+		if(playingModel.getData().playing !== PlayingState.NOT_PLAYING){
 			this.reset();
 		}
 	};
@@ -109,7 +115,7 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.nextCommand = function() {
-		console.log("nextCommand ", this.commandNum, this.getNum());
+		console.log("nextCommand   commandNum = ", this.commandNum, "  total = "+  this.getNum());
 		this.commandNum++;
 		if(this.commandNum === this.getNum()){
 			this.finished();		
@@ -132,6 +138,7 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.getCurrentCommand = function() {
+		console.log("getCurrentCommand,  commandNum "+this.commandNum);
 		return this.commandProvider.getCommandAt(this.commandNum);
 	};
 	

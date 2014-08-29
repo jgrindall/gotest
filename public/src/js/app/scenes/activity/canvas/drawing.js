@@ -57,6 +57,7 @@ scaleModel){
 	};
 	
 	Drawing.prototype.onReset = function(){
+		console.log("Drawing  onReset!");
 		this.startPos = $.extend({}, this.centre);
 		this.turtle.reset(this.startPos);
 		this.angle = -90;
@@ -67,6 +68,7 @@ scaleModel){
 	Drawing.prototype.commandExecute = function(data){
 		this.command = data.command;
 		this.duration = data.duration;
+		console.log("execute "+JSON.stringify(data.command.toJson())+"   duration = "+data.duration);
 		if(this.command instanceof MoveCommand){
 			this.executeMove();
 		}

@@ -5,7 +5,9 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/scenes/activity/components/colorpicker',
 
-'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel', 'app/scenes/activity/models/screenmodel', 
+'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel',
+
+'app/scenes/activity/models/screenmodel', 'app/scenes/activity/models/commtickermodel',
 
 'app/scenes/activity/controls/controlmenu', 'app/scenes/activity/commandpanels/abstractcommandspanel',
 
@@ -23,7 +25,9 @@ TabButtonBar, TabButton,
 
 ColorPicker,
 
-commModel, colorModel, screenModel,
+commModel, colorModel,
+
+screenModel, commTickerModel,
 
 ControlMenu, AbstractCommandsPanel,
 
@@ -102,7 +106,7 @@ AlertManager, CommandsPanelFactory){
 	Controls.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
-			commTickerModel.stop();
+			commModel.stop();
 		}
 		else if(index === 1){
 			commModel.undo();

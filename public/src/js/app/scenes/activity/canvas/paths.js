@@ -37,6 +37,7 @@ Colors, LineDrawer){
 	};
 	
 	Paths.prototype.clear = function() {
+		this.lineDrawer.stop();
 		this.gfx.clear();
 	};
 	
