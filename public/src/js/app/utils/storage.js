@@ -63,13 +63,13 @@ colorModel, speedModel, AlertManager){
 		commTickerModel.replay();
 	};
 		
-	Storage.prototype.save = function(){
+	Storage.prototype.save = function(callback){
 		this.saveForKey(Storage.SETTINGS_KEY, this.makeJson(), function(options){
 			if(options.success){
-				AlertManager.makeGrowl({"label":"Saved"}, null);
+				callback({"success":true});
 			}
 			else{
-				AlertManager.makeGrowl({"label":"Error saving"}, null);
+				callback({"success":false});
 			}
 		});
 	};
@@ -94,7 +94,7 @@ colorModel, speedModel, AlertManager){
 		json.bg = 			bgModel.getData().bg;
 		json.screen = 		screenModel.getData().screen;
 		json.speed = 		speedModel.getData().speed;
-		json.color =	 	colorModel.getData().color;
+		json.color =	 	colorModel.getData().index;
 		json.commands = 	commModel.toJson();
 		return json;
 	};

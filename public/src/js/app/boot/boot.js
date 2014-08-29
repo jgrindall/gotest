@@ -1,6 +1,10 @@
-define(['jquery', 'app/scenemanager/scenemanager', 'app/game'],
+define(['jquery', 'app/scenemanager/scenemanager',
 
-function($, SceneManager, Game) {
+'app/game', 'app/events/commandmap', 'app/events/events'],
+
+function($, SceneManager, 
+
+Game, commandMap, Events) {
 	
 	"use strict";
 	
@@ -9,6 +13,7 @@ function($, SceneManager, Game) {
     };
 	
 	Boot.prototype.launch = function(){
+		commandMap.init();
 		var config = {
 			"create":$.proxy(this.create, this),
 			"preload":$.proxy(this.preload, this)

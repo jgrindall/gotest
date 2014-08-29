@@ -3,17 +3,17 @@ define(['app/game', 'app/scenes/scene', 'app/scenes/activity/canvas/canvas', 'ap
 
 'app/utils/textfactory', 'app/utils/alertmanager', 'app/scenes/activity/components/menu', 'app/utils/storage',
 
-'app/scenes/activity/models/screenmodel', 'app/components/background',
+'app/components/background', 'app/events/eventdispatcher',
 
-'app/scenes/activity/models/bgmodel'],
+'app/events/events'],
 
 function(Game, Scene, Canvas, Controls,
 
 TextFactory, AlertManager, Menu, Storage,
 
-screenModel, Background,
+Background, eventDispatcher,
 
-bgModel){
+Events){
 	
 	"use strict";
 	
@@ -60,36 +60,20 @@ bgModel){
 		this.world.add(this.menu.group);
 	};
 	
-	ActivityScene.prototype.bgChosen = function(data) {
-		console.log("bgChosen "+JSON.stringify(data));
-		if(data.index === 1){
-			bgModel.setBg(data.selection.selectedPage);
-			//TODO - clear it!
-		}
-	};
-	
 	ActivityScene.prototype.menuClick = function(data) {
 		var i = data.index;
 		if(i === 0){
-			AlertManager.makeBgMenu({}, $.proxy(this.bgChosen, this));
+			eventDispatcher.trigger({"event":Events.NEW_FILE});
 		}
 		else if(i === 1){
-			Storage.getInstance().load($.proxy(this.onLoaded, this));
+			eventDispatcher.trigger({"event":Events.LOAD});
 		}
 		else if(i === 2){
-			Storage.getInstance().save();
+			eventDispatcher.trigger({"event":Events.SAVE});
 		}
 		else if(i === 3){
-			this.print();
+			eventDispatcher.trigger({"event":Events.PRINT});
 		}
-	};
-	
-	ActivityScene.prototype.onLoaded = function(){
-		AlertManager.makeGrowl({"label":"Loaded your file"}, null);
-	};
-	
-	ActivityScene.prototype.print = function(){
-		AlertManager.makeGrowl({"label":"No printers found"}, null);
 	};
 	
 	ActivityScene.prototype.addControls = function() {

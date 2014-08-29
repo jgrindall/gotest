@@ -5,7 +5,7 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/scenes/activity/components/colorpicker',
 
-'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel',
+'app/scenes/activity/models/colormodel',
 
 'app/scenes/activity/models/screenmodel', 'app/scenes/activity/models/commtickermodel',
 
@@ -15,7 +15,9 @@ define(['app/game', 'app/components/container', 'app/components/background', 'ap
 
 'app/utils/alertmanager',
 
-'app/scenes/activity/commandpanels/commandspanelfactory'
+'app/scenes/activity/commandpanels/commandspanelfactory',
+
+'app/events/eventdispatcher', 'app/events/events'
 
 ],
 
@@ -25,7 +27,7 @@ TabButtonBar, TabButton,
 
 ColorPicker,
 
-commModel, colorModel,
+colorModel,
 
 screenModel, commTickerModel,
 
@@ -33,7 +35,9 @@ ControlMenu, AbstractCommandsPanel,
 
 speedModel, CommSpeed,
 
-AlertManager, CommandsPanelFactory){
+AlertManager, CommandsPanelFactory,
+
+eventDispatcher, Events){
 	
 	"use strict";
 	
@@ -106,23 +110,17 @@ AlertManager, CommandsPanelFactory){
 	Controls.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
-			commModel.stop();
+			eventDispatcher.trigger({"event":Events.STOP});
 		}
 		else if(index === 1){
-			commModel.undo();
+			eventDispatcher.trigger({"event":Events.UNDO});
 		}
 		else if(index === 2){
-			AlertManager.makeGrowl({"label":"Teacher login with password?"}, null);
+			eventDispatcher.trigger({"event":Events.TEACHER_LOGIN});
 		}
 		else if(index === 3){
-			AlertManager.makeScreenMenu({"page":0, "index":screenModel.getData().screen}, $.proxy(this.onScreenChosen, this)); 
+			eventDispatcher.trigger({"event":Events.TYPE_CHOICE});
 		} 
-	};
-	
-	Controls.prototype.onScreenChosen = function(data) {
-		if(data.index === 1){
-			screenModel.setData(data.selection.selectedIndex);
-		}
 	};
 	
 	Controls.prototype.addCommandsPanel = function(type) {

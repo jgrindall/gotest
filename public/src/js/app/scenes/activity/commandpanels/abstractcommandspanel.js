@@ -1,9 +1,7 @@
 
 define(['app/game', 'app/components/container',
 
-'app/scenes/activity/commands/abstractcommandfactory', 'app/components/buttons/dirbutton',
-
-'app/scenes/activity/models/commmodel', 'app/scenes/activity/models/colormodel',
+'app/components/buttons/dirbutton',
 
 'app/components/buttongrid/buttongrid', 'app/components/buttongrid/buttongridmodel',
 
@@ -11,18 +9,21 @@ define(['app/game', 'app/components/container',
 
 'app/scenes/activity/commandpanels/markertypes',
 
-'app/scenes/activity/commandpanels/abstractmarker'
+'app/scenes/activity/commandpanels/abstractmarker',
+
+'app/events/eventdispatcher', 'app/events/events'
 ],
+
 
 function(Game, Container,
 
-AbstractCommandFactory, DirButton,
-
-commModel, colorModel,
+DirButton,
 
 ButtonGrid, ButtonGridModel,
 
-MarkerFactory, MarkerTypes, AbstractMarker){
+MarkerFactory, MarkerTypes, AbstractMarker,
+
+eventDispatcher, Events){
 	
 	"use strict";
 	
@@ -105,11 +106,10 @@ MarkerFactory, MarkerTypes, AbstractMarker){
 	};
 	
 	AbstractCommandsPanel.prototype.addCommands = function(direction, type, total){
-		var index, c, json;
+		var index, json;
 		for(index = 0; index < total; index++){
-			json = {'type':type, 'direction':direction, 'color':colorModel.color, 'index':index, 'total':total};
-			c = new AbstractCommandFactory.fromJson(json);
-			commModel.add(c);
+			json = {'type':type, 'direction':direction, 'index':index, 'total':total};
+			eventDispatcher.trigger({"event":Events.ADD_COMMAND, "data":json});
 		}
 	};
 	
