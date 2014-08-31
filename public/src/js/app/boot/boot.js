@@ -1,16 +1,18 @@
 define(['jquery', 'app/scenemanager/scenemanager',
 
-'app/game', 'app/events/commandmap', 'app/events/events'],
+'app/game', 'app/events/commandmap', 'app/events/events',
+
+'app/models/commmodel'],
 
 function($, SceneManager, 
 
-Game, commandMap, Events) {
+Game, commandMap, Events, commModel) {
 	
 	"use strict";
 	
    	var Boot = function ( ){
-
-    };
+   		
+    	};
 	
 	Boot.prototype.launch = function(){
 		commandMap.init();

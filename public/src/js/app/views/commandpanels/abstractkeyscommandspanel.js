@@ -7,7 +7,7 @@ define(['app/game', 'app/components/container',
 
 'app/views/commandpanels/abstractcommandspanel',
 
-'app/commands/commandtypes',
+'app/logocommands/commandtypes',
 
 'app/components/buttongrid/buttongridmodel'
 

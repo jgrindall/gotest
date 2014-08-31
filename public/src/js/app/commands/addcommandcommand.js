@@ -2,7 +2,7 @@ define(['app/models/commmodel',
 
 'app/models/colormodel',
 
-'app/commands/abstractcommandfactory'],
+'app/logocommands/abstractcommandfactory'],
 
 function(commModel, colorModel, AbstractCommandFactory) {
 	

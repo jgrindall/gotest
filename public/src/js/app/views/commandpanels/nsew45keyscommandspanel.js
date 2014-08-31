@@ -1,7 +1,7 @@
 
 define(['app/views/commandpanels/abstractkeyscommandspanel',
 
-'app/commands/commandtypes',
+'app/logocommands/commandtypes',
 
 ],
 

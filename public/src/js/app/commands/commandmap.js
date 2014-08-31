@@ -1,26 +1,26 @@
 define([
 
-'app/commands/newfilecommand',
+'app/events/newfilecommand',
 
-'app/commands/loadcommand',
+'app/events/loadcommand',
 
-'app/commands/savecommand',
+'app/events/savecommand',
 
-'app/commands/printcommand',
+'app/events/printcommand',
 
-'app/commands/undocommand',
+'app/events/undocommand',
 
-'app/commands/stopcommand',
+'app/events/stopcommand',
 
-'app/commands/typechoicecommand',
+'app/events/typechoicecommand',
 
-'app/commands/teachercommand',
+'app/events/teachercommand',
 
-'app/commands/addcommandcommand',
+'app/events/addcommandcommand',
 
-'app/commands/drawcommand',
+'app/events/drawcommand',
 
-'app/commands/replaycommand',
+'app/events/replaycommand',
 
 'app/events/events'],
 
@@ -51,12 +51,7 @@ DrawCommand, ReplayCommand, Events) {
 	};
 	
 	CommandMap.prototype.map = function(eventName, commandClass){
-		if(!this.hash[eventName]){
-			this.hash[eventName] = commandClass;
-		}
-		else{
-			throw "Already defined";
-		}
+		this.hash[eventName] = commandClass;
 	};
 	
 	CommandMap.prototype.get = function(eventName){

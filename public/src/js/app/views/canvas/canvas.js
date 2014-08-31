@@ -38,7 +38,7 @@ Indicator){
 	};
 	
 	Canvas.prototype.addIndicator = function() {
-		this.indicator = new Indicator({'bounds':{'x':100, 'y':100}});
+		this.indicator = new Indicator({'bounds':{'x':30, 'y':50}});
 		this.group.add(this.indicator.gfx);
 	};
 	

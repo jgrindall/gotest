@@ -5,13 +5,13 @@ define(['app/game', 'app/components/container',
 
 'app/models/commtickermodel', 'app/models/colormodel',
 
-'app/commands/commandtypes',
+'app/logocommands/commandtypes',
 
-'app/commands/movecommand',
+'app/logocommands/movecommand',
 
-'app/commands/turncommand',
+'app/logocommands/turncommand',
 
-'app/commands/fdcommand',
+'app/logocommands/fdcommand',
 
 'app/models/scalemodel'],
 

@@ -1,6 +1,6 @@
-define(['app/models/commmodel'],
+define(['app/models/commmodel', 'app/models/commtickermodel'],
 
-function(commModel) {
+function(commModel, commTickerModel) {
 	
 	"use strict";
 	
@@ -10,6 +10,7 @@ function(commModel) {
 	
 	StopCommand.prototype.execute = function(data){
 		commModel.stop();
+		commTickerModel.stop();
 	};
 	
   	return StopCommand;

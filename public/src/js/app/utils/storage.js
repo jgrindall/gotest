@@ -1,19 +1,11 @@
 
 define(['jquery', 'app/game',
 
-'app/models/commmodel', 'app/models/commtickermodel',
-
-'app/models/screenmodel', 'app/models/bgmodel', 
-
-'app/models/colormodel', 'app/models/speedmodel', 'app/utils/alertmanager'],
+	'app/models/modelfacade', 'app/utils/alertmanager'],
 
 function($, Game,
 
-commModel, commTickerModel,
-
-screenModel, bgModel,
-
-colorModel, speedModel, AlertManager){
+	ModelFacade, AlertManager){
 	
 	"use strict";
 	
@@ -26,11 +18,11 @@ colorModel, speedModel, AlertManager){
 	Storage.SETTINGS_KEY = "2go_settings" + Storage.VERSION;
 	
 	Storage.DEFAULT = {
-		bg:0,
-		screen:0,
-		speed:2,
-		color:0,
-		commands:[]
+		'bg':0,
+		'screen':0,
+		'speed':2,
+		'color':0,
+		'commands':[]
 	};
 	
 	Storage.prototype.loadDefaults = function(){
@@ -55,12 +47,7 @@ colorModel, speedModel, AlertManager){
 	};
 	
 	Storage.prototype.setModels = function(json){
-		screenModel.setData(json.screen);
-		colorModel.setData(json.color);
-		speedModel.setData(json.speed);
-		bgModel.setData(json.bg);
-		commModel.addFromJson(json.commands);
-		commTickerModel.replay();
+		ModelFacade.setData(json);
 	};
 		
 	Storage.prototype.save = function(callback){
@@ -90,13 +77,7 @@ colorModel, speedModel, AlertManager){
 	};
 	
 	Storage.prototype.makeJson = function(){
-		var json = {};
-		json.bg = 			bgModel.getData().bg;
-		json.screen = 		screenModel.getData().screen;
-		json.speed = 		speedModel.getData().speed;
-		json.color =	 	colorModel.getData().index;
-		json.commands = 	commModel.toJson();
-		return json;
+		return ModelFacade.getJson();
 	};
 	
 	Storage.prototype.getForKey = function(key, callback){

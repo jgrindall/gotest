@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/commands/abstractcommandfactory',
+define(['app/game', 'app/logocommands/abstractcommandfactory',
 
-'app/models/speedmodel', 'app/commands/movecommand', 'app/commands/turncommand',
+'app/models/speedmodel', 'app/logocommands/movecommand', 'app/logocommands/turncommand',
 
-'app/models/playingmodel', 'app/models/bgmodel', 'app/commands/abstractcommand',
+'app/models/playingmodel', 'app/models/bgmodel', 'app/logocommands/abstractcommand',
 
-'app/models/colormodel', 'app/consts/playingstate'],
+'app/models/colormodel', 'app/models/commnummodel', 'app/consts/playingstate'],
 
 function(Game, AbstractCommandFactory,
 
@@ -13,13 +13,12 @@ speedModel, MoveCommand, TurnCommand,
 
 playingModel, bgModel, AbstractCommand, 
 
-colorModel, PlayingState){
+colorModel, commNumModel, PlayingState){
 	
 	"use strict";
 	
 	var CommTickerModel  = function(){
 		this.commandProvider = null;
-		this.commandNum = 0;
 		this.executeSignal = new Phaser.Signal();
 		this.resetSignal = new Phaser.Signal();
 		colorModel.changeSignal.add(this.changeColor, this);
@@ -45,7 +44,7 @@ colorModel, PlayingState){
 	
 	CommTickerModel.prototype.reset = function(){
 		playingModel.setData(PlayingState.NOT_PLAYING);
-		this.commandNum = 0;
+		commNumModel.reset();
 		this.resetSignal.dispatch();
 	};
 	
@@ -85,7 +84,7 @@ colorModel, PlayingState){
 	
 	CommTickerModel.prototype.replay = function() {
 		this.resetSignal.dispatch();
-		this.commandNum = 0;
+		commNumModel.reset();
 		this.playAll();
 	};
 	
@@ -95,7 +94,7 @@ colorModel, PlayingState){
 		numToRemove = topCommand.total;
 		for(i = 1; i<= numToRemove; i++){
 			this.commands.pop();
-			this.commandNum --;
+			this.commNumModel.decrement();
 		}
 	};
 	
@@ -115,8 +114,8 @@ colorModel, PlayingState){
 	};
 	
 	CommTickerModel.prototype.nextCommand = function() {
-		this.commandNum++;
-		if(this.commandNum === this.getNum()){
+		commNumModel.increment();
+		if(this.getCommandNum() === this.getNum()){
 			this.finished();		
 		}
 		else{
@@ -132,12 +131,16 @@ colorModel, PlayingState){
 		return this.commandProvider.getTop();
 	};
 	
+	CommTickerModel.prototype.getCommandNum = function() {
+		return commNumModel.getData().commandNum;
+	};
+
 	CommTickerModel.prototype.getNextCommand = function() {
-		return this.commandProvider.getCommandAt(this.commandNum + 1);
+		return this.commandProvider.getCommandAt(this.getCommandNum() + 1);
 	};
 	
 	CommTickerModel.prototype.getCurrentCommand = function() {
-		return this.commandProvider.getCommandAt(this.commandNum);
+		return this.commandProvider.getCommandAt(this.getCommandNum());
 	};
 	
 	CommTickerModel.prototype.finished = function() {

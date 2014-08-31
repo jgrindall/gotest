@@ -1,32 +1,50 @@
 
-define(['app/game', 'app/commands/abstractcommandfactory',
+define(['app/logocommands/abstractcommandfactory',
 
-'app/models/commtickermodel'],
+'app/models/commtickermodel',
 
-function(Game, AbstractCommandFactory,
+'app/models/abstractmodel', 'app/events/eventdispatcher',
 
-commTickerModel){
+'app/events/events'],
+
+function(AbstractCommandFactory,
+
+commTickerModel,
+
+AbstractModel, eventDispatcher,
+
+Events){
 	
 	"use strict";
-	
+		
 	var CommModel  = function(){
+		console.log("commm constructor");
+		AbstractModel.call(this);
 		this.commands = [];
 		commTickerModel.init(this);
 	};
 	
+	CommModel.prototype = Object.create(AbstractModel.prototype);
+	CommModel.prototype.constructor = CommModel;
+
 	CommModel.prototype.add = function(command) {
 		this.commands.push(command);
-		commTickerModel.start();
+		this.trigger();
+		eventDispatcher.trigger({"event":Events.DRAW});
 	};
 	
-	CommModel.prototype.addFromJson = function(commands) {
+	CommModel.prototype.setData = function(commands) {
 		var that = this;
 		this.empty();
 		$.each(commands, function(i, c){
 			that.add(AbstractCommandFactory.fromJson(c), false);
-		});	
+		});
 	};
 	
+	CommModel.prototype.getData = function() {
+		return {"num": this.getNum()};
+	};
+
 	CommModel.prototype.toJson = function() {
 		var jsonArray = [];
 		$.each(this.commands, function(i,c){
@@ -40,7 +58,7 @@ commTickerModel){
 	};
 	
 	CommModel.prototype.getTop = function() {
-		return this.commands[this.commands.length - 1];
+		return this.getCommandAt(this.commands.length - 1);
 	};
 	
 	CommModel.prototype.getCommandAt = function(i) {
@@ -49,7 +67,6 @@ commTickerModel){
 	
 	CommModel.prototype.stop = function() {
 		this.empty();
-		commTickerModel.stop();
 	};
 	
 	CommModel.prototype.empty = function() {
@@ -59,7 +76,7 @@ commTickerModel){
 	CommModel.prototype.undo = function() {
 		if(this.commands.length >= 1){
 			this.removeTop();
-			commTickerModel.replay();
+			eventDispatcher.trigger({"event":Events.REPLAY});
 		}
 	};
 	
@@ -70,6 +87,7 @@ commTickerModel){
 		for(i = 1; i<= numToRemove; i++){
 			this.commands.pop();
 		}
+		this.trigger();
 	};
 	
 	CommModel.prototype.destroy = function(){

@@ -1,7 +1,7 @@
 
-define(['app/commands/abstractcommand',
+define(['app/logocommands/abstractcommand',
 
-'app/commands/commandtypes'
+'app/logocommands/commandtypes'
 
 ], function(AbstractCommand,
 
