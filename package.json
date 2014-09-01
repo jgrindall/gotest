@@ -1,8 +1,12 @@
 {
-  	"name": "phaser",
+  	"name": "2simple2go",
   	"version": "0.0.1",
-  	"description": "phaser",
+  	"description": "2simple2go",
   	"main": "web.js",
+    "repository": {
+      "type": "git",
+      "url": "https://jgrindall@bitbucket.org/jgrindall/2go.git"
+    },
   	"scripts": {
     	"test": "echo \"Error: no test specified\" && exit 1"
  	 },
