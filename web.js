@@ -14,7 +14,7 @@ app.render = function(res, path){
 	res.sendfile(path);
 };
 
-app.get('/source', function(req, res) {
+app.get('/src', function(req, res) {
 	app.render(res, "public/src/index.html");
 });
 
