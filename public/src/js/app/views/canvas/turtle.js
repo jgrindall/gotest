@@ -92,7 +92,6 @@ function(Game, Container){
 	};
 	
 	Turtle.prototype.move = function(p) {
-		console.log("move", p.x, p.y);
 		this.sprite.x = p.x;
 		this.sprite.y = p.y;
 	};
@@ -100,9 +99,9 @@ function(Game, Container){
 	Turtle.prototype.addMask = function() {
 		this.mask = new Phaser.Graphics(Game.getInstance(), 0, 0);
 		this.mask.beginFill(0xff0000);
-    	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
-    	this.mask.endFill();
-    	this.group.add(this.mask);
+    		this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
+    		this.mask.endFill();
+    		this.group.add(this.mask);
 	};
 	
 	Turtle.prototype.create = function() {

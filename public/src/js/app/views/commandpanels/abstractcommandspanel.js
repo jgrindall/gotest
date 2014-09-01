@@ -7,7 +7,7 @@ define('app/views/commandpanels/abstractcommandspanel',['app/game', 'app/compone
 
 'app/views/commandpanels/markerfactory', 
 
-'app/commands/commandmap', 'app/events/events'
+'app/events/eventdispatcher', 'app/events/events'
 ],
 
 
@@ -19,7 +19,7 @@ ButtonGrid, ButtonGridModel,
 
 MarkerFactory, 
 
-commandMap, Events){
+eventDispatcher, Events){
 	
 	"use strict";
 	
@@ -105,7 +105,7 @@ commandMap, Events){
 		var index, json;
 		for(index = 0; index < total; index++){
 			json = {'type':type, 'direction':direction, 'index':index, 'total':total};
-			commandMap.trigger({"event":Events.ADD_COMMAND, "data":json});
+			eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
 		}
 	};
 	

@@ -1,6 +1,6 @@
-define('app/commands/startupcommand',['app/consts/defaults'],
+define('app/commands/startupcommand',['app/consts/defaults', 'app/models/modelfacade'],
 
-function(Defaults) {
+function(Defaults, ModelFacade) {
 	
 	"use strict";
 	
@@ -9,7 +9,6 @@ function(Defaults) {
 	};
 
 	StartUpCommand.prototype.execute = function(data){
-		var ModelFacade = require('app/models/modelfacade');
 		ModelFacade.getInstance().init();
 		ModelFacade.getInstance().setData(Defaults.DEFAULT_JSON);
 	};

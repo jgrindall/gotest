@@ -3,9 +3,8 @@ define('app/components/interactivesprite',['phaser'], function(Phaser){
 	
 	"use strict";
 	
-	var InteractiveSprite = function(game, x, y, asset, name){
-		Phaser.Sprite.call(this, game, x, y, asset);
-		this.name = name;
+	var InteractiveSprite = function(game, x, y, asset, frame){
+		Phaser.Sprite.call(this, game, x, y, asset, frame || 0);
 		this.mouseUpSignal = new Phaser.Signal();
 		this.mouseDownSignal = new Phaser.Signal();
 	};

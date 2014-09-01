@@ -1,6 +1,14 @@
-define('app/commands/addcommandcommand',['app/logocommands/abstractcommandfactory'],
+define('app/commands/addcommandcommand',['app/logocommands/abstractlogocommandfactory',
 
-function(AbstractCommandFactory) {
+	'app/events/events', 'app/events/eventdispatcher',
+
+	'app/models/modelfacade'],
+
+function(AbstractCommandFactory,
+
+	Events, eventDispatcher,
+
+	ModelFacade) {
 	
 	"use strict";
 	
@@ -9,10 +17,11 @@ function(AbstractCommandFactory) {
 	};
 	
 	AddCommandCommand.prototype.execute = function(data){
-		var ModelFacade = require('app/models/modelfacade');
+		var command;
 		data.color = ModelFacade.getInstance().get(ModelFacade.COLOR).getData().index;
-		var c = new AbstractCommandFactory.fromJson(data);
-		ModelFacade.getInstance().get(ModelFacade.COMM).add(c);
+		command = new AbstractCommandFactory.fromJson(data);
+		ModelFacade.getInstance().get(ModelFacade.COMM).add(command);
+		eventDispatcher.trigger({"type":Events.DRAW});
 	};
 	
   	return AddCommandCommand;

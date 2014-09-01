@@ -119,7 +119,7 @@ InteractiveSprite, Phaser){
 		var x, y;
 		x = this.bounds.x + Slider.HANDLEHEIGHT/2;
 		y = this.bounds.y + Slider.HANDLEHEIGHT/2;
-		this.handle = new InteractiveSprite(Game.getInstance(), x, y, 'sliderhandle', 'sliderhandle');
+		this.handle = new InteractiveSprite(Game.getInstance(), x, y, 'sliderhandle');
 		this.handle.anchor.setTo(0.5, 0.5);
 		this.group.add(this.handle);
 	};

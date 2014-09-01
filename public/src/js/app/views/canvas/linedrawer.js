@@ -59,7 +59,6 @@ function($, Colors){
 	};
 	
 	LineDrawer.prototype.getColor = function() {
-		console.log("getColor!!   "+this.command.toString());
 		return Colors.ALL[this.command.color];
 	};
 	

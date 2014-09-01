@@ -15,8 +15,8 @@ InteractiveSprite){
 		this.mouseUpSignal = new Phaser.Signal();
 	};
 	
-	ScreenChoice.WIDTH = 200;
-	ScreenChoice.HEIGHT = 300;
+	ScreenChoice.WIDTH = 225;
+	ScreenChoice.HEIGHT = 250;
 	
 	ScreenChoice.prototype = Object.create(Container.prototype);
 	ScreenChoice.prototype.constructor = ScreenChoice;
@@ -39,8 +39,7 @@ InteractiveSprite){
 	};
 	
 	ScreenChoice.prototype.addBg = function(){
-		this.panel = new InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset, 'screenchoice');
-		this.panel.name = "screen choice";
+		this.panel = new InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset, this.options.index);
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
 		this.group.add(this.panel);

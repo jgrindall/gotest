@@ -3,7 +3,7 @@ define(
 
 	'app/logocommands/fdcommand',
 
-	['app/logocommands/abstractcommand',
+	['app/logocommands/abstractlogocommand',
 
 	'app/logocommands/commandtypes'],
 

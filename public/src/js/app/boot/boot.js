@@ -1,10 +1,12 @@
-define('app/boot/boot',['jquery', 'app/scenemanager/scenemanager',
+define('app/boot/boot',['jquery', 'app/game',
 
-'app/game'],
+	'app/scenemanager/scenemanager',
 
-function($, SceneManager, 
+	'app/commands/commandmap'],
 
-Game) {
+function($, Game, SceneManager,
+
+	commandMap) {
 	
 	"use strict";
 	
@@ -18,6 +20,7 @@ Game) {
 			"preload":$.proxy(this.preload, this)
 		};
 		this.sceneManager = new SceneManager();
+		commandMap.init();
 		Game.init(config);
 	};
 	
@@ -42,6 +45,5 @@ Game) {
 	return Boot;
 	
 });
-
 
 

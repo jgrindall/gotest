@@ -30,14 +30,14 @@ define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
 	Preloader.STAR_KEY = 				'star';
 	Preloader.ENEMY_KEY = 				'enemy';
 	Preloader.PANEL_KEY = 				'panel';
-	Preloader.SMALL_PANEL_KEY = 		'smallpanel';
+	Preloader.SMALL_PANEL_KEY = 			'smallpanel';
 	Preloader.ALERT_KEY = 				'alert';
 	Preloader.LEFT_KEY = 				'left';
 	Preloader.RIGHT_KEY = 				'right';
-	Preloader.UP_KEY = 					'up';
+	Preloader.UP_KEY = 				'up';
 	Preloader.OK_BUTTON_KEY = 			'okbutton';
 	Preloader.DOWN_KEY = 				'down';
-	Preloader.BUTTON = 					'button';
+	Preloader.BUTTON = 				'button';
 	Preloader.MARKERS = 				'markers';
 	Preloader.SLIDERBG = 				'sliderbg';
 	Preloader.SLIDERHANDLE = 			'sliderhandle';
@@ -46,23 +46,24 @@ define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
 	Preloader.TAB_BUTTON2 = 			'tabbutton2';
 	Preloader.LEVEL_BUTTON = 			'levelbutton';
 	Preloader.LEVEL_BUTTON_DONE = 		'levelbuttondone';
-	Preloader.LEVEL_BUTTON_LOCKED = 	'levelbuttonlocked';
+	Preloader.LEVEL_BUTTON_LOCKED = 		'levelbuttonlocked';
 	Preloader.KILLAREA = 				'killarea';
 	Preloader.PENS = 					'pens';
 	
 	Preloader.SPRITESHEETS = [
+		{"type":"spritesheet", 	"asset":"assets/images/other/smallpanel.png",	 			"key":Preloader.SMALL_PANEL_KEY,				"w":225, 	"h":250},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/markers.png", 				"key":Preloader.MARKERS, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButton.png", 			"key":Preloader.LEVEL_BUTTON, 				"w":150, 	"h":150},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/buttons.png", 				"key":Preloader.BUTTON, 				"w":50, 	"h":50},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 		"key":Preloader.LEVEL_BUTTON_DONE, 			"w":150, 	"h":150},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonLocked.png", 		"key":Preloader.LEVEL_BUTTON_LOCKED, 		"w":150, 	"h":150},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton0.png", 			"key":Preloader.TAB_BUTTON0, 				"w":244, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton1.png", 			"key":Preloader.TAB_BUTTON1, 				"w":244, 	"h":52},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 					"key":Preloader.CLOSE_KEY, 					"w":50, 	"h":50},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 					"key":Preloader.TICK_KEY, 					"w":80, 	"h":80},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/buttons.png", 				"key":Preloader.BUTTON, 					"w":50, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonDone.png", 			"key":Preloader.LEVEL_BUTTON_DONE, 				"w":150, 	"h":150},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/levelButtonLocked.png", 		"key":Preloader.LEVEL_BUTTON_LOCKED, 			"w":150, 	"h":150},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton0.png", 			"key":Preloader.TAB_BUTTON0, 					"w":244, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/tabbutton1.png", 			"key":Preloader.TAB_BUTTON1, 					"w":244, 	"h":52},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 				"key":Preloader.CLOSE_KEY, 					"w":50, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 				"key":Preloader.TICK_KEY, 					"w":80, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Preloader.OK_BUTTON_KEY, 				"w":250, 	"h":75},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Preloader.MARKER_KEY, 				"w":40, 	"h":40},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 						"key":Preloader.PENS, 						"w":160, 	"h":80}
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Preloader.MARKER_KEY, 					"w":40, 	"h":40},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 					"key":Preloader.PENS, 						"w":160, 	"h":80}
 	];
 	
 	Preloader.SOUNDS = [
@@ -74,12 +75,11 @@ define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
 	Preloader.IMAGES = [
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Preloader.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Preloader.SLIDERHANDLE},
-		{"type":"image", 		"asset":"assets/images/bg/bg0.jpg", 					"key":Preloader.MAP0_KEY},
-		{"type":"image", 		"asset":"assets/images/bg/bg1.jpg", 					"key":Preloader.MAP1_KEY},
-		{"type":"image", 		"asset":"assets/images/bg/bg2.jpg", 					"key":Preloader.MAP2_KEY},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle.png", 				"key":Preloader.TURTLE_KEY},
+		{"type":"image", 		"asset":"assets/images/bg/bg0.jpg", 				"key":Preloader.MAP0_KEY},
+		{"type":"image", 		"asset":"assets/images/bg/bg1.jpg", 				"key":Preloader.MAP1_KEY},
+		{"type":"image", 		"asset":"assets/images/bg/bg2.jpg", 				"key":Preloader.MAP2_KEY},
+		{"type":"image", 		"asset":"assets/images/turtle/turtle.png", 			"key":Preloader.TURTLE_KEY},
 		{"type":"image", 		"asset":"assets/images/other/panel.png",	 			"key":Preloader.PANEL_KEY},
-		{"type":"image", 		"asset":"assets/images/other/smallpanel.png",	 		"key":Preloader.SMALL_PANEL_KEY},
 		{"type":"image", 		"asset":"assets/images/other/alert.png",	 			"key":Preloader.ALERT_KEY}
 	];
 	

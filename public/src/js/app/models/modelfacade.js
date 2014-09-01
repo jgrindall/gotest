@@ -64,6 +64,7 @@ function(commModel, screenModel, bgModel,
 		bgModel.changeSignal.add(this.changeBg, this);
 		playingModel.changeSignal.add(this.changePlaying, this);
 		speedModel.changeSignal.add(this.changeSpeed, this);
+		//TODO - make them commands
 	};
 
 	ModelFacade.prototype.setDuration = function() {
@@ -87,18 +88,17 @@ function(commModel, screenModel, bgModel,
 
 	ModelFacade.prototype.changeBg = function(data) {
 		commTickerModel.reset();
+		commModel.reset();
 	};
 
 	ModelFacade.prototype.changeColor = function(data) {
-		var nextCommand = commTickerModel.getNextCommand();
-		if(playingModel.getData().playing === PlayingState.PLAYING && nextCommand){
-			nextCommand.color = data.index;
+		if(playingModel.getData().playing === PlayingState.PLAYING){
+			commTickerModel.updateColors(data.index);
 		}
 	};
 
 	ModelFacade.getInstance = function(json){
 		if(!ModelFacade.instance){
-			console.log("new MFac");
 			ModelFacade.instance = new ModelFacade();
 		}
 		return ModelFacade.instance;
@@ -114,11 +114,11 @@ function(commModel, screenModel, bgModel,
 
 	ModelFacade.prototype.getJson = function() {
 		var json = {};
-		json.bg = 			this.get(ModelFacade.BG).getData().bg;
-		json.screen = 		this.get(ModelFacade.SCREEN).getData().screen;
-		json.speed = 		this.get(ModelFacade.SPEED).getData().speed;
-		json.color =	 	this.get(ModelFacade.COLOR).getData().index;
-		json.commands = 		this.get(ModelFacade.COMM).toJson();
+		json.bg = 			bgModel.getData().bg;
+		json.screen = 		screenModel.getData().screen;
+		json.speed = 		speedModel.getData().speed;
+		json.color =	 	colorModel.getData().index;
+		json.commands = 		commModel.toJson();
 		return json;
 	};
 	

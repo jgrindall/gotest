@@ -13,7 +13,7 @@ define('app/views/controls/controls',['app/game', 'app/components/container', 'a
 
 'app/views/commandpanels/commandspanelfactory',
 
-'app/commands/commandmap', 'app/events/events'
+'app/events/eventdispatcher', 'app/events/events'
 
 ],
 
@@ -29,7 +29,7 @@ ControlMenu, AbstractCommandsPanel,
 
 CommandsPanelFactory,
 
-commandMap, Events){
+eventDispatcher, Events){
 	
 	"use strict";
 	
@@ -102,16 +102,16 @@ commandMap, Events){
 	Controls.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
-			commandMap.trigger({"event":Events.STOP});
+			eventDispatcher.trigger({"type":Events.STOP});
 		}
 		else if(index === 1){
-			commandMap.trigger({"event":Events.UNDO});
+			eventDispatcher.trigger({"type":Events.UNDO});
 		}
 		else if(index === 2){
-			commandMap.trigger({"event":Events.TEACHER_LOGIN});
+			eventDispatcher.trigger({"type":Events.TEACHER_LOGIN});
 		}
 		else if(index === 3){
-			commandMap.trigger({"event":Events.TYPE_CHOICE});
+			eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
 		} 
 	};
 	

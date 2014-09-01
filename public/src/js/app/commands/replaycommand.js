@@ -1,6 +1,6 @@
-define('app/commands/replaycommand',['app/consts/playingstate'],
+define('app/commands/replaycommand',['app/consts/playingstate', 'app/models/modelfacade'],
 
-function(PlayingState) {
+function(PlayingState, ModelFacade) {
 	
 	"use strict";
 	
@@ -9,8 +9,6 @@ function(PlayingState) {
 	};
 	
 	ReplayCommand.prototype.execute = function(data){
-		console.log("replay command");
-		var ModelFacade = require('app/models/modelfacade');
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).setData(PlayingState.REPLAYING);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).replay();
 	};

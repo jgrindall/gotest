@@ -3,7 +3,7 @@ define(
 
 	'app/logocommands/turncommand',
 
-	['app/logocommands/abstractcommand', 'app/logocommands/commandtypes'],
+	['app/logocommands/abstractlogocommand', 'app/logocommands/commandtypes'],
 
 	function(AbstractCommand, CommandTypes){
 	

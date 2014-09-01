@@ -1,11 +1,11 @@
 
 define('app/models/commtickermodel',['app/models/abstractmodel',
 
-	'app/commands/commandmap', 'app/events/events'
+'app/events/events', 'app/events/eventdispatcher'
 
 ],
 
-function(AbstractModel, commandMap, Events){
+function(AbstractModel, Events, eventDispatcher){
 	
 	"use strict";
 	
@@ -20,7 +20,7 @@ function(AbstractModel, commandMap, Events){
 
 	CommTickerModel.prototype = Object.create(AbstractModel.prototype);
 	CommTickerModel.prototype.constructor = CommTickerModel;
-	
+
 	CommTickerModel.prototype.performCommand = function() {
 		var command, data, that = this;
 		command = this.getCurrentCommand();
@@ -32,6 +32,16 @@ function(AbstractModel, commandMap, Events){
 			setTimeout(function(){
 				that.dispatch(data);
 			}, that.duration/2);
+		}
+	};
+
+	CommTickerModel.prototype.updateColors = function(index) {
+		var i, command;
+		for(i = this.commandNum + 1; i < this.getNum(); i++){
+			command = this.commandProvider.getCommandAt(i);
+			if(command){
+				command.color = index;
+			}
 		}
 	};
 
@@ -82,7 +92,7 @@ function(AbstractModel, commandMap, Events){
 	CommTickerModel.prototype.nextCommand = function() {
 		this.setCommandNum(this.commandNum + 1);
 		if(this.commandNum === this.getNum()){
-			commandMap.trigger({"event":Events.FINISHED});
+			eventDispatcher.trigger({"type":Events.FINISHED});
 		}
 		else{
 			this.performCommand();
@@ -95,10 +105,6 @@ function(AbstractModel, commandMap, Events){
 	
 	CommTickerModel.prototype.getTop = function() {
 		return this.commandProvider.getTop();
-	};
-
-	CommTickerModel.prototype.getNextCommand = function() {
-		return this.commandProvider.getCommandAt(this.commandNum + 1);
 	};
 	
 	CommTickerModel.prototype.getCurrentCommand = function() {

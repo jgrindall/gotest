@@ -1,4 +1,4 @@
-define('app/commands/stopcommand',['app/models/modelfacade'],
+define('app/commands/stopcommand',['app/models/modelfacade', 'app/consts/playingstate'],
 
 function(ModelFacade, PlayingState) {
 	

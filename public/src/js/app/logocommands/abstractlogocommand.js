@@ -1,5 +1,5 @@
 
-define('app/logocommands/abstractcommand', [], function(){
+define('app/logocommands/abstractlogocommand', [], function(){
 	
 	"use strict";
 	

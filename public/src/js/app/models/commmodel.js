@@ -1,15 +1,11 @@
 
-define('app/models/commmodel',['jquery', 'app/logocommands/abstractcommandfactory',
+define('app/models/commmodel',['jquery', 'app/logocommands/abstractlogocommandfactory',
 
-'app/models/abstractmodel', 'app/commands/commandmap',
-
-'app/events/events'],
+'app/models/abstractmodel'],
 
 function($, AbstractCommandFactory,
 
-AbstractModel, commandMap,
-
-Events){
+AbstractModel){
 	
 	"use strict";
 		
@@ -24,12 +20,11 @@ Events){
 	CommModel.prototype.add = function(command) {
 		this.commands.push(command);
 		this.trigger();
-		commandMap.trigger({"event":Events.DRAW});
 	};
 	
 	CommModel.prototype.setData = function(commands) {
 		var that = this;
-		this.empty();
+		this.reset();
 		$.each(commands, function(i, c){
 			that.add(AbstractCommandFactory.fromJson(c), false);
 		});
@@ -60,19 +55,16 @@ Events){
 	};
 	
 	CommModel.prototype.stop = function() {
-		this.empty();
+		this.reset();
 	};
 	
-	CommModel.prototype.empty = function() {
+	CommModel.prototype.reset = function() {
 		this.commands = [];
 	};
 	
 	CommModel.prototype.undo = function() {
 		if(this.commands.length >= 1){
-			console.log("undo");
 			this.removeTop();
-			console.log("undone");
-			commandMap.trigger({"event":Events.REPLAY});
 		}
 	};
 	
@@ -83,7 +75,7 @@ Events){
 		for(i = 1; i<= numToRemove; i++){
 			this.commands.pop();
 		}
-		console.log("removed");
+		this.trigger();
 	};
 	
 	CommModel.prototype.destroy = function(){

@@ -1,6 +1,8 @@
-define('app/commands/undocommand',[],
+define('app/commands/undocommand',[
 
-function() {
+	'app/events/events','app/events/eventdispatcher','app/models/modelfacade'],
+
+function(Events, eventDispatcher, ModelFacade) {
 	
 	"use strict";
 	
@@ -9,8 +11,8 @@ function() {
 	};
 	
 	UndoCommand.prototype.execute = function(data){
-		var ModelFacade = require('app/models/modelfacade');
 		ModelFacade.getInstance().get(ModelFacade.COMM).undo();
+		eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 	
   	return UndoCommand;

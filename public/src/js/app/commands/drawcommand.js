@@ -1,6 +1,6 @@
-define('app/commands/drawcommand',['app/consts/playingstate'],
+define('app/commands/drawcommand',['app/models/modelfacade', 'app/consts/playingstate'],
 
-function(PlayingState) {
+function(ModelFacade, PlayingState) {
 	
 	"use strict";
 	
@@ -9,8 +9,7 @@ function(PlayingState) {
 	};
 	
 	DrawCommand.prototype.execute = function(data){
-		var ModelFacade, playingModel;
-		ModelFacade = require('app/models/modelfacade');
+		var playingModel;
 		playingModel = ModelFacade.getInstance().get(ModelFacade.PLAYING);
 		if(playingModel.getData().playing !== PlayingState.PLAYING){
 			playingModel.setData(PlayingState.PLAYING);

@@ -1,6 +1,6 @@
-define('app/commands/finishcommand',['app/consts/playingstate'],
+define('app/commands/finishcommand',['app/consts/playingstate', 'app/models/modelfacade'],
 
-function(PlayingState) {
+function(PlayingState, ModelFacade) {
 	
 	"use strict";
 	
@@ -9,7 +9,6 @@ function(PlayingState) {
 	};
 	
 	FinishCommand.prototype.execute = function(data){
-		var ModelFacade = require('app/models/modelfacade');
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).setData(PlayingState.NOT_PLAYING);
 	};
 	

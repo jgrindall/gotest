@@ -23,9 +23,8 @@ function($,
 			var json;
 			if(options.success){
 				json = options.data || Storage.DEFAULT;
-				that.setModels(json);
 				if(callback){
-					callback({"success":true});
+					callback({"success":true, "json":json});
 				}
 			}
 			else{
@@ -34,8 +33,8 @@ function($,
 		});
 	};
 	
-	Storage.prototype.save = function(callback){
-		this.saveForKey(Storage.SETTINGS_KEY, this.makeJson(), function(options){
+	Storage.prototype.save = function(json, callback){
+		this.saveForKey(Storage.SETTINGS_KEY, json, function(options){
 			if(options.success){
 				callback({"success":true});
 			}
@@ -58,10 +57,6 @@ function($,
 	
 	Storage.prototype.addToCache = function(key, data){
 		this.cache[key] = data;
-	};
-	
-	Storage.prototype.makeJson = function(){
-		return ModelFacade.getInstance().getJson();
 	};
 	
 	Storage.prototype.getForKey = function(key, callback){

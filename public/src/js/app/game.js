@@ -75,7 +75,7 @@ function(){
 	Game.create = function(){
 		var w, h;
 		w = Game.getWidth();
-    	h = Game.getHeight();
+    		h = Game.getHeight();
 		Game.instance = new Phaser.Game(w, h, Phaser.AUTO, 'game', Game.config);
 		Game.setupScale();
 	};
