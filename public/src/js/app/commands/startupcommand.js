@@ -1,6 +1,6 @@
-define('app/commands/startupcommand',['app/models/modelfacade', 'app/consts/defaults'],
+define('app/commands/startupcommand',['app/consts/defaults'],
 
-function(ModelFacade, Defaults) {
+function(Defaults) {
 	
 	"use strict";
 	
@@ -9,7 +9,7 @@ function(ModelFacade, Defaults) {
 	};
 
 	StartUpCommand.prototype.execute = function(data){
-		console.log("execute start up "+ModelFacade+"  "+Defaults);
+		var ModelFacade = require('app/models/modelfacade');
 		ModelFacade.getInstance().init();
 		ModelFacade.getInstance().setData(Defaults.DEFAULT_JSON);
 	};

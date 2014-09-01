@@ -55,7 +55,7 @@ DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events) {
 		this.map(Events.STARTUP, 			StartUpCommand);
 		this.map(Events.DRAW, 				DrawCommand);
 		this.map(Events.REPLAY, 			ReplayCommand);
-		this.map(Events.FINISH, 			FinishCommand);
+		this.map(Events.FINISHED, 			FinishCommand);
 		this.initiated = true;
 	};
 	
@@ -71,6 +71,12 @@ DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events) {
 	};
 
 	CommandMap.prototype.map = function(eventName, commandClass){
+		if(!eventName){
+			throw "No name";
+		}
+		else if(this.hash[eventName]){
+			throw "Duplicate map";
+		}
 		this.hash[eventName] = commandClass;
 	};
 	

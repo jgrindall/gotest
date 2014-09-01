@@ -5,7 +5,7 @@ define('app/models/modelfacade',['app/models/commmodel', 'app/models/screenmodel
 
 'app/models/scalemodel', 'app/models/playingmodel',
 
-'app/models/commtickermodel'],
+'app/models/commtickermodel', 'app/consts/playingstate'],
 
 function(commModel, screenModel, bgModel,
 
@@ -13,7 +13,7 @@ function(commModel, screenModel, bgModel,
 
 	scaleModel, playingModel,
 
-	commTickerModel){
+	commTickerModel, PlayingState){
 	
 	"use strict";
 

@@ -1,6 +1,6 @@
-define('app/commands/newfilecommand',['jquery', 'app/utils/alertmanager', 'app/models/modelfacade'],
+define('app/commands/newfilecommand',['jquery', 'app/utils/alertmanager'],
 
-function($, AlertManager, ModelFacade) {
+function($, AlertManager) {
 	
 	"use strict";
 	
@@ -13,6 +13,7 @@ function($, AlertManager, ModelFacade) {
 	};
 	
 	NewFileCommand.prototype.onBgChosen = function(data){
+		var ModelFacade = require('app/models/modelfacade');
 		if(data.index === 1){
 			ModelFacade.getInstance().get(ModelFacade.BG).setBg(data.selection.selectedPage);
 		}

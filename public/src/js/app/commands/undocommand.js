@@ -1,6 +1,6 @@
-define('app/commands/undocommand',['app/models/modelfacade'],
+define('app/commands/undocommand',[],
 
-function(ModelFacade) {
+function() {
 	
 	"use strict";
 	
@@ -9,6 +9,7 @@ function(ModelFacade) {
 	};
 	
 	UndoCommand.prototype.execute = function(data){
+		var ModelFacade = require('app/models/modelfacade');
 		ModelFacade.getInstance().get(ModelFacade.COMM).undo();
 	};
 	

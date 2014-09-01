@@ -1,8 +1,6 @@
-define('app/commands/addcommandcommand',['app/models/modelfacade',
+define('app/commands/addcommandcommand',['app/logocommands/abstractcommandfactory'],
 
-'app/logocommands/abstractcommandfactory'],
-
-function(ModelFacade, AbstractCommandFactory) {
+function(AbstractCommandFactory) {
 	
 	"use strict";
 	
@@ -11,6 +9,7 @@ function(ModelFacade, AbstractCommandFactory) {
 	};
 	
 	AddCommandCommand.prototype.execute = function(data){
+		var ModelFacade = require('app/models/modelfacade');
 		data.color = ModelFacade.getInstance().get(ModelFacade.COLOR).getData().index;
 		var c = new AbstractCommandFactory.fromJson(data);
 		ModelFacade.getInstance().get(ModelFacade.COMM).add(c);

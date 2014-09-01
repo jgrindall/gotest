@@ -1,9 +1,11 @@
 
 define('app/models/commtickermodel',['app/models/abstractmodel',
 
+	'app/commands/commandmap', 'app/events/events'
+
 ],
 
-function(AbstractModel){
+function(AbstractModel, commandMap, Events){
 	
 	"use strict";
 	
@@ -34,7 +36,7 @@ function(AbstractModel){
 	};
 
 	CommTickerModel.prototype.getData = function(i) {
-		return {"num":this.commandNum};
+		return {"commandNum":this.commandNum};
 	};
 
 	CommTickerModel.prototype.setCommandNum = function(i) {
@@ -79,7 +81,7 @@ function(AbstractModel){
 	
 	CommTickerModel.prototype.nextCommand = function() {
 		this.setCommandNum(this.commandNum + 1);
-		if(this.getCommandNum() === this.getNum()){
+		if(this.commandNum === this.getNum()){
 			commandMap.trigger({"event":Events.FINISHED});
 		}
 		else{

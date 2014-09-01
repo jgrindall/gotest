@@ -69,7 +69,9 @@ Events){
 	
 	CommModel.prototype.undo = function() {
 		if(this.commands.length >= 1){
+			console.log("undo");
 			this.removeTop();
+			console.log("undone");
 			commandMap.trigger({"event":Events.REPLAY});
 		}
 	};
@@ -81,7 +83,7 @@ Events){
 		for(i = 1; i<= numToRemove; i++){
 			this.commands.pop();
 		}
-		this.trigger();
+		console.log("removed");
 	};
 	
 	CommModel.prototype.destroy = function(){
