@@ -1,5 +1,5 @@
 
-define(['app/views/commandpanels/abstractkeyscommandspanel',
+define('app/views/commandpanels/nsturnkeyscommandspanel',['app/views/commandpanels/abstractkeyscommandspanel',
 
 'app/logocommands/commandtypes'
 

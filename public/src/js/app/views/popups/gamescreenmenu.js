@@ -1,5 +1,5 @@
 
-define(['app/dataproviders/screendataprovider',
+define('app/views/popups/gamescreenmenu',['app/dataproviders/screendataprovider',
 
 'app/views/components/arrowselectormenu'
 

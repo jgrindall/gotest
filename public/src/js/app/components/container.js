@@ -1,5 +1,5 @@
 
-define(['app/game'],
+define('app/components/container',['app/game'],
 
 function(Game){
 	

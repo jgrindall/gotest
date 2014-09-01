@@ -1,9 +1,9 @@
 
-define(['app/game', 'app/components/container',
+define('app/components/slider/slider',['jquery', 'app/game', 'app/components/container',
 
 'app/components/interactivesprite', 'phaser'],
 
-function(Game, Container,
+function($, Game, Container,
 
 InteractiveSprite, Phaser){
 	

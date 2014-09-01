@@ -1,5 +1,5 @@
 
-define(['jquery', 'app/game', 'app/components/container'],
+define('app/components/scroller/scroller',['jquery', 'app/game', 'app/components/container'],
 
 function($, Game, Container){
 	

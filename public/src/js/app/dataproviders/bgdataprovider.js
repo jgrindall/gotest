@@ -1,9 +1,9 @@
 
-define(['app/game', 'app/components/buttongrid/buttongrid',
+define('app/dataproviders/bgdataprovider',['app/game',
 
 'app/components/bgpanel', 'app/consts/bgdata'],
 
-function(Game, ButtonGrid,
+function(Game,
 
 BgPanel, BgData){
 	

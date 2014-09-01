@@ -1,5 +1,5 @@
 
-define(['app/game', 'phaser'], function(Game, Phaser){
+define('app/components/background',['app/game', 'phaser'], function(Game, Phaser){
 	
 	"use strict";
 	

@@ -1,11 +1,11 @@
 
-define(['app/game', 
+define('app/utils/alertmanager',['jquery', 'app/game', 
 
 'app/views/popups/gamescreenmenu', 'app/views/popups/gamebgmenu',
 
 'app/components/popups/growl'], 
 
-function(Game,
+function($, Game,
 
 GameScreenMenu, GameBgMenu,
 

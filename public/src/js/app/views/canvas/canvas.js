@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/container', 'app/components/background',
+define('app/views/canvas/canvas',['app/game', 'app/components/container', 'app/components/background',
 
 'app/views/canvas/map', 'app/views/canvas/drawing',
 

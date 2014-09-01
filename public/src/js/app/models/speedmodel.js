@@ -1,5 +1,5 @@
 
-define(['app/consts/commspeed',
+define('app/models/speedmodel',['app/consts/commspeed',
 
 'app/models/abstractmodel'],
 

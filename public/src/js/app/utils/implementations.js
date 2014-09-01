@@ -1,5 +1,5 @@
 
-define(['phaser'], function(Phaser){
+define('app/utils/implementations',['phaser'], function(Phaser){
 	
 	"use strict";
 	

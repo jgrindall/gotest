@@ -1,4 +1,4 @@
-define([],
+define('app/events/events',[],
 
 function() {
 	
@@ -19,6 +19,8 @@ function() {
 	Events.ADD_COMMAND		= 		"addCommand";
 	Events.DRAW				= 		"draw";
 	Events.REPLAY			= 		"replay";
+	Events.FINISHED			= 		"finished";
+	Events.STARTUP			= 		"startup";
 	
   	return Events;
 });

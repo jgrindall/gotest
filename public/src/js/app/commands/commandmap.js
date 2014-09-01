@@ -1,26 +1,30 @@
-define([
+define('app/commands/commandmap',[
 
-'app/events/newfilecommand',
+'app/commands/newfilecommand',
 
-'app/events/loadcommand',
+'app/commands/loadcommand',
 
-'app/events/savecommand',
+'app/commands/savecommand',
 
-'app/events/printcommand',
+'app/commands/printcommand',
 
-'app/events/undocommand',
+'app/commands/undocommand',
 
-'app/events/stopcommand',
+'app/commands/stopcommand',
 
-'app/events/typechoicecommand',
+'app/commands/typechoicecommand',
 
-'app/events/teachercommand',
+'app/commands/teachercommand',
 
-'app/events/addcommandcommand',
+'app/commands/addcommandcommand',
 
-'app/events/drawcommand',
+'app/commands/drawcommand',
 
-'app/events/replaycommand',
+'app/commands/startupcommand',
+
+'app/commands/finishcommand',
+
+'app/commands/replaycommand',
 
 'app/events/events'],
 
@@ -28,15 +32,17 @@ function(NewFileCommand, LoadCommand, SaveCommand, PrintCommand,
 
 UndoCommand, StopCommand, TypeChoiceCommand, TeacherCommand, AddCommandCommand,
 
-DrawCommand, ReplayCommand, Events) {
+DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events) {
 	
 	"use strict";
 	
 	var CommandMap = function(){
 		this.hash = {};
+		this.initiated = false;
 	};
 	
 	CommandMap.prototype.init = function(){
+		console.log("map init");
 		this.map(Events.NEW_FILE, 			NewFileCommand);
 		this.map(Events.LOAD, 				LoadCommand);
 		this.map(Events.SAVE, 				SaveCommand);
@@ -46,10 +52,24 @@ DrawCommand, ReplayCommand, Events) {
 		this.map(Events.TEACHER_LOGIN, 		TeacherCommand);
 		this.map(Events.TYPE_CHOICE, 			TypeChoiceCommand);
 		this.map(Events.ADD_COMMAND, 			AddCommandCommand);
+		this.map(Events.STARTUP, 			StartUpCommand);
 		this.map(Events.DRAW, 				DrawCommand);
 		this.map(Events.REPLAY, 			ReplayCommand);
+		this.map(Events.FINISH, 			FinishCommand);
+		this.initiated = true;
 	};
 	
+	CommandMap.prototype.trigger = function(obj){
+		if(!this.initiated){
+			this.init();
+		}
+		var CommandClassRef = this.get(obj.event);
+		console.log("trigger "+obj.event+"  "+CommandClassRef);
+		if(CommandClassRef){
+			(new CommandClassRef()).execute(obj.data);
+		}
+	};
+
 	CommandMap.prototype.map = function(eventName, commandClass){
 		this.hash[eventName] = commandClass;
 	};

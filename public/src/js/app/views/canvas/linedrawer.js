@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/consts/colors'],
+define('app/views/canvas/linedrawer',['jquery', 'app/consts/colors'],
 
-function(Game, Colors){
+function($, Colors){
 	
 	"use strict";
 	

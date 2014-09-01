@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/container', 'phaser'
+define('app/components/bgpanel',['app/game', 'app/components/container', 'phaser'
 
 ],
 

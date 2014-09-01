@@ -1,16 +1,16 @@
 
-define(['app/game', 'app/components/container',
+define('app/views/canvas/map',['app/game', 'app/components/container',
 
-'app/models/bgmodel'],
+'app/models/modelfacade'],
 
 function(Game, Container,
 
-bgModel){
+ModelFacade){
 	
 	"use strict";
 	
 	var Map  = function(options){
-		bgModel.changeSignal.add(this.onChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.BG).changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
 	};
 	
@@ -22,7 +22,7 @@ bgModel){
 	};
 	
 	Map.prototype.updateImage = function() {
-		var bg = bgModel.getData().bg;
+		var bg = ModelFacade.getInstance().get(ModelFacade.BG).getData().bg;
 		if(this.sprite){
 			this.sprite.destroy(true);
 			this.sprite = null;

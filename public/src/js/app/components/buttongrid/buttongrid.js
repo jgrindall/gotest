@@ -1,9 +1,9 @@
 
-define(['app/game', 'app/components/container',
+define('app/components/buttongrid/buttongrid',['jquery', 'app/game', 'app/components/container',
 
 'app/components/buttongrid/buttongridmodel'],
 
-function(Game, Container,
+function($, Game, Container,
 
 ButtonGridModel){
 	

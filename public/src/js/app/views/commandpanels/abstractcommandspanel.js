@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/container',
+define('app/views/commandpanels/abstractcommandspanel',['app/game', 'app/components/container',
 
 'app/components/buttons/dirbutton',
 
@@ -7,11 +7,7 @@ define(['app/game', 'app/components/container',
 
 'app/views/commandpanels/markerfactory', 
 
-'app/views/commandpanels/markertypes',
-
-'app/views/commandpanels/abstractmarker',
-
-'app/events/eventdispatcher', 'app/events/events'
+'app/commands/commandmap', 'app/events/events'
 ],
 
 
@@ -21,9 +17,9 @@ DirButton,
 
 ButtonGrid, ButtonGridModel,
 
-MarkerFactory, MarkerTypes, AbstractMarker,
+MarkerFactory, 
 
-eventDispatcher, Events){
+commandMap, Events){
 	
 	"use strict";
 	
@@ -109,7 +105,7 @@ eventDispatcher, Events){
 		var index, json;
 		for(index = 0; index < total; index++){
 			json = {'type':type, 'direction':direction, 'index':index, 'total':total};
-			eventDispatcher.trigger({"event":Events.ADD_COMMAND, "data":json});
+			commandMap.trigger({"event":Events.ADD_COMMAND, "data":json});
 		}
 	};
 	

@@ -1,5 +1,5 @@
 
-define(['phaser'], function(Phaser){
+define('app/components/interactivesprite',['phaser'], function(Phaser){
 	
 	"use strict";
 	

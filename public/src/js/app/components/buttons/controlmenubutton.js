@@ -1,5 +1,5 @@
 
-define(['app/components/buttons/abstractbutton'], function(AbstractButton){
+define('app/components/buttons/controlmenubutton',['app/components/buttons/abstractbutton'], function(AbstractButton){
 	
 	"use strict";
 	

@@ -1,5 +1,5 @@
 
-define(['phaser'],
+define('app/models/abstractmodel',['phaser'],
 
 function(Phaser){
 	

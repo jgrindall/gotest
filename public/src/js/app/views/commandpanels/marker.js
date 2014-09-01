@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/views/commandpanels/abstractmarker'], function(Game, AbstractMarker){
+define('app/views/commandpanels/marker',['app/views/commandpanels/abstractmarker'], function(AbstractMarker){
 	
 	"use strict";
 	

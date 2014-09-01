@@ -1,12 +1,10 @@
-define(['jquery', 'app/scenemanager/scenemanager',
+define('app/boot/boot',['jquery', 'app/scenemanager/scenemanager',
 
-'app/game', 'app/events/commandmap', 'app/events/events',
-
-'app/models/commmodel'],
+'app/game'],
 
 function($, SceneManager, 
 
-Game, commandMap, Events, commModel) {
+Game) {
 	
 	"use strict";
 	
@@ -15,7 +13,6 @@ Game, commandMap, Events, commModel) {
     	};
 	
 	Boot.prototype.launch = function(){
-		commandMap.init();
 		var config = {
 			"create":$.proxy(this.create, this),
 			"preload":$.proxy(this.preload, this)

@@ -3,6 +3,20 @@ module.exports = function(grunt) {
 	grunt.initConfig({
     	pkg: grunt.file.readJSON('package.json'),
 		
+
+  amdcheck: {
+      src: {
+        files: [
+          {
+            expand: true,
+            cwd: 'public/src/js/app/',
+            src: ['**/*.js'],
+            dest: 'minimised/'
+          }
+        ]
+      }
+    },
+
 		jshint: {
   			main: {
     			files: [
@@ -74,13 +88,13 @@ module.exports = function(grunt) {
 		
 		  	
   	});
-	
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-  	grunt.loadNpmTasks('grunt-contrib-requirejs');
- 	grunt.loadNpmTasks('grunt-contrib-copy');
-  	
-  	grunt.registerTask('default', ['clean', 'jshint', 'requirejs', 'copy']);
+	   
+     grunt.loadNpmTasks('grunt-amdcheck');
+	   grunt.loadNpmTasks('grunt-contrib-jshint');
+	   grunt.loadNpmTasks('grunt-contrib-clean');
+  	 grunt.loadNpmTasks('grunt-contrib-requirejs');
+     grunt.loadNpmTasks('grunt-contrib-copy');
+  	 grunt.registerTask('default', ['amdcheck:src','clean', 'jshint', 'requirejs', 'copy']);
 
 };
 

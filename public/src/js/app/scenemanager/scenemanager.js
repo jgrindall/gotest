@@ -1,9 +1,9 @@
 
-define(['app/consts/appconsts', 
+define('app/scenemanager/scenemanager',['app/consts/appconsts', 
 
 'app/scenemanager/scenefactory', 'app/game',
 
-'phaserstatetrans', 'app/utils/storage'
+'phaserstatetrans'
 
 ],
 
@@ -11,7 +11,7 @@ function(AppConsts,
 
 SceneFactory, Game,
 
-PhaserStateTrans, Storage
+PhaserStateTrans
 
 ){
 	

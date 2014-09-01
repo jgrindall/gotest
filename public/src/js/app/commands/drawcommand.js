@@ -1,6 +1,6 @@
-define(['app/utils/alertmanager', 'app/models/commtickermodel'],
+define('app/commands/drawcommand',['app/models/modelfacade', 'app/consts/playingstate'],
 
-function(AlertManager, commTickerModel) {
+function(ModelFacade, PlayingState) {
 	
 	"use strict";
 	
@@ -9,7 +9,11 @@ function(AlertManager, commTickerModel) {
 	};
 	
 	DrawCommand.prototype.execute = function(data){
-		commTickerModel.start();
+		var playingModel = ModelFacade.getInstance().get(ModelFacade.PLAYING);
+		if(playingModel.getData().playing !== PlayingState.PLAYING){
+			playingModel.setData(PlayingState.PLAYING);
+			ModelFacade.getInstance().get(ModelFacade.COMMTICKER).start();
+		}
 	};
 	
   	return DrawCommand;

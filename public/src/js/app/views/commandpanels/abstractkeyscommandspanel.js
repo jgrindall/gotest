@@ -1,23 +1,17 @@
 
-define(['app/game', 'app/components/container',
-
-'app/components/buttons/dirbutton', 'app/components/buttons/keybutton',
+define('app/views/commandpanels/abstractkeyscommandspanel',['app/game', 'app/components/buttons/keybutton',
 
 'app/components/buttongrid/buttongrid',
 
 'app/views/commandpanels/abstractcommandspanel',
 
-'app/logocommands/commandtypes',
-
 'app/components/buttongrid/buttongridmodel'
 
 ],
 
-function(Game, Container, DirButton, KeyButton,
+function(Game, KeyButton,
 
 ButtonGrid, AbstractCommandsPanel,
-
-CommandTypes,
 
 ButtonGridModel){
 	

@@ -1,5 +1,5 @@
 
-define(['jquery', 'app/game', 'app/components/buttons/markerbutton', 'app/components/container'],
+define('app/components/scroller/groupmarker',['jquery', 'app/game', 'app/components/buttons/markerbutton', 'app/components/container'],
 
 function($, Game, MarkerButton, Container){
 	

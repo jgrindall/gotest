@@ -1,5 +1,5 @@
 
-define(['app/game'], function(Game){
+define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
 	
 	"use strict";
 	

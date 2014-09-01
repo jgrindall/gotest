@@ -1,5 +1,6 @@
 
-define(['app/game'], function(Game){
+define('app/components/buttons/abstractbutton',
+['app/game'], function(Game){
 	
 	"use strict";
 	

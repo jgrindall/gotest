@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/buttongrid/buttongrid', 'app/components/buttongrid/buttongridmodel',
+define('app/dataproviders/screendataprovider',['app/game', 'app/components/buttongrid/buttongrid', 'app/components/buttongrid/buttongridmodel',
 
 'app/components/screenchoice'],
 

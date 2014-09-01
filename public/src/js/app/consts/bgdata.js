@@ -1,4 +1,4 @@
-define([],
+define('app/consts/bgdata',[],
 
 function() {
 	

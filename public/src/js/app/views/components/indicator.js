@@ -1,26 +1,26 @@
 
-define(['app/game', 'app/text/textfactory',
+define('app/views/components/indicator',['app/game', 'app/text/textfactory',
 
-'app/components/container', 'app/models/commnummodel', 'app/models/commmodel'],
+'app/components/container', 'app/models/modelfacade'],
 
 function(Game, TextFactory,
 
-Container, commNumModel, commModel){
+Container, ModelFacade){
 	
 	"use strict";
 	
 	var Indicator = function(options){
 		Container.call(this, options);
-		commNumModel.changeSignal.add(this.setProgress, this);
-		commModel.changeSignal.add(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
 	};
 
 	Indicator.RADIUS = 40;
 	
 	Indicator.prototype.setProgress = function(){
 		var num, total;
-		num = commNumModel.getData().commandNum;
-		total = commModel.getNum();
+		num = ModelFacade.getInstance().get(ModelFacade.COMMTICKER).getData().commandNum;
+		total = ModelFacade.getInstance().get(ModelFacade.COMM).getNum();
 		this.drawText(num, total);
 		this.drawArc(1 - num/total);
 	};
@@ -48,7 +48,8 @@ Container, commNumModel, commModel){
 	
 	Indicator.prototype.destroy = function() {
 		Container.prototype.destroy.call(this);
-		commNumModel.changeSignal.remove(this.commandNumChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
 		this.group.remove(this.gfx);
 		this.group.remove(this.label);
 		this.gfx.destroy();

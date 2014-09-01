@@ -1,6 +1,6 @@
 
 
-define([], function() {
+define('app/consts/colors',[], function() {
 	
 	"use strict";
 	

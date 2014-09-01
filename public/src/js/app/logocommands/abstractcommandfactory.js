@@ -1,5 +1,5 @@
 
-define(['app/logocommands/movecommand',
+define('app/logocommands/abstractcommandfactory', ['app/logocommands/movecommand',
 
 'app/logocommands/turncommand',
 

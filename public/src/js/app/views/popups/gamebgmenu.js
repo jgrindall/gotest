@@ -1,5 +1,5 @@
 
-define(['app/views/components/arrowselectormenu',
+define('app/views/popups/gamebgmenu',['app/views/components/arrowselectormenu',
 
 'app/dataproviders/bgdataprovider'
 

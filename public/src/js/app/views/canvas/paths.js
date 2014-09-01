@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/components/container',
+define('app/views/canvas/paths',['app/game', 'app/components/container',
 
-'app/consts/colors', 'app/views/canvas/linedrawer'],
+'app/views/canvas/linedrawer'],
 
 function(Game, Container,
 
-Colors, LineDrawer){
+LineDrawer){
 	
 	"use strict";
 	

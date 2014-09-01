@@ -1,5 +1,5 @@
 
-define(['app/consts/appconsts','app/scenes/loaderscene', 'app/scenes/activityscene'],
+define('app/scenemanager/scenefactory',['app/consts/appconsts','app/scenes/loaderscene', 'app/scenes/activityscene'],
 
 function(AppConsts, LoaderScene, ActivityScene){
 	

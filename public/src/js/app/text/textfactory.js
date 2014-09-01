@@ -1,5 +1,5 @@
 
-define(['app/game'], function(Game){
+define('app/text/textfactory',['app/game'], function(Game){
 	
 	"use strict";
 	

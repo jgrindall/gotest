@@ -1,6 +1,6 @@
-define(['app/utils/alertmanager', 'app/utils/storage'],
+define('app/commands/printcommand',['app/utils/alertmanager'],
 
-function(AlertManager, Storage) {
+function(AlertManager) {
 	
 	"use strict";
 	

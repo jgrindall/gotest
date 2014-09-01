@@ -1,15 +1,15 @@
 
-define(['app/game', 'app/components/buttons/controlmenubutton',
+define('app/views/controls/controlmenu',['app/components/buttons/controlmenubutton',
 
-'app/components/buttongrid/buttonbar',
+'app/components/buttongrid/buttonbar', 'app/models/modelfacade',
 
-'app/models/playingmodel', 'app/consts/playingstate'],
+'app/consts/playingstate'],
 
-function(Game, ControlMenuButton,
+function(ControlMenuButton,
 
-ButtonBar,
+ButtonBar, ModelFacade,
 
-playingModel, PlayingState){
+PlayingState){
 	
 	"use strict";
 	
@@ -17,10 +17,9 @@ playingModel, PlayingState){
 		options.buttonClass = ControlMenuButton;
 		options.numX = 4;
 		options.numY = 1;
-		
 		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}];
 		ButtonBar.call(this, options);
-		playingModel.changeSignal.add(this.playingChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.disableButtonAt(1);
 	};
 	

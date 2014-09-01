@@ -1,6 +1,6 @@
-define(['app/models/commmodel', 'app/models/commtickermodel'],
+define('app/commands/stopcommand',['app/models/modelfacade'],
 
-function(commModel, commTickerModel) {
+function(ModelFacade, PlayingState) {
 	
 	"use strict";
 	
@@ -9,8 +9,9 @@ function(commModel, commTickerModel) {
 	};
 	
 	StopCommand.prototype.execute = function(data){
-		commModel.stop();
-		commTickerModel.stop();
+		ModelFacade.getInstance().get(ModelFacade.COMM).stop();
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).reset();
+		ModelFacade.getInstance().get(ModelFacade.PLAYING).setData(PlayingState.NOT_PLAYING);
 	};
 	
   	return StopCommand;

@@ -1,15 +1,15 @@
 
-define(['app/game', 'app/components/buttons/arrowbutton',
+define('app/views/components/arrowselectormenu',['jquery', 'app/game', 'app/components/buttons/arrowbutton',
 
-'app/views/components/selectormenu', 'app/components/container',
+'app/views/components/selectormenu',
 
 'app/components/scroller/pager'
 
 ],
 
-function(Game, ArrowButton, 
+function($, Game, ArrowButton, 
 
-SelectorMenu, Container,
+SelectorMenu,
 
 Pager)
 

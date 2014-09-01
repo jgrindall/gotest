@@ -1,13 +1,9 @@
 
-define(['app/components/buttons/multibutton',
-
-'app/models/colormodel'
+define('app/views/components/colorpicker',['app/components/buttons/multibutton'
 
 ],
 
-function(MultiButton,
-
-ColorModel){
+function(MultiButton){
 	
 	"use strict";
 	

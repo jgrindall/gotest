@@ -1,11 +1,11 @@
 
-define(['app/game', 'app/components/buttons/tickbutton',
+define('app/components/popups/growl',['jquery', 'app/game', 'app/components/buttons/tickbutton',
 
 'app/components/popups/abstractpopup', 'app/text/textfactory',
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 
-function(Game, TickButton,
+function($, Game, TickButton,
 
 AbstractPopup, TextFactory,
 

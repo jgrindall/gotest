@@ -1,6 +1,6 @@
-define(['app/utils/alertmanager', 'app/models/bgmodel'],
+define('app/commands/initcommand',[],
 
-function(AlertManager, bgModel) {
+function() {
 	
 	"use strict";
 	

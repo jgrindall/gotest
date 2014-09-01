@@ -1,6 +1,6 @@
-define(['app/utils/alertmanager', 'app/models/bgmodel'],
+define('app/commands/newfilecommand',['jquery', 'app/utils/alertmanager', 'app/models/modelfacade'],
 
-function(AlertManager, bgModel) {
+function($, AlertManager, ModelFacade) {
 	
 	"use strict";
 	
@@ -9,14 +9,12 @@ function(AlertManager, bgModel) {
 	};
 	
 	NewFileCommand.prototype.execute = function(data){
-		console.log("execute NEW FILE");
 		AlertManager.makeBgMenu({}, $.proxy(this.onBgChosen, this));
 	};
 	
 	NewFileCommand.prototype.onBgChosen = function(data){
-		console.log("bgChosen "+JSON.stringify(data));
 		if(data.index === 1){
-			bgModel.setBg(data.selection.selectedPage);
+			ModelFacade.getInstance().get(ModelFacade.BG).setBg(data.selection.selectedPage);
 		}
 	};
 	

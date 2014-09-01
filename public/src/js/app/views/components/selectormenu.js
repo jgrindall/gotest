@@ -1,17 +1,13 @@
 
-define(['jquery', 'app/components/buttons/closebutton', 'app/game',
+define('app/views/components/selectormenu',['app/components/buttons/closebutton', 'app/game',
 
-'app/components/buttons/okbutton', 'app/components/popups/abstractpopup',
-
-'app/components/container'
+'app/components/buttons/okbutton', 'app/components/popups/abstractpopup'
 
 ],
 
-function($, CloseButton, Game,
+function(CloseButton, Game,
 
-OkButton, AbstractPopup,
-
-Container
+OkButton, AbstractPopup
 
 ){
 	

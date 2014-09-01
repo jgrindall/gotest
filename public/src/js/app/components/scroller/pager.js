@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/scroller/scroller', 'app/components/scroller/groupmarker'],
+define('app/components/scroller/pager',['app/game', 'app/components/scroller/scroller', 'app/components/scroller/groupmarker'],
 
 function(Game, Scroller, GroupMarker){
 	

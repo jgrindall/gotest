@@ -1,5 +1,5 @@
 
-define(['app/game', 'phaser',
+define('app/components/buttons/multibutton',['app/game', 'phaser',
 
 'app/components/interactivesprite'],
 

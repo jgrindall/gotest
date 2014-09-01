@@ -1,4 +1,4 @@
-define(['app/utils/alertmanager'],
+define('app/commands/teachercommand',['app/utils/alertmanager'],
 
 function(AlertManager) {
 	

@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/movieclip'], function(Game, MovieClip){
+define('app/views/commandpanels/abstractmarker',['app/game', 'app/components/movieclip'], function(Game, MovieClip){
 	
 	"use strict";
 	

@@ -1,7 +1,7 @@
 
-define(['app/components/buttongrid/buttonbar', 'app/components/container'],
+define('app/components/buttongrid/tabbuttonbar',['app/components/buttongrid/buttonbar'],
 
-function(ButtonBar, Container){
+function(ButtonBar){
 	
 	"use strict";
 	

@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/components/container',
+define('app/components/screenchoice',['app/game', 'app/components/container',
 
 'app/components/interactivesprite'],
 

@@ -1,17 +1,17 @@
 
-define(['app/game', 'app/scenes/scene', 'app/views/canvas/canvas', 'app/views/controls/controls',
+define('app/scenes/activityscene',['app/game', 'app/scenes/scene', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
-'app/text/textfactory', 'app/utils/alertmanager', 'app/views/components/menu', 'app/utils/storage',
+'app/text/textfactory', 'app/views/components/menu', 
 
-'app/components/background', 'app/events/eventdispatcher',
+'app/components/background', 'app/commands/commandmap',
 
 'app/events/events'],
 
 function(Game, Scene, Canvas, Controls,
 
-TextFactory, AlertManager, Menu, Storage,
+TextFactory, Menu,
 
-Background, eventDispatcher,
+Background, commandMap,
 
 Events){
 	
@@ -30,7 +30,8 @@ Events){
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
-		Storage.getInstance().loadDefaults();
+		commandMap.trigger({"event":Events.STARTUP});
+		commandMap.trigger({"event":Events.REPLAY});
 	};
 	
 	ActivityScene.prototype.addBg = function() {
@@ -63,16 +64,16 @@ Events){
 	ActivityScene.prototype.menuClick = function(data) {
 		var i = data.index;
 		if(i === 0){
-			eventDispatcher.trigger({"event":Events.NEW_FILE});
+			commandMap.trigger({"event":Events.NEW_FILE});
 		}
 		else if(i === 1){
-			eventDispatcher.trigger({"event":Events.LOAD});
+			commandMap.trigger({"event":Events.LOAD});
 		}
 		else if(i === 2){
-			eventDispatcher.trigger({"event":Events.SAVE});
+			commandMap.trigger({"event":Events.SAVE});
 		}
 		else if(i === 3){
-			eventDispatcher.trigger({"event":Events.PRINT});
+			commandMap.trigger({"event":Events.PRINT});
 		}
 	};
 	

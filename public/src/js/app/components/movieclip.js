@@ -1,5 +1,5 @@
 
-define(['app/game'], function(Game){
+define('app/components/movieclip',['app/game'], function(Game){
 	
 	"use strict";
 	

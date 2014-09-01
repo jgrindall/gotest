@@ -1,5 +1,5 @@
 
-define(['jquery', 'app/game'], function($, Game){
+define('app/scenes/scene',['app/game'], function(Game){
 	
 	"use strict";
 	

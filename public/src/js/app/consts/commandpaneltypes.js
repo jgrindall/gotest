@@ -1,7 +1,7 @@
 
-define(['app/game'],
+define('app/consts/commandpaneltypes',[],
 
-function(Game){
+function(){
 	
 	"use strict";
 	

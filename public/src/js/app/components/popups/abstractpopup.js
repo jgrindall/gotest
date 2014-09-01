@@ -1,11 +1,11 @@
 
-define(['app/components/buttons/closebutton', 'app/game',
+define('app/components/popups/abstractpopup',['app/game',
 
-'app/components/container', 'app/text/textfactory'],
+'app/components/container'],
 
-function(CloseButton, Game,
+function(Game,
 
-Container, TextFactory){
+Container){
 	
 	"use strict";
 		

@@ -1,5 +1,5 @@
 
-define([], function(){
+define('app/utils/utils',[], function(){
 	
 	"use strict";
 	

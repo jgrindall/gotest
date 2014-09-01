@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/components/container', 'app/components/buttongrid/buttongrid'],
+define('app/components/buttongrid/buttonbar',['app/components/buttongrid/buttongrid'],
 
-function(Game, Container, ButtonGrid){
+function(ButtonGrid){
 	
 	"use strict";
 	

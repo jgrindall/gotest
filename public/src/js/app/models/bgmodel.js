@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/models/abstractmodel'],
+define('app/models/bgmodel',['app/models/abstractmodel'],
 
-function(Game, AbstractModel){
+function(AbstractModel){
 	
 	"use strict";
 	

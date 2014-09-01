@@ -1,7 +1,7 @@
 
-define(['app/game', 'app/models/abstractmodel'],
+define('app/components/buttongrid/buttongridmodel',['app/models/abstractmodel'],
 
-function(Game, AbstractModel){
+function(AbstractModel){
 	
 	"use strict";
 	

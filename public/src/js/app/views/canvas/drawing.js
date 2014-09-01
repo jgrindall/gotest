@@ -1,43 +1,35 @@
 
-define(['app/game', 'app/components/container',
+define('app/views/canvas/drawing',['jquery', 'app/components/container',
 
-'app/views/canvas/map', 'app/views/canvas/turtle', 'app/views/canvas/paths',
+'app/views/canvas/turtle', 'app/views/canvas/paths',
 
-'app/models/commtickermodel', 'app/models/colormodel',
-
-'app/logocommands/commandtypes',
+'app/models/modelfacade',
 
 'app/logocommands/movecommand',
 
 'app/logocommands/turncommand',
 
-'app/logocommands/fdcommand',
+'app/logocommands/fdcommand'],
 
-'app/models/scalemodel'],
+function($, Container,
 
-function(Game, Container,
+Turtle, Paths,
 
-Map, Turtle, Paths,
-
-commTickerModel, colorModel,
-
-CommandTypes,
+ModelFacade,
 
 MoveCommand,
 
 TurnCommand,
 
-FdCommand,
-
-scaleModel){
+FdCommand){
 	
 	"use strict";
 	
 	var Drawing  = function(options){
 		this.centre = {'x':options.bounds.x + options.bounds.w/2, 'y':options.bounds.y + options.bounds.h/2};
 		Container.call(this, options);
-		commTickerModel.executeSignal.add(this.commandExecute, this);
-		commTickerModel.resetSignal.add(this.onReset, this);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
 		this.onReset();
 	};
 	
@@ -91,7 +83,7 @@ scaleModel){
 		thetaRad = this.angle * Drawing.PI180;
 		dx = Drawing.DIST * Math.cos(thetaRad);
 		dy = Drawing.DIST * Math.sin(thetaRad);
-		if(scaleModel.getData().scale){
+		if(ModelFacade.getInstance().get(ModelFacade.SCALE).getData().scale){
 			dx *= Drawing.SCALES[this.command.direction];
 			dy *= Drawing.SCALES[this.command.direction];
 		}
@@ -151,7 +143,7 @@ scaleModel){
 	
 	Drawing.prototype.commandFinished = function() {
 		this.startPos = this.endPos;
-		commTickerModel.nextCommand();
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).nextCommand();
 	};
 	
 	Drawing.prototype.addPaths = function() {

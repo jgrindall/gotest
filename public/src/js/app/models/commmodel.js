@@ -1,27 +1,21 @@
 
-define(['app/logocommands/abstractcommandfactory',
+define('app/models/commmodel',['jquery', 'app/logocommands/abstractcommandfactory',
 
-'app/models/commtickermodel',
-
-'app/models/abstractmodel', 'app/events/eventdispatcher',
+'app/models/abstractmodel', 'app/commands/commandmap',
 
 'app/events/events'],
 
-function(AbstractCommandFactory,
+function($, AbstractCommandFactory,
 
-commTickerModel,
-
-AbstractModel, eventDispatcher,
+AbstractModel, commandMap,
 
 Events){
 	
 	"use strict";
 		
 	var CommModel  = function(){
-		console.log("commm constructor");
 		AbstractModel.call(this);
 		this.commands = [];
-		commTickerModel.init(this);
 	};
 	
 	CommModel.prototype = Object.create(AbstractModel.prototype);
@@ -30,7 +24,7 @@ Events){
 	CommModel.prototype.add = function(command) {
 		this.commands.push(command);
 		this.trigger();
-		eventDispatcher.trigger({"event":Events.DRAW});
+		commandMap.trigger({"event":Events.DRAW});
 	};
 	
 	CommModel.prototype.setData = function(commands) {
@@ -76,7 +70,7 @@ Events){
 	CommModel.prototype.undo = function() {
 		if(this.commands.length >= 1){
 			this.removeTop();
-			eventDispatcher.trigger({"event":Events.REPLAY});
+			commandMap.trigger({"event":Events.REPLAY});
 		}
 	};
 	

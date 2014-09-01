@@ -1,5 +1,7 @@
 
-define([],
+define('app/logocommands/commandtypes',
+
+	[],
 
 function(){
 	

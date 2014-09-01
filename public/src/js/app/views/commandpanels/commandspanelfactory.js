@@ -1,5 +1,5 @@
 
-define(['app/game', 'app/consts/commandpaneltypes',
+define('app/views/commandpanels/commandspanelfactory',['app/consts/commandpaneltypes',
 
 'app/views/commandpanels/nsewcommandspanel',
 
@@ -13,7 +13,7 @@ define(['app/game', 'app/consts/commandpaneltypes',
 
 ],
 
-function(Game, CommandTypes,
+function(CommandTypes,
 
 NSEWCommandsPanel,
 

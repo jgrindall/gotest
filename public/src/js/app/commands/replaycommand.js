@@ -1,6 +1,6 @@
-define(['app/utils/alertmanager', 'app/models/commtickermodel'],
+define('app/commands/replaycommand',['app/models/modelfacade'],
 
-function(AlertManager, commTickerModel) {
+function(ModelFacade) {
 	
 	"use strict";
 	
@@ -9,7 +9,8 @@ function(AlertManager, commTickerModel) {
 	};
 	
 	ReplayCommand.prototype.execute = function(data){
-		commTickerModel.replay();
+		ModelFacade.getInstance().get(ModelFacade.PLAYING).setData(PlayingState.REPLAYING);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).replay();
 	};
 	
   	return ReplayCommand;

@@ -1,7 +1,5 @@
 
-define(['app/game', 
-
-'app/views/commandpanels/markertypes',
+define('app/views/commandpanels/markerfactory',['app/views/commandpanels/markertypes',
 
 'app/views/commandpanels/marker',
 
@@ -9,7 +7,7 @@ define(['app/game',
 
 ],
 
-function(Game, MarkerTypes,
+function(MarkerTypes,
 
 Marker, TurnMarker){
 	

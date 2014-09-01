@@ -1,23 +1,19 @@
 
-define(['app/game', 'app/components/container', 'app/components/background', 'app/components/slider/slider',
+define('app/views/controls/controls',['app/game', 'app/components/container', 'app/components/background',
+
+	'app/components/slider/slider',
 
 'app/components/buttongrid/tabbuttonbar', 'app/components/buttons/tabbutton',
 
 'app/views/components/colorpicker',
 
-'app/models/colormodel',
-
-'app/models/screenmodel', 'app/models/commtickermodel',
+'app/models/modelfacade',
 
 'app/views/controls/controlmenu', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/models/speedmodel', 'app/consts/commspeed',
-
-'app/utils/alertmanager',
-
 'app/views/commandpanels/commandspanelfactory',
 
-'app/events/eventdispatcher', 'app/events/events'
+'app/commands/commandmap', 'app/events/events'
 
 ],
 
@@ -27,24 +23,20 @@ TabButtonBar, TabButton,
 
 ColorPicker,
 
-colorModel,
-
-screenModel, commTickerModel,
+ModelFacade,
 
 ControlMenu, AbstractCommandsPanel,
 
-speedModel, CommSpeed,
+CommandsPanelFactory,
 
-AlertManager, CommandsPanelFactory,
-
-eventDispatcher, Events){
+commandMap, Events){
 	
 	"use strict";
 	
 	var Controls  = function(options){
 		Container.call(this, options);
 		Game.alertSignal.add(this.onAlert, this);
-		screenModel.changeSignal.add(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 	};
 
 	Controls.WIDTH = 290;
@@ -103,23 +95,23 @@ eventDispatcher, Events){
 	};
 	
 	Controls.prototype.addSpeedButton = function() {
-		this.speedSlider = new Slider({"model": speedModel, "num":4, "bounds":{"x":Game.w()/2 - 150, "y":0}});
+		this.speedSlider = new Slider({"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":Game.w()/2 - 150, "y":0}});
 		this.group.add(this.speedSlider.group);
 	};
 	
 	Controls.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
-			eventDispatcher.trigger({"event":Events.STOP});
+			commandMap.trigger({"event":Events.STOP});
 		}
 		else if(index === 1){
-			eventDispatcher.trigger({"event":Events.UNDO});
+			commandMap.trigger({"event":Events.UNDO});
 		}
 		else if(index === 2){
-			eventDispatcher.trigger({"event":Events.TEACHER_LOGIN});
+			commandMap.trigger({"event":Events.TEACHER_LOGIN});
 		}
 		else if(index === 3){
-			eventDispatcher.trigger({"event":Events.TYPE_CHOICE});
+			commandMap.trigger({"event":Events.TYPE_CHOICE});
 		} 
 	};
 	
@@ -135,7 +127,7 @@ eventDispatcher, Events){
 	
 	Controls.prototype.addColorPicker = function() {
 		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':Game.h() - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
-		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8, "model":colorModel});	
+		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.sprite);
 	};
 	

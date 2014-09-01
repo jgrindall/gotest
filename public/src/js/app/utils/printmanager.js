@@ -1,7 +1,7 @@
 
-define(['jquery', 'app/game'],
+define('app/utils/printmanager',[],
 
-function($, Game){
+function(){
 	
 	"use strict";
 	

@@ -1,5 +1,5 @@
 
-define(['app/scenes/scene', 'app/preloader/preloader', 'app/components/loaderbar/loaderbar',
+define('app/scenes/loaderscene',['app/scenes/scene', 'app/preloader/preloader', 'app/components/loaderbar/loaderbar',
 
 'app/text/textfactory', 'app/game'],
 

@@ -1,14 +1,14 @@
 
-define(['jquery', 'app/game',
+define('app/utils/storage',['jquery', 
 
-	'app/models/modelfacade', 'app/utils/alertmanager'],
+	'app/utils/alertmanager'],
 
-function($, Game,
+function($,
 
-	ModelFacade, AlertManager){
+	AlertManager){
 	
 	"use strict";
-	
+
 	var Storage = function(){
 		
 	};
@@ -16,18 +16,6 @@ function($, Game,
 	Storage.VERSION = "v1.0";
 	
 	Storage.SETTINGS_KEY = "2go_settings" + Storage.VERSION;
-	
-	Storage.DEFAULT = {
-		'bg':0,
-		'screen':0,
-		'speed':2,
-		'color':0,
-		'commands':[]
-	};
-	
-	Storage.prototype.loadDefaults = function(){
-		this.setModels(Storage.DEFAULT);
-	};
 	
 	Storage.prototype.load = function(callback){
 		var that = this;
@@ -46,10 +34,6 @@ function($, Game,
 		});
 	};
 	
-	Storage.prototype.setModels = function(json){
-		ModelFacade.setData(json);
-	};
-		
 	Storage.prototype.save = function(callback){
 		this.saveForKey(Storage.SETTINGS_KEY, this.makeJson(), function(options){
 			if(options.success){
@@ -77,7 +61,7 @@ function($, Game,
 	};
 	
 	Storage.prototype.makeJson = function(){
-		return ModelFacade.getJson();
+		return ModelFacade.getInstance().getJson();
 	};
 	
 	Storage.prototype.getForKey = function(key, callback){

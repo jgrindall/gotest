@@ -1,5 +1,5 @@
 
-define(['app/models/abstractmodel'],
+define('app/models/colormodel',['app/models/abstractmodel'],
 
 function(AbstractModel){
 	

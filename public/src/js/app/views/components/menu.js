@@ -1,5 +1,5 @@
 
-define(['app/components/buttons/menubutton',
+define('app/views/components/menu',['app/components/buttons/menubutton',
 
 'app/components/buttongrid/buttonbar'],
 
