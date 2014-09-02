@@ -19,7 +19,6 @@ function(AbstractModel, PenWidths){
 	
 	WidthModel.prototype.increment = function() {
 		var newWidth = (this.index + 1) % PenWidths.ALL.length;
-		console.log("was "+this.index+" now "+newWidth);
 		this.setData(newWidth);
 	};
 

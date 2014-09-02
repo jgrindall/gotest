@@ -73,7 +73,6 @@ function(Phaser){
 		w = Game.getWidth();
     	h = Game.getHeight();
 		Game.instance = new Phaser.Game(w, h, Phaser.AUTO, 'game', Game.config);
-		Game.instance.stage.backgroundColor = '#5A5A5A';
 		Game.setupScale();
 	};
 	

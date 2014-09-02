@@ -32,13 +32,6 @@ Events){
 		this.addMenu();
 		eventDispatcher.trigger({"type":Events.STARTUP});
 		eventDispatcher.trigger({"type":Events.REPLAY});
-		var that = this;
-		setTimeout(function(){
-
-			that.destroy();
-
-		}, 5000);
-
 	};
 	
 	ActivityScene.prototype.addBg = function() {
