@@ -9,10 +9,12 @@ define('app/logocommands/abstractlogocommand', [], function(){
 		this.total = 		json.total;
 		this.color = 		json.color;
 		this.width = 		json.width;
+		this.diag = 		json.diag;
+		this.stepLength = 	json.stepLength;
 	};
 	
 	AbstractCommand.prototype.toJson = function(){
-		return {'direction':this.direction, 'index':this.index, 'total':this.total, 'width':this.width, ':color':this.color};
+		return {'direction':this.direction, 'index':this.index, 'diag':this.diag, 'stepLength':this.stepLength, 'total':this.total, 'width':this.width, ':color':this.color};
 	};
 	
 	AbstractCommand.prototype.toString = function(){

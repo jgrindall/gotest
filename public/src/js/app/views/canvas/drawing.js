@@ -81,13 +81,16 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.setEndPoint = function() {
-		var dx, dy, thetaRad, distIndex, dist;
-		distIndex = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).getData().index;
+		var dx, dy, thetaRad, distIndex, dist, currentStepLengthIndex, currentStepLength;
+		distIndex = this.command.stepLength;
+		currentStepLengthIndex = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).getData().index;
+		currentStepLength = StepLengths.ALL[currentStepLengthIndex];
 		dist = StepLengths.ALL[distIndex];
+		console.log("drawing "+dist+" using "+currentStepLength);
 		thetaRad = this.angle * Drawing.PI180;
 		dx = dist * Math.cos(thetaRad);
 		dy = dist * Math.sin(thetaRad);
-		if(ModelFacade.getInstance().get(ModelFacade.DIAG).getData().scale){
+		if(this.command.diag === 1){
 			dx *= Drawing.DIAG[this.command.direction];
 			dy *= Drawing.DIAG[this.command.direction];
 		}

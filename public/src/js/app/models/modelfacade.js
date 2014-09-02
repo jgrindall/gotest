@@ -80,6 +80,7 @@ function(commModel, screenModel, bgModel,
 		commTickerModel.init(commModel);
 		colorModel.changeSignal.add(this.changeColor, this);
 		bgModel.changeSignal.add(this.changeBg, this);
+		widthModel.changeSignal.add(this.changeWidth, this);
 		playingModel.changeSignal.add(this.changePlaying, this);
 		speedModel.changeSignal.add(this.changeSpeed, this);
 		//TODO - make them commands
@@ -100,6 +101,12 @@ function(commModel, screenModel, bgModel,
 		this.setDuration();
 	};
 
+	ModelFacade.prototype.changeWidth = function(data) {
+		if(playingModel.getData().playing === PlayingState.PLAYING){
+			commTickerModel.update("width", data.index);
+		}
+	};
+
 	ModelFacade.prototype.changeSpeed = function(data) {
 		this.setDuration();
 	};
@@ -111,7 +118,7 @@ function(commModel, screenModel, bgModel,
 
 	ModelFacade.prototype.changeColor = function(data) {
 		if(playingModel.getData().playing === PlayingState.PLAYING){
-			commTickerModel.updateColors(data.index);
+			commTickerModel.update("color", data.index);
 		}
 	};
 

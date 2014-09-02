@@ -35,12 +35,12 @@ function(Phaser, AbstractModel, Events, eventDispatcher){
 		}
 	};
 
-	CommTickerModel.prototype.updateColors = function(index) {
+	CommTickerModel.prototype.update = function(key, index) {
 		var i, command;
 		for(i = this.commandNum + 1; i < this.getNum(); i++){
 			command = this.commandProvider.getCommandAt(i);
 			if(command){
-				command.color = index;
+				command[key] = index;
 			}
 		}
 	};
