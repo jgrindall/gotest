@@ -1,9 +1,9 @@
 
-define('app/components/buttons/multibutton',['app/game', 'phaser',
+define('app/components/buttons/multibutton',['app/game',
 
 'app/components/interactivesprite'],
 
-function(Game, Phaser,
+function(Game,
 
 InteractiveSprite){
 	

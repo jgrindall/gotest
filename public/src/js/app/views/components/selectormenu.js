@@ -1,11 +1,11 @@
 
-define('app/views/components/selectormenu',['phaser', 'app/components/buttons/closebutton', 'app/game',
+define('app/views/components/selectormenu',['app/components/buttons/closebutton', 
 
 'app/components/buttons/okbutton', 'app/components/popups/abstractpopup'
 
 ],
 
-function(Phaser, CloseButton, Game,
+function(CloseButton,
 
 OkButton, AbstractPopup
 

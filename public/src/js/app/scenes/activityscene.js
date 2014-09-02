@@ -1,7 +1,7 @@
 
 define('app/scenes/activityscene',['app/game', 'app/scenes/scene', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
-'app/text/textfactory', 'app/views/components/menu', 
+'app/views/components/menu', 
 
 'app/components/background', 'app/events/eventdispatcher',
 
@@ -9,7 +9,7 @@ define('app/scenes/activityscene',['app/game', 'app/scenes/scene', 'app/views/ca
 
 function(Game, Scene, Canvas, Controls,
 
-TextFactory, Menu,
+Menu,
 
 Background, eventDispatcher,
 

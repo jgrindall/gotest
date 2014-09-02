@@ -30,10 +30,16 @@ PlayingState){
 		if(data.playing === PlayingState.PLAYING){
 			this.enableButtonAt(0);
 			this.disableButtonAt(1);
+			this.disableButtonAt(2);
+			this.disableButtonAt(3);
+			this.disableButtonAt(4);
 		}
 		else if(data.playing === PlayingState.NOT_PLAYING){
 			this.disableButtonAt(0);
 			this.enableButtonAt(1);
+			this.enableButtonAt(2);
+			this.enableButtonAt(3);
+			this.enableButtonAt(4);
 		}
 	};
 	

@@ -1,5 +1,5 @@
 
-define('app/views/popups/gridmenu',['phaser', 'app/game', 'app/components/buttons/tickbutton',
+define('app/views/popups/gridmenu',['app/game', 'app/components/buttons/tickbutton',
 
 'app/components/popups/abstractpopup', 'app/text/textfactory',
 
@@ -9,7 +9,7 @@ define('app/views/popups/gridmenu',['phaser', 'app/game', 'app/components/button
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 
-function(Phaser, Game, TickButton,
+function(Game, TickButton,
 
 AbstractPopup, TextFactory,
 

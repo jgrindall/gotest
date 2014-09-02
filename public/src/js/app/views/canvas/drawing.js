@@ -7,7 +7,7 @@ define('app/views/canvas/drawing',['app/components/container',
 
 'app/logocommands/movecommand',
 
-'app/logocommands/turncommand', 'app/consts/penwidths',
+'app/logocommands/turncommand',
 
 'app/logocommands/fdcommand', 'app/consts/steplengths'],
 
@@ -19,7 +19,7 @@ ModelFacade,
 
 MoveCommand,
 
-TurnCommand, PenWidths,
+TurnCommand,
 
 FdCommand, StepLengths){
 	

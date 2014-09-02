@@ -1,9 +1,9 @@
 
-define('app/components/buttons/stepperbutton',['app/game', 'phaser',
-
+define('app/components/buttons/stepperbutton',['app/game', 
+	
 'app/components/interactivesprite'],
 
-function(Game, Phaser,
+function(Game, 
 
 InteractiveSprite){
 	
