@@ -1,9 +1,9 @@
 
-define('app/views/components/indicator',['app/game', 'app/text/textfactory',
+define('app/views/components/indicator',['phaser', 'app/game', 'app/text/textfactory',
 
 'app/components/container', 'app/models/modelfacade'],
 
-function(Game, TextFactory,
+function(Phaser, Game, TextFactory,
 
 Container, ModelFacade){
 	

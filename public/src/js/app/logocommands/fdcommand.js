@@ -7,19 +7,19 @@ define(
 
 	'app/logocommands/commandtypes'],
 
-	function(AbstractCommand, CommandTypes){
+	function(AbstractLogoCommand, CommandTypes){
 	
 		"use strict";
 		
-		var FdCommand = function(direction, color, index, total){
-			AbstractCommand.call(this, direction, color, index, total);
+		var FdCommand = function(json){
+			AbstractLogoCommand.call(this, json);
 		};
 		
-		FdCommand.prototype = Object.create(AbstractCommand.prototype);
+		FdCommand.prototype = Object.create(AbstractLogoCommand.prototype);
 		FdCommand.prototype.constructor = FdCommand;
 		
 		FdCommand.prototype.toJson = function(){
-			var json = AbstractCommand.prototype.toJson.call(this);
+			var json = AbstractLogoCommand.prototype.toJson.call(this);
 			json.type = CommandTypes.FD;
 			return json;
 		};

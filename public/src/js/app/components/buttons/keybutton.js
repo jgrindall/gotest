@@ -6,7 +6,7 @@ define('app/components/buttons/keybutton',['app/components/buttons/abstractbutto
 	var KeyButton = function(options){
 		var startFrame, frame0;
 		options.asset = 'button';
-		startFrame = 17 * 4;
+		startFrame = 18 * 4;
 		frame0 = startFrame + (4 * options.data.num);
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
 		AbstractButton.call(this, options);

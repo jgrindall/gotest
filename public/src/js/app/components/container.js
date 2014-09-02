@@ -1,7 +1,7 @@
 
-define('app/components/container',['app/game'],
+define('app/components/container',['phaser','app/game'],
 
-function(Game){
+function(Phaser, Game){
 	
 	"use strict";
 	

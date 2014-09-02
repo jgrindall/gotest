@@ -1,4 +1,4 @@
-define('app/boot/boot',['jquery', 'app/game',
+define('app/boot/boot',['zepto', 'app/game',
 
 	'app/scenemanager/scenemanager',
 

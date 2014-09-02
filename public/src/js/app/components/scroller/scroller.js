@@ -1,7 +1,7 @@
 
-define('app/components/scroller/scroller',['app/game', 'app/components/container'],
+define('app/components/scroller/scroller',['phaser', 'app/game', 'app/components/container'],
 
-function(Game, Container){
+function(Phaser, Game, Container){
 	
 	"use strict";
 

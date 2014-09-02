@@ -1,9 +1,9 @@
 
-define('app/components/popups/abstractpopup',['app/game',
+define('app/components/popups/abstractpopup',['phaser','app/game',
 
 'app/components/container'],
 
-function(Game,
+function(Phaser, Game,
 
 Container){
 	
@@ -24,6 +24,10 @@ Container){
 		this.group.add(this.panel);
 	};
 	
+	AbstractPopup.prototype.showMe = function () {
+		Game.getInstance().add.tween(this.group).to( {x: 0, y: 0}, 300, Phaser.Easing.Back.Out, true, 0, false);
+	};
+
 	AbstractPopup.prototype.getData = function() {
 		return {};
 	};

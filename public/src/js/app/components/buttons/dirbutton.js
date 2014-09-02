@@ -8,10 +8,10 @@ define('app/components/buttons/dirbutton',['app/components/buttons/abstractbutto
 		options.asset = 'button';
 		frame0 = 4 * options.data.num;
 		if(options.data.turn && options.data.num === 3){
-			frame0 = 104;
+			frame0 = 4 * 27;
 		}
 		else if(options.data.turn && options.data.num === 5){
-			frame0 = 108;
+			frame0 = 4 * 28;
 		}
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
 		AbstractButton.call(this, options);

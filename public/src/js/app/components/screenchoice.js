@@ -1,9 +1,9 @@
 
-define('app/components/screenchoice',['app/game', 'app/components/container',
+define('app/components/screenchoice',['phaser', 'app/game', 'app/components/container',
 
 'app/components/interactivesprite'],
 
-function(Game, Container,
+function(Phaser, Game, Container,
 
 InteractiveSprite){
 	

@@ -14,6 +14,8 @@ define('app/commands/commandmap',[
 
 'app/commands/typechoicecommand',
 
+'app/commands/gridchoicecommand',
+
 'app/commands/teachercommand',
 
 'app/commands/addcommandcommand',
@@ -30,7 +32,7 @@ define('app/commands/commandmap',[
 
 function(NewFileCommand, LoadCommand, SaveCommand, PrintCommand,
 
-UndoCommand, StopCommand, TypeChoiceCommand, TeacherCommand, AddCommandCommand,
+UndoCommand, StopCommand, TypeChoiceCommand, GridChoiceCommand, TeacherCommand, AddCommandCommand,
 
 DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events, eventDispatcher) {
 	
@@ -51,6 +53,7 @@ DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events, eventDispatch
 			this.map(Events.STOP, 				StopCommand);
 			this.map(Events.TEACHER_LOGIN, 		TeacherCommand);
 			this.map(Events.TYPE_CHOICE, 			TypeChoiceCommand);
+			this.map(Events.GRID_CHOICE, 			GridChoiceCommand);
 			this.map(Events.ADD_COMMAND, 			AddCommandCommand);
 			this.map(Events.STARTUP, 			StartUpCommand);
 			this.map(Events.DRAW, 				DrawCommand);

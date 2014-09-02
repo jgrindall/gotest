@@ -1,16 +1,16 @@
 
-define('app/utils/alertmanager',['app/game', 
+define('app/utils/alertmanager',['phaser', 'app/game', 
 
 'app/views/popups/gamescreenmenu', 'app/views/popups/gamebgmenu',
 
-'app/components/popups/growl'], 
+'app/components/popups/growl', 'app/views/popups/gridmenu'], 
 
-function(Game,
+function(Phaser, Game,
 
 GameScreenMenu, GameBgMenu,
 
-Growl){
-	
+Growl, GridMenu){
+
 	"use strict";
 	
 	var AlertManager  = function(){
@@ -52,9 +52,7 @@ Growl){
 		AlertManager.alert.selectSignal.add(this.callbackProxy);
 		Game.getInstance().world.add(AlertManager.alert.group);
 		Game.alertSignal.dispatch({"show":true});
-		setTimeout(function(){
-			AlertManager.alert.showMe();
-		}, 100);
+		AlertManager.alert.showMe();
 	};
 	
 	AlertManager.buttonClick = function(callback, data){
@@ -76,8 +74,8 @@ Growl){
 		AlertManager.make(Growl, data, callback);
 	};
 	
-	AlertManager.makeAlert = function(data, callback){
-		AlertManager.make(Alert, data, callback);
+	AlertManager.makeGridMenu = function(data, callback){
+		AlertManager.make(GridMenu, data, callback);
 	};
 	
 	AlertManager.getInstance = function(){

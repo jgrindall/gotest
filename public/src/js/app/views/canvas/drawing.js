@@ -1,5 +1,5 @@
 
-define('app/views/canvas/drawing',['jquery', 'app/components/container',
+define('app/views/canvas/drawing',['app/components/container',
 
 'app/views/canvas/turtle', 'app/views/canvas/paths',
 
@@ -7,11 +7,11 @@ define('app/views/canvas/drawing',['jquery', 'app/components/container',
 
 'app/logocommands/movecommand',
 
-'app/logocommands/turncommand',
+'app/logocommands/turncommand', 'app/consts/penwidths',
 
-'app/logocommands/fdcommand'],
+'app/logocommands/fdcommand', 'app/consts/steplengths'],
 
-function($, Container,
+function(Container,
 
 Turtle, Paths,
 
@@ -19,27 +19,29 @@ ModelFacade,
 
 MoveCommand,
 
-TurnCommand,
+TurnCommand, PenWidths,
 
-FdCommand){
+FdCommand, StepLengths){
 	
 	"use strict";
 	
 	var Drawing  = function(options){
-		this.centre = {'x':options.bounds.x + options.bounds.w/2, 'y':options.bounds.y + options.bounds.h/2};
+		var x, y;
+		x = Math.round((options.bounds.x + options.bounds.w/2)/StepLengths.GCD)*StepLengths.GCD;
+		y = Math.round((options.bounds.y + options.bounds.h/2)/StepLengths.GCD)*StepLengths.GCD;
+		this.centre = {'x':x, 'y':y};
 		Container.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
 		this.onReset();
 	};
 	
-	Drawing.DIST = 80;
 	Drawing.PI180 = 3.14159265359/180;
 	Drawing.ONE_RT2 = 1/1.4142135624;
 	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
 	Drawing.ROTATE_45 = [0, 0, 0, -45, 0, 45, 0, 0, 0];
 	Drawing.ROTATE_90 = [0, 0, 0, 90, 0, -90, 0, 0, 0];
-	Drawing.SCALES = [Drawing.ONE_RT2, 1, Drawing.ONE_RT2, 1, 1, 1, Drawing.ONE_RT2, 1, Drawing.ONE_RT2]; 
+	Drawing.DIAG = [Drawing.ONE_RT2, 1, Drawing.ONE_RT2, 1, 1, 1, Drawing.ONE_RT2, 1, Drawing.ONE_RT2]; 
 		
 	Drawing.prototype = Object.create(Container.prototype);
 	Drawing.prototype.constructor = Drawing;
@@ -49,7 +51,7 @@ FdCommand){
 	};
 	
 	Drawing.prototype.onReset = function(){
-		this.startPos = $.extend({}, this.centre);
+		this.startPos = {'x':this.centre.x, 'y':this.centre.y};
 		this.turtle.reset(this.startPos);
 		this.angle = -90;
 		this.setTurtle();
@@ -79,13 +81,15 @@ FdCommand){
 	};
 	
 	Drawing.prototype.setEndPoint = function() {
-		var dx, dy, thetaRad;
+		var dx, dy, thetaRad, distIndex, dist;
+		distIndex = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).getData().index;
+		dist = StepLengths.ALL[distIndex];
 		thetaRad = this.angle * Drawing.PI180;
-		dx = Drawing.DIST * Math.cos(thetaRad);
-		dy = Drawing.DIST * Math.sin(thetaRad);
-		if(ModelFacade.getInstance().get(ModelFacade.SCALE).getData().scale){
-			dx *= Drawing.SCALES[this.command.direction];
-			dy *= Drawing.SCALES[this.command.direction];
+		dx = dist * Math.cos(thetaRad);
+		dy = dist * Math.sin(thetaRad);
+		if(ModelFacade.getInstance().get(ModelFacade.DIAG).getData().scale){
+			dx *= Drawing.DIAG[this.command.direction];
+			dy *= Drawing.DIAG[this.command.direction];
 		}
 		if(this.isBackwards()){
 			dx *= -1;

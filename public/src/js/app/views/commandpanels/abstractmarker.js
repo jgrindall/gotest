@@ -1,5 +1,7 @@
 
-define('app/views/commandpanels/abstractmarker',['app/game', 'app/components/movieclip'], function(Game, MovieClip){
+define('app/views/commandpanels/abstractmarker',['phaser', 'app/game', 'app/components/movieclip'],
+
+	function(Phaser, Game, MovieClip){
 	
 	"use strict";
 	
@@ -7,7 +9,7 @@ define('app/views/commandpanels/abstractmarker',['app/game', 'app/components/mov
 		options.defaultFrame = 4;
 		options.asset = 'markers';
 		options.num = 11;
-		MovieClip.call(this, options);
+		MovieClip.call(this, Game.getInstance(), options);
 		this.sprite.anchor.setTo(0.5, 0.5);
 		this.sprite.alpha = 0.5;
 	};

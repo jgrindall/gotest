@@ -19,6 +19,7 @@ function(AbstractCommandFactory,
 	AddCommandCommand.prototype.execute = function(data){
 		var command;
 		data.color = ModelFacade.getInstance().get(ModelFacade.COLOR).getData().index;
+		data.width = ModelFacade.getInstance().get(ModelFacade.WIDTH).getData().index;
 		command = new AbstractCommandFactory.fromJson(data);
 		ModelFacade.getInstance().get(ModelFacade.COMM).add(command);
 		eventDispatcher.trigger({"type":Events.DRAW});

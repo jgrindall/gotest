@@ -1,11 +1,11 @@
 
-define('app/views/components/selectormenu',['app/components/buttons/closebutton', 'app/game',
+define('app/views/components/selectormenu',['phaser', 'app/components/buttons/closebutton', 'app/game',
 
 'app/components/buttons/okbutton', 'app/components/popups/abstractpopup'
 
 ],
 
-function(CloseButton, Game,
+function(Phaser, CloseButton, Game,
 
 OkButton, AbstractPopup
 
@@ -28,10 +28,6 @@ OkButton, AbstractPopup
 		AbstractPopup.prototype.create.call(this);
 		this.addCloseButton();
 		this.addOkButton();
-	};
-	
-	SelectorMenu.prototype.showMe = function () {
-		Game.getInstance().add.tween(this.group).to( {'x': 0, 'y': 0}, 700, Phaser.Easing.Back.InOut, true, 0, false);
 	};
 	
 	SelectorMenu.prototype.addOkButton = function () {

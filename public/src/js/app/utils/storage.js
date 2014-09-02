@@ -1,11 +1,7 @@
 
-define('app/utils/storage',['jquery', 
+define('app/utils/storage',['app/utils/alertmanager'],
 
-	'app/utils/alertmanager'],
-
-function($,
-
-	AlertManager){
+function(AlertManager){
 	
 	"use strict";
 

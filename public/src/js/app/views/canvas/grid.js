@@ -1,11 +1,12 @@
 
-define('app/views/canvas/grid',['app/game', 'app/components/container'],
+define('app/views/canvas/grid',['phaser', 'app/game', 'app/components/container'],
 
-function(Game, Container){
+function(Phaser, Game, Container){
 	
 	"use strict";
 	
 	var Grid  = function(options){
+		this.asset = 'grid' + options.num;
 		Container.call(this, options);
 	};
 	
@@ -15,9 +16,10 @@ function(Game, Container){
 	Grid.prototype.updateImage = function() {
 		if(this.sprite){
 			this.sprite.destroy(true);
+			this.sprite.destroy(true);
 			this.sprite = null;
 		}
-		this.sprite = new Phaser.TileSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, 'grid0');
+		this.sprite = new Phaser.TileSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, this.asset);
 		this.group.add(this.sprite);
 	};
 	

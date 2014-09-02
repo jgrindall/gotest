@@ -4,18 +4,18 @@ module.exports = function(grunt) {
     	pkg: grunt.file.readJSON('package.json'),
 		
 
-  amdcheck: {
-      src: {
-        files: [
-          {
-            expand: true,
-            cwd: 'public/src/js/app/',
-            src: ['**/*.js'],
-            dest: 'minimised/'
+      amdcheck: {
+          src: {
+            files: [
+              {
+                expand: true,
+                cwd: 'public/src/js/app/',
+                src: ['**/*.js'],
+                dest: 'minimised/'
+              }
+            ]
           }
-        ]
-      }
-    },
+        },
 
 		jshint: {
   			main: {
@@ -35,14 +35,11 @@ module.exports = function(grunt) {
      			browser: true,
      			strict:false,
       			globals: {
-        			jQuery: true,
         			require:true,
         			define:true,
-        			$:true,
-        			Phaser:true
       			}
     		},
-    		all: ['public/src/js/app/scenemanager.js', 'public/src/js/app/**/*.js']
+    		all: ['public/src/js/app/**/*.js']
     	},
   
 		
@@ -50,14 +47,15 @@ module.exports = function(grunt) {
   			compile: {
     			options: {
       				baseUrl: 'public/src/js',
-					out: 'public/build/js/main.js',
+				    out: 'public/build/js/main.js',
 					removeCombined: true,
 					include: ['main'],
 					findNestedDependencies: true,
 					paths: {
-						jquery: 			'lib/jquery.min',
-						phaser: 			'lib/phaser',
-						phaserstatetrans: 	'lib/phaser-state-transition.min'
+						zepto:                         'lib/zepto',
+						phaser: 			           'lib/phaser',
+						phaserstatetrans: 	           'lib/phaser-state-transition.min',
+                        phasercomponents:              'lib/phasercomponents'
 					}
     			}
   			}
@@ -89,12 +87,12 @@ module.exports = function(grunt) {
 		  	
   	});
 	   
-     grunt.loadNpmTasks('grunt-amdcheck');
-	   grunt.loadNpmTasks('grunt-contrib-jshint');
-	   grunt.loadNpmTasks('grunt-contrib-clean');
-  	 grunt.loadNpmTasks('grunt-contrib-requirejs');
-     grunt.loadNpmTasks('grunt-contrib-copy');
-  	 grunt.registerTask('default', ['amdcheck:src','clean', 'jshint', 'requirejs', 'copy']);
+    grunt.loadNpmTasks('grunt-amdcheck');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+  	grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-copy');
+  	grunt.registerTask('default', ['amdcheck:src','clean', 'jshint', 'requirejs', 'copy']);
 
 };
 

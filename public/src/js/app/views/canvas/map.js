@@ -1,9 +1,9 @@
 
-define('app/views/canvas/map',['app/game', 'app/components/container',
+define('app/views/canvas/map',['phaser', 'app/game', 'app/components/container',
 
 'app/models/modelfacade'],
 
-function(Game, Container,
+function(Phaser, Game, Container,
 
 ModelFacade){
 	

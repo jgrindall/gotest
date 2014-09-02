@@ -1,5 +1,5 @@
 
-define('app/components/loaderbar/loaderbar',['app/game'], function(Game){
+define('app/components/loaderbar/loaderbar',['phaser','app/game'], function(Phaser, Game){
 	
 	"use strict";
 	

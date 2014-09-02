@@ -1,11 +1,11 @@
 
-define('app/models/commtickermodel',['app/models/abstractmodel',
+define('app/models/commtickermodel',['phaser', 'app/models/abstractmodel',
 
 'app/events/events', 'app/events/eventdispatcher'
 
 ],
 
-function(AbstractModel, Events, eventDispatcher){
+function(Phaser, AbstractModel, Events, eventDispatcher){
 	
 	"use strict";
 	
@@ -76,7 +76,9 @@ function(AbstractModel, Events, eventDispatcher){
 	CommTickerModel.prototype.replay = function() {
 		this.resetSignal.dispatch();
 		this.commandNum = 0;
-		this.performCommand();
+		if(this.getNum() >= 1){
+			this.performCommand();
+		}
 	};
 	
 	CommTickerModel.prototype.removeCommands = function() {

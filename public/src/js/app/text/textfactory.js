@@ -1,5 +1,5 @@
 
-define('app/text/textfactory',['app/game'], function(Game){
+define('app/text/textfactory',['phaser', 'app/game'], function(Phaser, Game){
 	
 	"use strict";
 	

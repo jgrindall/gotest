@@ -19,13 +19,13 @@ FdCommand, CommandTypes){
 	
 	AbstractCommandFactory.fromJson = function(json){
 		if(json.type === CommandTypes.MOVE){
-			return new MoveCommand(json.direction, json.color, json.index, json.total);
+			return new MoveCommand(json);
 		}
 		else if(json.type === CommandTypes.TURN){
-			return new TurnCommand(json.direction, json.color, json.index, json.total);
+			return new TurnCommand(json);
 		}
 		else if(json.type === CommandTypes.FD){
-			return new FdCommand(json.direction, json.color, json.index, json.total);
+			return new FdCommand(json);
 		}
 	};
 	

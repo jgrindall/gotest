@@ -1,7 +1,7 @@
 
-define('app/game',[],
+define('app/game',['phaser'],
 
-function(){
+function(Phaser){
 	
 	"use strict";
 	
@@ -68,15 +68,12 @@ function(){
 		Game.scaleManager.forceOrientation(true, false);
 	};
 	
-	Game.setMoveCallback = function(f){
-		
-	};
-	
 	Game.create = function(){
 		var w, h;
 		w = Game.getWidth();
-    		h = Game.getHeight();
+    	h = Game.getHeight();
 		Game.instance = new Phaser.Game(w, h, Phaser.AUTO, 'game', Game.config);
+		Game.instance.stage.backgroundColor = '#5A5A5A';
 		Game.setupScale();
 	};
 	

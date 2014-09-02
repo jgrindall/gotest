@@ -1,9 +1,9 @@
 
-define('app/components/buttongrid/buttongrid',['app/game', 'app/components/container',
+define('app/components/buttongrid/buttongrid',['phaser','app/game', 'app/components/container',
 
 'app/components/buttongrid/buttongridmodel'],
 
-function(Game, Container,
+function(Phaser, Game, Container,
 
 ButtonGridModel){
 	

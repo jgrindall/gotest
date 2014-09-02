@@ -39,7 +39,7 @@ Indicator, Grid){
 	};
 	
 	Canvas.prototype.addIndicator = function() {
-		this.indicator = new Indicator({'bounds':{'x':30, 'y':50}});
+		this.indicator = new Indicator({'bounds':{'x':10, 'y':50}});
 		this.group.add(this.indicator.gfx);
 	};
 	
@@ -56,21 +56,22 @@ Indicator, Grid){
 
 	Canvas.prototype.addGrid = function() {
 		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
-		this.grid = new Grid({'bounds':bounds});
-		console.log(this.grid, this.grid.group);
+		this.grid = new Grid({'bounds':bounds, 'num':0});
 		this.group.add(this.grid.group);
 	};
 	
-	Canvas.prototype.addButton = function() {
-		var bounds = {"x":0, "y":0, "w":100, "h":50};
-		var b = new TabButton({'bounds':bounds});
-		this.group.add(b.sprite);
-	};
-	
 	Canvas.prototype.destroy = function() {
-		Container.prototype.destroy.call(this);
+		this.group.remove(this.grid.group);
+		this.group.remove(this.map.group);
+		this.group.remove(this.grid.group);
+		this.group.remove(this.indicator.gfx);
+		this.group.remove(this.bg.sprite);
 		this.map.destroy();
 		this.bg.destroy();
+		this.grid.destroy();
+		this.drawing.destroy();
+		this.indicator.destroy();
+		Container.prototype.destroy.call(this);
 	};
 	
 	return Canvas;

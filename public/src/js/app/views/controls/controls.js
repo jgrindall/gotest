@@ -5,7 +5,7 @@ define('app/views/controls/controls',['app/game', 'app/components/container', 'a
 
 'app/components/buttongrid/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/views/components/colorpicker',
+'app/views/components/colorpicker', 'app/views/components/widthpicker',
 
 'app/models/modelfacade',
 
@@ -21,7 +21,7 @@ function(Game, Container, Background, Slider,
 
 TabButtonBar, TabButton,
 
-ColorPicker,
+ColorPicker, WidthPicker,
 
 ModelFacade,
 
@@ -48,8 +48,9 @@ eventDispatcher, Events){
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addColorPicker();
+		this.addWidthPicker();
 		this.addButtons();
-		this.addSpeedButton();
+		this.addSpeedSlider();
 	};
 	
 	Controls.prototype.onScreenChanged = function(data) {
@@ -69,12 +70,14 @@ eventDispatcher, Events){
 	Controls.prototype.disableAllInput = function() {
 		if(this.colorPicker){
 			this.colorPicker.disableInput();
+			this.speedSlider.disableInput();
 		}
 	};
 	
 	Controls.prototype.enableAllInput = function() {
 		if(this.colorPicker){
 			this.colorPicker.enableInput();
+			this.speedSlider.enableInput();
 		}
 	};
 	
@@ -94,7 +97,7 @@ eventDispatcher, Events){
 		this.group.add(this.menu.group);
 	};
 	
-	Controls.prototype.addSpeedButton = function() {
+	Controls.prototype.addSpeedSlider = function() {
 		this.speedSlider = new Slider({"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":Game.w()/2 - 150, "y":0}});
 		this.group.add(this.speedSlider.group);
 	};
@@ -112,6 +115,9 @@ eventDispatcher, Events){
 		}
 		else if(index === 3){
 			eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
+		}
+		else if(index === 4){
+			eventDispatcher.trigger({"type":Events.GRID_CHOICE});
 		} 
 	};
 	
@@ -130,6 +136,12 @@ eventDispatcher, Events){
 		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.sprite);
 	};
+
+	Controls.prototype.addWidthPicker = function() {
+		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':Game.h() - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
+		this.widthPicker = new WidthPicker({"bounds":bounds, "asset":'width', "num":5, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
+		this.group.add(this.widthPicker.sprite);
+	};
 	
 	Controls.prototype.addTabs = function() {
 		var bounds = {'x':this.bounds.x, 'y':5, 'w':600, 'h':50};
@@ -141,7 +153,9 @@ eventDispatcher, Events){
 	Controls.prototype.destroy = function() {
 		this.bg.destroy();
 		this.colorPicker.destroy();
-		this.menu.signal.remove(this.menuSelected, this);
+		this.widthPicker.destroy();
+		this.speedSlider.destroy();
+		this.menu.clickSignal.remove(this.menuClick, this);
 		this.menu.destroy();
 		this.bg = null;
 		this.colorPicker = null;

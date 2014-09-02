@@ -15,9 +15,9 @@ PlayingState){
 	
 	var ControlMenu  = function(options){
 		options.buttonClass = ControlMenuButton;
-		options.numX = 4;
+		options.numX = 5;
 		options.numY = 1;
-		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}];
+		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}, {'num':8}];
 		ButtonBar.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.disableButtonAt(1);

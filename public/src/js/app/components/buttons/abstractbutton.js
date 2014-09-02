@@ -1,6 +1,6 @@
 
 define('app/components/buttons/abstractbutton',
-['app/game'], function(Game){
+['phaser','app/game'], function(Phaser, Game){
 	
 	"use strict";
 	

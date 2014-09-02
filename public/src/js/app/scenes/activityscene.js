@@ -32,6 +32,13 @@ Events){
 		this.addMenu();
 		eventDispatcher.trigger({"type":Events.STARTUP});
 		eventDispatcher.trigger({"type":Events.REPLAY});
+		var that = this;
+		setTimeout(function(){
+
+			that.destroy();
+
+		}, 5000);
+
 	};
 	
 	ActivityScene.prototype.addBg = function() {
@@ -41,11 +48,6 @@ Events){
 		bounds = {'x':0, 'y':0, 'w':w, 'h':h};
 		this.bg = new Background({"asset":'sky', "bounds":bounds});
 		this.world.add(this.bg.sprite);
-	};
-	
-	ActivityScene.prototype.addText = function() {
-		this.label = TextFactory.make(Game.cx() - 300, 0, "Main menu", TextFactory.LARGE);
-		this.world.add(this.label);
 	};
 	
 	ActivityScene.prototype.addCanvas = function() {
@@ -80,12 +82,24 @@ Events){
 	ActivityScene.prototype.addControls = function() {
 		var bounds = {"x":Game.w() - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":Game.h()};
 		this.controls = new Controls({"bounds":bounds});
+		this.world.add(this.controls.group);
 	};
 	
-	ActivityScene.prototype.shutdown = function() {
-		Scene.prototype.shutdown.apply(this, arguments);
+	ActivityScene.prototype.destroy = function() {
+		this.world.remove(this.menu.group);
+		this.world.remove(this.canvas.group);
+		this.world.remove(this.controls.group);
+		this.world.remove(this.bg.sprite);
+		this.bg.destroy();
+		this.menu.destroy();
 		this.canvas.destroy();
 		this.controls.destroy();
+	};
+
+
+	ActivityScene.prototype.shutdown = function() {
+		Scene.prototype.shutdown.apply(this, arguments);
+		this.destroy();
 	};
 	
 	return ActivityScene;

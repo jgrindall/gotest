@@ -1,11 +1,11 @@
 
-define('app/components/screenpanel',['app/components/container',
+define('app/components/screenpanel',['phaser', 'app/components/container',
 
 'app/components/screenchoice', 'app/components/buttongrid/buttongridmodel',
 
 'app/components/buttongrid/buttongrid'],
 
-function(Container, 
+function(Phaser, Container, 
 
 ScreenChoice, ButtonGridModel,
 

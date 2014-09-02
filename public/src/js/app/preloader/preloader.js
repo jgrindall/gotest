@@ -1,5 +1,5 @@
 
-define('app/preloader/preloader',['app/game'], function(Game){
+define('app/preloader/preloader',['phaser', 'app/game'], function(Phaser, Game){
 	
 	"use strict";
 	
@@ -50,6 +50,8 @@ define('app/preloader/preloader',['app/game'], function(Game){
 	Preloader.LEVEL_BUTTON_LOCKED = 		'levelbuttonlocked';
 	Preloader.KILLAREA = 				'killarea';
 	Preloader.PENS = 					'pens';
+	Preloader.WIDTH = 					'width';
+	Preloader.TOGGLE = 					'toggle';
 	
 	Preloader.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/other/smallpanel.png",	 			"key":Preloader.SMALL_PANEL_KEY,				"w":225, 	"h":250},
@@ -64,7 +66,9 @@ define('app/preloader/preloader',['app/game'], function(Game){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 				"key":Preloader.TICK_KEY, 					"w":80, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Preloader.OK_BUTTON_KEY, 				"w":250, 	"h":75},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Preloader.MARKER_KEY, 					"w":40, 	"h":40},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 					"key":Preloader.PENS, 						"w":160, 	"h":80}
+		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 					"key":Preloader.PENS, 						"w":160, 	"h":80},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/width.png", 					"key":Preloader.WIDTH, 						"w":80, 	"h":80},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/toggle.png", 					"key":Preloader.TOGGLE, 						"w":120, 	"h":60}
 	];
 	
 	Preloader.SOUNDS = [

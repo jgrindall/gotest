@@ -1,24 +1,24 @@
 
-define('app/components/slider/slider',['app/game', 'app/components/container',
+define('app/components/slider/slider',['phaser', 'app/game', 'app/components/container',
 
-'app/components/interactivesprite', 'phaser'],
+'app/components/interactivesprite'],
 
-function(Game, Container,
+function(Phaser, Game, Container,
 
-InteractiveSprite, Phaser){
+InteractiveSprite){
 	
 	"use strict";
 	
 	var Slider = function(options){
-		var speed;
+		var index;
+		this.num = Math.floor(Math.random() * 1000);
 		this.model = options.model;
 		this.stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / options.num;
-		Game.alertSignal.add(this.onAlert, this);
 		this.model.changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
-		speed = this.model.getData().speed;
-		if(speed !== null){
-			this.goTo(speed);
+		index = this.model.getData().index;
+		if(index !== null){
+			this.goTo(index);
 		}
 	};
 	
@@ -31,28 +31,19 @@ InteractiveSprite, Phaser){
 	Slider.prototype.constructor = Slider;
 	
 	Slider.prototype.onChanged = function(data){
-		this.goTo(data.speed);
+		this.goTo(data.index);
 	};
 	
 	Slider.prototype.goTo = function(n) {
 		this.handle.x = this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist);
 	};
 	
-	Slider.prototype.onAlert = function(data) {
-		if(data.show){
-			this.disableAllInput();
-		}
-		else{
-			this.enableAllInput();
-		}
-	};
-	
-	Slider.prototype.disableAllInput = function() {
+	Slider.prototype.disableInput = function() {
 		this.handle.disableInput();
 		this.removeListeners();
 	};
 	
-	Slider.prototype.enableAllInput = function() {
+	Slider.prototype.enableInput = function() {
 		this.handle.enableInput();
 		this.addListeners();
 	};	
@@ -109,6 +100,7 @@ InteractiveSprite, Phaser){
 	
 	Slider.prototype.removeListeners = function(){
 		this.handle.mouseDownSignal.remove(this.startDragging, this);
+		Game.getInput().onDown.remove(this.onUp, this);
 	};
 	
 	Slider.prototype.mouseOutCallback = function() {
@@ -133,15 +125,17 @@ InteractiveSprite, Phaser){
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addHandle();
-		this.enableAllInput();
+		this.enableInput();
 	};
 	
 	Slider.prototype.destroy = function(){
-		this.bg.destroy(true);
-		this.changeSignal.dispose();
-		this.changeSignal = null;
-		this.handle.destroy();
 		this.removeListeners();
+		this.bg.destroy(true);
+		this.model.changeSignal.remove(this.onChanged, this);
+		Game.getInput().onUp.remove(this.onUp, this);
+		Game.getInput().moveCallback = null;
+		Game.getInput().mouse.mouseOutCallback = null;
+		this.handle.destroy();
 		this.handle = null;
 		this.bg = null;
 	};

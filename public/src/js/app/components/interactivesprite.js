@@ -25,7 +25,7 @@ define('app/components/interactivesprite',['phaser'], function(Phaser){
 	InteractiveSprite.prototype.enableInput = function(){
 		if(!this.inputEnabled){
 			this.inputEnabled = true;
-			this.input.useHandCursor = true;
+			this.game.input.useHandCursor = true;
 			this.addListeners();
 		}
 	};

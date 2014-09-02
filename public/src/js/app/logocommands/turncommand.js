@@ -5,19 +5,19 @@ define(
 
 	['app/logocommands/abstractlogocommand', 'app/logocommands/commandtypes'],
 
-	function(AbstractCommand, CommandTypes){
+	function(AbstractLogoCommand, CommandTypes){
 	
 		"use strict";
 		
-		var TurnCommand = function(direction, color, index, total){
-			AbstractCommand.call(this, direction, color, index, total);
+		var TurnCommand = function(json){
+			AbstractLogoCommand.call(this, json);
 		};
 
-		TurnCommand.prototype = Object.create(AbstractCommand.prototype);
+		TurnCommand.prototype = Object.create(AbstractLogoCommand.prototype);
 		TurnCommand.prototype.constructor = TurnCommand;
 		
 		TurnCommand.prototype.toJson = function(){
-			var json = AbstractCommand.prototype.toJson.call(this);
+			var json = AbstractLogoCommand.prototype.toJson.call(this);
 			json.type = CommandTypes.TURN;
 			return json;
 		};

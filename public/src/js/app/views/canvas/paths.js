@@ -1,9 +1,9 @@
 
-define('app/views/canvas/paths',['app/game', 'app/components/container',
+define('app/views/canvas/paths',['phaser', 'app/game', 'app/components/container',
 
 'app/views/canvas/linedrawer'],
 
-function(Game, Container,
+function(Phaser, Game, Container,
 
 LineDrawer){
 	
@@ -72,11 +72,11 @@ LineDrawer){
 	};
 	
 	Paths.prototype.destroy = function() {
-		Container.prototype.destroy.call(this);
-		this.gfx.endSignal.remove(this.onDrawerEnd, this);
+		this.lineDrawer.endSignal.remove(this.onDrawerEnd, this);
 		this.endSignal.dispose();
 		this.endSignal = null;
 		this.removeGfx();
+		Container.prototype.destroy.call(this);
 	};
 	
 	return Paths;

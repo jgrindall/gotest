@@ -1,7 +1,7 @@
 
-define('app/views/canvas/turtle',['app/game', 'app/components/container'],
+define('app/views/canvas/turtle',['phaser', 'app/game', 'app/components/container'],
 
-function(Game, Container){
+function(Phaser, Game, Container){
 	
 	"use strict";
 	

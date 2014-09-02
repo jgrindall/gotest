@@ -1,4 +1,4 @@
-define('app/events/eventdispatcher',['jquery'],
+define('app/events/eventdispatcher',['zepto'],
 
 function($) {
 	

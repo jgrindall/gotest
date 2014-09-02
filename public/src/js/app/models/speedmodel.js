@@ -11,14 +11,14 @@ AbstractModel){
 	
 	var SpeedModel  = function(){
 		AbstractModel.call(this);
-		this.speed = CommSpeed.VSLOW;
+		this.index = CommSpeed.VSLOW;
 	};
 	
 	SpeedModel.prototype = Object.create(AbstractModel.prototype);
 	SpeedModel.prototype.constructor = SpeedModel;
 	
 	SpeedModel.prototype.getData = function() {
-		return {"speed":this.speed, "actualSpeed":CommSpeed.ALL[this.speed]};
+		return {"index":this.index, "actualSpeed":CommSpeed.ALL[this.index]};
 	};
 	
 	SpeedModel.prototype.setData = function(n) {
@@ -26,8 +26,8 @@ AbstractModel){
 	};
 	
 	SpeedModel.prototype.setSpeed = function(s) {
-		if(this.speed !== s){
-			this.speed = s;
+		if(this.index !== s){
+			this.index = s;
 			this.trigger();
 		}
 	};
