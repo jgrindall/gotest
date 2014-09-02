@@ -21,6 +21,11 @@ PhaserStateTrans
 
 	};
 
+	SceneManager.prototype.registerTransitions = function(){
+		this.transitions = Game.getInstance().plugins.add(PhaserStateTrans);
+		this.transitions.settings({'duration': 300,	'properties': {'alpha': 0, 'scale': {'x': 1.05, 'y': 1.05}}});
+	};
+	
 	SceneManager.prototype.registerScenes = function(){
 		this.addScene(AppConsts.LOADER_SCENE);
 		this.addScene(AppConsts.ACTIVITY_SCENE);
@@ -47,8 +52,6 @@ PhaserStateTrans
 	};
 
 	SceneManager.prototype.preload = function(){
-		this.transitions = Game.getInstance().plugins.add(PhaserStateTrans);
-		this.transitions.settings({'duration': 300,	'properties': {'alpha': 0, 'scale': {'x': 1.05, 'y': 1.05}}});
 		Game.getInstance().load.image('sky', 'assets/images/bg/sky.png');
 		Game.getInstance().load.spritesheet('loaderBar', 'assets/images/other/bar.png', 500, 60);
 	};
@@ -59,6 +62,7 @@ PhaserStateTrans
 
 	SceneManager.prototype.create = function() {
 		this.registerScenes();
+		this.registerTransitions();
 		this.load(AppConsts.LOADER_SCENE);
 	};
 	

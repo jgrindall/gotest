@@ -65,7 +65,7 @@ function($,
 		if(!data){
 			data = this.persistence.getItem(key);
 			if(data){
-				data = $.parseJSON(data);
+				data = JSON.parse(data);
 				this.addToCache(key, data);
 			}
 		}

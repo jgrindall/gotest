@@ -1,7 +1,7 @@
 
-define('app/components/scroller/scroller',['jquery', 'app/game', 'app/components/container'],
+define('app/components/scroller/scroller',['app/game', 'app/components/container'],
 
-function($, Game, Container){
+function(Game, Container){
 	
 	"use strict";
 
@@ -129,8 +129,8 @@ function($, Game, Container){
 		this.x0 = null;
 		this.dragging = true;
 		Game.getInput().onUp.add(this.onUp, this);
-		Game.getInput().mouse.mouseOutCallback = $.proxy(this.mouseOutCallback, this);
-		Game.getInput().moveCallback = $.proxy(this.move, this);
+		Game.getInput().mouse.mouseOutCallback = this.mouseOutCallback.bind(this);
+		Game.getInput().moveCallback = this.move.bind(this);
 	};
 	
 	Scroller.prototype.removeListeners = function() {
@@ -142,7 +142,7 @@ function($, Game, Container){
 	
 	Scroller.prototype.destroy = function() {
 		var that = this;
-		$.each(this.children, function(i, child){
+		this.children.forEach(function(child){
 			if(child.clickSignal){
 				child.clickSignal.remove(that.select, that);
 			}

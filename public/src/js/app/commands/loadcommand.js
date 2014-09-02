@@ -1,10 +1,10 @@
-define('app/commands/loadcommand',['jquery', 'app/utils/alertmanager',
+define('app/commands/loadcommand',['app/utils/alertmanager',
 
 	'app/utils/storage', 'app/models/modelfacade',
 
 	'app/events/eventdispatcher', 'app/events/events'],
 
-function($, AlertManager,
+function(AlertManager,
 
 	Storage, ModelFacade,
 
@@ -17,7 +17,7 @@ function($, AlertManager,
 	};
 	
 	LoadCommand.prototype.execute = function(data){
-		Storage.getInstance().load($.proxy(this.onLoaded, this));
+		Storage.getInstance().load(this.onLoaded.bind(this));
 	};
 	
 	LoadCommand.prototype.onLoaded = function(data){

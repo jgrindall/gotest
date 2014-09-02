@@ -1,9 +1,9 @@
 
-define('app/models/commmodel',['jquery', 'app/logocommands/abstractlogocommandfactory',
+define('app/models/commmodel',['app/logocommands/abstractlogocommandfactory',
 
 'app/models/abstractmodel'],
 
-function($, AbstractCommandFactory,
+function(AbstractCommandFactory,
 
 AbstractModel){
 	
@@ -25,7 +25,7 @@ AbstractModel){
 	CommModel.prototype.setData = function(commands) {
 		var that = this;
 		this.reset();
-		$.each(commands, function(i, c){
+		commands.forEach(function(c, i){
 			that.add(AbstractCommandFactory.fromJson(c), false);
 		});
 	};
@@ -36,7 +36,7 @@ AbstractModel){
 
 	CommModel.prototype.toJson = function() {
 		var jsonArray = [];
-		$.each(this.commands, function(i,c){
+		this.commands.forEach(function(c, i){
 			jsonArray.push(c.toJson());
 		});
 		return jsonArray;

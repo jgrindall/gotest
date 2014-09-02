@@ -16,8 +16,8 @@ function($, Game, SceneManager,
 	
 	Boot.prototype.launch = function(){
 		var config = {
-			"create":$.proxy(this.create, this),
-			"preload":$.proxy(this.preload, this)
+			"create":this.create.bind(this),
+			"preload":this.preload.bind(this)
 		};
 		this.sceneManager = new SceneManager();
 		commandMap.init();
@@ -38,8 +38,8 @@ function($, Game, SceneManager,
 	};
 	
 	Boot.prototype.start = function(){
-		$(window).resize($.proxy(this.resize, this));
-		$(document).ready($.proxy(this.launch, this));
+		$(window).resize(this.resize.bind(this));
+		$(document).ready(this.launch.bind(this));
 	};
 	
 	return Boot;

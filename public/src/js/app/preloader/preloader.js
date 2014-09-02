@@ -1,5 +1,5 @@
 
-define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
+define('app/preloader/preloader',['app/game'], function(Game){
 	
 	"use strict";
 	
@@ -8,6 +8,7 @@ define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
 		this.loadSignal = new Phaser.Signal();
 	};
 
+	Preloader.GRID0 = 					'grid0';
 	Preloader.MAP0_KEY = 				'map0';
 	Preloader.MAP1_KEY = 				'map1';
 	Preloader.MAP2_KEY = 				'map2';
@@ -30,14 +31,14 @@ define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
 	Preloader.STAR_KEY = 				'star';
 	Preloader.ENEMY_KEY = 				'enemy';
 	Preloader.PANEL_KEY = 				'panel';
-	Preloader.SMALL_PANEL_KEY = 			'smallpanel';
+	Preloader.SMALL_PANEL_KEY = 		'smallpanel';
 	Preloader.ALERT_KEY = 				'alert';
 	Preloader.LEFT_KEY = 				'left';
 	Preloader.RIGHT_KEY = 				'right';
-	Preloader.UP_KEY = 				'up';
+	Preloader.UP_KEY = 					'up';
 	Preloader.OK_BUTTON_KEY = 			'okbutton';
 	Preloader.DOWN_KEY = 				'down';
-	Preloader.BUTTON = 				'button';
+	Preloader.BUTTON = 					'button';
 	Preloader.MARKERS = 				'markers';
 	Preloader.SLIDERBG = 				'sliderbg';
 	Preloader.SLIDERHANDLE = 			'sliderhandle';
@@ -73,6 +74,7 @@ define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
 	];
 	
 	Preloader.IMAGES = [
+		{"type":"image", 		"asset":"assets/images/grids/grid0.png", 			"key":Preloader.GRID0},
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Preloader.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Preloader.SLIDERHANDLE},
 		{"type":"image", 		"asset":"assets/images/bg/bg0.jpg", 				"key":Preloader.MAP0_KEY},
@@ -107,7 +109,7 @@ define('app/preloader/preloader',['jquery', 'app/game'], function($, Game){
 	
 	Preloader.prototype.start = function(){
 		var game = Game.getInstance();
-		game.load.onFileComplete.add($.proxy(this.fileLoaded, this));
+		game.load.onFileComplete.add(this.fileLoaded.bind(this));
 		this.loadNext();
 	};
 

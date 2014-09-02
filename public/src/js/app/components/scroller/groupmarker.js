@@ -1,7 +1,7 @@
 
-define('app/components/scroller/groupmarker',['jquery', 'app/game', 'app/components/buttons/markerbutton', 'app/components/container'],
+define('app/components/scroller/groupmarker',['app/game', 'app/components/buttons/markerbutton', 'app/components/container'],
 
-function($, Game, MarkerButton, Container){
+function(Game, MarkerButton, Container){
 	
 	"use strict";
 	
@@ -30,7 +30,7 @@ function($, Game, MarkerButton, Container){
 	};
 	
 	GroupMarker.prototype.setSelected = function(index) {
-		$.each(this.buttons, function(i, button){
+		this.buttons.forEach(function(button, i){
 			if(i === index){
 				button.select();
 			}

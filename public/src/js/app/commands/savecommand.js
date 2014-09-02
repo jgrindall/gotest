@@ -1,8 +1,8 @@
-define('app/commands/savecommand',['jquery', 'app/utils/alertmanager',
+define('app/commands/savecommand',['app/utils/alertmanager',
 
 	'app/utils/storage', 'app/models/modelfacade'],
 
-function($, AlertManager,
+function(AlertManager,
 
 	Storage, ModelFacade) {
 	
@@ -14,7 +14,7 @@ function($, AlertManager,
 	
 	SaveCommand.prototype.execute = function(data){
 		var json = ModelFacade.getInstance().getJson();
-		Storage.getInstance().save(json, $.proxy(this.onSaved, this));
+		Storage.getInstance().save(json, this.onSaved.bind(this));
 	};
 	
 	SaveCommand.prototype.onSaved = function(data){

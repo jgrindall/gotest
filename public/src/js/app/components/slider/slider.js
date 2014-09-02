@@ -1,9 +1,9 @@
 
-define('app/components/slider/slider',['jquery', 'app/game', 'app/components/container',
+define('app/components/slider/slider',['app/game', 'app/components/container',
 
 'app/components/interactivesprite', 'phaser'],
 
-function($, Game, Container,
+function(Game, Container,
 
 InteractiveSprite, Phaser){
 	
@@ -99,8 +99,8 @@ InteractiveSprite, Phaser){
 	Slider.prototype.startDragging = function(data) {
 		this.dragging = true;
 		Game.getInput().onUp.add(this.onUp, this);
-		Game.getInput().moveCallback = $.proxy(this.move, this);
-		Game.getInput().mouse.mouseOutCallback = $.proxy(this.mouseOutCallback, this);
+		Game.getInput().moveCallback = this.move.bind(this);
+		Game.getInput().mouse.mouseOutCallback = this.mouseOutCallback.bind(this);
 	};
 	
 	Slider.prototype.addListeners = function(){

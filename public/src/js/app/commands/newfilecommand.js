@@ -1,10 +1,6 @@
-define('app/commands/newfilecommand',['jquery',
+define('app/commands/newfilecommand',['app/utils/alertmanager', 'app/models/modelfacade'],
 
-	'app/utils/alertmanager', 'app/models/modelfacade'],
-
-function($,
-
-	AlertManager, ModelFacade) {
+function(AlertManager, ModelFacade) {
 	
 	"use strict";
 	
@@ -13,7 +9,7 @@ function($,
 	};
 	
 	NewFileCommand.prototype.execute = function(data){
-		AlertManager.makeBgMenu({}, $.proxy(this.onBgChosen, this));
+		AlertManager.makeBgMenu({}, this.onBgChosen.bind(this));
 	};
 	
 	NewFileCommand.prototype.onBgChosen = function(data){

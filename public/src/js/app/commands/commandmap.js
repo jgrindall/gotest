@@ -75,7 +75,7 @@ DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events, eventDispatch
 		if(!eventName || !CommandClassRef || this.hash[eventName]){
 			throw "Error with map";
 		}
-		handler = $.proxy(this.trigger, this);
+		handler = this.trigger.bind(this);
 		eventDispatcher.addListener(eventName, handler);
 		this.hash[eventName] = CommandClassRef;
 		new CommandClassRef();

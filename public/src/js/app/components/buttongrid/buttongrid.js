@@ -1,9 +1,9 @@
 
-define('app/components/buttongrid/buttongrid',['jquery', 'app/game', 'app/components/container',
+define('app/components/buttongrid/buttongrid',['app/game', 'app/components/container',
 
 'app/components/buttongrid/buttongridmodel'],
 
-function($, Game, Container,
+function(Game, Container,
 
 ButtonGridModel){
 	
@@ -39,13 +39,13 @@ ButtonGridModel){
 	};
 	
 	ButtonGrid.prototype.disableAll = function(){
-		$.each(this.buttons, function(i, b){
+		this.buttons.forEach(function(b, i){
 			b.disableInput();
 		});
 	};
 	
 	ButtonGrid.prototype.enableAll = function(){
-		$.each(this.buttons, function(i, b){
+		this.buttons.forEach(function(b){
 			b.enableInput();
 		});
 	};
@@ -58,7 +58,7 @@ ButtonGridModel){
 	};
 	
 	ButtonGrid.prototype.showSelected = function(index) {
-		$.each(this.buttons, function(i, button){
+		this.buttons.forEach(function(button, i){
 			if(i === index){
 				button.select();
 			}
@@ -100,7 +100,7 @@ ButtonGridModel){
 	ButtonGrid.prototype.destroy = function() {
 		var that = this;
 		this.model.changeSignal.remove(this.onSelectedChanged, this);
-		$.each(this.buttons, function(i, b){
+		this.buttons.forEach(function(b, i){
 			b.mouseUpSignal.remove(that.buttonUp, that);
 			b.destroy();
 		});

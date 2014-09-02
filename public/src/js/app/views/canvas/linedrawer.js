@@ -27,7 +27,7 @@ function($, Colors){
 			this.endLine();
 		}
 		else{
-			this.interval = setInterval($.proxy(this.tick, this), duration/LineDrawer.STEPS);
+			this.interval = setInterval(this.tick.bind(this), duration/LineDrawer.STEPS);
 		}
 	};
 	

@@ -1,11 +1,11 @@
 
-define('app/utils/alertmanager',['jquery', 'app/game', 
+define('app/utils/alertmanager',['app/game', 
 
 'app/views/popups/gamescreenmenu', 'app/views/popups/gamebgmenu',
 
 'app/components/popups/growl'], 
 
-function($, Game,
+function(Game,
 
 GameScreenMenu, GameBgMenu,
 
@@ -43,7 +43,7 @@ Growl){
 	
 	AlertManager.make = function(ClassRef, data, callback){
 		var x, y;
-		AlertManager.callbackProxy = $.proxy(this.buttonClick, AlertManager, callback);
+		AlertManager.callbackProxy = this.buttonClick.bind(AlertManager, callback);
 		x = (Game.w() - ClassRef.WIDTH)/2;
 		y = (Game.h() - ClassRef.HEIGHT)/2;
 		AlertManager.addBg();
