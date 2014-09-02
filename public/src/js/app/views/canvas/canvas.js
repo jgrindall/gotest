@@ -3,13 +3,13 @@ define('app/views/canvas/canvas',['app/game', 'app/components/container', 'app/c
 
 'app/views/canvas/map', 'app/views/canvas/drawing',
 
-'app/views/components/indicator'],
+'app/views/components/indicator', 'app/views/canvas/grid'],
 
 function(Game, Container, Background,
 
 Map, Drawing,
 
-Indicator){
+Indicator, Grid){
 	
 	"use strict";
 	
@@ -33,6 +33,7 @@ Indicator){
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addMap();
+		this.addGrid();
 		this.addDrawing();
 		this.addIndicator();
 	};
@@ -51,6 +52,13 @@ Indicator){
 		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
 		this.map = new Map({'bounds':bounds});
 		this.group.add(this.map.group);
+	};
+
+	Canvas.prototype.addGrid = function() {
+		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
+		this.grid = new Grid({'bounds':bounds});
+		console.log(this.grid, this.grid.group);
+		this.group.add(this.grid.group);
 	};
 	
 	Canvas.prototype.addButton = function() {
