@@ -37,11 +37,12 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.PI180 = 3.14159265359/180;
-	Drawing.ONE_RT2 = 1/1.4142135624;
+	Drawing.RT2 = 1.4142135624;
+	Drawing.ONE_RT2 = 1/Drawing.RT2;
 	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
 	Drawing.ROTATE_45 = [0, 0, 0, -45, 0, 45, 0, 0, 0];
 	Drawing.ROTATE_90 = [0, 0, 0, 90, 0, -90, 0, 0, 0];
-	Drawing.DIAG = [Drawing.ONE_RT2, 1, Drawing.ONE_RT2, 1, 1, 1, Drawing.ONE_RT2, 1, Drawing.ONE_RT2]; 
+	Drawing.DIAG = [Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2]; 
 		
 	Drawing.prototype = Object.create(Container.prototype);
 	Drawing.prototype.constructor = Drawing;
