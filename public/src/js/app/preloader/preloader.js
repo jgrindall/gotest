@@ -9,6 +9,7 @@ define('app/preloader/preloader',['phaser', 'app/game'], function(Phaser, Game){
 	};
 
 	Preloader.GRID0 = 					'grid0';
+	Preloader.GRID1 = 					'grid1';
 	Preloader.MAP0_KEY = 				'map0';
 	Preloader.MAP1_KEY = 				'map1';
 	Preloader.MAP2_KEY = 				'map2';
@@ -79,6 +80,7 @@ define('app/preloader/preloader',['phaser', 'app/game'], function(Phaser, Game){
 	
 	Preloader.IMAGES = [
 		{"type":"image", 		"asset":"assets/images/grids/grid0.png", 			"key":Preloader.GRID0},
+		{"type":"image", 		"asset":"assets/images/grids/grid1.png", 			"key":Preloader.GRID1},
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Preloader.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Preloader.SLIDERHANDLE},
 		{"type":"image", 		"asset":"assets/images/bg/bg0.jpg", 				"key":Preloader.MAP0_KEY},

@@ -1,7 +1,14 @@
 
-define('app/views/canvas/grid',['phaser', 'app/game', 'app/components/container'],
+define('app/views/canvas/grid',
 
-function(Phaser, Game, Container){
+
+	['phaser', 'app/game',
+
+	'app/components/container', 'app/consts/steplengths'],
+
+function(Phaser, Game,
+
+	Container, StepLengths){
 	
 	"use strict";
 	
@@ -26,16 +33,50 @@ function(Phaser, Game, Container){
 		this.updateImage();
 	};
 
-	Grid.prototype.updateImage = function() {
-		var asset;
+	Grid.prototype.getOffset = function() {
+		var x0, y0, dx, dy, size, xNum, yNum, index;
+		index = this.sizeModel.getData().index;
+		x0 = this.bounds.w/2;
+		y0 = this.bounds.h/2;
+		size = StepLengths.ALL[index];
+		xNum = x0 / size;
+		yNum = y0 / size;
+		dx = size * (Math.ceil(xNum) - xNum);
+		dy = size * (Math.ceil(yNum) - yNum);
+		return {'x':dx, 'y':dy};
+	};
+
+	Grid.prototype.updateTile = function() {
+		var asset, offset, index;
+		index = this.sizeModel.getData().index;
 		if(this.sprite){
-			this.sprite.destroy(true);
 			this.sprite.destroy(true);
 			this.sprite = null;
 		}
-		asset = 'grid' + this.sizeModel.getData().index;
+		offset = this.getOffset();
+		asset = 'grid' + index;
 		this.sprite = new Phaser.TileSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, asset);
+		this.sprite.tilePosition = new PIXI.Point(-offset.x, -offset.y);
 		this.group.add(this.sprite);
+	};
+
+	Grid.prototype.setMask = function() {
+		if(this.mask){
+			this.mask.destroy(true);
+			this.mask = null;
+		}
+		this.mask = new Phaser.Graphics(Game.getInstance(), 0, 0);
+   		this.mask.beginFill(0xff0000);
+  		this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
+   		this.mask.endFill();
+   		//this.group.add(this.mask);
+
+   		//this.sprite.mask = this.mask;
+	};
+
+	Grid.prototype.updateImage = function() {
+		this.updateTile();
+		this.setMask();
 	};
 	
 	Grid.prototype.create = function() {
@@ -45,7 +86,12 @@ function(Phaser, Game, Container){
 	Grid.prototype.destroy = function() {
 		this.visModel.changeSignal.remove(this.onChangeGrid, this);
 		this.sizeModel.changeSignal.remove(this.onChangeSize, this);
+		this.sprite.mask = null;
+		this.group.remove(this.mask);
+		this.group.remove(this.sprite);
 		this.sprite.destroy(true);
+		this.mask.destroy(true);
+		Container.prototype.destroy.call(this, options);
 	};
 	
 	return Grid;

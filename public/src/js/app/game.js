@@ -31,7 +31,7 @@ function(Phaser){
 	};
 	
 	Game.getHeight = function(){
-		return 550;
+		return 574;
 		//var pRatio, h;
 		//pRatio = window.devicePixelRatio;
 		//h = Math.min(768, document.body.offsetHeight);

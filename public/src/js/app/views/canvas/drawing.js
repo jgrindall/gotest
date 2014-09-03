@@ -27,8 +27,8 @@ FdCommand, StepLengths){
 	
 	var Drawing  = function(options){
 		var x, y;
-		x = Math.round((options.bounds.x + options.bounds.w/2)/StepLengths.GCD)*StepLengths.GCD;
-		y = Math.round((options.bounds.y + options.bounds.h/2)/StepLengths.GCD)*StepLengths.GCD;
+		x = options.bounds.x + options.bounds.w/2;
+		y = options.bounds.y + options.bounds.h/2;
 		this.centre = {'x':x, 'y':y};
 		Container.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
@@ -45,11 +45,7 @@ FdCommand, StepLengths){
 		
 	Drawing.prototype = Object.create(Container.prototype);
 	Drawing.prototype.constructor = Drawing;
-	
-	Drawing.prototype.onUndo = function(){
-		
-	};
-	
+
 	Drawing.prototype.onReset = function(){
 		this.startPos = {'x':this.centre.x, 'y':this.centre.y};
 		this.turtle.reset(this.startPos);
@@ -86,7 +82,6 @@ FdCommand, StepLengths){
 		currentStepLengthIndex = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).getData().index;
 		currentStepLength = StepLengths.ALL[currentStepLengthIndex];
 		dist = StepLengths.ALL[distIndex];
-		console.log("drawing "+dist+" using "+currentStepLength);
 		thetaRad = this.angle * Drawing.PI180;
 		dx = dist * Math.cos(thetaRad);
 		dy = dist * Math.sin(thetaRad);

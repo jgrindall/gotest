@@ -28,9 +28,9 @@ define('app/text/textfactory',['phaser', 'app/game'], function(Phaser, Game){
 		var font, text, fill;
 		font = TextFactory.FONTS[size];
 		text = new Phaser.Text(Game.getInstance(), x, y, label, font);
-	    	text.stroke = '#777777';
-	    	text.strokeThickness = 2;
-	    	fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
+	    text.stroke = '#777777';
+	    text.strokeThickness = 2;
+	    fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
 		fill.addColorStop(0, '#ffffff');   
 		fill.addColorStop(1, '#eeeeee');
 		text.fill = fill;

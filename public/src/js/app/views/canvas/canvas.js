@@ -14,6 +14,7 @@ Indicator, Grid){
 	"use strict";
 	
 	var Canvas  = function(options){
+		console.log("canvas bounds "+JSON.stringify(options.bounds));
 		Container.call(this, options);
 	};
 	
@@ -24,8 +25,7 @@ Indicator, Grid){
 		var w, h, bounds;
 		w = Game.w();
 		h = Game.h();
-		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
-		this.bg = new Background({"asset":'sky', "bounds":bounds});
+		this.bg = new Background({"asset":'sky', "bounds":this.bounds});
 		this.group.add(this.bg.sprite);
 	};
 
@@ -49,17 +49,15 @@ Indicator, Grid){
 	};
 	
 	Canvas.prototype.addMap = function() {
-		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
-		this.map = new Map({'bounds':bounds});
+		this.map = new Map({'bounds':this.bounds});
 		this.group.add(this.map.group);
 	};
 
 	Canvas.prototype.addGrid = function() {
-		var bounds, sizeModel, visModel;
+		var sizeModel, visModel;
 		visModel = ModelFacade.getInstance().get(ModelFacade.GRID);
 		sizeModel = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH);
-		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
-		this.grid = new Grid({'bounds':bounds, 'sizeModel':sizeModel, 'visModel':visModel});
+		this.grid = new Grid({'bounds':this.bounds, 'sizeModel':sizeModel, 'visModel':visModel});
 		this.group.add(this.grid.group);
 	};
 	

@@ -44,7 +44,8 @@ Events){
 	};
 	
 	ActivityScene.prototype.addCanvas = function() {
-		var bounds = {"x":0, "y":50, "w":Game.w() - Controls.WIDTH, "h":Game.h()};
+		var bounds = {"x":0, "y":50, "w":Game.w() - Controls.WIDTH, "h":Game.h() - 50};
+		console.log("canvas size is "+bounds.w, bounds.h);
 		this.canvas = new Canvas({"bounds":bounds});
 		this.world.add(this.canvas.group);
 	};
