@@ -1,20 +1,20 @@
 
-define('app/components/scroller/pager',['app/game', 'app/components/scroller/scroller', 'app/components/scroller/groupmarker'],
+define('app/components/scroller/pager',['app/game', 'phasercomponents', 'app/components/scroller/groupmarker'],
 
-function(Game, Scroller, GroupMarker){
+function(Game, PhaserComponents, GroupMarker){
 	
 	"use strict";
 	
 	var Pager = function(options){
 		options.snapX = Game.w();
-		Scroller.call(this, options);
+		PhaserComponents.Scroller.call(this, Game.getInstance(), options);
 	};
 	
-	Pager.prototype = Object.create(Scroller.prototype);
+	Pager.prototype = Object.create(PhaserComponents.Scroller.prototype);
 	Pager.prototype.constructor = Pager;
 	
 	Pager.prototype.addChildren = function(){
-		Scroller.prototype.addChildren.call(this);
+		PhaserComponents.Scroller.prototype.addChildren.call(this);
 		var numPages = this.numPages();
 		if(numPages >= 2){
 			this.groupMarker = new GroupMarker({"num":numPages});
@@ -31,7 +31,7 @@ function(Game, Scroller, GroupMarker){
 			this.groupMarker.destroy();
 			this.groupMarker = null;
 		}
-		Scroller.prototype.destroy.call(this);
+		PhaserComponents.Scroller.prototype.destroy.call(this);
 	};
 	
 	Pager.prototype.updateMarker = function() {
@@ -41,7 +41,7 @@ function(Game, Scroller, GroupMarker){
 	};
 	
 	Pager.prototype.gotoPage = function(p) {
-		Scroller.prototype.gotoPage.call(this, p);
+		PhaserComponents.Scroller.prototype.gotoPage.call(this, p);
 		this.updateMarker();
 	};
 

@@ -1,11 +1,9 @@
 
-define('app/views/controls/controls',['app/game', 'app/components/container', 'app/components/background',
+define('app/views/controls/controls',['app/game', 'app/components/background',
 
-	'app/components/slider/slider',
+'phasercomponents', 'app/components/buttons/tabbutton',
 
-'app/components/buttongrid/tabbuttonbar', 'app/components/buttons/tabbutton',
-
-'app/views/components/colorpicker', 'app/views/components/widthpicker', 'app/views/controls/radiobuttons',
+'app/views/components/colorpicker', 'app/views/components/widthpicker',
 
 'app/models/modelfacade',
 
@@ -13,15 +11,15 @@ define('app/views/controls/controls',['app/game', 'app/components/container', 'a
 
 'app/views/commandpanels/commandspanelfactory',
 
-'app/events/eventdispatcher', 'app/events/events'
+'app/events/events'
 
 ],
 
-function(Game, Container, Background, Slider,
+function(Game, Background,
 
-TabButtonBar, TabButton,
+PhaserComponents, TabButton,
 
-ColorPicker, WidthPicker, RadioButtons,
+ColorPicker, WidthPicker,
 
 ModelFacade,
 
@@ -29,23 +27,23 @@ ControlMenu, AbstractCommandsPanel,
 
 CommandsPanelFactory,
 
-eventDispatcher, Events){
+Events){
 	
 	"use strict";
 	
 	var Controls  = function(options){
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		Game.alertSignal.add(this.onAlert, this);
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 	};
 
 	Controls.WIDTH = 290;
 	
-	Controls.prototype = Object.create(Container.prototype);
+	Controls.prototype = Object.create(PhaserComponents.Container.prototype);
 	Controls.prototype.constructor = Controls;
 	
 	Controls.prototype.create = function() {
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addBg();
 		this.addColorPicker();
 		this.addWidthPicker();
@@ -98,26 +96,26 @@ eventDispatcher, Events){
 	};
 	
 	Controls.prototype.addSpeedSlider = function() {
-		this.speedSlider = new Slider({"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":Game.w()/2 - 150, "y":0}});
+		this.speedSlider = new PhaserComponents.Slider(Game.getInstance(), {"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":Game.w()/2 - 150, "y":0}});
 		this.group.add(this.speedSlider.group);
 	};
 	
 	Controls.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
-			eventDispatcher.trigger({"type":Events.STOP});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.STOP});
 		}
 		else if(index === 1){
-			eventDispatcher.trigger({"type":Events.UNDO});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.UNDO});
 		}
 		else if(index === 2){
-			eventDispatcher.trigger({"type":Events.TEACHER_LOGIN});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.TEACHER_LOGIN});
 		}
 		else if(index === 3){
-			eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
 		}
 		else if(index === 4){
-			eventDispatcher.trigger({"type":Events.GRID_CHOICE});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
 		} 
 	};
 	
@@ -145,7 +143,7 @@ eventDispatcher, Events){
 	
 	Controls.prototype.addTabs = function() {
 		var bounds = {'x':this.bounds.x, 'y':5, 'w':600, 'h':50};
-		this.tabButtonBar = new TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
+		this.tabButtonBar = new PhaserComponents.TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
 		this.group.add(this.tabButtonBar.group);
 		this.tabButtonBar.select(0);
 	};
@@ -164,7 +162,7 @@ eventDispatcher, Events){
 			this.commandsPanel.destroy();
 			this.commandsPanel = null;
 		}
-		Container.prototype.destroy.call(this);
+		PhaserComponents.Container.prototype.destroy.call(this);
 	};
 	
 	return Controls;

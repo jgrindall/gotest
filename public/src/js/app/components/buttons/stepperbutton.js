@@ -1,11 +1,11 @@
 
 define('app/components/buttons/stepperbutton',['app/game', 
 	
-'app/components/interactivesprite'],
+'phasercomponents'],
 
 function(Game, 
 
-InteractiveSprite){
+PhaserComponents){
 	
 	"use strict";
 	
@@ -39,7 +39,7 @@ InteractiveSprite){
 	
 	StepperButton.prototype.create = function(){
 		var i;
-		this.sprite = new InteractiveSprite(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset);
+		this.sprite = new PhaserComponents.InteractiveSprite(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset);
 		for(i = 0; i<= this.options.num - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 0, true);	
 		}

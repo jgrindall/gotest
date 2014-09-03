@@ -1,28 +1,28 @@
 
-define('app/components/screenchoice',['phaser', 'app/game', 'app/components/container',
+define('app/components/screenchoice',['phaser', 'app/game', 'phasercomponents'
 
-'app/components/interactivesprite'],
+],
 
-function(Phaser, Game, Container,
+function(Phaser, Game, PhaserComponents
 
-InteractiveSprite){
+){
 	
 	"use strict";
 	
 	var ScreenChoice = function(options){
 		options.bgasset = 'smallpanel';
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
 	
 	ScreenChoice.WIDTH = 225;
 	ScreenChoice.HEIGHT = 250;
 	
-	ScreenChoice.prototype = Object.create(Container.prototype);
+	ScreenChoice.prototype = Object.create(PhaserComponents.Container.prototype);
 	ScreenChoice.prototype.constructor = ScreenChoice;
 	
 	ScreenChoice.prototype.create = function(){
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addBg();
 	};
 	
@@ -39,7 +39,7 @@ InteractiveSprite){
 	};
 	
 	ScreenChoice.prototype.addBg = function(){
-		this.panel = new InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset, this.options.index);
+		this.panel = new PhaserComponents.InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset, this.options.index);
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
 		this.group.add(this.panel);
@@ -48,6 +48,7 @@ InteractiveSprite){
 	ScreenChoice.prototype.destroy = function(){
 		this.panel.mouseUpSignal.remove(this.mouseUp, this);
 		this.panel.destroy(true);
+		PhaserComponents.Container.prototype.destroy.call(this);
 	};
 	
 	return ScreenChoice;

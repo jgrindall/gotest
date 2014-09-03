@@ -1,16 +1,16 @@
 
 define('app/views/components/indicator',['phaser', 'app/game', 'app/text/textfactory',
 
-'app/components/container', 'app/models/modelfacade'],
+'phasercomponents', 'app/models/modelfacade'],
 
 function(Phaser, Game, TextFactory,
 
-Container, ModelFacade){
+PhaserComponents, ModelFacade){
 	
 	"use strict";
 	
 	var Indicator = function(options){
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
 	};
@@ -29,7 +29,7 @@ Container, ModelFacade){
 	};
 	
 	Indicator.prototype.destroy = function() {
-		Container.prototype.destroy.call(this);
+		PhaserComponents.Container.prototype.destroy.call(this);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
 		this.group.remove(this.gfx);
@@ -41,7 +41,7 @@ Container, ModelFacade){
 	};
 
 	Indicator.prototype.create = function(){
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.label = TextFactory.make(this.bounds.x, this.bounds.y, "0/0", TextFactory.VSMALL);
 		this.gfx = new Phaser.Graphics(Game.getInstance(), this.options.bounds.x, this.options.bounds.y);
 		this.group.add(this.gfx);

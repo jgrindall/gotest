@@ -28,13 +28,13 @@ define('app/commands/commandmap',[
 
 'app/commands/replaycommand',
 
-'app/events/events', 'app/events/eventdispatcher'],
+'app/events/events', 'phasercomponents'],
 
 function(NewFileCommand, LoadCommand, SaveCommand, PrintCommand,
 
 UndoCommand, StopCommand, TypeChoiceCommand, GridChoiceCommand, TeacherCommand, AddCommandCommand,
 
-DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events, eventDispatcher) {
+DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events, PhaserComponents) {
 	
 	"use strict";
 	
@@ -79,7 +79,7 @@ DrawCommand, StartUpCommand, FinishCommand, ReplayCommand, Events, eventDispatch
 			throw "Error with map";
 		}
 		handler = this.trigger.bind(this);
-		eventDispatcher.addListener(eventName, handler);
+		PhaserComponents.eventDispatcher.addListener(eventName, handler);
 		this.hash[eventName] = CommandClassRef;
 		new CommandClassRef();
 	};

@@ -1,5 +1,5 @@
 
-define('app/models/steplengthmodel',['app/models/abstractmodel'],
+define('app/models/steplengthmodel',['phasercomponents/models/abstractmodel'],
 
 function(AbstractModel){
 	

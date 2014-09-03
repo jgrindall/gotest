@@ -1,11 +1,11 @@
 
-define('app/models/commtickermodel',['phaser', 'app/models/abstractmodel',
+define('app/models/commtickermodel',['phaser', 'phasercomponents/models/abstractmodel',
 
-'app/events/events', 'app/events/eventdispatcher'
+'app/events/events', 'phasercomponents'
 
 ],
 
-function(Phaser, AbstractModel, Events, eventDispatcher){
+function(Phaser, AbstractModel, Events, PhaserComponents){
 	
 	"use strict";
 	
@@ -94,7 +94,7 @@ function(Phaser, AbstractModel, Events, eventDispatcher){
 	CommTickerModel.prototype.nextCommand = function() {
 		this.setCommandNum(this.commandNum + 1);
 		if(this.commandNum === this.getNum()){
-			eventDispatcher.trigger({"type":Events.FINISHED});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.FINISHED});
 		}
 		else{
 			this.performCommand();

@@ -1,11 +1,11 @@
 
-define('app/views/canvas/canvas',['app/game', 'app/components/container', 'app/components/background',
+define('app/views/canvas/canvas',['app/game', 'phasercomponents', 'app/components/background',
 
 'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
 
 'app/views/components/indicator', 'app/views/canvas/grid'],
 
-function(Game, Container, Background,
+function(Game, PhaserComponents, Background,
 
 Map, Drawing, ModelFacade,
 
@@ -14,11 +14,10 @@ Indicator, Grid){
 	"use strict";
 	
 	var Canvas  = function(options){
-		console.log("canvas bounds "+JSON.stringify(options.bounds));
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 	};
 	
-	Canvas.prototype = Object.create(Container.prototype);
+	Canvas.prototype = Object.create(PhaserComponents.Container.prototype);
 	Canvas.prototype.constructor = Canvas;
 	
 	Canvas.prototype.addBg = function() {
@@ -30,7 +29,7 @@ Indicator, Grid){
 	};
 
 	Canvas.prototype.create = function() {
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addBg();
 		this.addMap();
 		this.addGrid();
@@ -72,7 +71,7 @@ Indicator, Grid){
 		this.grid.destroy();
 		this.drawing.destroy();
 		this.indicator.destroy();
-		Container.prototype.destroy.call(this);
+		PhaserComponents.Container.prototype.destroy.call(this);
 	};
 	
 	return Canvas;

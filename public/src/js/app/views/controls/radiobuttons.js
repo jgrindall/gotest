@@ -1,15 +1,15 @@
 
-define('app/views/controls/radiobuttons',['app/components/buttons/radiobutton',
+define('app/views/controls/radiobuttons',['app/game', 'app/components/buttons/radiobutton',
 
-'app/components/buttongrid/buttonbar', 'app/models/modelfacade',
+'phasercomponents'
 
-'app/consts/playingstate'],
+],
 
-function(RadioButton,
+function(Game, RadioButton,
 
-ButtonBar, ModelFacade,
+PhaserComponents
 
-PlayingState){
+){
 	
 	"use strict";
 	
@@ -18,13 +18,13 @@ PlayingState){
 		options.numX = 1;
 		options.numY = 2;
 		options.data = [{'num':0}, {'num':1}];
-		ButtonBar.call(this, options);
+		PhaserComponents.ButtonBar.call(this, Game.getInstance(), options);
 	};
 	
 	RadioButtons.WIDTH = 120;
 	RadioButtons.HEIGHT = 120;
-	
-	RadioButtons.prototype = Object.create(ButtonBar.prototype);
+
+	RadioButtons.prototype = Object.create(PhaserComponents.ButtonBar.prototype);
 	RadioButtons.prototype.constructor = RadioButtons;
 	
 	return RadioButtons;

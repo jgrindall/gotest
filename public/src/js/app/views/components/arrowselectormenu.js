@@ -1,5 +1,5 @@
 
-define('app/views/components/arrowselectormenu',['zepto', 'phaser', 'app/game', 'app/components/buttons/arrowbutton',
+define('app/views/components/arrowselectormenu',['jquery', 'phaser', 'app/game', 'app/components/buttons/arrowbutton',
 
 'app/views/components/selectormenu',
 

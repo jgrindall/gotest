@@ -1,37 +1,33 @@
 
-define('app/views/commandpanels/abstractcommandspanel',['app/game', 'app/components/container',
+define('app/views/commandpanels/abstractcommandspanel',['app/game', 'phasercomponents',
 
 'app/components/buttons/dirbutton',
 
-'app/components/buttongrid/buttongrid', 'app/components/buttongrid/buttongridmodel',
-
 'app/views/commandpanels/markerfactory', 
 
-'app/events/eventdispatcher', 'app/events/events'
+'app/events/events'
 ],
 
 
-function(Game, Container,
+function(Game, PhaserComponents,
 
 DirButton,
 
-ButtonGrid, ButtonGridModel,
-
 MarkerFactory, 
 
-eventDispatcher, Events){
+Events){
 	
 	"use strict";
 	
 	var AbstractCommandsPanel  = function(options){
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		this.selectedCommand = null;
 		Game.alertSignal.add(this.onAlert, this);
 	};
 	
 	AbstractCommandsPanel.WIDTH = 190;
 	
-	AbstractCommandsPanel.prototype = Object.create(Container.prototype);
+	AbstractCommandsPanel.prototype = Object.create(PhaserComponents.Container.prototype);
 	AbstractCommandsPanel.prototype.constructor = AbstractCommandsPanel;
 	
 	AbstractCommandsPanel.prototype.build = function(config) {
@@ -65,7 +61,7 @@ eventDispatcher, Events){
 	};
 	
 	AbstractCommandsPanel.prototype.create = function() {
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addGrid();
 		this.addMarker();
 	};
@@ -81,14 +77,13 @@ eventDispatcher, Events){
 	
 	AbstractCommandsPanel.prototype.addGrid = function() {
 		var options, bounds, w, h, data, size, model;
-		model = new ButtonGridModel();
 		data = this.getGridData();
 		w = Game.w();
 		h = Game.h();
 		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
 		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y, "w":size, "h":size};
-		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data, "model":model};
-		this.grid = new ButtonGrid(options);
+		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data};
+		this.grid = new PhaserComponents.ButtonGrid(Game.getInstance(), options);
 		this.grid.clickSignal.add(this.selectComm, this);
 		this.group.add(this.grid.group);
 	};
@@ -105,7 +100,7 @@ eventDispatcher, Events){
 		var index, json;
 		for(index = 0; index < total; index++){
 			json = {'type':type, 'direction':direction, 'index':index, 'total':total};
-			eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
 		}
 	};
 	
@@ -114,7 +109,7 @@ eventDispatcher, Events){
 			this.grid.clickSignal.remove(this.selectComm, this);
 			this.grid.destroy();
 		}
-		Container.prototype.destroy.call(this);
+		PhaserComponents.Container.prototype.destroy.call(this);
 	};
 	
 	return AbstractCommandsPanel;

@@ -1,5 +1,5 @@
 
-define('app/models/gridmodel',['app/models/abstractmodel'],
+define('app/models/gridmodel',['phasercomponents/models/abstractmodel'],
 
 function(AbstractModel){
 	

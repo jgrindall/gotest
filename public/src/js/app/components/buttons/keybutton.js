@@ -1,5 +1,5 @@
 
-define('app/components/buttons/keybutton',['app/components/buttons/abstractbutton'], function(AbstractButton){
+define('app/components/buttons/keybutton',['phasercomponents'], function(PhaserComponents){
 	
 	"use strict";
 	
@@ -9,13 +9,13 @@ define('app/components/buttons/keybutton',['app/components/buttons/abstractbutto
 		startFrame = 18 * 4;
 		frame0 = startFrame + (4 * options.data.num);
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
-		AbstractButton.call(this, options);
+		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
 	};
 	
 	KeyButton.WIDTH = 50;
 	KeyButton.HEIGHT = 50;
 	
-	KeyButton.prototype = Object.create(AbstractButton.prototype);
+	KeyButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
 	KeyButton.prototype.constructor = KeyButton;
 
 	return KeyButton;

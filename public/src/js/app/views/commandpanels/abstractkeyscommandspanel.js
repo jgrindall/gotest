@@ -1,19 +1,17 @@
 
 define('app/views/commandpanels/abstractkeyscommandspanel',['app/game', 'app/components/buttons/keybutton',
 
-'app/components/buttongrid/buttongrid',
+'phasercomponents',
 
-'app/views/commandpanels/abstractcommandspanel',
-
-'app/components/buttongrid/buttongridmodel'
+'app/views/commandpanels/abstractcommandspanel'
 
 ],
 
 function(Game, KeyButton,
 
-ButtonGrid, AbstractCommandsPanel,
+PhaserComponents, AbstractCommandsPanel
 
-ButtonGridModel){
+){
 	
 	"use strict";
 	
@@ -36,14 +34,13 @@ ButtonGridModel){
 	
 	AbstractKeysCommandsPanel.prototype.addKeys = function() {
 		var options, bounds, w, h, data, size, model;
-		model = new ButtonGridModel();
 		data = this.getKeyData();
 		w = Game.w();
 		h = Game.h();
 		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
 		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y + size, "w":size, "h":size};
-		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": KeyButton, "data":data, "model":model};
-		this.keys = new ButtonGrid(options);
+		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": KeyButton, "data":data};
+		this.keys = new PhaserComponents.ButtonGrid(Game.getInstance(), options);
 		this.keys.clickSignal.add(this.selectKey, this);
 		this.group.add(this.keys.group);
 	};

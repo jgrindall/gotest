@@ -1,7 +1,7 @@
 
 define('app/models/commmodel',['app/logocommands/abstractlogocommandfactory',
 
-'app/models/abstractmodel'],
+'phasercomponents/models/abstractmodel'],
 
 function(AbstractCommandFactory,
 

@@ -3,7 +3,7 @@ define('app/views/popups/gridmenu',['app/game', 'app/components/buttons/tickbutt
 
 'app/components/popups/abstractpopup', 'app/text/textfactory',
 
-'app/models/modelfacade', 'app/components/slider/slider',
+'app/models/modelfacade', 'phasercomponents',
 
 'app/components/buttons/togglebutton',
 
@@ -13,7 +13,7 @@ function(Game, TickButton,
 
 AbstractPopup, TextFactory,
 
-ModelFacade, Slider,
+ModelFacade, PhaserComponents,
 
 ToggleButton,
 
@@ -55,7 +55,7 @@ OkButton, CloseButton){
 	GridMenu.prototype.addSlider = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 100};
-		this.lengthSlider = new Slider({"model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":4, "bounds":bounds});
+		this.lengthSlider = new PhaserComponents.Slider(Game.getInstance(), {"model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":4, "bounds":bounds});
 		this.group.add(this.lengthSlider.group);
 	};
 

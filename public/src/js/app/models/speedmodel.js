@@ -1,7 +1,7 @@
 
 define('app/models/speedmodel',['app/consts/commspeed',
 
-'app/models/abstractmodel'],
+'phasercomponents/models/abstractmodel'],
 
 function(CommSpeed,
 

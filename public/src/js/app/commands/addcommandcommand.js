@@ -1,12 +1,12 @@
 define('app/commands/addcommandcommand',['app/logocommands/abstractlogocommandfactory',
 
-	'app/events/events', 'app/events/eventdispatcher',
+	'app/events/events', 'phasercomponents',
 
 	'app/models/modelfacade'],
 
 function(AbstractCommandFactory,
 
-	Events, eventDispatcher,
+	Events, PhaserComponents,
 
 	ModelFacade) {
 	
@@ -24,7 +24,7 @@ function(AbstractCommandFactory,
 		data.stepLength = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).getData().index;
 		command = new AbstractCommandFactory.fromJson(data);
 		ModelFacade.getInstance().get(ModelFacade.COMM).add(command);
-		eventDispatcher.trigger({"type":Events.DRAW});
+		PhaserComponents.eventDispatcher.trigger({"type":Events.DRAW});
 	};
 	
   	return AddCommandCommand;

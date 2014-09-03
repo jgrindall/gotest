@@ -1,22 +1,22 @@
 
-define('app/views/canvas/paths',['phaser', 'app/game', 'app/components/container',
+define('app/views/canvas/paths',['phaser', 'app/game', 'phasercomponents',
 
 'app/views/canvas/linedrawer'],
 
-function(Phaser, Game, Container,
+function(Phaser, Game, PhaserComponents,
 
 LineDrawer){
 	
 	"use strict";
 	
 	var Paths  = function(options){
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		this.endSignal = new Phaser.Signal();
 	};
 	
 	Paths.WIDTH = 8;
 	
-	Paths.prototype = Object.create(Container.prototype);
+	Paths.prototype = Object.create(PhaserComponents.Container.prototype);
 	Paths.prototype.constructor = Paths;
 	
 	Paths.prototype.removeGfx = function() {
@@ -65,7 +65,7 @@ LineDrawer){
 	};
 	
 	Paths.prototype.create = function() {
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addGfx();
 		this.addMask();
 		this.gfx.mask = this.mask;
@@ -76,7 +76,7 @@ LineDrawer){
 		this.endSignal.dispose();
 		this.endSignal = null;
 		this.removeGfx();
-		Container.prototype.destroy.call(this);
+		PhaserComponents.Container.prototype.destroy.call(this);
 	};
 	
 	return Paths;

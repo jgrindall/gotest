@@ -1,20 +1,21 @@
 module.exports = function(grunt) {
 
 	grunt.initConfig({
-    	pkg: grunt.file.readJSON('package.json'),
+    	
+        pkg: grunt.file.readJSON('package.json'),
 		
 
-      amdcheck: {
-          src: {
-            files: [
-              {
-                expand: true,
-                cwd: 'public/src/js/app/',
-                src: ['**/*.js'],
-                dest: 'minimised/'
-              }
-            ]
-          }
+        amdcheck: {
+            src: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'public/src/js/app/',
+                        src: ['**/*.js'],
+                        dest: 'minimised/'
+                    }
+                ]
+            }
         },
 
 		jshint: {
@@ -25,8 +26,11 @@ module.exports = function(grunt) {
   			}
 		},
 		
-		clean: ["public/build"],
-		
+		clean: {
+            'pre':      ["public/build"],
+            'post':     ["minimised"]
+        },
+
 		jshint: {
     		options: {
       			curly: true,
@@ -52,7 +56,7 @@ module.exports = function(grunt) {
 					include: ['main'],
 					findNestedDependencies: true,
 					paths: {
-						zepto:                         'lib/zepto',
+						jquery:                        'lib/zepto',
 						phaser: 			           'lib/phaser',
 						phaserstatetrans: 	           'lib/phaser-state-transition.min',
                         phasercomponents:              'lib/phasercomponents'
@@ -92,7 +96,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
   	grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-copy');
-  	grunt.registerTask('default', ['amdcheck:src','clean', 'jshint', 'requirejs', 'copy']);
+  	grunt.registerTask('default', ['amdcheck:src','clean:pre', 'jshint', 'requirejs', 'copy', 'clean:post']);
 
 };
 

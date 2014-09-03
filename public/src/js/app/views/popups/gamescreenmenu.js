@@ -3,17 +3,17 @@ define('app/views/popups/gamescreenmenu',[
 
 'app/game', 'app/components/buttons/tickbutton',
 
-'app/components/popups/abstractpopup', 'app/views/controls/radiobuttons', 'app/components/buttons/radiobutton',
+'app/components/popups/abstractpopup', 'app/views/controls/radiobuttons',
 
-'app/models/modelfacade', 'app/components/buttongrid/buttongrid','app/components/screenchoice',
+'phasercomponents','app/components/screenchoice',
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 
 function(Game, TickButton,
 
-AbstractPopup, RadioButtons, RadioButton,
+AbstractPopup, RadioButtons,
 
-ModelFacade, ButtonGrid, ScreenChoice,
+PhaserComponents, ScreenChoice,
 
 OkButton, CloseButton){
 	
@@ -54,7 +54,7 @@ OkButton, CloseButton){
 	GameScreenMenu.prototype.addGrid = function() {
 		var options;
 		options = {"bounds":this.bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
-		this.grid = new ButtonGrid(options);
+		this.grid = new PhaserComponents.ButtonGrid(Game.getInstance(), options);
 		this.group.add(this.grid.group);
 	};
 
@@ -73,6 +73,7 @@ OkButton, CloseButton){
 			b.destroy();
 		});
 		this.radio.destroy();
+		this.grid.destroy();
 		AbstractPopup.prototype.destroy.call(this);
 	};
 	

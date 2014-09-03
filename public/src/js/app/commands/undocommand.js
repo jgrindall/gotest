@@ -1,8 +1,8 @@
 define('app/commands/undocommand',[
 
-	'app/events/events','app/events/eventdispatcher','app/models/modelfacade'],
+	'app/events/events','phasercomponents','app/models/modelfacade'],
 
-function(Events, eventDispatcher, ModelFacade) {
+function(Events, PhaserComponents, ModelFacade) {
 	
 	"use strict";
 	
@@ -12,7 +12,7 @@ function(Events, eventDispatcher, ModelFacade) {
 	
 	UndoCommand.prototype.execute = function(data){
 		ModelFacade.getInstance().get(ModelFacade.COMM).undo();
-		eventDispatcher.trigger({"type":Events.REPLAY});
+		PhaserComponents.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 	
   	return UndoCommand;

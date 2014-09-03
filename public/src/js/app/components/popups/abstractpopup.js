@@ -1,22 +1,22 @@
 
 define('app/components/popups/abstractpopup',['phaser','app/game',
 
-'app/components/container'],
+'phasercomponents'],
 
 function(Phaser, Game,
 
-Container){
+PhaserComponents){
 	
 	"use strict";
 		
 	var AbstractPopup = function(options){
 		this.buttons = [];
 		this.selectSignal = new Phaser.Signal();
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		this.group.y = Game.h() + 50;
 	};
 	
-	AbstractPopup.prototype = Object.create(Container.prototype);
+	AbstractPopup.prototype = Object.create(PhaserComponents.Container.prototype);
 	AbstractPopup.prototype.constructor = AbstractPopup;
 	
 	AbstractPopup.prototype.addPanel = function () {
@@ -53,7 +53,7 @@ Container){
 	};
 	
 	AbstractPopup.prototype.create = function () {
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addPanel();
 		this.addButtonGroup();
 	};

@@ -1,5 +1,5 @@
 
-define('app/views/canvas/drawing',['app/components/container',
+define('app/views/canvas/drawing',['app/game', 'phasercomponents',
 
 'app/views/canvas/turtle', 'app/views/canvas/paths',
 
@@ -11,7 +11,7 @@ define('app/views/canvas/drawing',['app/components/container',
 
 'app/logocommands/fdcommand', 'app/consts/steplengths'],
 
-function(Container,
+function(Game, PhaserComponents,
 
 Turtle, Paths,
 
@@ -30,7 +30,7 @@ FdCommand, StepLengths){
 		x = options.bounds.x + options.bounds.w/2;
 		y = options.bounds.y + options.bounds.h/2;
 		this.centre = {'x':x, 'y':y};
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
 		this.onReset();
@@ -44,7 +44,7 @@ FdCommand, StepLengths){
 	Drawing.ROTATE_90 = [0, 0, 0, 90, 0, -90, 0, 0, 0];
 	Drawing.DIAG = [Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2]; 
 		
-	Drawing.prototype = Object.create(Container.prototype);
+	Drawing.prototype = Object.create(PhaserComponents.Container.prototype);
 	Drawing.prototype.constructor = Drawing;
 
 	Drawing.prototype.onReset = function(){
@@ -134,7 +134,7 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.create = function() {
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addPaths();
 		this.addTurtle();
 	};
@@ -157,7 +157,7 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.destroy = function() {
-		Container.prototype.destroy.call(this);
+		PhaserComponents.Container.prototype.destroy.call(this);
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
 		this.paths.destroy();

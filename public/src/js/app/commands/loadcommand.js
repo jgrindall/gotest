@@ -2,13 +2,13 @@ define('app/commands/loadcommand',['app/utils/alertmanager',
 
 	'app/utils/storage', 'app/models/modelfacade',
 
-	'app/events/eventdispatcher', 'app/events/events'],
+	'phasercomponents', 'app/events/events'],
 
 function(AlertManager,
 
 	Storage, ModelFacade,
 
-	eventDispatcher, Events) {
+	PhaserComponents, Events) {
 	
 	"use strict";
 	
@@ -24,7 +24,7 @@ function(AlertManager,
 		if(data.success){
 			try{
 				ModelFacade.getInstance().setData(data.json);
-				eventDispatcher.trigger({"type":Events.REPLAY});
+				PhaserComponents.eventDispatcher.trigger({"type":Events.REPLAY});
 				AlertManager.makeGrowl({"label":"Loaded your file"}, null);
 			}
 			catch(e){

@@ -1,17 +1,19 @@
 
-define('app/components/buttons/closebutton',['app/components/buttons/abstractbutton'], function(AbstractButton){
+define('app/components/buttons/closebutton',['app/game', 'phasercomponents'],
+
+	function(Game, PhaserComponents){
 	
 	"use strict";
 	
 	var CloseButton = function(options){
 		options.asset = 'close';
-		AbstractButton.call(this, options);
+		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
 	};
 	
 	CloseButton.WIDTH = 50;
 	CloseButton.HEIGHT = 50;
 	
-	CloseButton.prototype = Object.create(AbstractButton.prototype);
+	CloseButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
 	CloseButton.prototype.constructor = CloseButton;
 
 	return CloseButton;

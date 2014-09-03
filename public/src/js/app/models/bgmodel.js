@@ -1,5 +1,5 @@
 
-define('app/models/bgmodel',['app/models/abstractmodel'],
+define('app/models/bgmodel',['phasercomponents/models/abstractmodel'],
 
 function(AbstractModel){
 	

@@ -1,12 +1,12 @@
 
-define('app/views/canvas/turtle',['phaser', 'app/game', 'app/components/container'],
+define('app/views/canvas/turtle',['phaser', 'app/game', 'phasercomponents'],
 
-function(Phaser, Game, Container){
+function(Phaser, Game, PhaserComponents){
 	
 	"use strict";
 	
 	var Turtle  = function(options){
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		this.theta = 0;
 		this.endSignal = new Phaser.Signal();
 	};
@@ -22,7 +22,7 @@ function(Phaser, Game, Container){
 		return t;
 	};
 	
-	Turtle.prototype = Object.create(Container.prototype);
+	Turtle.prototype = Object.create(PhaserComponents.Container.prototype);
 	Turtle.prototype.constructor = Turtle;
 	
 	Turtle.prototype.addImage = function() {
@@ -105,7 +105,7 @@ function(Phaser, Game, Container){
 	};
 	
 	Turtle.prototype.create = function() {
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addMask();
 		this.addImage();
 		this.sprite.mask = this.mask;
@@ -115,7 +115,7 @@ function(Phaser, Game, Container){
 		this.stopTweens();
 		this.endSignal.dispose();
 		this.endSignal = null;
-		Container.prototype.destroy.call(this);
+		PhaserComponents.Container.prototype.destroy.call(this);
 		this.sprite.destroy(true);
 	};
 	

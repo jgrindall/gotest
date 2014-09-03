@@ -3,7 +3,7 @@ define('app/scenes/activityscene',['app/game', 'app/scenes/scene', 'app/views/ca
 
 'app/views/components/menu', 
 
-'app/components/background', 'app/events/eventdispatcher',
+'app/components/background', 'phasercomponents',
 
 'app/events/events'],
 
@@ -11,7 +11,7 @@ function(Game, Scene, Canvas, Controls,
 
 Menu,
 
-Background, eventDispatcher,
+Background, PhaserComponents,
 
 Events){
 	
@@ -30,8 +30,8 @@ Events){
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
-		eventDispatcher.trigger({"type":Events.STARTUP});
-		eventDispatcher.trigger({"type":Events.REPLAY});
+		PhaserComponents.eventDispatcher.trigger({"type":Events.STARTUP});
+		PhaserComponents.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 	
 	ActivityScene.prototype.addBg = function() {
@@ -60,16 +60,16 @@ Events){
 	ActivityScene.prototype.menuClick = function(data) {
 		var i = data.index;
 		if(i === 0){
-			eventDispatcher.trigger({"type":Events.NEW_FILE});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.NEW_FILE});
 		}
 		else if(i === 1){
-			eventDispatcher.trigger({"type":Events.LOAD});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.LOAD});
 		}
 		else if(i === 2){
-			eventDispatcher.trigger({"type":Events.SAVE});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.SAVE});
 		}
 		else if(i === 3){
-			eventDispatcher.trigger({"type":Events.PRINT});
+			PhaserComponents.eventDispatcher.trigger({"type":Events.PRINT});
 		}
 	};
 	

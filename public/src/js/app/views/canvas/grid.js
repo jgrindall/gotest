@@ -4,16 +4,16 @@ define('app/views/canvas/grid',
 
 	['phaser', 'app/game',
 
-	'app/components/container', 'app/consts/steplengths'],
+	'phasercomponents', 'app/consts/steplengths'],
 
 function(Phaser, Game,
 
-	Container, StepLengths){
+	PhaserComponents, StepLengths){
 	
 	"use strict";
 	
 	var Grid  = function(options){
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		this.visModel = this.options.visModel;
 		this.sizeModel = this.options.sizeModel;
 		this.visModel.changeSignal.add(this.onChangeGrid, this);
@@ -22,7 +22,7 @@ function(Phaser, Game,
 		this.updateImage();
 	};
 	
-	Grid.prototype = Object.create(Container.prototype);
+	Grid.prototype = Object.create(PhaserComponents.Container.prototype);
 	Grid.prototype.constructor = Grid;
 	
 	Grid.prototype.onChangeGrid = function(data) {
@@ -60,27 +60,8 @@ function(Phaser, Game,
 		this.group.add(this.sprite);
 	};
 
-	Grid.prototype.setMask = function() {
-		if(this.mask){
-			this.mask.destroy(true);
-			this.mask = null;
-		}
-		this.mask = new Phaser.Graphics(Game.getInstance(), 0, 0);
-   		this.mask.beginFill(0xff0000);
-  		this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
-   		this.mask.endFill();
-   		//this.group.add(this.mask);
-
-   		//this.sprite.mask = this.mask;
-	};
-
 	Grid.prototype.updateImage = function() {
 		this.updateTile();
-		this.setMask();
-	};
-	
-	Grid.prototype.create = function() {
-		Container.prototype.create.call(this);
 	};
 	
 	Grid.prototype.destroy = function() {
@@ -91,7 +72,7 @@ function(Phaser, Game,
 		this.group.remove(this.sprite);
 		this.sprite.destroy(true);
 		this.mask.destroy(true);
-		Container.prototype.destroy.call(this, options);
+		PhaserComponents.Container.prototype.destroy.call(this, options);
 	};
 	
 	return Grid;

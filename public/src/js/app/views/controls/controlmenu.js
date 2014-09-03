@@ -1,13 +1,13 @@
 
-define('app/views/controls/controlmenu',['app/components/buttons/controlmenubutton',
+define('app/views/controls/controlmenu',['app/game', 'app/components/buttons/controlmenubutton',
 
-'app/components/buttongrid/buttonbar', 'app/models/modelfacade',
+'phasercomponents', 'app/models/modelfacade',
 
 'app/consts/playingstate'],
 
-function(ControlMenuButton,
+function(Game, ControlMenuButton,
 
-ButtonBar, ModelFacade,
+PhaserComponents, ModelFacade,
 
 PlayingState){
 	
@@ -18,12 +18,12 @@ PlayingState){
 		options.numX = 5;
 		options.numY = 1;
 		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}, {'num':8}];
-		ButtonBar.call(this, options);
+		PhaserComponents.ButtonBar.call(this, Game.getInstance(), options);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.disableButtonAt(1);
 	};
 	
-	ControlMenu.prototype = Object.create(ButtonBar.prototype);
+	ControlMenu.prototype = Object.create(PhaserComponents.ButtonBar.prototype);
 	ControlMenu.prototype.constructor = ControlMenu;
 	
 	ControlMenu.prototype.playingChanged = function(data){

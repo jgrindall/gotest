@@ -1,21 +1,21 @@
 
-define('app/components/screenpanel',['phaser', 'app/components/container',
+define('app/components/screenpanel',['phaser',
 
-'app/components/screenchoice', 'app/components/buttongrid/buttongridmodel',
+'app/components/screenchoice',
 
-'app/components/buttongrid/buttongrid'],
+'phasercomponents'],
 
-function(Phaser, Container, 
+function(Phaser, 
 
-ScreenChoice, ButtonGridModel,
+ScreenChoice, PhaserComponents,
 
-ButtonGrid){
+){
 	
 	"use strict";
 	
 	var ScreenPanel = function(options){
 		this.panels = [];
-		Container.call(this, options);
+		PhaserComponents.Container.call(this, Game.getInstance(), options);
 		this.signal = new Phaser.Signal();
 	};
 	
@@ -23,7 +23,7 @@ ButtonGrid){
 	ScreenPanel.prototype.constructor = ScreenPanel;
 	
 	ScreenPanel.prototype.create = function(){
-		Container.prototype.create.call(this);
+		PhaserComponents.Container.prototype.create.call(this);
 		this.addPanels();
 	};
 	
@@ -33,11 +33,10 @@ ButtonGrid){
 	};
 	
 	ScreenPanel.prototype.addPanels = function(){
-		var bounds, options, model;
-		model = new ButtonGridModel();
+		var bounds, options;
 		bounds = this.bounds;
-		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice, "model":model};
-		this.grid = new ButtonGrid(options);
+		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
+		this.grid = new PhaserComponents.ButtonGrid(Game.getInstance(), options);
 		this.grid.signal.add(this.select, this);
 		this.group.add(this.grid.group);
 	};
@@ -47,7 +46,7 @@ ButtonGrid){
 		this.grid.signal.remove(this.select, this);
 		this.grid.destroy();
 		this.grid = null;
-		Container.prototype.destroy.call(this);
+		PhaserComponents.Container.prototype.destroy.call(this);
 	};
 	
 	return ScreenPanel;

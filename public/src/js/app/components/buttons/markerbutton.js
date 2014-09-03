@@ -1,14 +1,18 @@
 
-define('app/components/buttons/markerbutton',['app/components/buttons/abstractbutton'], function(AbstractButton){
+define('app/components/buttons/markerbutton',
+
+	['phasercomponents', 'app/game'],
+
+	function(PhaserComponents, Game){
 	
 	"use strict";
 	
 	var MarkerButton = function(options){
 		options.asset = 'marker';
-		AbstractButton.call(this, options);
+		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
 	};
 
-	MarkerButton.prototype = Object.create(AbstractButton.prototype);
+	MarkerButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
 	MarkerButton.prototype.constructor = MarkerButton;
 
 	MarkerButton.prototype.select = function(){

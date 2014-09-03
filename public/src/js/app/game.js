@@ -18,10 +18,6 @@ function(Phaser){
 		Game.getInstance();
 	};
 	
-	Game.getInput = function(){
-		return Game.getInstance().input;
-	};
-	
 	Game.getWidth = function(){
 		return 1024;
 		//var pRatio, w;

@@ -1,5 +1,7 @@
 
-define('app/components/buttons/dirbutton',['app/components/buttons/abstractbutton'], function(AbstractButton){
+define('app/components/buttons/dirbutton',['app/game', 'phasercomponents'],
+
+	function(Game, PhaserComponents){
 	
 	"use strict";
 	
@@ -14,14 +16,14 @@ define('app/components/buttons/dirbutton',['app/components/buttons/abstractbutto
 			frame0 = 4 * 28;
 		}
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
-		AbstractButton.call(this, options);
+		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
 		this.sprite.visible = options.data.visible;
 	};
 	
 	DirButton.WIDTH = 50;
 	DirButton.HEIGHT = 50;
 	
-	DirButton.prototype = Object.create(AbstractButton.prototype);
+	DirButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
 	DirButton.prototype.constructor = DirButton;
 
 	return DirButton;

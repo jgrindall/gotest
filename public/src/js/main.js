@@ -2,7 +2,7 @@
 
 require.config({
 	paths: {
-		'zepto': 						'lib/zepto',
+		'jquery': 						'lib/zepto',
 		'phaser': 						'lib/phaser',
 		'phaserstatetrans': 			'lib/phaser-state-transition.min',
 		'phasercomponents':  			'lib/phasercomponents'
@@ -11,7 +11,7 @@ require.config({
 
 require(['phaser'], function(Phaser){
 	
-	require(['phasercomponents', 'app/boot/boot', 'app/utils/implementations'], function(PhaserComponents, Boot){
+	require(['app/boot/boot'], function(Boot){
 
 		(new Boot()).start();
 	
