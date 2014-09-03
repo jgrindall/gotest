@@ -130,12 +130,14 @@ function(commModel, screenModel, bgModel,
 	};
 
 	ModelFacade.prototype.setData = function(json){
-		screenModel.setData(json.screen);
-		colorModel.setData(json.color);
-		speedModel.setData(json.speed);
-		widthModel.setData(json.width);
-		stepLengthModel.setData(json.stepLength);
-		bgModel.setData(json.bg);
+		screenModel.setData(json.settings.screen);
+		colorModel.setData(json.settings.color);
+		speedModel.setData(json.settings.speed);
+		widthModel.setData(json.settings.width);
+		bgModel.setData(json.settings.bg);
+		gridModel.setData(json.settings.grid);
+		diagModel.setData(json.settings.diag);
+		stepLengthModel.setData(json.settings.stepLength);
 		commModel.setData(json.commands);
 	};
 
