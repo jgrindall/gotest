@@ -56,6 +56,7 @@ FdCommand, StepLengths){
 	
 	Drawing.prototype.commandExecute = function(data){
 		this.command = data.command;
+		console.log("executing "+this.command.toString());
 		this.duration = data.duration;
 		if(this.command instanceof MoveCommand){
 			this.executeMove();

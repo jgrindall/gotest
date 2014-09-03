@@ -14,7 +14,8 @@ define('app/logocommands/abstractlogocommand', [], function(){
 	};
 	
 	AbstractCommand.prototype.toJson = function(){
-		return {'direction':this.direction, 'index':this.index, 'diag':this.diag, 'stepLength':this.stepLength, 'total':this.total, 'width':this.width, ':color':this.color};
+		var data = {'direction':this.direction, 'index':this.index, 'diag':this.diag, 'stepLength':this.stepLength, 'total':this.total, 'width':this.width, 'color':this.color};
+		return data;
 	};
 	
 	AbstractCommand.prototype.toString = function(){
