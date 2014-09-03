@@ -140,17 +140,18 @@ function(commModel, screenModel, bgModel,
 		stepLengthModel.setData(json.settings.stepLength);
 		commModel.setData(json.commands);
 	};
-
+	
 	ModelFacade.prototype.getJson = function() {
-		var json = {};
-		json.bg = 			bgModel.getData().bg;
-		json.screen = 		screenModel.getData().screen;
-		json.width = 		widthModel.getData().index;
-		json.stepLength = 	stepLengthModel.getData().index;
-		json.speed = 		speedModel.getData().index;
-		json.gridOn = 		gridModel.getData().on;
-		json.color =	 	colorModel.getData().index;
-		json.commands = 	commModel.toJson();
+		var json = {}, settings = {};
+		settings.bg = 			bgModel.getData().bg;
+		settings.screen = 		screenModel.getData().screen;
+		settings.width = 		widthModel.getData().index;
+		settings.stepLength = 	stepLengthModel.getData().index;
+		settings.speed = 		speedModel.getData().index;
+		settings.gridOn = 		gridModel.getData().on;
+		settings.color =	 	colorModel.getData().index;
+		json.commands = 		commModel.toJson();
+		json.settings = settings;
 		return json;
 	};
 	

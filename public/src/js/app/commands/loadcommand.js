@@ -22,12 +22,17 @@ function(AlertManager,
 	
 	LoadCommand.prototype.onLoaded = function(data){
 		if(data.success){
-			ModelFacade.getInstance().setData(data.json);
-			eventDispatcher.trigger({"type":Events.REPLAY});
-			AlertManager.makeGrowl({"label":"Loaded your file"}, null);
+			try{
+				ModelFacade.getInstance().setData(data.json);
+				eventDispatcher.trigger({"type":Events.REPLAY});
+				AlertManager.makeGrowl({"label":"Loaded your file"}, null);
+			}
+			catch(e){
+				AlertManager.makeGrowl({"label":"Format error"}, null);
+			}
 		}
 		else{
-			AlertManager.makeGrowl({"label":"Error loading"}, null);
+			AlertManager.makeGrowl({"label":"Error - unable to load"}, null);
 		}
 	};
 	
