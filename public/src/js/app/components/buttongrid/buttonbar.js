@@ -6,6 +6,7 @@ function(ButtonGrid){
 	"use strict";
 	
 	var ButtonBar = function(options){
+		this.direction = null;
 		if(options.numX === 1){
 			this.direction = ButtonBar.VERTICAL;
 		}

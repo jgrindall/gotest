@@ -5,7 +5,7 @@ define('app/views/controls/controls',['app/game', 'app/components/container', 'a
 
 'app/components/buttongrid/tabbuttonbar', 'app/components/buttons/tabbutton',
 
-'app/views/components/colorpicker', 'app/views/components/widthpicker',
+'app/views/components/colorpicker', 'app/views/components/widthpicker', 'app/views/controls/radiobuttons',
 
 'app/models/modelfacade',
 
@@ -21,7 +21,7 @@ function(Game, Container, Background, Slider,
 
 TabButtonBar, TabButton,
 
-ColorPicker, WidthPicker,
+ColorPicker, WidthPicker, RadioButtons,
 
 ModelFacade,
 
@@ -52,7 +52,7 @@ eventDispatcher, Events){
 		this.addButtons();
 		this.addSpeedSlider();
 	};
-	
+
 	Controls.prototype.onScreenChanged = function(data) {
 		this.addCommandsPanel(data.screen);
 		// and load the data
