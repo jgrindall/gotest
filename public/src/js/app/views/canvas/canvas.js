@@ -1,13 +1,13 @@
 
 define('app/views/canvas/canvas',['app/game', 'app/components/container', 'app/components/background',
 
-'app/views/canvas/map', 'app/views/canvas/drawing',
+'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
 
 'app/views/components/indicator', 'app/views/canvas/grid'],
 
 function(Game, Container, Background,
 
-Map, Drawing,
+Map, Drawing, ModelFacade,
 
 Indicator, Grid){
 	
@@ -28,7 +28,7 @@ Indicator, Grid){
 		this.bg = new Background({"asset":'sky', "bounds":bounds});
 		this.group.add(this.bg.sprite);
 	};
-	
+
 	Canvas.prototype.create = function() {
 		Container.prototype.create.call(this);
 		this.addBg();
@@ -55,8 +55,11 @@ Indicator, Grid){
 	};
 
 	Canvas.prototype.addGrid = function() {
-		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
-		this.grid = new Grid({'bounds':bounds, 'num':0});
+		var bounds, sizeModel, visModel;
+		visModel = ModelFacade.getInstance().get(ModelFacade.GRID);
+		sizeModel = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH);
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h};
+		this.grid = new Grid({'bounds':bounds, 'sizeModel':sizeModel, 'visModel':visModel});
 		this.group.add(this.grid.group);
 	};
 	

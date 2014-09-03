@@ -66,7 +66,6 @@ OkButton, CloseButton){
 		this.group.add(this.diagToggle.sprite);
 	};
 
-
 	GridMenu.prototype.addGridToggle = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (ToggleButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 170};
@@ -74,11 +73,21 @@ OkButton, CloseButton){
 		this.group.add(this.gridToggle.sprite);
 	};
 
+	GridMenu.prototype.addLabels = function(){
+		this.label0 = TextFactory.make(Game.cx() - 250, 80, "Step Length", TextFactory.VSMALL);
+		this.label1 = TextFactory.make(Game.cx() - 250, 170, "Toggle grid", TextFactory.VSMALL);
+		this.label2 = TextFactory.make(Game.cx() - 250, 250, "Stretch diags", TextFactory.VSMALL);
+		this.group.add(this.label0);
+		this.group.add(this.label1);
+		this.group.add(this.label2);
+	};
+
 	GridMenu.prototype.create = function () {
 		AbstractPopup.prototype.create.call(this);
 		this.addText();
 		this.addSlider();
 		this.addGridToggle();
+		this.addLabels();
 		this.addDiagToggle();
 		this.addOkButton();
 		this.addCloseButton();
