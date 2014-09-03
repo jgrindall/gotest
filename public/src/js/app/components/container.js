@@ -15,6 +15,10 @@ function(Phaser, Game){
 		this.group = new Phaser.Group(Game.getInstance());
 	};
 	
+	Container.prototype.setVisible = function(vis){
+		this.group.visible = vis;
+	};
+
 	Container.prototype.destroy = function() {
 		this.group.removeAll(true);
 	};
