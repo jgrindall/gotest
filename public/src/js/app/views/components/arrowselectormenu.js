@@ -40,8 +40,8 @@ Pager)
 	};
 	
 	ArrowSelectorMenu.prototype.showArrows = function () {
-		this.leftTween = Game.getInstance().add.tween(this.leftButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
-		this.rightTween = Game.getInstance().add.tween(this.rightButton.sprite).to( {alpha: 1}, 700, Phaser.Easing.Linear.None, true, 1000, false);
+		this.leftTween = Game.getInstance().add.tween(this.leftButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
+		this.rightTween = Game.getInstance().add.tween(this.rightButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
 		this.leftTween.onComplete.add(this.onArrowsShown, this);
 	};
 	

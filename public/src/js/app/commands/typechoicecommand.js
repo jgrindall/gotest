@@ -1,6 +1,9 @@
-define('app/commands/typechoicecommand',['app/utils/alertmanager', 'app/models/modelfacade'],
+define('app/commands/typechoicecommand',[
 
-function(AlertManager, ModelFacade) {
+
+	'app/utils/alertmanager', 'app/models/modelfacade', 'phasercomponents'],
+
+function(AlertManager, ModelFacade, PhaserComponents) {
 	
 	"use strict";
 	
@@ -9,13 +12,18 @@ function(AlertManager, ModelFacade) {
 	};
 	
 	TypeChoiceCommand.prototype.execute = function(data){
-		AlertManager.makeScreenMenu({"page":0, "index":ModelFacade.getInstance().get(ModelFacade.SCREEN).getData().screen},
-			this.onScreenChosen.bind(this)); 
+		var screenModel, radioModel;
+		screenModel = new PhaserComponents.ButtonGridModel();
+		radioModel = new PhaserComponents.ButtonGridModel();
+		screenModel.setData(ModelFacade.getInstance().get(ModelFacade.SCREEN).getData().index);
+		radioModel.setData(ModelFacade.getInstance().get(ModelFacade.ANGLE).getData().index);
+		AlertManager.makeScreenMenu({"screenModel":screenModel, "radioModel":radioModel}, this.onScreenChosen.bind(this)); 
 	};
 	
 	TypeChoiceCommand.prototype.onScreenChosen = function(data) {
-		if(data.index === 1){
-			ModelFacade.getInstance().get(ModelFacade.SCREEN).setData(data.selection.selectedIndex);
+		if(data.index === 0){
+			ModelFacade.getInstance().get(ModelFacade.SCREEN).setData(data.selection.screenIndex);
+			ModelFacade.getInstance().get(ModelFacade.ANGLE).setData(data.selection.radioIndex);
 		}
 	};
 	

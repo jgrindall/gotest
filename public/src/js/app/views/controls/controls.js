@@ -52,7 +52,7 @@ Events){
 	};
 
 	Controls.prototype.onScreenChanged = function(data) {
-		this.addCommandsPanel(data.screen);
+		this.addCommandsPanel(data.index);
 		// and load the data
 	};
 	

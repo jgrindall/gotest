@@ -17,7 +17,6 @@ PhaserComponents
 		options.buttonClass = RadioButton;
 		options.numX = 1;
 		options.numY = 2;
-		options.data = [{'num':0}, {'num':1}];
 		PhaserComponents.ButtonBar.call(this, Game.getInstance(), options);
 	};
 	

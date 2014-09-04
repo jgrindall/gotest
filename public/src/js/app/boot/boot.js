@@ -47,3 +47,8 @@ function($, Game, SceneManager,
 });
 
 
+//Context gets injector and commandmap and eventdispatcher added
+
+
+
+

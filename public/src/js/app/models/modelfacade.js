@@ -3,7 +3,7 @@ define('app/models/modelfacade',['app/models/commmodel', 'app/models/screenmodel
 
 'app/models/colormodel', 'app/models/speedmodel', 'app/consts/commspeed',
 
-'app/models/playingmodel', 'app/models/gridmodel',
+'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel',
 
 'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
 
@@ -13,7 +13,7 @@ function(commModel, screenModel, bgModel,
 
 	colorModel, speedModel, CommSpeed,
 
-	playingModel, gridModel,
+	playingModel, gridModel, angleModel, 
 
 	widthModel, stepLengthModel, diagModel,
 
@@ -36,6 +36,7 @@ function(commModel, screenModel, bgModel,
 	ModelFacade.WIDTH = 		"width";
 	ModelFacade.STEPLENGTH = 	"stepLength";
 	ModelFacade.DIAG = 			"diag";
+	ModelFacade.ANGLE = 		"angle";
 
 	ModelFacade.prototype.get = function(name){
 		if(name === ModelFacade.SPEED){
@@ -43,6 +44,9 @@ function(commModel, screenModel, bgModel,
 		}
 		else if(name === ModelFacade.BG){
 			return bgModel;
+		}
+		else if(name === ModelFacade.ANGLE){
+			return angleModel;
 		}
 		else if(name === ModelFacade.COLOR){
 			return colorModel;
@@ -137,15 +141,17 @@ function(commModel, screenModel, bgModel,
 		bgModel.setData(json.settings.bg);
 		gridModel.setData(json.settings.grid);
 		diagModel.setData(json.settings.diag);
+		angleModel.setData(json.settings.angle);
 		stepLengthModel.setData(json.settings.stepLength);
 		commModel.setData(json.commands);
 	};
-	
+
 	ModelFacade.prototype.getJson = function() {
 		var json = {}, settings = {};
 		settings.bg = 			bgModel.getData().bg;
-		settings.screen = 		screenModel.getData().screen;
+		settings.screen = 		screenModel.getData().index;
 		settings.width = 		widthModel.getData().index;
+		settings.angle = 		angleModel.getData().index;
 		settings.stepLength = 	stepLengthModel.getData().index;
 		settings.speed = 		speedModel.getData().index;
 		settings.gridOn = 		gridModel.getData().on;

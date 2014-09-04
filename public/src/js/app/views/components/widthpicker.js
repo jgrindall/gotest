@@ -8,7 +8,6 @@ function(StepperButton){
 	"use strict";
 	
 	var WidthPicker  = function(options){
-		console.log("width "+JSON.stringify(options));
 		StepperButton.call(this, options);
 	};
 

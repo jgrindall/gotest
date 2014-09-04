@@ -206,9 +206,9 @@ define('phasercomponents/display/abstractbutton',
 	};
 	
 	AbstractButton.prototype.destroy = function(){
-		this.sprite.inputEnabled = false;
 		this.sprite.events.onInputUp.remove(this.mouseUp, this);
 		this.sprite.events.onInputDown.remove(this.mouseDown, this);
+		this.sprite.inputEnabled = false;
 		this.sprite.destroy(true);
 		this.mouseDownSignal = null;
 		this.mouseUpSignal = null;
@@ -268,7 +268,7 @@ function(AbstractModel){
 	ButtonGridModel.prototype.constructor = ButtonGridModel;
 	
 	ButtonGridModel.prototype.getData = function(){
-		return {"selected":this.selected, "grid":this.grid};
+		return {"index":this.selected};
 	};
 	
 	ButtonGridModel.prototype.setData = function(n) {
@@ -300,6 +300,9 @@ ButtonGridModel){
 	
 	var ButtonGrid = function(game, options){
 		this.game = game;
+		if(options.performSelect === null || options.performSelect === undefined){
+			options.performSelect = true;
+		}
 		this.model = options.model || new ButtonGridModel();
 		this.model.changeSignal.add(this.onSelectedChanged, this);
 		this.data = options.data || [];
@@ -310,14 +313,15 @@ ButtonGridModel){
 		this.buttons = [];
 		Container.call(this, this.game, options);
 		this.changeSignal = new Phaser.Signal();
-		this.clickSignal = new Phaser.Signal();	
+		this.clickSignal = new Phaser.Signal();
+		this.showSelected(this.model.getData().index);
 	};
 	
 	ButtonGrid.prototype = Object.create(Container.prototype);
 	ButtonGrid.prototype.constructor = ButtonGrid;
 	
 	ButtonGrid.prototype.onSelectedChanged = function(data){
-		var index = data.selected;
+		var index = data.index;
 		this.showSelected(index);
 		this.changeSignal.dispatch({"index":index, "grid":this});
 	};
@@ -379,10 +383,11 @@ ButtonGridModel){
 	};
 	
 	ButtonGrid.prototype.buttonUp = function(data) {
-		var target = data.target.group || data.target.sprite;
-		var index = this.buttonGroup.getIndex(target);
-		if(this.options.peformSelect){
-			this.model.setSelected(index);
+		var target, index;
+		target = data.target.group || data.target.sprite;
+		index = this.buttonGroup.getIndex(target);
+		if(this.options.performSelect){
+			this.model.setData(index);
 		}
 		this.clickSignal.dispatch({"index":index, "grid":this});
 	};
@@ -397,8 +402,8 @@ ButtonGridModel){
 		Container.prototype.destroy.call(this);
 		this.buttonGroup.destroy(true);
 		this.bg = null;
+		this.changeSignal = null;
 		this.buttons = [];
-		this.model.destroy();
 		this.model = null;
 		this.signal = null;
 	};

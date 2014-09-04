@@ -1,5 +1,5 @@
 
-define('app/components/buttons/keybutton',['phasercomponents'], function(PhaserComponents){
+define('app/components/buttons/keybutton',['app/game','phasercomponents'], function(Game, PhaserComponents){
 	
 	"use strict";
 	

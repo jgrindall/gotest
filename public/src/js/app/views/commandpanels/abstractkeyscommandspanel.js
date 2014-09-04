@@ -79,10 +79,10 @@ PhaserComponents, AbstractCommandsPanel
 	};
 	
 	AbstractKeysCommandsPanel.prototype.destroy = function() {
-		AbstractCommandsPanel.prototype.destroy.call(this);
 		if(this.keys){
 			this.keys.destroy();
 		}
+		AbstractCommandsPanel.prototype.destroy.call(this);
 	};
 	
 	return AbstractKeysCommandsPanel;

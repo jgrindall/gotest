@@ -12,6 +12,7 @@ define('app/consts/defaults',[], function() {
 		'screen':0,
 		'speed':2,
 		'color':0,
+		'angle':0,
 		'stepLength':2,
 		'width':2,
 		'grid':0,

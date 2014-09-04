@@ -14,7 +14,7 @@ function(AbstractModel){
 	ScreenModel.prototype.constructor = ScreenModel;
 	
 	ScreenModel.prototype.getData = function() {
-		return {"screen":this.screen};
+		return {"index":this.screen};
 	};
 	
 	ScreenModel.prototype.setData = function(n) {

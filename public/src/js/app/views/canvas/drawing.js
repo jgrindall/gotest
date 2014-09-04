@@ -40,8 +40,7 @@ FdCommand, StepLengths){
 	Drawing.RT2 = 1.4142135624;
 	Drawing.ONE_RT2 = 1/Drawing.RT2;
 	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
-	Drawing.ROTATE_45 = [0, 0, 0, -45, 0, 45, 0, 0, 0];
-	Drawing.ROTATE_90 = [0, 0, 0, 90, 0, -90, 0, 0, 0];
+	Drawing.ROTATE = [[0, 0, 0, -45, 0, 45, 0, 0, 0], [0, 0, 0, -90, 0, 90, 0, 0, 0]];
 	Drawing.DIAG = [Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2]; 
 		
 	Drawing.prototype = Object.create(PhaserComponents.Container.prototype);
@@ -57,7 +56,6 @@ FdCommand, StepLengths){
 	
 	Drawing.prototype.commandExecute = function(data){
 		this.command = data.command;
-		console.log("executing "+this.command.toString());
 		this.duration = data.duration;
 		if(this.command instanceof MoveCommand){
 			this.executeMove();
@@ -129,7 +127,8 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.executeTurn = function() {
-		this.angle = this.angle + Drawing.ROTATE_45[this.command.direction];
+		this.angle = this.angle + Drawing.ROTATE[this.command.angle][this.command.direction];
+		this.endPos = this.startPos;
 		this.rotateTurtle(this.duration);
 	};
 	
