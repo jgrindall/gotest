@@ -1,13 +1,13 @@
 
-define('app/components/buttons/closebutton',['app/game', 'phasercomponents'],
+define('app/components/buttons/closebutton',[ 'phasercomponents'],
 
-	function(Game, PhaserComponents){
+	function(PhaserComponents){
 	
 	"use strict";
 	
 	var CloseButton = function(options){
 		options.asset = 'close';
-		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
+		PhaserComponents.AbstractButton.call(this, options);
 	};
 	
 	CloseButton.WIDTH = 50;

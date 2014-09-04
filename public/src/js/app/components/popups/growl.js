@@ -1,5 +1,5 @@
 
-define('app/components/popups/growl',['app/game', 'app/components/buttons/tickbutton',
+define('app/components/popups/growl',[ 'app/components/buttons/tickbutton',
 
 'app/components/popups/abstractpopup', 'app/text/textfactory',
 
@@ -29,7 +29,7 @@ OkButton, CloseButton){
 	};
 	
 	Growl.prototype.addText = function () {
-		this.label = TextFactory.make(Game.cx() - 150, this.bounds.y + 20, this.options.data.label, TextFactory.SMALL);
+		this.label = TextFactory.make(this.game, this.game.cx - 150, this.bounds.y + 20, this.options.data.label, TextFactory.SMALL);
 		this.group.add(this.label);
 	};
 	

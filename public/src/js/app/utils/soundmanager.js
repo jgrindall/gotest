@@ -1,5 +1,5 @@
 
-define('app/utils/soundmanager',['app/game'], function(Game){
+define('app/utils/soundmanager',[], function(Game){
 	
 	"use strict";
 	

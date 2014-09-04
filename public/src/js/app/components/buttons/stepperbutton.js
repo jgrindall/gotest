@@ -1,5 +1,5 @@
 
-define('app/components/buttons/stepperbutton',['app/game', 
+define('app/components/buttons/stepperbutton',[ 
 	
 'phasercomponents'],
 

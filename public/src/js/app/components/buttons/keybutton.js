@@ -1,5 +1,5 @@
 
-define('app/components/buttons/keybutton',['app/game','phasercomponents'], function(Game, PhaserComponents){
+define('app/components/buttons/keybutton',['phasercomponents'], function(PhaserComponents){
 	
 	"use strict";
 	
@@ -9,7 +9,7 @@ define('app/components/buttons/keybutton',['app/game','phasercomponents'], funct
 		startFrame = 18 * 4;
 		frame0 = startFrame + (4 * options.data.num);
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
-		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
+		PhaserComponents.AbstractButton.call(this, options);
 	};
 	
 	KeyButton.WIDTH = 50;

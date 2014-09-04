@@ -1,9 +1,9 @@
 
-define('app/views/components/menu',['app/game', 'app/components/buttons/menubutton',
+define('app/views/components/menu',[ 'app/components/buttons/menubutton',
 
 'phasercomponents', 'app/models/modelfacade', 'app/consts/playingstate'],
 
-function(Game, MenuButton,
+function(MenuButton,
 
 PhaserComponents, ModelFacade, PlayingState){
 	
@@ -14,7 +14,7 @@ PhaserComponents, ModelFacade, PlayingState){
 		options.numX = 4;
 		options.numY = 1;
 		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}];
-		PhaserComponents.ButtonBar.call(this, Game.getInstance(), options);
+		PhaserComponents.ButtonBar.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 	};
 	

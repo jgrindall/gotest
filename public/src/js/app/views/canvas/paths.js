@@ -1,5 +1,5 @@
 
-define('app/views/canvas/paths',['phaser', 'app/game', 'phasercomponents',
+define('app/views/canvas/paths',['phaser', , 'phasercomponents',
 
 'app/views/canvas/linedrawer'],
 
@@ -10,7 +10,7 @@ LineDrawer){
 	"use strict";
 	
 	var Paths  = function(options){
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 		this.endSignal = new Phaser.Signal();
 	};
 	

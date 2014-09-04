@@ -1,5 +1,5 @@
 
-define('app/components/popups/abstractpopup',['phaser','app/game',
+define('app/components/popups/abstractpopup',['phaser',,
 
 'phasercomponents'],
 
@@ -12,8 +12,8 @@ PhaserComponents){
 	var AbstractPopup = function(options){
 		this.buttons = [];
 		this.selectSignal = new Phaser.Signal();
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
-		this.group.y = Game.h() + 50;
+		PhaserComponents.Container.call(this, options);
+		this.group.y = this.game.h + 50;
 	};
 	
 	AbstractPopup.prototype = Object.create(PhaserComponents.Container.prototype);

@@ -1,5 +1,5 @@
 
-define('app/utils/alertmanager',['phaser', 'app/game', 
+define('app/utils/alertmanager',['phaser', , 
 
 'app/views/popups/gamescreenmenu', 'app/views/popups/gamebgmenu',
 
@@ -24,7 +24,7 @@ Growl, GridMenu){
 			AlertManager.bg.destroy();
 			AlertManager.bg = null;
 			AlertManager.alert = null;
-			Game.alertSignal.dispatch({"show":false});
+			//Game.alertSignal.dispatch({"show":false});
 		}
 	};
 	
@@ -36,7 +36,7 @@ Growl, GridMenu){
 		AlertManager.bg = new Phaser.Graphics(Game.getInstance(), 0, 0);
 		AlertManager.bg.beginFill(0x000000);
 		AlertManager.bg.alpha = 0.7;
-    	AlertManager.bg.drawRect(0, 0, Game.w(), Game.h());
+    	AlertManager.bg.drawRect(0, 0, this.game.w, this.game.h);
     	AlertManager.bg.endFill();
 		Game.getInstance().world.add(AlertManager.bg);
 	};
@@ -44,14 +44,14 @@ Growl, GridMenu){
 	AlertManager.make = function(ClassRef, data, callback){
 		var x, y;
 		AlertManager.callbackProxy = this.buttonClick.bind(AlertManager, callback);
-		x = (Game.w() - ClassRef.WIDTH)/2;
-		y = (Game.h() - ClassRef.HEIGHT)/2;
+		x = (this.game.w - ClassRef.WIDTH)/2;
+		y = (this.game.h - ClassRef.HEIGHT)/2;
 		AlertManager.addBg();
 		AlertManager.close();
 		AlertManager.alert = new ClassRef({"data":data, "bounds":{"x":x, "y":y, "w":ClassRef.WIDTH, "h":ClassRef.HEIGHT}});
 		AlertManager.alert.selectSignal.add(this.callbackProxy);
 		Game.getInstance().world.add(AlertManager.alert.group);
-		Game.alertSignal.dispatch({"show":true});
+		//Game.alertSignal.dispatch({"show":true});
 		AlertManager.alert.showMe();
 	};
 	

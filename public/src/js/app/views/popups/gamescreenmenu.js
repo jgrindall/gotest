@@ -1,7 +1,7 @@
 
 define('app/views/popups/gamescreenmenu',[
 
-'app/game', 'app/components/buttons/tickbutton', 'app/models/modelfacade',
+, 'app/components/buttons/tickbutton', 'app/models/modelfacade',
 
 'app/components/popups/abstractpopup', 'app/views/controls/radiobuttons',
 
@@ -50,7 +50,7 @@ OkButton, CloseButton){
 	};
 
 	GameScreenMenu.prototype.addRadio = function() {
-		var bounds = {'x':this.bounds.x + this.bounds.w - RadioButtons.WIDTH, 'y':Game.h() - RadioButtons.HEIGHT, 'w':RadioButtons.WIDTH, 'h':RadioButtons.HEIGHT};
+		var bounds = {'x':this.bounds.x + this.bounds.w - RadioButtons.WIDTH, 'y':this.game.h - RadioButtons.HEIGHT, 'w':RadioButtons.WIDTH, 'h':RadioButtons.HEIGHT};
 		this.radio = new RadioButtons({"model":this.options.data.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 	};

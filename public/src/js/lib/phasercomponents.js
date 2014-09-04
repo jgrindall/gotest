@@ -1,4 +1,211 @@
 
+define('phasercomponents/gamemanager', ['phaser', 'phaserstatetrans'],
+
+function(Phaser, PhaserStateTrans){
+	
+	
+	
+	var GameManager = function(){
+
+	};
+
+	GameManager.prototype.init = function(el, config){
+		var w, h;
+		w = this.getWidth();
+    	h = this.getHeight();
+		this.game = new Phaser.Game(w, h, Phaser.AUTO, el, config);
+		this.game.w = w;
+		this.game.h = h;
+		this.game.cx = w/2;
+		this.game.cy = h/2;
+	};
+
+	GameManager.prototype.mapScene = function(key, scene, first){
+		this.game.state.add(key, scene);
+		if(first){
+			this.firstSceneKey = key;
+		}
+	};
+
+	GameManager.prototype.start = function(){
+		var settings;
+		this.transitions = this.game.plugins.add(PhaserStateTrans);
+		settings = {'duration': 300,	'properties': {'alpha': 0, 'scale': {'x': 1.05, 'y': 1.05}}};
+		this.transitions.settings(settings);
+		this.game.state.start(this.firstSceneKey);
+	};
+
+	GameManager.prototype.goToScene = function(key){
+		this.transitions.to(key);
+	};
+
+	GameManager.prototype.getWidth = function(){
+		return 1024 * window.devicePixelRatio;
+	};
+	
+	GameManager.prototype.getHeight = function(){
+		return 570 * window.devicePixelRatio;
+	};
+	
+	return GameManager;
+	
+});
+
+
+define('phasercomponents/commandmap',[],
+
+function() {
+	
+	
+	
+	var CommandMap = function(){
+		this.hash = {};	
+	};
+	
+	CommandMap.prototype.setEventDispatcher = function(eventDispatcher){
+		this.eventDispatcher = eventDispatcher;
+	};
+
+	CommandMap.prototype.trigger = function(event, obj){
+		if(!obj || !obj.type){
+			throw "Undefined command";
+		}
+		var CommandClassRef = this.get(obj.type);
+		if(CommandClassRef){
+			(new CommandClassRef()).start(obj.data);
+		}
+	};
+
+	CommandMap.prototype.map = function(eventName, CommandClassRef){
+		var handler;
+		if(!eventName || !CommandClassRef || this.hash[eventName]){
+			throw "Error with map";
+		}
+		handler = this.trigger.bind(this);
+		this.eventDispatcher.addListener(eventName, handler);
+		this.hash[eventName] = CommandClassRef;
+		new CommandClassRef();
+	};
+	
+	CommandMap.prototype.get = function(eventName){
+		return this.hash[eventName];
+	};
+	
+  	return CommandMap;
+});
+
+
+
+
+
+define('phasercomponents/events/eventdispatcher',['jquery'],
+
+function($) {
+	
+	/* A simple event aggregator */
+
+	
+	
+	var EventDispatcher = function(){
+		this.el = $(document);
+	};
+	
+	EventDispatcher.prototype.addListener = function(name, method) {
+		if(!name || !method){
+			throw "No eventName/method";
+		}
+		this.el.on(name, method);
+	};
+
+	EventDispatcher.prototype.addOnce = function(name, method) {
+		if(!name || !method){
+			throw "No eventName/method";
+		}
+		this.el.once(name, method);
+	};
+
+	EventDispatcher.prototype.removeListener = function(name, method) {
+		if(!name || !method){
+			throw "No eventName/method";
+		}
+		this.el.off(name, method);
+	};
+
+	EventDispatcher.prototype.trigger = function(eventObj) {
+		if(!eventObj || !eventObj.type){
+			throw "No eventName";
+		}
+		else{
+			console.log("TRIGGER "+eventObj.type+"  "+eventObj.data);
+			for(var i in eventObj.data){
+				console.log("eventObj "+i+"   "+eventObj.data[i]);
+			}
+			this.el.trigger(eventObj.type, eventObj);
+		}
+	};
+
+  	return EventDispatcher;
+});
+
+
+
+
+
+
+define('phasercomponents/context',['phasercomponents/gamemanager',
+
+	'phasercomponents/commandmap', 'phasercomponents/events/eventdispatcher'],
+
+	function(GameManager, CommandMap, EventDispatcher) {
+	
+	
+
+   	var Context = function ( ){
+		this.commandMap = new CommandMap();
+		this.gameManager = new GameManager();
+		Context.eventDispatcher = new EventDispatcher();
+		Context.eventDispatcher.addListener("scene", this.onChangeScene.bind(this));
+		this.commandMap.setEventDispatcher(Context.eventDispatcher);
+		this.mapCommands();
+		this.makeGame();
+    };
+	
+    Context.prototype.onChangeScene = function(){
+    	
+    };
+
+    Context.prototype.makeGame = function(){
+    	var config = {
+    		"preload":this.preload.bind(this),
+    		"create":this.create.bind(this)
+    	};
+    	this.gameManager.init(this.el, config);
+    };
+
+    Context.prototype.mapScenes = function(){
+    	
+    };
+
+    Context.prototype.mapCommands = function(){
+    	
+    };
+
+	Context.prototype.create = function(){
+		Context.game = this.gameManager.game;
+    	this.mapScenes();
+		this.gameManager.start();
+	};
+	
+	Context.prototype.preload = function(){
+		
+	};
+	
+	return Context;
+	
+});
+
+
+
 define('phasercomponents/display/movieclip', ['phaser'], function(Phaser){
 	
 	
@@ -35,18 +242,35 @@ define('phasercomponents/display/movieclip', ['phaser'], function(Phaser){
 
 
 
-define('phasercomponents/display/container',['phaser'],
+define('phasercomponents/display/view', ['phasercomponents/context'], function(Context){
+	
+	
+	
+	var View = function(){
+		this.game = Context.game;
+	};
 
-function(Phaser){
+	return View;
+
+});
+
+
+
+define('phasercomponents/display/container',['phaser', 'phasercomponents/display/view'],
+
+function(Phaser, View){
 	
 	
 	
-	var Container = function(game, options){
-		this.game = game;
+	var Container = function(options){
+		View.call(this);
 		this.options = options || {};
 		this.bounds = this.options.bounds;
 		this.create();
 	};
+
+	Container.prototype = Object.create(View.prototype);
+	Container.prototype.constructor = Container;
 
 	Container.prototype.create = function(){
 		this.group = new Phaser.Group(this.game);
@@ -149,18 +373,21 @@ define('phasercomponents/display/interactivesprite',['phaser'], function(Phaser)
 
 define('phasercomponents/display/abstractbutton',
 	
-['phaser'], function(Phaser){
+['phaser', 'phasercomponents/display/view'], function(Phaser, View){
 	
 	
 	
-	var AbstractButton = function(game, options){
+	var AbstractButton = function(options){
+		View.call(this);
 		this.options = options;
-		this.game = game;
 		this.frames = options.frames || [0, 1, 2, 3];
 		this.mouseDownSignal = new Phaser.Signal();
 		this.mouseUpSignal = new Phaser.Signal();
 		this.create();
 	};
+
+	AbstractButton.prototype = Object.create(View.prototype);
+	AbstractButton.prototype.constructor = AbstractButton;
 
 	AbstractButton.prototype.goToFrame = function(i){
 		this.sprite.setFrames(this.frames[i], this.frames[i], this.frames[i], this.frames[i]);
@@ -501,55 +728,6 @@ function(ButtonBar){
 });
 
 
-define('phasercomponents/events/eventdispatcher',['jquery'],
-
-function($) {
-	
-	/* A simple event aggregator */
-
-	
-	
-	var EventDispatcher = function(){
-		this.el = $(document);
-	};
-	
-	EventDispatcher.prototype.addListener = function(name, method) {
-		if(!name || !method){
-			throw "No eventName/method";
-		}
-		this.el.on(name, method);
-	};
-
-	EventDispatcher.prototype.addOnce = function(name, method) {
-		if(!name || !method){
-			throw "No eventName/method";
-		}
-		this.el.once(name, method);
-	};
-
-	EventDispatcher.prototype.removeListener = function(name, method) {
-		if(!name || !method){
-			throw "No eventName/method";
-		}
-		this.el.off(name, method);
-	};
-
-	EventDispatcher.prototype.trigger = function(eventObj) {
-		if(!eventObj || !eventObj.type){
-			throw "No eventName";
-		}
-		else{
-			this.el.trigger(eventObj.type, eventObj);
-		}
-	};
-
-  	return new EventDispatcher();
-});
-
-
-
-
-
 
 define('phasercomponents/display/slider/slider',['phaser', 'phasercomponents/display/container',
 
@@ -866,7 +1044,42 @@ function(Phaser, Container){
 
 
 
-define('phasercomponents',['phasercomponents/display/movieclip',
+define('phasercomponents/scene',
+
+	['phasercomponents/context'],
+
+	function(Context){
+	
+	
+	
+	var Scene  = function(){
+		this.game = Context.game;
+		this.world = Context.game.world;
+		console.log("Context.eventDispatcher "+Context.eventDispatcher);
+		this.eventDispatcher = Context.eventDispatcher;
+	};
+
+	Scene.prototype.shutdown = function() {
+		this.game = null;
+		this.world = null;
+		this.eventDispatcher = null;
+	};
+
+	return Scene;
+
+});
+	
+	
+
+
+
+
+
+define('phasercomponents',[
+
+	'phasercomponents/context',
+
+	'phasercomponents/display/movieclip',
 
 	'phasercomponents/display/container',
 
@@ -889,10 +1102,16 @@ define('phasercomponents',['phasercomponents/display/movieclip',
 	'phasercomponents/display/slider/slider',
 
 	'phasercomponents/display/scroller/scroller',
+
+	'phasercomponents/scene',
+
+	'phasercomponents/display/view'
 	
 	], 
 
-	function (MovieClip,
+	function (Context, 
+
+		MovieClip,
 
 		Container,
 
@@ -914,7 +1133,11 @@ define('phasercomponents',['phasercomponents/display/movieclip',
 
 		Slider, 
 
-		Scroller
+		Scroller,
+
+		Scene,
+
+		View
 
 		) {
 		
@@ -932,9 +1155,12 @@ define('phasercomponents',['phasercomponents/display/movieclip',
        	'ButtonGridModel': 		ButtonGridModel,
     	'TabButtonBar': 		TabButtonBar,
         'ButtonBar': 			ButtonBar,
-        'eventDispatcher': 		EventDispatcher,
+        'EventDispatcher': 		EventDispatcher,
         'Slider': 				Slider,
-        'Scroller': 			Scroller
+        'Scroller': 			Scroller,
+        'Context': 				Context,
+        'Scene': 				Scene,
+        'View': 				View
     };
     
 

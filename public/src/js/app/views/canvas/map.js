@@ -1,5 +1,5 @@
 
-define('app/views/canvas/map',['phaser', 'app/game', 'app/models/modelfacade', 'phasercomponents',
+define('app/views/canvas/map',['phaser', , 'app/models/modelfacade', 'phasercomponents',
 
 'app/models/modelfacade'],
 
@@ -11,7 +11,7 @@ PhaserComponents){
 	
 	var Map  = function(options){
 		ModelFacade.getInstance().get(ModelFacade.BG).changeSignal.add(this.onChanged, this);
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 	};
 	
 	Map.prototype = Object.create(PhaserComponents.Container.prototype);

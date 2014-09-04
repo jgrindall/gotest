@@ -1,13 +1,13 @@
 
-define('app/components/scroller/groupmarker',['app/game', 'app/components/buttons/markerbutton', 'phasercomponents'],
+define('app/components/scroller/groupmarker',[ 'app/components/buttons/markerbutton', 'phasercomponents'],
 
-function(Game, MarkerButton, PhaserComponents){
+function(MarkerButton, PhaserComponents){
 	
 	"use strict";
 	
 	var GroupMarker = function(options){
 		this.buttons = [];
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 	};
 	
 	GroupMarker.prototype = Object.create(PhaserComponents.Container.prototype);
@@ -17,8 +17,8 @@ function(Game, MarkerButton, PhaserComponents){
 		PhaserComponents.Container.prototype.create.call(this);
 		var b, i, x;
 		for(i = 0; i <= this.options.num - 1; i++){
-			x = Game.cx() - 20 * this.options.num + i * 40;
-			b = new MarkerButton({'bounds':{"x":x, "y":Game.h() - 40}});
+			x = this.game.cx - 20 * this.options.num + i * 40;
+			b = new MarkerButton({'bounds':{"x":x, "y":this.game.h - 40}});
 			this.group.add(b.sprite);
 			this.buttons.push(b);
 		}

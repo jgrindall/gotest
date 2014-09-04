@@ -1,7 +1,7 @@
 
 define('app/components/buttons/markerbutton',
 
-	['phasercomponents', 'app/game'],
+	['phasercomponents', ],
 
 	function(PhaserComponents, Game){
 	

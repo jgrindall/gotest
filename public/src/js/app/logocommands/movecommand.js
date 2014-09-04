@@ -8,7 +8,7 @@ define(
 	function(AbstractLogoCommand, CommandTypes){
 	
 		"use strict";
-		
+
 		var MoveCommand = function(json){
 			AbstractLogoCommand.call(this, json);
 		};

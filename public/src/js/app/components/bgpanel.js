@@ -1,16 +1,16 @@
 
-define('app/components/bgpanel',['app/game', 'phasercomponents', 'phaser'
+define('app/components/bgpanel',[ 'phasercomponents', 'phaser'
 
 ],
 
-function(Game, PhaserComponents, Phaser
+function(PhaserComponents, Phaser
 
 ){
 	
 	"use strict";
 	
 	var BgPanel = function(options){
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 	};
 	
 	BgPanel.prototype = Object.create(PhaserComponents.Container.prototype);

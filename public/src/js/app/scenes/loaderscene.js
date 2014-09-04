@@ -1,49 +1,52 @@
 
-define('app/scenes/loaderscene',['app/scenes/scene', 'app/preloader/preloader', 'app/components/loaderbar/loaderbar',
+define('app/scenes/loaderscene',['phasercomponents', 'app/preloader/preloader', 
 
-'app/text/textfactory', 'app/game'],
+	'app/components/loaderbar/loaderbar',
 
-function(Scene, Preloader,LoaderBar,
+'app/text/textfactory', ],
 
-TextFactory, Game){
+function(PhaserComponents, Preloader,
+
+	LoaderBar,
+
+TextFactory){
 	
 	"use strict";
 	
-	var LoaderScene  = function(key){
-		Scene.call(this, key);
+	var LoaderScene  = function(){
+		PhaserComponents.Scene.call(this);
 		this.numLoaded = 0;
 	};
 	
 	LoaderScene.created = false;
 	
-	LoaderScene.prototype = Object.create(Scene.prototype);
+	LoaderScene.prototype = Object.create(PhaserComponents.Scene.prototype);
 	LoaderScene.prototype.constructor = LoaderScene;
 
 	LoaderScene.prototype.preload = function() {
 		this.addChildren();
-		this.preloader = new Preloader();
+		this.preloader = new Preloader(this.game);
 		this.preloader.loadSignal.add(this.loadProgress, this);
 		this.preloader.start();
 	};
 	
 	LoaderScene.prototype.addChildren = function() {
-		Scene.prototype.addChildren.call(this);
 		this.addBar();
 		this.addText();
 	};
 	
 	LoaderScene.prototype.addBar = function() {
 		var x, y, bounds;
-		x = Game.cx() - LoaderBar.WIDTH/2;
-		y = Game.cy() - 20;
+		x = this.game.cx - LoaderBar.WIDTH/2;
+		y = this.game.cy - 20;
 		bounds = {"x":x, "y":y};
 		this.loaderBar = new LoaderBar({'bounds':bounds});
 		this.world.add(this.loaderBar.sprite);
 	};
 	
 	LoaderScene.prototype.addText = function() {
-		this.label = TextFactory.make(Game.cx() - 300, 0, "Loading 2Go...", TextFactory.LARGE);
-		Game.getInstance().world.add(this.label);
+		this.label = TextFactory.make(this.game, this.game.cx - 300, 0, "Loading 2Go...", TextFactory.LARGE);
+		this.world.add(this.label);
 	};
 	
 	LoaderScene.prototype.loadProgress = function(data) {
@@ -52,20 +55,13 @@ TextFactory, Game){
 	};
 
 	LoaderScene.prototype.create = function() {
-		Scene.prototype.create.call(this);
-		var that = this;
 		this.loaderBar.goToPercent(100);
-		setTimeout(function(){
-			that.navigationSignal.dispatch({"key":that.key});
-		}, 1000);
-	};
-
-	LoaderScene.prototype.update = function() {
-		Scene.prototype.update.apply(this, arguments);
+		var data = {"scene":this};
+		this.eventDispatcher.trigger({"type":"scene", "data":data});
 	};
 
 	LoaderScene.prototype.shutdown = function() {
-		Scene.prototype.shutdown.apply(this, arguments);
+		PhaserComponents.Scene.prototype.shutdown.apply(this, arguments);
 		this.loaderBar.destroy();
 		if(this.preloader){
 			this.preloader.loadSignal.removeAll(this);

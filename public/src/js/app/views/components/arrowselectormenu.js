@@ -1,5 +1,5 @@
 
-define('app/views/components/arrowselectormenu',['jquery', 'phaser', 'app/game', 'app/components/buttons/arrowbutton',
+define('app/views/components/arrowselectormenu',['jquery', 'phaser', , 'app/components/buttons/arrowbutton',
 
 'app/views/components/selectormenu',
 
@@ -28,8 +28,8 @@ Pager)
 	
 	ArrowSelectorMenu.prototype.addArrows = function () {
 		if(this.options.dataProvider.getNumPages() >= 2){
-			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':20, 'y':Game.cy()}});
-			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':Game.w() - 60, 'y':Game.cy()}});
+			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':20, 'y':this.game.cy}});
+			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':this.game.w - 60, 'y':this.game.cy}});
 			this.leftButton.sprite.alpha = 0;
 			this.rightButton.sprite.alpha = 0;
 			this.group.add(this.leftButton.sprite);

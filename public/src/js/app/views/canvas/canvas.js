@@ -1,11 +1,11 @@
 
-define('app/views/canvas/canvas',['app/game', 'phasercomponents', 'app/components/background',
+define('app/views/canvas/canvas',[ 'phasercomponents', 'app/components/background',
 
 'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
 
 'app/views/components/indicator', 'app/views/canvas/grid'],
 
-function(Game, PhaserComponents, Background,
+function(PhaserComponents, Background,
 
 Map, Drawing, ModelFacade,
 
@@ -14,7 +14,7 @@ Indicator, Grid){
 	"use strict";
 	
 	var Canvas  = function(options){
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 	};
 	
 	Canvas.prototype = Object.create(PhaserComponents.Container.prototype);
@@ -22,8 +22,8 @@ Indicator, Grid){
 	
 	Canvas.prototype.addBg = function() {
 		var w, h, bounds;
-		w = Game.w();
-		h = Game.h();
+		w = this.game.w;
+		h = this.game.h;
 		this.bg = new Background({"asset":'sky', "bounds":this.bounds});
 		this.group.add(this.bg.sprite);
 	};

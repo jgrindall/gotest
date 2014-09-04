@@ -1,7 +1,7 @@
 
-define('app/components/buttons/menubutton',['app/game', 'phasercomponents'],
+define('app/components/buttons/menubutton',[ 'phasercomponents'],
 
-	function(Game, PhaserComponents){
+	function(PhaserComponents){
 	
 	"use strict";
 	
@@ -11,7 +11,7 @@ define('app/components/buttons/menubutton',['app/game', 'phasercomponents'],
 		startFrame = 9 * 4;
 		frame0 = startFrame + (4 * options.data.num);
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
-		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
+		PhaserComponents.AbstractButton.call(this, options);
 	};
 	
 	MenuButton.WIDTH = 50;

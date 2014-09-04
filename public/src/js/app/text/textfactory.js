@@ -1,5 +1,5 @@
 
-define('app/text/textfactory',['phaser', 'app/game'], function(Phaser, Game){
+define('app/text/textfactory',['phaser'], function(Phaser){
 	
 	"use strict";
 	
@@ -24,10 +24,10 @@ define('app/text/textfactory',['phaser', 'app/game'], function(Phaser, Game){
 		
 	};
 		
-	TextFactory.make = function(x, y, label, size){
+	TextFactory.make = function(game, x, y, label, size){
 		var font, text, fill;
 		font = TextFactory.FONTS[size];
-		text = new Phaser.Text(Game.getInstance(), x, y, label, font);
+		text = new Phaser.Text(game, x, y, label, font);
 	    text.stroke = '#777777';
 	    text.strokeThickness = 2;
 	    fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);

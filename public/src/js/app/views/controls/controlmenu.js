@@ -1,11 +1,11 @@
 
-define('app/views/controls/controlmenu',['app/game', 'app/components/buttons/controlmenubutton',
+define('app/views/controls/controlmenu',[ 'app/components/buttons/controlmenubutton',
 
 'phasercomponents', 'app/models/modelfacade',
 
 'app/consts/playingstate'],
 
-function(Game, ControlMenuButton,
+function(ControlMenuButton,
 
 PhaserComponents, ModelFacade,
 
@@ -18,7 +18,7 @@ PlayingState){
 		options.numX = 5;
 		options.numY = 1;
 		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}, {'num':8}];
-		PhaserComponents.ButtonBar.call(this, Game.getInstance(), options);
+		PhaserComponents.ButtonBar.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.disableButtonAt(1);
 	};

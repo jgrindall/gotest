@@ -1,5 +1,5 @@
 
-define('app/views/controls/controls',['app/game', 'app/components/background',
+define('app/views/controls/controls',[ 'app/components/background',
 
 'phasercomponents', 'app/components/buttons/tabbutton',
 
@@ -15,7 +15,7 @@ define('app/views/controls/controls',['app/game', 'app/components/background',
 
 ],
 
-function(Game, Background,
+function(Background,
 
 PhaserComponents, TabButton,
 
@@ -32,8 +32,8 @@ Events){
 	"use strict";
 	
 	var Controls  = function(options){
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
-		Game.alertSignal.add(this.onAlert, this);
+		PhaserComponents.Container.call(this, options);
+		//Game.alertSignal.add(this.onAlert, this);
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 	};
 
@@ -96,7 +96,7 @@ Events){
 	};
 	
 	Controls.prototype.addSpeedSlider = function() {
-		this.speedSlider = new PhaserComponents.Slider(Game.getInstance(), {"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":Game.w()/2 - 150, "y":0}});
+		this.speedSlider = new PhaserComponents.Slider(Game.getInstance(), {"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 150, "y":0}});
 		this.group.add(this.speedSlider.group);
 	};
 	
@@ -130,13 +130,13 @@ Events){
 	};
 	
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':Game.h() - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
+		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
 		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.sprite);
 	};
 
 	Controls.prototype.addWidthPicker = function() {
-		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':Game.h() - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
+		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
 		this.widthPicker = new WidthPicker({"bounds":bounds, "asset":'width', "num":5, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.sprite);
 	};

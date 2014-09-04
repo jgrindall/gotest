@@ -1,7 +1,7 @@
 
-define('app/components/buttons/dirbutton',['app/game', 'phasercomponents'],
+define('app/components/buttons/dirbutton',[ 'phasercomponents'],
 
-	function(Game, PhaserComponents){
+	function(PhaserComponents){
 	
 	"use strict";
 	
@@ -16,7 +16,7 @@ define('app/components/buttons/dirbutton',['app/game', 'phasercomponents'],
 			frame0 = 4 * 28;
 		}
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
-		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
+		PhaserComponents.AbstractButton.call(this, options);
 		this.sprite.visible = options.data.visible;
 	};
 	

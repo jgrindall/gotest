@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/abstractcommandspanel',['app/game', 'phasercomponents',
+define('app/views/commandpanels/abstractcommandspanel',[ 'phasercomponents',
 
 'app/components/buttons/dirbutton',
 
@@ -9,7 +9,7 @@ define('app/views/commandpanels/abstractcommandspanel',['app/game', 'phasercompo
 ],
 
 
-function(Game, PhaserComponents,
+function(PhaserComponents,
 
 DirButton,
 
@@ -20,9 +20,9 @@ Events){
 	"use strict";
 	
 	var AbstractCommandsPanel  = function(options){
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 		this.selectedCommand = null;
-		Game.alertSignal.add(this.onAlert, this);
+		//Game.alertSignal.add(this.onAlert, this);
 	};
 	
 	AbstractCommandsPanel.WIDTH = 190;
@@ -78,8 +78,8 @@ Events){
 	AbstractCommandsPanel.prototype.addGrid = function() {
 		var options, bounds, w, h, data, size, model;
 		data = this.getGridData();
-		w = Game.w();
-		h = Game.h();
+		w = this.game.w;
+		h = this.game.h;
 		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
 		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y, "w":size, "h":size};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data};

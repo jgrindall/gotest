@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/abstractmarker',['phaser', 'app/game', 'phasercomponents'],
+define('app/views/commandpanels/abstractmarker',['phaser', , 'phasercomponents'],
 
 	function(Phaser, Game, PhaserComponents){
 	

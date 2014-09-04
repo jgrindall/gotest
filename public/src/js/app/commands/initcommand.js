@@ -1,16 +1,16 @@
-define('app/commands/initcommand',[],
+define('app/commands/initcommand',['app/commands/abstractcommand'],
 
-function() {
+function(AbstractCommand) {
 	
 	"use strict";
 	
 	var InitCommand = function(){
-		if(!ModelFacade){
-			throw "no modelfacade";
-		}
-		console.log("new InitCommand "+ModelFacade);
+		AbstractCommand.call(this);
 	};
 	
+	InitCommand.prototype = Object.create(AbstractCommand.prototype);
+	InitCommand.prototype.constructor = InitCommand;
+
 	InitCommand.prototype.execute = function(data){
 		
 	};

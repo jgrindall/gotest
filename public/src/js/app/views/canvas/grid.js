@@ -2,7 +2,7 @@
 define('app/views/canvas/grid',
 
 
-	['phaser', 'app/game',
+	['phaser', ,
 
 	'phasercomponents', 'app/consts/steplengths'],
 
@@ -13,7 +13,7 @@ function(Phaser, Game,
 	"use strict";
 	
 	var Grid  = function(options){
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 		this.visModel = this.options.visModel;
 		this.sizeModel = this.options.sizeModel;
 		this.visModel.changeSignal.add(this.onChangeGrid, this);

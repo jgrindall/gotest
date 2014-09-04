@@ -1,11 +1,11 @@
 
-define('app/views/controls/radiobuttons',['app/game', 'app/components/buttons/radiobutton',
+define('app/views/controls/radiobuttons',[ 'app/components/buttons/radiobutton',
 
 'phasercomponents'
 
 ],
 
-function(Game, RadioButton,
+function(RadioButton,
 
 PhaserComponents
 

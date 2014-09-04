@@ -1,13 +1,13 @@
 
-define('app/components/buttons/okbutton',['app/game', 'phasercomponents'],
+define('app/components/buttons/okbutton',[ 'phasercomponents'],
 
-	function(Game, PhaserComponents){
+	function(PhaserComponents){
 	
 	"use strict";
 	
 	var OkButton = function(options){
 		options.asset = 'okbutton';
-		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
+		PhaserComponents.AbstractButton.call(this, options);
 	};
 	
 	OkButton.WIDTH = 250;

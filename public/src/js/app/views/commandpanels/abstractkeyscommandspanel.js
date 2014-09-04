@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/abstractkeyscommandspanel',['app/game', 'app/components/buttons/keybutton',
+define('app/views/commandpanels/abstractkeyscommandspanel',[ 'app/components/buttons/keybutton',
 
 'phasercomponents',
 
@@ -7,7 +7,7 @@ define('app/views/commandpanels/abstractkeyscommandspanel',['app/game', 'app/com
 
 ],
 
-function(Game, KeyButton,
+function(KeyButton,
 
 PhaserComponents, AbstractCommandsPanel
 
@@ -35,8 +35,8 @@ PhaserComponents, AbstractCommandsPanel
 	AbstractKeysCommandsPanel.prototype.addKeys = function() {
 		var options, bounds, w, h, data, size, model;
 		data = this.getKeyData();
-		w = Game.w();
-		h = Game.h();
+		w = this.game.w;
+		h = this.game.h;
 		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
 		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y + size, "w":size, "h":size};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": KeyButton, "data":data};

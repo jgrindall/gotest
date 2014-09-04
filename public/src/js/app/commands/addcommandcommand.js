@@ -1,21 +1,24 @@
 define('app/commands/addcommandcommand',['app/logocommands/abstractlogocommandfactory',
 
-	'app/events/events', 'phasercomponents',
+	'app/events/events', 'phasercomponents', 'app/commands/abstractcommand',
 
 	'app/models/modelfacade'],
 
 function(AbstractCommandFactory,
 
-	Events, PhaserComponents,
+	Events, PhaserComponents, AbstractCommand,
 
 	ModelFacade) {
 	
 	"use strict";
 	
 	var AddCommandCommand = function(){
-		
+		AbstractCommand.call(this);
 	};
 	
+	AddCommandCommand.prototype = Object.create(AbstractCommand.prototype);
+	AddCommandCommand.prototype.constructor = AddCommandCommand;
+
 	AddCommandCommand.prototype.execute = function(data){
 		var command;
 		data.color = ModelFacade.getInstance().get(ModelFacade.COLOR).getData().index;

@@ -1,5 +1,5 @@
 
-define('app/scenes/activityscene',['app/game', 'app/scenes/scene', 'app/views/canvas/canvas', 'app/views/controls/controls',
+define('app/scenes/activityscene',['app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/views/components/menu', 
 
@@ -7,7 +7,7 @@ define('app/scenes/activityscene',['app/game', 'app/scenes/scene', 'app/views/ca
 
 'app/events/events'],
 
-function(Game, Scene, Canvas, Controls,
+function(Canvas, Controls,
 
 Menu,
 
@@ -17,34 +17,31 @@ Events){
 	
 	"use strict";
 	
-	var ActivityScene  = function(key){
-		Scene.call(this, key);
+	var ActivityScene  = function(){
+		PhaserComponents.Scene.call(this);
 	};
 	
-	ActivityScene.prototype = Object.create(Scene.prototype);
+	ActivityScene.prototype = Object.create(PhaserComponents.Scene.prototype);
 	ActivityScene.prototype.constructor = ActivityScene;
 
 	ActivityScene.prototype.create = function() {
-		Scene.prototype.create.call(this);
 		this.addBg();
-		this.addCanvas();
-		this.addControls();
-		this.addMenu();
-		PhaserComponents.eventDispatcher.trigger({"type":Events.STARTUP});
-		PhaserComponents.eventDispatcher.trigger({"type":Events.REPLAY});
+		//this.addCanvas();
+		//this.addControls();
+		//this.addMenu();
+		//this.eventDispatcher.trigger({"type":Events.STARTUP});
+		//this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 	
 	ActivityScene.prototype.addBg = function() {
 		var w, h, bounds;
-		w = Game.getWidth();
-		h = Game.getHeight();
-		bounds = {'x':0, 'y':0, 'w':w, 'h':h};
+		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
 		this.bg = new Background({"asset":'sky', "bounds":bounds});
 		this.world.add(this.bg.sprite);
 	};
 	
 	ActivityScene.prototype.addCanvas = function() {
-		var bounds = {"x":0, "y":50, "w":Game.w() - Controls.WIDTH, "h":Game.h() - 50};
+		var bounds = {"x":0, "y":50, "w":this.game.w - Controls.WIDTH, "h":this.game.h - 50};
 		console.log("canvas size is "+bounds.w, bounds.h);
 		this.canvas = new Canvas({"bounds":bounds});
 		this.world.add(this.canvas.group);
@@ -74,7 +71,7 @@ Events){
 	};
 	
 	ActivityScene.prototype.addControls = function() {
-		var bounds = {"x":Game.w() - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":Game.h()};
+		var bounds = {"x":this.game.w - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":this.game.h};
 		this.controls = new Controls({"bounds":bounds});
 		this.world.add(this.controls.group);
 	};
@@ -92,7 +89,7 @@ Events){
 
 
 	ActivityScene.prototype.shutdown = function() {
-		Scene.prototype.shutdown.apply(this, arguments);
+		PhaserComponents.Scene.prototype.shutdown.apply(this, arguments);
 		this.destroy();
 	};
 	

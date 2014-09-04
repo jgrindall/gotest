@@ -1,5 +1,5 @@
 
-define('app/components/screenchoice',['phaser', 'app/game', 'phasercomponents'
+define('app/components/screenchoice',['phaser', , 'phasercomponents'
 
 ],
 
@@ -11,7 +11,7 @@ function(Phaser, Game, PhaserComponents
 	
 	var ScreenChoice = function(options){
 		options.bgasset = 'smallpanel';
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
 	

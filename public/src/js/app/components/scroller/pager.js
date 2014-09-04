@@ -1,12 +1,12 @@
 
-define('app/components/scroller/pager',['app/game', 'phasercomponents', 'app/components/scroller/groupmarker'],
+define('app/components/scroller/pager',[ 'phasercomponents', 'app/components/scroller/groupmarker'],
 
-function(Game, PhaserComponents, GroupMarker){
+function(PhaserComponents, GroupMarker){
 	
 	"use strict";
 	
 	var Pager = function(options){
-		options.snapX = Game.w();
+		options.snapX = this.game.w;
 		PhaserComponents.Scroller.call(this, Game.getInstance(), options);
 	};
 	

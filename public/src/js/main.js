@@ -11,9 +11,12 @@ require.config({
 
 require(['phaser'], function(Phaser){
 	
-	require(['app/boot/boot'], function(Boot){
-
-		(new Boot()).start();
+	require(['jquery', 'app/appcontext'], function($, AppContext){
+		
+		$(document).ready(function(){
+			new AppContext();
+		});
+		
 	
 	});
 

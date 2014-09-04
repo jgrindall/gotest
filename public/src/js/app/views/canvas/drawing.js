@@ -1,5 +1,5 @@
 
-define('app/views/canvas/drawing',['app/game', 'phasercomponents',
+define('app/views/canvas/drawing',[ 'phasercomponents',
 
 'app/views/canvas/turtle', 'app/views/canvas/paths',
 
@@ -11,7 +11,7 @@ define('app/views/canvas/drawing',['app/game', 'phasercomponents',
 
 'app/logocommands/fdcommand', 'app/consts/steplengths'],
 
-function(Game, PhaserComponents,
+function(PhaserComponents,
 
 Turtle, Paths,
 
@@ -30,7 +30,7 @@ FdCommand, StepLengths){
 		x = options.bounds.x + options.bounds.w/2;
 		y = options.bounds.y + options.bounds.h/2;
 		this.centre = {'x':x, 'y':y};
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
 		this.onReset();

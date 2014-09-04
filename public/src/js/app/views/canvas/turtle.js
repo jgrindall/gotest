@@ -1,12 +1,12 @@
 
-define('app/views/canvas/turtle',['phaser', 'app/game', 'phasercomponents'],
+define('app/views/canvas/turtle',['phaser', , 'phasercomponents'],
 
 function(Phaser, Game, PhaserComponents){
 	
 	"use strict";
 	
 	var Turtle  = function(options){
-		PhaserComponents.Container.call(this, Game.getInstance(), options);
+		PhaserComponents.Container.call(this, options);
 		this.theta = 0;
 		this.endSignal = new Phaser.Signal();
 	};

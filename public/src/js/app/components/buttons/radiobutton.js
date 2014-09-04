@@ -1,13 +1,13 @@
 
-define('app/components/buttons/radiobutton',['app/game', 'phasercomponents'],
+define('app/components/buttons/radiobutton',[ 'phasercomponents'],
 
-function(Game, PhaserComponents){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var RadioButton = function(options){
 		options.asset = 'radio';
-		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
+		PhaserComponents.AbstractButton.call(this, options);
 	};
 
 	RadioButton.WIDTH = 120;

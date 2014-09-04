@@ -51,7 +51,7 @@ module.exports = function(grunt) {
   			compile: {
     			options: {
       				baseUrl: 'public/src/js',
-				    out: 'public/build/js/main.js',
+                    out: 'public/build/js/main.js',
 					removeCombined: true,
 					include: ['main'],
 					findNestedDependencies: true,

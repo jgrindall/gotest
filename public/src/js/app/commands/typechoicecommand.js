@@ -1,16 +1,23 @@
 define('app/commands/typechoicecommand',[
 
 
-	'app/utils/alertmanager', 'app/models/modelfacade', 'phasercomponents'],
+	'app/utils/alertmanager', 'app/models/modelfacade',
 
-function(AlertManager, ModelFacade, PhaserComponents) {
+	'phasercomponents', 'app/commands/abstractcommand'],
+
+function(AlertManager, ModelFacade,
+
+	PhaserComponents, AbstractCommand) {
 	
 	"use strict";
 	
 	var TypeChoiceCommand = function(){
-		
+		AbstractCommand.call(this);
 	};
 	
+	TypeChoiceCommand.prototype = Object.create(AbstractCommand.prototype);
+	TypeChoiceCommand.prototype.constructor = TypeChoiceCommand;
+
 	TypeChoiceCommand.prototype.execute = function(data){
 		var screenModel, radioModel;
 		screenModel = new PhaserComponents.ButtonGridModel();

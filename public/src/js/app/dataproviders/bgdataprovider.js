@@ -1,5 +1,5 @@
 
-define('app/dataproviders/bgdataprovider',['app/game',
+define('app/dataproviders/bgdataprovider',[
 
 'app/components/bgpanel', 'app/consts/bgdata'],
 
@@ -23,7 +23,7 @@ BgPanel, BgData){
 		var paddingY = 50;
 		w = scroller.bounds.w - 2*paddingX;
 		h = scroller.bounds.h - 2*paddingY;
-		bounds = {"x":paddingX + scroller.bounds.x + i * Game.w(), "y":paddingY + scroller.bounds.y, "w":w, "h":h};
+		bounds = {"x":paddingX + scroller.bounds.x + i * this.game.w, "y":paddingY + scroller.bounds.y, "w":w, "h":h};
 		options = {"bounds":bounds, "bgasset":'map'+i};
 		panel = new BgPanel(options);
 		scroller.add(panel);

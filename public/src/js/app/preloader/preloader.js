@@ -1,10 +1,11 @@
 
-define('app/preloader/preloader',['phaser', 'app/game'], function(Phaser, Game){
+define('app/preloader/preloader',['phaser'], function(Phaser){
 	
 	"use strict";
 	
-	var Preloader = function(){
+	var Preloader = function(game){
 		this.numLoaded = 0;
+		this.game = game;
 		this.loadSignal = new Phaser.Signal();
 	};
 
@@ -103,27 +104,25 @@ define('app/preloader/preloader',['phaser', 'app/game'], function(Phaser, Game){
 	Preloader.DATA = Preloader.SPRITESHEETS.concat(Preloader.SOUNDS).concat(Preloader.IMAGES);
 	
 	Preloader.prototype.loadNext = function(){
-		var obj, type, game;
-		game = Game.getInstance();
+		var obj, type;
 		obj = Preloader.DATA[this.numLoaded];
 		type = obj.type;
 		if(type === "image"){
-			game.load.image(obj.key, obj.asset);
+			this.game.load.image(obj.key, obj.asset);
 		}
 		else if(type === "spritesheet"){
-			game.load.spritesheet(obj.key, obj.asset, obj.w, obj.h);
+			this.game.load.spritesheet(obj.key, obj.asset, obj.w, obj.h);
 		}
 		else if(type === "tilemap"){
-			game.load.tilemap(obj.key, obj.asset, null, Phaser.Tilemap.TILED_JSON);
+			this.game.load.tilemap(obj.key, obj.asset, null, Phaser.Tilemap.TILED_JSON);
 		}
 		else if(type === "sound"){
-			game.load.audio(obj.key, [obj.asset]);
+			this.game.load.audio(obj.key, [obj.asset]);
 		}
 	};
 	
 	Preloader.prototype.start = function(){
-		var game = Game.getInstance();
-		game.load.onFileComplete.add(this.fileLoaded.bind(this));
+		this.game.load.onFileComplete.add(this.fileLoaded.bind(this));
 		this.loadNext();
 	};
 

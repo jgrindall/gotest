@@ -1,5 +1,5 @@
 
-define('app/views/popups/gridmenu',['app/game', 'app/components/buttons/tickbutton',
+define('app/views/popups/gridmenu',[ 'app/components/buttons/tickbutton',
 
 'app/components/popups/abstractpopup', 'app/text/textfactory',
 
@@ -21,7 +21,7 @@ OkButton, CloseButton){
 	
 	"use strict";
 		
-	var GridMenu = function(options){
+	var GridMenu = function(game, options){
 		options.bgasset = 'panel';
 		AbstractPopup.call(this, options);
 	};
@@ -37,7 +37,7 @@ OkButton, CloseButton){
 	};
 	
 	GridMenu.prototype.addText = function () {
-		this.label = TextFactory.make(Game.cx() - 150, this.bounds.y + 20, this.options.data.label, TextFactory.SMALL);
+		this.label = TextFactory.make(this.game, this.game.cx - 150, this.bounds.y + 20, this.options.data.label, TextFactory.SMALL);
 		this.group.add(this.label);
 	};
 	
@@ -74,9 +74,9 @@ OkButton, CloseButton){
 	};
 
 	GridMenu.prototype.addLabels = function(){
-		this.label0 = TextFactory.make(Game.cx() - 250, 80, "Step Length", TextFactory.VSMALL);
-		this.label1 = TextFactory.make(Game.cx() - 250, 170, "Toggle grid", TextFactory.VSMALL);
-		this.label2 = TextFactory.make(Game.cx() - 250, 250, "Stretch diags", TextFactory.VSMALL);
+		this.label0 = TextFactory.make(this.game, this.game.cx - 250, 80, "Step Length", TextFactory.VSMALL);
+		this.label1 = TextFactory.make(this.game, this.game.cx - 250, 170, "Toggle grid", TextFactory.VSMALL);
+		this.label2 = TextFactory.make(this.game, this.game.cx - 250, 250, "Stretch diags", TextFactory.VSMALL);
 		this.group.add(this.label0);
 		this.group.add(this.label1);
 		this.group.add(this.label2);
