@@ -6,7 +6,7 @@ function(PhaserComponents, Assets){
 	"use strict";
 	
 	var RadioButton = function(options){
-		options.asset = Assets.RADIOBUTTON;
+		options.asset = Assets.RADIO;
 		PhaserComponents.AbstractButton.call(this, options);
 	};
 

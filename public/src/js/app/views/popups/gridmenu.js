@@ -19,6 +19,8 @@ OkButton, CloseButton){
 		
 	var GridMenu = function(options){
 		options.bgasset = 'panel';
+		var screenModel = ModelFacade.getInstance().get(ModelFacade.SCREEN);
+		this.showDiag = (screenModel.getData().index > 1);
 		PhaserComponents.AbstractPopup.call(this, options);
 	};
 	
@@ -69,13 +71,27 @@ OkButton, CloseButton){
 		this.group.add(this.gridToggle.sprite);
 	};
 
+
+	GridMenu.prototype.addDiagLabel = function(){
+		this.diagLabel = TextFactory.make(this.game, this.game.cx - 250, 250, "Stretch diags", TextFactory.VSMALL);
+		this.group.add(this.diagLabel);
+	};
+
+	GridMenu.prototype.addGridLabel = function(){
+		this.gridLabel = TextFactory.make(this.game, this.game.cx - 250, 170, "Toggle grid", TextFactory.VSMALL);
+		this.group.add(this.gridLabel);
+	};
+
+	GridMenu.prototype.addStepLengthLabel = function(){
+		this.stepLengthLabel = TextFactory.make(this.game, this.game.cx - 250, 80, "Step Length", TextFactory.VSMALL);
+		this.group.add(this.stepLengthLabel);
+	};
 	GridMenu.prototype.addLabels = function(){
-		this.label0 = TextFactory.make(this.game, this.game.cx - 250, 80, "Step Length", TextFactory.VSMALL);
-		this.label1 = TextFactory.make(this.game, this.game.cx - 250, 170, "Toggle grid", TextFactory.VSMALL);
-		this.label2 = TextFactory.make(this.game, this.game.cx - 250, 250, "Stretch diags", TextFactory.VSMALL);
-		this.group.add(this.label0);
-		this.group.add(this.label1);
-		this.group.add(this.label2);
+		this.addStepLengthLabel();
+		this.addGridLabel();
+		if(this.showDiag){
+			this.addDiagLabel();
+		}
 	};
 
 	GridMenu.prototype.create = function () {
@@ -84,7 +100,9 @@ OkButton, CloseButton){
 		this.addSlider();
 		this.addGridToggle();
 		this.addLabels();
-		this.addDiagToggle();
+		if(this.showDiag){
+			this.addDiagToggle();
+		}
 		this.addOkButton();
 		this.addCloseButton();
 	};
@@ -97,7 +115,13 @@ OkButton, CloseButton){
 		});
 		this.lengthSlider.destroy();
 		this.gridToggle.destroy();
-		this.diagToggle.destroy();
+		this.group.remove(this.label0);
+		this.group.remove(this.label1);
+		this.group.remove(this.label2);
+		this.group.remove(this.label);
+		if(this.showDiag){
+			this.diagToggle.destroy();
+		}
 		PhaserComponents.AbstractPopup.prototype.destroy.call(this);
 	};
 	
