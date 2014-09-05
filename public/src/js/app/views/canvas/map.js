@@ -1,9 +1,7 @@
 
-define('app/views/canvas/map',['phaser', , 'app/models/modelfacade', 'phasercomponents',
+define('app/views/canvas/map',['phaser', 'app/models/modelfacade', 'phasercomponents'],
 
-'app/models/modelfacade'],
-
-function(Phaser, Game, ModelFacade,
+function(Phaser, ModelFacade,
 
 PhaserComponents){
 	
@@ -28,7 +26,7 @@ PhaserComponents){
 			this.sprite = null;
 		}
 		if(bg !== null){
-			this.sprite = new Phaser.Image(Game.getInstance(), this.bounds.x, this.bounds.y, 'map'+bg);
+			this.sprite = new Phaser.Image(this.game, this.bounds.x, this.bounds.y, 'map'+bg);
 			this.sprite.scale = {x:this.bounds.w/this.sprite.width, y:this.bounds.h/this.sprite.height};
 			this.group.add(this.sprite);
 		}

@@ -5,7 +5,7 @@ define('app/views/commandpanels/nsewcommandspanel',['app/views/commandpanels/abs
 
 ],
 
-function(AbstractCommandsPanel,
+function(AbstractCommandsPanel, 
 
 CommandTypes
 

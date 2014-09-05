@@ -83,7 +83,7 @@ Events){
 		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
 		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y, "w":size, "h":size};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data};
-		this.grid = new PhaserComponents.ButtonGrid(Game.getInstance(), options);
+		this.grid = new PhaserComponents.ButtonGrid(options);
 		this.grid.clickSignal.add(this.selectComm, this);
 		this.group.add(this.grid.group);
 	};
@@ -100,7 +100,7 @@ Events){
 		var index, json;
 		for(index = 0; index < total; index++){
 			json = {'type':type, 'direction':direction, 'index':index, 'total':total};
-			PhaserComponents.eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
+			this.eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
 		}
 	};
 	

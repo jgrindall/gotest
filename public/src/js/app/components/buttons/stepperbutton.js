@@ -3,14 +3,13 @@ define('app/components/buttons/stepperbutton',[
 	
 'phasercomponents'],
 
-function(Game, 
-
-PhaserComponents){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var StepperButton = function(options){
 		var index;
+		PhaserComponents.View.call(this);
 		this.options = options;
 		this.model = this.options.model;
 		this.model.changeSignal.add(this.onChanged, this);
@@ -20,6 +19,9 @@ PhaserComponents){
 			this.goToFrame(index);
 		}
 	};
+
+	StepperButton.prototype = Object.create(PhaserComponents.View.prototype);
+	StepperButton.prototype.constructor = StepperButton;
 
 	StepperButton.prototype.onChanged = function(data){
 		this.goToFrame(data.index);
@@ -39,7 +41,7 @@ PhaserComponents){
 	
 	StepperButton.prototype.create = function(){
 		var i;
-		this.sprite = new PhaserComponents.InteractiveSprite(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset);
+		this.sprite = new PhaserComponents.InteractiveSprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset);
 		for(i = 0; i<= this.options.num - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 0, true);	
 		}
@@ -52,6 +54,7 @@ PhaserComponents){
 	};
 	
 	StepperButton.prototype.destroy = function(){
+		PhaserComponents.View.prototype.destroy.call(this);
 		this.disableInput();
 		this.model.changeSignal.remove(this.onChanged, this);
 		this.model = null;

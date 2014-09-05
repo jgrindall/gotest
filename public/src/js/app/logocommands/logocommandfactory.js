@@ -1,5 +1,5 @@
 
-define('app/logocommands/abstractlogocommandfactory', ['app/logocommands/movecommand',
+define('app/logocommands/logocommandfactory', ['app/logocommands/movecommand',
 
 'app/logocommands/turncommand',
 
@@ -13,11 +13,11 @@ FdCommand, CommandTypes){
 	
 	"use strict";
 	
-	var AbstractCommandFactory = function(){
+	var LogoCommandFactory = function(){
 		
 	};
 	
-	AbstractCommandFactory.fromJson = function(json){
+	LogoCommandFactory.fromJson = function(json){
 		if(json.type === CommandTypes.MOVE){
 			return new MoveCommand(json);
 		}
@@ -29,7 +29,7 @@ FdCommand, CommandTypes){
 		}
 	};
 	
-	return AbstractCommandFactory;
+	return LogoCommandFactory;
 
 });
 

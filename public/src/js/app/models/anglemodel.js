@@ -1,16 +1,16 @@
 
-define('app/models/anglemodel',['phasercomponents/models/abstractmodel'],
+define('app/models/anglemodel',['phasercomponents'],
 
-function(AbstractModel){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var AngleModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.index = 0;
 	};
 	
-	AngleModel.prototype = Object.create(AbstractModel.prototype);
+	AngleModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	AngleModel.prototype.constructor = AngleModel;
 	
 	AngleModel.prototype.getData = function(){
@@ -32,7 +32,7 @@ function(AbstractModel){
 		}
 	};
 	
-	return new AngleModel();
+	return AngleModel;
 
 });
 	

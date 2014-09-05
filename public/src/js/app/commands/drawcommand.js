@@ -1,16 +1,16 @@
 define('app/commands/drawcommand',
 
-	['app/models/modelfacade', 'app/consts/playingstate', 'app/commands/abstractcommand'],
+	['app/models/modelfacade', 'app/consts/playingstate', 'phasercomponents'],
 
-function(ModelFacade, PlayingState, AbstractCommand) {
+function(ModelFacade, PlayingState, PhaserComponents) {
 	
 	"use strict";
 	
 	var DrawCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	DrawCommand.prototype = Object.create(AbstractCommand.prototype);
+	DrawCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	DrawCommand.prototype.constructor = DrawCommand;
 
 	DrawCommand.prototype.execute = function(data){

@@ -1,20 +1,20 @@
 
-define('app/models/playingmodel',['phasercomponents/models/abstractmodel',
+define('app/models/playingmodel',['phasercomponents',
 
 'app/consts/playingstate'],
 
-function(AbstractModel,
+function(PhaserComponents,
 
 PlayingState){
 	
 	"use strict";
 	
 	var PlayingModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.playing = PlayingState.NOT_PLAYING;
 	};
 	
-	PlayingModel.prototype = Object.create(AbstractModel.prototype);
+	PlayingModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	PlayingModel.prototype.constructor = PlayingModel;
 	
 	PlayingModel.prototype.setData = function(p) {
@@ -32,6 +32,6 @@ PlayingState){
 		}
 	};
 	
-	return new PlayingModel();
+	return PlayingModel;
 
 });

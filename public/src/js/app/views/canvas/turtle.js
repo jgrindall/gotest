@@ -1,7 +1,7 @@
 
-define('app/views/canvas/turtle',['phaser', , 'phasercomponents'],
+define('app/views/canvas/turtle',['phaser', 'phasercomponents'],
 
-function(Phaser, Game, PhaserComponents){
+function(Phaser,PhaserComponents){
 	
 	"use strict";
 	
@@ -26,7 +26,7 @@ function(Phaser, Game, PhaserComponents){
 	Turtle.prototype.constructor = Turtle;
 	
 	Turtle.prototype.addImage = function() {
-		this.sprite = new Phaser.Image(Game.getInstance(), 300, 300, 'turtle');
+		this.sprite = new Phaser.Image(this.game, 300, 300, 'turtle');
 		this.group.add(this.sprite);
 		this.sprite.anchor.setTo(0.5, 0.5);
 	};
@@ -45,7 +45,7 @@ function(Phaser, Game, PhaserComponents){
 			this.endSignal.dispatch({});
 		}
 		else{
-			this.turnTween = Game.getInstance().add.tween(this.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
+			this.turnTween = this.game.add.tween(this.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
 			this.turnTween.onComplete.add(this.turnComplete, this);
 		}
 	};
@@ -87,7 +87,7 @@ function(Phaser, Game, PhaserComponents){
 			this.move(p);
 		}
 		else{
-			this.moveTween = Game.getInstance().add.tween(this.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
+			this.moveTween = this.game.add.tween(this.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
 		}
 	};
 	
@@ -97,7 +97,7 @@ function(Phaser, Game, PhaserComponents){
 	};
 	
 	Turtle.prototype.addMask = function() {
-		this.mask = new Phaser.Graphics(Game.getInstance(), 0, 0);
+		this.mask = new Phaser.Graphics(this.game, 0, 0);
 		this.mask.beginFill(0xff0000);
     		this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
     		this.mask.endFill();

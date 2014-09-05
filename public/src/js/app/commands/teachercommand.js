@@ -1,20 +1,20 @@
 define('app/commands/teachercommand',
 
-	['app/utils/alertmanager', 'app/commands/abstractcommand'],
+	['phasercomponents', 'app/components/popups/growl'],
 
-function(AlertManager, AbstractCommand) {
+function(PhaserComponents, Growl) {
 	
 	"use strict";
 	
 	var TeacherCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	TeacherCommand.prototype = Object.create(AbstractCommand.prototype);
+	TeacherCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	TeacherCommand.prototype.constructor = TeacherCommand;
 
 	TeacherCommand.prototype.execute = function(data){
-		AlertManager.makeGrowl({"label":"Teacher login with password?"}, null);
+		PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Teacher login with password?"}, null);
 	};
 	
   	return TeacherCommand;

@@ -81,8 +81,8 @@ Events){
 	
 	Controls.prototype.addBg = function() {
 		var w, h, bounds;
-		w = Game.getWidth();
-		h = Game.getHeight();
+		w = this.game.w;
+		h = this.game.h;
 		bounds = {'x':this.bounds.x, 'y':0, 'w':this.bounds.w, 'h':h};
 		this.bg = new Background({"asset":'sky', "bounds":bounds});
 		this.group.add(this.bg.sprite);
@@ -90,32 +90,32 @@ Events){
 	
 	Controls.prototype.addButtons = function() {
 		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':300, 'h':50};
-		this.menu = new ControlMenu({"num":4, "bounds":bounds});
+		this.menu = new ControlMenu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
 		this.group.add(this.menu.group);
 	};
 	
 	Controls.prototype.addSpeedSlider = function() {
-		this.speedSlider = new PhaserComponents.Slider(Game.getInstance(), {"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 150, "y":0}});
+		this.speedSlider = new PhaserComponents.Slider({"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 150, "y":0}});
 		this.group.add(this.speedSlider.group);
 	};
 	
 	Controls.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.STOP});
+			this.eventDispatcher.trigger({"type":Events.STOP});
 		}
 		else if(index === 1){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.UNDO});
+			this.eventDispatcher.trigger({"type":Events.UNDO});
 		}
 		else if(index === 2){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.TEACHER_LOGIN});
+			this.eventDispatcher.trigger({"type":Events.TEACHER_LOGIN});
 		}
 		else if(index === 3){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
+			this.eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
 		}
 		else if(index === 4){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
+			this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
 		} 
 	};
 	

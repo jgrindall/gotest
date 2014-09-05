@@ -1,18 +1,20 @@
-define('app/commands/printcommand',['app/utils/alertmanager', 'app/commands/abstractcommand'],
+define('app/commands/printcommand',
 
-function(AlertManager, AbstractCommand) {
+	['phasercomponents', 'app/components/popups/growl'],
+
+function(PhaserComponents, Growl) {
 	
 	"use strict";
 	
 	var PrintCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	PrintCommand.prototype = Object.create(AbstractCommand.prototype);
+	PrintCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	PrintCommand.prototype.constructor = PrintCommand;
 
 	PrintCommand.prototype.execute = function(data){
-		AlertManager.makeGrowl({"label":"No printers found"}, null);
+		PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"No printers found"}, null);
 	};
 	
   	return PrintCommand;

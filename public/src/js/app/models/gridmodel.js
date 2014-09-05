@@ -1,16 +1,16 @@
 
-define('app/models/gridmodel',['phasercomponents/models/abstractmodel'],
+define('app/models/gridmodel',['phasercomponents'],
 
-function(AbstractModel){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var GridModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.index = 0;
 	};
 	
-	GridModel.prototype = Object.create(AbstractModel.prototype);
+	GridModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	GridModel.prototype.constructor = GridModel;
 	
 	GridModel.prototype.getData = function(){
@@ -32,7 +32,7 @@ function(AbstractModel){
 		}
 	};
 	
-	return new GridModel();
+	return GridModel;
 
 });
 	

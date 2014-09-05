@@ -26,11 +26,11 @@ Events){
 
 	ActivityScene.prototype.create = function() {
 		this.addBg();
-		//this.addCanvas();
-		//this.addControls();
-		//this.addMenu();
-		//this.eventDispatcher.trigger({"type":Events.STARTUP});
-		//this.eventDispatcher.trigger({"type":Events.REPLAY});
+		this.addCanvas();
+		this.addControls();
+		this.addMenu();
+		this.eventDispatcher.trigger({"type":Events.STARTUP});
+		this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 	
 	ActivityScene.prototype.addBg = function() {
@@ -42,7 +42,6 @@ Events){
 	
 	ActivityScene.prototype.addCanvas = function() {
 		var bounds = {"x":0, "y":50, "w":this.game.w - Controls.WIDTH, "h":this.game.h - 50};
-		console.log("canvas size is "+bounds.w, bounds.h);
 		this.canvas = new Canvas({"bounds":bounds});
 		this.world.add(this.canvas.group);
 	};
@@ -57,16 +56,16 @@ Events){
 	ActivityScene.prototype.menuClick = function(data) {
 		var i = data.index;
 		if(i === 0){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.NEW_FILE});
+			this.eventDispatcher.trigger({"type":Events.NEW_FILE});
 		}
 		else if(i === 1){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.LOAD});
+			this.eventDispatcher.trigger({"type":Events.LOAD});
 		}
 		else if(i === 2){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.SAVE});
+			this.eventDispatcher.trigger({"type":Events.SAVE});
 		}
 		else if(i === 3){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.PRINT});
+			this.eventDispatcher.trigger({"type":Events.PRINT});
 		}
 	};
 	

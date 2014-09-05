@@ -1,20 +1,25 @@
 define('app/commands/newfilecommand',
 
-	['app/utils/alertmanager', 'app/models/modelfacade', 'app/commands/abstractcommand'],
+	['phasercomponents', 'app/models/modelfacade',
 
-function(AlertManager, ModelFacade, AbstractCommand) {
+	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider'],
+
+function(PhaserComponents, ModelFacade,
+
+	GameBgMenu, BgDataProvider) {
 	
 	"use strict";
 	
 	var NewFileCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	NewFileCommand.prototype = Object.create(AbstractCommand.prototype);
+	NewFileCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	NewFileCommand.prototype.constructor = NewFileCommand;
 
 	NewFileCommand.prototype.execute = function(data){
-		AlertManager.makeBgMenu({}, this.onBgChosen.bind(this));
+		var options = {'dataProvider': new BgDataProvider(this.game)};
+		PhaserComponents.AlertManager.getInstance().make(GameBgMenu, options, this.onBgChosen.bind(this));
 	};
 	
 	NewFileCommand.prototype.onBgChosen = function(data){

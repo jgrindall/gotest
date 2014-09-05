@@ -1,16 +1,16 @@
 
-define('app/models/steplengthmodel',['phasercomponents/models/abstractmodel'],
+define('app/models/steplengthmodel',['phasercomponents'],
 
-function(AbstractModel){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var StepLengthModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.stepLength = 0;
 	};
 	
-	StepLengthModel.prototype = Object.create(AbstractModel.prototype);
+	StepLengthModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	StepLengthModel.prototype.constructor = StepLengthModel;
 	
 	StepLengthModel.prototype.getData = function(){
@@ -28,7 +28,7 @@ function(AbstractModel){
 		}
 	};
 	
-	return new StepLengthModel();
+	return StepLengthModel;
 
 });
 	

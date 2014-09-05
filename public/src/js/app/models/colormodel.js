@@ -1,16 +1,16 @@
 
-define('app/models/colormodel',['phasercomponents/models/abstractmodel'],
+define('app/models/colormodel',['phasercomponents'],
 
-function(AbstractModel){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var ColorModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.color = 0;
 	};
 	
-	ColorModel.prototype = Object.create(AbstractModel.prototype);
+	ColorModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	ColorModel.prototype.constructor = ColorModel;
 	
 	ColorModel.prototype.getData = function(){
@@ -28,7 +28,7 @@ function(AbstractModel){
 		}
 	};
 	
-	return new ColorModel();
+	return ColorModel;
 
 });
 	

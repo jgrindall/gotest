@@ -44,7 +44,6 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
     };
  
     AppContext.prototype.mapScenes = function(){
-    	console.log(this.gameManager, this.gameManager.addScene, AppConsts.LOADER_SCENE, LoaderScene);
     	this.gameManager.mapScene(AppConsts.LOADER_SCENE, LoaderScene, true);
 		this.gameManager.mapScene(AppConsts.ACTIVITY_SCENE, ActivityScene);
     };

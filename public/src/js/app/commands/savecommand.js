@@ -1,31 +1,31 @@
-define('app/commands/savecommand',['app/utils/alertmanager',
+define('app/commands/savecommand',['phasercomponents',
 
-	'app/utils/storage', 'app/models/modelfacade', 'app/commands/abstractcommand'],
+	'app/models/modelfacade', 'app/components/popups/growl'],
 
-function(AlertManager,
+function(PhaserComponents,
 
-	Storage, ModelFacade, AbstractCommand) {
+	ModelFacade, Growl) {
 	
 	"use strict";
 	
 	var SaveCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	SaveCommand.prototype = Object.create(AbstractCommand.prototype);
+	SaveCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	SaveCommand.prototype.constructor = SaveCommand;
 
 	SaveCommand.prototype.execute = function(data){
 		var json = ModelFacade.getInstance().getJson();
-		Storage.getInstance().save(json, this.onSaved.bind(this));
+		PhaserComponents.Storage.getInstance().save(json, this.onSaved.bind(this));
 	};
 	
 	SaveCommand.prototype.onSaved = function(data){
 		if(data.success){
-			AlertManager.makeGrowl({"label":"Saved"}, null);
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Saved"}, null);
 		}
 		else{
-			AlertManager.makeGrowl({"label":"Error saving"}, null);
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Error saving"}, null);
 		}
 	};
 	

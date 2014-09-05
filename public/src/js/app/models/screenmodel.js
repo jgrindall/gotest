@@ -1,16 +1,16 @@
 
-define('app/models/screenmodel',['phasercomponents/models/abstractmodel'],
+define('app/models/screenmodel',['phasercomponents'],
 
-function(AbstractModel){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var ScreenModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.screen = null;
 	};
 	
-	ScreenModel.prototype = Object.create(AbstractModel.prototype);
+	ScreenModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	ScreenModel.prototype.constructor = ScreenModel;
 	
 	ScreenModel.prototype.getData = function() {
@@ -28,6 +28,6 @@ function(AbstractModel){
 		}
 	};
 	
-	return new ScreenModel();
+	return ScreenModel;
 
 });

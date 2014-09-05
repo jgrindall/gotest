@@ -1,18 +1,17 @@
-define('app/commands/startupcommand',['app/consts/defaults', 'app/models/modelfacade', 'app/commands/abstractcommand'],
+define('app/commands/startupcommand',['app/consts/defaults', 'app/models/modelfacade', 'phasercomponents'],
 
-function(Defaults, ModelFacade, AbstractCommand) {
+function(Defaults, ModelFacade, PhaserComponents) {
 	
 	"use strict";
 	
 	var StartUpCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 
-	StartUpCommand.prototype = Object.create(AbstractCommand.prototype);
+	StartUpCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	StartUpCommand.prototype.constructor = StartUpCommand;
 
 	StartUpCommand.prototype.execute = function(data){
-		ModelFacade.getInstance().init();
 		ModelFacade.getInstance().setData(Defaults.DEFAULT_JSON);
 	};
 	

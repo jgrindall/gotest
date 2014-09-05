@@ -1,11 +1,11 @@
 
-define('app/models/commtickermodel',['phaser', 'phasercomponents/models/abstractmodel',
+define('app/models/commtickermodel',['phaser', 'phasercomponents',
 
-'app/events/events', 'phasercomponents'
+'app/events/events'
 
 ],
 
-function(Phaser, AbstractModel, Events, PhaserComponents){
+function(Phaser, PhaserComponents, Events){
 	
 	"use strict";
 	
@@ -15,10 +15,10 @@ function(Phaser, AbstractModel, Events, PhaserComponents){
 		this.duration = 0;
 		this.executeSignal = new Phaser.Signal();
 		this.resetSignal = new Phaser.Signal();
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 	};
 
-	CommTickerModel.prototype = Object.create(AbstractModel.prototype);
+	CommTickerModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	CommTickerModel.prototype.constructor = CommTickerModel;
 
 	CommTickerModel.prototype.performCommand = function() {
@@ -94,7 +94,7 @@ function(Phaser, AbstractModel, Events, PhaserComponents){
 	CommTickerModel.prototype.nextCommand = function() {
 		this.setCommandNum(this.commandNum + 1);
 		if(this.commandNum === this.getNum()){
-			PhaserComponents.eventDispatcher.trigger({"type":Events.FINISHED});
+			this.eventDispatcher.trigger({"type":Events.FINISHED});
 		}
 		else{
 			this.performCommand();
@@ -125,7 +125,7 @@ function(Phaser, AbstractModel, Events, PhaserComponents){
 		this.clearSignals();
 	};
 	
-	return new CommTickerModel();
+	return CommTickerModel;
 
 });
 	

@@ -1,5 +1,5 @@
 
-define('app/views/components/arrowselectormenu',['jquery', 'phaser', , 'app/components/buttons/arrowbutton',
+define('app/views/components/arrowselectormenu',['jquery', 'phaser', 'app/components/buttons/arrowbutton',
 
 'app/views/components/selectormenu',
 
@@ -7,7 +7,7 @@ define('app/views/components/arrowselectormenu',['jquery', 'phaser', , 'app/comp
 
 ],
 
-function($, Phaser, Game, ArrowButton, 
+function($, Phaser, ArrowButton, 
 
 SelectorMenu,
 
@@ -40,8 +40,8 @@ Pager)
 	};
 	
 	ArrowSelectorMenu.prototype.showArrows = function () {
-		this.leftTween = Game.getInstance().add.tween(this.leftButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
-		this.rightTween = Game.getInstance().add.tween(this.rightButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
+		this.leftTween = this.game.add.tween(this.leftButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
+		this.rightTween = this.game.add.tween(this.rightButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
 		this.leftTween.onComplete.add(this.onArrowsShown, this);
 	};
 	
@@ -71,7 +71,8 @@ Pager)
 	};
 	
 	ArrowSelectorMenu.prototype.addPager = function () {
-		var options = $.extend({}, this.options, {'bgasset':'panel'});
+		console.log("ArrowSelectorMenu "+this.options.dataProvider);
+		var options = $.extend({}, this.options, {'bgasset':'panel', 'snapX':this.game.w});
 		this.pager = new Pager(options);
 		this.pager.pageSignal.add(this.choose, this);
 		this.pager.selectSignal.add(this.onSelected, this);

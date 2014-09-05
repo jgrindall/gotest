@@ -6,7 +6,7 @@ define('app/components/buttons/tabbutton',['phasercomponents'],function(PhaserCo
 	var TabButton = function(options){
 		var num = options.index || '1';
 		options.asset = 'tabbutton' + num;
-		PhaserComponents.AbstractButton.call(this, Game.getInstance(), options);
+		PhaserComponents.AbstractButton.call(this, this.game, options);
 	};
 	
 	TabButton.WIDTH = 244;

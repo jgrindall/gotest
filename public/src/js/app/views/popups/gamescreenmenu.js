@@ -1,7 +1,5 @@
 
-define('app/views/popups/gamescreenmenu',[
-
-, 'app/components/buttons/tickbutton', 'app/models/modelfacade',
+define('app/views/popups/gamescreenmenu',['app/components/buttons/tickbutton', 
 
 'app/components/popups/abstractpopup', 'app/views/controls/radiobuttons',
 
@@ -9,7 +7,7 @@ define('app/views/popups/gamescreenmenu',[
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 
-function(Game, TickButton, ModelFacade,
+function(TickButton,
 
 AbstractPopup, RadioButtons,
 
@@ -46,19 +44,19 @@ OkButton, CloseButton){
 	};
 
 	GameScreenMenu.prototype.getData = function() {
-		return {"screenIndex":this.options.data.screenModel.getData().index, "radioIndex":this.options.data.radioModel.getData().index};
+		return {"screenIndex":this.options.screenModel.getData().index, "radioIndex":this.options.radioModel.getData().index};
 	};
 
 	GameScreenMenu.prototype.addRadio = function() {
 		var bounds = {'x':this.bounds.x + this.bounds.w - RadioButtons.WIDTH, 'y':this.game.h - RadioButtons.HEIGHT, 'w':RadioButtons.WIDTH, 'h':RadioButtons.HEIGHT};
-		this.radio = new RadioButtons({"model":this.options.data.radioModel, "bounds":bounds});	
+		this.radio = new RadioButtons({"model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 	};
 
 	GameScreenMenu.prototype.addGrid = function() {
 		var options;
-		options = {"model":this.options.data.screenModel, "bounds":this.bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
-		this.grid = new PhaserComponents.ButtonGrid(Game.getInstance(), options);
+		options = {"model":this.options.screenModel, "bounds":this.bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
+		this.grid = new PhaserComponents.ButtonGrid(options);
 		this.group.add(this.grid.group);
 	};
 

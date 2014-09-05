@@ -1,9 +1,9 @@
 
-define('app/components/popups/abstractpopup',['phaser',,
+define('app/components/popups/abstractpopup',['phaser',
 
 'phasercomponents'],
 
-function(Phaser, Game,
+function(Phaser,
 
 PhaserComponents){
 	
@@ -20,12 +20,12 @@ PhaserComponents){
 	AbstractPopup.prototype.constructor = AbstractPopup;
 	
 	AbstractPopup.prototype.addPanel = function () {
-		this.panel = new Phaser.Sprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset);
+		this.panel = new Phaser.Sprite(this.game, this.bounds.x, this.bounds.y, this.options.bgasset);
 		this.group.add(this.panel);
 	};
 	
 	AbstractPopup.prototype.showMe = function () {
-		Game.getInstance().add.tween(this.group).to( {x: 0, y: 0}, 300, Phaser.Easing.Back.Out, true, 0, false);
+		this.game.add.tween(this.group).to( {x: 0, y: 0}, 300, Phaser.Easing.Back.Out, true, 0, false);
 	};
 
 	AbstractPopup.prototype.getData = function() {
@@ -48,7 +48,7 @@ PhaserComponents){
 	};
 	
 	AbstractPopup.prototype.addButtonGroup = function () {
-		this.buttonGroup = new Phaser.Group(Game.getInstance(), 0, 0);
+		this.buttonGroup = new Phaser.Group(this.game, 0, 0);
 		this.group.add(this.buttonGroup);
 	};
 	

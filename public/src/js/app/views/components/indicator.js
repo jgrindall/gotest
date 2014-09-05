@@ -1,9 +1,9 @@
 
-define('app/views/components/indicator',['phaser', , 'app/text/textfactory',
+define('app/views/components/indicator',['phaser', 'app/text/textfactory',
 
 'phasercomponents', 'app/models/modelfacade'],
 
-function(Phaser, Game, TextFactory,
+function(Phaser,TextFactory,
 
 PhaserComponents, ModelFacade){
 	
@@ -43,7 +43,7 @@ PhaserComponents, ModelFacade){
 	Indicator.prototype.create = function(){
 		PhaserComponents.Container.prototype.create.call(this);
 		this.label = TextFactory.make(this.game, this.bounds.x, this.bounds.y, "0/0", TextFactory.VSMALL);
-		this.gfx = new Phaser.Graphics(Game.getInstance(), this.options.bounds.x, this.options.bounds.y);
+		this.gfx = new Phaser.Graphics(this.game, this.options.bounds.x, this.options.bounds.y);
 		this.group.add(this.gfx);
 		this.group.add(this.label);
 	};

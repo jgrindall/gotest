@@ -9,20 +9,20 @@ define('app/models/modelfacade',['app/models/commmodel', 'app/models/screenmodel
 
 'app/models/commtickermodel', 'app/consts/playingstate'],
 
-function(commModel, screenModel, bgModel,
+function(CommModel, ScreenModel, BgModel,
 
-	colorModel, speedModel, CommSpeed,
+	ColorModel, SpeedModel, CommSpeed,
 
-	playingModel, gridModel, angleModel, 
+	PlayingModel, GridModel, AngleModel, 
 
-	widthModel, stepLengthModel, diagModel,
+	WidthModel, StepLengthModel, DiagModel,
 
-	commTickerModel, PlayingState){
+	CommTickerModel, PlayingState){
 	
 	"use strict";
 
 	var ModelFacade  = function(){
-		
+		this.init();
 	};
 
 	ModelFacade.SPEED = 		"speed";
@@ -40,65 +40,81 @@ function(commModel, screenModel, bgModel,
 
 	ModelFacade.prototype.get = function(name){
 		if(name === ModelFacade.SPEED){
-			return speedModel;
+			return this.speedModel;
 		}
 		else if(name === ModelFacade.BG){
-			return bgModel;
+			return this.bgModel;
 		}
 		else if(name === ModelFacade.ANGLE){
-			return angleModel;
+			return this.angleModel;
 		}
 		else if(name === ModelFacade.COLOR){
-			return colorModel;
+			return this.colorModel;
 		}
 		else if(name === ModelFacade.COMM){
-			return commModel;
+			return this.commModel;
 		}
 		else if(name === ModelFacade.SCREEN){
-			return screenModel;
+			return this.screenModel;
 		}
 		else if(name === ModelFacade.DIAG){
-			return diagModel;
+			return this.diagModel;
 		}
 		else if(name === ModelFacade.COMMTICKER){
-			return commTickerModel;
+			return this.commTickerModel;
 		}
 		else if(name === ModelFacade.PLAYING){
-			return playingModel;
+			return this.playingModel;
 		}
 		else if(name === ModelFacade.GRID){
-			return gridModel;
+			return this.gridModel;
 		}
 		else if(name === ModelFacade.WIDTH){
-			return widthModel;
+			return this.widthModel;
 		}
 		else if(name === ModelFacade.STEPLENGTH){
-			return stepLengthModel;
+			return this.stepLengthModel;
 		}
 		else{
 			throw "no model "+name;
 		}
 	};
 
+	ModelFacade.prototype.makeModels = function(){
+		this.commModel = new CommModel();
+		this.colorModel = new ColorModel();
+		this.speedModel = new SpeedModel();
+		this.bgModel = new BgModel();
+		this.angleModel = new AngleModel();
+		this.diagModel = new DiagModel();
+		this.gridModel = new GridModel();
+		this.stepLengthModel = new StepLengthModel();
+		this.widthModel = new WidthModel();
+		this.playingModel = new PlayingModel();
+		this.screenModel = new ScreenModel();
+		this.commTickerModel = new CommTickerModel();
+	};
+
 	ModelFacade.prototype.init = function(){
-		commTickerModel.init(commModel);
-		colorModel.changeSignal.add(this.changeColor, this);
-		bgModel.changeSignal.add(this.changeBg, this);
-		widthModel.changeSignal.add(this.changeWidth, this);
-		playingModel.changeSignal.add(this.changePlaying, this);
-		speedModel.changeSignal.add(this.changeSpeed, this);
-		//TODO - make them commands
+		this.makeModels();
+		this.commTickerModel.init(this.commModel);
+		this.colorModel.changeSignal.add(this.changeColor, this);
+		this.bgModel.changeSignal.add(this.changeBg, this);
+		this.widthModel.changeSignal.add(this.changeWidth, this);
+		this.playingModel.changeSignal.add(this.changePlaying, this);
+		this.speedModel.changeSignal.add(this.changeSpeed, this);
+		//TODO - make them commands?
 	};
 
 	ModelFacade.prototype.setDuration = function() {
 		var duration;
-		if(playingModel.getData().playing === PlayingState.PLAYING){
-			duration = speedModel.getData().actualSpeed * CommSpeed.SPEED_FACTOR;
+		if(this.playingModel.getData().playing === PlayingState.PLAYING){
+			duration = this.speedModel.getData().actualSpeed * CommSpeed.SPEED_FACTOR;
 		}
 		else{
 			duration = 0;
 		}
-		commTickerModel.duration = duration;
+		this.commTickerModel.duration = duration;
 	};
 
 	ModelFacade.prototype.changePlaying = function(data) {
@@ -106,8 +122,8 @@ function(commModel, screenModel, bgModel,
 	};
 
 	ModelFacade.prototype.changeWidth = function(data) {
-		if(playingModel.getData().playing === PlayingState.PLAYING){
-			commTickerModel.update("width", data.index);
+		if(this.playingModel.getData().playing === PlayingState.PLAYING){
+			this.commTickerModel.update("width", data.index);
 		}
 	};
 
@@ -116,17 +132,17 @@ function(commModel, screenModel, bgModel,
 	};
 
 	ModelFacade.prototype.changeBg = function(data) {
-		commTickerModel.reset();
-		commModel.reset();
+		this.commTickerModel.reset();
+		this.commModel.reset();
 	};
 
 	ModelFacade.prototype.changeColor = function(data) {
-		if(playingModel.getData().playing === PlayingState.PLAYING){
-			commTickerModel.update("color", data.index);
+		if(this.playingModel.getData().playing === PlayingState.PLAYING){
+			this.commTickerModel.update("color", data.index);
 		}
 	};
 
-	ModelFacade.getInstance = function(json){
+	ModelFacade.getInstance = function(){
 		if(!ModelFacade.instance){
 			ModelFacade.instance = new ModelFacade();
 		}
@@ -134,29 +150,29 @@ function(commModel, screenModel, bgModel,
 	};
 
 	ModelFacade.prototype.setData = function(json){
-		screenModel.setData(json.settings.screen);
-		colorModel.setData(json.settings.color);
-		speedModel.setData(json.settings.speed);
-		widthModel.setData(json.settings.width);
-		bgModel.setData(json.settings.bg);
-		gridModel.setData(json.settings.grid);
-		diagModel.setData(json.settings.diag);
-		angleModel.setData(json.settings.angle);
-		stepLengthModel.setData(json.settings.stepLength);
-		commModel.setData(json.commands);
+		this.screenModel.setData(json.settings.screen);
+		this.colorModel.setData(json.settings.color);
+		this.speedModel.setData(json.settings.speed);
+		this.widthModel.setData(json.settings.width);
+		this.bgModel.setData(json.settings.bg);
+		this.gridModel.setData(json.settings.grid);
+		this.diagModel.setData(json.settings.diag);
+		this.angleModel.setData(json.settings.angle);
+		this.stepLengthModel.setData(json.settings.stepLength);
+		this.commModel.setData(json.commands);
 	};
 
 	ModelFacade.prototype.getJson = function() {
 		var json = {}, settings = {};
-		settings.bg = 			bgModel.getData().bg;
-		settings.screen = 		screenModel.getData().index;
-		settings.width = 		widthModel.getData().index;
-		settings.angle = 		angleModel.getData().index;
-		settings.stepLength = 	stepLengthModel.getData().index;
-		settings.speed = 		speedModel.getData().index;
-		settings.gridOn = 		gridModel.getData().on;
-		settings.color =	 	colorModel.getData().index;
-		json.commands = 		commModel.toJson();
+		settings.bg = 			this.bgModel.getData().bg;
+		settings.screen = 		this.screenModel.getData().index;
+		settings.width = 		this.widthModel.getData().index;
+		settings.angle = 		this.angleModel.getData().index;
+		settings.stepLength = 	this.stepLengthModel.getData().index;
+		settings.speed = 		this.speedModel.getData().index;
+		settings.gridOn = 		this.gridModel.getData().on;
+		settings.color =	 	this.colorModel.getData().index;
+		json.commands = 		this.commModel.toJson();
 		json.settings = settings;
 		return json;
 	};

@@ -3,14 +3,12 @@ define('app/dataproviders/bgdataprovider',[
 
 'app/components/bgpanel', 'app/consts/bgdata'],
 
-function(Game,
-
-BgPanel, BgData){
+function(BgPanel, BgData){
 	
 	"use strict";
 	
-	var BgDataProvider  = function(){
-		
+	var BgDataProvider  = function(game){
+		this.game = game;
 	};
 	
 	BgDataProvider.prototype.getNumPages = function(){

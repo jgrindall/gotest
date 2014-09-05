@@ -1,20 +1,20 @@
 
-define('app/models/commmodel',['app/logocommands/abstractlogocommandfactory',
+define('app/models/commmodel',['app/logocommands/logocommandfactory',
 
-'phasercomponents/models/abstractmodel'],
+'phasercomponents'],
 
-function(AbstractCommandFactory,
+function(LogoCommandFactory,
 
-AbstractModel){
+PhaserComponents){
 	
 	"use strict";
 		
 	var CommModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.commands = [];
 	};
 	
-	CommModel.prototype = Object.create(AbstractModel.prototype);
+	CommModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	CommModel.prototype.constructor = CommModel;
 
 	CommModel.prototype.add = function(command) {
@@ -26,7 +26,7 @@ AbstractModel){
 		var that = this;
 		this.reset();
 		commands.forEach(function(c, i){
-			that.add(AbstractCommandFactory.fromJson(c), false);
+			that.add(LogoCommandFactory.fromJson(c), false);
 		});
 	};
 	
@@ -83,7 +83,7 @@ AbstractModel){
 		this.commands = null;
 	};
 	
-	return new CommModel();
+	return CommModel;
 
 });
 	

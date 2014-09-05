@@ -17,7 +17,7 @@ PhaserComponents
 		options.buttonClass = RadioButton;
 		options.numX = 1;
 		options.numY = 2;
-		PhaserComponents.ButtonBar.call(this, Game.getInstance(), options);
+		PhaserComponents.ButtonBar.call(this, options);
 	};
 	
 	RadioButtons.WIDTH = 120;

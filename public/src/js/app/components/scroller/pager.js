@@ -6,8 +6,10 @@ function(PhaserComponents, GroupMarker){
 	"use strict";
 	
 	var Pager = function(options){
-		options.snapX = this.game.w;
-		PhaserComponents.Scroller.call(this, Game.getInstance(), options);
+		PhaserComponents.Scroller.call(this, options);
+		if(options.snapX !== this.game.w){
+			throw "should snap to game width";
+		}
 	};
 	
 	Pager.prototype = Object.create(PhaserComponents.Scroller.prototype);

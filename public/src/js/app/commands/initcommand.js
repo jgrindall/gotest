@@ -1,14 +1,14 @@
-define('app/commands/initcommand',['app/commands/abstractcommand'],
+define('app/commands/initcommand',['phasercomponents'],
 
-function(AbstractCommand) {
+function(PhaserComponents) {
 	
 	"use strict";
 	
 	var InitCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	InitCommand.prototype = Object.create(AbstractCommand.prototype);
+	InitCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	InitCommand.prototype.constructor = InitCommand;
 
 	InitCommand.prototype.execute = function(data){

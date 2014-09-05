@@ -61,18 +61,20 @@ function() {
 	var CommandMap = function(){
 		this.hash = {};	
 	};
-	
-	CommandMap.prototype.setEventDispatcher = function(eventDispatcher){
-		this.eventDispatcher = eventDispatcher;
-	};
 
 	CommandMap.prototype.trigger = function(event, obj){
+		var cmd;
 		if(!obj || !obj.type){
 			throw "Undefined command";
 		}
+		console.log("obj is "+obj.type);
+		console.log("obj is "+JSON.stringify(obj));
 		var CommandClassRef = this.get(obj.type);
-		if(CommandClassRef){
-			(new CommandClassRef()).start(obj.data);
+		console.log("CommandClassRef is "+CommandClassRef);
+		if(CommandClassRef && (typeof CommandClassRef === "function")){
+			cmd = new CommandClassRef();
+			console.log("cmd is "+cmd);
+			cmd.start(obj.data);
 		}
 	};
 
@@ -84,6 +86,7 @@ function() {
 		handler = this.trigger.bind(this);
 		this.eventDispatcher.addListener(eventName, handler);
 		this.hash[eventName] = CommandClassRef;
+		console.log("mapped "+eventName+" to "+CommandClassRef);
 		new CommandClassRef();
 	};
 	
@@ -136,10 +139,6 @@ function($) {
 			throw "No eventName";
 		}
 		else{
-			console.log("TRIGGER "+eventObj.type+"  "+eventObj.data);
-			for(var i in eventObj.data){
-				console.log("eventObj "+i+"   "+eventObj.data[i]);
-			}
 			this.el.trigger(eventObj.type, eventObj);
 		}
 	};
@@ -165,7 +164,7 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
 		this.gameManager = new GameManager();
 		Context.eventDispatcher = new EventDispatcher();
 		Context.eventDispatcher.addListener("scene", this.onChangeScene.bind(this));
-		this.commandMap.setEventDispatcher(Context.eventDispatcher);
+		this.commandMap.eventDispatcher = Context.eventDispatcher;
 		this.mapCommands();
 		this.makeGame();
     };
@@ -206,16 +205,43 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
 
 
 
-define('phasercomponents/display/movieclip', ['phaser'], function(Phaser){
+define('phasercomponents/display/view',
+
+	['phasercomponents/context'], function(Context){
 	
 	
 	
-	var MovieClip = function(game, options){
+	var View = function(){
+		this.game = Context.game;
+		this.eventDispatcher = Context.eventDispatcher;
+	};
+
+	View.prototype.destroy = function(){
+		this.game = null;
+		this.eventDispatcher = null;
+	};
+
+	return View;
+
+});
+
+
+
+define('phasercomponents/display/movieclip', ['phaser', 'phasercomponents/display/view'],
+
+	function(Phaser, View){
+	
+	
+	
+	var MovieClip = function(options){
+		View.call(this);
 		this.options = options;
-		this.game = game;
 		this.create();
 	};
 	
+	MovieClip.prototype = Object.create(View.prototype);
+	MovieClip.prototype.constructor = MovieClip;
+
 	MovieClip.prototype.goTo = function(i){
 		this.sprite.animations.play('frame'+i);
 	};
@@ -241,22 +267,9 @@ define('phasercomponents/display/movieclip', ['phaser'], function(Phaser){
 });
 
 
+define('phasercomponents/display/container',
 
-define('phasercomponents/display/view', ['phasercomponents/context'], function(Context){
-	
-	
-	
-	var View = function(){
-		this.game = Context.game;
-	};
-
-	return View;
-
-});
-
-
-
-define('phasercomponents/display/container',['phaser', 'phasercomponents/display/view'],
+	['phaser', 'phasercomponents/display/view'],
 
 function(Phaser, View){
 	
@@ -282,6 +295,7 @@ function(Phaser, View){
 
 	Container.prototype.destroy = function() {
 		this.group.removeAll(true);
+		View.prototype.destroy.call(this);
 	};
 	
 	return Container;
@@ -447,14 +461,15 @@ define('phasercomponents/display/abstractbutton',
 
 
 
-define('phasercomponents/models/abstractmodel',['phaser'],
+define('phasercomponents/models/abstractmodel',['phaser', 'phasercomponents/context'],
 
-function(Phaser){
+function(Phaser, Context){
 	
 	
 	
 	var AbstractModel  = function(){
 		this.changeSignal = new Phaser.Signal();
+		this.eventDispatcher = Context.eventDispatcher;
 	};
 	
 	AbstractModel.prototype.trigger = function(command) {
@@ -525,8 +540,7 @@ ButtonGridModel){
 	
 	
 	
-	var ButtonGrid = function(game, options){
-		this.game = game;
+	var ButtonGrid = function(options){
 		if(options.performSelect === null || options.performSelect === undefined){
 			options.performSelect = true;
 		}
@@ -538,7 +552,7 @@ ButtonGridModel){
 		this.marginX = (this.spaceX - options.buttonClass.WIDTH)/2;
 		this.marginY = (this.spaceY - options.buttonClass.HEIGHT)/2;
 		this.buttons = [];
-		Container.call(this, this.game, options);
+		Container.call(this, options);
 		this.changeSignal = new Phaser.Signal();
 		this.clickSignal = new Phaser.Signal();
 		this.showSelected(this.model.getData().index);
@@ -555,7 +569,6 @@ ButtonGridModel){
 	
 	ButtonGrid.prototype.create = function(){
 		Container.prototype.create.call(this);
-		this.addBg();
 		this.addButtons();
 	};
 	
@@ -569,13 +582,6 @@ ButtonGridModel){
 		this.buttons.forEach(function(b){
 			b.enableInput();
 		});
-	};
-	
-	ButtonGrid.prototype.addBg = function(){
-		if(this.options.bgasset){
-			this.bg = new Phaser.Sprite(this.game, this.bounds.x, this.bounds.y, this.options.bgasset);
-			this.group.add(this.bg);
-		}
 	};
 	
 	ButtonGrid.prototype.showSelected = function(index) {
@@ -628,7 +634,6 @@ ButtonGridModel){
 		});
 		Container.prototype.destroy.call(this);
 		this.buttonGroup.destroy(true);
-		this.bg = null;
 		this.changeSignal = null;
 		this.buttons = [];
 		this.model = null;
@@ -649,7 +654,7 @@ function(ButtonGrid){
 	
 	
 	
-	var ButtonBar = function(game, options){
+	var ButtonBar = function(options){
 		this.direction = null;
 		if(options.numX === 1){
 			this.direction = ButtonBar.VERTICAL;
@@ -660,7 +665,7 @@ function(ButtonGrid){
 		if(!this.direction){
 			throw "Not a button bar";
 		}
-		ButtonGrid.call(this, game, options);
+		ButtonGrid.call(this, options);
 	};
 	
 	ButtonBar.HORIZONTAL = "horizontal";
@@ -739,14 +744,13 @@ InteractiveSprite){
 	
 	
 	
-	var Slider = function(game, options){
+	var Slider = function(options){
 		var index;
-		this.game = game;
 		this.num = Math.floor(Math.random() * 1000);
 		this.model = options.model;
 		this.stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / options.num;
 		this.model.changeSignal.add(this.onChanged, this);
-		Container.call(this, this.game, options);
+		Container.call(this, options);
 		index = this.model.getData().index;
 		if(index !== null){
 			this.goTo(index);
@@ -884,16 +888,15 @@ function(Phaser, Container){
 	
 	
 
-	var Scroller = function(game, options){
+	var Scroller = function(options){
 		this.x0 = null;
-		this.game = game;
 		this.children = [];
 		this.dragging = false;
 		this.minX = 0;
 		this.pageNum = 0;
 		this.selectSignal = new Phaser.Signal();
 		this.pageSignal = new Phaser.Signal();
-		Container.call(this, this.game, options);
+		Container.call(this, options);
 	};
 	
 	Scroller.prototype = Object.create(Container.prototype);
@@ -1055,7 +1058,6 @@ define('phasercomponents/scene',
 	var Scene  = function(){
 		this.game = Context.game;
 		this.world = Context.game.world;
-		console.log("Context.eventDispatcher "+Context.eventDispatcher);
 		this.eventDispatcher = Context.eventDispatcher;
 	};
 
@@ -1070,6 +1072,249 @@ define('phasercomponents/scene',
 });
 	
 	
+
+
+
+
+
+define('phasercomponents/utils/alertmanager',
+
+	['jquery', 'phaser', 'phasercomponents/context'], 
+
+function($, Phaser, Context){
+
+	
+	
+	var AlertManager  = function(){
+		this.game = Context.game;
+	};
+	
+	AlertManager.prototype.close = function(){
+		if(this.alert){
+			this.alert.selectSignal.remove(this.callbackProxy);
+			this.alert.destroy();
+			this.bg.destroy();
+			this.bg = null;
+			this.alert = null;
+			//Game.alertSignal.dispatch({"show":false});
+		}
+	};
+	
+	AlertManager.prototype.alertClick = function(){
+		this.closeAlert();
+	};
+	
+	AlertManager.prototype.addBg = function(){
+		this.bg = new Phaser.Graphics(this.game, 0, 0);
+		this.bg.beginFill(0x000000);
+		this.bg.alpha = 0.7;
+    	this.bg.drawRect(0, 0, this.game.w, this.game.h);
+    	this.bg.endFill();
+		this.game.world.add(this.bg);
+	};
+	
+	AlertManager.prototype.make = function(ClassRef, options, callback){
+		var x, y, bounds, newOptions;
+		this.close();
+		this.callbackProxy = this.buttonClick.bind(this, callback);
+		x = (this.game.w - ClassRef.WIDTH)/2;
+		y = (this.game.h - ClassRef.HEIGHT)/2;
+		this.addBg();
+		bounds = {"x":x, "y":y, "w":ClassRef.WIDTH, "h":ClassRef.HEIGHT};
+		newOptions = $.extend({}, options, {"bounds":bounds});
+		this.alert = new ClassRef(newOptions);
+		this.alert.selectSignal.add(this.callbackProxy);
+		this.game.world.add(this.alert.group);
+		//Game.alertSignal.dispatch({"show":true});
+		this.alert.showMe();
+	};
+	
+	AlertManager.prototype.buttonClick = function(callback, data){
+		this.close();
+		if(callback){
+			callback(data);
+		}
+	};
+	
+	AlertManager.getInstance = function(){
+		if(!AlertManager.instance){
+			AlertManager.instance = new AlertManager();
+		}
+		return AlertManager.instance;
+	};
+	
+	return AlertManager;
+
+});
+
+	
+
+
+
+define('phasercomponents/utils/storage',['phasercomponents/utils/alertmanager'],
+
+function(AlertManager){
+	
+	
+
+	var Storage = function(){
+		
+	};
+	
+	Storage.VERSION = "v1.0";
+	
+	Storage.SETTINGS_KEY = "2go_settings" + Storage.VERSION;
+	
+	Storage.prototype.load = function(callback){
+		var that = this;
+		this.getForKey(Storage.SETTINGS_KEY, function(options){
+			var json;
+			if(options.success){
+				json = options.data || Storage.DEFAULT;
+				if(callback){
+					callback({"success":true, "json":json});
+				}
+			}
+			else{
+				AlertManager.makeGrowl({"label":"Error loading"}, null);
+			}
+		});
+	};
+	
+	Storage.prototype.save = function(json, callback){
+		this.saveForKey(Storage.SETTINGS_KEY, json, function(options){
+			if(options.success){
+				callback({"success":true});
+			}
+			else{
+				callback({"success":false});
+			}
+		});
+	};
+	
+	Storage.prototype.init = function(){
+		this.cache = [];
+		this.persistence = localStorage;
+	};
+	
+	Storage.prototype.saveForKey = function(key, data, callback){
+		this.persistence.setItem(key, JSON.stringify(data));
+		this.addToCache(key, data);
+		callback({success:true});
+	};
+	
+	Storage.prototype.addToCache = function(key, data){
+		this.cache[key] = data;
+	};
+	
+	Storage.prototype.getForKey = function(key, callback){
+		var data;
+		data = this.cache[key];
+		if(!data){
+			data = this.persistence.getItem(key);
+			if(data){
+				data = JSON.parse(data);
+				this.addToCache(key, data);
+			}
+		}
+		callback({'success':true, 'data':data});
+	};
+	
+	Storage.getInstance = function(){
+		if(!Storage.instance){
+			Storage.instance = new Storage();
+			Storage.instance.init();
+		}
+		return Storage.instance;
+	};
+	
+	return Storage;
+	
+});
+
+
+
+define('phasercomponents/utils/printmanager',[],
+
+function(){
+	
+	
+	
+	var PrintManager = function(){
+		
+	};
+	
+	PrintManager.prototype.print = function(){
+		
+	};
+	
+	PrintManager.getInstance = function(){
+		if(!PrintManager.instance){
+			PrintManager.instance = new PrintManager();
+			PrintManager.instance.init();
+		}
+		return PrintManager.instance;
+	};
+	
+	return PrintManager;
+	
+});
+
+
+
+define('phasercomponents/utils/soundmanager',['phasercomponents/context'], function(Context){
+	
+	
+	
+	var SoundManager = function(options){
+		this.game = Context.game;
+		this.fx = this.game.add.audio('sound1');
+		this.fx.addMarker('home', 1, 1.0);
+	};
+	
+	SoundManager.create = function(){
+		SoundManager.instance = new SoundManager();
+	};
+	
+	SoundManager.getInstance = function(){
+		if(!SoundManager.instance){
+			SoundManager.create();
+		}
+		return SoundManager.instance;
+	};
+	
+	SoundManager.prototype.play = function(name){
+		this.fx.play('home');
+	};
+	
+	return SoundManager;
+	
+});
+
+
+define('phasercomponents/abstractcommand',
+
+	['phasercomponents/context'], function(Context){
+	
+	
+	
+	var AbstractCommand = function(){
+		this.eventDispatcher = Context.eventDispatcher;
+		this.game = Context.game;
+	};
+	
+	AbstractCommand.prototype.start = function(data){
+		this.execute(data);
+	};
+
+	AbstractCommand.prototype.cleanUp = function(){
+		this.eventDispatcher = null;
+	};
+	
+	return AbstractCommand;
+
+});
+
 
 
 
@@ -1105,7 +1350,17 @@ define('phasercomponents',[
 
 	'phasercomponents/scene',
 
-	'phasercomponents/display/view'
+	'phasercomponents/display/view',
+
+	'phasercomponents/utils/storage',
+
+	'phasercomponents/utils/alertmanager',
+
+	'phasercomponents/utils/printmanager',
+
+	'phasercomponents/utils/soundmanager',
+
+	'phasercomponents/abstractcommand'
 	
 	], 
 
@@ -1137,13 +1392,24 @@ define('phasercomponents',[
 
 		Scene,
 
-		View
+		View,
+
+		Storage,
+
+		AlertManager,
+
+		PrintManager,
+
+		SoundManager,
+
+		AbstractCommand
 
 		) {
-		
+
     
 
 
+    //TODO - split
 
     return {
         'MovieClip': 			MovieClip,
@@ -1160,9 +1426,13 @@ define('phasercomponents',[
         'Scroller': 			Scroller,
         'Context': 				Context,
         'Scene': 				Scene,
-        'View': 				View
+        'View': 				View,
+        'Storage': 				Storage,
+        'AlertManager': 		AlertManager,
+        'PrintManager': 		PrintManager,
+        'SoundManager': 		SoundManager,
+        'AbstractCommand': 		AbstractCommand
     };
     
-
 });
 

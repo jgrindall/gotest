@@ -1,30 +1,30 @@
 define('app/commands/typechoicecommand',[
 
+	'app/models/modelfacade',
 
-	'app/utils/alertmanager', 'app/models/modelfacade',
+	'phasercomponents', 'app/views/popups/gamescreenmenu'],
 
-	'phasercomponents', 'app/commands/abstractcommand'],
+function(ModelFacade,
 
-function(AlertManager, ModelFacade,
-
-	PhaserComponents, AbstractCommand) {
+	PhaserComponents, GameScreenMenu) {
 	
 	"use strict";
 	
 	var TypeChoiceCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	TypeChoiceCommand.prototype = Object.create(AbstractCommand.prototype);
+	TypeChoiceCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	TypeChoiceCommand.prototype.constructor = TypeChoiceCommand;
 
 	TypeChoiceCommand.prototype.execute = function(data){
-		var screenModel, radioModel;
+		var screenModel, radioModel, options;
 		screenModel = new PhaserComponents.ButtonGridModel();
 		radioModel = new PhaserComponents.ButtonGridModel();
 		screenModel.setData(ModelFacade.getInstance().get(ModelFacade.SCREEN).getData().index);
 		radioModel.setData(ModelFacade.getInstance().get(ModelFacade.ANGLE).getData().index);
-		AlertManager.makeScreenMenu({"screenModel":screenModel, "radioModel":radioModel}, this.onScreenChosen.bind(this)); 
+		options = {"screenModel":screenModel, "radioModel":radioModel};
+		PhaserComponents.AlertManager.getInstance().make(GameScreenMenu, options, this.onScreenChosen.bind(this)); 
 	};
 	
 	TypeChoiceCommand.prototype.onScreenChosen = function(data) {

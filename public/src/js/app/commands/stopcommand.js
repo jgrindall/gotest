@@ -1,16 +1,16 @@
 define('app/commands/stopcommand',
 
-	['app/models/modelfacade', 'app/consts/playingstate', 'app/commands/abstractcommand'],
+	['app/models/modelfacade', 'app/consts/playingstate', 'phasercomponents'],
 
-function(ModelFacade, PlayingState, AbstractCommand) {
+function(ModelFacade, PlayingState, PhaserComponents) {
 	
 	"use strict";
 	
 	var StopCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	StopCommand.prototype = Object.create(AbstractCommand.prototype);
+	StopCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	StopCommand.prototype.constructor = StopCommand;
 
 	StopCommand.prototype.execute = function(data){

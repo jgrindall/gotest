@@ -1,16 +1,16 @@
 
-define('app/models/bgmodel',['phasercomponents/models/abstractmodel'],
+define('app/models/bgmodel',['phasercomponents'],
 
-function(AbstractModel){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var BgModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.bg = null;
 	};
 	
-	BgModel.prototype = Object.create(AbstractModel.prototype);
+	BgModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	BgModel.prototype.constructor = BgModel;
 	
 	BgModel.prototype.setData = function(n) {
@@ -28,6 +28,6 @@ function(AbstractModel){
 		}
 	};
 	
-	return new BgModel();
+	return BgModel;
 
 });

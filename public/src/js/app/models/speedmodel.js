@@ -1,20 +1,20 @@
 
 define('app/models/speedmodel',['app/consts/commspeed',
 
-'phasercomponents/models/abstractmodel'],
+'phasercomponents'],
 
 function(CommSpeed,
 
-AbstractModel){
+PhaserComponents){
 	
 	"use strict";
 	
 	var SpeedModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.index = CommSpeed.VSLOW;
 	};
 	
-	SpeedModel.prototype = Object.create(AbstractModel.prototype);
+	SpeedModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	SpeedModel.prototype.constructor = SpeedModel;
 	
 	SpeedModel.prototype.getData = function() {
@@ -32,7 +32,7 @@ AbstractModel){
 		}
 	};
 	
-	return new SpeedModel();
+	return SpeedModel;
 
 });
 	

@@ -1,22 +1,22 @@
-define('app/commands/addcommandcommand',['app/logocommands/abstractlogocommandfactory',
+define('app/commands/addcommandcommand',[
 
-	'app/events/events', 'phasercomponents', 'app/commands/abstractcommand',
+	'app/events/events', 'phasercomponents',
 
-	'app/models/modelfacade'],
+	'app/models/modelfacade', 'app/logocommands/logocommandfactory'],
 
-function(AbstractCommandFactory,
+function(
 
-	Events, PhaserComponents, AbstractCommand,
+	Events, PhaserComponents,
 
-	ModelFacade) {
+	ModelFacade, LogoCommandFactory) {
 	
 	"use strict";
 	
 	var AddCommandCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	AddCommandCommand.prototype = Object.create(AbstractCommand.prototype);
+	AddCommandCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	AddCommandCommand.prototype.constructor = AddCommandCommand;
 
 	AddCommandCommand.prototype.execute = function(data){
@@ -26,9 +26,9 @@ function(AbstractCommandFactory,
 		data.diag = ModelFacade.getInstance().get(ModelFacade.DIAG).getData().index;
 		data.angle = ModelFacade.getInstance().get(ModelFacade.ANGLE).getData().index;
 		data.stepLength = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).getData().index;
-		command = new AbstractCommandFactory.fromJson(data);
+		command = LogoCommandFactory.fromJson(data);
 		ModelFacade.getInstance().get(ModelFacade.COMM).add(command);
-		PhaserComponents.eventDispatcher.trigger({"type":Events.DRAW});
+		this.eventDispatcher.trigger({"type":Events.DRAW});
 	};
 	
   	return AddCommandCommand;

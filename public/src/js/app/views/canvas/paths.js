@@ -1,9 +1,9 @@
 
-define('app/views/canvas/paths',['phaser', , 'phasercomponents',
+define('app/views/canvas/paths',['phaser', 'phasercomponents',
 
 'app/views/canvas/linedrawer'],
 
-function(Phaser, Game, PhaserComponents,
+function(Phaser,PhaserComponents,
 
 LineDrawer){
 	
@@ -46,7 +46,7 @@ LineDrawer){
 	};
 	
 	Paths.prototype.addGfx = function() {
-		this.gfx = new Phaser.Graphics(Game.getInstance(), 0, 0);
+		this.gfx = new Phaser.Graphics(this.game, 0, 0);
 		this.lineDrawer = new LineDrawer(this.gfx);
 		this.lineDrawer.endSignal.add(this.onDrawerEnd, this);
 		this.group.add(this.gfx);
@@ -57,7 +57,7 @@ LineDrawer){
 	};
 	
 	Paths.prototype.addMask = function() {
-		this.mask = new Phaser.Graphics(Game.getInstance(), 0, 0);
+		this.mask = new Phaser.Graphics(this.game, 0, 0);
 		this.mask.beginFill(0xff0000);
     	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
     	this.mask.endFill();

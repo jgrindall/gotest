@@ -1,18 +1,20 @@
-define('app/commands/gridchoicecommand',['app/utils/alertmanager', 'app/commands/abstractcommand'],
+define('app/commands/gridchoicecommand',
 
-function(AlertManager, AbstractCommand) {
+	['phasercomponents', 'app/views/popups/gridmenu'],
+
+function(PhaserComponents, GridMenu) {
 	
 	"use strict";
 	
 	var GridChoiceCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	GridChoiceCommand.prototype = Object.create(AbstractCommand.prototype);
+	GridChoiceCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	GridChoiceCommand.prototype.constructor = GridChoiceCommand;
 
 	GridChoiceCommand.prototype.execute = function(data){
-		AlertManager.makeGridMenu({}, null); 
+		PhaserComponents.AlertManager.getInstance().make(GridMenu, {}, null); 
 	};
 	
   	return GridChoiceCommand;

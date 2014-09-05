@@ -1,9 +1,9 @@
 
-define('app/components/screenchoice',['phaser', , 'phasercomponents'
+define('app/components/screenchoice',['phaser', 'phasercomponents'
 
 ],
 
-function(Phaser, Game, PhaserComponents
+function(Phaser, PhaserComponents
 
 ){
 	
@@ -39,7 +39,7 @@ function(Phaser, Game, PhaserComponents
 	};
 	
 	ScreenChoice.prototype.addBg = function(){
-		this.panel = new PhaserComponents.InteractiveSprite(Game.getInstance(), this.bounds.x, this.bounds.y, this.options.bgasset, this.options.index);
+		this.panel = new PhaserComponents.InteractiveSprite(this.game, this.bounds.x, this.bounds.y, this.options.bgasset, this.options.index);
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
 		this.group.add(this.panel);

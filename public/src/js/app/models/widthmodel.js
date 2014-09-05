@@ -1,16 +1,16 @@
 
-define('app/models/widthmodel',['phasercomponents/models/abstractmodel', 'app/consts/penwidths'],
+define('app/models/widthmodel',['phasercomponents', 'app/consts/penwidths'],
 
-function(AbstractModel, PenWidths){
+function(PhaserComponents, PenWidths){
 	
 	"use strict";
 	
 	var WidthModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.index = 0;
 	};
 	
-	WidthModel.prototype = Object.create(AbstractModel.prototype);
+	WidthModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	WidthModel.prototype.constructor = WidthModel;
 	
 	WidthModel.prototype.getData = function(){
@@ -33,7 +33,7 @@ function(AbstractModel, PenWidths){
 		}
 	};
 	
-	return new WidthModel();
+	return WidthModel;
 
 });
 	

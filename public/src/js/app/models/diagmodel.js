@@ -1,16 +1,16 @@
 
-define('app/models/diagmodel',['phasercomponents/models/abstractmodel'],
+define('app/models/diagmodel',['phasercomponents'],
 
-function(AbstractModel){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var DiagModel  = function(){
-		AbstractModel.call(this);
+		PhaserComponents.AbstractModel.call(this);
 		this.index = 0;
 	};
 	
-	DiagModel.prototype = Object.create(AbstractModel.prototype);
+	DiagModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
 	DiagModel.prototype.constructor = DiagModel;
 	
 	DiagModel.prototype.getData = function(){
@@ -32,7 +32,7 @@ function(AbstractModel){
 		}
 	};
 	
-	return new DiagModel();
+	return DiagModel;
 
 });
 	

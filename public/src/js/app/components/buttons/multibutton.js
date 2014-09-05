@@ -1,21 +1,25 @@
 
-define('app/components/buttons/multibutton',[
+define('app/components/buttons/multibutton',['phasercomponents'],
 
-'phasercomponents'],
-
-function(Game,
-
-PhaserComponents){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var MultiButton = function(options){
-		var index;
+		PhaserComponents.View.call(this);
 		this.options = options;
 		this.model = this.options.model;
 		this.options.model.changeSignal.add(this.onChanged, this);
 		this.create();
-		index = this.model.getData().index;
+		this.init();
+		
+	};
+
+	MultiButton.prototype = Object.create(PhaserComponents.View.prototype);
+	MultiButton.prototype.constructor = MultiButton;
+
+	MultiButton.prototype.init = function(){
+		var index = this.model.getData().index;
 		if(index !== null){
 			this.goToFrame(index);
 		}
@@ -39,7 +43,7 @@ PhaserComponents){
 	
 	MultiButton.prototype.create = function(){
 		var i;
-		this.sprite = new PhaserComponents.InteractiveSprite(Game.getInstance(), this.options.bounds.x, this.options.bounds.y, this.options.asset);
+		this.sprite = new PhaserComponents.InteractiveSprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset);
 		for(i = 0; i<= this.options.num - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 500, true);	
 		}
@@ -59,6 +63,7 @@ PhaserComponents){
 		this.model.changeSignal.remove(this.onChanged, this);
 		this.model = null;
 		this.sprite.destroy(true);
+		PhaserComponents.View.prototype.destroy.call(this);
 	};
 
 	return MultiButton;

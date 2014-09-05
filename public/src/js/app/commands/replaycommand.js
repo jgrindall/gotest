@@ -1,17 +1,17 @@
 define('app/commands/replaycommand',
 
 
-	['app/consts/playingstate', 'app/models/modelfacade', 'app/commands/abstractcommand'],
+	['app/consts/playingstate', 'app/models/modelfacade', 'phasercomponents'],
 
-function(PlayingState, ModelFacade, AbstractCommand) {
+function(PlayingState, ModelFacade, PhaserComponents) {
 	
 	"use strict";
 	
 	var ReplayCommand = function(){
-		AbstractCommand.call(this);
+		PhaserComponents.AbstractCommand.call(this);
 	};
 	
-	ReplayCommand.prototype = Object.create(AbstractCommand.prototype);
+	ReplayCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
 	ReplayCommand.prototype.constructor = ReplayCommand;
 
 	ReplayCommand.prototype.execute = function(data){

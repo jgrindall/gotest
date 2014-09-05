@@ -1,22 +1,17 @@
 
-define('app/views/popups/gamebgmenu',['app/views/components/arrowselectormenu',
-
-'app/dataproviders/bgdataprovider'
+define('app/views/popups/gamebgmenu',['app/views/components/arrowselectormenu'
 
 ],
 
 function(
 
-ArrowSelectorMenu,
-
-BgDataProvider
+ArrowSelectorMenu
 
 ){
 	
 	"use strict";
 		
 	var GameBgMenu = function(options){
-		options.dataProvider = new BgDataProvider();
 		ArrowSelectorMenu.call(this, options);
 	};
 	

@@ -9,7 +9,7 @@ define('app/views/popups/gridmenu',[ 'app/components/buttons/tickbutton',
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 
-function(Game, TickButton,
+function(TickButton,
 
 AbstractPopup, TextFactory,
 
@@ -21,7 +21,7 @@ OkButton, CloseButton){
 	
 	"use strict";
 		
-	var GridMenu = function(game, options){
+	var GridMenu = function(options){
 		options.bgasset = 'panel';
 		AbstractPopup.call(this, options);
 	};
@@ -37,7 +37,7 @@ OkButton, CloseButton){
 	};
 	
 	GridMenu.prototype.addText = function () {
-		this.label = TextFactory.make(this.game, this.game.cx - 150, this.bounds.y + 20, this.options.data.label, TextFactory.SMALL);
+		this.label = TextFactory.make(this.game, this.game.cx - 150, this.bounds.y + 20, this.options.label, TextFactory.SMALL);
 		this.group.add(this.label);
 	};
 	
@@ -55,7 +55,7 @@ OkButton, CloseButton){
 	GridMenu.prototype.addSlider = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 100};
-		this.lengthSlider = new PhaserComponents.Slider(Game.getInstance(), {"model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":4, "bounds":bounds});
+		this.lengthSlider = new PhaserComponents.Slider({"model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":4, "bounds":bounds});
 		this.group.add(this.lengthSlider.group);
 	};
 
