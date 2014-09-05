@@ -1263,7 +1263,7 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/context'], funct
 	
 	var SoundManager = function(options){
 		this.game = Context.game;
-		this.fx = this.game.add.audio('sound1');
+		this.fx = this.game.add.audio('sound0');
 		this.fx.addMarker('home', 1, 1.0);
 	};
 	

@@ -11,7 +11,7 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
-	'app/scenes/loaderscene', 'app/scenes/activityscene'],
+	'app/scenes/loaderscene', 'app/scenes/activityscene', 'app/assets'],
 
 	function(NewFileCommand, LoadCommand, SaveCommand,
 
@@ -25,7 +25,7 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 
 		Events, PhaserComponents, AppConsts,
 
-		LoaderScene, ActivityScene) {
+		LoaderScene, ActivityScene, Assets) {
 	
 	"use strict";
 
@@ -66,8 +66,8 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
     };
 	
 	AppContext.prototype.preload = function(){
-		this.gameManager.game.load.image('sky', 'assets/images/bg/sky.png');
-		this.gameManager.game.load.spritesheet('loaderBar', 'assets/images/other/bar.png', 500, 60);
+		this.gameManager.game.load.image(Assets.BG, 'assets/images/bg/bg.png');
+		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/other/bar.png', 500, 60);
 	};
 	
 	return AppContext;

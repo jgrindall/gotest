@@ -2,9 +2,9 @@
 define('app/views/canvas/grid',
 
 
-	['phaser',	'phasercomponents', 'app/consts/steplengths'],
+	['phaser',	'phasercomponents', 'app/consts/steplengths', 'app/assets'],
 
-function(Phaser, PhaserComponents, StepLengths){
+function(Phaser, PhaserComponents, StepLengths, Assets){
 	
 	"use strict";
 	
@@ -50,7 +50,7 @@ function(Phaser, PhaserComponents, StepLengths){
 			this.sprite = null;
 		}
 		offset = this.getOffset();
-		asset = 'grid' + index;
+		asset = Assets.GRIDS[index];
 		this.sprite = new Phaser.TileSprite(this.game, this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, asset);
 		this.sprite.tilePosition = new PIXI.Point(-offset.x, -offset.y);
 		this.group.add(this.sprite);

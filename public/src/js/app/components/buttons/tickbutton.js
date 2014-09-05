@@ -4,7 +4,7 @@ define('app/components/buttons/tickbutton',['phasercomponents'], function(Phaser
 	"use strict";
 	
 	var TickButton = function(options){
-		options.asset = 'tick';
+		options.asset = Assets.TICKBUTTON;
 		PhaserComponents.AbstractButton.call(this, this.game, options);
 	};
 	

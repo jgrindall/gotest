@@ -56,14 +56,14 @@ OkButton, CloseButton){
 	};
 
 	GridMenu.prototype.addDiagToggle = function(){
-		var middle = this.bounds.x + this.bounds.w/2 - (ToggleButton.WIDTH/2);
+		var middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.ToggleButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 240};
 		this.diagToggle = new PhaserComponents.ToggleButton({"model": ModelFacade.getInstance().get(ModelFacade.DIAG), "bounds":bounds});
 		this.group.add(this.diagToggle.sprite);
 	};
 
 	GridMenu.prototype.addGridToggle = function(){
-		var middle = this.bounds.x + this.bounds.w/2 - (ToggleButton.WIDTH/2);
+		var middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.ToggleButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 170};
 		this.gridToggle = new PhaserComponents.ToggleButton({"model": ModelFacade.getInstance().get(ModelFacade.GRID), "bounds":bounds});
 		this.group.add(this.gridToggle.sprite);

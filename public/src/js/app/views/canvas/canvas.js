@@ -3,13 +3,13 @@ define('app/views/canvas/canvas',[ 'phasercomponents', 'app/components/backgroun
 
 'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
 
-'app/views/components/indicator', 'app/views/canvas/grid'],
+'app/views/components/indicator', 'app/views/canvas/grid', 'app/assets'],
 
 function(PhaserComponents, Background,
 
 Map, Drawing, ModelFacade,
 
-Indicator, Grid){
+Indicator, Grid, Assets){
 	
 	"use strict";
 	
@@ -24,7 +24,7 @@ Indicator, Grid){
 		var w, h, bounds;
 		w = this.game.w;
 		h = this.game.h;
-		this.bg = new Background({"asset":'sky', "bounds":this.bounds});
+		this.bg = new Background({"asset":Assets.BG, "bounds":this.bounds});
 		this.group.add(this.bg.sprite);
 	};
 

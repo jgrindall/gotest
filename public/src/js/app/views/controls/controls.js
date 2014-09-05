@@ -11,7 +11,7 @@ define('app/views/controls/controls',[ 'app/components/background',
 
 'app/views/commandpanels/commandspanelfactory',
 
-'app/events/events'
+'app/events/events', 'app/assets'
 
 ],
 
@@ -27,7 +27,7 @@ ControlMenu, AbstractCommandsPanel,
 
 CommandsPanelFactory,
 
-Events){
+Events, Assets){
 	
 	"use strict";
 	
@@ -84,7 +84,7 @@ Events){
 		w = this.game.w;
 		h = this.game.h;
 		bounds = {'x':this.bounds.x, 'y':0, 'w':this.bounds.w, 'h':h};
-		this.bg = new Background({"asset":'sky', "bounds":bounds});
+		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
 		this.group.add(this.bg.sprite);
 	};
 	
@@ -131,13 +131,13 @@ Events){
 	
 	Controls.prototype.addColorPicker = function() {
 		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
-		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":'pens', "num":8, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
+		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":Assets.PENS, "num":8, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.sprite);
 	};
 
 	Controls.prototype.addWidthPicker = function() {
 		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
-		this.widthPicker = new WidthPicker({"bounds":bounds, "asset":'width', "num":5, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
+		this.widthPicker = new WidthPicker({"bounds":bounds, "asset":Assets.WIDTH, "num":5, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.sprite);
 	};
 	

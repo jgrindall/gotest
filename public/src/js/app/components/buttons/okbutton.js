@@ -1,12 +1,12 @@
 
-define('app/components/buttons/okbutton',[ 'phasercomponents'],
+define('app/components/buttons/okbutton',[ 'phasercomponents', 'app/assets'],
 
-	function(PhaserComponents){
+	function(PhaserComponents, Assets){
 	
 	"use strict";
 	
 	var OkButton = function(options){
-		options.asset = 'okbutton';
+		options.asset = Assets.OK_BUTTON;
 		PhaserComponents.AbstractButton.call(this, options);
 	};
 	

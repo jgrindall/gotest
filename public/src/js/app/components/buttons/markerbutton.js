@@ -1,14 +1,14 @@
 
 define('app/components/buttons/markerbutton',
 
-	['phasercomponents', ],
+	['phasercomponents', 'app/assets'],
 
-	function(PhaserComponents){
+	function(PhaserComponents, Assets){
 	
 	"use strict";
 	
 	var MarkerButton = function(options){
-		options.asset = 'marker';
+		options.asset = Assets.MARKERBUTTON;
 		PhaserComponents.AbstractButton.call(this, options);
 	};
 

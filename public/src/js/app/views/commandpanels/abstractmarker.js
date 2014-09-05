@@ -1,13 +1,13 @@
 
-define('app/views/commandpanels/abstractmarker',['phaser', 'phasercomponents'],
+define('app/views/commandpanels/abstractmarker',['phaser', 'phasercomponents', 'app/assets'],
 
-	function(Phaser,PhaserComponents){
+	function(Phaser,PhaserComponents, Assets){
 	
 	"use strict";
 	
 	var AbstractMarker = function(options){
 		options.defaultFrame = 4;
-		options.asset = 'markers';
+		options.asset = Assets.MARKERS;
 		options.num = 11;
 		PhaserComponents.MovieClip.call(this, options);
 		this.sprite.anchor.setTo(0.5, 0.5);

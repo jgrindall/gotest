@@ -1,13 +1,13 @@
 
-define('app/components/buttons/dirbutton',[ 'phasercomponents'],
+define('app/components/buttons/dirbutton',[ 'phasercomponents', 'app/assets'],
 
-	function(PhaserComponents){
+	function(PhaserComponents, Assets){
 	
 	"use strict";
 	
 	var DirButton = function(options){
 		var frame0;
-		options.asset = 'button';
+		options.asset = Assets.BUTTON;
 		frame0 = 4 * options.data.num;
 		if(options.data.turn && options.data.num === 3){
 			frame0 = 4 * 27;

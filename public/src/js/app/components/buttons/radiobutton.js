@@ -1,12 +1,12 @@
 
-define('app/components/buttons/radiobutton',[ 'phasercomponents'],
+define('app/components/buttons/radiobutton',[ 'phasercomponents', 'app/assets'],
 
-function(PhaserComponents){
+function(PhaserComponents, Assets){
 	
 	"use strict";
 	
 	var RadioButton = function(options){
-		options.asset = 'radio';
+		options.asset = Assets.RADIOBUTTON;
 		PhaserComponents.AbstractButton.call(this, options);
 	};
 

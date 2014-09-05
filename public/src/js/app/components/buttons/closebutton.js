@@ -1,12 +1,12 @@
 
-define('app/components/buttons/closebutton',[ 'phasercomponents'],
+define('app/components/buttons/closebutton',[ 'phasercomponents', 'app/assets'],
 
-	function(PhaserComponents){
+	function(PhaserComponents, Assets){
 	
 	"use strict";
 	
 	var CloseButton = function(options){
-		options.asset = 'close';
+		options.asset = Assets.CLOSE;
 		PhaserComponents.AbstractButton.call(this, options);
 	};
 	

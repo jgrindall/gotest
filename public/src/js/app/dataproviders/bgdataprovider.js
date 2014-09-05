@@ -1,9 +1,9 @@
 
 define('app/dataproviders/bgdataprovider',[
 
-'app/components/bgpanel', 'app/consts/bgdata'],
+'app/components/bgpanel', 'app/consts/bgdata', 'app/assets'],
 
-function(BgPanel, BgData){
+function(BgPanel, BgData, Assets){
 	
 	"use strict";
 	
@@ -22,7 +22,7 @@ function(BgPanel, BgData){
 		w = scroller.bounds.w - 2*paddingX;
 		h = scroller.bounds.h - 2*paddingY;
 		bounds = {"x":paddingX + scroller.bounds.x + i * this.game.w, "y":paddingY + scroller.bounds.y, "w":w, "h":h};
-		options = {"bounds":bounds, "bgasset":'map'+i};
+		options = {"bounds":bounds, "bgasset":Assets.MAPS[i]};
 		panel = new BgPanel(options);
 		scroller.add(panel);
 	};

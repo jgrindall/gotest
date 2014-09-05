@@ -5,7 +5,7 @@ define('app/scenes/activityscene',['app/views/canvas/canvas', 'app/views/control
 
 'app/components/background', 'phasercomponents',
 
-'app/events/events'],
+'app/events/events', 'app/assets'],
 
 function(Canvas, Controls,
 
@@ -13,7 +13,7 @@ Menu,
 
 Background, PhaserComponents,
 
-Events){
+Events, Assets){
 	
 	"use strict";
 	
@@ -36,7 +36,7 @@ Events){
 	ActivityScene.prototype.addBg = function() {
 		var w, h, bounds;
 		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
-		this.bg = new Background({"asset":'sky', "bounds":bounds});
+		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
 		this.world.add(this.bg.sprite);
 	};
 	
