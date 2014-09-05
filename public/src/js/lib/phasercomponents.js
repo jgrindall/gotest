@@ -67,13 +67,9 @@ function() {
 		if(!obj || !obj.type){
 			throw "Undefined command";
 		}
-		console.log("obj is "+obj.type);
-		console.log("obj is "+JSON.stringify(obj));
 		var CommandClassRef = this.get(obj.type);
-		console.log("CommandClassRef is "+CommandClassRef);
 		if(CommandClassRef && (typeof CommandClassRef === "function")){
 			cmd = new CommandClassRef();
-			console.log("cmd is "+cmd);
 			cmd.start(obj.data);
 		}
 	};
@@ -86,7 +82,6 @@ function() {
 		handler = this.trigger.bind(this);
 		this.eventDispatcher.addListener(eventName, handler);
 		this.hash[eventName] = CommandClassRef;
-		console.log("mapped "+eventName+" to "+CommandClassRef);
 		new CommandClassRef();
 	};
 	
@@ -1320,6 +1315,116 @@ define('phasercomponents/abstractcommand',
 
 
 
+define('phasercomponents/display/scroller/groupmarker',[
+
+	'phasercomponents/display/container'],
+
+function(Container){
+	
+	
+	
+	var GroupMarker = function(options){
+		this.buttons = [];
+		Container.call(this, options);
+	};
+	
+	GroupMarker.prototype = Object.create(Container.prototype);
+	GroupMarker.prototype.constructor = GroupMarker;
+	
+	GroupMarker.prototype.create = function(){
+		var b, i, x, ClassRef;
+		ClassRef = this.options.buttonClass;
+		Container.prototype.create.call(this);
+		for(i = 0; i <= this.options.num - 1; i++){
+			x = this.game.cx - 20 * this.options.num + i * 40;
+			b = new ClassRef({'bounds':{"x":x, "y":this.game.h - 40}});
+			this.group.add(b.sprite);
+			this.buttons.push(b);
+		}
+		this.setSelected(0);
+	};
+	
+	GroupMarker.prototype.destroy = function() {
+		Container.prototype.destroy.call(this);
+	};
+	
+	GroupMarker.prototype.setSelected = function(index) {
+		this.buttons.forEach(function(button, i){
+			if(i === index){
+				button.select();
+			}
+			else{
+				button.deselect();
+			}
+		});
+	};
+
+	return GroupMarker;
+
+});
+
+
+
+
+
+define('phasercomponents/display/scroller/pager',
+
+	['phasercomponents/display/scroller/groupmarker', 'phasercomponents/display/scroller/scroller'],
+
+function(GroupMarker, Scroller){
+	
+	
+	
+	var Pager = function(options){
+		Scroller.call(this, options);
+		if(options.snapX !== this.game.w){
+			throw "should snap to game width";
+		}
+	};
+	
+	Pager.prototype = Object.create(Scroller.prototype);
+	Pager.prototype.constructor = Pager;
+	
+	Pager.prototype.addChildren = function(){
+		Scroller.prototype.addChildren.call(this);
+		var numPages = this.numPages();
+		if(numPages >= 2){
+			this.groupMarker = new GroupMarker({"num":numPages, "buttonClass":this.options.markerButtonClass});
+			this.group.add(this.groupMarker.group);
+		}
+	};
+	
+	Pager.prototype.numPages = function() {
+		return this.options.dataProvider.getNumPages();
+	};
+	
+	Pager.prototype.destroy = function() {
+		if(this.groupMarker){
+			this.groupMarker.destroy();
+			this.groupMarker = null;
+		}
+		Scroller.prototype.destroy.call(this);
+	};
+	
+	Pager.prototype.updateMarker = function() {
+		if(this.groupMarker){
+			this.groupMarker.setSelected(this.pageNum);
+		}
+	};
+	
+	Pager.prototype.gotoPage = function(p) {
+		Scroller.prototype.gotoPage.call(this, p);
+		this.updateMarker();
+	};
+
+	return Pager;
+
+});
+
+
+
+
+
 define('phasercomponents',[
 
 	'phasercomponents/context',
@@ -1360,7 +1465,9 @@ define('phasercomponents',[
 
 	'phasercomponents/utils/soundmanager',
 
-	'phasercomponents/abstractcommand'
+	'phasercomponents/abstractcommand',
+
+	'phasercomponents/display/scroller/pager'
 	
 	], 
 
@@ -1402,7 +1509,9 @@ define('phasercomponents',[
 
 		SoundManager,
 
-		AbstractCommand
+		AbstractCommand, 
+
+		Pager
 
 		) {
 
@@ -1424,6 +1533,7 @@ define('phasercomponents',[
         'EventDispatcher': 		EventDispatcher,
         'Slider': 				Slider,
         'Scroller': 			Scroller,
+        'Pager': 				Pager,
         'Context': 				Context,
         'Scene': 				Scene,
         'View': 				View,

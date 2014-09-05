@@ -31,6 +31,7 @@ define('app/components/loaderbar/loaderbar',['phaser','phasercomponents'],
 	LoaderBar.prototype.destroy = function(){
 		this.sprite.destroy(true);
 		this.sprite = null;
+		PhaserComponents.View.prototype.destroy.call(this);
 	};
 	
 	return LoaderBar;
