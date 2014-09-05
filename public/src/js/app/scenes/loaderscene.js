@@ -1,11 +1,11 @@
 
-define('app/scenes/loaderscene',['phasercomponents', 'app/preloader/preloader', 
+define('app/scenes/loaderscene',['phasercomponents', 'app/assets', 
 
 	'app/components/loaderbar/loaderbar',
 
-'app/text/textfactory', ],
+'app/text/textfactory'],
 
-function(PhaserComponents, Preloader,
+function(PhaserComponents, Assets,
 
 	LoaderBar,
 
@@ -25,7 +25,7 @@ TextFactory){
 
 	LoaderScene.prototype.preload = function() {
 		this.addChildren();
-		this.preloader = new Preloader(this.game);
+		this.preloader = new PhaserComponents.Preloader(this.game, Assets.DATA);
 		this.preloader.loadSignal.add(this.loadProgress, this);
 		this.preloader.start();
 	};
@@ -40,12 +40,12 @@ TextFactory){
 		x = this.game.cx - LoaderBar.WIDTH/2;
 		y = this.game.cy - 20;
 		bounds = {"x":x, "y":y};
-		this.loaderBar = new LoaderBar({'bounds':bounds});
+		this.loaderBar = new LoaderBar({'bounds':bounds, 'asset':'loaderBar', 'num':7});
 		this.world.add(this.loaderBar.sprite);
 	};
 	
 	LoaderScene.prototype.addText = function() {
-		this.label = TextFactory.make(this.game, this.game.cx - 300, 0, "Loading 2Go...", TextFactory.LARGE);
+		this.label = TextFactory.make(this.game, this.game.cx - 300, 0, "Loading...", TextFactory.LARGE);
 		this.world.add(this.label);
 	};
 	

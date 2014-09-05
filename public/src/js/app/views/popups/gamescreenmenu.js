@@ -1,17 +1,13 @@
 
 define('app/views/popups/gamescreenmenu',['app/components/buttons/tickbutton', 
 
-'app/components/popups/abstractpopup', 'app/views/controls/radiobuttons',
-
-'phasercomponents','app/components/screenchoice',
+'phasercomponents','app/components/screenchoice', 'app/components/buttons/radiobutton',
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 
 function(TickButton,
 
-AbstractPopup, RadioButtons,
-
-PhaserComponents, ScreenChoice,
+PhaserComponents, ScreenChoice, RadioButton,
 
 OkButton, CloseButton){
 	
@@ -19,10 +15,10 @@ OkButton, CloseButton){
 		
 	var GameScreenMenu = function(options){
 		options.bgasset = 'panel';
-		AbstractPopup.call(this, options);
+		PhaserComponents.AbstractPopup.call(this, options);
 	};
 	
-	GameScreenMenu.prototype = Object.create(AbstractPopup.prototype);
+	GameScreenMenu.prototype = Object.create(PhaserComponents.AbstractPopup.prototype);
 	GameScreenMenu.prototype.constructor = GameScreenMenu;
 	
 	GameScreenMenu.WIDTH = 800;
@@ -48,8 +44,11 @@ OkButton, CloseButton){
 	};
 
 	GameScreenMenu.prototype.addRadio = function() {
-		var bounds = {'x':this.bounds.x + this.bounds.w - RadioButtons.WIDTH, 'y':this.game.h - RadioButtons.HEIGHT, 'w':RadioButtons.WIDTH, 'h':RadioButtons.HEIGHT};
-		this.radio = new RadioButtons({"model":this.options.radioModel, "bounds":bounds});	
+		var bounds, w, h;
+		w = PhaserComponents.RadioButtons.WIDTH;
+		h = PhaserComponents.RadioButtons.HEIGHT;
+		bounds = {'x':this.bounds.x + this.bounds.w - w, 'y':this.game.h - h, 'w':w, 'h':h};
+		this.radio = new PhaserComponents.RadioButtons({"buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 	};
 
@@ -61,7 +60,7 @@ OkButton, CloseButton){
 	};
 
 	GameScreenMenu.prototype.create = function () {
-		AbstractPopup.prototype.create.call(this);
+		PhaserComponents.AbstractPopup.prototype.create.call(this);
 		this.addOkButton();
 		this.addCloseButton();
 		this.addGrid();
@@ -76,7 +75,7 @@ OkButton, CloseButton){
 		});
 		this.radio.destroy();
 		this.grid.destroy();
-		AbstractPopup.prototype.destroy.call(this);
+		PhaserComponents.AbstractPopup.prototype.destroy.call(this);
 	};
 	
 	return GameScreenMenu;

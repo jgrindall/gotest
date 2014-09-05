@@ -380,7 +380,7 @@ define('phasercomponents/display/interactivesprite',['phaser'], function(Phaser)
 
 
 
-define('phasercomponents/display/abstractbutton',
+define('phasercomponents/display/buttons/abstractbutton',
 	
 ['phaser', 'phasercomponents/display/view'], function(Phaser, View){
 	
@@ -1425,102 +1425,428 @@ function(GroupMarker, Scroller){
 
 
 
+define('phasercomponents/display/buttons/multibutton',
+
+	['phasercomponents/display/view', 'phasercomponents/display/interactivesprite'],
+
+function(View, InteractiveSprite){
+	
+	
+	
+	var MultiButton = function(options){
+		View.call(this);
+		this.options = options;
+		this.model = this.options.model;
+		this.options.model.changeSignal.add(this.onChanged, this);
+		this.create();
+		this.init();
+		
+	};
+
+	MultiButton.prototype = Object.create(View.prototype);
+	MultiButton.prototype.constructor = MultiButton;
+
+	MultiButton.prototype.init = function(){
+		var index = this.model.getData().index;
+		if(index !== null){
+			this.goToFrame(index);
+		}
+	};
+
+	MultiButton.prototype.onChanged = function(data){
+		this.goToFrame(data.index);
+	};
+
+	MultiButton.prototype.goToFrame = function(i){
+		this.sprite.animations.play('frame'+i);
+	};
+	
+	MultiButton.prototype.enableInput = function(){
+		this.sprite.enableInput();
+	};
+	
+	MultiButton.prototype.disableInput = function(){
+		this.sprite.disableInput();
+	};
+	
+	MultiButton.prototype.create = function(){
+		var i;
+		this.sprite = new InteractiveSprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset);
+		for(i = 0; i<= this.options.num - 1; i++){
+			this.sprite.animations.add('frame'+i, [i], 500, true);	
+		}
+		this.sprite.mouseUpSignal.add(this.mouseUp, this);
+		this.enableInput();
+	};
+
+	MultiButton.prototype.mouseUp = function(data){
+		var p, frame;
+		p = data.localPoint.x / this.options.bounds.w;
+		frame = Math.floor(this.options.num * p);
+		this.model.setData(frame);
+	};
+	
+	MultiButton.prototype.destroy = function(){
+		this.disableInput();
+		this.model.changeSignal.remove(this.onChanged, this);
+		this.model = null;
+		this.sprite.destroy(true);
+		View.prototype.destroy.call(this);
+	};
+
+	return MultiButton;
+
+});
+
+
+
+
+define('phasercomponents/display/buttons/stepperbutton',[ 
+	
+'phasercomponents/display/view', 'phasercomponents/display/interactivesprite'],
+
+function(View, InteractiveSprite){
+	
+	
+	
+	var StepperButton = function(options){
+		var index;
+		View.call(this);
+		this.options = options;
+		this.model = this.options.model;
+		this.model.changeSignal.add(this.onChanged, this);
+		this.create();
+		index = this.model.getData().index;
+		if(index !== null){
+			this.goToFrame(index);
+		}
+	};
+
+	StepperButton.prototype = Object.create(View.prototype);
+	StepperButton.prototype.constructor = StepperButton;
+
+	StepperButton.prototype.onChanged = function(data){
+		this.goToFrame(data.index);
+	};
+
+	StepperButton.prototype.goToFrame = function(i){
+		this.sprite.animations.play('frame'+i);
+	};
+	
+	StepperButton.prototype.enableInput = function(){
+		this.sprite.enableInput();
+	};
+	
+	StepperButton.prototype.disableInput = function(){
+		this.sprite.disableInput();
+	};
+	
+	StepperButton.prototype.create = function(){
+		var i;
+		this.sprite = new InteractiveSprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset);
+		for(i = 0; i<= this.options.num - 1; i++){
+			this.sprite.animations.add('frame'+i, [i], 0, true);	
+		}
+		this.sprite.mouseUpSignal.add(this.mouseUp, this);
+		this.enableInput();
+	};
+
+	StepperButton.prototype.mouseUp = function(data){
+		this.model.increment();
+	};
+	
+	StepperButton.prototype.destroy = function(){
+		View.prototype.destroy.call(this);
+		this.disableInput();
+		this.model.changeSignal.remove(this.onChanged, this);
+		this.model = null;
+		this.sprite.destroy(true);
+		this.options = null;
+	};
+
+	return StepperButton;
+
+});
+
+
+
+
+define('phasercomponents/display/buttons/radiobuttons',['phasercomponents/display/buttongrid/buttonbar'
+
+],
+
+function(ButtonBar
+
+){
+	
+	
+	
+	var RadioButtons  = function(options){
+		options.numX = 1;
+		ButtonBar.call(this, options);
+	};
+	
+	RadioButtons.WIDTH = 120;
+	RadioButtons.HEIGHT = 120;
+
+	RadioButtons.prototype = Object.create(ButtonBar.prototype);
+	RadioButtons.prototype.constructor = RadioButtons;
+	
+	return RadioButtons;
+
+});
+	
+
+
+define('phasercomponents/display/buttons/togglebutton',['phasercomponents/display/buttons/stepperbutton'],
+
+function(StepperButton){
+	
+	
+	
+	var ToggleButton = function(options){
+		options.num = 2;
+		options.asset = 'toggle';
+		StepperButton.call(this, options);
+	};
+
+	ToggleButton.WIDTH = 120;
+	ToggleButton.HEIGHT = 60;
+
+	ToggleButton.prototype = Object.create(StepperButton.prototype);
+	ToggleButton.prototype.constructor = ToggleButton;
+
+	return ToggleButton;
+
+});
+
+
+
+
+define('phasercomponents/preloader',['phaser'], function(Phaser){
+	
+	
+	
+	var Preloader = function(game, assets){
+		this.numLoaded = 0;
+		this.game = game;
+		this.assets = assets;
+		this.loadSignal = new Phaser.Signal();
+	};
+	
+	Preloader.prototype.loadNext = function(){
+		var obj, type;
+		obj = this.assets[this.numLoaded];
+		type = obj.type;
+		if(type === "image"){
+			this.game.load.image(obj.key, obj.asset);
+		}
+		else if(type === "spritesheet"){
+			this.game.load.spritesheet(obj.key, obj.asset, obj.w, obj.h);
+		}
+		else if(type === "tilemap"){
+			this.game.load.tilemap(obj.key, obj.asset, null, Phaser.Tilemap.TILED_JSON);
+		}
+		else if(type === "sound"){
+			this.game.load.audio(obj.key, [obj.asset]);
+		}
+	};
+	
+	Preloader.prototype.start = function(){
+		this.game.load.onFileComplete.add(this.fileLoaded.bind(this));
+		this.loadNext();
+	};
+
+	Preloader.prototype.fileLoaded = function() {
+		this.numLoaded++;
+		this.loadSignal.dispatch({"numLoaded":this.numLoaded, "total":this.assets.length});
+		if(this.numLoaded < this.assets.length){
+			this.loadNext();
+		}
+	};
+
+	Preloader.prototype.destroy = function() {
+		this.loadSignal = null;
+	};
+	
+	return Preloader;
+
+});
+
+
+
+
+
+
+
+define('phasercomponents/display/popups/abstractpopup',['phaser',
+
+'phasercomponents/display/container'],
+
+function(Phaser,
+
+Container){
+	
+	
+		
+	var AbstractPopup = function(options){
+		this.buttons = [];
+		this.selectSignal = new Phaser.Signal();
+		Container.call(this, options);
+		this.group.y = this.game.h + 50;
+	};
+	
+	AbstractPopup.prototype = Object.create(Container.prototype);
+	AbstractPopup.prototype.constructor = AbstractPopup;
+	
+	AbstractPopup.prototype.addPanel = function () {
+		this.panel = new Phaser.Sprite(this.game, this.bounds.x, this.bounds.y, this.options.bgasset);
+		this.group.add(this.panel);
+	};
+	
+	AbstractPopup.prototype.showMe = function () {
+		this.game.add.tween(this.group).to( {x: 0, y: 0}, 300, Phaser.Easing.Back.Out, true, 0, false);
+	};
+
+	AbstractPopup.prototype.getData = function() {
+		return {};
+	};
+	
+	AbstractPopup.prototype.buttonUp = function(data) {
+		var index, selectionData;
+		index = this.buttonGroup.getIndex(data.target.sprite);
+		selectionData = this.getData();
+		this.selectSignal.dispatch({"index":index, "selection":selectionData});
+	};
+	
+	AbstractPopup.prototype.addButton = function (ClassRef, bounds) {
+		var b = new ClassRef({'bounds':bounds});
+		b.mouseUpSignal.add(this.buttonUp, this);
+		this.buttonGroup.add(b.sprite);
+		this.buttons.push(b);
+		this.group.bringToTop(this.buttonGroup);
+	};
+	
+	AbstractPopup.prototype.addButtonGroup = function () {
+		this.buttonGroup = new Phaser.Group(this.game, 0, 0);
+		this.group.add(this.buttonGroup);
+	};
+	
+	AbstractPopup.prototype.create = function () {
+		Container.prototype.create.call(this);
+		this.addPanel();
+		this.addButtonGroup();
+	};
+	
+	return AbstractPopup;
+	
+});
+	
+
+
+
+
+
+define('phasercomponents/display/loaderbar',['phasercomponents/display/movieclip'], 
+
+	function(MovieClip){
+	
+	
+	
+	var LoaderBar = function(options){
+		MovieClip.call(this, options);
+		this.create();
+	};
+	
+	LoaderBar.prototype = Object.create(MovieClip.prototype);
+	LoaderBar.prototype.constructor = LoaderBar;
+
+	LoaderBar.prototype.goToPercent = function(p){
+		var g, numFrames;
+		numFrames = 8;
+		g = (numFrames - 1)/100;
+		MovieClip.prototype.goTo.call(this, Math.round(p*g));
+	};
+	
+	LoaderBar.prototype.destroy = function(){
+		MovieClip.prototype.destroy.call(this);
+	};
+	
+	return LoaderBar;
+
+});
+
+
+
 define('phasercomponents',[
 
 	'phasercomponents/context',
-
 	'phasercomponents/display/movieclip',
-
 	'phasercomponents/display/container',
-
 	'phasercomponents/display/interactivesprite',
-
-	'phasercomponents/display/abstractbutton',
-
+	'phasercomponents/display/buttons/abstractbutton',
 	'phasercomponents/models/abstractmodel',
-
 	'phasercomponents/display/buttongrid/buttongrid',
-
 	'phasercomponents/display/buttongrid/buttongridmodel',
-
 	'phasercomponents/display/buttongrid/tabbuttonbar',
-
 	'phasercomponents/display/buttongrid/buttonbar',
-
 	'phasercomponents/events/eventdispatcher',
-
 	'phasercomponents/display/slider/slider',
-
 	'phasercomponents/display/scroller/scroller',
-
 	'phasercomponents/scene',
-
 	'phasercomponents/display/view',
-
 	'phasercomponents/utils/storage',
-
 	'phasercomponents/utils/alertmanager',
-
 	'phasercomponents/utils/printmanager',
-
 	'phasercomponents/utils/soundmanager',
-
 	'phasercomponents/abstractcommand',
-
-	'phasercomponents/display/scroller/pager'
-	
+	'phasercomponents/display/scroller/pager',
+	'phasercomponents/display/buttons/multibutton',
+	'phasercomponents/display/buttons/stepperbutton',
+	'phasercomponents/display/buttons/radiobuttons',
+	'phasercomponents/display/buttons/togglebutton',
+	'phasercomponents/preloader',
+	'phasercomponents/display/popups/abstractpopup',
+	'phasercomponents/display/loaderbar'
 	], 
 
 	function (Context, 
-
 		MovieClip,
-
 		Container,
-
 		InteractiveSprite, 
-
 		AbstractButton, 
-
 		AbstractModel,
-
 		ButtonGrid,
-
 		ButtonGridModel,
-
 		TabButtonBar,
-
 		ButtonBar,
-
 		EventDispatcher,
-
 		Slider, 
-
 		Scroller,
-
 		Scene,
-
 		View,
-
 		Storage,
-
 		AlertManager,
-
 		PrintManager,
-
 		SoundManager,
-
 		AbstractCommand, 
-
-		Pager
-
-		) {
+		Pager,
+		MultiButton,
+		StepperButton,
+		RadioButtons,
+		ToggleButton,
+		Preloader,
+		AbstractPopup,
+		LoaderBar
+	) {
 
     
 
-
     //TODO - split
+    var Display = {};
 
     return {
+        'Display':Display,
         'MovieClip': 			MovieClip,
         'Container': 			Container,
         'InteractiveSprite': 	InteractiveSprite,
@@ -1541,7 +1867,14 @@ define('phasercomponents',[
         'AlertManager': 		AlertManager,
         'PrintManager': 		PrintManager,
         'SoundManager': 		SoundManager,
-        'AbstractCommand': 		AbstractCommand
+        'AbstractCommand': 		AbstractCommand,
+        'MultiButton': 			MultiButton,
+        'StepperButton': 		StepperButton,
+        'RadioButtons': 		RadioButtons,
+        'ToggleButton': 		ToggleButton,
+        'Preloader': 			Preloader,
+        'AbstractPopup':  		AbstractPopup,
+        'LoaderBar': 			LoaderBar
     };
     
 });

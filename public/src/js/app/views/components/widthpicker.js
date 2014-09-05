@@ -1,20 +1,20 @@
 
-define('app/views/components/widthpicker',['app/components/buttons/stepperbutton'
+define('app/views/components/widthpicker',['phasercomponents'
 
 ],
 
-function(StepperButton){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var WidthPicker  = function(options){
-		StepperButton.call(this, options);
+		PhaserComponents.StepperButton.call(this, options);
 	};
 
 	WidthPicker.WIDTH = 80;
 	WidthPicker.HEIGHT = 80;
 	
-	WidthPicker.prototype = Object.create(StepperButton.prototype);
+	WidthPicker.prototype = Object.create(PhaserComponents.StepperButton.prototype);
 	WidthPicker.prototype.constructor = WidthPicker;
 	
 	return WidthPicker;

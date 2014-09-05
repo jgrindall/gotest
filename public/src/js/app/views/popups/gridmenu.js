@@ -1,21 +1,17 @@
 
 define('app/views/popups/gridmenu',[ 'app/components/buttons/tickbutton',
 
-'app/components/popups/abstractpopup', 'app/text/textfactory',
+'app/text/textfactory',
 
 'app/models/modelfacade', 'phasercomponents',
-
-'app/components/buttons/togglebutton',
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 
 function(TickButton,
 
-AbstractPopup, TextFactory,
+TextFactory,
 
 ModelFacade, PhaserComponents,
-
-ToggleButton,
 
 OkButton, CloseButton){
 	
@@ -23,10 +19,10 @@ OkButton, CloseButton){
 		
 	var GridMenu = function(options){
 		options.bgasset = 'panel';
-		AbstractPopup.call(this, options);
+		PhaserComponents.AbstractPopup.call(this, options);
 	};
 	
-	GridMenu.prototype = Object.create(AbstractPopup.prototype);
+	GridMenu.prototype = Object.create(PhaserComponents.AbstractPopup.prototype);
 	GridMenu.prototype.constructor = GridMenu;
 	
 	GridMenu.WIDTH = 800;
@@ -62,14 +58,14 @@ OkButton, CloseButton){
 	GridMenu.prototype.addDiagToggle = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (ToggleButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 240};
-		this.diagToggle = new ToggleButton({"model": ModelFacade.getInstance().get(ModelFacade.DIAG), "bounds":bounds});
+		this.diagToggle = new PhaserComponents.ToggleButton({"model": ModelFacade.getInstance().get(ModelFacade.DIAG), "bounds":bounds});
 		this.group.add(this.diagToggle.sprite);
 	};
 
 	GridMenu.prototype.addGridToggle = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (ToggleButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 170};
-		this.gridToggle = new ToggleButton({"model": ModelFacade.getInstance().get(ModelFacade.GRID), "bounds":bounds});
+		this.gridToggle = new PhaserComponents.ToggleButton({"model": ModelFacade.getInstance().get(ModelFacade.GRID), "bounds":bounds});
 		this.group.add(this.gridToggle.sprite);
 	};
 
@@ -83,7 +79,7 @@ OkButton, CloseButton){
 	};
 
 	GridMenu.prototype.create = function () {
-		AbstractPopup.prototype.create.call(this);
+		PhaserComponents.AbstractPopup.prototype.create.call(this);
 		this.addText();
 		this.addSlider();
 		this.addGridToggle();
@@ -102,7 +98,7 @@ OkButton, CloseButton){
 		this.lengthSlider.destroy();
 		this.gridToggle.destroy();
 		this.diagToggle.destroy();
-		AbstractPopup.prototype.destroy.call(this);
+		PhaserComponents.AbstractPopup.prototype.destroy.call(this);
 	};
 	
 	return GridMenu;

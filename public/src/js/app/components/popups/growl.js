@@ -1,13 +1,13 @@
 
 define('app/components/popups/growl',[ 'app/components/buttons/tickbutton',
 
-'app/components/popups/abstractpopup', 'app/text/textfactory',
+'phasercomponents', 'app/text/textfactory',
 
 'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
 
 function(TickButton,
 
-AbstractPopup, TextFactory,
+PhaserComponents, TextFactory,
 
 OkButton, CloseButton){
 	
@@ -15,10 +15,10 @@ OkButton, CloseButton){
 		
 	var Growl = function(options){
 		options.bgasset = 'alert';
-		AbstractPopup.call(this, options);
+		PhaserComponents.AbstractPopup.call(this, options);
 	};
 	
-	Growl.prototype = Object.create(AbstractPopup.prototype);
+	Growl.prototype = Object.create(PhaserComponents.AbstractPopup.prototype);
 	Growl.prototype.constructor = Growl;
 	
 	Growl.WIDTH = 400;
@@ -45,7 +45,7 @@ OkButton, CloseButton){
 	};
 	
 	Growl.prototype.create = function () {
-		AbstractPopup.prototype.create.call(this);
+		PhaserComponents.AbstractPopup.prototype.create.call(this);
 		this.addText();
 		this.addOkButton();
 		this.addCloseButton();
@@ -57,7 +57,7 @@ OkButton, CloseButton){
 			b.mouseUpSignal.remove(that.buttonUp, that);
 			b.destroy();
 		});
-		AbstractPopup.prototype.destroy.call(this);
+		PhaserComponents.AbstractPopup.prototype.destroy.call(this);
 	};
 	
 	return Growl;

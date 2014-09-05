@@ -1,22 +1,16 @@
 
-define('app/views/controls/radiobuttons',[ 'app/components/buttons/radiobutton',
-
-'phasercomponents'
+define('app/views/controls/radiobuttons',['phasercomponents'
 
 ],
 
-function(RadioButton,
-
-PhaserComponents
+function(PhaserComponents
 
 ){
 	
 	"use strict";
 	
 	var RadioButtons  = function(options){
-		options.buttonClass = RadioButton;
 		options.numX = 1;
-		options.numY = 2;
 		PhaserComponents.ButtonBar.call(this, options);
 	};
 	

@@ -1,20 +1,20 @@
 
-define('app/views/components/colorpicker',['app/components/buttons/multibutton'
+define('app/views/components/colorpicker',['phasercomponents'
 
 ],
 
-function(MultiButton){
+function(PhaserComponents){
 	
 	"use strict";
 	
 	var ColorPicker  = function(options){
-		MultiButton.call(this, options);
+		PhaserComponents.MultiButton.call(this, options);
 	};
 
 	ColorPicker.WIDTH = 160;
 	ColorPicker.HEIGHT = 80;
 	
-	ColorPicker.prototype = Object.create(MultiButton.prototype);
+	ColorPicker.prototype = Object.create(PhaserComponents.MultiButton.prototype);
 	ColorPicker.prototype.constructor = ColorPicker;
 	
 	return ColorPicker;

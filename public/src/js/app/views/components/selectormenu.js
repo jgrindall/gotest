@@ -1,13 +1,13 @@
 
 define('app/views/components/selectormenu',['app/components/buttons/closebutton', 
 
-'app/components/buttons/okbutton', 'app/components/popups/abstractpopup'
+'app/components/buttons/okbutton', 'phasercomponents'
 
 ],
 
 function(CloseButton,
 
-OkButton, AbstractPopup
+OkButton, PhaserComponents
 
 ){
 	
@@ -15,17 +15,17 @@ OkButton, AbstractPopup
 		
 	var SelectorMenu = function(options){
 		options.bgasset = 'panel';
-		AbstractPopup.call(this, options);
+		PhaserComponents.AbstractPopup.call(this, options);
 	};
 	
 	SelectorMenu.WIDTH = 800;
 	SelectorMenu.HEIGHT = 600;
 	
-	SelectorMenu.prototype = Object.create(AbstractPopup.prototype);
+	SelectorMenu.prototype = Object.create(PhaserComponents.AbstractPopup.prototype);
 	SelectorMenu.prototype.constructor = SelectorMenu;
 	
 	SelectorMenu.prototype.create = function () {
-		AbstractPopup.prototype.create.call(this);
+		PhaserComponents.AbstractPopup.prototype.create.call(this);
 		this.addCloseButton();
 		this.addOkButton();
 	};
@@ -37,7 +37,7 @@ OkButton, AbstractPopup
 	};
 	
 	SelectorMenu.prototype.destroy = function () {
-		AbstractPopup.prototype.destroy.call(this);
+		PhaserComponents.AbstractPopup.prototype.destroy.call(this);
 	};
 	
 	SelectorMenu.prototype.addCloseButton = function () {

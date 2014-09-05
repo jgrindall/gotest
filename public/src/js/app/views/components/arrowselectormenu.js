@@ -3,7 +3,7 @@ define('app/views/components/arrowselectormenu',['jquery', 'phaser', 'app/compon
 
 'app/views/components/selectormenu', 'app/components/buttons/markerbutton',
 
-'phasercomponents'
+'phasercomponents', 'app/assets'
 
 ],
 
@@ -11,7 +11,7 @@ function($, Phaser, ArrowButton,
 
 SelectorMenu, MarkerButton,
 
-PhaserComponents)
+PhaserComponents, Assets)
 
 {
 	
@@ -71,7 +71,6 @@ PhaserComponents)
 	};
 	
 	ArrowSelectorMenu.prototype.addPager = function () {
-		console.log("ArrowSelectorMenu "+this.options.dataProvider);
 		var options = $.extend({}, this.options, {'markerButtonClass':MarkerButton,'bgasset':'panel', 'snapX':this.game.w});
 		this.pager = new PhaserComponents.Pager(options);
 		this.pager.pageSignal.add(this.choose, this);

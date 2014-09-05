@@ -15,10 +15,10 @@ define('app/components/background',['phaser', 'phasercomponents'],
 	Background.prototype.constructor = Background;
 
 	Background.prototype.destroy = function(){
-		PhaserComponents.View.prototype.destroy.call(this);
 		this.sprite.destroy(true);
 		this.sprite = null;
 		this.game = null;
+		PhaserComponents.View.prototype.destroy.call(this);
 	};
 	
 	Background.prototype.create = function(){
