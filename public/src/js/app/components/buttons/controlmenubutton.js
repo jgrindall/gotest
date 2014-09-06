@@ -17,8 +17,7 @@ define('app/components/buttons/controlmenubutton',['phasercomponents', 'app/asse
 	ControlMenuButton.WIDTH = 50;
 	ControlMenuButton.HEIGHT = 50;
 	
-	ControlMenuButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	ControlMenuButton.prototype.constructor = ControlMenuButton;
+	PhaserComponents.Utils.extends(ControlMenuButton, PhaserComponents.Display.AbstractButton);
 
 	return ControlMenuButton;
 	

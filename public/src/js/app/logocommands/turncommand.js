@@ -3,9 +3,9 @@ define(
 
 	'app/logocommands/turncommand',
 
-	['app/logocommands/abstractlogocommand', 'app/logocommands/commandtypes'],
+	['app/logocommands/abstractlogocommand', 'app/logocommands/commandtypes', 'phasercomponents'],
 
-	function(AbstractLogoCommand, CommandTypes){
+	function(AbstractLogoCommand, CommandTypes, PhaserComponents){
 	
 		"use strict";
 		
@@ -13,9 +13,8 @@ define(
 			AbstractLogoCommand.call(this, json);
 		};
 
-		TurnCommand.prototype = Object.create(AbstractLogoCommand.prototype);
-		TurnCommand.prototype.constructor = TurnCommand;
-		
+		PhaserComponents.Utils.extends(TurnCommand, AbstractLogoCommand);
+	
 		TurnCommand.prototype.toJson = function(){
 			var json = AbstractLogoCommand.prototype.toJson.call(this);
 			json.type = CommandTypes.TURN;

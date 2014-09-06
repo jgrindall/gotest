@@ -12,8 +12,7 @@ function(ModelFacade, Growl,
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	LoadCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	LoadCommand.prototype.constructor = LoadCommand;
+	PhaserComponents.Utils.extends(LoadCommand, PhaserComponents.Commands.AbstractCommand);
 
 	LoadCommand.prototype.execute = function(data){
 		PhaserComponents.Storage.getInstance().load(this.onLoaded.bind(this));

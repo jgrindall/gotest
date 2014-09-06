@@ -27,8 +27,7 @@ Events){
 	
 	AbstractCommandsPanel.WIDTH = 190;
 	
-	AbstractCommandsPanel.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	AbstractCommandsPanel.prototype.constructor = AbstractCommandsPanel;
+	PhaserComponents.Utils.extends(AbstractCommandsPanel, PhaserComponents.Display.Container);
 	
 	AbstractCommandsPanel.prototype.build = function(config) {
 		this.builder.build(config, this);

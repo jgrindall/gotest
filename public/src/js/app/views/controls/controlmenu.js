@@ -23,9 +23,8 @@ PlayingState){
 		this.disableButtonAt(1);
 	};
 	
-	ControlMenu.prototype = Object.create(PhaserComponents.Display.ButtonBar.prototype);
-	ControlMenu.prototype.constructor = ControlMenu;
-	
+	PhaserComponents.Utils.extends(ControlMenu, PhaserComponents.Display.ButtonBar);
+
 	ControlMenu.prototype.playingChanged = function(value){
 		if(value === PlayingState.PLAYING){
 			this.enableButtonAt(0);

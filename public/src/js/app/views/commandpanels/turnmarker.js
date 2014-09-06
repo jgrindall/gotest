@@ -1,7 +1,7 @@
 
-define('app/views/commandpanels/turnmarker',['app/views/commandpanels/abstractmarker'],
+define('app/views/commandpanels/turnmarker',['app/views/commandpanels/abstractmarker', 'phasercomponents'],
 
-	function(AbstractMarker){
+	function(AbstractMarker, PhaserComponents){
 	
 	"use strict";
 	
@@ -9,8 +9,7 @@ define('app/views/commandpanels/turnmarker',['app/views/commandpanels/abstractma
 		AbstractMarker.call(this, options);
 	};
 	
-	TurnMarker.prototype = Object.create(AbstractMarker.prototype);
-	TurnMarker.prototype.constructor = TurnMarker;
+	PhaserComponents.Utils.extends(TurnMarker, AbstractMarker);
 
 	TurnMarker.prototype.goTo = function(i){
 		var j = i;

@@ -1,13 +1,13 @@
 
 define('app/views/commandpanels/nsturnkeyscommandspanel',['app/views/commandpanels/abstractkeyscommandspanel',
 
-'app/logocommands/commandtypes'
+'app/logocommands/commandtypes', 'phasercomponents'
 
 ],
 
 function(AbstractKeysCommandsPanel,
 
-CommandTypes){
+CommandTypes, PhaserComponents){
 	
 	"use strict";
 	
@@ -15,9 +15,8 @@ CommandTypes){
 		AbstractKeysCommandsPanel.call(this, options);
 	};
 	
-	NSTurnKeysCommandsPanel.prototype = Object.create(AbstractKeysCommandsPanel.prototype);
-	NSTurnKeysCommandsPanel.prototype.constructor = NSTurnKeysCommandsPanel;
-	
+	PhaserComponents.Utils.extends(NSTurnKeysCommandsPanel, AbstractKeysCommandsPanel);
+
 	NSTurnKeysCommandsPanel.prototype.getGridData = function() {
 		return [{'num':0, 'visible':false}, {'num':1, 'visible':true}, {'num':2, 'visible':false}, {'num':3, 'visible':true, 'turn':true}, {'num':4, 'visible':false}, {'num':5, 'visible':true, 'turn':true}, {'num':6, 'visible':false}, {'num':7, 'visible':true}, {'num':8, 'visible':false}];
 	};

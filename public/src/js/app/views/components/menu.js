@@ -19,9 +19,8 @@ PhaserComponents, ModelFacade, PlayingState){
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 	};
 	
-	Menu.prototype = Object.create(PhaserComponents.Display.ButtonBar.prototype);
-	Menu.prototype.constructor = Menu;
-	
+	PhaserComponents.Utils.extends(Menu, PhaserComponents.Display.ButtonBar);
+
 	Menu.prototype.onAlert = function(event, data) {
 		if(data.shown){
 			this.disableInput();

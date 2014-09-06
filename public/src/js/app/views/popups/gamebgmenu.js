@@ -1,11 +1,13 @@
 
-define('app/views/popups/gamebgmenu',['app/views/components/arrowselectormenu'
+define('app/views/popups/gamebgmenu',
+
+	['app/views/components/arrowselectormenu', 'phasercomponents'
 
 ],
 
 function(
 
-ArrowSelectorMenu
+ArrowSelectorMenu, PhaserComponents
 
 ){
 	
@@ -18,9 +20,8 @@ ArrowSelectorMenu
 	GameBgMenu.WIDTH = 800;
 	GameBgMenu.HEIGHT = 600;
 	
-	GameBgMenu.prototype = Object.create(ArrowSelectorMenu.prototype);
-	GameBgMenu.prototype.constructor = GameBgMenu;
-	
+	PhaserComponents.Utils.extends(GameBgMenu, ArrowSelectorMenu);
+
 	return GameBgMenu;
 	
 });

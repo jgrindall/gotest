@@ -10,8 +10,7 @@ function(PlayingState, ModelFacade, PhaserComponents) {
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	FinishCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	FinishCommand.prototype.constructor = FinishCommand;
+	PhaserComponents.Utils.extends(FinishCommand, PhaserComponents.Commands.AbstractCommand);
 
 	FinishCommand.prototype.execute = function(data){
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).set(PlayingState.NOT_PLAYING);

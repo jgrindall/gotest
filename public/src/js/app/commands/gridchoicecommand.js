@@ -10,8 +10,7 @@ function(PhaserComponents, GridMenu) {
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	GridChoiceCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	GridChoiceCommand.prototype.constructor = GridChoiceCommand;
+	PhaserComponents.Utils.extends(GridChoiceCommand, PhaserComponents.Commands.AbstractCommand);
 
 	GridChoiceCommand.prototype.execute = function(data){
 		PhaserComponents.AlertManager.getInstance().make(GridMenu, {}, null); 

@@ -24,9 +24,8 @@ OkButton, CloseButton){
 		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	
-	GridMenu.prototype = Object.create(PhaserComponents.Display.AbstractPopup.prototype);
-	GridMenu.prototype.constructor = GridMenu;
-	
+	PhaserComponents.Utils.extends(GridMenu, PhaserComponents.Display.AbstractPopup);
+
 	GridMenu.WIDTH = 800;
 	GridMenu.HEIGHT = 600;
 	
@@ -70,7 +69,6 @@ OkButton, CloseButton){
 		this.gridToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": ModelFacade.getInstance().get(ModelFacade.GRID), "bounds":bounds});
 		this.group.add(this.gridToggle.sprite);
 	};
-
 
 	GridMenu.prototype.addDiagLabel = function(){
 		this.diagLabel = TextFactory.make(this.game, this.game.cx - 250, 250, "Stretch diags", TextFactory.VSMALL);

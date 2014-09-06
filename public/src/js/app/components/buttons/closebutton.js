@@ -13,8 +13,7 @@ define('app/components/buttons/closebutton',[ 'phasercomponents', 'app/assets'],
 	CloseButton.WIDTH = 50;
 	CloseButton.HEIGHT = 50;
 	
-	CloseButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	CloseButton.prototype.constructor = CloseButton;
+	PhaserComponents.Utils.extends(CloseButton, PhaserComponents.Display.AbstractButton);
 
 	return CloseButton;
 	

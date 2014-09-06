@@ -12,8 +12,7 @@ PhaserComponents){
 		PhaserComponents.Display.Container.call(this, options);
 	};
 	
-	Map.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	Map.prototype.constructor = Map;
+	PhaserComponents.Utils.extends(Map, PhaserComponents.Display.Container);
 	
 	Map.prototype.onChanged = function(data) {
 		this.updateImage();	

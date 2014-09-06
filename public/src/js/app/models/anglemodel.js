@@ -9,9 +9,8 @@ function(PhaserComponents){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	AngleModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	AngleModel.prototype.constructor = AngleModel;
-	
+	PhaserComponents.Utils.extends(AngleModel, PhaserComponents.Model.AbstractModel);
+
 	AngleModel.prototype.increment = function() {
 		//TODO - should be toggle??
 		this.set(1 - this.get());

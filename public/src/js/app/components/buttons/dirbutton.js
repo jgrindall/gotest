@@ -23,8 +23,7 @@ define('app/components/buttons/dirbutton',[ 'phasercomponents', 'app/assets'],
 	DirButton.WIDTH = 50;
 	DirButton.HEIGHT = 50;
 	
-	DirButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	DirButton.prototype.constructor = DirButton;
+	PhaserComponents.Utils.extends(DirButton, PhaserComponents.Display.AbstractButton);
 
 	return DirButton;
 	

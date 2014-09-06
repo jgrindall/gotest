@@ -12,8 +12,7 @@ define('app/components/buttons/tabbutton',['phasercomponents'],function(PhaserCo
 	TabButton.WIDTH = 244;
 	TabButton.HEIGHT = 52;
 	
-	TabButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	TabButton.prototype.constructor = TabButton;
+	PhaserComponents.Utils.extends(TabButton, PhaserComponents.Display.AbstractButton);
 	
 	return TabButton;
 

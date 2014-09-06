@@ -22,9 +22,8 @@ function(Phaser,PhaserComponents){
 		return t;
 	};
 	
-	Turtle.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	Turtle.prototype.constructor = Turtle;
-	
+	PhaserComponents.Utils.extends(Turtle, PhaserComponents.Display.Container);
+
 	Turtle.prototype.addImage = function() {
 		this.sprite = new Phaser.Image(this.game, 300, 300, 'turtle');
 		this.group.add(this.sprite);

@@ -16,8 +16,7 @@ function(
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	AddCommandCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	AddCommandCommand.prototype.constructor = AddCommandCommand;
+	PhaserComponents.Utils.extends(AddCommandCommand, PhaserComponents.Commands.AbstractCommand);
 
 	AddCommandCommand.prototype.execute = function(data){
 		var command;

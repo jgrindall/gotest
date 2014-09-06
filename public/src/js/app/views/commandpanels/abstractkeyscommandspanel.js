@@ -19,9 +19,8 @@ PhaserComponents, AbstractCommandsPanel
 		AbstractCommandsPanel.call(this, options);
 	};
 	
-	AbstractKeysCommandsPanel.prototype = Object.create(AbstractCommandsPanel.prototype);
-	AbstractKeysCommandsPanel.prototype.constructor = AbstractKeysCommandsPanel;
-	
+	PhaserComponents.Utils.extends(AbstractKeysCommandsPanel, AbstractCommandsPanel);
+
 	AbstractKeysCommandsPanel.prototype.create = function() {
 		AbstractCommandsPanel.prototype.create.call(this);
 		this.addKeys();

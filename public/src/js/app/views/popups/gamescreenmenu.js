@@ -18,9 +18,8 @@ OkButton, CloseButton){
 		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	
-	GameScreenMenu.prototype = Object.create(PhaserComponents.Display.AbstractPopup.prototype);
-	GameScreenMenu.prototype.constructor = GameScreenMenu;
-	
+	PhaserComponents.Utils.extends(GameScreenMenu, PhaserComponents.Display.AbstractPopup);
+
 	GameScreenMenu.WIDTH = 800;
 	GameScreenMenu.HEIGHT = 600;
 	

@@ -14,8 +14,7 @@ function(PhaserComponents, ModelFacade,
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	NewFileCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	NewFileCommand.prototype.constructor = NewFileCommand;
+	PhaserComponents.Utils.extends(NewFileCommand, PhaserComponents.Commands.AbstractCommand);
 
 	NewFileCommand.prototype.execute = function(data){
 		var options = {'dataProvider': new BgDataProvider(this.game)};

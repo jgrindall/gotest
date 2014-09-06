@@ -13,8 +13,7 @@ define('app/components/buttons/okbutton',[ 'phasercomponents', 'app/assets'],
 	OkButton.WIDTH = 250;
 	OkButton.HEIGHT = 75;
 	
-	OkButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	OkButton.prototype.constructor = OkButton;
+	PhaserComponents.Utils.extends(OkButton, PhaserComponents.Display.AbstractButton);
 
 	return OkButton;
 	

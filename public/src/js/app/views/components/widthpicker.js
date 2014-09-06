@@ -14,8 +14,7 @@ function(PhaserComponents){
 	WidthPicker.WIDTH = 80;
 	WidthPicker.HEIGHT = 80;
 	
-	WidthPicker.prototype = Object.create(PhaserComponents.Display.StepperButton.prototype);
-	WidthPicker.prototype.constructor = WidthPicker;
+	PhaserComponents.Utils.extends(WidthPicker, PhaserComponents.Display.StepperButton);
 	
 	return WidthPicker;
 });

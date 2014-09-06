@@ -17,8 +17,7 @@ define('app/components/buttons/arrowbutton',['phasercomponents', 'app/assets'],
 	ArrowButton.WIDTH = 50;
 	ArrowButton.HEIGHT = 50;
 	
-	ArrowButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	ArrowButton.prototype.constructor = ArrowButton;
+	PhaserComponents.Utils.extends(ArrowButton, PhaserComponents.Display.AbstractButton);
 
 	return ArrowButton;
 	

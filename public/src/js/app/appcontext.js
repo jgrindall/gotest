@@ -34,8 +34,7 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 		PhaserComponents.Context.call(this);
     };
 	
-    AppContext.prototype = Object.create(PhaserComponents.Context.prototype);
-    AppContext.prototype.constructor = AppContext;
+	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
     AppContext.prototype.onChangeScene = function(event, obj){
     	if(obj.data.scene instanceof LoaderScene){

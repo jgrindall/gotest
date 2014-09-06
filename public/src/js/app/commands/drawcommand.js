@@ -10,8 +10,7 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	DrawCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	DrawCommand.prototype.constructor = DrawCommand;
+	PhaserComponents.Utils.extends(DrawCommand, PhaserComponents.Commands.AbstractCommand);
 
 	DrawCommand.prototype.execute = function(data){
 		var playingModel;

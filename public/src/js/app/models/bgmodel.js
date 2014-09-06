@@ -9,9 +9,8 @@ function(PhaserComponents){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	BgModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	BgModel.prototype.constructor = BgModel;
-	
+	PhaserComponents.Utils.extends(BgModel, PhaserComponents.Model.AbstractModel);
+
 	return BgModel;
 
 });

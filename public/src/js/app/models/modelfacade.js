@@ -1,7 +1,7 @@
 
 define('app/models/modelfacade',['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel', 
 
-'app/models/colormodel', 'app/models/speedmodel', 'app/consts/commspeed',
+'app/models/colormodel', 'app/models/speedmodel',
 
 'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel',
 
@@ -11,7 +11,7 @@ define('app/models/modelfacade',['app/models/commmodel', 'app/models/screenmodel
 
 function(CommModel, ScreenModel, BgModel,
 
-	ColorModel, SpeedModel, CommSpeed,
+	ColorModel, SpeedModel,
 
 	PlayingModel, GridModel, AngleModel, 
 

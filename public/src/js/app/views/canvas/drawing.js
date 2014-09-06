@@ -43,8 +43,7 @@ FdCommand, StepLengths){
 	Drawing.ROTATE = [[0, 0, 0, -45, 0, 45, 0, 0, 0], [0, 0, 0, -90, 0, 90, 0, 0, 0]];
 	Drawing.DIAG = [Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2]; 
 		
-	Drawing.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	Drawing.prototype.constructor = Drawing;
+	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
 
 	Drawing.prototype.onReset = function(){
 		this.startPos = {'x':this.centre.x, 'y':this.centre.y};

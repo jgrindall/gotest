@@ -12,8 +12,7 @@ function(PhaserComponents,
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	SaveCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	SaveCommand.prototype.constructor = SaveCommand;
+	PhaserComponents.Utils.extends(SaveCommand, PhaserComponents.Commands.AbstractCommand);
 
 	SaveCommand.prototype.execute = function(data){
 		var json = ModelFacade.getInstance().getJson();

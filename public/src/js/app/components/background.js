@@ -9,8 +9,7 @@ define('app/components/background',['phaser', 'phasercomponents'],
 		PhaserComponents.Display.View.call(this, options);
 	};
 	
-	Background.prototype = Object.create(PhaserComponents.Display.View.prototype);
-	Background.prototype.constructor = Background;
+	PhaserComponents.Utils.extends(Background, PhaserComponents.Display.View);
 
 	Background.prototype.destroy = function(){
 		this.sprite.destroy(true);

@@ -17,9 +17,8 @@ Indicator, Grid, Assets){
 		PhaserComponents.Display.Container.call(this, options);
 	};
 	
-	Canvas.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	Canvas.prototype.constructor = Canvas;
-	
+	PhaserComponents.Utils.extends(Canvas, PhaserComponents.Display.Container);
+
 	Canvas.prototype.addBg = function() {
 		var w, h, bounds;
 		w = this.game.w;

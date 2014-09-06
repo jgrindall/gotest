@@ -9,9 +9,8 @@ function(PhaserComponents){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	ScreenModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	ScreenModel.prototype.constructor = ScreenModel;
-	
+	PhaserComponents.Utils.extends(ScreenModel, PhaserComponents.Model.AbstractModel);
+
 	return ScreenModel;
 
 });

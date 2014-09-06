@@ -9,12 +9,11 @@ function(PhaserComponents, PenWidths){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	WidthModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	WidthModel.prototype.constructor = WidthModel;
-	
+	PhaserComponents.Utils.extends(WidthModel, PhaserComponents.Model.AbstractModel);
+
 	WidthModel.prototype.increment = function() {
 		var newValue = (this.get() + 1) % PenWidths.ALL.length;
-		this.set(newValue)
+		this.set(newValue);
 	};
 
 	return WidthModel;

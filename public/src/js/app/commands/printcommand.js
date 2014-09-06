@@ -10,8 +10,7 @@ function(PhaserComponents, Growl) {
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	PrintCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	PrintCommand.prototype.constructor = PrintCommand;
+	PhaserComponents.Utils.extends(PrintCommand, PhaserComponents.Commands.AbstractCommand);
 
 	PrintCommand.prototype.execute = function(data){
 		PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"No printers found"}, null);

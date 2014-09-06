@@ -1,11 +1,7 @@
 
-define('app/models/speedmodel',['app/consts/commspeed',
+define('app/models/speedmodel',['phasercomponents'],
 
-'phasercomponents'],
-
-function(CommSpeed,
-
-PhaserComponents){
+function(PhaserComponents){
 	
 	"use strict";
 	
@@ -13,8 +9,8 @@ PhaserComponents){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	SpeedModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	SpeedModel.prototype.constructor = SpeedModel;
+	PhaserComponents.Utils.extends(SpeedModel, PhaserComponents.Model.AbstractModel);
+
 	
 	return SpeedModel;
 

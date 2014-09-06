@@ -12,9 +12,8 @@ define('app/components/loaderbar/loaderbar',['phasercomponents'],
 	LoaderBar.WIDTH = 500;
 	LoaderBar.HEIGHT = 60;
 	
-	LoaderBar.prototype = Object.create(PhaserComponents.Display.LoaderBar.prototype);
-	LoaderBar.prototype.constructor = LoaderBar;
-	
+	PhaserComponents.Utils.extends(LoaderBar, PhaserComponents.Display.LoaderBar);
+
 	LoaderBar.prototype.destroy = function(){
 		PhaserComponents.Display.LoaderBar.prototype.destroy.call(this);
 	};

@@ -9,8 +9,8 @@ function(PhaserComponents){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	StepLengthModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	StepLengthModel.prototype.constructor = StepLengthModel;
+	PhaserComponents.Utils.extends(StepLengthModel, PhaserComponents.Model.AbstractModel);
+
 	
 	return StepLengthModel;
 

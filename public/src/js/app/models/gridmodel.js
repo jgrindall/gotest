@@ -9,8 +9,7 @@ function(PhaserComponents){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	GridModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	GridModel.prototype.constructor = GridModel;
+	PhaserComponents.Utils.extends(GridModel, PhaserComponents.Model.AbstractModel);
 	
 	GridModel.prototype.increment = function() {
 		this.set(1 - this.get());

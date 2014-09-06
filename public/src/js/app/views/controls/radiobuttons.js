@@ -17,8 +17,8 @@ function(PhaserComponents
 	RadioButtons.WIDTH = 120;
 	RadioButtons.HEIGHT = 120;
 
-	RadioButtons.prototype = Object.create(PhaserComponents.ButtonBar.prototype);
-	RadioButtons.prototype.constructor = RadioButtons;
+Utils.extend(	RadioButtons, PhaserComponents.ButtonBar);
+
 	
 	return RadioButtons;
 

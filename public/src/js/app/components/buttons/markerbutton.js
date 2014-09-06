@@ -12,8 +12,7 @@ define('app/components/buttons/markerbutton',
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 
-	MarkerButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	MarkerButton.prototype.constructor = MarkerButton;
+	PhaserComponents.Utils.extends(MarkerButton, PhaserComponents.Display.AbstractButton);
 
 	MarkerButton.prototype.select = function(){
 		this.goToFrame(2);

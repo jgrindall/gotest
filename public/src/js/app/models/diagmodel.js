@@ -9,8 +9,7 @@ function(PhaserComponents){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	DiagModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	DiagModel.prototype.constructor = DiagModel;
+	PhaserComponents.Utils.extends(DiagModel, PhaserComponents.Model.AbstractModel);
 	
 	DiagModel.prototype.increment = function() {
 		this.set(1 - this.get());

@@ -39,9 +39,8 @@ Events, Assets){
 
 	Controls.WIDTH = 290;
 	
-	Controls.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	Controls.prototype.constructor = Controls;
-	
+	PhaserComponents.Utils.extends(Controls, PhaserComponents.Display.Container);
+
 	Controls.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addBg();
@@ -52,7 +51,6 @@ Events, Assets){
 	};
 
 	Controls.prototype.onScreenChanged = function(value) {
-		console.log("screen "+value);
 		this.addCommandsPanel(value);
 		// TODO - Load the data from before
 	};

@@ -23,8 +23,7 @@ PhaserComponents, Assets)
 		this.selectedIndex = null;
 	};
 	
-	ArrowSelectorMenu.prototype = Object.create(SelectorMenu.prototype);
-	ArrowSelectorMenu.prototype.constructor = ArrowSelectorMenu;
+	PhaserComponents.Utils.extends(ArrowSelectorMenu, SelectorMenu);
 	
 	ArrowSelectorMenu.prototype.addArrows = function () {
 		if(this.options.dataProvider.getNumPages() >= 2){
@@ -71,7 +70,7 @@ PhaserComponents, Assets)
 	};
 	
 	ArrowSelectorMenu.prototype.addPager = function () {
-		var options = $.extend({}, this.options, {'markerButtonClass':MarkerButton,'bgasset':Assets.PANEL, 'snapX':this.game.w});
+		var options = $.extend(!{}, this.options, {'markerButtonClass':MarkerButton,'bgasset':Assets.PANEL, 'snapX':this.game.w});
 		this.pager = new PhaserComponents.Display.Pager(options);
 		this.pager.pageSignal.add(this.choose, this);
 		this.pager.selectSignal.add(this.onSelected, this);

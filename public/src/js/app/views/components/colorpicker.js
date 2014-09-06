@@ -14,9 +14,8 @@ function(PhaserComponents){
 	ColorPicker.WIDTH = 160;
 	ColorPicker.HEIGHT = 80;
 	
-	ColorPicker.prototype = Object.create(PhaserComponents.Display.MultiButton.prototype);
-	ColorPicker.prototype.constructor = ColorPicker;
-	
+	PhaserComponents.Utils.extends(ColorPicker, PhaserComponents.Display.MultiButton);
+
 	return ColorPicker;
 });
 	

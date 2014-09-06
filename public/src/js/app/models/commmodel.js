@@ -14,8 +14,7 @@ PhaserComponents){
 		this.commands = [];
 	};
 	
-	CommModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	CommModel.prototype.constructor = CommModel;
+	PhaserComponents.Utils.extends(CommModel, PhaserComponents.Model.AbstractModel);
 
 	CommModel.prototype.add = function(command) {
 		this.commands.push(command);

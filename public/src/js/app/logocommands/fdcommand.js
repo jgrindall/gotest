@@ -5,9 +5,9 @@ define(
 
 	['app/logocommands/abstractlogocommand',
 
-	'app/logocommands/commandtypes'],
+	'app/logocommands/commandtypes', 'phasercomponents'],
 
-	function(AbstractLogoCommand, CommandTypes){
+	function(AbstractLogoCommand, CommandTypes, PhaserComponents){
 	
 		"use strict";
 		
@@ -15,8 +15,7 @@ define(
 			AbstractLogoCommand.call(this, json);
 		};
 		
-		FdCommand.prototype = Object.create(AbstractLogoCommand.prototype);
-		FdCommand.prototype.constructor = FdCommand;
+		PhaserComponents.Utils.extends(FdCommand, AbstractLogoCommand);
 		
 		FdCommand.prototype.toJson = function(){
 			var json = AbstractLogoCommand.prototype.toJson.call(this);

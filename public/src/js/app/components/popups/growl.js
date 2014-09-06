@@ -22,9 +22,8 @@ CloseButton, Assets){
 		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	
-	Growl.prototype = Object.create(PhaserComponents.Display.AbstractPopup.prototype);
-	Growl.prototype.constructor = Growl;
-	
+	PhaserComponents.Utils.extends(Growl, PhaserComponents.Display.AbstractPopup);
+
 	Growl.WIDTH = 400;
 	Growl.HEIGHT = 200;
 	

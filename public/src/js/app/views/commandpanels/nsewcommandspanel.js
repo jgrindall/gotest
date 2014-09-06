@@ -1,13 +1,13 @@
 
 define('app/views/commandpanels/nsewcommandspanel',['app/views/commandpanels/abstractcommandspanel',
 
-'app/logocommands/commandtypes'
+'app/logocommands/commandtypes', 'phasercomponents'
 
 ],
 
 function(AbstractCommandsPanel, 
 
-CommandTypes
+CommandTypes, PhaserComponents
 
 ){
 	
@@ -17,8 +17,7 @@ CommandTypes
 		AbstractCommandsPanel.call(this, options);
 	};
 	
-	NSEWCommandsPanel.prototype = Object.create(AbstractCommandsPanel.prototype);
-	NSEWCommandsPanel.prototype.constructor = NSEWCommandsPanel;
+	PhaserComponents.Utils.extends(NSEWCommandsPanel, AbstractCommandsPanel);
 
 	NSEWCommandsPanel.prototype.addKeys = function() {
 		

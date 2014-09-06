@@ -21,8 +21,7 @@ Events, Assets){
 		PhaserComponents.Scene.call(this);
 	};
 	
-	ActivityScene.prototype = Object.create(PhaserComponents.Scene.prototype);
-	ActivityScene.prototype.constructor = ActivityScene;
+	PhaserComponents.Utils.extends(ActivityScene, PhaserComponents.Scene);
 
 	ActivityScene.prototype.create = function() {
 		this.addBg();

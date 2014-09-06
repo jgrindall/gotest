@@ -19,9 +19,8 @@ function(Phaser, PhaserComponents, Assets
 	ScreenChoice.WIDTH = 225;
 	ScreenChoice.HEIGHT = 250;
 	
-	ScreenChoice.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	ScreenChoice.prototype.constructor = ScreenChoice;
-	
+	PhaserComponents.Utils.extends(ScreenChoice, PhaserComponents.Display.Container);
+
 	ScreenChoice.prototype.create = function(){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addBg();

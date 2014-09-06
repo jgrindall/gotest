@@ -21,9 +21,8 @@ OkButton, PhaserComponents
 	SelectorMenu.WIDTH = 800;
 	SelectorMenu.HEIGHT = 600;
 	
-	SelectorMenu.prototype = Object.create(PhaserComponents.Display.AbstractPopup.prototype);
-	SelectorMenu.prototype.constructor = SelectorMenu;
-	
+	PhaserComponents.Utils.extends(SelectorMenu, PhaserComponents.Display.AbstractPopup);
+
 	SelectorMenu.prototype.create = function () {
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addCloseButton();

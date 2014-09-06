@@ -1,5 +1,9 @@
 
-define('app/views/commandpanels/marker',['app/views/commandpanels/abstractmarker'], function(AbstractMarker){
+define('app/views/commandpanels/marker',
+
+	['app/views/commandpanels/abstractmarker', 'phasercomponents'],
+
+	function(AbstractMarker, PhaserComponents){
 	
 	"use strict";
 	
@@ -7,8 +11,7 @@ define('app/views/commandpanels/marker',['app/views/commandpanels/abstractmarker
 		AbstractMarker.call(this, options);
 	};
 	
-	Marker.prototype = Object.create(AbstractMarker.prototype);
-	Marker.prototype.constructor = Marker;
+	PhaserComponents.Utils.extends(Marker, AbstractMarker);
 
 	return Marker;
 

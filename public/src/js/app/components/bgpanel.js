@@ -13,9 +13,8 @@ function(PhaserComponents, Phaser
 		PhaserComponents.Display.Container.call(this, options);
 	};
 	
-	BgPanel.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	BgPanel.prototype.constructor = BgPanel;
-	
+	PhaserComponents.Utils.extends(BgPanel, PhaserComponents.Display.Container);
+
 	BgPanel.prototype.create = function(){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addImage();

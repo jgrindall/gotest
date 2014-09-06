@@ -14,9 +14,8 @@ define('app/views/commandpanels/abstractmarker',['phaser', 'phasercomponents', '
 		this.sprite.alpha = 0.5;
 	};
 	
-	AbstractMarker.prototype = Object.create(PhaserComponents.Display.MovieClip.prototype);
-	AbstractMarker.prototype.constructor = AbstractMarker;
-	
+	PhaserComponents.Utils.extends(AbstractMarker, PhaserComponents.Display.MovieClip);
+
 	AbstractMarker.WIDTH = 50;
 	AbstractMarker.HEIGHT = 50;
 

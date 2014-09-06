@@ -10,8 +10,7 @@ function(PhaserComponents, Growl) {
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	TeacherCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	TeacherCommand.prototype.constructor = TeacherCommand;
+	PhaserComponents.Utils.extends(TeacherCommand, PhaserComponents.Commands.AbstractCommand);
 
 	TeacherCommand.prototype.execute = function(data){
 		PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Teacher login with password?"}, null);

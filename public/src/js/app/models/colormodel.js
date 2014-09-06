@@ -9,9 +9,8 @@ function(PhaserComponents){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	ColorModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	ColorModel.prototype.constructor = ColorModel;
-	
+	PhaserComponents.Utils.extends(ColorModel, PhaserComponents.Model.AbstractModel);
+
 	return ColorModel;
 
 });

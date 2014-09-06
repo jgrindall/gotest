@@ -16,9 +16,8 @@ LineDrawer){
 	
 	Paths.WIDTH = 8;
 	
-	Paths.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	Paths.prototype.constructor = Paths;
-	
+	PhaserComponents.Utils.extends(Paths, PhaserComponents.Display.Container);
+
 	Paths.prototype.removeGfx = function() {
 		if(this.gfx){
 			this.gfx.destroy();

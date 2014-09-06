@@ -17,8 +17,7 @@ define('app/components/buttons/keybutton',['phasercomponents', 'app/assets'],
 	KeyButton.WIDTH = 50;
 	KeyButton.HEIGHT = 50;
 	
-	KeyButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	KeyButton.prototype.constructor = KeyButton;
+	PhaserComponents.Utils.extends(KeyButton, PhaserComponents.Display.AbstractButton);
 
 	return KeyButton;
 	

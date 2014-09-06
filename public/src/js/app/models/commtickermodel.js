@@ -18,8 +18,7 @@ function(Phaser, PhaserComponents, Events){
 		PhaserComponents.Model.AbstractModel.call(this);
 	};
 
-	CommTickerModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	CommTickerModel.prototype.constructor = CommTickerModel;
+	PhaserComponents.Utils.extends(CommTickerModel, PhaserComponents.Model.AbstractModel);
 
 	CommTickerModel.prototype.performCommand = function() {
 		var command, data, that = this;

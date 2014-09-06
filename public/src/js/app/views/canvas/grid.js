@@ -18,8 +18,7 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 		this.updateImage();
 	};
 	
-	Grid.prototype = Object.create(PhaserComponents.Display.Container.prototype);
-	Grid.prototype.constructor = Grid;
+	PhaserComponents.Utils.extends(Grid, PhaserComponents.Display.Container);
 	
 	Grid.prototype.onChangeGrid = function(value) {
 		this.setVisible(value === 1);

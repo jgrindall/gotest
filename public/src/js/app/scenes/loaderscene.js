@@ -20,8 +20,7 @@ TextFactory){
 	
 	LoaderScene.created = false;
 	
-	LoaderScene.prototype = Object.create(PhaserComponents.Scene.prototype);
-	LoaderScene.prototype.constructor = LoaderScene;
+	PhaserComponents.Utils.extends(LoaderScene, PhaserComponents.Scene);
 
 	LoaderScene.prototype.preload = function() {
 		this.addChildren();

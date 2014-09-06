@@ -14,9 +14,8 @@ PlayingState){
 		this.value = PlayingState.NOT_PLAYING;
 	};
 	
-	PlayingModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
-	PlayingModel.prototype.constructor = PlayingModel;
-	
+	PhaserComponents.Utils.extends(PlayingModel, PhaserComponents.Model.AbstractModel);
+
 	return PlayingModel;
 
 });

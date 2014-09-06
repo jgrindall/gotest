@@ -14,8 +14,7 @@ function(ModelFacade,
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	TypeChoiceCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	TypeChoiceCommand.prototype.constructor = TypeChoiceCommand;
+	PhaserComponents.Utils.extends(TypeChoiceCommand, PhaserComponents.Commands.AbstractCommand);
 
 	TypeChoiceCommand.prototype.execute = function(data){
 		var screenModel, radioModel, options;

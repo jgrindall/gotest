@@ -8,8 +8,7 @@ function(Defaults, ModelFacade, PhaserComponents) {
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 
-	StartUpCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	StartUpCommand.prototype.constructor = StartUpCommand;
+	PhaserComponents.Utils.extends(StartUpCommand, PhaserComponents.Commands.AbstractCommand);
 
 	StartUpCommand.prototype.execute = function(data){
 		ModelFacade.getInstance().setData(Defaults.DEFAULT_JSON);

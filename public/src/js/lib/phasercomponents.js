@@ -1894,7 +1894,8 @@ define('phasercomponents',[
 	'phasercomponents/display/buttons/togglebutton',
 	'phasercomponents/preloader',
 	'phasercomponents/display/popups/abstractpopup',
-	'phasercomponents/display/loaderbar'
+	'phasercomponents/display/loaderbar',
+	'phasercomponents/utils/utils'
 	], 
 
 	function (Context, 
@@ -1925,7 +1926,8 @@ define('phasercomponents',[
 		ToggleButton,
 		Preloader,
 		AbstractPopup,
-		LoaderBar
+		LoaderBar,
+		Utils
 	) {
 
     
@@ -1971,6 +1973,7 @@ define('phasercomponents',[
         'Events':				Events,
         'Commands':				Commands,
         'Context': 				Context,
+        'Utils': 				Utils,
         'Scene': 				Scene,
         'Storage': 				Storage,
         'AlertManager': 		AlertManager,

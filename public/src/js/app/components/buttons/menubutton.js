@@ -18,8 +18,7 @@ define('app/components/buttons/menubutton',[ 'phasercomponents', 'app/assets'],
 	MenuButton.WIDTH = 50;
 	MenuButton.HEIGHT = 50;
 	
-	MenuButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	MenuButton.prototype.constructor = MenuButton;
+	PhaserComponents.Utils.extends(MenuButton, PhaserComponents.Display.AbstractButton);
 
 	return MenuButton;
 	

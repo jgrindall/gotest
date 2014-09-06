@@ -10,8 +10,7 @@ function(Events, PhaserComponents, ModelFacade) {
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	UndoCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	UndoCommand.prototype.constructor = UndoCommand;
+	PhaserComponents.Utils.extends(UndoCommand, PhaserComponents.Commands.AbstractCommand);
 
 	UndoCommand.prototype.execute = function(data){
 		ModelFacade.getInstance().get(ModelFacade.COMM).undo();

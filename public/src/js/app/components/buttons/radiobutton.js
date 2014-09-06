@@ -13,8 +13,7 @@ function(PhaserComponents, Assets){
 	RadioButton.WIDTH = 120;
 	RadioButton.HEIGHT = 60;
 
-	RadioButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
-	RadioButton.prototype.constructor = RadioButton;
+	PhaserComponents.Utils.extends(RadioButton, PhaserComponents.Display.AbstractButton);
 
 	return RadioButton;
 

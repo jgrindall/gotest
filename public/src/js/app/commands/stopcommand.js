@@ -10,8 +10,7 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	StopCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
-	StopCommand.prototype.constructor = StopCommand;
+	PhaserComponents.Utils.extends(StopCommand, PhaserComponents.Commands.AbstractCommand);
 
 	StopCommand.prototype.execute = function(data){
 		ModelFacade.getInstance().get(ModelFacade.COMM).stop();
