@@ -9,29 +9,29 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 	"use strict";
 	
 	var Grid  = function(options){
-		PhaserComponents.Container.call(this, options);
+		PhaserComponents.Display.Container.call(this, options);
 		this.visModel = this.options.visModel;
 		this.sizeModel = this.options.sizeModel;
 		this.visModel.changeSignal.add(this.onChangeGrid, this);
 		this.sizeModel.changeSignal.add(this.onChangeSize, this);
-		this.setVisible(this.visModel.getData().index === 1);
+		this.setVisible(this.visModel.get() === 1);
 		this.updateImage();
 	};
 	
-	Grid.prototype = Object.create(PhaserComponents.Container.prototype);
+	Grid.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	Grid.prototype.constructor = Grid;
 	
-	Grid.prototype.onChangeGrid = function(data) {
-		this.setVisible(data.index === 1);
+	Grid.prototype.onChangeGrid = function(value) {
+		this.setVisible(value === 1);
 	};
 
-	Grid.prototype.onChangeSize = function(data) {
+	Grid.prototype.onChangeSize = function(value) {
 		this.updateImage();
 	};
 
 	Grid.prototype.getOffset = function() {
 		var x0, y0, dx, dy, size, xNum, yNum, index;
-		index = this.sizeModel.getData().index;
+		index = this.sizeModel.get();
 		x0 = this.bounds.w/2;
 		y0 = this.bounds.h/2;
 		size = StepLengths.ALL[index];
@@ -44,7 +44,7 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 
 	Grid.prototype.updateTile = function() {
 		var asset, offset, index;
-		index = this.sizeModel.getData().index;
+		index = this.sizeModel.get();
 		if(this.sprite){
 			this.sprite.destroy(true);
 			this.sprite = null;
@@ -68,7 +68,7 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 		this.group.remove(this.sprite);
 		this.sprite.destroy(true);
 		this.mask.destroy(true);
-		PhaserComponents.Container.prototype.destroy.call(this, options);
+		PhaserComponents.Display.Container.prototype.destroy.call(this, options);
 	};
 	
 	return Grid;

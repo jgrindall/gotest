@@ -6,27 +6,11 @@ function(PhaserComponents){
 	"use strict";
 	
 	var BgModel  = function(){
-		PhaserComponents.AbstractModel.call(this);
-		this.bg = null;
+		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	BgModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
+	BgModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
 	BgModel.prototype.constructor = BgModel;
-	
-	BgModel.prototype.setData = function(n) {
-		this.setBg(n);
-	};
-	
-	BgModel.prototype.getData = function() {
-		return {"bg":this.bg};
-	};
-	
-	BgModel.prototype.setBg = function(i) {
-		if(this.bg !== i){
-			this.bg = i;
-			this.trigger();
-		}
-	};
 	
 	return BgModel;
 

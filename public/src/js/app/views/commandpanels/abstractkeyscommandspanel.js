@@ -40,7 +40,7 @@ PhaserComponents, AbstractCommandsPanel
 		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
 		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y + size, "w":size, "h":size};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": KeyButton, "data":data};
-		this.keys = new PhaserComponents.ButtonGrid(options);
+		this.keys = new PhaserComponents.Display.ButtonGrid(options);
 		this.keys.clickSignal.add(this.selectKey, this);
 		this.group.add(this.keys.group);
 	};

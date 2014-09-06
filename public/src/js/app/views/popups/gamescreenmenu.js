@@ -15,10 +15,10 @@ OkButton, CloseButton){
 		
 	var GameScreenMenu = function(options){
 		options.bgasset = 'panel';
-		PhaserComponents.AbstractPopup.call(this, options);
+		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	
-	GameScreenMenu.prototype = Object.create(PhaserComponents.AbstractPopup.prototype);
+	GameScreenMenu.prototype = Object.create(PhaserComponents.Display.AbstractPopup.prototype);
 	GameScreenMenu.prototype.constructor = GameScreenMenu;
 	
 	GameScreenMenu.WIDTH = 800;
@@ -40,27 +40,27 @@ OkButton, CloseButton){
 	};
 
 	GameScreenMenu.prototype.getData = function() {
-		return {"screenIndex":this.options.screenModel.getData().index, "radioIndex":this.options.radioModel.getData().index};
+		return {"screenIndex":this.options.screenModel.get(), "radioIndex":this.options.radioModel.get()};
 	};
 
 	GameScreenMenu.prototype.addRadio = function() {
 		var bounds, w, h;
-		w = PhaserComponents.RadioButtons.WIDTH;
-		h = PhaserComponents.RadioButtons.HEIGHT;
+		w = PhaserComponents.Display.RadioButtons.WIDTH;
+		h = PhaserComponents.Display.RadioButtons.HEIGHT;
 		bounds = {'x':this.bounds.x + this.bounds.w - w, 'y':this.game.h - h, 'w':w, 'h':h};
-		this.radio = new PhaserComponents.RadioButtons({"buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
+		this.radio = new PhaserComponents.Display.RadioButtons({"buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 	};
 
 	GameScreenMenu.prototype.addGrid = function() {
 		var options;
 		options = {"model":this.options.screenModel, "bounds":this.bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
-		this.grid = new PhaserComponents.ButtonGrid(options);
+		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.group.add(this.grid.group);
 	};
 
 	GameScreenMenu.prototype.create = function () {
-		PhaserComponents.AbstractPopup.prototype.create.call(this);
+		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addOkButton();
 		this.addCloseButton();
 		this.addGrid();
@@ -75,7 +75,7 @@ OkButton, CloseButton){
 		});
 		this.radio.destroy();
 		this.grid.destroy();
-		PhaserComponents.AbstractPopup.prototype.destroy.call(this);
+		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	
 	return GameScreenMenu;

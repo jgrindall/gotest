@@ -20,14 +20,14 @@ Events){
 	"use strict";
 	
 	var AbstractCommandsPanel  = function(options){
-		PhaserComponents.Container.call(this, options);
+		PhaserComponents.Display.Container.call(this, options);
 		this.selectedCommand = null;
-		this.eventDispatcher.addListener(PhaserComponents.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 	};
 	
 	AbstractCommandsPanel.WIDTH = 190;
 	
-	AbstractCommandsPanel.prototype = Object.create(PhaserComponents.Container.prototype);
+	AbstractCommandsPanel.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	AbstractCommandsPanel.prototype.constructor = AbstractCommandsPanel;
 	
 	AbstractCommandsPanel.prototype.build = function(config) {
@@ -61,7 +61,7 @@ Events){
 	};
 	
 	AbstractCommandsPanel.prototype.create = function() {
-		PhaserComponents.Container.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addGrid();
 		this.addMarker();
 	};
@@ -83,7 +83,7 @@ Events){
 		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
 		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y, "w":size, "h":size};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data};
-		this.grid = new PhaserComponents.ButtonGrid(options);
+		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.selectComm, this);
 		this.group.add(this.grid.group);
 	};
@@ -109,7 +109,7 @@ Events){
 			this.grid.clickSignal.remove(this.selectComm, this);
 			this.grid.destroy();
 		}
-		PhaserComponents.Container.prototype.destroy.call(this);
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
 	return AbstractCommandsPanel;

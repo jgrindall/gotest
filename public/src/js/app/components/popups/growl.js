@@ -15,10 +15,10 @@ OkButton, CloseButton){
 		
 	var Growl = function(options){
 		options.bgasset = 'alert';
-		PhaserComponents.AbstractPopup.call(this, options);
+		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	
-	Growl.prototype = Object.create(PhaserComponents.AbstractPopup.prototype);
+	Growl.prototype = Object.create(PhaserComponents.Display.AbstractPopup.prototype);
 	Growl.prototype.constructor = Growl;
 	
 	Growl.WIDTH = 400;
@@ -45,7 +45,7 @@ OkButton, CloseButton){
 	};
 	
 	Growl.prototype.create = function () {
-		PhaserComponents.AbstractPopup.prototype.create.call(this);
+		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addText();
 		this.addOkButton();
 		this.addCloseButton();
@@ -57,7 +57,7 @@ OkButton, CloseButton){
 			b.mouseUpSignal.remove(that.buttonUp, that);
 			b.destroy();
 		});
-		PhaserComponents.AbstractPopup.prototype.destroy.call(this);
+		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	
 	return Growl;

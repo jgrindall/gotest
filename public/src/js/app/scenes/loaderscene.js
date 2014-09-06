@@ -25,7 +25,7 @@ TextFactory){
 
 	LoaderScene.prototype.preload = function() {
 		this.addChildren();
-		this.preloader = new PhaserComponents.Preloader(this.game, Assets.DATA);
+		this.preloader = new PhaserComponents.Display.Preloader(this.game, Assets.DATA);
 		this.preloader.loadSignal.add(this.loadProgress, this);
 		this.preloader.start();
 	};
@@ -57,7 +57,7 @@ TextFactory){
 	LoaderScene.prototype.create = function() {
 		this.loaderBar.goToPercent(100);
 		var data = {"scene":this};
-		this.eventDispatcher.trigger({"type":PhaserComponents.AppEvents.CHANGE_SCENE, "data":data});
+		this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.CHANGE_SCENE, "data":data});
 	};
 
 	LoaderScene.prototype.shutdown = function() {

@@ -16,8 +16,8 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 	DrawCommand.prototype.execute = function(data){
 		var playingModel;
 		playingModel = ModelFacade.getInstance().get(ModelFacade.PLAYING);
-		if(playingModel.getData().playing !== PlayingState.PLAYING){
-			playingModel.setData(PlayingState.PLAYING);
+		if(playingModel.get() !== PlayingState.PLAYING){
+			playingModel.set(PlayingState.PLAYING);
 			ModelFacade.getInstance().get(ModelFacade.COMMTICKER).start();
 		}
 	};

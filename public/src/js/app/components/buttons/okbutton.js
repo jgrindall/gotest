@@ -7,13 +7,13 @@ define('app/components/buttons/okbutton',[ 'phasercomponents', 'app/assets'],
 	
 	var OkButton = function(options){
 		options.asset = Assets.OK_BUTTON;
-		PhaserComponents.AbstractButton.call(this, options);
+		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	
 	OkButton.WIDTH = 250;
 	OkButton.HEIGHT = 75;
 	
-	OkButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
+	OkButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
 	OkButton.prototype.constructor = OkButton;
 
 	return OkButton;

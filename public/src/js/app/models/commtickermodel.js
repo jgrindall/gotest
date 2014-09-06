@@ -15,10 +15,10 @@ function(Phaser, PhaserComponents, Events){
 		this.duration = 0;
 		this.executeSignal = new Phaser.Signal();
 		this.resetSignal = new Phaser.Signal();
-		PhaserComponents.AbstractModel.call(this);
+		PhaserComponents.Model.AbstractModel.call(this);
 	};
 
-	CommTickerModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
+	CommTickerModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
 	CommTickerModel.prototype.constructor = CommTickerModel;
 
 	CommTickerModel.prototype.performCommand = function() {
@@ -45,8 +45,8 @@ function(Phaser, PhaserComponents, Events){
 		}
 	};
 
-	CommTickerModel.prototype.getData = function(i) {
-		return {"commandNum":this.commandNum};
+	CommTickerModel.prototype.get = function() {
+		return this.commandNum;
 	};
 
 	CommTickerModel.prototype.setCommandNum = function(i) {

@@ -6,7 +6,7 @@ function(Phaser,PhaserComponents){
 	"use strict";
 	
 	var Turtle  = function(options){
-		PhaserComponents.Container.call(this, options);
+		PhaserComponents.Display.Container.call(this, options);
 		this.theta = 0;
 		this.endSignal = new Phaser.Signal();
 	};
@@ -22,7 +22,7 @@ function(Phaser,PhaserComponents){
 		return t;
 	};
 	
-	Turtle.prototype = Object.create(PhaserComponents.Container.prototype);
+	Turtle.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	Turtle.prototype.constructor = Turtle;
 	
 	Turtle.prototype.addImage = function() {
@@ -105,7 +105,7 @@ function(Phaser,PhaserComponents){
 	};
 	
 	Turtle.prototype.create = function() {
-		PhaserComponents.Container.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addMask();
 		this.addImage();
 		this.sprite.mask = this.mask;
@@ -115,7 +115,7 @@ function(Phaser,PhaserComponents){
 		this.stopTweens();
 		this.endSignal.dispose();
 		this.endSignal = null;
-		PhaserComponents.Container.prototype.destroy.call(this);
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 		this.sprite.destroy(true);
 	};
 	

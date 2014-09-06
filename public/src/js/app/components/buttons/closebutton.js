@@ -7,13 +7,13 @@ define('app/components/buttons/closebutton',[ 'phasercomponents', 'app/assets'],
 	
 	var CloseButton = function(options){
 		options.asset = Assets.CLOSE;
-		PhaserComponents.AbstractButton.call(this, options);
+		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	
 	CloseButton.WIDTH = 50;
 	CloseButton.HEIGHT = 50;
 	
-	CloseButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
+	CloseButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
 	CloseButton.prototype.constructor = CloseButton;
 
 	return CloseButton;

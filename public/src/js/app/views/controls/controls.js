@@ -32,18 +32,18 @@ Events, Assets){
 	"use strict";
 	
 	var Controls  = function(options){
-		PhaserComponents.Container.call(this, options);
-		this.eventDispatcher.addListener(PhaserComponents.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
+		PhaserComponents.Display.Container.call(this, options);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 	};
 
 	Controls.WIDTH = 290;
 	
-	Controls.prototype = Object.create(PhaserComponents.Container.prototype);
+	Controls.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	Controls.prototype.constructor = Controls;
 	
 	Controls.prototype.create = function() {
-		PhaserComponents.Container.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addBg();
 		this.addColorPicker();
 		this.addWidthPicker();
@@ -51,8 +51,9 @@ Events, Assets){
 		this.addSpeedSlider();
 	};
 
-	Controls.prototype.onScreenChanged = function(data) {
-		this.addCommandsPanel(data.index);
+	Controls.prototype.onScreenChanged = function(value) {
+		console.log("screen "+value);
+		this.addCommandsPanel(value);
 		// TODO - Load the data from before
 	};
 	
@@ -98,7 +99,7 @@ Events, Assets){
 	};
 	
 	Controls.prototype.addSpeedSlider = function() {
-		this.speedSlider = new PhaserComponents.Slider({"handleAsset":Assets.SLIDERHANDLE, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 150, "y":0}});
+		this.speedSlider = new PhaserComponents.Display.Slider({"handleAsset":Assets.SLIDERHANDLE, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 150, "y":0}});
 		this.group.add(this.speedSlider.group);
 	};
 	
@@ -145,7 +146,7 @@ Events, Assets){
 	
 	Controls.prototype.addTabs = function() {
 		var bounds = {'x':this.bounds.x, 'y':5, 'w':600, 'h':50};
-		this.tabButtonBar = new PhaserComponents.TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
+		this.tabButtonBar = new PhaserComponents.Display.TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
 		this.group.add(this.tabButtonBar.group);
 		this.tabButtonBar.select(0);
 	};
@@ -164,7 +165,7 @@ Events, Assets){
 			this.commandsPanel.destroy();
 			this.commandsPanel = null;
 		}
-		PhaserComponents.Container.prototype.destroy.call(this);
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
 	return Controls;

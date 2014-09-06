@@ -11,13 +11,13 @@ define('app/components/buttons/menubutton',[ 'phasercomponents', 'app/assets'],
 		startFrame = 9 * 4;
 		frame0 = startFrame + (4 * options.data.num);
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
-		PhaserComponents.AbstractButton.call(this, options);
+		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	
 	MenuButton.WIDTH = 50;
 	MenuButton.HEIGHT = 50;
 	
-	MenuButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
+	MenuButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
 	MenuButton.prototype.constructor = MenuButton;
 
 	return MenuButton;

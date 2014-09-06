@@ -9,10 +9,10 @@ define('app/components/buttons/markerbutton',
 	
 	var MarkerButton = function(options){
 		options.asset = Assets.MARKERBUTTON;
-		PhaserComponents.AbstractButton.call(this, options);
+		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 
-	MarkerButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
+	MarkerButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
 	MarkerButton.prototype.constructor = MarkerButton;
 
 	MarkerButton.prototype.select = function(){

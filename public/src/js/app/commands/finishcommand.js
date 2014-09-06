@@ -14,7 +14,7 @@ function(PlayingState, ModelFacade, PhaserComponents) {
 	FinishCommand.prototype.constructor = FinishCommand;
 
 	FinishCommand.prototype.execute = function(data){
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).setData(PlayingState.NOT_PLAYING);
+		ModelFacade.getInstance().get(ModelFacade.PLAYING).set(PlayingState.NOT_PLAYING);
 	};
 	
   	return FinishCommand;

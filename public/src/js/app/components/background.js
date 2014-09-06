@@ -6,17 +6,17 @@ define('app/components/background',['phaser', 'phasercomponents'],
 	"use strict";
 	
 	var Background = function(options){
-		PhaserComponents.View.call(this, options);
+		PhaserComponents.Display.View.call(this, options);
 	};
 	
-	Background.prototype = Object.create(PhaserComponents.View.prototype);
+	Background.prototype = Object.create(PhaserComponents.Display.View.prototype);
 	Background.prototype.constructor = Background;
 
 	Background.prototype.destroy = function(){
 		this.sprite.destroy(true);
 		this.sprite = null;
 		this.game = null;
-		PhaserComponents.View.prototype.destroy.call(this);
+		PhaserComponents.Display.View.prototype.destroy.call(this);
 	};
 	
 	Background.prototype.create = function(){

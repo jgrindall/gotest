@@ -14,12 +14,12 @@ PhaserComponents, ModelFacade, PlayingState){
 		options.numX = 4;
 		options.numY = 1;
 		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}];
-		PhaserComponents.ButtonBar.call(this, options);
-		this.eventDispatcher.addListener(PhaserComponents.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
+		PhaserComponents.Display.ButtonBar.call(this, options);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 	};
 	
-	Menu.prototype = Object.create(PhaserComponents.ButtonBar.prototype);
+	Menu.prototype = Object.create(PhaserComponents.Display.ButtonBar.prototype);
 	Menu.prototype.constructor = Menu;
 	
 	Menu.prototype.onAlert = function(event, data) {

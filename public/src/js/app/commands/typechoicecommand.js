@@ -19,18 +19,18 @@ function(ModelFacade,
 
 	TypeChoiceCommand.prototype.execute = function(data){
 		var screenModel, radioModel, options;
-		screenModel = new PhaserComponents.ButtonGridModel();
-		radioModel = new PhaserComponents.ButtonGridModel();
-		screenModel.setData(ModelFacade.getInstance().get(ModelFacade.SCREEN).getData().index);
-		radioModel.setData(ModelFacade.getInstance().get(ModelFacade.ANGLE).getData().index);
+		screenModel = new PhaserComponents.Model.ButtonGridModel();
+		radioModel = new PhaserComponents.Model.ButtonGridModel();
+		screenModel.set(ModelFacade.getInstance().get(ModelFacade.SCREEN).get());
+		radioModel.set(ModelFacade.getInstance().get(ModelFacade.ANGLE).get());
 		options = {"screenModel":screenModel, "radioModel":radioModel};
 		PhaserComponents.AlertManager.getInstance().make(GameScreenMenu, options, this.onScreenChosen.bind(this)); 
 	};
 	
 	TypeChoiceCommand.prototype.onScreenChosen = function(data) {
 		if(data.index === 0){
-			ModelFacade.getInstance().get(ModelFacade.SCREEN).setData(data.selection.screenIndex);
-			ModelFacade.getInstance().get(ModelFacade.ANGLE).setData(data.selection.radioIndex);
+			ModelFacade.getInstance().get(ModelFacade.SCREEN).set(data.selection.screenIndex);
+			ModelFacade.getInstance().get(ModelFacade.ANGLE).set(data.selection.radioIndex);
 		}
 	};
 	

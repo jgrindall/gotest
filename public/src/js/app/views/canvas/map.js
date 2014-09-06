@@ -9,10 +9,10 @@ PhaserComponents){
 	
 	var Map  = function(options){
 		ModelFacade.getInstance().get(ModelFacade.BG).changeSignal.add(this.onChanged, this);
-		PhaserComponents.Container.call(this, options);
+		PhaserComponents.Display.Container.call(this, options);
 	};
 	
-	Map.prototype = Object.create(PhaserComponents.Container.prototype);
+	Map.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	Map.prototype.constructor = Map;
 	
 	Map.prototype.onChanged = function(data) {
@@ -20,7 +20,7 @@ PhaserComponents){
 	};
 	
 	Map.prototype.updateImage = function() {
-		var bg = ModelFacade.getInstance().get(ModelFacade.BG).getData().bg;
+		var bg = ModelFacade.getInstance().get(ModelFacade.BG).get();
 		if(this.sprite){
 			this.sprite.destroy(true);
 			this.sprite = null;
@@ -33,7 +33,7 @@ PhaserComponents){
 	};
 	
 	Map.prototype.create = function() {
-		PhaserComponents.Container.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.updateImage();	
 	};
 	

@@ -16,14 +16,14 @@ define('app/components/buttons/dirbutton',[ 'phasercomponents', 'app/assets'],
 			frame0 = 4 * 28;
 		}
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
-		PhaserComponents.AbstractButton.call(this, options);
+		PhaserComponents.Display.AbstractButton.call(this, options);
 		this.sprite.visible = options.data.visible;
 	};
 	
 	DirButton.WIDTH = 50;
 	DirButton.HEIGHT = 50;
 	
-	DirButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
+	DirButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
 	DirButton.prototype.constructor = DirButton;
 
 	return DirButton;

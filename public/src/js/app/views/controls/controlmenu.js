@@ -18,23 +18,23 @@ PlayingState){
 		options.numX = 5;
 		options.numY = 1;
 		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}, {'num':8}];
-		PhaserComponents.ButtonBar.call(this, options);
+		PhaserComponents.Display.ButtonBar.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.disableButtonAt(1);
 	};
 	
-	ControlMenu.prototype = Object.create(PhaserComponents.ButtonBar.prototype);
+	ControlMenu.prototype = Object.create(PhaserComponents.Display.ButtonBar.prototype);
 	ControlMenu.prototype.constructor = ControlMenu;
 	
-	ControlMenu.prototype.playingChanged = function(data){
-		if(data.playing === PlayingState.PLAYING){
+	ControlMenu.prototype.playingChanged = function(value){
+		if(value === PlayingState.PLAYING){
 			this.enableButtonAt(0);
 			this.disableButtonAt(1);
 			this.disableButtonAt(2);
 			this.disableButtonAt(3);
 			this.disableButtonAt(4);
 		}
-		else if(data.playing === PlayingState.NOT_PLAYING){
+		else if(value=== PlayingState.NOT_PLAYING){
 			this.disableButtonAt(0);
 			this.enableButtonAt(1);
 			this.enableButtonAt(2);

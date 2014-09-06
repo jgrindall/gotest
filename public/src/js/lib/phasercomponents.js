@@ -531,23 +531,30 @@ function(Phaser, Context){
 	var AbstractModel  = function(){
 		this.changeSignal = new Phaser.Signal();
 		this.eventDispatcher = Context.eventDispatcher;
+		this.value = null;
 	};
 	
-	AbstractModel.prototype.trigger = function(command) {
-		this.changeSignal.dispatch(this.getData());
+	AbstractModel.prototype.trigger = function() {
+		this.changeSignal.dispatch(this.value);
 	};
 	
-	AbstractModel.prototype.setData = function(n) {
-		
+	AbstractModel.prototype.set = function(val) {
+		var currentVal = this.value;
+		if(currentVal === null || currentVal === undefined || currentVal !== val){
+			this.value = val;
+			this.trigger();
+		}
+	};
+
+	AbstractModel.prototype.get = function() {
+		return this.value;
 	};
 	
-	AbstractModel.prototype.getData = function() {
-		return {};
-	};
-	
-	AbstractModel.prototype.destroy = function(command) {
+	AbstractModel.prototype.destroy = function() {
 		this.changeSignal.dispose();
+		this.value = null;
 		this.changeSignal = null;
+		this.eventDispatcher = null;
 	};
 	
 	return AbstractModel;
@@ -566,25 +573,9 @@ function(AbstractModel, Utils){
 	
 	var ButtonGridModel  = function(){
 		AbstractModel.call(this);
-		this.selected = null;
 	};
 	
 	Utils.extends(ButtonGridModel, AbstractModel);
-
-	ButtonGridModel.prototype.getData = function(){
-		return {"index":this.selected};
-	};
-	
-	ButtonGridModel.prototype.setData = function(n) {
-		this.setSelected(n);
-	};
-	
-	ButtonGridModel.prototype.setSelected = function(i) {
-		if(this.selected !== i){
-			this.selected = i;
-			this.trigger();
-		}
-	};
 	
 	return ButtonGridModel;
 
@@ -622,14 +613,13 @@ ButtonGridModel, Utils){
 	
 	Utils.extends(ButtonGrid, Container);
 
-	ButtonGrid.prototype.init = function(data){
-		this.showSelected(this.model.getData().index);
+	ButtonGrid.prototype.init = function(){
+		this.showSelected(this.model.get());
 	};
 
-	ButtonGrid.prototype.onSelectedChanged = function(data){
-		var index = data.index;
-		this.showSelected(index);
-		this.changeSignal.dispatch({"index":index, "grid":this});
+	ButtonGrid.prototype.onSelectedChanged = function(value){
+		this.showSelected(value);
+		this.changeSignal.dispatch({"index":value, "grid":this});
 	};
 	
 	ButtonGrid.prototype.create = function(){
@@ -685,7 +675,7 @@ ButtonGridModel, Utils){
 		target = data.target.group || data.target.sprite;
 		index = this.buttonGroup.getIndex(target);
 		if(this.options.performSelect){
-			this.model.setData(index);
+			this.model.set(index);
 		}
 		this.clickSignal.dispatch({"index":index, "grid":this});
 	};
@@ -813,12 +803,10 @@ InteractiveSprite, Utils){
 	
 	var Slider = function(options){
 		var index;
-		this.num = Math.floor(Math.random() * 1000);
-		this.model = options.model;
 		this.stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / options.num;
-		this.model.changeSignal.add(this.onChanged, this);
+		options.model.changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
-		index = this.model.getData().index;
+		index = this.model.get();
 		if(index !== null){
 			this.goTo(index);
 		}
@@ -828,11 +816,12 @@ InteractiveSprite, Utils){
 	Slider.HEIGHT = 		40;
 	Slider.HANDLEWIDTH = 	40;
 	Slider.HANDLEHEIGHT = 	40;
-	
+	Slider.TOLERANCE = 		25;
+
 	Utils.extends(Slider, Container);
 	
-	Slider.prototype.onChanged = function(data){
-		this.goTo(data.index);
+	Slider.prototype.onChanged = function(value){
+		this.goTo(value);
 	};
 	
 	Slider.prototype.goTo = function(n) {
@@ -852,7 +841,6 @@ InteractiveSprite, Utils){
 	Slider.prototype.onUp = function() {
 		this.dragging = false;
 		this.removeMoveListeners();
-		console.log("slider onUp");
 		this.snap();
 	};
 	
@@ -860,16 +848,14 @@ InteractiveSprite, Utils){
 		var num;
 		num = (this.handle.sprite.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
 		num = Math.round(num);
-		console.log(">>  snap to "+this.handle.sprite.x, num);
-		this.goTo(num);
-		this.model.setData(num);
+		this.model.set(num);
 	};
 
 	Slider.prototype.isOutside = function(x, y) {
-		if(x < this.bounds.x  - 20 || x > this.bounds.x + Slider.WIDTH + 20){
+		if(x < this.bounds.x  - Slider.TOLERANCE || x > this.bounds.x + Slider.WIDTH + Slider.TOLERANCE){
 			return true;
 		}
-		else if(y < this.bounds.y - 30 || y > this.bounds.y + Slider.HEIGHT + 30){
+		else if(y < this.bounds.y - Slider.TOLERANCE || y > this.bounds.y + Slider.HEIGHT + Slider.TOLERANCE){
 			return true;
 		}
 		return false;
@@ -1525,15 +1511,15 @@ function(MovieClip, Utils){
 
 	MultiButton.prototype.init = function(){
 		if(this.model){
-			var index = this.model.getData().index;
+			var index = this.model.get();
 			if(index !== null){
 				this.goTo(index);
 			}
 		}
 	};
 
-	MultiButton.prototype.onChanged = function(data){
-		this.goTo(data.index);
+	MultiButton.prototype.onChanged = function(value){
+		this.goTo(value);
 	};
 
 	MultiButton.prototype.create = function(){
@@ -1546,7 +1532,7 @@ function(MovieClip, Utils){
 		var p, frame;
 		p = data.localPoint.x / this.options.bounds.w;
 		frame = Math.floor(this.options.num * p);
-		this.model.setData(frame);
+		this.model.set(frame);
 	};
 	
 	MultiButton.prototype.destroy = function(){
@@ -1581,14 +1567,14 @@ function(MovieClip, Utils){
 	Utils.extends(StepperButton, MovieClip);
 
 	StepperButton.prototype.init = function(){
-		var index = this.model.getData().index;
+		var index = this.model.get();
 		if(index !== null){
 			this.goTo(index);
 		}
 	};
 
-	StepperButton.prototype.onChanged = function(data){
-		this.goTo(data.index);
+	StepperButton.prototype.onChanged = function(value){
+		this.goTo(value);
 	};
 	
 	StepperButton.prototype.create = function(){
@@ -1893,40 +1879,48 @@ define('phasercomponents',[
 
     
 
-    //TODO - split
-    var Display = {};
-
-    return {
-        'Display':Display,
-        'MovieClip': 			MovieClip,
+    var Display = {
+    	'MovieClip': 			MovieClip,
         'Container': 			Container,
         'InteractiveSprite': 	InteractiveSprite,
         'AbstractButton': 		AbstractButton,
-        'AbstractModel': 		AbstractModel,
+        'Preloader': 			Preloader,
+        'AbstractPopup':  		AbstractPopup,
         'ButtonGrid': 			ButtonGrid,
-       	'ButtonGridModel': 		ButtonGridModel,
     	'TabButtonBar': 		TabButtonBar,
         'ButtonBar': 			ButtonBar,
-        'EventDispatcher': 		EventDispatcher,
         'Slider': 				Slider,
         'Scroller': 			Scroller,
         'Pager': 				Pager,
-        'Context': 				Context,
-        'Scene': 				Scene,
         'View': 				View,
-        'Storage': 				Storage,
-        'AlertManager': 		AlertManager,
-        'PrintManager': 		PrintManager,
-        'SoundManager': 		SoundManager,
-        'AbstractCommand': 		AbstractCommand,
         'MultiButton': 			MultiButton,
         'StepperButton': 		StepperButton,
         'RadioButtons': 		RadioButtons,
         'ToggleButton': 		ToggleButton,
-        'Preloader': 			Preloader,
-        'AbstractPopup':  		AbstractPopup,
         'LoaderBar': 			LoaderBar,
+    };
+
+    var Model = {
+    	'AbstractModel': 		AbstractModel,
+       	'ButtonGridModel': 		ButtonGridModel
+    };
+
+    var Events = {
+    	'EventDispatcher': 		EventDispatcher,
        	'AppEvents':			AppEvents
+    };
+
+    return {
+        'Display':Display,
+        'Model':Model,
+        'Events':Events,
+        'Context': 				Context,
+        'Scene': 				Scene,
+        'Storage': 				Storage,
+        'AlertManager': 		AlertManager,
+        'PrintManager': 		PrintManager,
+        'SoundManager': 		SoundManager,
+        'AbstractCommand': 		AbstractCommand	
     };
     
 });

@@ -7,9 +7,9 @@ define('app/consts/playingstate',[], function() {
 			
     };
 	
-	PlayingState.NOT_PLAYING = 	'notplaying';
-	PlayingState.PLAYING = 		'playing';
-	PlayingState.REPLAYING = 	'replaying';
+	PlayingState.NOT_PLAYING = 	0;
+	PlayingState.PLAYING = 		1;
+	PlayingState.REPLAYING = 	2;
 	
 	return PlayingState;
 });

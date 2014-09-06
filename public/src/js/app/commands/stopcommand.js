@@ -16,7 +16,7 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 	StopCommand.prototype.execute = function(data){
 		ModelFacade.getInstance().get(ModelFacade.COMM).stop();
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).reset();
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).setData(PlayingState.NOT_PLAYING);
+		ModelFacade.getInstance().get(ModelFacade.PLAYING).set(PlayingState.NOT_PLAYING);
 	};
 	
   	return StopCommand;

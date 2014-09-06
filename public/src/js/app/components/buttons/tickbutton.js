@@ -5,10 +5,10 @@ define('app/components/buttons/tickbutton',['phasercomponents'], function(Phaser
 	
 	var TickButton = function(options){
 		options.asset = Assets.TICKBUTTON;
-		PhaserComponents.AbstractButton.call(this, this.game, options);
+		PhaserComponents.Display.AbstractButton.call(this, this.game, options);
 	};
 	
-	TickButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
+	TickButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
 	TickButton.prototype.constructor = TickButton;
 	
 	TickButton.WIDTH = 80;

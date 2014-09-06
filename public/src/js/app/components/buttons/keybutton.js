@@ -11,13 +11,13 @@ define('app/components/buttons/keybutton',['phasercomponents', 'app/assets'],
 		startFrame = 18 * 4;
 		frame0 = startFrame + (4 * options.data.num);
 		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
-		PhaserComponents.AbstractButton.call(this, options);
+		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	
 	KeyButton.WIDTH = 50;
 	KeyButton.HEIGHT = 50;
 	
-	KeyButton.prototype = Object.create(PhaserComponents.AbstractButton.prototype);
+	KeyButton.prototype = Object.create(PhaserComponents.Display.AbstractButton.prototype);
 	KeyButton.prototype.constructor = KeyButton;
 
 	return KeyButton;

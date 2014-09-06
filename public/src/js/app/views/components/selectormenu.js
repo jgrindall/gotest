@@ -15,17 +15,17 @@ OkButton, PhaserComponents
 		
 	var SelectorMenu = function(options){
 		options.bgasset = 'panel';
-		PhaserComponents.AbstractPopup.call(this, options);
+		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	
 	SelectorMenu.WIDTH = 800;
 	SelectorMenu.HEIGHT = 600;
 	
-	SelectorMenu.prototype = Object.create(PhaserComponents.AbstractPopup.prototype);
+	SelectorMenu.prototype = Object.create(PhaserComponents.Display.AbstractPopup.prototype);
 	SelectorMenu.prototype.constructor = SelectorMenu;
 	
 	SelectorMenu.prototype.create = function () {
-		PhaserComponents.AbstractPopup.prototype.create.call(this);
+		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addCloseButton();
 		this.addOkButton();
 	};
@@ -37,7 +37,7 @@ OkButton, PhaserComponents
 	};
 	
 	SelectorMenu.prototype.destroy = function () {
-		PhaserComponents.AbstractPopup.prototype.destroy.call(this);
+		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	
 	SelectorMenu.prototype.addCloseButton = function () {

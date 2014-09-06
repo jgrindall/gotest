@@ -10,13 +10,13 @@ LineDrawer){
 	"use strict";
 	
 	var Paths  = function(options){
-		PhaserComponents.Container.call(this, options);
+		PhaserComponents.Display.Container.call(this, options);
 		this.endSignal = new Phaser.Signal();
 	};
 	
 	Paths.WIDTH = 8;
 	
-	Paths.prototype = Object.create(PhaserComponents.Container.prototype);
+	Paths.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	Paths.prototype.constructor = Paths;
 	
 	Paths.prototype.removeGfx = function() {
@@ -65,7 +65,7 @@ LineDrawer){
 	};
 	
 	Paths.prototype.create = function() {
-		PhaserComponents.Container.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addGfx();
 		this.addMask();
 		this.gfx.mask = this.mask;
@@ -76,7 +76,7 @@ LineDrawer){
 		this.endSignal.dispose();
 		this.endSignal = null;
 		this.removeGfx();
-		PhaserComponents.Container.prototype.destroy.call(this);
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
 	return Paths;

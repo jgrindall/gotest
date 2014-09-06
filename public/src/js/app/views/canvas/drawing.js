@@ -30,7 +30,7 @@ FdCommand, StepLengths){
 		x = options.bounds.x + options.bounds.w/2;
 		y = options.bounds.y + options.bounds.h/2;
 		this.centre = {'x':x, 'y':y};
-		PhaserComponents.Container.call(this, options);
+		PhaserComponents.Display.Container.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
 		this.onReset();
@@ -43,7 +43,7 @@ FdCommand, StepLengths){
 	Drawing.ROTATE = [[0, 0, 0, -45, 0, 45, 0, 0, 0], [0, 0, 0, -90, 0, 90, 0, 0, 0]];
 	Drawing.DIAG = [Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2]; 
 		
-	Drawing.prototype = Object.create(PhaserComponents.Container.prototype);
+	Drawing.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	Drawing.prototype.constructor = Drawing;
 
 	Drawing.prototype.onReset = function(){
@@ -79,7 +79,7 @@ FdCommand, StepLengths){
 	Drawing.prototype.setEndPoint = function() {
 		var dx, dy, thetaRad, distIndex, dist, currentStepLengthIndex, currentStepLength;
 		distIndex = this.command.stepLength;
-		currentStepLengthIndex = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).getData().index;
+		currentStepLengthIndex = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).get();
 		currentStepLength = StepLengths.ALL[currentStepLengthIndex];
 		dist = StepLengths.ALL[distIndex];
 		thetaRad = this.angle * Drawing.PI180;
@@ -133,7 +133,7 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.create = function() {
-		PhaserComponents.Container.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addPaths();
 		this.addTurtle();
 	};
@@ -156,7 +156,7 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.destroy = function() {
-		PhaserComponents.Container.prototype.destroy.call(this);
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
 		this.paths.destroy();

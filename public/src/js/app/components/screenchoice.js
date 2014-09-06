@@ -12,18 +12,18 @@ function(Phaser, PhaserComponents, Assets
 	var ScreenChoice = function(options){
 		options.asset = Assets.SMALL_PANEL;
 		options.num = 4;
-		PhaserComponents.Container.call(this, options);
+		PhaserComponents.Display.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
 	
 	ScreenChoice.WIDTH = 225;
 	ScreenChoice.HEIGHT = 250;
 	
-	ScreenChoice.prototype = Object.create(PhaserComponents.Container.prototype);
+	ScreenChoice.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	ScreenChoice.prototype.constructor = ScreenChoice;
 	
 	ScreenChoice.prototype.create = function(){
-		PhaserComponents.Container.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addBg();
 	};
 	
@@ -40,7 +40,7 @@ function(Phaser, PhaserComponents, Assets
 	};
 	
 	ScreenChoice.prototype.addBg = function(){
-		this.panel = new PhaserComponents.MovieClip(this.options);
+		this.panel = new PhaserComponents.Display.MovieClip(this.options);
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
 		this.group.add(this.panel.sprite);
@@ -51,7 +51,7 @@ function(Phaser, PhaserComponents, Assets
 		this.panel.mouseUpSignal.remove(this.mouseUp, this);
 		this.group.remove(this.panel);
 		this.panel.destroy(true);
-		PhaserComponents.Container.prototype.destroy.call(this);
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
 	return ScreenChoice;

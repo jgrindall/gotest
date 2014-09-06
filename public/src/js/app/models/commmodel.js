@@ -10,11 +10,11 @@ PhaserComponents){
 	"use strict";
 		
 	var CommModel  = function(){
-		PhaserComponents.AbstractModel.call(this);
+		PhaserComponents.Model.AbstractModel.call(this);
 		this.commands = [];
 	};
 	
-	CommModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
+	CommModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
 	CommModel.prototype.constructor = CommModel;
 
 	CommModel.prototype.add = function(command) {
@@ -22,7 +22,7 @@ PhaserComponents){
 		this.trigger();
 	};
 	
-	CommModel.prototype.setData = function(commands) {
+	CommModel.prototype.set = function(commands) {
 		var that = this;
 		this.reset();
 		commands.forEach(function(c, i){
@@ -30,8 +30,8 @@ PhaserComponents){
 		});
 	};
 	
-	CommModel.prototype.getData = function() {
-		return {"num": this.getNum()};
+	CommModel.prototype.get = function() {
+		return this.getNum();
 	};
 
 	CommModel.prototype.toJson = function() {

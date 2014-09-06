@@ -10,14 +10,14 @@ function(PhaserComponents, Phaser
 	"use strict";
 	
 	var BgPanel = function(options){
-		PhaserComponents.Container.call(this, options);
+		PhaserComponents.Display.Container.call(this, options);
 	};
 	
-	BgPanel.prototype = Object.create(PhaserComponents.Container.prototype);
+	BgPanel.prototype = Object.create(PhaserComponents.Display.Container.prototype);
 	BgPanel.prototype.constructor = BgPanel;
 	
 	BgPanel.prototype.create = function(){
-		PhaserComponents.Container.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addImage();
 	};
 	

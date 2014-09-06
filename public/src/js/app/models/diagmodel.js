@@ -6,32 +6,16 @@ function(PhaserComponents){
 	"use strict";
 	
 	var DiagModel  = function(){
-		PhaserComponents.AbstractModel.call(this);
-		this.index = 0;
+		PhaserComponents.Model.AbstractModel.call(this);
 	};
 	
-	DiagModel.prototype = Object.create(PhaserComponents.AbstractModel.prototype);
+	DiagModel.prototype = Object.create(PhaserComponents.Model.AbstractModel.prototype);
 	DiagModel.prototype.constructor = DiagModel;
 	
-	DiagModel.prototype.getData = function(){
-		return {"index":this.index};
-	};
-	
 	DiagModel.prototype.increment = function() {
-		this.setData(1 - this.index);
+		this.set(1 - this.get());
 	};
 
-	DiagModel.prototype.setData = function(s) {
-		this.setOn(s);
-	};
-	
-	DiagModel.prototype.setOn = function(i) {
-		if(this.index !== i){
-			this.index = i;
-			this.trigger();
-		}
-	};
-	
 	return DiagModel;
 
 });

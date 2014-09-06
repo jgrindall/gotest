@@ -108,8 +108,9 @@ function(CommModel, ScreenModel, BgModel,
 
 	ModelFacade.prototype.setDuration = function() {
 		var duration;
-		if(this.playingModel.getData().playing === PlayingState.PLAYING){
-			duration = this.speedModel.getData().actualSpeed * CommSpeed.SPEED_FACTOR;
+		if(this.playingModel.get() === PlayingState.PLAYING){
+			//TODO duration = this.speedModel.get().actualSpeed * CommSpeed.SPEED_FACTOR;
+			duration = 400;
 		}
 		else{
 			duration = 0;
@@ -117,28 +118,28 @@ function(CommModel, ScreenModel, BgModel,
 		this.commTickerModel.duration = duration;
 	};
 
-	ModelFacade.prototype.changePlaying = function(data) {
+	ModelFacade.prototype.changePlaying = function(value) {
 		this.setDuration();
 	};
 
-	ModelFacade.prototype.changeWidth = function(data) {
-		if(this.playingModel.getData().playing === PlayingState.PLAYING){
-			this.commTickerModel.update("width", data.index);
+	ModelFacade.prototype.changeWidth = function(value) {
+		if(this.playingModel.get() === PlayingState.PLAYING){
+			this.commTickerModel.update("width", value);
 		}
 	};
 
-	ModelFacade.prototype.changeSpeed = function(data) {
+	ModelFacade.prototype.changeSpeed = function(value) {
 		this.setDuration();
 	};
 
-	ModelFacade.prototype.changeBg = function(data) {
+	ModelFacade.prototype.changeBg = function(value) {
 		this.commTickerModel.reset();
 		this.commModel.reset();
 	};
 
-	ModelFacade.prototype.changeColor = function(data) {
-		if(this.playingModel.getData().playing === PlayingState.PLAYING){
-			this.commTickerModel.update("color", data.index);
+	ModelFacade.prototype.changeColor = function(value) {
+		if(this.playingModel.get() === PlayingState.PLAYING){
+			this.commTickerModel.update("color", value);
 		}
 	};
 
@@ -150,28 +151,28 @@ function(CommModel, ScreenModel, BgModel,
 	};
 
 	ModelFacade.prototype.setData = function(json){
-		this.screenModel.setData(json.settings.screen);
-		this.colorModel.setData(json.settings.color);
-		this.speedModel.setData(json.settings.speed);
-		this.widthModel.setData(json.settings.width);
-		this.bgModel.setData(json.settings.bg);
-		this.gridModel.setData(json.settings.grid);
-		this.diagModel.setData(json.settings.diag);
-		this.angleModel.setData(json.settings.angle);
-		this.stepLengthModel.setData(json.settings.stepLength);
-		this.commModel.setData(json.commands);
+		this.screenModel.set(json.settings.screen);
+		this.colorModel.set(json.settings.color);
+		this.speedModel.set(json.settings.speed);
+		this.widthModel.set(json.settings.width);
+		this.bgModel.set(json.settings.bg);
+		this.gridModel.set(json.settings.grid);
+		this.diagModel.set(json.settings.diag);
+		this.angleModel.set(json.settings.angle);
+		this.stepLengthModel.set(json.settings.stepLength);
+		this.commModel.set(json.commands);
 	};
 
 	ModelFacade.prototype.getJson = function() {
 		var json = {}, settings = {};
-		settings.bg = 			this.bgModel.getData().bg;
-		settings.screen = 		this.screenModel.getData().index;
-		settings.width = 		this.widthModel.getData().index;
-		settings.angle = 		this.angleModel.getData().index;
-		settings.stepLength = 	this.stepLengthModel.getData().index;
-		settings.speed = 		this.speedModel.getData().index;
-		settings.grid = 		this.gridModel.getData().index;
-		settings.color =	 	this.colorModel.getData().index;
+		settings.bg = 			this.bgModel.get();
+		settings.screen = 		this.screenModel.get();
+		settings.width = 		this.widthModel.get();
+		settings.angle = 		this.angleModel.get();
+		settings.stepLength = 	this.stepLengthModel.get();
+		settings.speed = 		this.speedModel.get();
+		settings.grid = 		this.gridModel.get();
+		settings.color =	 	this.colorModel.get();
 		json.commands = 		this.commModel.toJson();
 		json.settings = settings;
 		return json;
