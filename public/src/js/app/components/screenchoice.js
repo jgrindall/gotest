@@ -1,16 +1,17 @@
 
-define('app/components/screenchoice',['phaser', 'phasercomponents'
+define('app/components/screenchoice',['phaser', 'phasercomponents', 'app/assets'
 
 ],
 
-function(Phaser, PhaserComponents
+function(Phaser, PhaserComponents, Assets
 
 ){
 	
 	"use strict";
 	
 	var ScreenChoice = function(options){
-		options.asset = 'smallpanel';
+		options.asset = Assets.SMALL_PANEL;
+		options.num = 4;
 		PhaserComponents.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
@@ -39,11 +40,11 @@ function(Phaser, PhaserComponents
 	};
 	
 	ScreenChoice.prototype.addBg = function(){
-		console.log("sc addbg "+JSON.stringify(this.options));
-		this.panel = new PhaserComponents.InteractiveSprite(this.options);
+		this.panel = new PhaserComponents.MovieClip(this.options);
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
 		this.group.add(this.panel.sprite);
+		this.panel.goTo(this.options.index);
 	};
 	
 	ScreenChoice.prototype.destroy = function(){

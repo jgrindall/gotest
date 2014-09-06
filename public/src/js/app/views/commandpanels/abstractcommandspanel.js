@@ -22,7 +22,7 @@ Events){
 	var AbstractCommandsPanel  = function(options){
 		PhaserComponents.Container.call(this, options);
 		this.selectedCommand = null;
-		//Game.alertSignal.add(this.onAlert, this);
+		this.eventDispatcher.addListener("alert", this.onAlert.bind(this));
 	};
 	
 	AbstractCommandsPanel.WIDTH = 190;
@@ -34,18 +34,18 @@ Events){
 		this.builder.build(config, this);
 	};
 	
-	AbstractCommandsPanel.prototype.onAlert = function(data) {
-		if(data.show){
-			this.disableAllInput();
+	AbstractCommandsPanel.prototype.onAlert = function(event, data) {
+		if(data.shown){
+			this.disableInput();
 		}
 		else{
-			this.enableAllInput();
+			this.enableInput();
 		}
 	};
 	
-	AbstractCommandsPanel.prototype.disableAllInput = function() {
+	AbstractCommandsPanel.prototype.disableInput = function() {
 		if(this.grid){
-			this.grid.disableAll();
+			this.grid.disableInput();
 		}
 	};
 	
@@ -54,9 +54,9 @@ Events){
 		this.marker.goTo(i);
 	};
 	
-	AbstractCommandsPanel.prototype.enableAllInput = function() {
+	AbstractCommandsPanel.prototype.enableInput = function() {
 		if(this.grid){
-			this.grid.enableAll();
+			this.grid.enableInput();
 		}
 	};
 	

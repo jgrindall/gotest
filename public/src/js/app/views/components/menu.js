@@ -15,18 +15,28 @@ PhaserComponents, ModelFacade, PlayingState){
 		options.numY = 1;
 		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}];
 		PhaserComponents.ButtonBar.call(this, options);
+		this.eventDispatcher.addListener("alert", this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 	};
 	
 	Menu.prototype = Object.create(PhaserComponents.ButtonBar.prototype);
 	Menu.prototype.constructor = Menu;
 	
+	Menu.prototype.onAlert = function(event, data) {
+		if(data.shown){
+			this.disableInput();
+		}
+		else{
+			this.enableInput();
+		}
+	};
+	
 	Menu.prototype.playingChanged = function(data){
 		if(data.playing === PlayingState.PLAYING){
-			this.disableAll();
+			this.disableInput();
 		}
 		else if(data.playing === PlayingState.NOT_PLAYING){
-			this.enableAll();
+			this.enableInput();
 		}
 	};
 

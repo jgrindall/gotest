@@ -47,25 +47,25 @@ PhaserComponents, AbstractCommandsPanel
 	
 	AbstractKeysCommandsPanel.prototype.disableKeys = function() {
 		if(this.keys){
-			this.keys.disableAll();
+			this.keys.disableInput();
 			this.keys.alpha = 0.1;
 		}
 	};
 	
 	AbstractKeysCommandsPanel.prototype.enableKeys = function() {
 		if(this.keys){
-			this.keys.enableAll();
+			this.keys.enableInput();
 			this.keys.alpha = 1;
 		}
 	};
 	
-	AbstractKeysCommandsPanel.prototype.disableAllInput = function() {
-		AbstractCommandsPanel.prototype.disableAllInput.call(this);
+	AbstractKeysCommandsPanel.prototype.disableInput = function() {
+		AbstractCommandsPanel.prototype.disableInput.call(this);
 		this.disableKeys();
 	};
 	
-	AbstractKeysCommandsPanel.prototype.enableAllInput = function() {
-		AbstractCommandsPanel.prototype.enableAllInput.call(this);
+	AbstractKeysCommandsPanel.prototype.enableInput = function() {
+		AbstractCommandsPanel.prototype.enableInput.call(this);
 		this.enableKeys();
 	};
 	

@@ -33,7 +33,7 @@ Events, Assets){
 	
 	var Controls  = function(options){
 		PhaserComponents.Container.call(this, options);
-		//Game.alertSignal.add(this.onAlert, this);
+		this.eventDispatcher.addListener("alert", this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 	};
 
@@ -53,29 +53,31 @@ Events, Assets){
 
 	Controls.prototype.onScreenChanged = function(data) {
 		this.addCommandsPanel(data.index);
-		// and load the data
+		// TODO - Load the data from before
 	};
 	
-	Controls.prototype.onAlert = function(data) {
-		if(data.show){
-			this.disableAllInput();
+	Controls.prototype.onAlert = function(event, data) {
+		if(data.shown){
+			this.disableInput();
 		}
 		else{
-			this.enableAllInput();
+			this.enableInput();
 		}
 	};
 	
-	Controls.prototype.disableAllInput = function() {
+	Controls.prototype.disableInput = function() {
 		if(this.colorPicker){
 			this.colorPicker.disableInput();
 			this.speedSlider.disableInput();
+			this.menu.disableInput();
 		}
 	};
 	
-	Controls.prototype.enableAllInput = function() {
+	Controls.prototype.enableInput = function() {
 		if(this.colorPicker){
 			this.colorPicker.enableInput();
 			this.speedSlider.enableInput();
+			this.menu.enableInput();
 		}
 	};
 	

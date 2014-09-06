@@ -170,7 +170,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.angle = 		this.angleModel.getData().index;
 		settings.stepLength = 	this.stepLengthModel.getData().index;
 		settings.speed = 		this.speedModel.getData().index;
-		settings.gridOn = 		this.gridModel.getData().on;
+		settings.grid = 		this.gridModel.getData().index;
 		settings.color =	 	this.colorModel.getData().index;
 		json.commands = 		this.commModel.toJson();
 		json.settings = settings;

@@ -234,21 +234,44 @@ define('phasercomponents/display/view',
 
 
 
+define('phasercomponents/utils/utils',[], function(){
+	
+	
+	
+	var Utils = function(){
+		
+	};
+	
+	Utils.extends = function(SubClassRef, SuperClassRef){
+		var F = function(){
+		
+		};
+		F.prototype = Object.create(SuperClassRef.prototype);
+		SubClassRef.prototype = new F();
+		SubClassRef.prototype.constructor = SubClassRef;
+	};
+	
+	return Utils;
+	
+});
+
+
+
 define('phasercomponents/display/interactivesprite',
 
-	['phaser', 'phasercomponents/display/view'], function(Phaser, View){
+	['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils'],
+
+	function(Phaser, View, Utils){
 	
 	
 	
 	var InteractiveSprite = function(options){
-		console.log("IS options "+JSON.stringify(options.bounds));
 		this.mouseUpSignal = new Phaser.Signal();
 		this.mouseDownSignal = new Phaser.Signal();
 		View.call(this, options);
 	};
 	
-	InteractiveSprite.prototype = Object.create(View.prototype);
-	InteractiveSprite.prototype.constructor = InteractiveSprite;
+	Utils.extends(InteractiveSprite, View);
 	
 	InteractiveSprite.prototype.addListeners = function(){
 		this.sprite.events.onInputDown.add(this.onMouseDown, this);
@@ -292,7 +315,6 @@ define('phasercomponents/display/interactivesprite',
 	
 	InteractiveSprite.prototype.onMouseUp = function(){
 		var hitData = this.hitData();
-		console.log("up "+JSON.stringify(hitData));
 		if(hitData.hits){
 			this.mouseUpSignal.dispatch({"localPoint":hitData.localPoint});
 		}
@@ -300,7 +322,6 @@ define('phasercomponents/display/interactivesprite',
 	
 	InteractiveSprite.prototype.onMouseDown = function(){
 		var hitData = this.hitData();
-		console.log("down "+JSON.stringify(hitData));
 		if(hitData.hits){
 			this.mouseDownSignal.dispatch({"localPoint":hitData.localPoint});
 		}
@@ -323,19 +344,17 @@ define('phasercomponents/display/interactivesprite',
 
 define('phasercomponents/display/movieclip',
 
-	['phasercomponents/display/interactivesprite'],
+	['phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
 
-	function(InteractiveSprite){
+	function(InteractiveSprite, Utils){
 	
 	
 	
 	var MovieClip = function(options){
-		console.log("MC options "+JSON.stringify(options.bounds));
 		InteractiveSprite.call(this, options);
 	};
 	
-	MovieClip.prototype = Object.create(InteractiveSprite.prototype);
-	MovieClip.prototype.constructor = MovieClip;
+	Utils.extends(MovieClip, InteractiveSprite);
 
 	MovieClip.prototype.goTo = function(i){
 		this.sprite.animations.play('frame'+i);
@@ -361,9 +380,9 @@ define('phasercomponents/display/movieclip',
 
 define('phasercomponents/display/container',
 
-	['phaser', 'phasercomponents/display/view'],
+	['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils'],
 
-function(Phaser, View){
+function(Phaser, View, Utils){
 	
 	
 	
@@ -371,8 +390,7 @@ function(Phaser, View){
 		View.call(this, options);
 	};
 
-	Container.prototype = Object.create(View.prototype);
-	Container.prototype.constructor = Container;
+	Utils.extends(Container, View);
 
 	Container.prototype.create = function(){
 		this.group = new Phaser.Group(this.game);
@@ -397,7 +415,9 @@ function(Phaser, View){
 
 define('phasercomponents/display/buttons/abstractbutton',
 	
-['phaser', 'phasercomponents/display/view'], function(Phaser, View){
+['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils'],
+
+function(Phaser, View, Utils){
 	
 	
 	
@@ -408,8 +428,7 @@ define('phasercomponents/display/buttons/abstractbutton',
 		View.call(this, options);
 	};
 
-	AbstractButton.prototype = Object.create(View.prototype);
-	AbstractButton.prototype.constructor = AbstractButton;
+	Utils.extends(AbstractButton, View);
 
 	AbstractButton.prototype.goToFrame = function(i){
 		this.sprite.setFrames(this.frames[i], this.frames[i], this.frames[i], this.frames[i]);
@@ -429,8 +448,6 @@ define('phasercomponents/display/buttons/abstractbutton',
 
 	AbstractButton.prototype.create = function(){
 		this.sprite = new Phaser.Button(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
-		this.sprite.events.onInputUp.add(this.mouseUp, this);
-		this.sprite.events.onInputDown.add(this.mouseDown, this);
 		this.resetFrames();
 		this.enableInput();
 	};
@@ -439,15 +456,27 @@ define('phasercomponents/display/buttons/abstractbutton',
 		this.mouseUpSignal.dispatch({"target":this});
 	};
 	
+	AbstractButton.prototype.addListeners = function(){
+		this.sprite.events.onInputUp.add(this.mouseUp, this);
+		this.sprite.events.onInputDown.add(this.mouseDown, this);
+	};
+
+	AbstractButton.prototype.removeListeners = function(){
+		this.sprite.events.onInputUp.remove(this.mouseUp, this);
+		this.sprite.events.onInputDown.remove(this.mouseDown, this);
+	};
+
 	AbstractButton.prototype.enableInput = function(){
 		this.sprite.inputEnabled = true;
 		this.sprite.alpha = 1;
 		this.sprite.input.useHandCursor = true;
+		this.addListeners();
 	};
 	
 	AbstractButton.prototype.disableInput = function(){
 		this.sprite.inputEnabled = false;
-		this.sprite.alpha = 0.6;
+		this.sprite.alpha = 0.75;
+		this.removeListeners();
 	};
 	
 	AbstractButton.prototype.mouseDown = function(){
@@ -455,8 +484,7 @@ define('phasercomponents/display/buttons/abstractbutton',
 	};
 	
 	AbstractButton.prototype.destroy = function(){
-		this.sprite.events.onInputUp.remove(this.mouseUp, this);
-		this.sprite.events.onInputDown.remove(this.mouseDown, this);
+		this.removeListeners();
 		this.sprite.inputEnabled = false;
 		this.sprite.destroy(true);
 		this.mouseDownSignal = null;
@@ -504,9 +532,11 @@ function(Phaser, Context){
 	
 
 
-define('phasercomponents/display/buttongrid/buttongridmodel',['phasercomponents/models/abstractmodel'],
+define('phasercomponents/display/buttongrid/buttongridmodel',
 
-function(AbstractModel){
+	['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
+
+function(AbstractModel, Utils){
 	
 	
 	
@@ -515,9 +545,8 @@ function(AbstractModel){
 		this.selected = null;
 	};
 	
-	ButtonGridModel.prototype = Object.create(AbstractModel.prototype);
-	ButtonGridModel.prototype.constructor = ButtonGridModel;
-	
+	Utils.extends(ButtonGridModel, AbstractModel);
+
 	ButtonGridModel.prototype.getData = function(){
 		return {"index":this.selected};
 	};
@@ -541,11 +570,11 @@ function(AbstractModel){
 
 define('phasercomponents/display/buttongrid/buttongrid',['phaser', 'phasercomponents/display/container',
 
-'phasercomponents/display/buttongrid/buttongridmodel'],
+'phasercomponents/display/buttongrid/buttongridmodel', 'phasercomponents/utils/utils'],
 
 function(Phaser, Container,
 
-ButtonGridModel){
+ButtonGridModel, Utils){
 	
 	
 	
@@ -567,9 +596,8 @@ ButtonGridModel){
 		this.init();
 	};
 	
-	ButtonGrid.prototype = Object.create(Container.prototype);
-	ButtonGrid.prototype.constructor = ButtonGrid;
-	
+	Utils.extends(ButtonGrid, Container);
+
 	ButtonGrid.prototype.init = function(data){
 		this.showSelected(this.model.getData().index);
 	};
@@ -585,13 +613,13 @@ ButtonGridModel){
 		this.addButtons();
 	};
 	
-	ButtonGrid.prototype.disableAll = function(){
+	ButtonGrid.prototype.disableInput = function(){
 		this.buttons.forEach(function(b, i){
 			b.disableInput();
 		});
 	};
 	
-	ButtonGrid.prototype.enableAll = function(){
+	ButtonGrid.prototype.enableInput = function(){
 		this.buttons.forEach(function(b){
 			b.enableInput();
 		});
@@ -661,9 +689,11 @@ ButtonGridModel){
 
 
 
-define('phasercomponents/display/buttongrid/buttonbar',['phasercomponents/display/buttongrid/buttongrid'],
+define('phasercomponents/display/buttongrid/buttonbar',
 
-function(ButtonGrid){
+	['phasercomponents/display/buttongrid/buttongrid', 'phasercomponents/utils/utils'],
+
+function(ButtonGrid, Utils){
 	
 	
 	
@@ -684,8 +714,7 @@ function(ButtonGrid){
 	ButtonBar.HORIZONTAL = "horizontal";
 	ButtonBar.VERTICAL = "vertical";
 	
-	ButtonBar.prototype = Object.create(ButtonGrid.prototype);
-	ButtonBar.prototype.constructor = ButtonBar;
+	Utils.extends(ButtonBar, ButtonGrid);
 	
 	ButtonBar.prototype.create = function(){
 		ButtonGrid.prototype.create.call(this);
@@ -723,9 +752,11 @@ function(ButtonGrid){
 
 
 
-define('phasercomponents/display/buttongrid/tabbuttonbar',['phasercomponents/display/buttongrid/buttonbar'],
+define('phasercomponents/display/buttongrid/tabbuttonbar',
 
-function(ButtonBar){
+	['phasercomponents/display/buttongrid/buttonbar', 'phasercomponents/utils/utils'],
+
+function(ButtonBar, Utils){
 	
 	
 	
@@ -733,8 +764,7 @@ function(ButtonBar){
 		ButtonBar.call(this, game, options);
 	};
 	
-	TabButtonBar.prototype = Object.create(ButtonBar.prototype);
-	TabButtonBar.prototype.constructor = TabButtonBar;
+	Utils.extends(TabButtonBar, ButtonBar);
 	
 	TabButtonBar.prototype.create = function(){
 		ButtonBar.prototype.create.call(this);
@@ -749,11 +779,11 @@ function(ButtonBar){
 
 define('phasercomponents/display/slider/slider',['phaser', 'phasercomponents/display/container',
 
-'phasercomponents/display/interactivesprite'],
+'phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
 
 function(Phaser, Container,
 
-InteractiveSprite){
+InteractiveSprite, Utils){
 	
 	
 	
@@ -775,8 +805,7 @@ InteractiveSprite){
 	Slider.HANDLEWIDTH = 	40;
 	Slider.HANDLEHEIGHT = 	40;
 	
-	Slider.prototype = Object.create(Container.prototype);
-	Slider.prototype.constructor = Slider;
+	Utils.extends(Slider, Container);
 	
 	Slider.prototype.onChanged = function(data){
 		this.goTo(data.index);
@@ -904,9 +933,11 @@ InteractiveSprite){
 
 	
 
-define('phasercomponents/display/scroller/scroller',['phaser', 'phasercomponents/display/container'],
+define('phasercomponents/display/scroller/scroller',
 
-function(Phaser, Container){
+	['phaser', 'phasercomponents/display/container', 'phasercomponents/utils/utils'],
+
+function(Phaser, Container, Utils){
 	
 	
 
@@ -921,8 +952,7 @@ function(Phaser, Container){
 		Container.call(this, options);
 	};
 	
-	Scroller.prototype = Object.create(Container.prototype);
-	Scroller.prototype.constructor = Scroller;
+	Utils.extends(Scroller, Container);
 	
 	Scroller.MIN_MOVE = 10;
 	
@@ -1109,6 +1139,7 @@ function($, Phaser, Context){
 	
 	var AlertManager  = function(){
 		this.game = Context.game;
+		this.eventDispatcher = Context.eventDispatcher;
 	};
 	
 	AlertManager.prototype.close = function(){
@@ -1118,7 +1149,7 @@ function($, Phaser, Context){
 			this.bg.destroy();
 			this.bg = null;
 			this.alert = null;
-			//Game.alertSignal.dispatch({"show":false});
+			this.eventDispatcher.trigger({"type":"alert", "shown":false});
 		}
 	};
 	
@@ -1147,7 +1178,7 @@ function($, Phaser, Context){
 		this.alert = new ClassRef(newOptions);
 		this.alert.selectSignal.add(this.callbackProxy);
 		this.game.world.add(this.alert.group);
-		//Game.alertSignal.dispatch({"show":true});
+		this.eventDispatcher.trigger({"type":"alert", "shown":true});
 		this.alert.showMe();
 	};
 	
@@ -1344,9 +1375,9 @@ define('phasercomponents/abstractcommand',
 
 define('phasercomponents/display/scroller/groupmarker',[
 
-	'phasercomponents/display/container'],
+	'phasercomponents/display/container', 'phasercomponents/utils/utils'],
 
-function(Container){
+function(Container, Utils){
 	
 	
 	
@@ -1355,8 +1386,7 @@ function(Container){
 		Container.call(this, options);
 	};
 	
-	GroupMarker.prototype = Object.create(Container.prototype);
-	GroupMarker.prototype.constructor = GroupMarker;
+	Utils.extends(GroupMarker, Container);
 	
 	GroupMarker.prototype.create = function(){
 		var b, i, x, ClassRef;
@@ -1396,9 +1426,11 @@ function(Container){
 
 define('phasercomponents/display/scroller/pager',
 
-	['phasercomponents/display/scroller/groupmarker', 'phasercomponents/display/scroller/scroller'],
+	['phasercomponents/display/scroller/groupmarker',
 
-function(GroupMarker, Scroller){
+	'phasercomponents/display/scroller/scroller', 'phasercomponents/utils/utils'],
+
+function(GroupMarker, Scroller, Utils){
 	
 	
 	
@@ -1409,8 +1441,7 @@ function(GroupMarker, Scroller){
 		}
 	};
 	
-	Pager.prototype = Object.create(Scroller.prototype);
-	Pager.prototype.constructor = Pager;
+	Utils.extends(Pager, Scroller);
 	
 	Pager.prototype.addChildren = function(){
 		Scroller.prototype.addChildren.call(this);
@@ -1454,9 +1485,9 @@ function(GroupMarker, Scroller){
 
 define('phasercomponents/display/buttons/multibutton',
 
-	['phasercomponents/display/movieclip'],
+	['phasercomponents/display/movieclip', 'phasercomponents/utils/utils'],
 
-function(MovieClip){
+function(MovieClip, Utils){
 	
 	
 	
@@ -1466,8 +1497,7 @@ function(MovieClip){
 		this.init();
 	};
 
-	MultiButton.prototype = Object.create(MovieClip.prototype);
-	MultiButton.prototype.constructor = MultiButton;
+	Utils.extends(MultiButton, MovieClip);
 
 	MultiButton.prototype.init = function(){
 		if(this.model){
@@ -1510,9 +1540,9 @@ function(MovieClip){
 
 define('phasercomponents/display/buttons/stepperbutton',[ 
 	
-'phasercomponents/display/movieclip'],
+'phasercomponents/display/movieclip', 'phasercomponents/utils/utils'],
 
-function(MovieClip){
+function(MovieClip, Utils){
 	
 	
 	
@@ -1524,8 +1554,7 @@ function(MovieClip){
 		this.init();
 	};
 
-	StepperButton.prototype = Object.create(MovieClip.prototype);
-	StepperButton.prototype.constructor = StepperButton;
+	Utils.extends(StepperButton, MovieClip);
 
 	StepperButton.prototype.init = function(){
 		var index = this.model.getData().index;
@@ -1543,7 +1572,6 @@ function(MovieClip){
 	};
 
 	StepperButton.prototype.onStep = function(data){
-		console.log("stepper onStep");
 		this.model.increment();
 	};
 	
@@ -1562,11 +1590,13 @@ function(MovieClip){
 
 
 
-define('phasercomponents/display/buttons/radiobuttons',['phasercomponents/display/buttongrid/buttonbar'
+define('phasercomponents/display/buttons/radiobuttons',
+
+	['phasercomponents/display/buttongrid/buttonbar', 'phasercomponents/utils/utils'
 
 ],
 
-function(ButtonBar
+function(ButtonBar, Utils
 
 ){
 	
@@ -1580,18 +1610,19 @@ function(ButtonBar
 	RadioButtons.WIDTH = 120;
 	RadioButtons.HEIGHT = 120;
 
-	RadioButtons.prototype = Object.create(ButtonBar.prototype);
-	RadioButtons.prototype.constructor = RadioButtons;
-	
+	Utils.extends(RadioButtons, ButtonBar);
+
 	return RadioButtons;
 
 });
 	
 
 
-define('phasercomponents/display/buttons/togglebutton',['phasercomponents/display/buttons/stepperbutton'],
+define('phasercomponents/display/buttons/togglebutton',
 
-function(StepperButton){
+	['phasercomponents/display/buttons/stepperbutton', 'phasercomponents/utils/utils'],
+
+function(StepperButton, Utils){
 	
 	
 	
@@ -1603,8 +1634,7 @@ function(StepperButton){
 	ToggleButton.WIDTH = 120;
 	ToggleButton.HEIGHT = 60;
 
-	ToggleButton.prototype = Object.create(StepperButton.prototype);
-	ToggleButton.prototype.constructor = ToggleButton;
+	Utils.extends(ToggleButton, StepperButton);
 
 	return ToggleButton;
 
@@ -1676,11 +1706,11 @@ define('phasercomponents/preloader',['phaser'], function(Phaser){
 
 define('phasercomponents/display/popups/abstractpopup',['phaser',
 
-'phasercomponents/display/container'],
+'phasercomponents/display/container', 'phasercomponents/utils/utils'],
 
 function(Phaser,
 
-Container){
+Container, Utils){
 	
 	
 		
@@ -1691,8 +1721,7 @@ Container){
 		this.group.y = this.game.h + 50;
 	};
 	
-	AbstractPopup.prototype = Object.create(Container.prototype);
-	AbstractPopup.prototype.constructor = AbstractPopup;
+	Utils.extends(AbstractPopup, Container);
 	
 	AbstractPopup.prototype.addPanel = function () {
 		this.panel = new Phaser.Sprite(this.game, this.bounds.x, this.bounds.y, this.options.bgasset);
@@ -1742,9 +1771,11 @@ Container){
 
 
 
-define('phasercomponents/display/loaderbar',['phasercomponents/display/movieclip'], 
+define('phasercomponents/display/loaderbar',
 
-	function(MovieClip){
+	['phasercomponents/display/movieclip', 'phasercomponents/utils/utils'], 
+
+	function(MovieClip, Utils){
 	
 	
 	
@@ -1753,8 +1784,7 @@ define('phasercomponents/display/loaderbar',['phasercomponents/display/movieclip
 		this.create();
 	};
 	
-	LoaderBar.prototype = Object.create(MovieClip.prototype);
-	LoaderBar.prototype.constructor = LoaderBar;
+	Utils.extends(LoaderBar, MovieClip);
 
 	LoaderBar.prototype.goToPercent = function(p){
 		var g, numFrames;
