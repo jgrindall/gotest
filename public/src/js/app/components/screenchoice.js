@@ -10,7 +10,7 @@ function(Phaser, PhaserComponents
 	"use strict";
 	
 	var ScreenChoice = function(options){
-		options.bgasset = 'smallpanel';
+		options.asset = 'smallpanel';
 		PhaserComponents.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
@@ -27,11 +27,11 @@ function(Phaser, PhaserComponents
 	};
 	
 	ScreenChoice.prototype.select = function(){
-		this.panel.alpha = 1;
+		this.panel.sprite.alpha = 1;
 	};
 	
 	ScreenChoice.prototype.deselect = function(){
-		this.panel.alpha = 0.4;
+		this.panel.sprite.alpha = 0.4;
 	};
 	
 	ScreenChoice.prototype.mouseUp = function(){
@@ -39,14 +39,16 @@ function(Phaser, PhaserComponents
 	};
 	
 	ScreenChoice.prototype.addBg = function(){
-		this.panel = new PhaserComponents.InteractiveSprite(this.game, this.bounds.x, this.bounds.y, this.options.bgasset, this.options.index);
+		console.log("sc addbg "+JSON.stringify(this.options));
+		this.panel = new PhaserComponents.InteractiveSprite(this.options);
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
-		this.group.add(this.panel);
+		this.group.add(this.panel.sprite);
 	};
 	
 	ScreenChoice.prototype.destroy = function(){
 		this.panel.mouseUpSignal.remove(this.mouseUp, this);
+		this.group.remove(this.panel);
 		this.panel.destroy(true);
 		PhaserComponents.Container.prototype.destroy.call(this);
 	};

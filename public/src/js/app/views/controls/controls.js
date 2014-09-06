@@ -96,7 +96,7 @@ Events, Assets){
 	};
 	
 	Controls.prototype.addSpeedSlider = function() {
-		this.speedSlider = new PhaserComponents.Slider({"model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 150, "y":0}});
+		this.speedSlider = new PhaserComponents.Slider({"handleAsset":Assets.SLIDERHANDLE, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 150, "y":0}});
 		this.group.add(this.speedSlider.group);
 	};
 	

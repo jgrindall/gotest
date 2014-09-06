@@ -234,17 +234,107 @@ define('phasercomponents/display/view',
 
 
 
-define('phasercomponents/display/movieclip', ['phaser', 'phasercomponents/display/view'],
+define('phasercomponents/display/interactivesprite',
 
-	function(Phaser, View){
+	['phaser', 'phasercomponents/display/view'], function(Phaser, View){
+	
+	
+	
+	var InteractiveSprite = function(options){
+		console.log("IS options "+JSON.stringify(options.bounds));
+		this.mouseUpSignal = new Phaser.Signal();
+		this.mouseDownSignal = new Phaser.Signal();
+		View.call(this, options);
+	};
+	
+	InteractiveSprite.prototype = Object.create(View.prototype);
+	InteractiveSprite.prototype.constructor = InteractiveSprite;
+	
+	InteractiveSprite.prototype.addListeners = function(){
+		this.sprite.events.onInputDown.add(this.onMouseDown, this);
+		this.sprite.events.onInputUp.add(this.onMouseUp, this);
+	};
+
+	InteractiveSprite.prototype.create = function(){
+		this.sprite = new Phaser.Sprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset, this.options.defaultFrame || 0);
+	};
+
+	InteractiveSprite.prototype.removeListeners = function(){
+		this.sprite.events.onInputUp.remove(this.onMouseUp, this);
+		this.sprite.events.onInputDown.remove(this.onMouseDown, this);
+	};
+	
+	InteractiveSprite.prototype.enableInput = function(){
+		if(!this.sprite.inputEnabled){
+			this.sprite.inputEnabled = true;
+			this.game.input.useHandCursor = true;
+			this.addListeners();
+		}
+	};
+	
+	InteractiveSprite.prototype.disableInput = function(){
+		if(this.sprite.inputEnabled){
+			this.removeListeners();
+			this.sprite.inputEnabled = false;
+		}
+	};
+
+	InteractiveSprite.prototype.hitData = function(data){
+		var hits, pointer, localPoint;
+		if(!this.sprite.inputEnabled){
+			return {'hits':false};
+		}
+		pointer = this.game.input.activePointer;
+		localPoint = this.game.input.getLocalPosition(this.sprite, pointer);
+		hits = this.game.input.hitTest(this.sprite, pointer, localPoint);
+		return  {'hits':hits, 'localPoint':localPoint};
+	};
+	
+	InteractiveSprite.prototype.onMouseUp = function(){
+		var hitData = this.hitData();
+		console.log("up "+JSON.stringify(hitData));
+		if(hitData.hits){
+			this.mouseUpSignal.dispatch({"localPoint":hitData.localPoint});
+		}
+	};
+	
+	InteractiveSprite.prototype.onMouseDown = function(){
+		var hitData = this.hitData();
+		console.log("down "+JSON.stringify(hitData));
+		if(hitData.hits){
+			this.mouseDownSignal.dispatch({"localPoint":hitData.localPoint});
+		}
+	};
+	
+	InteractiveSprite.prototype.destroy = function(children){
+		this.disableInput();
+		this.mouseDownSignal.dispose();
+		this.mouseUpSignal.dispose();
+		this.mouseDownSignal = null;
+		this.mouseUpSignal = null;
+		View.prototype.destroy.call(this, children);
+	};
+
+	return InteractiveSprite;
+
+});
+
+
+
+define('phasercomponents/display/movieclip',
+
+	['phasercomponents/display/interactivesprite'],
+
+	function(InteractiveSprite){
 	
 	
 	
 	var MovieClip = function(options){
-		View.call(this, options);
+		console.log("MC options "+JSON.stringify(options.bounds));
+		InteractiveSprite.call(this, options);
 	};
 	
-	MovieClip.prototype = Object.create(View.prototype);
+	MovieClip.prototype = Object.create(InteractiveSprite.prototype);
 	MovieClip.prototype.constructor = MovieClip;
 
 	MovieClip.prototype.goTo = function(i){
@@ -252,20 +342,16 @@ define('phasercomponents/display/movieclip', ['phaser', 'phasercomponents/displa
 	};
 
 	MovieClip.prototype.create = function(){
-		var i;
-		this.sprite = new Phaser.Sprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset);
-		for(i = 0; i<= this.options.num - 1; i++){
+		InteractiveSprite.prototype.create.call(this);
+		for(var i = 0; i<= this.options.num - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 0, true);
 		}
 		this.goTo(this.options.defaultFrame);
 	};
 	
 	MovieClip.prototype.destroy = function(){
-		this.options = null;
 		this.sprite.animations.destroy();
-		this.sprite.destroy(true);
-		this.game = null;
-		View.prototype.destroy.call(this);
+		InteractiveSprite.prototype.destroy.call(this);
 	};
 
 	return MovieClip;
@@ -306,85 +392,6 @@ function(Phaser, View){
 });
 
 
-
-
-
-define('phasercomponents/display/interactivesprite',['phaser'], function(Phaser){
-	
-	
-	
-	var InteractiveSprite = function(game, x, y, asset, frame){
-		Phaser.Sprite.call(this, game, x, y, asset, frame || 0);
-		this.mouseUpSignal = new Phaser.Signal();
-		this.mouseDownSignal = new Phaser.Signal();
-	};
-	
-	InteractiveSprite.prototype = Object.create(Phaser.Sprite.prototype);
-	InteractiveSprite.prototype.constructor = InteractiveSprite;
-	
-	InteractiveSprite.prototype.addListeners = function(){
-		this.game.input.onUp.add(this.onMouseUp, this);
-		this.game.input.onDown.add(this.onMouseDown, this);
-	};
-	
-	InteractiveSprite.prototype.removeListeners = function(){
-		this.game.input.onUp.remove(this.onMouseUp, this);
-		this.game.input.onDown.remove(this.onMouseDown, this);
-	};
-	
-	InteractiveSprite.prototype.enableInput = function(){
-		if(!this.inputEnabled){
-			this.inputEnabled = true;
-			this.game.input.useHandCursor = true;
-			this.addListeners();
-		}
-	};
-	
-	InteractiveSprite.prototype.disableInput = function(){
-		if(this.inputEnabled && this.game.input){
-			this.removeListeners();
-			this.inputEnabled = false;
-		}
-	};
-
-	InteractiveSprite.prototype.hitData = function(data){
-		var input, hits, pointer, localPoint;
-		input = this.game.input;
-		if(!this.inputEnabled){
-			return {'hits':false};
-		}
-		pointer = input.activePointer;
-		localPoint = input.getLocalPosition(this, pointer);
-		hits = input.hitTest(this, pointer, localPoint);
-		return  {'hits':hits, 'localPoint':localPoint};
-	};
-	
-	InteractiveSprite.prototype.onMouseUp = function(){
-		var hitData = this.hitData();
-		if(hitData.hits){
-			this.mouseUpSignal.dispatch({"localPoint":hitData.localPoint});
-		}
-	};
-	
-	InteractiveSprite.prototype.onMouseDown = function(){
-		var hitData = this.hitData();
-		if(hitData.hits){
-			this.mouseDownSignal.dispatch({"localPoint":hitData.localPoint});
-		}
-	};
-	
-	InteractiveSprite.prototype.destroy = function(children){
-		this.disableInput();
-		this.mouseDownSignal.dispose();
-		this.mouseUpSignal.dispose();
-		this.mouseDownSignal = null;
-		this.mouseUpSignal = null;
-		Phaser.Sprite.prototype.destroy.call(this, children);
-	};
-
-	return InteractiveSprite;
-
-});
 
 
 
@@ -776,7 +783,7 @@ InteractiveSprite){
 	};
 	
 	Slider.prototype.goTo = function(n) {
-		this.handle.x = this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist);
+		this.handle.sprite.x = this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist);
 	};
 	
 	Slider.prototype.disableInput = function() {
@@ -791,16 +798,16 @@ InteractiveSprite){
 	
 	Slider.prototype.onUp = function() {
 		this.dragging = false;
-		this.game.input.moveCallback = null;
-		this.game.input.mouse.mouseOutCallback = null;
-		this.game.input.onDown.remove(this.onUp, this);
+		this.removeMoveListeners();
+		console.log("slider onUp");
 		this.snap();
 	};
 	
 	Slider.prototype.snap = function() {
 		var num;
-		num = (this.handle.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
+		num = (this.handle.sprite.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
 		num = Math.round(num);
+		console.log(">>  snap to "+this.handle.sprite.x, num);
 		this.goTo(num);
 		this.model.setData(num);
 	};
@@ -824,24 +831,35 @@ InteractiveSprite){
 			xmin = this.bounds.x + Slider.HANDLEWIDTH/2;
 			xmax = this.bounds.x + Slider.WIDTH - Slider.HANDLEWIDTH/2;
 			xpos = Math.min(Math.max(x, xmin), xmax);
-			this.handle.x =  xpos;
+			this.handle.sprite.x =  xpos;
 		}
 	};
 	
 	Slider.prototype.startDragging = function(data) {
+		console.log("startDragging");
 		this.dragging = true;
+		this.addMoveListeners();
+	};
+	
+	Slider.prototype.addMoveListeners = function(){
 		this.game.input.onUp.add(this.onUp, this);
 		this.game.input.moveCallback = this.move.bind(this);
 		this.game.input.mouse.mouseOutCallback = this.mouseOutCallback.bind(this);
 	};
-	
+
+	Slider.prototype.removeMoveListeners = function(){
+		this.game.input.onUp.remove(this.onUp, this);
+		this.game.input.moveCallback = null;
+		this.game.input.mouse.mouseOutCallback = null;
+	};
+
 	Slider.prototype.addListeners = function(){
 		this.handle.mouseDownSignal.add(this.startDragging, this);
 	};
 	
 	Slider.prototype.removeListeners = function(){
 		this.handle.mouseDownSignal.remove(this.startDragging, this);
-		this.game.input.onDown.remove(this.onUp, this);
+		this.removeMoveListeners();
 	};
 	
 	Slider.prototype.mouseOutCallback = function() {
@@ -849,12 +867,13 @@ InteractiveSprite){
 	};
 	
 	Slider.prototype.addHandle = function(){
-		var x, y;
+		var x, y, options;
 		x = this.bounds.x + Slider.HANDLEHEIGHT/2;
 		y = this.bounds.y + Slider.HANDLEHEIGHT/2;
-		this.handle = new InteractiveSprite(this.game, x, y, 'sliderhandle');
-		this.handle.anchor.setTo(0.5, 0.5);
-		this.group.add(this.handle);
+		options = {"asset":this.options.handleAsset, "bounds":{'x':x, 'y':y}};
+		this.handle = new InteractiveSprite(options);
+		this.handle.sprite.anchor.setTo(0.5, 0.5);
+		this.group.add(this.handle.sprite);
 	};
 	
 	Slider.prototype.addBg = function(){
@@ -873,9 +892,6 @@ InteractiveSprite){
 		this.removeListeners();
 		this.bg.destroy(true);
 		this.model.changeSignal.remove(this.onChanged, this);
-		this.game.input.onUp.remove(this.onUp, this);
-		this.game.input.moveCallback = null;
-		this.game.input.mouse.mouseOutCallback = null;
 		this.handle.destroy();
 		this.handle = null;
 		this.bg = null;
@@ -1438,51 +1454,37 @@ function(GroupMarker, Scroller){
 
 define('phasercomponents/display/buttons/multibutton',
 
-	['phasercomponents/display/view', 'phasercomponents/display/interactivesprite'],
+	['phasercomponents/display/movieclip'],
 
-function(View, InteractiveSprite){
+function(MovieClip){
 	
 	
 	
 	var MultiButton = function(options){
-		View.call(this, options);
+		MovieClip.call(this, options);
 		this.model.changeSignal.add(this.onChanged, this);
 		this.init();
 	};
 
-	MultiButton.prototype = Object.create(View.prototype);
+	MultiButton.prototype = Object.create(MovieClip.prototype);
 	MultiButton.prototype.constructor = MultiButton;
 
 	MultiButton.prototype.init = function(){
-		var index = this.model.getData().index;
-		if(index !== null){
-			this.goToFrame(index);
+		if(this.model){
+			var index = this.model.getData().index;
+			if(index !== null){
+				this.goTo(index);
+			}
 		}
 	};
 
 	MultiButton.prototype.onChanged = function(data){
-		this.goToFrame(data.index);
+		this.goTo(data.index);
 	};
 
-	MultiButton.prototype.goToFrame = function(i){
-		this.sprite.animations.play('frame'+i);
-	};
-	
-	MultiButton.prototype.enableInput = function(){
-		this.sprite.enableInput();
-	};
-	
-	MultiButton.prototype.disableInput = function(){
-		this.sprite.disableInput();
-	};
-	
 	MultiButton.prototype.create = function(){
-		var i;
-		this.sprite = new InteractiveSprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset);
-		for(i = 0; i<= this.options.num - 1; i++){
-			this.sprite.animations.add('frame'+i, [i], 500, true);	
-		}
-		this.sprite.mouseUpSignal.add(this.mouseUp, this);
+		MovieClip.prototype.create.call(this);
+		this.mouseUpSignal.add(this.mouseUp, this);
 		this.enableInput();
 	};
 
@@ -1496,9 +1498,7 @@ function(View, InteractiveSprite){
 	MultiButton.prototype.destroy = function(){
 		this.disableInput();
 		this.model.changeSignal.remove(this.onChanged, this);
-		this.model = null;
-		this.sprite.destroy(true);
-		View.prototype.destroy.call(this);
+		MovieClip.prototype.destroy.call(this);
 	};
 
 	return MultiButton;
@@ -1510,62 +1510,46 @@ function(View, InteractiveSprite){
 
 define('phasercomponents/display/buttons/stepperbutton',[ 
 	
-'phasercomponents/display/view', 'phasercomponents/display/interactivesprite'],
+'phasercomponents/display/movieclip'],
 
-function(View, InteractiveSprite){
+function(MovieClip){
 	
 	
 	
 	var StepperButton = function(options){
-		View.call(this, options);
+		MovieClip.call(this, options);
+		this.mouseUpSignal.add(this.onStep, this);
 		this.model.changeSignal.add(this.onChanged, this);
+		this.enableInput();
 		this.init();
 	};
 
-	StepperButton.prototype = Object.create(View.prototype);
+	StepperButton.prototype = Object.create(MovieClip.prototype);
 	StepperButton.prototype.constructor = StepperButton;
 
 	StepperButton.prototype.init = function(){
 		var index = this.model.getData().index;
 		if(index !== null){
-			this.goToFrame(index);
+			this.goTo(index);
 		}
 	};
 
 	StepperButton.prototype.onChanged = function(data){
-		this.goToFrame(data.index);
-	};
-
-	StepperButton.prototype.goToFrame = function(i){
-		this.sprite.animations.play('frame'+i);
-	};
-	
-	StepperButton.prototype.enableInput = function(){
-		this.sprite.enableInput();
-	};
-	
-	StepperButton.prototype.disableInput = function(){
-		this.sprite.disableInput();
+		this.goTo(data.index);
 	};
 	
 	StepperButton.prototype.create = function(){
-		var i;
-		this.sprite = new InteractiveSprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset);
-		for(i = 0; i<= this.options.num - 1; i++){
-			this.sprite.animations.add('frame'+i, [i], 0, true);	
-		}
-		this.sprite.mouseUpSignal.add(this.mouseUp, this);
-		this.enableInput();
+		MovieClip.prototype.create.call(this);
 	};
 
-	StepperButton.prototype.mouseUp = function(data){
+	StepperButton.prototype.onStep = function(data){
+		console.log("stepper onStep");
 		this.model.increment();
 	};
 	
 	StepperButton.prototype.destroy = function(){
-		View.prototype.destroy.call(this);
-		this.disableInput();
 		this.model.changeSignal.remove(this.onChanged, this);
+		this.mouseUpSignal.remove(this.onStep, this);
 		this.model = null;
 		this.sprite.destroy(true);
 		this.options = null;
@@ -1613,7 +1597,6 @@ function(StepperButton){
 	
 	var ToggleButton = function(options){
 		options.num = 2;
-		options.asset = 'toggle';
 		StepperButton.call(this, options);
 	};
 

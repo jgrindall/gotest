@@ -1,7 +1,7 @@
 
 define('app/views/popups/gridmenu',[ 'app/components/buttons/tickbutton',
 
-'app/text/textfactory',
+'app/text/textfactory', 'app/assets',
 
 'app/models/modelfacade', 'phasercomponents',
 
@@ -9,7 +9,7 @@ define('app/views/popups/gridmenu',[ 'app/components/buttons/tickbutton',
 
 function(TickButton,
 
-TextFactory,
+TextFactory, Assets,
 
 ModelFacade, PhaserComponents,
 
@@ -53,21 +53,21 @@ OkButton, CloseButton){
 	GridMenu.prototype.addSlider = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 100};
-		this.lengthSlider = new PhaserComponents.Slider({"model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":4, "bounds":bounds});
+		this.lengthSlider = new PhaserComponents.Slider({"handleAsset":Assets.SLIDERHANDLE, "model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":4, "bounds":bounds});
 		this.group.add(this.lengthSlider.group);
 	};
 
 	GridMenu.prototype.addDiagToggle = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.ToggleButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 240};
-		this.diagToggle = new PhaserComponents.ToggleButton({"model": ModelFacade.getInstance().get(ModelFacade.DIAG), "bounds":bounds});
+		this.diagToggle = new PhaserComponents.ToggleButton({"asset":"toggle", "model": ModelFacade.getInstance().get(ModelFacade.DIAG), "bounds":bounds});
 		this.group.add(this.diagToggle.sprite);
 	};
 
 	GridMenu.prototype.addGridToggle = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.ToggleButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 170};
-		this.gridToggle = new PhaserComponents.ToggleButton({"model": ModelFacade.getInstance().get(ModelFacade.GRID), "bounds":bounds});
+		this.gridToggle = new PhaserComponents.ToggleButton({"asset":"toggle", "model": ModelFacade.getInstance().get(ModelFacade.GRID), "bounds":bounds});
 		this.group.add(this.gridToggle.sprite);
 	};
 
