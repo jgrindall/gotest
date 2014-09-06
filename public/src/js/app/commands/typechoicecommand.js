@@ -11,10 +11,10 @@ function(ModelFacade,
 	"use strict";
 	
 	var TypeChoiceCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	TypeChoiceCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	TypeChoiceCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	TypeChoiceCommand.prototype.constructor = TypeChoiceCommand;
 
 	TypeChoiceCommand.prototype.execute = function(data){

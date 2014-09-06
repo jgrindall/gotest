@@ -13,10 +13,10 @@ function(
 	"use strict";
 	
 	var AddCommandCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	AddCommandCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	AddCommandCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	AddCommandCommand.prototype.constructor = AddCommandCommand;
 
 	AddCommandCommand.prototype.execute = function(data){

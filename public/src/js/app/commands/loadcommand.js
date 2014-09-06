@@ -9,10 +9,10 @@ function(ModelFacade, Growl,
 	"use strict";
 	
 	var LoadCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	LoadCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	LoadCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	LoadCommand.prototype.constructor = LoadCommand;
 
 	LoadCommand.prototype.execute = function(data){

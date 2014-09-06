@@ -45,10 +45,10 @@ define('app/assets',[], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/radiobutton.png", 			"key":Assets.RADIO, 					"w":120, 	"h":60}
 	];
 	
-	Assets.SOUNDS = [
-		{"type":"sound", 		"asset":"assets/sound/sound0.mp3", 						"key":Assets.SOUNDS[0]},
-		{"type":"sound", 		"asset":"assets/sound/sound1.mp3", 						"key":Assets.SOUNDS[1]},
-		{"type":"sound", 		"asset":"assets/sound/sound2.mp3", 						"key":Assets.SOUNDS[2]}
+	Assets.SOUNDFX = [
+		{"type":"sound", 		"asset":["assets/sound/sound0.mp3", "assets/sound/sound0.wav"], 			"key":Assets.SOUNDS[0]},
+		{"type":"sound", 		"asset":["assets/sound/sound1.mp3", "assets/sound/sound1.wav"], 			"key":Assets.SOUNDS[1]},
+		{"type":"sound", 		"asset":["assets/sound/sound2.mp3", "assets/sound/sound2.wav"], 			"key":Assets.SOUNDS[2]}
 	];
 	
 	Assets.IMAGES = [
@@ -68,7 +68,7 @@ define('app/assets',[], function(){
 	];
 	
 	
-	Assets.DATA = Assets.SPRITESHEETS.concat(Assets.SOUNDS).concat(Assets.IMAGES);
+	Assets.DATA = Assets.SPRITESHEETS.concat(Assets.SOUNDFX).concat(Assets.IMAGES);
 	
 	return Assets;
 

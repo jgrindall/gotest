@@ -14,7 +14,8 @@ require(['phaser'], function(Phaser){
 	require(['jquery', 'app/appcontext'], function($, AppContext){
 		
 		$(document).ready(function(){
-			new AppContext();
+			var context = new AppContext();
+			context.init();
 		});
 		
 	

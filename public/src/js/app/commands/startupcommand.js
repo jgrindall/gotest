@@ -5,10 +5,10 @@ function(Defaults, ModelFacade, PhaserComponents) {
 	"use strict";
 	
 	var StartUpCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 
-	StartUpCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	StartUpCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	StartUpCommand.prototype.constructor = StartUpCommand;
 
 	StartUpCommand.prototype.execute = function(data){

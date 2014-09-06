@@ -7,10 +7,10 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 	"use strict";
 	
 	var StopCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	StopCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	StopCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	StopCommand.prototype.constructor = StopCommand;
 
 	StopCommand.prototype.execute = function(data){

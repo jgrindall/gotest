@@ -3,18 +3,22 @@ define('app/components/popups/growl',[ 'app/components/buttons/tickbutton',
 
 'phasercomponents', 'app/text/textfactory',
 
-'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
+'app/components/buttons/okbutton',
+
+'app/components/buttons/closebutton', 'app/assets'],
 
 function(TickButton,
 
 PhaserComponents, TextFactory,
 
-OkButton, CloseButton){
+OkButton,
+
+CloseButton, Assets){
 	
 	"use strict";
 		
 	var Growl = function(options){
-		options.bgasset = 'alert';
+		options.bgasset = Assets.ALERT;
 		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	

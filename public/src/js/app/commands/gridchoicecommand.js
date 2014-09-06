@@ -7,10 +7,10 @@ function(PhaserComponents, GridMenu) {
 	"use strict";
 	
 	var GridChoiceCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	GridChoiceCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	GridChoiceCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	GridChoiceCommand.prototype.constructor = GridChoiceCommand;
 
 	GridChoiceCommand.prototype.execute = function(data){

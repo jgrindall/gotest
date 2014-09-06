@@ -11,10 +11,10 @@ function(PhaserComponents, ModelFacade,
 	"use strict";
 	
 	var NewFileCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	NewFileCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	NewFileCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	NewFileCommand.prototype.constructor = NewFileCommand;
 
 	NewFileCommand.prototype.execute = function(data){

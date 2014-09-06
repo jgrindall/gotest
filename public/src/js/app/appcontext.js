@@ -5,7 +5,7 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 
 	'app/commands/typechoicecommand', 'app/commands/gridchoicecommand', 'app/commands/teachercommand',
 
-	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/startupcommand',
+	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/startupcommand', 
 
 	'app/commands/finishcommand', 'app/commands/replaycommand',
 
@@ -48,7 +48,12 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 		this.gameManager.mapScene(AppConsts.ACTIVITY_SCENE, ActivityScene);
     };
 
+    AppContext.prototype.addSounds = function(){
+    	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[0], new Phaser.Sound(this.game, Assets.SOUNDS[0]));
+    };
+
     AppContext.prototype.mapCommands = function(){
+    	PhaserComponents.Context.prototype.mapCommands.call(this);
     	this.commandMap.map(Events.NEW_FILE, 			NewFileCommand);
 		this.commandMap.map(Events.LOAD, 				LoadCommand);
 		this.commandMap.map(Events.SAVE, 				SaveCommand);

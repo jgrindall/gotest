@@ -7,10 +7,10 @@ function(PhaserComponents, Growl) {
 	"use strict";
 	
 	var TeacherCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	TeacherCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	TeacherCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	TeacherCommand.prototype.constructor = TeacherCommand;
 
 	TeacherCommand.prototype.execute = function(data){

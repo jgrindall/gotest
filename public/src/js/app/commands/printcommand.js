@@ -5,12 +5,12 @@ define('app/commands/printcommand',
 function(PhaserComponents, Growl) {
 	
 	"use strict";
-	
+
 	var PrintCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	PrintCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	PrintCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	PrintCommand.prototype.constructor = PrintCommand;
 
 	PrintCommand.prototype.execute = function(data){

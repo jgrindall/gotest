@@ -9,10 +9,10 @@ function(PhaserComponents,
 	"use strict";
 	
 	var SaveCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	SaveCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	SaveCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	SaveCommand.prototype.constructor = SaveCommand;
 
 	SaveCommand.prototype.execute = function(data){

@@ -52,24 +52,28 @@ function(Phaser, PhaserStateTrans){
 });
 
 
-define('phasercomponents/commandmap',[],
+define('phasercomponents/commands/commandmap',
+
+	[],
 
 function() {
 	
 	
 	
 	var CommandMap = function(){
-		this.hash = {};	
+		this.hash = {};
 	};
 
 	CommandMap.prototype.trigger = function(event, obj){
-		var cmd;
+		var cmd, CommandClassRef;
 		if(!obj || !obj.type){
 			throw "Undefined command";
 		}
-		var CommandClassRef = this.get(obj.type);
+		CommandClassRef = this.get(obj.type);
 		if(CommandClassRef && (typeof CommandClassRef === "function")){
 			cmd = new CommandClassRef();
+			cmd.eventDispatcher = this.eventDispatcher;
+			cmd.game = this.game;
 			cmd.start(obj.data);
 		}
 	};
@@ -155,8 +159,9 @@ function() {
 		
 	};
 
-	AppEvents.ALERT_SHOWN = "alertShown";
-	AppEvents.CHANGE_SCENE = "changeScene";
+	AppEvents.ALERT_SHOWN =			"app:alertShown";
+	AppEvents.CHANGE_SCENE =		"app:changeScene";
+	AppEvents.PLAY_SOUND =			"app:playSound";
 
   	return AppEvents;
 });
@@ -166,28 +171,113 @@ function() {
 
 
 
+define('phasercomponents/utils/soundmanager',[], function(){
+	
+	
+	
+	var SoundManager = function(options){
+		this.sounds = {};
+	};
+	
+	SoundManager.prototype.add = function(key, sound){
+		this.sounds[key] = sound;
+	};
+
+	SoundManager.getInstance = function(){
+		if(!SoundManager.instance){
+			SoundManager.instance = new SoundManager();
+		}
+		return SoundManager.instance;
+	};
+	
+	SoundManager.prototype.play = function(key){
+		var sound = this.sounds[key];
+		if(sound){
+			sound.play();
+		}
+	};
+	
+	return SoundManager;
+	
+});
+
+
+define('phasercomponents/commands/abstractcommand',
+
+	[], function(){
+	
+	
+	
+	var AbstractCommand = function(){
+		
+	};
+	
+	AbstractCommand.prototype.start = function(data){
+		this.execute(data);
+	};
+
+	AbstractCommand.prototype.cleanUp = function(){
+		this.eventDispatcher = null;
+		this.game = null;
+	};
+	
+	return AbstractCommand;
+
+});
+
+
+
+
+
+define('phasercomponents/commands/playsoundcommand',[
+
+	'phasercomponents/utils/soundmanager', 'phasercomponents/commands/abstractcommand'],
+
+function(SoundManager, AbstractCommand) {
+	
+	
+	
+	var PlaySoundCommand = function(){
+		AbstractCommand.call(this);
+	};
+	
+	PlaySoundCommand.prototype = Object.create(AbstractCommand.prototype);
+	PlaySoundCommand.prototype.constructor = PlaySoundCommand;
+
+	PlaySoundCommand.prototype.execute = function(data){
+		SoundManager.getInstance().play(data);
+	};
+	
+  	return PlaySoundCommand;
+});
+
+
+
 define('phasercomponents/context',['phasercomponents/gamemanager',
 
-	'phasercomponents/commandmap', 'phasercomponents/events/eventdispatcher',
+	'phasercomponents/commands/commandmap', 'phasercomponents/events/eventdispatcher',
 
-	'phasercomponents/events/appevents'],
+	'phasercomponents/events/appevents', 
+
+	'phasercomponents/commands/playsoundcommand'],
 
 	function(GameManager, CommandMap, EventDispatcher,
 
-		AppEvents) {
+		AppEvents, PlaySoundCommand) {
 	
 	
 
    	var Context = function ( ){
-		this.commandMap = new CommandMap();
 		this.gameManager = new GameManager();
+		this.commandMap = new CommandMap();
 		Context.eventDispatcher = new EventDispatcher();
 		Context.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
-		this.commandMap.eventDispatcher = Context.eventDispatcher;
-		this.mapCommands();
-		this.makeGame();
     };
 	
+    Context.prototype.init = function(){
+		this.makeGame();
+    };
+
     Context.prototype.onChangeScene = function(){
     	
     };
@@ -204,13 +294,22 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
     	
     };
 
-    Context.prototype.mapCommands = function(){
+    Context.prototype.addSounds = function(){
     	
+    };
+
+    Context.prototype.mapCommands = function(){
+    	this.commandMap.map(AppEvents.PLAY_SOUND, PlaySoundCommand);
     };
 
 	Context.prototype.create = function(){
 		Context.game = this.gameManager.game;
+		this.game = this.gameManager.game;
+		this.commandMap.eventDispatcher = Context.eventDispatcher;
+		this.commandMap.game = Context.game;
+		this.mapCommands();
     	this.mapScenes();
+    	this.addSounds();
 		this.gameManager.start();
 	};
 	
@@ -439,9 +538,13 @@ function(Phaser, View, Utils){
 
 define('phasercomponents/display/buttons/abstractbutton',
 	
-['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils'],
+['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils',
 
-function(Phaser, View, Utils){
+'phasercomponents/events/appevents'],
+
+function(Phaser, View, Utils,
+
+	AppEvents){
 	
 	
 	
@@ -477,7 +580,13 @@ function(Phaser, View, Utils){
 	};
 
 	AbstractButton.prototype.mouseUp = function(){
+		var options;
+		if(this.options.buttonClickSound){
+			options = {"type":AppEvents.PLAY_SOUND, "data":this.options.buttonClickSound};
+			this.eventDispatcher.trigger(options);
+		}
 		this.mouseUpSignal.dispatch({"target":this});
+		
 	};
 	
 	AbstractButton.prototype.addListeners = function(){
@@ -1325,64 +1434,6 @@ function(){
 
 
 
-define('phasercomponents/utils/soundmanager',['phasercomponents/context'], function(Context){
-	
-	
-	
-	var SoundManager = function(options){
-		this.game = Context.game;
-		this.fx = this.game.add.audio('sound0');
-		this.fx.addMarker('home', 1, 1.0);
-	};
-	
-	SoundManager.create = function(){
-		SoundManager.instance = new SoundManager();
-	};
-	
-	SoundManager.getInstance = function(){
-		if(!SoundManager.instance){
-			SoundManager.create();
-		}
-		return SoundManager.instance;
-	};
-	
-	SoundManager.prototype.play = function(name){
-		this.fx.play('home');
-	};
-	
-	return SoundManager;
-	
-});
-
-
-define('phasercomponents/abstractcommand',
-
-	['phasercomponents/context'], function(Context){
-	
-	
-	
-	var AbstractCommand = function(){
-		this.eventDispatcher = Context.eventDispatcher;
-		this.game = Context.game;
-	};
-	
-	AbstractCommand.prototype.start = function(data){
-		this.execute(data);
-	};
-
-	AbstractCommand.prototype.cleanUp = function(){
-		this.eventDispatcher = null;
-	};
-	
-	return AbstractCommand;
-
-});
-
-
-
-
-
-
 define('phasercomponents/display/scroller/groupmarker',[
 
 	'phasercomponents/display/container', 'phasercomponents/utils/utils'],
@@ -1683,7 +1734,7 @@ define('phasercomponents/preloader',['phaser'], function(Phaser){
 			this.game.load.tilemap(key, asset, null, Phaser.Tilemap.TILED_JSON);
 		}
 		else if(type === "sound"){
-			this.game.load.audio(key, [asset]);
+			this.game.load.audio(key, asset);
 		}
 	};
 	
@@ -1835,7 +1886,7 @@ define('phasercomponents',[
 	'phasercomponents/utils/alertmanager',
 	'phasercomponents/utils/printmanager',
 	'phasercomponents/utils/soundmanager',
-	'phasercomponents/abstractcommand',
+	'phasercomponents/commands/abstractcommand',
 	'phasercomponents/display/scroller/pager',
 	'phasercomponents/display/buttons/multibutton',
 	'phasercomponents/display/buttons/stepperbutton',
@@ -1910,17 +1961,21 @@ define('phasercomponents',[
        	'AppEvents':			AppEvents
     };
 
+    var Commands = {
+    	'AbstractCommand': 		AbstractCommand
+    };
+
     return {
-        'Display':Display,
-        'Model':Model,
-        'Events':Events,
+        'Display':				Display,
+        'Model':				Model,
+        'Events':				Events,
+        'Commands':				Commands,
         'Context': 				Context,
         'Scene': 				Scene,
         'Storage': 				Storage,
         'AlertManager': 		AlertManager,
         'PrintManager': 		PrintManager,
-        'SoundManager': 		SoundManager,
-        'AbstractCommand': 		AbstractCommand	
+        'SoundManager': 		SoundManager
     };
     
 });

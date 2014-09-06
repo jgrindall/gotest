@@ -7,10 +7,10 @@ function(Events, PhaserComponents, ModelFacade) {
 	"use strict";
 	
 	var UndoCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	UndoCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	UndoCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	UndoCommand.prototype.constructor = UndoCommand;
 
 	UndoCommand.prototype.execute = function(data){

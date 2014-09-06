@@ -8,10 +8,10 @@ function(PlayingState, ModelFacade, PhaserComponents) {
 	"use strict";
 	
 	var ReplayCommand = function(){
-		PhaserComponents.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	ReplayCommand.prototype = Object.create(PhaserComponents.AbstractCommand.prototype);
+	ReplayCommand.prototype = Object.create(PhaserComponents.Commands.AbstractCommand.prototype);
 	ReplayCommand.prototype.constructor = ReplayCommand;
 
 	ReplayCommand.prototype.execute = function(data){
