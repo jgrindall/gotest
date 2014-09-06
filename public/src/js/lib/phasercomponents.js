@@ -206,12 +206,24 @@ define('phasercomponents/display/view',
 	
 	
 	
-	var View = function(){
+	var View = function(options){
+		this.options = options;
+		this.bounds = options.bounds;
+		this.model = options.model;
 		this.game = Context.game;
 		this.eventDispatcher = Context.eventDispatcher;
+		this.create();
+	};
+
+	View.prototype.create = function(){
+		
 	};
 
 	View.prototype.destroy = function(){
+		this.game = null;
+		this.options = null;
+		this.bounds = null;
+		this.model = null;
 		this.game = null;
 		this.eventDispatcher = null;
 	};
@@ -229,9 +241,7 @@ define('phasercomponents/display/movieclip', ['phaser', 'phasercomponents/displa
 	
 	
 	var MovieClip = function(options){
-		View.call(this);
-		this.options = options;
-		this.create();
+		View.call(this, options);
 	};
 	
 	MovieClip.prototype = Object.create(View.prototype);
@@ -255,6 +265,7 @@ define('phasercomponents/display/movieclip', ['phaser', 'phasercomponents/displa
 		this.sprite.animations.destroy();
 		this.sprite.destroy(true);
 		this.game = null;
+		View.prototype.destroy.call(this);
 	};
 
 	return MovieClip;
@@ -271,10 +282,7 @@ function(Phaser, View){
 	
 	
 	var Container = function(options){
-		View.call(this);
-		this.options = options || {};
-		this.bounds = this.options.bounds;
-		this.create();
+		View.call(this, options);
 	};
 
 	Container.prototype = Object.create(View.prototype);
@@ -387,12 +395,10 @@ define('phasercomponents/display/buttons/abstractbutton',
 	
 	
 	var AbstractButton = function(options){
-		View.call(this);
-		this.options = options;
 		this.frames = options.frames || [0, 1, 2, 3];
 		this.mouseDownSignal = new Phaser.Signal();
 		this.mouseUpSignal = new Phaser.Signal();
-		this.create();
+		View.call(this, options);
 	};
 
 	AbstractButton.prototype = Object.create(View.prototype);
@@ -448,6 +454,7 @@ define('phasercomponents/display/buttons/abstractbutton',
 		this.sprite.destroy(true);
 		this.mouseDownSignal = null;
 		this.mouseUpSignal = null;
+		View.prototype.destroy.call(this);
 	};
 
 	return AbstractButton;
@@ -539,23 +546,27 @@ ButtonGridModel){
 		if(options.performSelect === null || options.performSelect === undefined){
 			options.performSelect = true;
 		}
-		this.model = options.model || new ButtonGridModel();
-		this.model.changeSignal.add(this.onSelectedChanged, this);
-		this.data = options.data || [];
+		options.model = options.model || new ButtonGridModel();
+		options.data = options.data || [];
 		this.spaceX = options.bounds.w / options.numX;
 		this.spaceY = options.bounds.h / options.numY;
 		this.marginX = (this.spaceX - options.buttonClass.WIDTH)/2;
 		this.marginY = (this.spaceY - options.buttonClass.HEIGHT)/2;
 		this.buttons = [];
-		Container.call(this, options);
 		this.changeSignal = new Phaser.Signal();
 		this.clickSignal = new Phaser.Signal();
-		this.showSelected(this.model.getData().index);
+		Container.call(this, options);
+		this.model.changeSignal.add(this.onSelectedChanged, this);
+		this.init();
 	};
 	
 	ButtonGrid.prototype = Object.create(Container.prototype);
 	ButtonGrid.prototype.constructor = ButtonGrid;
 	
+	ButtonGrid.prototype.init = function(data){
+		this.showSelected(this.model.getData().index);
+	};
+
 	ButtonGrid.prototype.onSelectedChanged = function(data){
 		var index = data.index;
 		this.showSelected(index);
@@ -599,7 +610,7 @@ ButtonGridModel){
 				pos = {"x":this.bounds.x + this.spaceX * (j - 1), "y":this.bounds.y + this.spaceY * (i - 1)};
 				pos.x += this.marginX;
 				pos.y += this.marginY;
-				options = {"bounds":pos, "index":n, "data":this.data[n], "frames":[0, 1, 2, 3]};
+				options = {"bounds":pos, "index":n, "data":this.options.data[n], "frames":[0, 1, 2, 3]};
 				b = new ClassRef(options);
 				b.mouseUpSignal.add(this.buttonUp, this);
 				this.buttonGroup.add(b.group || b.sprite);
@@ -1434,13 +1445,9 @@ function(View, InteractiveSprite){
 	
 	
 	var MultiButton = function(options){
-		View.call(this);
-		this.options = options;
-		this.model = this.options.model;
-		this.options.model.changeSignal.add(this.onChanged, this);
-		this.create();
+		View.call(this, options);
+		this.model.changeSignal.add(this.onChanged, this);
 		this.init();
-		
 	};
 
 	MultiButton.prototype = Object.create(View.prototype);
@@ -1510,20 +1517,20 @@ function(View, InteractiveSprite){
 	
 	
 	var StepperButton = function(options){
-		var index;
-		View.call(this);
-		this.options = options;
-		this.model = this.options.model;
+		View.call(this, options);
 		this.model.changeSignal.add(this.onChanged, this);
-		this.create();
-		index = this.model.getData().index;
-		if(index !== null){
-			this.goToFrame(index);
-		}
+		this.init();
 	};
 
 	StepperButton.prototype = Object.create(View.prototype);
 	StepperButton.prototype.constructor = StepperButton;
+
+	StepperButton.prototype.init = function(){
+		var index = this.model.getData().index;
+		if(index !== null){
+			this.goToFrame(index);
+		}
+	};
 
 	StepperButton.prototype.onChanged = function(data){
 		this.goToFrame(data.index);
@@ -1635,20 +1642,25 @@ define('phasercomponents/preloader',['phaser'], function(Phaser){
 	};
 	
 	Preloader.prototype.loadNext = function(){
-		var obj, type;
+		var obj, type, key, asset;
 		obj = this.assets[this.numLoaded];
 		type = obj.type;
+		key = obj.key;
+		asset = obj.asset;
+		if(!key || !asset){
+			throw "Asset not found";
+		}
 		if(type === "image"){
-			this.game.load.image(obj.key, obj.asset);
+			this.game.load.image(key, asset);
 		}
 		else if(type === "spritesheet"){
-			this.game.load.spritesheet(obj.key, obj.asset, obj.w, obj.h);
+			this.game.load.spritesheet(key, asset, obj.w, obj.h);
 		}
 		else if(type === "tilemap"){
-			this.game.load.tilemap(obj.key, obj.asset, null, Phaser.Tilemap.TILED_JSON);
+			this.game.load.tilemap(key, asset, null, Phaser.Tilemap.TILED_JSON);
 		}
 		else if(type === "sound"){
-			this.game.load.audio(obj.key, [obj.asset]);
+			this.game.load.audio(key, [asset]);
 		}
 	};
 	

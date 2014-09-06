@@ -6,9 +6,7 @@ define('app/components/background',['phaser', 'phasercomponents'],
 	"use strict";
 	
 	var Background = function(options){
-		PhaserComponents.View.call(this);
-		this.options = options;
-		this.create();
+		PhaserComponents.View.call(this, options);
 	};
 	
 	Background.prototype = Object.create(PhaserComponents.View.prototype);
