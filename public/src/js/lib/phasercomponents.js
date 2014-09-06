@@ -145,12 +145,36 @@ function($) {
 
 
 
+define('phasercomponents/events/appevents',[],
+
+function() {
+
+	
+	
+	var AppEvents = function(){
+		
+	};
+
+	AppEvents.ALERT_SHOWN = "alertShown";
+	AppEvents.CHANGE_SCENE = "changeScene";
+
+  	return AppEvents;
+});
+
+
+
+
+
 
 define('phasercomponents/context',['phasercomponents/gamemanager',
 
-	'phasercomponents/commandmap', 'phasercomponents/events/eventdispatcher'],
+	'phasercomponents/commandmap', 'phasercomponents/events/eventdispatcher',
 
-	function(GameManager, CommandMap, EventDispatcher) {
+	'phasercomponents/events/appevents'],
+
+	function(GameManager, CommandMap, EventDispatcher,
+
+		AppEvents) {
 	
 	
 
@@ -158,7 +182,7 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
 		this.commandMap = new CommandMap();
 		this.gameManager = new GameManager();
 		Context.eventDispatcher = new EventDispatcher();
-		Context.eventDispatcher.addListener("scene", this.onChangeScene.bind(this));
+		Context.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
 		this.commandMap.eventDispatcher = Context.eventDispatcher;
 		this.mapCommands();
 		this.makeGame();
@@ -1131,9 +1155,9 @@ define('phasercomponents/scene',
 
 define('phasercomponents/utils/alertmanager',
 
-	['jquery', 'phaser', 'phasercomponents/context'], 
+	['jquery', 'phaser', 'phasercomponents/context', 'phasercomponents/events/appevents'], 
 
-function($, Phaser, Context){
+function($, Phaser, Context, AppEvents){
 
 	
 	
@@ -1149,7 +1173,7 @@ function($, Phaser, Context){
 			this.bg.destroy();
 			this.bg = null;
 			this.alert = null;
-			this.eventDispatcher.trigger({"type":"alert", "shown":false});
+			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
 		}
 	};
 	
@@ -1178,7 +1202,7 @@ function($, Phaser, Context){
 		this.alert = new ClassRef(newOptions);
 		this.alert.selectSignal.add(this.callbackProxy);
 		this.game.world.add(this.alert.group);
-		this.eventDispatcher.trigger({"type":"alert", "shown":true});
+		this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
 		this.alert.showMe();
 	};
 	
@@ -1816,6 +1840,7 @@ define('phasercomponents',[
 	'phasercomponents/display/buttongrid/tabbuttonbar',
 	'phasercomponents/display/buttongrid/buttonbar',
 	'phasercomponents/events/eventdispatcher',
+	'phasercomponents/events/appevents',
 	'phasercomponents/display/slider/slider',
 	'phasercomponents/display/scroller/scroller',
 	'phasercomponents/scene',
@@ -1846,6 +1871,7 @@ define('phasercomponents',[
 		TabButtonBar,
 		ButtonBar,
 		EventDispatcher,
+		AppEvents,
 		Slider, 
 		Scroller,
 		Scene,
@@ -1899,7 +1925,8 @@ define('phasercomponents',[
         'ToggleButton': 		ToggleButton,
         'Preloader': 			Preloader,
         'AbstractPopup':  		AbstractPopup,
-        'LoaderBar': 			LoaderBar
+        'LoaderBar': 			LoaderBar,
+       	'AppEvents':			AppEvents
     };
     
 });

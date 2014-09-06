@@ -22,7 +22,7 @@ Events){
 	var AbstractCommandsPanel  = function(options){
 		PhaserComponents.Container.call(this, options);
 		this.selectedCommand = null;
-		this.eventDispatcher.addListener("alert", this.onAlert.bind(this));
+		this.eventDispatcher.addListener(PhaserComponents.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 	};
 	
 	AbstractCommandsPanel.WIDTH = 190;

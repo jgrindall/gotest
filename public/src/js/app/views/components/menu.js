@@ -15,7 +15,7 @@ PhaserComponents, ModelFacade, PlayingState){
 		options.numY = 1;
 		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}];
 		PhaserComponents.ButtonBar.call(this, options);
-		this.eventDispatcher.addListener("alert", this.onAlert.bind(this));
+		this.eventDispatcher.addListener(PhaserComponents.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 	};
 	
@@ -30,7 +30,7 @@ PhaserComponents, ModelFacade, PlayingState){
 			this.enableInput();
 		}
 	};
-	
+
 	Menu.prototype.playingChanged = function(data){
 		if(data.playing === PlayingState.PLAYING){
 			this.disableInput();

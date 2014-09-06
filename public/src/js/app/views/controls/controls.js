@@ -33,7 +33,7 @@ Events, Assets){
 	
 	var Controls  = function(options){
 		PhaserComponents.Container.call(this, options);
-		this.eventDispatcher.addListener("alert", this.onAlert.bind(this));
+		this.eventDispatcher.addListener(PhaserComponents.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 	};
 

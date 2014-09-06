@@ -57,7 +57,7 @@ TextFactory){
 	LoaderScene.prototype.create = function() {
 		this.loaderBar.goToPercent(100);
 		var data = {"scene":this};
-		this.eventDispatcher.trigger({"type":"scene", "data":data});
+		this.eventDispatcher.trigger({"type":PhaserComponents.AppEvents.CHANGE_SCENE, "data":data});
 	};
 
 	LoaderScene.prototype.shutdown = function() {
