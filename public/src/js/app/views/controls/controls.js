@@ -5,7 +5,7 @@ define('app/views/controls/controls',[ 'app/components/background',
 
 'app/views/components/colorpicker', 'app/views/components/widthpicker',
 
-'app/models/modelfacade',
+'app/models/modelfacade', 'app/consts/colors', 'app/consts/penwidths',
 
 'app/views/controls/controlmenu', 'app/views/commandpanels/abstractcommandspanel',
 
@@ -21,7 +21,7 @@ PhaserComponents, TabButton,
 
 ColorPicker, WidthPicker,
 
-ModelFacade,
+ModelFacade, Colors, PenWidths,
 
 ControlMenu, AbstractCommandsPanel,
 
@@ -132,13 +132,13 @@ Events, Assets){
 	
 	Controls.prototype.addColorPicker = function() {
 		var bounds = {'x':-40 + this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
-		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":Assets.PENS, "num":8, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
+		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.sprite);
 	};
 
 	Controls.prototype.addWidthPicker = function() {
 		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
-		this.widthPicker = new WidthPicker({"bounds":bounds, "asset":Assets.WIDTH, "num":5, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
+		this.widthPicker = new WidthPicker({"bounds":bounds, "asset":Assets.WIDTH, "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.sprite);
 	};
 	

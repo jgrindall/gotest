@@ -8,7 +8,7 @@ define('app/views/commandpanels/abstractmarker',['phaser', 'phasercomponents', '
 	var AbstractMarker = function(options){
 		options.defaultFrame = 4;
 		options.asset = Assets.MARKERS;
-		options.num = 11;
+		options.numFrames = 11;
 		PhaserComponents.Display.MovieClip.call(this, options);
 		this.sprite.anchor.setTo(0.5, 0.5);
 		this.sprite.alpha = 0.5;

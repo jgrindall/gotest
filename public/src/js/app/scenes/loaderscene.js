@@ -39,7 +39,7 @@ TextFactory){
 		x = this.game.cx - LoaderBar.WIDTH/2;
 		y = this.game.cy - 20;
 		bounds = {"x":x, "y":y};
-		this.loaderBar = new LoaderBar({'bounds':bounds, 'asset':Assets.LOADER_BAR, 'num':7});
+		this.loaderBar = new LoaderBar({'bounds':bounds, 'asset':Assets.LOADER_BAR, 'numFrames':8});
 		this.world.add(this.loaderBar.sprite);
 	};
 	

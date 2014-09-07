@@ -11,7 +11,7 @@ function(Phaser, PhaserComponents, Assets
 	
 	var ScreenChoice = function(options){
 		options.asset = Assets.SMALL_PANEL;
-		options.num = 4;
+		options.numFrames = 4;
 		PhaserComponents.Display.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
