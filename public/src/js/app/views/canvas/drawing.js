@@ -41,7 +41,7 @@ FdCommand, StepLengths){
 	Drawing.ONE_RT2 = 1/Drawing.RT2;
 	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
 	Drawing.ROTATE = [[0, 0, 0, -45, 0, 45, 0, 0, 0], [0, 0, 0, -90, 0, 90, 0, 0, 0]];
-	Drawing.DIAG = [Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2]; 
+	Drawing.DIAG = [Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2];
 		
 	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
 
@@ -71,12 +71,27 @@ FdCommand, StepLengths){
 		this.angle = -Drawing.ANGLES[this.command.direction];
 	};
 	
-	Drawing.prototype.isBackwards = function() {
-		return (this.command instanceof FdCommand && this.command.direction === 7);
+	Drawing.prototype.getScaleFactor = function(){
+		var scale = 1;
+		if(this.command instanceof MoveCommand){
+			if(this.command.diag === 1){
+				scale = Drawing.DIAG[this.command.direction];
+			}
+		}
+		else if (this.command instanceof FdCommand){
+			if(this.command.diag){
+				scale = (this.angle % 90 === 0) ? 1 : Drawing.RT2;
+			}
+			if(this.command.direction === 7){
+				//backwards!
+				scale *= -1;
+			}	
+		}
+		return scale;
 	};
-	
+
 	Drawing.prototype.setEndPoint = function() {
-		var dx, dy, thetaRad, distIndex, dist, currentStepLengthIndex, currentStepLength;
+		var dx, dy, thetaRad, distIndex, scale, dist, currentStepLengthIndex, currentStepLength;
 		distIndex = this.command.stepLength;
 		currentStepLengthIndex = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).get();
 		currentStepLength = StepLengths.ALL[currentStepLengthIndex];
@@ -84,14 +99,9 @@ FdCommand, StepLengths){
 		thetaRad = this.angle * Drawing.PI180;
 		dx = dist * Math.cos(thetaRad);
 		dy = dist * Math.sin(thetaRad);
-		if(this.command.diag === 1){
-			dx *= Drawing.DIAG[this.command.direction];
-			dy *= Drawing.DIAG[this.command.direction];
-		}
-		if(this.isBackwards()){
-			dx *= -1;
-			dy *= -1;
-		}
+		scale = this.getScaleFactor();
+		dx *= scale;
+		dy *= scale;
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
 	};
 	
