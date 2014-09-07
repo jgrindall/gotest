@@ -488,7 +488,7 @@ define('phasercomponents/display/movieclip',
 
 	MovieClip.prototype.create = function(){
 		InteractiveSprite.prototype.create.call(this);
-		for(var i = 0; i<= this.options.num - 1; i++){
+		for(var i = 0; i<= this.options.numFrames - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 0, true);
 		}
 		this.goTo(this.options.defaultFrame);
@@ -664,9 +664,13 @@ function(Phaser, Context){
 		this.changeSignal.dispatch(this.value);
 	};
 	
-	AbstractModel.prototype.set = function(val) {
-		var currentVal = this.value;
-		if(currentVal === null || currentVal === undefined || currentVal !== val){
+	AbstractModel.prototype.set = function(val, options) {
+		var currentVal, force = false;
+		currentVal = this.value;
+		if(options && options.force){
+			force = true;
+		}
+		if(force || currentVal === null || currentVal === undefined || currentVal !== val){
 			this.value = val;
 			this.trigger();
 		}
@@ -1580,7 +1584,7 @@ function(MovieClip, Utils){
 		if(this.model){
 			var index = this.model.get();
 			if(index !== null){
-				this.goToFrame(index);
+				this.setFrame(index);
 			}
 		}
 	};
@@ -1595,15 +1599,15 @@ function(MovieClip, Utils){
 		this.enableInput();
 	};
 
-	MultiButton.prototype.goToFrame = function(frame){
+	MultiButton.prototype.setFrame = function(frame){
 		this.model.set(frame);
 	};
 
 	MultiButton.prototype.mouseUp = function(data){
 		var p, frame;
 		p = data.localPoint.x / this.options.bounds.w;
-		frame = Math.floor(this.options.num * p);
-		this.goToFrame(frame);
+		frame = Math.floor(this.options.numSegments * p);
+		this.setFrame(frame);
 	};
 	
 	MultiButton.prototype.destroy = function(){
@@ -1709,7 +1713,7 @@ function(StepperButton, Utils){
 	
 	
 	var ToggleButton = function(options){
-		options.num = 2;
+		options.numFrames = 2;
 		StepperButton.call(this, options);
 	};
 
@@ -1869,9 +1873,8 @@ define('phasercomponents/display/loaderbar',
 	Utils.extends(LoaderBar, MovieClip);
 
 	LoaderBar.prototype.goToPercent = function(p){
-		var g, numFrames;
-		numFrames = 8;
-		g = (numFrames - 1)/100;
+		var g;
+		g = (this.options.numFrames - 1)/100;
 		MovieClip.prototype.goTo.call(this, Math.round(p*g));
 	};
 	
