@@ -23,7 +23,7 @@ function(PhaserComponents, ModelFacade,
 	
 	NewFileCommand.prototype.onBgChosen = function(data){
 		if(data.index === 1){
-			ModelFacade.getInstance().get(ModelFacade.BG).set(data.selection.selectedPage);
+			ModelFacade.getInstance().get(ModelFacade.BG).set(data.selection.selectedPage, {"force":true});
 		}
 	};
 	
