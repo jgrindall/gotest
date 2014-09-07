@@ -57,6 +57,9 @@ function(Phaser, Colors, PenWidths){
 	};
 	
 	LineDrawer.prototype.getColor = function() {
+		if(this.command.color === null || this.command.color === undefined){
+			return null;
+		}
 		return Colors.ALL[this.command.color];
 	};
 
@@ -73,20 +76,24 @@ function(Phaser, Colors, PenWidths){
 	LineDrawer.prototype.segment = function(p) {
 		var clr, width;
 		clr = this.getColor();
-		width = this.getWidth();
-		this.context2d.lineStyle(width, clr, 1);
-   		this.context2d.moveTo(this.pos.x, this.pos.y);
-   		this.context2d.lineTo(p.x, p.y);
+		if(clr !== null){
+			width = this.getWidth();
+			this.context2d.lineStyle(width, clr, 1);
+   			this.context2d.moveTo(this.pos.x, this.pos.y);
+   			this.context2d.lineTo(p.x, p.y);
+   		}
 	};
 	
 	LineDrawer.prototype.circle = function(p) {
    		var clr, width;
 		clr = this.getColor();
-		width = this.getWidth();
-   		this.context2d.lineStyle(0, 0, 0);
-   		this.context2d.beginFill(clr, 1);
-		this.context2d.drawCircle(p.x, p.y, width/2);
-		this.context2d.endFill();
+		if(clr !== null){
+			width = this.getWidth();
+	   		this.context2d.lineStyle(0, 0, 0);
+	   		this.context2d.beginFill(clr, 1);
+			this.context2d.drawCircle(p.x, p.y, width/2);
+			this.context2d.endFill();
+		}
 	};
 	
 	LineDrawer.prototype.destroy = function() {

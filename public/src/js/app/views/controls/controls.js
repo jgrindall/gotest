@@ -131,7 +131,7 @@ Events, Assets){
 	};
 	
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
+		var bounds = {'x':-40 + this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
 		this.colorPicker = new ColorPicker({"bounds":bounds, "asset":Assets.PENS, "num":8, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.sprite);
 	};

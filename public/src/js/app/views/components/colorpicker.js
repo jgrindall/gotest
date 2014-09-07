@@ -16,6 +16,17 @@ function(PhaserComponents){
 	
 	PhaserComponents.Utils.extends(ColorPicker, PhaserComponents.Display.MultiButton);
 
+	ColorPicker.prototype.onChanged = function(value){
+		if(value === null){
+			// go to frame 0
+			PhaserComponents.Display.MultiButton.prototype.onChanged.call(this, 0);
+		}
+		else{
+			// go to frame + 1
+			PhaserComponents.Display.MultiButton.prototype.onChanged.call(this, value + 1);
+		}
+	};
+
 	return ColorPicker;
 });
 	

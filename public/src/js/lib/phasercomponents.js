@@ -480,6 +480,9 @@ define('phasercomponents/display/movieclip',
 	Utils.extends(MovieClip, InteractiveSprite);
 
 	MovieClip.prototype.goTo = function(i){
+		if(i === null || i === undefined){
+			i = 0;
+		}
 		this.sprite.animations.play('frame'+i);
 	};
 
@@ -601,14 +604,28 @@ function(Phaser, View, Utils,
 
 	AbstractButton.prototype.enableInput = function(){
 		this.sprite.inputEnabled = true;
-		this.sprite.alpha = 1;
+		this.tweenAlpha(1, true);
 		this.sprite.input.useHandCursor = true;
 		this.addListeners();
 	};
 	
+	AbstractButton.prototype.tweenAlpha = function(a, immediate){
+		var duration, delay;
+		duration = 200;
+		delay = 1000;
+		if(this.fadeTween){
+			this.fadeTween.stop();
+		}
+		if(immediate){
+			duration = 50;
+			delay = 50;
+		}
+		this.fadeTween = this.game.add.tween(this.sprite).to( {'alpha':a}, duration, Phaser.Easing.Linear.None, true, delay, false);
+	};
+
 	AbstractButton.prototype.disableInput = function(){
 		this.sprite.inputEnabled = false;
-		this.sprite.alpha = 0.75;
+		this.tweenAlpha(0.6, false);
 		this.removeListeners();
 	};
 	
@@ -984,7 +1001,6 @@ InteractiveSprite, Utils){
 	};
 	
 	Slider.prototype.startDragging = function(data) {
-		console.log("startDragging");
 		this.dragging = true;
 		this.addMoveListeners();
 	};
@@ -1564,7 +1580,7 @@ function(MovieClip, Utils){
 		if(this.model){
 			var index = this.model.get();
 			if(index !== null){
-				this.goTo(index);
+				this.goToFrame(index);
 			}
 		}
 	};
@@ -1579,15 +1595,20 @@ function(MovieClip, Utils){
 		this.enableInput();
 	};
 
+	MultiButton.prototype.goToFrame = function(frame){
+		this.model.set(frame);
+	};
+
 	MultiButton.prototype.mouseUp = function(data){
 		var p, frame;
 		p = data.localPoint.x / this.options.bounds.w;
 		frame = Math.floor(this.options.num * p);
-		this.model.set(frame);
+		this.goToFrame(frame);
 	};
 	
 	MultiButton.prototype.destroy = function(){
 		this.disableInput();
+		this.mouseUpSignal.remove(this.mouseUp, this);
 		this.model.changeSignal.remove(this.onChanged, this);
 		MovieClip.prototype.destroy.call(this);
 	};

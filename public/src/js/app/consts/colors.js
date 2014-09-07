@@ -19,6 +19,8 @@ define('app/consts/colors',[], function() {
 	
 	Colors.ALL = [Colors.BLUE, Colors.GREEN, Colors.PINK, Colors.BROWN, Colors.ORANGE, Colors.YELLOW, Colors.BLACK, Colors.RED];
 	
+	Colors.NONE = [0x99009900];
+
 	return Colors;
 });
 
