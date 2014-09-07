@@ -8,7 +8,7 @@ define('app/assets',[], function(){
 	};
 
 	Assets.LOADER_BAR = 			'loaderBar';
-	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4'];
+	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
 	Assets.MAPS = 					['map0', 'map1', 'map2'];
 	Assets.TURTLE = 				'turtle';
 	Assets.SOUNDS = 				['sound1', 'sound2', 'sound3', 'sound4', 'sound5'];
@@ -57,6 +57,7 @@ define('app/assets',[], function(){
 		{"type":"image", 		"asset":"assets/images/grids/grid2.png", 				"key":Assets.GRIDS[2]},
 		{"type":"image", 		"asset":"assets/images/grids/grid3.png", 				"key":Assets.GRIDS[3]},
 		{"type":"image", 		"asset":"assets/images/grids/grid4.png", 				"key":Assets.GRIDS[4]},
+		{"type":"image", 		"asset":"assets/images/grids/grid5.png", 				"key":Assets.GRIDS[5]},
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Assets.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Assets.SLIDERHANDLE},
 		{"type":"image", 		"asset":"assets/images/maps/map0.jpg", 					"key":Assets.MAPS[0]},

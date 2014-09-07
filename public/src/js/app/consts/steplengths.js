@@ -12,10 +12,11 @@ function(){
 	StepLengths.VSHORT = 	0;
 	StepLengths.SHORT = 	1;
 	StepLengths.MED = 		2;
-	StepLengths.LONG = 		3;
-	StepLengths.VLONG = 	4;
+	StepLengths.MEDLONG = 	3;
+	StepLengths.LONG = 		4;
+	StepLengths.VLONG = 	5;
 
-	StepLengths.ALL = [30, 50, 70, 90, 110];
+	StepLengths.ALL = [20, 40, 60, 80, 100, 120];
 	
 	return StepLengths;
 

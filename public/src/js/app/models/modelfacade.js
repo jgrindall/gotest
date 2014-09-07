@@ -7,7 +7,7 @@ define('app/models/modelfacade',['app/models/commmodel', 'app/models/screenmodel
 
 'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
 
-'app/models/commtickermodel', 'app/consts/playingstate'],
+'app/models/commtickermodel', 'app/consts/playingstate', 'app/consts/commspeed'],
 
 function(CommModel, ScreenModel, BgModel,
 
@@ -17,7 +17,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	WidthModel, StepLengthModel, DiagModel,
 
-	CommTickerModel, PlayingState){
+	CommTickerModel, PlayingState, CommSpeed){
 	
 	"use strict";
 
@@ -109,8 +109,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.prototype.setDuration = function() {
 		var duration;
 		if(this.playingModel.get() === PlayingState.PLAYING){
-			//TODO duration = this.speedModel.get().actualSpeed * CommSpeed.SPEED_FACTOR;
-			duration = 400;
+			duration = CommSpeed.ALL[this.speedModel.get()] * CommSpeed.SPEED_FACTOR;
 		}
 		else{
 			duration = 0;

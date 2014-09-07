@@ -5,7 +5,7 @@ define('app/views/popups/gridmenu',[ 'app/components/buttons/tickbutton',
 
 'app/models/modelfacade', 'phasercomponents',
 
-'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
+'app/components/buttons/okbutton', 'app/components/buttons/closebutton', 'app/consts/steplengths'],
 
 function(TickButton,
 
@@ -13,7 +13,7 @@ TextFactory, Assets,
 
 ModelFacade, PhaserComponents,
 
-OkButton, CloseButton){
+OkButton, CloseButton, StepLengths){
 	
 	"use strict";
 		
@@ -52,7 +52,7 @@ OkButton, CloseButton){
 	GridMenu.prototype.addSlider = function(){
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + 100};
-		this.lengthSlider = new PhaserComponents.Display.Slider({"handleAsset":Assets.SLIDERHANDLE, "model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":4, "bounds":bounds});
+		this.lengthSlider = new PhaserComponents.Display.Slider({"handleAsset":Assets.SLIDERHANDLE, "model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds});
 		this.group.add(this.lengthSlider.group);
 	};
 

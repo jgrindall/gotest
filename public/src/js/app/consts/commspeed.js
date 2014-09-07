@@ -15,7 +15,7 @@ function(){
 	CommSpeed.FAST = 	3;
 	CommSpeed.VFAST = 	4;
 	
-	CommSpeed.SPEED_FACTOR = 120;
+	CommSpeed.SPEED_FACTOR = 100;
 
 	CommSpeed.ALL = [15, 9, 5, 3, 1];
 	
