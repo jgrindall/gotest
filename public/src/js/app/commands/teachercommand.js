@@ -1,8 +1,8 @@
 define('app/commands/teachercommand',
 
-	['phasercomponents', 'app/views/popups/growl'],
+	['phasercomponents', 'app/views/popups/growl', 'app/assets'],
 
-function(PhaserComponents, Growl) {
+function(PhaserComponents, Growl, Assets) {
 	
 	"use strict";
 	
@@ -13,7 +13,7 @@ function(PhaserComponents, Growl) {
 	PhaserComponents.Utils.extends(TeacherCommand, PhaserComponents.Commands.AbstractCommand);
 
 	TeacherCommand.prototype.execute = function(data){
-		PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Teacher login with password?"}, null);
+		PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Teacher login with password?", "sfx":Assets.SOUNDS[2]}, null);
 	};
 	
   	return TeacherCommand;

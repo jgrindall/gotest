@@ -1,10 +1,10 @@
 define('app/commands/savecommand',['phasercomponents',
 
-	'app/models/modelfacade', 'app/views/popups/growl'],
+	'app/models/modelfacade', 'app/views/popups/growl', 'app/assets'],
 
 function(PhaserComponents,
 
-	ModelFacade, Growl) {
+	ModelFacade, Growl, Assets) {
 	
 	"use strict";
 	
@@ -21,10 +21,10 @@ function(PhaserComponents,
 	
 	SaveCommand.prototype.onSaved = function(data){
 		if(data.success){
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Saved"}, null);
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Saved", "sfx":Assets.SOUNDS[2]}, null);
 		}
 		else{
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Error saving"}, null);
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Error saving", "sfx":Assets.SOUNDS[2]}, null);
 		}
 	};
 	

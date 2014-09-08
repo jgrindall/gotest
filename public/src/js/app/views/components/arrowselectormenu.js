@@ -26,9 +26,13 @@ PhaserComponents, Assets)
 	PhaserComponents.Utils.extends(ArrowSelectorMenu, SelectorMenu);
 	
 	ArrowSelectorMenu.prototype.addArrows = function () {
+		var x, w, d;
+		x = this.options.bounds.x;
+		w = this.options.bounds.w;
+		d = (this.game.w - w)/2;
 		if(this.options.dataProvider.getNumPages() >= 2){
-			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':20, 'y':this.game.cy}});
-			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':this.game.w - 60, 'y':this.game.cy}});
+			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':d/2 - ArrowButton.WIDTH/2, 'y':this.game.cy}});
+			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':this.game.w - d/2 - ArrowButton.WIDTH/2, 'y':this.game.cy}});
 			this.leftButton.sprite.alpha = 0;
 			this.rightButton.sprite.alpha = 0;
 			this.group.add(this.leftButton.sprite);

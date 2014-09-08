@@ -1,10 +1,10 @@
 define('app/commands/loadcommand',['app/models/modelfacade', 'app/views/popups/growl',
 
-	'phasercomponents', 'app/events/events'],
+	'phasercomponents', 'app/events/events', 'app/assets'],
 
 function(ModelFacade, Growl,
 
-	PhaserComponents, Events) {
+	PhaserComponents, Events, Assets) {
 	
 	"use strict";
 	
@@ -23,14 +23,14 @@ function(ModelFacade, Growl,
 			try{
 				ModelFacade.getInstance().setData(data.json);
 				this.eventDispatcher.trigger({"type":Events.REPLAY});
-				PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Loaded your file"}, null);
+				PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Loaded your file", "sfx":Assets.SOUNDS[2]}, null);
 			}
 			catch(e){
-				PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Format error"}, null);
+				PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Format error", "sfx":Assets.SOUNDS[2]}, null);
 			}
 		}
 		else{
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"label":"Error - unable to load"}, null);
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Error - unable to load", "sfx":Assets.SOUNDS[2]}, null);
 		}
 	};
 	

@@ -26,16 +26,11 @@ OkButton, CloseButton, StepLengths){
 	
 	PhaserComponents.Utils.extends(GridMenu, PhaserComponents.Display.AbstractPopup);
 
-	GridMenu.WIDTH = 800;
-	GridMenu.HEIGHT = 600;
+	GridMenu.WIDTH = 720;
+	GridMenu.HEIGHT = 540;
 	
 	GridMenu.prototype.addOk = function () {
 		this.addButton(TickButton, 'bottom', 0, 1);
-	};
-	
-	GridMenu.prototype.addText = function () {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, this.game.cx - 150, this.bounds.y + 20, this.options.label);
-		this.group.add(this.label);
 	};
 	
 	GridMenu.prototype.addOkButton = function () {
@@ -45,7 +40,7 @@ OkButton, CloseButton, StepLengths){
 	};
 	
 	GridMenu.prototype.addCloseButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - 50, "y":this.bounds.y + 10};
+		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y};
 		this.addButton(CloseButton, bounds);
 	};
 	
@@ -71,19 +66,25 @@ OkButton, CloseButton, StepLengths){
 	};
 
 	GridMenu.prototype.addDiagLabel = function(){
-		this.diagLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.game.cx - 250, 250, "Stretch diags");
+		this.diagLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.bounds.x + 20, 250, "Stretch diags");
 		this.group.add(this.diagLabel);
 	};
 
 	GridMenu.prototype.addGridLabel = function(){
-		this.gridLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.game.cx - 250, 170, "Toggle grid");
+		this.gridLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.bounds.x + 20, 170, "Toggle grid");
 		this.group.add(this.gridLabel);
 	};
 
 	GridMenu.prototype.addStepLengthLabel = function(){
-		this.stepLengthLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.game.cx - 250, 80, "Step Length");
+		this.stepLengthLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.bounds.x + 20, 80, "Step Length");
 		this.group.add(this.stepLengthLabel);
 	};
+	
+	GridMenu.prototype.addTitle = function() {
+		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.label);
+ 		this.group.add(this.label);
+	};
+
 	GridMenu.prototype.addLabels = function(){
 		this.addStepLengthLabel();
 		this.addGridLabel();
@@ -94,8 +95,8 @@ OkButton, CloseButton, StepLengths){
 
 	GridMenu.prototype.create = function () {
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
-		this.addText();
 		this.addSlider();
+		this.addTitle();
 		this.addGridToggle();
 		this.addLabels();
 		if(this.showDiag){

@@ -40,7 +40,7 @@ OkButton, PhaserComponents
 	};
 	
 	SelectorMenu.prototype.addCloseButton = function () {
-		var bounds = {"x":this.bounds.x + this.bounds.w - 50, "y":this.bounds.y + 10};
+		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y};
 		this.addButton(CloseButton, bounds);
 	};
 	

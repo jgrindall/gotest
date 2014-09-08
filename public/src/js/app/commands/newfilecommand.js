@@ -2,11 +2,11 @@ define('app/commands/newfilecommand',
 
 	['phasercomponents', 'app/models/modelfacade',
 
-	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider'],
+	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider', 'app/assets'],
 
 function(PhaserComponents, ModelFacade,
 
-	GameBgMenu, BgDataProvider) {
+	GameBgMenu, BgDataProvider, Assets) {
 	
 	"use strict";
 	
@@ -17,7 +17,7 @@ function(PhaserComponents, ModelFacade,
 	PhaserComponents.Utils.extends(NewFileCommand, PhaserComponents.Commands.AbstractCommand);
 
 	NewFileCommand.prototype.execute = function(data){
-		var options = {'dataProvider': new BgDataProvider(this.game)};
+		var options = {'dataProvider': new BgDataProvider(this.game), "label":"Choose a background", "sfx":Assets.SOUNDS[2]};
 		PhaserComponents.AlertManager.getInstance().make(GameBgMenu, options, this.onBgChosen.bind(this));
 	};
 	

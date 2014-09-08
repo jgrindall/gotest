@@ -1,8 +1,8 @@
 define('app/commands/gridchoicecommand',
 
-	['phasercomponents', 'app/views/popups/gridmenu'],
+	['phasercomponents', 'app/views/popups/gridmenu', 'app/assets'],
 
-function(PhaserComponents, GridMenu) {
+function(PhaserComponents, GridMenu, Assets) {
 	
 	"use strict";
 	
@@ -13,7 +13,8 @@ function(PhaserComponents, GridMenu) {
 	PhaserComponents.Utils.extends(GridChoiceCommand, PhaserComponents.Commands.AbstractCommand);
 
 	GridChoiceCommand.prototype.execute = function(data){
-		PhaserComponents.AlertManager.getInstance().make(GridMenu, {}, null); 
+		var options = {"label":"Settings", "sfx":Assets.SOUNDS[2]};
+		PhaserComponents.AlertManager.getInstance().make(GridMenu, options, null); 
 	};
 	
   	return GridChoiceCommand;

@@ -11,8 +11,8 @@ define('app/views/buttons/okbutton',[ 'phasercomponents', 'app/assets'],
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	
-	OkButton.WIDTH = 250;
-	OkButton.HEIGHT = 75;
+	OkButton.WIDTH = 180;
+	OkButton.HEIGHT = 70;
 	
 	PhaserComponents.Utils.extends(OkButton, PhaserComponents.Display.AbstractButton);
 

@@ -23,19 +23,15 @@ OkButton, CloseButton){
 	GameScreenMenu.WIDTH = 720;
 	GameScreenMenu.HEIGHT = 540;
 	
-	GameScreenMenu.prototype.addOk = function () {
-		this.addButton(TickButton, 'bottom', 0, 1);
-	};
-	
 	GameScreenMenu.prototype.addOkButton = function () {
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT/2 - 20};
+		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT - 10};
 		this.addButton(OkButton, bounds);
 	};
 	
 	GameScreenMenu.prototype.addCloseButton = function () {
 		console.log("bounds "+JSON.stringify(this.bounds));
-		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y + 10};
+		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y };
 		this.addButton(CloseButton, bounds);
 	};
 
@@ -54,14 +50,15 @@ OkButton, CloseButton){
 	};
 
 	GameScreenMenu.prototype.addGrid = function() {
-		var options;
-		options = {"model":this.options.screenModel, "bounds":this.bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
+		var options, bounds;
+		bounds = {'x':this.options.bounds.x, 'y':this.options.bounds.y + 30, 'w':this.options.bounds.w, 'h':this.options.bounds.h - 30}
+		options = {"model":this.options.screenModel, "bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.group.add(this.grid.group);
 	};
 
 	GameScreenMenu.prototype.addTitle = function() {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 20, this.bounds.y + 10, "Choose a way to enter commands");
+		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 10, this.bounds.y + 6, "Choose a way to enter commands");
  		this.group.add(this.label);
 	};
 

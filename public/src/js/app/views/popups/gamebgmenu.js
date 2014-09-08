@@ -14,12 +14,11 @@ ArrowSelectorMenu, PhaserComponents
 	"use strict";
 		
 	var GameBgMenu = function(options){
-		options.label = "Choose...";
 		ArrowSelectorMenu.call(this, options);
 	};
 	
-	GameBgMenu.WIDTH = 800;
-	GameBgMenu.HEIGHT = 600;
+	GameBgMenu.WIDTH = 720;
+	GameBgMenu.HEIGHT = 540;
 	
 	PhaserComponents.Utils.extends(GameBgMenu, ArrowSelectorMenu);
 
