@@ -1,5 +1,5 @@
 
-define('app/components/buttons/keybutton',['phasercomponents', 'app/assets'],
+define('app/views/buttons/keybutton',['phasercomponents', 'app/assets'],
 
 	function(PhaserComponents, Assets){
 	

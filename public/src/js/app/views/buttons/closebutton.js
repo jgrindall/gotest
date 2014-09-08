@@ -1,5 +1,5 @@
 
-define('app/components/buttons/closebutton',[ 'phasercomponents', 'app/assets'],
+define('app/views/buttons/closebutton',[ 'phasercomponents', 'app/assets'],
 
 	function(PhaserComponents, Assets){
 	

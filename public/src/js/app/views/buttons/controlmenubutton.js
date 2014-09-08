@@ -1,5 +1,5 @@
 
-define('app/components/buttons/controlmenubutton',['phasercomponents', 'app/assets'],
+define('app/views/buttons/controlmenubutton',['phasercomponents', 'app/assets'],
 
 	function( PhaserComponents, Assets){
 	

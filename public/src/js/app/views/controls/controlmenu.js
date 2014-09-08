@@ -1,5 +1,5 @@
 
-define('app/views/controls/controlmenu',[ 'app/components/buttons/controlmenubutton',
+define('app/views/controls/controlmenu',[ 'app/views/buttons/controlmenubutton',
 
 'phasercomponents', 'app/models/modelfacade',
 

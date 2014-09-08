@@ -1,6 +1,6 @@
 define('app/commands/savecommand',['phasercomponents',
 
-	'app/models/modelfacade', 'app/components/popups/growl'],
+	'app/models/modelfacade', 'app/views/popups/growl'],
 
 function(PhaserComponents,
 

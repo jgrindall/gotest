@@ -1,7 +1,7 @@
 
 define('app/dataproviders/bgdataprovider',[
 
-'app/components/bgpanel', 'app/consts/bgdata', 'app/assets'],
+'app/views/bgpanel', 'app/consts/bgdata', 'app/assets'],
 
 function(BgPanel, BgData, Assets){
 	

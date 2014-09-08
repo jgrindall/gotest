@@ -1,5 +1,5 @@
 
-define('app/components/buttons/radiobutton',[ 'phasercomponents', 'app/assets'],
+define('app/views/buttons/radiobutton',[ 'phasercomponents', 'app/assets'],
 
 function(PhaserComponents, Assets){
 	

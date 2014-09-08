@@ -1,15 +1,15 @@
 
-define('app/views/popups/gridmenu',[ 'app/components/buttons/tickbutton',
+define('app/views/popups/gridmenu',[ 'app/views/buttons/tickbutton',
 
-'app/text/textfactory', 'app/assets',
+'app/assets',
 
 'app/models/modelfacade', 'phasercomponents',
 
-'app/components/buttons/okbutton', 'app/components/buttons/closebutton', 'app/consts/steplengths'],
+'app/views/buttons/okbutton', 'app/views/buttons/closebutton', 'app/consts/steplengths'],
 
 function(TickButton,
 
-TextFactory, Assets,
+Assets,
 
 ModelFacade, PhaserComponents,
 
@@ -34,7 +34,7 @@ OkButton, CloseButton, StepLengths){
 	};
 	
 	GridMenu.prototype.addText = function () {
-		this.label = TextFactory.make(this.game, this.game.cx - 150, this.bounds.y + 20, this.options.label, TextFactory.SMALL);
+		this.label = PhaserComponents.TextFactory.make('small', this.game, this.game.cx - 150, this.bounds.y + 20, this.options.label);
 		this.group.add(this.label);
 	};
 	
@@ -71,17 +71,17 @@ OkButton, CloseButton, StepLengths){
 	};
 
 	GridMenu.prototype.addDiagLabel = function(){
-		this.diagLabel = TextFactory.make(this.game, this.game.cx - 250, 250, "Stretch diags", TextFactory.VSMALL);
+		this.diagLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.game.cx - 250, 250, "Stretch diags");
 		this.group.add(this.diagLabel);
 	};
 
 	GridMenu.prototype.addGridLabel = function(){
-		this.gridLabel = TextFactory.make(this.game, this.game.cx - 250, 170, "Toggle grid", TextFactory.VSMALL);
+		this.gridLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.game.cx - 250, 170, "Toggle grid");
 		this.group.add(this.gridLabel);
 	};
 
 	GridMenu.prototype.addStepLengthLabel = function(){
-		this.stepLengthLabel = TextFactory.make(this.game, this.game.cx - 250, 80, "Step Length", TextFactory.VSMALL);
+		this.stepLengthLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.game.cx - 250, 80, "Step Length");
 		this.group.add(this.stepLengthLabel);
 	};
 	GridMenu.prototype.addLabels = function(){

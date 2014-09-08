@@ -270,6 +270,7 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
    	var Context = function ( ){
 		this.gameManager = new GameManager();
 		this.commandMap = new CommandMap();
+		this.mapFonts();
 		Context.eventDispatcher = new EventDispatcher();
 		Context.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
     };
@@ -279,6 +280,10 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
     };
 
     Context.prototype.onChangeScene = function(){
+    	
+    };
+
+    Context.prototype.mapFonts = function(){
     	
     };
 
@@ -579,6 +584,7 @@ function(Phaser, View, Utils,
 	AbstractButton.prototype.create = function(){
 		this.sprite = new Phaser.Button(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
 		this.resetFrames();
+		this.sprite.inputEnabled = false;
 		this.enableInput();
 	};
 
@@ -603,19 +609,25 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.enableInput = function(){
-		this.sprite.inputEnabled = true;
-		this.tweenAlpha(1, true);
-		this.sprite.input.useHandCursor = true;
-		this.addListeners();
+		if(!this.sprite.inputEnabled){
+			this.sprite.inputEnabled = true;
+			this.tweenAlpha(1, true);
+			this.sprite.input.useHandCursor = true;
+			this.addListeners();
+		}
 	};
 	
+	AbstractButton.prototype.stopTweens = function(){
+		if(this.fadeTween){
+			this.fadeTween.stop();
+		}
+	};
+
 	AbstractButton.prototype.tweenAlpha = function(a, immediate){
 		var duration, delay;
 		duration = 200;
 		delay = 1000;
-		if(this.fadeTween){
-			this.fadeTween.stop();
-		}
+		this.stopTweens();
 		if(immediate){
 			duration = 50;
 			delay = 50;
@@ -624,9 +636,11 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.disableInput = function(){
-		this.sprite.inputEnabled = false;
-		this.tweenAlpha(0.6, false);
-		this.removeListeners();
+		if(this.sprite.inputEnabled){
+			this.sprite.inputEnabled = false;
+			this.tweenAlpha(0.6, false);
+			this.removeListeners();
+		}
 	};
 	
 	AbstractButton.prototype.mouseDown = function(){
@@ -635,6 +649,7 @@ function(Phaser, View, Utils,
 	
 	AbstractButton.prototype.destroy = function(){
 		this.removeListeners();
+		this.stopTweens();
 		this.sprite.inputEnabled = false;
 		this.sprite.destroy(true);
 		this.mouseDownSignal = null;
@@ -1676,13 +1691,58 @@ function(MovieClip, Utils){
 
 
 
+define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
+	
+	
+	
+	var TextFactory  = function(){
+		
+	};
+
+	TextFactory.registerFont = function(key, size, align, fontName, stroke, strokeThickness, shadow, color0, color1){
+		var data = {"size":size, "align":align, "fontName":fontName, "stroke":stroke, "color0":color0, "color1":color1, "shadow":shadow, "strokeThickness":strokeThickness};
+		if(!TextFactory.fonts){
+			TextFactory.fonts = {};
+		}
+		TextFactory.fonts[key] = data;
+	};
+
+	TextFactory.make = function(key, game, x, y, label){
+		var fontData, font, text, fill;
+		fontData = TextFactory.fonts[key];
+		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align};
+		text = new Phaser.Text(game, x, y, label, font);
+	    text.stroke = fontData.stroke;
+	    text.strokeThickness = fontData.strokeThickness;
+	    fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
+		fill.addColorStop(0, fontData.color0);   
+		fill.addColorStop(1, fontData.color1);
+		text.fill = fill;
+		text.setShadow(0, 1, 'rgba(1, 1, 1, 0.2)', fontData.shadow);
+		return text;
+	};
+	
+	return TextFactory;
+
+});
+	
+	
+
+
+
 define('phasercomponents/display/buttons/radiobuttons',
 
-	['phasercomponents/display/buttongrid/buttonbar', 'phasercomponents/utils/utils'
+	['phasercomponents/display/container', 'phasercomponents/utils/utils',
+
+	'phasercomponents/display/buttongrid/buttonbar',
+
+	'phasercomponents/text/textfactory'
 
 ],
 
-function(ButtonBar, Utils
+function(Container, Utils,
+
+	ButtonBar, TextFactory
 
 ){
 	
@@ -1690,18 +1750,47 @@ function(ButtonBar, Utils
 	
 	var RadioButtons  = function(options){
 		options.numX = 1;
-		ButtonBar.call(this, options);
+		Container.call(this, options);
 	};
 	
 	RadioButtons.WIDTH = 120;
 	RadioButtons.HEIGHT = 120;
 
-	Utils.extends(RadioButtons, ButtonBar);
+	Utils.extends(RadioButtons, Container);
+
+	RadioButtons.prototype.create = function(){
+		Container.prototype.create.call(this);
+		this.addButtons();
+		this.addLabels();
+	};
+
+	RadioButtons.prototype.addLabels = function(){
+		var that = this;
+		this.buttons.buttons.forEach(function(button, i){
+			var label, bounds;
+			bounds = button.bounds;
+			label = TextFactory.make(that.options.fontKey, that.game, bounds.x, bounds.y, "Label "+i);
+			that.group.add(label);
+		});
+	};
+
+	RadioButtons.prototype.addButtons = function(){
+		this.buttons = new ButtonBar(this.options);
+		this.group.add(this.buttons.group);
+	};
+	
+	RadioButtons.prototype.destroy = function(){
+		this.group.remove(this.buttons.group);
+		this.buttons.destroy();
+		this.buttons = null;
+		Container.prototype.destroy.call(this);
+	};
 
 	return RadioButtons;
 
 });
 	
+
 
 
 define('phasercomponents/display/buttons/togglebutton',
@@ -1919,7 +2008,8 @@ define('phasercomponents',[
 	'phasercomponents/preloader',
 	'phasercomponents/display/popups/abstractpopup',
 	'phasercomponents/display/loaderbar',
-	'phasercomponents/utils/utils'
+	'phasercomponents/utils/utils',
+	'phasercomponents/text/textfactory'
 	], 
 
 	function (Context, 
@@ -1951,7 +2041,8 @@ define('phasercomponents',[
 		Preloader,
 		AbstractPopup,
 		LoaderBar,
-		Utils
+		Utils,
+		TextFactory
 	) {
 
     
@@ -1995,6 +2086,7 @@ define('phasercomponents',[
         'Display':				Display,
         'Model':				Model,
         'Events':				Events,
+        'TextFactory':          TextFactory,
         'Commands':				Commands,
         'Context': 				Context,
         'Utils': 				Utils,

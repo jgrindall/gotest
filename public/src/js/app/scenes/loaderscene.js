@@ -1,15 +1,11 @@
 
 define('app/scenes/loaderscene',['phasercomponents', 'app/assets', 
 
-	'app/components/loaderbar/loaderbar',
-
-'app/text/textfactory'],
+	'app/views/loaderbar/loaderbar'],
 
 function(PhaserComponents, Assets,
 
-	LoaderBar,
-
-TextFactory){
+	LoaderBar){
 	
 	"use strict";
 	
@@ -44,7 +40,7 @@ TextFactory){
 	};
 	
 	LoaderScene.prototype.addText = function() {
-		this.label = TextFactory.make(this.game, this.game.cx - 300, 0, "Loading...", TextFactory.LARGE);
+		this.label = PhaserComponents.TextFactory.make('large', this.game, this.game.cx - 300, 0, "Loading...");
 		this.world.add(this.label);
 	};
 	

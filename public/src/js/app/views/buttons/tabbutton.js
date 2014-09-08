@@ -1,5 +1,5 @@
 
-define('app/components/buttons/tabbutton',['phasercomponents'],function(PhaserComponents){
+define('app/views/buttons/tabbutton',['phasercomponents'],function(PhaserComponents){
 	
 	"use strict";
 	

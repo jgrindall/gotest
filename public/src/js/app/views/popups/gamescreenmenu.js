@@ -1,9 +1,9 @@
 
-define('app/views/popups/gamescreenmenu',['app/components/buttons/tickbutton', 
+define('app/views/popups/gamescreenmenu',['app/views/buttons/tickbutton', 
 
-'phasercomponents','app/components/screenchoice', 'app/components/buttons/radiobutton',
+'phasercomponents','app/views/screenchoice', 'app/views/buttons/radiobutton',
 
-'app/components/buttons/okbutton', 'app/components/buttons/closebutton'],
+'app/views/buttons/okbutton', 'app/views/buttons/closebutton'],
 
 function(TickButton,
 
@@ -47,7 +47,7 @@ OkButton, CloseButton){
 		w = PhaserComponents.Display.RadioButtons.WIDTH;
 		h = PhaserComponents.Display.RadioButtons.HEIGHT;
 		bounds = {'x':this.bounds.x + this.bounds.w - w, 'y':this.game.h - h, 'w':w, 'h':h};
-		this.radio = new PhaserComponents.Display.RadioButtons({"buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
+		this.radio = new PhaserComponents.Display.RadioButtons({"fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 	};
 

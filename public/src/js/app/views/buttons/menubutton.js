@@ -1,5 +1,5 @@
 
-define('app/components/buttons/menubutton',[ 'phasercomponents', 'app/assets'],
+define('app/views/buttons/menubutton',[ 'phasercomponents', 'app/assets'],
 
 	function(PhaserComponents, Assets){
 	

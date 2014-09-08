@@ -1,7 +1,7 @@
 
-define('app/views/controls/controls',[ 'app/components/background',
+define('app/views/controls/controls',[ 'app/views/background',
 
-'phasercomponents', 'app/components/buttons/tabbutton',
+'phasercomponents', 'app/views/buttons/tabbutton',
 
 'app/views/components/colorpicker', 'app/views/components/widthpicker',
 

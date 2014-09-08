@@ -1,5 +1,5 @@
 
-define('app/views/components/menu',[ 'app/components/buttons/menubutton',
+define('app/views/components/menu',[ 'app/views/buttons/menubutton',
 
 'phasercomponents', 'app/models/modelfacade', 'app/consts/playingstate'],
 

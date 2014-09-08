@@ -1,5 +1,5 @@
 
-define('app/components/loaderbar/loaderbar',['phasercomponents'], 
+define('app/views/loaderbar/loaderbar',['phasercomponents'], 
 
 	function(PhaserComponents){
 	

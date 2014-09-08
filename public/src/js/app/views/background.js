@@ -1,5 +1,5 @@
 
-define('app/components/background',['phaser', 'phasercomponents'],
+define('app/views/background',['phaser', 'phasercomponents'],
 
 	function(Phaser, PhaserComponents){
 	

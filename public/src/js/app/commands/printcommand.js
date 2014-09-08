@@ -1,6 +1,6 @@
 define('app/commands/printcommand',
 
-	['phasercomponents', 'app/components/popups/growl'],
+	['phasercomponents', 'app/views/popups/growl'],
 
 function(PhaserComponents, Growl) {
 	

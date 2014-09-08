@@ -1,7 +1,7 @@
 
 define('app/views/commandpanels/abstractcommandspanel',[ 'phasercomponents',
 
-'app/components/buttons/dirbutton',
+'app/views/buttons/dirbutton',
 
 'app/views/commandpanels/markerfactory', 
 

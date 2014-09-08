@@ -1,5 +1,5 @@
 
-define('app/components/screenchoice',['phaser', 'phasercomponents', 'app/assets'
+define('app/views/screenchoice',['phaser', 'phasercomponents', 'app/assets'
 
 ],
 

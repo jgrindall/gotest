@@ -1,5 +1,5 @@
 
-define('app/components/buttons/tickbutton',['phasercomponents'], function(PhaserComponents){
+define('app/views/buttons/tickbutton',['phasercomponents'], function(PhaserComponents){
 	
 	"use strict";
 	

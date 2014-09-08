@@ -36,6 +36,14 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 	
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
+	AppContext.prototype.mapFonts = function(){
+		PhaserComponents.TextFactory.registerFont('vsmall', '20', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('small', '40', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('medium', '60', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('large', '80', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('vlarge', '100', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
+	};
+
     AppContext.prototype.onChangeScene = function(event, obj){
     	if(obj.data.scene instanceof LoaderScene){
     		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);

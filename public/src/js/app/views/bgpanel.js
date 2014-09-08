@@ -1,5 +1,5 @@
 
-define('app/components/bgpanel',[ 'phasercomponents', 'phaser'
+define('app/views/bgpanel',[ 'phasercomponents', 'phaser'
 
 ],
 

@@ -3,7 +3,7 @@ define('app/scenes/activityscene',['app/views/canvas/canvas', 'app/views/control
 
 'app/views/components/menu', 
 
-'app/components/background', 'phasercomponents',
+'app/views/background', 'phasercomponents',
 
 'app/events/events', 'app/assets'],
 
