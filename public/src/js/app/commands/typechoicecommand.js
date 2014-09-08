@@ -2,11 +2,11 @@ define('app/commands/typechoicecommand',[
 
 	'app/models/modelfacade',
 
-	'phasercomponents', 'app/views/popups/gamescreenmenu'],
+	'phasercomponents', 'app/views/popups/gamescreenmenu', 'app/assets'],
 
 function(ModelFacade,
 
-	PhaserComponents, GameScreenMenu) {
+	PhaserComponents, GameScreenMenu, Assets) {
 	
 	"use strict";
 	
@@ -22,7 +22,7 @@ function(ModelFacade,
 		radioModel = new PhaserComponents.Model.ButtonGridModel();
 		screenModel.set(ModelFacade.getInstance().get(ModelFacade.SCREEN).get());
 		radioModel.set(ModelFacade.getInstance().get(ModelFacade.ANGLE).get());
-		options = {"screenModel":screenModel, "radioModel":radioModel};
+		options = {"screenModel":screenModel, "radioModel":radioModel, "sfx":Assets.SOUNDS[2]};
 		PhaserComponents.AlertManager.getInstance().make(GameScreenMenu, options, this.onScreenChosen.bind(this)); 
 	};
 	

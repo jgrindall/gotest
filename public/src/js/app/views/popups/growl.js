@@ -24,15 +24,15 @@ CloseButton, Assets){
 	
 	PhaserComponents.Utils.extends(Growl, PhaserComponents.Display.AbstractPopup);
 
-	Growl.WIDTH = 400;
-	Growl.HEIGHT = 200;
+	Growl.WIDTH = 420;
+	Growl.HEIGHT = 250;
 	
 	Growl.prototype.addOk = function () {
 		this.addButton(TickButton, 'bottom', 0, 1);
 	};
 	
 	Growl.prototype.addText = function () {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, this.game.cx - 150, this.bounds.y + 20, this.options.label);
+		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 20, this.bounds.y + 20, this.options.label);
 		this.group.add(this.label);
 	};
 	
@@ -43,7 +43,7 @@ CloseButton, Assets){
 	};
 	
 	Growl.prototype.addCloseButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - 50, "y":this.bounds.y + 10};
+		var bounds = {"x":this.bounds.x + this.bounds.w - 55, "y":this.bounds.y + 15};
 		this.addButton(CloseButton, bounds);
 	};
 	

@@ -20,8 +20,8 @@ OkButton, CloseButton){
 	
 	PhaserComponents.Utils.extends(GameScreenMenu, PhaserComponents.Display.AbstractPopup);
 
-	GameScreenMenu.WIDTH = 800;
-	GameScreenMenu.HEIGHT = 600;
+	GameScreenMenu.WIDTH = 720;
+	GameScreenMenu.HEIGHT = 540;
 	
 	GameScreenMenu.prototype.addOk = function () {
 		this.addButton(TickButton, 'bottom', 0, 1);
@@ -33,8 +33,9 @@ OkButton, CloseButton){
 		this.addButton(OkButton, bounds);
 	};
 	
-	GameScreenMenu.prototype.addCloseButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - 50, "y":this.bounds.y + 10};
+	GameScreenMenu.prototype.addCloseButton = function () {
+		console.log("bounds "+JSON.stringify(this.bounds));
+		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y + 10};
 		this.addButton(CloseButton, bounds);
 	};
 
@@ -43,11 +44,12 @@ OkButton, CloseButton){
 	};
 
 	GameScreenMenu.prototype.addRadio = function() {
-		var bounds, w, h;
+		var bounds, w, h, labels;
 		w = PhaserComponents.Display.RadioButtons.WIDTH;
 		h = PhaserComponents.Display.RadioButtons.HEIGHT;
+		labels = ["45 degrees", "90 degrees"];
 		bounds = {'x':this.bounds.x + this.bounds.w - w, 'y':this.game.h - h, 'w':w, 'h':h};
-		this.radio = new PhaserComponents.Display.RadioButtons({"fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
+		this.radio = new PhaserComponents.Display.RadioButtons({"labels":labels, "fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 	};
 
@@ -58,12 +60,18 @@ OkButton, CloseButton){
 		this.group.add(this.grid.group);
 	};
 
+	GameScreenMenu.prototype.addTitle = function() {
+		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 20, this.bounds.y + 10, "Choose a way to enter commands");
+ 		this.group.add(this.label);
+	};
+
 	GameScreenMenu.prototype.create = function () {
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addOkButton();
 		this.addCloseButton();
 		this.addGrid();
 		this.addRadio();
+		this.addTitle();
 	};
 	
 	GameScreenMenu.prototype.destroy = function() {

@@ -7,6 +7,7 @@ define('app/views/buttons/closebutton',[ 'phasercomponents', 'app/assets'],
 	
 	var CloseButton = function(options){
 		options.asset = Assets.CLOSE;
+		options.sfx = Assets.SOUNDS[1];
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	

@@ -9,8 +9,8 @@ define('app/views/loaderbar/loaderbar',['phasercomponents'],
 		PhaserComponents.Display.LoaderBar.call(this, options);
 	};
 	
-	LoaderBar.WIDTH = 500;
-	LoaderBar.HEIGHT = 60;
+	LoaderBar.WIDTH = 350;
+	LoaderBar.HEIGHT = 30;
 	
 	PhaserComponents.Utils.extends(LoaderBar, PhaserComponents.Display.LoaderBar);
 

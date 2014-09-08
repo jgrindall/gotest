@@ -1,7 +1,7 @@
 
-define('phasercomponents/gamemanager', ['phaser', 'phaserstatetrans'],
+define('phasercomponents/gamemanager', ['jquery', 'phaser', 'phaserstatetrans'],
 
-function(Phaser, PhaserStateTrans){
+function($, Phaser, PhaserStateTrans){
 	
 	
 	
@@ -9,11 +9,13 @@ function(Phaser, PhaserStateTrans){
 
 	};
 
-	GameManager.prototype.init = function(el, config){
-		var w, h;
-		w = this.getWidth();
-    	h = this.getHeight();
-		this.game = new Phaser.Game(w, h, Phaser.AUTO, el, config);
+	GameManager.prototype.init = function(options, config){
+		var w, h, size;
+		this.options = options;
+		size = this.getSize();
+		w = size.w;
+    	h = size.h;
+		this.game = new Phaser.Game(w, h, Phaser.AUTO, this.options.containerTagId, config);
 		this.game.w = w;
 		this.game.h = h;
 		this.game.cx = w/2;
@@ -30,7 +32,7 @@ function(Phaser, PhaserStateTrans){
 	GameManager.prototype.start = function(){
 		var settings;
 		this.transitions = this.game.plugins.add(PhaserStateTrans);
-		settings = {'duration': 300,	'properties': {'alpha': 0, 'scale': {'x': 1.05, 'y': 1.05}}};
+		settings = {'duration': 400,	'properties': {'alpha': 0, 'scale': {'x': 1.1, 'y': 1.1}}};
 		this.transitions.settings(settings);
 		this.game.state.start(this.firstSceneKey);
 	};
@@ -39,14 +41,43 @@ function(Phaser, PhaserStateTrans){
 		this.transitions.to(key);
 	};
 
-	GameManager.prototype.getWidth = function(){
-		return 1024 * window.devicePixelRatio;
+	GameManager.prototype.getSizeFit = function(){
+		var w, h, ratio, size, el;
+		el = $("#"+this.options.containerTagId); 
+		ratio  = 4/3;
+		w = el.width();
+		h = el.height();
+		if(w/h > ratio){
+			size = {"w":ratio*h, "h":h};
+		}
+		else{
+			size = {"w":w, "h":w*(1/ratio)};
+		}
+		size.w = size.w * window.devicePixelRatio;
+		size.h = size.h * window.devicePixelRatio;
+		return size;
 	};
-	
-	GameManager.prototype.getHeight = function(){
-		return 570 * window.devicePixelRatio;
+
+	GameManager.prototype.getSizeFill = function(){
+		var w, h, size, el;
+		el = $("#"+this.options.containerTagId); 
+		w = el.width();
+		h = el.height();
+		size = {"w":w, "h":h};
+		size.w = size.w * window.devicePixelRatio;
+		size.h = size.h * window.devicePixelRatio;
+		return size;
 	};
-	
+
+	GameManager.prototype.getSize = function(){
+		if(this.options.scaleType === "fill"){
+			return this.getSizeFill();
+		}
+		else{
+			return this.getSizeFit();
+		}
+	};
+
 	return GameManager;
 	
 });
@@ -180,6 +211,7 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	};
 	
 	SoundManager.prototype.add = function(key, sound){
+		console.log("add "+key+" "+sound);
 		this.sounds[key] = sound;
 	};
 
@@ -192,6 +224,7 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	
 	SoundManager.prototype.play = function(key){
 		var sound = this.sounds[key];
+		console.log("play "+key+" "+sound);
 		if(sound){
 			sound.play();
 		}
@@ -267,18 +300,17 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
 	
 	
 
-   	var Context = function ( ){
+   	var Context = function (options){
+   		this.options = options;
+   		console.log("Context options "+JSON.stringify(options));
 		this.gameManager = new GameManager();
 		this.commandMap = new CommandMap();
 		this.mapFonts();
 		Context.eventDispatcher = new EventDispatcher();
 		Context.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
-    };
-	
-    Context.prototype.init = function(){
 		this.makeGame();
     };
-
+	
     Context.prototype.onChangeScene = function(){
     	
     };
@@ -290,9 +322,9 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
     Context.prototype.makeGame = function(){
     	var config = {
     		"preload":this.preload.bind(this),
-    		"create":this.create.bind(this)
+    		"create":this.create.bind(this),
     	};
-    	this.gameManager.init(this.el, config);
+    	this.gameManager.init(this.options, config);
     };
 
     Context.prototype.mapScenes = function(){
@@ -589,10 +621,8 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.mouseUp = function(){
-		var options;
-		if(this.options.buttonClickSound){
-			options = {"type":AppEvents.PLAY_SOUND, "data":this.options.buttonClickSound};
-			this.eventDispatcher.trigger(options);
+		if(this.options.sfx){
+			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
 		}
 		this.mouseUpSignal.dispatch({"target":this});
 		
@@ -957,7 +987,7 @@ InteractiveSprite, Utils){
 		}
 	};
 	
-	Slider.WIDTH = 			200;
+	Slider.WIDTH = 			210;
 	Slider.HEIGHT = 		40;
 	Slider.HANDLEWIDTH = 	40;
 	Slider.HANDLEHEIGHT = 	40;
@@ -1314,10 +1344,11 @@ function($, Phaser, Context, AppEvents){
 	AlertManager.prototype.addBg = function(){
 		this.bg = new Phaser.Graphics(this.game, 0, 0);
 		this.bg.beginFill(0x000000);
-		this.bg.alpha = 0.7;
+		this.bg.alpha = 0.3;
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
 		this.game.world.add(this.bg);
+		this.game.add.tween(this.bg).to( {'alpha':0.7}, 300, Phaser.Easing.Linear.None, true, 50, false);
 	};
 	
 	AlertManager.prototype.make = function(ClassRef, options, callback){
@@ -1769,7 +1800,7 @@ function(Container, Utils,
 		this.buttons.buttons.forEach(function(button, i){
 			var label, bounds;
 			bounds = button.bounds;
-			label = TextFactory.make(that.options.fontKey, that.game, bounds.x, bounds.y, "Label "+i);
+			label = TextFactory.make(that.options.fontKey, that.game, bounds.x + 55, bounds.y + 15, that.options.labels[i]);
 			that.group.add(label);
 		});
 	};
@@ -1879,11 +1910,11 @@ define('phasercomponents/preloader',['phaser'], function(Phaser){
 
 
 
-define('phasercomponents/display/popups/abstractpopup',['phaser',
+define('phasercomponents/display/popups/abstractpopup',['phaser', 'phasercomponents/events/appevents',
 
 'phasercomponents/display/container', 'phasercomponents/utils/utils'],
 
-function(Phaser,
+function(Phaser, AppEvents,
 
 Container, Utils){
 	
@@ -1904,7 +1935,10 @@ Container, Utils){
 	};
 	
 	AbstractPopup.prototype.showMe = function () {
-		this.game.add.tween(this.group).to( {x: 0, y: 0}, 300, Phaser.Easing.Back.Out, true, 0, false);
+		if(this.options.sfx){
+			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
+		}
+		this.game.add.tween(this.group).to( {x: 0, y: 0}, 400, Phaser.Easing.Back.Out, true, 200, false);
 	};
 
 	AbstractPopup.prototype.getData = function() {

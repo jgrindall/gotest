@@ -62,10 +62,16 @@ PhaserComponents, Assets)
 		this.pager.setSelected(i);
 	};
 	
+	ArrowSelectorMenu.prototype.addTitle = function() {
+		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.label);
+ 		this.group.add(this.label);
+	};
+
 	ArrowSelectorMenu.prototype.create = function () {
 		SelectorMenu.prototype.create.call(this);
 		this.addPager();
 		this.addArrows();
+		this.addTitle();
 		this.group.bringToTop(this.buttonGroup);
 	};
 	

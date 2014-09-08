@@ -14,10 +14,10 @@ require(['phaser'], function(Phaser){
 	require(['jquery', 'app/appcontext'], function($, AppContext){
 		
 		$(document).ready(function(){
-			var context = new AppContext();
-			context.init();
+			var options = {"containerTagId":"game", "scaleType":"fill"};
+			new AppContext(options);
+			
 		});
-		
 	
 	});
 

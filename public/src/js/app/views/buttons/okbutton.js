@@ -7,6 +7,7 @@ define('app/views/buttons/okbutton',[ 'phasercomponents', 'app/assets'],
 	
 	var OkButton = function(options){
 		options.asset = Assets.OK_BUTTON;
+		options.sfx = Assets.SOUNDS[1];
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	

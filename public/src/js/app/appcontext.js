@@ -29,24 +29,27 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 	
 	"use strict";
 
-   	var AppContext = function ( ){
-		this.el =  "game";
-		PhaserComponents.Context.call(this);
+   	var AppContext = function (options){
+		PhaserComponents.Context.call(this, options);
     };
 	
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
 	AppContext.prototype.mapFonts = function(){
-		PhaserComponents.TextFactory.registerFont('vsmall', '20', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
-		PhaserComponents.TextFactory.registerFont('small', '40', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
-		PhaserComponents.TextFactory.registerFont('medium', '60', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
-		PhaserComponents.TextFactory.registerFont('large', '80', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
-		PhaserComponents.TextFactory.registerFont('vlarge', '100', 'center', 'Yanone', '#777777', 2, 5, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('vsmall', '17', 'center', 'TooSimple', '#bbbbbb', 1, 2, '#ffffff', '#eeeeee');
+		// (key, size, align, fontName, stroke, strokeThickness, shadow, color0, color1)
+		PhaserComponents.TextFactory.registerFont('small', '24', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('medium', '40', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('large', '60', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('vlarge', '80', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
 	};
 
     AppContext.prototype.onChangeScene = function(event, obj){
+    	var that = this;
     	if(obj.data.scene instanceof LoaderScene){
-    		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
+    		setTimeout(function(){
+    			that.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
+    		}, 1000); 
     	}
     };
  
@@ -57,6 +60,9 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 
     AppContext.prototype.addSounds = function(){
     	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[0], new Phaser.Sound(this.game, Assets.SOUNDS[0]));
+    	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[1], new Phaser.Sound(this.game, Assets.SOUNDS[1]));
+    	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[2], new Phaser.Sound(this.game, Assets.SOUNDS[2]));
+    	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[3], new Phaser.Sound(this.game, Assets.SOUNDS[3]));
     };
 
     AppContext.prototype.mapCommands = function(){
@@ -79,7 +85,7 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 	
 	AppContext.prototype.preload = function(){
 		this.gameManager.game.load.image(Assets.BG, 'assets/images/bg/bg.png');
-		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/other/bar.png', 500, 60);
+		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/loader/bar.png', 350, 30);
 	};
 	
 	return AppContext;

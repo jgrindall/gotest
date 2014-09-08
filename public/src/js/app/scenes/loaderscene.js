@@ -27,7 +27,6 @@ function(PhaserComponents, Assets,
 	
 	LoaderScene.prototype.addChildren = function() {
 		this.addBar();
-		this.addText();
 	};
 	
 	LoaderScene.prototype.addBar = function() {

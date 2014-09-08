@@ -11,7 +11,7 @@ define('app/assets',[], function(){
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
 	Assets.MAPS = 					['map0', 'map1', 'map2'];
 	Assets.TURTLE = 				'turtle';
-	Assets.SOUNDS = 				['sound1', 'sound2', 'sound3', 'sound4', 'sound5'];
+	Assets.SOUNDS = 				['clickdown', 'clickup', 'swooshdown', 'swooshup'];
 	Assets.CLOSE = 					'close';
 	Assets.TICK = 					'tick';
 	Assets.MARKER = 				'marker';
@@ -32,7 +32,7 @@ define('app/assets',[], function(){
 	Assets.BG = 					'bg';
 	
 	Assets.SPRITESHEETS = [
-		{"type":"spritesheet", 	"asset":"assets/images/other/smallpanel.png",	 			"key":Assets.SMALL_PANEL,				"w":225, 	"h":250},
+		{"type":"spritesheet", 	"asset":"assets/images/screens/smallpanel.png",	 			"key":Assets.SMALL_PANEL,				"w":225, 	"h":250},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/markers.png", 				"key":Assets.MARKERS, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/buttons.png", 				"key":Assets.BUTTON, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 					"key":Assets.CLOSE, 					"w":50, 	"h":50},
@@ -46,9 +46,10 @@ define('app/assets',[], function(){
 	];
 	
 	Assets.SOUNDFX = [
-		{"type":"sound", 		"asset":["assets/sound/sound0.mp3", "assets/sound/sound0.wav"], 			"key":Assets.SOUNDS[0]},
-		{"type":"sound", 		"asset":["assets/sound/sound1.mp3", "assets/sound/sound1.wav"], 			"key":Assets.SOUNDS[1]},
-		{"type":"sound", 		"asset":["assets/sound/sound2.mp3", "assets/sound/sound2.wav"], 			"key":Assets.SOUNDS[2]}
+		{"type":"sound", 		"asset":["assets/sound/click0.mp3", "assets/sound/click0.wav"], 			"key":Assets.SOUNDS[0]},
+		{"type":"sound", 		"asset":["assets/sound/click1.mp3", "assets/sound/click1.wav"], 			"key":Assets.SOUNDS[1]},
+		{"type":"sound", 		"asset":["assets/sound/swoosh0.mp3", "assets/sound/swoosh0.wav"], 			"key":Assets.SOUNDS[2]},
+		{"type":"sound", 		"asset":["assets/sound/swoosh1.mp3", "assets/sound/swoosh1.wav"], 			"key":Assets.SOUNDS[3]}
 	];
 	
 	Assets.IMAGES = [
@@ -64,8 +65,8 @@ define('app/assets',[], function(){
 		{"type":"image", 		"asset":"assets/images/maps/map1.jpg", 					"key":Assets.MAPS[1]},
 		{"type":"image", 		"asset":"assets/images/maps/map2.jpg", 					"key":Assets.MAPS[2]},
 		{"type":"image", 		"asset":"assets/images/turtle/turtle.png", 				"key":Assets.TURTLE},
-		{"type":"image", 		"asset":"assets/images/other/panel.png",	 			"key":Assets.PANEL},
-		{"type":"image", 		"asset":"assets/images/other/alert.png",	 			"key":Assets.ALERT}
+		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
+		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT}
 	];
 	
 	

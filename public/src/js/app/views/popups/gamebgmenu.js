@@ -14,6 +14,7 @@ ArrowSelectorMenu, PhaserComponents
 	"use strict";
 		
 	var GameBgMenu = function(options){
+		options.label = "Choose...";
 		ArrowSelectorMenu.call(this, options);
 	};
 	
