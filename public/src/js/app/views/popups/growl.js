@@ -28,7 +28,8 @@ CloseButton, Assets){
 	Growl.HEIGHT = 250;
 	
 	Growl.prototype.addText = function () {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 20, this.bounds.y + 60, this.options.label);
+		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + this.bounds.w/2, this.bounds.y + 90, this.options.label);
+		this.label.x -= this.label.width/2;
 		this.group.add(this.label);
 	};
 

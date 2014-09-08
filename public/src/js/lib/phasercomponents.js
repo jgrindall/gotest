@@ -968,11 +968,11 @@ function(ButtonBar, Utils){
 
 define('phasercomponents/display/slider/slider',['phaser', 'phasercomponents/display/container',
 
-'phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
+'phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils', 'phasercomponents/events/appevents'],
 
 function(Phaser, Container,
 
-InteractiveSprite, Utils){
+InteractiveSprite, Utils, AppEvents){
 	
 	
 	
@@ -1016,6 +1016,9 @@ InteractiveSprite, Utils){
 	Slider.prototype.onUp = function() {
 		this.dragging = false;
 		this.removeMoveListeners();
+		if(this.options.sfx){
+			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
+		}
 		this.snap();
 	};
 	
@@ -1612,9 +1615,9 @@ function(GroupMarker, Scroller, Utils){
 
 define('phasercomponents/display/buttons/multibutton',
 
-	['phasercomponents/display/movieclip', 'phasercomponents/utils/utils'],
+	['phasercomponents/display/movieclip', 'phasercomponents/utils/utils', 'phasercomponents/events/appevents'],
 
-function(MovieClip, Utils){
+function(MovieClip, Utils, AppEvents){
 	
 	
 	
@@ -1653,6 +1656,9 @@ function(MovieClip, Utils){
 		var p, frame;
 		p = data.localPoint.x / this.options.bounds.w;
 		frame = Math.floor(this.options.numSegments * p);
+		if(this.options.sfx){
+			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
+		}
 		this.setFrame(frame);
 	};
 	
@@ -1672,9 +1678,11 @@ function(MovieClip, Utils){
 
 define('phasercomponents/display/buttons/stepperbutton',[ 
 	
-'phasercomponents/display/movieclip', 'phasercomponents/utils/utils'],
+'phasercomponents/display/movieclip', 'phasercomponents/utils/utils',
 
-function(MovieClip, Utils){
+'phasercomponents/events/appevents'],
+
+function(MovieClip, Utils, AppEvents){
 	
 	
 	
@@ -1704,6 +1712,9 @@ function(MovieClip, Utils){
 	};
 
 	StepperButton.prototype.onStep = function(data){
+		if(this.options.sfx){
+			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
+		}
 		this.model.increment();
 	};
 	
