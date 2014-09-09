@@ -91,7 +91,7 @@ Events, Assets){
 	};
 	
 	Controls.prototype.addButtons = function() {
-		var bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':300, 'h':50};
+		var bounds = {'x':this.game.w - ControlMenu.WIDTH, 'y':this.bounds.y, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
 		this.menu = new ControlMenu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
 		this.group.add(this.menu.group);

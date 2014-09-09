@@ -19,6 +19,9 @@ PhaserComponents, ModelFacade, PlayingState){
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 	};
 	
+	Menu.WIDTH = 252;
+	Menu.HEIGHT = 50;
+
 	PhaserComponents.Utils.extends(Menu, PhaserComponents.Display.ButtonBar);
 
 	Menu.prototype.onAlert = function(event, data) {

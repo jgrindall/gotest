@@ -46,7 +46,7 @@ Events, Assets){
 	};
 	
 	ActivityScene.prototype.addMenu = function() {
-		var bounds = {'x':0, 'y':0, 'w':300, 'h':50};
+		var bounds = {'x':0, 'y':0, 'w':Menu.WIDTH, 'h':Menu.HEIGHT};
 		this.menu = new Menu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
 		this.world.add(this.menu.group);

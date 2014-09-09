@@ -23,6 +23,9 @@ PlayingState){
 		this.disableButtonAt(1);
 	};
 	
+	ControlMenu.WIDTH = 280;
+	ControlMenu.HEIGHT = 50;
+
 	PhaserComponents.Utils.extends(ControlMenu, PhaserComponents.Display.ButtonBar);
 
 	ControlMenu.prototype.playingChanged = function(value){
