@@ -18,6 +18,7 @@ define('app/assets',[], function(){
 	Assets.TICK = 					'tick';
 	Assets.MARKER = 				'marker';
 	Assets.PANEL = 					'panel';
+	Assets.SPEEDDECOR = 			'speeddecor';
 	Assets.SMALL_PANEL = 			'smallpanel';
 	Assets.ALERT = 					'alert';
 	Assets.LEFT = 					'left';
@@ -60,7 +61,8 @@ define('app/assets',[], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle10.png", 				"key":Assets.WIDTHS[10], 				"w":50, 	"h":85},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/toggle.png", 				"key":Assets.TOGGLE, 					"w":120, 	"h":60},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/radiobutton.png", 			"key":Assets.RADIO, 					"w":120, 	"h":60},
-		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.jpg",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5}
+		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.jpg",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5},
+		{"type":"spritesheet", 	"asset":"assets/images/slider/decor.png",	 				"key":Assets.SPEEDDECOR,				"w":40, 	"h":40}
 	];
 	
 	Assets.SOUNDFX = [
