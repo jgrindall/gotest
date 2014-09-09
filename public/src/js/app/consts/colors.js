@@ -8,16 +8,20 @@ define('app/consts/colors',[], function() {
 			
     };
 	
-	Colors.BLUE = 		0x0000cc;
-	Colors.GREEN = 		0x009900;
-	Colors.PINK = 		0x990099;
-	Colors.BROWN = 		0x663333;
-	Colors.ORANGE = 	0xff4400;
-	Colors.YELLOW = 	0xccff33;
+	Colors.BLUE = 		0x21a0d9;
+	Colors.GREEN = 		0x3ebd5e;
+	Colors.PINK = 		0xd174e2;
+	Colors.WHITE = 		0xeeeeee;
+	Colors.BROWN = 		0x664344;
+	Colors.ORANGE = 	0xf39811;
+	Colors.YELLOW = 	0xf9e238;
 	Colors.BLACK = 		0x111111;
-	Colors.RED = 		0xaa0000;
+	Colors.GREY = 		0x999999;
+	Colors.RED = 		0xeb2d2a;
 	
-	Colors.ALL = [Colors.BLUE, Colors.GREEN, Colors.PINK, Colors.BROWN, Colors.ORANGE, Colors.YELLOW, Colors.BLACK, Colors.RED];
+	Colors.ALL = [Colors.RED, Colors.ORANGE, Colors.YELLOW, Colors.GREEN, Colors.BLUE,
+
+	Colors.PINK, Colors.BROWN, Colors.WHITE, Colors.GREY, Colors.BLACK];
 
 	return Colors;
 });

@@ -43,8 +43,8 @@ Indicator, Grid, Corners, Assets){
 	};
 	
 	Canvas.prototype.addIndicator = function() {
-		this.indicator = new Indicator({'bounds':{'x':10, 'y':50}});
-		this.group.add(this.indicator.gfx);
+		//this.indicator = new Indicator({'bounds':{'x':10, 'y':50}});
+		//this.group.add(this.indicator.gfx);
 	};
 	
 	Canvas.prototype.addDrawing = function() {

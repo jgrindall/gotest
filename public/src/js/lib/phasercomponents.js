@@ -517,10 +517,17 @@ define('phasercomponents/display/movieclip',
 	Utils.extends(MovieClip, InteractiveSprite);
 
 	MovieClip.prototype.goTo = function(i){
+		console.log("go to frame "+i);
 		if(i === null || i === undefined){
 			i = 0;
 		}
 		this.sprite.animations.play('frame'+i);
+	};
+
+	MovieClip.prototype.loadTexture = function(s){
+		var frameNum = this.sprite.animations.currentFrame.index;
+		this.sprite.loadTexture(s);
+		this.sprite.animations.play('frame'+frameNum);
 	};
 
 	MovieClip.prototype.create = function(){
@@ -1369,13 +1376,17 @@ function($, Phaser, Context, AppEvents){
 	};
 	
 	AlertManager.prototype.close = function(){
+		var that = this;
 		if(this.alert){
 			this.alert.selectSignal.remove(this.callbackProxy);
-			this.alert.destroy();
-			this.bg.destroy();
-			this.bg = null;
-			this.alert = null;
-			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
+			this.alert.hideMe();
+			setTimeout(function(){
+				that.alert.destroy();
+				that.bg.destroy();
+				that.bg = null;
+				that.alert = null;
+				that.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
+			}, 300);
 		}
 	};
 	
@@ -1988,7 +1999,14 @@ Container, Utils){
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
 		}
-		this.game.add.tween(this.group).to( {x: 0, y: 0}, 400, Phaser.Easing.Back.Out, true, 200, false);
+		this.game.add.tween(this.group).to( {y: 0}, 400, Phaser.Easing.Back.Out, true, 200, false);
+	};
+
+	AbstractPopup.prototype.hideMe = function () {
+		if(this.options.sfx){
+			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
+		}
+		this.game.add.tween(this.group).to( {y: this.game.h + 50}, 400, Phaser.Easing.Back.Out, true, 200, false);
 	};
 
 	AbstractPopup.prototype.getData = function() {

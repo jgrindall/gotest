@@ -49,7 +49,7 @@ OkButton, CloseButton, StepLengths){
 		var middle, bounds, options;
 		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
 		bounds = {"x":middle, "y":this.bounds.y + 100, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
-		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds}
+		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds};
 		console.log("slider "+options.handle, options.sliderbg, options.sliderhl);
 		this.lengthSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.lengthSlider.group);

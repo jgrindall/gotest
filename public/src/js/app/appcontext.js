@@ -36,9 +36,8 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
 	AppContext.prototype.mapFonts = function(){
-		PhaserComponents.TextFactory.registerFont('vsmall', '17', 'center', 'TooSimple', '#bbbbbb', 1, 2, '#ffffff', '#eeeeee');
-		// (key, size, align, fontName, stroke, strokeThickness, shadow, color0, color1)
-		PhaserComponents.TextFactory.registerFont('small', '22', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('vsmall', '15', 'center', 'TooSimple', '#bbbbbb', 1, 2, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('small', '20', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
 		PhaserComponents.TextFactory.registerFont('medium', '40', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
 		PhaserComponents.TextFactory.registerFont('large', '60', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
 		PhaserComponents.TextFactory.registerFont('vlarge', '80', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');

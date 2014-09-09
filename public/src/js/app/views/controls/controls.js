@@ -37,7 +37,7 @@ Events, Assets){
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 	};
 
-	Controls.WIDTH = 290;
+	Controls.WIDTH = 320;
 	
 	PhaserComponents.Utils.extends(Controls, PhaserComponents.Display.Container);
 
@@ -140,7 +140,7 @@ Events, Assets){
 
 	Controls.prototype.addWidthPicker = function() {
 		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
-		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTH, "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
+		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.sprite);
 	};
 	

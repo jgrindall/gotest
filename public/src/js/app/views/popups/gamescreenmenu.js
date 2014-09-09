@@ -1,13 +1,9 @@
 
-define('app/views/popups/gamescreenmenu',['app/views/buttons/tickbutton', 
-
-'phasercomponents','app/views/screenchoice', 'app/views/buttons/radiobutton',
+define('app/views/popups/gamescreenmenu',['phasercomponents','app/views/screenchoice', 'app/views/buttons/radiobutton',
 
 'app/views/buttons/okbutton', 'app/views/buttons/closebutton'],
 
-function(TickButton,
-
-PhaserComponents, ScreenChoice, RadioButton,
+function(PhaserComponents, ScreenChoice, RadioButton,
 
 OkButton, CloseButton){
 	
@@ -51,7 +47,7 @@ OkButton, CloseButton){
 
 	GameScreenMenu.prototype.addGrid = function() {
 		var options, bounds;
-		bounds = {'x':this.options.bounds.x, 'y':this.options.bounds.y + 40, 'w':this.options.bounds.w, 'h':this.options.bounds.h - 100}
+		bounds = {'x':this.options.bounds.x, 'y':this.options.bounds.y + 40, 'w':this.options.bounds.w, 'h':this.options.bounds.h - 100};
 		options = {"model":this.options.screenModel, "bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.group.add(this.grid.group);

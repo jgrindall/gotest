@@ -31,7 +31,7 @@ define('app/assets',[], function(){
 	Assets.SLIDERHL = 				'sliderhl';
 	Assets.SLIDERHANDLE = 			'sliderhandle';
 	Assets.PENS = 					'pens';
-	Assets.WIDTH = 					'width';
+	Assets.WIDTHS = 				['width0', 'width1', 'width2', 'width3', 'width4', 'width5', 'width6', 'width7', 'width8', 'width9', 'width10'];
 	Assets.TOGGLE = 				'toggle';
 	Assets.RADIO = 					'radio';
 	Assets.BG = 					'bg';
@@ -46,8 +46,18 @@ define('app/assets',[], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 					"key":Assets.TICK, 						"w":80, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Assets.OK_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Assets.MARKER, 					"w":40, 	"h":40},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 						"key":Assets.PENS, 						"w":160, 	"h":80},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/width.png", 					"key":Assets.WIDTH, 					"w":80, 	"h":80},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 						"key":Assets.PENS, 						"w":235, 	"h":125},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle0.png", 				"key":Assets.WIDTHS[0], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle1.png", 				"key":Assets.WIDTHS[1], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle2.png", 				"key":Assets.WIDTHS[2], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle3.png", 				"key":Assets.WIDTHS[3], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle4.png", 				"key":Assets.WIDTHS[4], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle5.png", 				"key":Assets.WIDTHS[5], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle6.png", 				"key":Assets.WIDTHS[6], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle7.png", 				"key":Assets.WIDTHS[7], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle8.png", 				"key":Assets.WIDTHS[8], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle9.png", 				"key":Assets.WIDTHS[9], 				"w":50, 	"h":85},
+		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle10.png", 				"key":Assets.WIDTHS[10], 				"w":50, 	"h":85},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/toggle.png", 				"key":Assets.TOGGLE, 					"w":120, 	"h":60},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/radiobutton.png", 			"key":Assets.RADIO, 					"w":120, 	"h":60},
 		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.jpg",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5}

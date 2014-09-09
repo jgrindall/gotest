@@ -1,15 +1,11 @@
 
-define('app/views/popups/growl',[ 'app/views/buttons/tickbutton',
-
-'phasercomponents',
+define('app/views/popups/growl',['phasercomponents',
 
 'app/views/buttons/okbutton',
 
 'app/views/buttons/closebutton', 'app/assets'],
 
-function(TickButton,
-
-PhaserComponents,
+function(PhaserComponents,
 
 OkButton,
 
