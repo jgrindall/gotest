@@ -34,8 +34,9 @@ OkButton, CloseButton, StepLengths){
 	};
 	
 	GridMenu.prototype.addOkButton = function () {
-		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT/2 - 20};
+		var middle, bounds;
+		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
+		bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT/2 - 20};
 		this.addButton(OkButton, bounds);
 	};
 	
@@ -45,22 +46,27 @@ OkButton, CloseButton, StepLengths){
 	};
 	
 	GridMenu.prototype.addSlider = function(){
-		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + 100};
-		this.lengthSlider = new PhaserComponents.Display.Slider({"handleAsset":Assets.SLIDERHANDLE, "model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds});
+		var middle, bounds, options;
+		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
+		bounds = {"x":middle, "y":this.bounds.y + 100, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
+		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds}
+		console.log("slider "+options.handle, options.sliderbg, options.sliderhl);
+		this.lengthSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.lengthSlider.group);
 	};
 
 	GridMenu.prototype.addDiagToggle = function(){
-		var middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + 240};
+		var middle, bounds;
+		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
+		bounds = {"x":middle, "y":this.bounds.y + 240};
 		this.diagToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": ModelFacade.getInstance().get(ModelFacade.DIAG), "bounds":bounds});
 		this.group.add(this.diagToggle.sprite);
 	};
 
 	GridMenu.prototype.addGridToggle = function(){
-		var middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + 170};
+		var middle, bounds;
+		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
+		bounds = {"x":middle, "y":this.bounds.y + 170};
 		this.gridToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": ModelFacade.getInstance().get(ModelFacade.GRID), "bounds":bounds});
 		this.group.add(this.gridToggle.sprite);
 	};

@@ -1,7 +1,7 @@
 
 @font-face{
     font-family: TooSimple;
-    src: url("../fonts/OpenSans-CondLight.ttf") format('truetype');
+    src: url("../fonts/Lato-Regular.ttf") format('truetype');
 }
 
 html, body{
@@ -10,12 +10,13 @@ html, body{
 	background:#fff;
 	height:100%;
 	width:100%;
-	background:black;
+	background:#5b6465;
 }
 
 div{
 	padding:0;
 	margin:0;
+	background:#5b6465;
 }
 
 div#game{
@@ -35,4 +36,8 @@ p{
 	font-family: TooSimple;
 	padding:0;
 	margin:0;
+}
+
+canvas{
+	background:#5b6465;
 }

@@ -6,11 +6,10 @@ define('app/views/buttons/keybutton',['phasercomponents', 'app/assets'],
 	"use strict";
 	
 	var KeyButton = function(options){
-		var startFrame, frame0;
-		options.asset = Assets.BUTTON;
-		startFrame = 18 * 4;
-		frame0 = startFrame + (4 * options.data.num);
-		options.frames = [frame0, frame0+1, frame0+2, frame0+3];
+		var frame0;
+		options.asset = Assets.KEYS;
+		frame0 = (4 * options.data.num);
+		options.frames = [frame0, frame0 + 1, frame0 + 2, frame0 + 3];
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	

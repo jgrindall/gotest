@@ -1,11 +1,11 @@
 
 define('app/scenes/loaderscene',['phasercomponents', 'app/assets', 
 
-	'app/views/loaderbar/loaderbar'],
+	'app/views/loaderbar/loaderbar', 'app/views/background'],
 
 function(PhaserComponents, Assets,
 
-	LoaderBar){
+	LoaderBar, Background){
 	
 	"use strict";
 	
@@ -26,9 +26,17 @@ function(PhaserComponents, Assets,
 	};
 	
 	LoaderScene.prototype.addChildren = function() {
+		this.addBg();
 		this.addBar();
 	};
 	
+	LoaderScene.prototype.addBg = function() {
+		var w, h, bounds;
+		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
+		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
+		this.world.add(this.bg.sprite);
+	};
+
 	LoaderScene.prototype.addBar = function() {
 		var x, y, bounds;
 		x = this.game.cx - LoaderBar.WIDTH/2;
@@ -36,11 +44,6 @@ function(PhaserComponents, Assets,
 		bounds = {"x":x, "y":y};
 		this.loaderBar = new LoaderBar({'bounds':bounds, 'asset':Assets.LOADER_BAR, 'numFrames':8});
 		this.world.add(this.loaderBar.sprite);
-	};
-	
-	LoaderScene.prototype.addText = function() {
-		this.label = PhaserComponents.TextFactory.make('large', this.game, this.game.cx - 300, 0, "Loading...");
-		this.world.add(this.label);
 	};
 	
 	LoaderScene.prototype.loadProgress = function(data) {

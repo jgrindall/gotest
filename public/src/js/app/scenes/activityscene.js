@@ -31,7 +31,7 @@ Events, Assets){
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
-	
+
 	ActivityScene.prototype.addBg = function() {
 		var w, h, bounds;
 		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};

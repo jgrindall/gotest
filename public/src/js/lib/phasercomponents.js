@@ -907,8 +907,20 @@ function(ButtonGrid, Utils){
 	
 	ButtonBar.prototype.create = function(){
 		ButtonGrid.prototype.create.call(this);
+		this.scale();
 	};
 	
+	ButtonBar.prototype.scale = function(){
+		var that = this;
+		this.buttons.forEach(function(button, i){
+			button.sprite.anchor.setTo(0.5, 0.5);
+			button.sprite.x += button.sprite.width/2;
+			button.sprite.y += button.sprite.height/2;
+			button.sprite.scale = {'x':0.5, 'y':0.5};
+			that.game.add.tween(button.sprite.scale).to( {'x':1, 'y':1}, 100, Phaser.Easing.Back.InOut, true, 50*i, false);
+		});	
+	};
+
 	ButtonBar.prototype.enableButtonAt = function(i){
 		this.getButtonAt(i).enableInput();
 	};
@@ -978,6 +990,7 @@ InteractiveSprite, Utils, AppEvents){
 	
 	var Slider = function(options){
 		var index;
+		console.log("options ", options.sliderbg, options.sliderhl, options.handle,options.bounds.x, options.bounds.y, options.bounds.w, options.bounds.h);
 		this.stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / options.num;
 		options.model.changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
@@ -1000,9 +1013,15 @@ InteractiveSprite, Utils, AppEvents){
 	};
 	
 	Slider.prototype.goTo = function(n) {
-		this.handle.sprite.x = this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist);
+		this.posHandle(this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist));
 	};
 	
+	Slider.prototype.posHandle = function(x) {
+		var p = (x - this.bounds.x)/this.bounds.w;
+		this.handle.sprite.x = x;
+		this.setMask(p);
+	};
+
 	Slider.prototype.disableInput = function() {
 		this.handle.disableInput();
 		this.removeListeners();
@@ -1048,7 +1067,7 @@ InteractiveSprite, Utils, AppEvents){
 			xmin = this.bounds.x + Slider.HANDLEWIDTH/2;
 			xmax = this.bounds.x + Slider.WIDTH - Slider.HANDLEWIDTH/2;
 			xpos = Math.min(Math.max(x, xmin), xmax);
-			this.handle.sprite.x =  xpos;
+			this.posHandle(xpos);
 		}
 	};
 	
@@ -1086,21 +1105,41 @@ InteractiveSprite, Utils, AppEvents){
 		var x, y, options;
 		x = this.bounds.x + Slider.HANDLEHEIGHT/2;
 		y = this.bounds.y + Slider.HANDLEHEIGHT/2;
-		options = {"asset":this.options.handleAsset, "bounds":{'x':x, 'y':y}};
+		options = {"asset":this.options.handle, "bounds":{'x':x, 'y':y}};
 		this.handle = new InteractiveSprite(options);
 		this.handle.sprite.anchor.setTo(0.5, 0.5);
 		this.group.add(this.handle.sprite);
 	};
 	
 	Slider.prototype.addBg = function(){
-		this.bg = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, 'sliderbg');
+		this.bg = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderbg);
 		this.group.add(this.bg);
 	};
+
+	Slider.prototype.addHighlight = function(){
+		this.hl = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderhl);
+		this.group.add(this.hl);
+	};
 	
+	Slider.prototype.setMask = function(p){
+		this.mask.scale.x = p;
+	};
+
+	Slider.prototype.addMask = function(){
+		this.mask = new Phaser.Graphics(this.game, this.bounds.x, this.bounds.y);
+   		this.mask.beginFill(0xff0000);
+   		this.mask.drawRect(0, 0, this.bounds.w, this.bounds.h);
+   		this.mask.endFill();
+   		this.group.add(this.mask);
+   		this.hl.mask = this.mask;
+	};
+
 	Slider.prototype.create = function(){
 		Container.prototype.create.call(this);
 		this.addBg();
+		this.addHighlight();
 		this.addHandle();
+		this.addMask();
 		this.enableInput();
 	};
 	
@@ -1351,7 +1390,7 @@ function($, Phaser, Context, AppEvents){
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
 		this.game.world.add(this.bg);
-		this.game.add.tween(this.bg).to( {'alpha':0.4}, 300, Phaser.Easing.Linear.None, true, 50, false);
+		this.game.add.tween(this.bg).to( {'alpha':0.6}, 300, Phaser.Easing.Linear.None, true, 50, false);
 	};
 	
 	AlertManager.prototype.make = function(ClassRef, options, callback){
@@ -1754,13 +1793,13 @@ define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
 		fontData = TextFactory.fonts[key];
 		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align};
 		text = new Phaser.Text(game, x, y, label, font);
-	    text.stroke = fontData.stroke;
-	    text.strokeThickness = fontData.strokeThickness;
+	    //text.stroke = fontData.stroke;
+	    //text.strokeThickness = fontData.strokeThickness;
 	    fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
 		fill.addColorStop(0, fontData.color0);   
 		fill.addColorStop(1, fontData.color1);
 		text.fill = fill;
-		text.setShadow(0, 1, 'rgba(1, 1, 1, 0.2)', fontData.shadow);
+		//text.setShadow(0, 1, 'rgba(1, 1, 1, 0.2)', fontData.shadow);
 		return text;
 	};
 	

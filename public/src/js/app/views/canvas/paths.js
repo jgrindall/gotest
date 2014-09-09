@@ -36,8 +36,12 @@ LineDrawer){
 	};
 	
 	Paths.prototype.clear = function() {
-		this.lineDrawer.stop();
-		this.gfx.clear();
+		if(this.lineDrawer){
+			this.lineDrawer.stop();
+		}
+		if(this.gfx){
+			this.gfx.clear();
+		}
 	};
 	
 	Paths.prototype.drawLine = function(p0, p1, command, duration) {

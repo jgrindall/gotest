@@ -34,7 +34,7 @@ PlayingState){
 			this.disableButtonAt(4);
 		}
 		else if(value=== PlayingState.NOT_PLAYING){
-			this.disableButtonAt(0);
+			this.enableButtonAt(0);
 			this.enableButtonAt(1);
 			this.enableButtonAt(2);
 			this.enableButtonAt(3);

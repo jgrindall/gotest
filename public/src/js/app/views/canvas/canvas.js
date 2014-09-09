@@ -3,13 +3,13 @@ define('app/views/canvas/canvas',[ 'phasercomponents', 'app/views/background',
 
 'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
 
-'app/views/components/indicator', 'app/views/canvas/grid', 'app/assets'],
+'app/views/components/indicator', 'app/views/canvas/grid', 'app/views/canvas/corners', 'app/assets'],
 
 function(PhaserComponents, Background,
 
 Map, Drawing, ModelFacade,
 
-Indicator, Grid, Assets){
+Indicator, Grid, Corners, Assets){
 	
 	"use strict";
 	
@@ -27,6 +27,11 @@ Indicator, Grid, Assets){
 		this.group.add(this.bg.sprite);
 	};
 
+	Canvas.prototype.addCorners = function() {
+		this.corners = new Corners({"bounds":this.options.bounds, "top":Assets.CORNERS, "right":Assets.CORNERS, "left":Assets.CORNERS, "bottom":Assets.CORNERS, "topleft":Assets.CORNERSX, "topright":Assets.CORNERSX, "bottomleft":Assets.CORNERSX, "bottomright":Assets.CORNERSX});
+		this.group.add(this.corners.group);
+	};
+
 	Canvas.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addBg();
@@ -34,6 +39,7 @@ Indicator, Grid, Assets){
 		this.addGrid();
 		this.addDrawing();
 		this.addIndicator();
+		this.addCorners();
 	};
 	
 	Canvas.prototype.addIndicator = function() {

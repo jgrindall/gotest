@@ -63,12 +63,9 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 	Grid.prototype.destroy = function() {
 		this.visModel.changeSignal.remove(this.onChangeGrid, this);
 		this.sizeModel.changeSignal.remove(this.onChangeSize, this);
-		this.sprite.mask = null;
-		this.group.remove(this.mask);
 		this.group.remove(this.sprite);
 		this.sprite.destroy(true);
-		this.mask.destroy(true);
-		PhaserComponents.Display.Container.prototype.destroy.call(this, options);
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
 	return Grid;

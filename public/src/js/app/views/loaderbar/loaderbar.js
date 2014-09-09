@@ -17,6 +17,10 @@ define('app/views/loaderbar/loaderbar',['phasercomponents'],
 	LoaderBar.prototype.destroy = function(){
 		PhaserComponents.Display.LoaderBar.prototype.destroy.call(this);
 	};
+
+	LoaderBar.prototype.create = function(){
+		PhaserComponents.Display.LoaderBar.prototype.create.call(this);
+	};
 	
 	return LoaderBar;
 
