@@ -9,7 +9,7 @@ define('app/views/canvas/drawing',[ 'phasercomponents',
 
 'app/logocommands/turncommand',
 
-'app/logocommands/fdcommand', 'app/consts/steplengths'],
+'app/logocommands/fdcommand', 'app/consts/steplengths', 'app/assets'],
 
 function(PhaserComponents,
 
@@ -21,7 +21,7 @@ MoveCommand,
 
 TurnCommand,
 
-FdCommand, StepLengths){
+FdCommand, StepLengths, Assets){
 	
 	"use strict";
 	
@@ -148,7 +148,7 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.addTurtle = function() {
-		this.turtle = new Turtle({'bounds':this.bounds});
+		this.turtle = new Turtle({'bounds':this.bounds, 'asset':Assets.TURTLE});
 		this.turtle.endSignal.add(this.commandFinished, this);
 		this.group.add(this.turtle.group);
 	};

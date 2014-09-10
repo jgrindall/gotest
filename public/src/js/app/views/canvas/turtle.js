@@ -25,7 +25,7 @@ function(Phaser,PhaserComponents){
 	PhaserComponents.Utils.extends(Turtle, PhaserComponents.Display.Container);
 
 	Turtle.prototype.addImage = function() {
-		this.sprite = new Phaser.Image(this.game, 300, 300, 'turtle');
+		this.sprite = new Phaser.Image(this.game, 300, 300, this.options.asset);
 		this.group.add(this.sprite);
 		this.sprite.anchor.setTo(0.5, 0.5);
 	};
