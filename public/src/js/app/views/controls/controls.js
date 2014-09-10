@@ -11,7 +11,7 @@ define('app/views/controls/controls',[ 'app/views/background',
 
 'app/views/commandpanels/commandspanelfactory',
 
-'app/events/events', 'app/assets'
+'app/events/events', 'app/assets', 'app/views/components/speedmarkers'
 
 ],
 
@@ -27,7 +27,7 @@ ControlMenu, AbstractCommandsPanel,
 
 CommandsPanelFactory,
 
-Events, Assets){
+Events, Assets, SpeedMarkers){
 	
 	"use strict";
 	
@@ -48,7 +48,7 @@ Events, Assets){
 		this.addWidthPicker();
 		this.addButtons();
 		this.addSpeedSlider();
-		this.addSpeedDecor();
+		this.addSpeedMarkers();
 	};
 
 	Controls.prototype.onScreenChanged = function(value) {
@@ -97,15 +97,23 @@ Events, Assets){
 		this.group.add(this.menu.group);
 	};
 	
-	Controls.prototype.addSpeedDecor = function() {
-		this.decor0 = new Phaser.Sprite(this.game, this.speedSlider.bounds.x - 40, this.speedSlider.bounds.y, Assets.SPEEDDECOR, 0);
-		this.decor1 = new Phaser.Sprite(this.game, this.speedSlider.bounds.x + this.speedSlider.bounds.w, this.speedSlider.bounds.y, Assets.SPEEDDECOR, 1);
-		this.group.add(this.decor0);
-		this.group.add(this.decor1);
+	Controls.prototype.addSpeedMarkers = function() {
+		this.speedMarkers = new SpeedMarkers({"bounds":this.speedSlider.bounds, "asset":Assets.SPEEDDECOR});
+		this.speedMarkers.clickSignal.add(this.clickMarker, this);
+		this.group.add(this.speedMarkers.group);
+	};
+
+	Controls.prototype.clickMarker = function(data) {
+		if(data.index === 0){
+			this.speedSlider.toMin();
+		}
+		else if(data.index === 1){
+			this.speedSlider.toMax();
+		}
 	};
 
 	Controls.prototype.addSpeedSlider = function() {
-		var options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 150, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT}};
+		var options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 120, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT}};
 		console.log("slider "+options.handle, options.sliderbg, options.sliderhl);
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.speedSlider.group);
@@ -164,6 +172,9 @@ Events, Assets){
 		this.colorPicker.destroy();
 		this.widthPicker.destroy();
 		this.speedSlider.destroy();
+		this.speedMarkers.clickSignal.remove(this.clickMarker, this);
+		this.group.remove(this.speedMarkers.group);
+		this.speedMarkers.destroy();
 		this.menu.clickSignal.remove(this.menuClick, this);
 		this.menu.destroy();
 		this.bg = null;

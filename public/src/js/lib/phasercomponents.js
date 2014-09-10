@@ -997,7 +997,6 @@ InteractiveSprite, Utils, AppEvents){
 	
 	var Slider = function(options){
 		var index;
-		console.log("options ", options.sliderbg, options.sliderhl, options.handle,options.bounds.x, options.bounds.y, options.bounds.w, options.bounds.h);
 		this.stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / options.num;
 		options.model.changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
@@ -1023,6 +1022,14 @@ InteractiveSprite, Utils, AppEvents){
 		this.posHandle(this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist));
 	};
 	
+	Slider.prototype.toMin = function() {
+		this.model.set(0);
+	};
+
+	Slider.prototype.toMax = function() {
+		this.model.set(this.options.num);
+	};
+
 	Slider.prototype.posHandle = function(x) {
 		var p = (x - this.bounds.x)/this.bounds.w;
 		this.handle.sprite.x = x;
