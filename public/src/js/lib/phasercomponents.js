@@ -206,7 +206,7 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	
 	
 	
-	var SoundManager = function(options){
+	var SoundManager = function(){
 		this.sounds = {};
 	};
 	
@@ -411,9 +411,18 @@ define('phasercomponents/utils/utils',[], function(){
 		SubClassRef.prototype.constructor = SubClassRef;
 	};
 	
+	Utils.checkImplements = function(obj, theInterface) {
+	    for (var member in theInterface) {
+	        if (typeof obj[member] !== typeof theInterface[member]) {
+	            throw("Object "+obj+" failed to implement interface member " + member);
+	        }
+	    }
+	};
+
 	return Utils;
 	
 });
+
 
 
 
@@ -462,7 +471,7 @@ define('phasercomponents/display/interactivesprite',
 		}
 	};
 
-	InteractiveSprite.prototype.hitData = function(data){
+	InteractiveSprite.prototype.hitData = function(){
 		var hits, pointer, localPoint;
 		if(!this.sprite.inputEnabled){
 			return {'hits':false};
@@ -517,7 +526,6 @@ define('phasercomponents/display/movieclip',
 	Utils.extends(MovieClip, InteractiveSprite);
 
 	MovieClip.prototype.goTo = function(i){
-		console.log("go to frame "+i);
 		if(i === null || i === undefined){
 			i = 0;
 		}
@@ -608,7 +616,7 @@ function(Phaser, View, Utils,
 		this.sprite.setFrames(this.frames[i], this.frames[i], this.frames[i], this.frames[i]);
 	};
 
-	AbstractButton.prototype.resetFrames = function(i){
+	AbstractButton.prototype.resetFrames = function(){
 		this.sprite.setFrames(this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
 	};
 
@@ -810,7 +818,7 @@ ButtonGridModel, Utils){
 	};
 	
 	ButtonGrid.prototype.disableInput = function(){
-		this.buttons.forEach(function(b, i){
+		this.buttons.forEach(function(b){
 			b.disableInput();
 		});
 	};
@@ -865,7 +873,7 @@ ButtonGridModel, Utils){
 	ButtonGrid.prototype.destroy = function() {
 		var that = this;
 		this.model.changeSignal.remove(this.onSelectedChanged, this);
-		this.buttons.forEach(function(b, i){
+		this.buttons.forEach(function(b){
 			b.mouseUpSignal.remove(that.buttonUp, that);
 			b.destroy();
 		});
@@ -1085,7 +1093,7 @@ InteractiveSprite, Utils, AppEvents){
 		}
 	};
 	
-	Slider.prototype.startDragging = function(data) {
+	Slider.prototype.startDragging = function() {
 		this.dragging = true;
 		this.addMoveListeners();
 	};
@@ -1278,16 +1286,15 @@ function(Phaser, Container, Utils){
 		this.gotoPage(pageNum);
 	};
 
-	Scroller.prototype.buttonUp = function(data) {
+	Scroller.prototype.buttonUp = function() {
 		this.game.input.moveCallback = null;
 		this.x0 = null;
-		var targetIndex = this.group.getIndex(data.target.sprite);
 		if(Math.abs(this.dx) > Scroller.MIN_MOVE){
 			this.snap();
 		}
 	};
 
-	Scroller.prototype.move = function(pointer, x, y) {
+	Scroller.prototype.move = function(pointer, x) {
 		var xpos;
 		if(this.x0 === null){
 			this.x0 = x;
@@ -1298,7 +1305,7 @@ function(Phaser, Container, Utils){
 		this.contentGroup.x = xpos;
 	};
 	
-	Scroller.prototype.startDragging = function(data) {
+	Scroller.prototype.startDragging = function() {
 		this.startX = this.contentGroup.x;
 		this.dx = 0;
 		this.x0 = null;
@@ -1464,7 +1471,6 @@ function(AlertManager){
 	Storage.SETTINGS_KEY = "2go_settings" + Storage.VERSION;
 	
 	Storage.prototype.load = function(callback){
-		var that = this;
 		this.getForKey(Storage.SETTINGS_KEY, function(options){
 			var json;
 			if(options.success){
@@ -1768,7 +1774,7 @@ function(MovieClip, Utils, AppEvents){
 		MovieClip.prototype.create.call(this);
 	};
 
-	StepperButton.prototype.onStep = function(data){
+	StepperButton.prototype.onStep = function(){
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
 		}
@@ -1798,26 +1804,24 @@ define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
 		
 	};
 
-	TextFactory.registerFont = function(key, size, align, fontName, stroke, strokeThickness, shadow, color0, color1){
-		var data = {"size":size, "align":align, "fontName":fontName, "stroke":stroke, "color0":color0, "color1":color1, "shadow":shadow, "strokeThickness":strokeThickness};
+	TextFactory.registerFont = function(key, fontData){
 		if(!TextFactory.fonts){
 			TextFactory.fonts = {};
 		}
-		TextFactory.fonts[key] = data;
+		TextFactory.fonts[key] = fontData;
+		console.log("register for "+key+" is "+JSON.stringify(fontData));
 	};
 
 	TextFactory.make = function(key, game, x, y, label){
 		var fontData, font, text, fill;
 		fontData = TextFactory.fonts[key];
+		console.log("data for "+key+" is "+JSON.stringify(fontData));
 		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align};
 		text = new Phaser.Text(game, x, y, label, font);
-	    //text.stroke = fontData.stroke;
-	    //text.strokeThickness = fontData.strokeThickness;
 	    fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
 		fill.addColorStop(0, fontData.color0);   
 		fill.addColorStop(1, fontData.color1);
 		text.fill = fill;
-		//text.setShadow(0, 1, 'rgba(1, 1, 1, 0.2)', fontData.shadow);
 		return text;
 	};
 	
@@ -2085,6 +2089,459 @@ define('phasercomponents/display/loaderbar',
 });
 
 
+define('phasercomponents/drag/abstractaccepter', [], function(){
+	
+	
+
+	var AbstractAccepter = function(data){
+		this.data = data;
+	};
+
+	AbstractAccepter.prototype.willAccept = function(){
+		return false;
+	};
+
+	return AbstractAccepter;
+});
+
+
+define('phasercomponents/drag/abstractdragview', [], function(){
+	
+	
+
+	var AbstractDragView = function(game, options){
+		options.bounds = options.bounds || {'x':0,'y':0};
+		this.options = options;
+		this.game = game;
+		this.mouseDownSignal = new Phaser.Signal();
+		this.create();
+		this.options.origPos = {'x':options.bounds.x, 'y':options.bounds.y};
+	};
+
+	AbstractDragView.prototype.onMouseDown = function(){
+		this.mouseDownSignal.dispatch({"target":this});
+	};
+
+	AbstractDragView.prototype.moveTo = function(x, y){
+		this.sprite.x = x;
+		this.sprite.y = y;
+	};
+
+	AbstractDragView.prototype.snap = function(target, bounds){
+		this.moveTo(target.sprite.x + bounds.x, target.sprite.y + bounds.y);
+	};
+
+	AbstractDragView.prototype.reset = function(){
+		this.sprite.x = this.options.origPos.x;
+		this.sprite.x = this.options.origPos.y;
+	};
+
+	AbstractDragView.prototype.destroy = function(){
+		this.sprite.events.onInputDown.remove(this.onMouseDown, this);
+		this.sprite.inputEnabled = false;
+		this.sprite.destroy();
+		this.sprite = null;
+		this.options = null;
+	};
+
+	AbstractDragView.prototype.reset = function(){
+		this.sprite.x = this.options.origPos.x;
+		this.sprite.x = this.options.origPos.y;
+	};
+
+	AbstractDragView.prototype.create = function(){
+		this.sprite.inputEnabled = true;
+		this.sprite.events.onInputDown.add(this.onMouseDown, this);
+	};
+
+	return AbstractDragView;
+
+});
+
+
+define('phasercomponents/drag/abstractdropview', [], function(){
+
+	
+
+	var AbstractDropView = function(game, options){
+		this.game = game;
+		this.options = options;
+		this.create();
+	};
+
+	AbstractDropView.prototype.create = function(){
+		
+	};
+
+	return AbstractDropView;
+});
+
+
+define('phasercomponents/drag/dragfailtypes', [], function(){
+	
+	
+
+	var DragFailTypes = function(){
+	
+	};
+
+	DragFailTypes.FAIL_RETURN = 0;
+	DragFailTypes.FAIL_REMOVE = 1;
+
+	return DragFailTypes;
+});
+
+
+define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtypes'], function(DragFailTypes){
+	
+	
+
+	var DragManager = function(game, options){
+		this.game = game;
+		this.options = options;
+		this.model = options.model;
+		if(this.options.fail === null || this.options.fail === undefined){
+			throw "No fail specified";
+		}
+		this.views = [];
+		this.targets = [];
+		this.draggedView = null;
+		this.enabled = true;
+	};
+
+	DragManager.TOLERANCE = 35;
+	
+	DragManager.prototype.enableInput = function(){
+		var that = this;
+		if(this.enabled){
+			return;
+		}
+		this.views.forEach(function(view){
+			view.mouseDownSignal.add(that.downHandler, that);
+		});
+		this.enabled = true;
+	};
+
+	DragManager.prototype.disableInput = function(){
+		var that = this;
+		if(!this.enabled){
+			return;
+		}
+		this.views.forEach(function(view){
+			view.mouseDownSignal.remove(that.downHandler, that);
+		});
+		this.enabled = false;
+	};
+		
+	DragManager.prototype.clear = function(){
+		this.destroyViews();
+		this.model.clear();
+	};
+
+	DragManager.prototype.addTarget = function(target, row){
+		this.targets.push(target);
+		this.model.addRow(row);
+	};
+
+	DragManager.prototype.removeTarget = function(target){
+		var index = this.targets.indexOf(target);
+		this.targets.splice(index, 1);
+		this.model.removeRowAt(index);
+	};
+
+	DragManager.prototype.addDrag = function(view){
+		view.mouseDownSignal.add(this.downHandler, this);
+		this.views.push(view);
+	};
+
+	DragManager.prototype.startDrag = function(view){
+		if(this.enabled){
+			this.addMoveListeners();
+			this.draggedView = view;
+			this.model.removeView(view);
+		}
+	};
+
+	DragManager.prototype.downHandler = function(data){
+		this.startDrag(data.target);
+	};
+
+	DragManager.prototype.getClosest = function(){
+		var i, x, y, index = -1, target, dist, w, h;
+		x = this.draggedView.sprite.x;
+		y = this.draggedView.sprite.y;
+		w = this.draggedView.sprite.width;
+		h = this.draggedView.sprite.height;
+		for(i = 0; i < this.targets.length; i++){
+			target = this.targets[i];
+			dist = Math.abs(x + w/2 - target.sprite.x - target.sprite.width/2) + Math.abs(y +h/2 - target.sprite.y- target.sprite.height/2);
+			if(dist < DragManager.TOLERANCE){
+				index = i;
+				break;
+			}
+		}
+		return index;
+	};
+
+	DragManager.prototype.addMoveListeners = function(){
+		this.game.input.moveCallback = this.onMove.bind(this);
+		this.game.input.onUp.add(this.onUp, this);
+	};
+
+	DragManager.prototype.removeMoveListeners = function(){
+		this.game.input.moveCallback = null;
+		this.game.input.onUp.remove(this.onUp, this);
+	};
+
+	DragManager.prototype.snapTo = function(view, rowIndex, zoneIndex){
+		var hitzone = this.model.addView(view, rowIndex, zoneIndex);
+		view.snap(this.targets[rowIndex], hitzone.bounds);
+	};
+
+	DragManager.prototype.drop = function(){
+		if(this.dropPosition.rowIndex >= 0){
+			this.snapTo(this.draggedView, this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
+			this.targets[this.dropPosition.rowIndex].highlight(false);
+		}
+		else{
+			this.fail();
+		}
+	};
+
+	DragManager.prototype.removeView = function(view){
+		var index;
+		if(view){
+			index = this.views.indexOf(view);
+			this.views.splice(index, 1);
+			view.mouseDownSignal.remove(this.downHandler, this);
+			view.destroy();
+		}
+	};
+
+	DragManager.prototype.fail = function(){
+		if(this.options.fail === DragFailTypes.FAIL_RETURN){
+			this.draggedView.reset();
+		}
+		else if (this.options.fail === DragFailTypes.FAIL_REMOVE){
+			this.removeView(this.draggedView);
+			this.draggedView = null;
+		}
+	};
+
+	DragManager.prototype.onUp = function(){
+		this.drop();
+		this.removeMoveListeners();
+		this.draggedView = null;
+	};
+
+	DragManager.prototype.setDropPosition = function(){
+		var rowIndex, zoneIndex;
+		rowIndex = this.getClosest();
+		if(rowIndex >= 0){
+			zoneIndex = this.model.getZoneIndex(this.draggedView, rowIndex);
+			if(zoneIndex === -1){
+				rowIndex = -1;
+			}
+		}
+		this.dropPosition = {"rowIndex":rowIndex, "zoneIndex":zoneIndex};
+	};
+
+	DragManager.prototype.checkTargets = function(){
+		var rowIndex;
+		this.setDropPosition();
+		rowIndex = this.dropPosition.rowIndex;
+		this.targets.forEach(function(target, i){
+			target.highlight(i === rowIndex);
+		});
+	};
+
+	DragManager.prototype.onMove = function(pointer, x, y){
+		this.draggedView.moveTo(x - this.draggedView.sprite.width/2, y - this.draggedView.sprite.height/2);
+		this.checkTargets();
+	};
+
+	DragManager.prototype.destroyViews = function(){
+		this.removeMoveListeners();
+		while(this.views.length > 0){
+			this.removeView(this.views[0]);
+		}
+	};
+
+	DragManager.prototype.destroy = function(){
+		this.destroyViews();
+		this.model = null;
+		this.views = null;
+		this.targets = null;
+	};
+
+	return DragManager;
+});
+
+
+define('phasercomponents/drag/dragmodel', [], function(){
+	
+	
+
+	var DragModel = function(){
+		this.rows = [];
+	};
+
+	DragModel.prototype.toJson = function(){
+		var json = [];
+		this.rows.forEach(function(row){
+			json.push(row.toJson());
+		});
+		return json;
+	};
+
+	DragModel.prototype.addView = function(view, rowIndex, zoneIndex){
+		var hitzone = this.rows[rowIndex].add(view, zoneIndex);
+		return hitzone;
+	};
+
+	DragModel.prototype.clear = function(){
+		var that = this;
+		this.rows.forEach(function(row, i){
+			that.clearRowAt(i);
+		});
+	};
+
+	DragModel.prototype.addRow = function(row){
+		this.rows.push(row);
+	};
+
+	DragModel.prototype.clearRowAt = function(i){
+		this.rows[i].clear();
+	};
+
+	DragModel.prototype.removeRowAt = function(i){
+		this.rows[i].destroy();
+		this.rows.splice(i, 1);
+	};
+
+	DragModel.prototype.removeView = function(view){
+		this.rows.forEach(function(row){
+			row.remove(view);
+		});
+	};
+
+	DragModel.prototype.getZoneIndex = function(view, i){
+		return this.rows[i].getZoneIndex(view);
+	};
+
+	return DragModel;
+});
+
+
+define('phasercomponents/drag/hitzone', [], function(){
+	
+	
+
+	var HitZone = function(accepter, bounds){
+		this.accepter = accepter;
+		this.bounds = bounds;
+		this.view = null;
+	};
+
+	HitZone.prototype.willAccept = function(view){
+		var accept = (this.view === null && this.accepter.willAccept(view));
+		return accept;
+	};
+
+	HitZone.prototype.toJson = function(){
+		if(this.view){
+			return this.view.toJson();
+		}
+		else {
+			return {};
+		}
+	};
+
+	HitZone.prototype.clear = function(){
+		this.view = null;
+	};
+
+	HitZone.prototype.add = function(view){
+		this.view = view;
+	};
+
+	HitZone.prototype.remove = function(view){
+		if(this.view === view){
+			this.clear();
+		}
+	};
+
+	HitZone.prototype.destroy = function(){
+		this.clear();
+		this.accepter = null;
+		this.bounds = null;
+	};
+
+	return HitZone;
+});
+
+
+define('phasercomponents/drag/hitzonerow', [], function(){
+	
+	
+
+	var HitZoneRow = function(hitzones){
+		this.hitzones = hitzones;
+	};
+
+	HitZoneRow.prototype.getAcceptedIndex = function(view){
+		var i, index = -1, hitzone;
+		for(i = 0; i < this.hitzones.length; i++){
+			hitzone = this.hitzones[i];
+			if(hitzone.willAccept(view)){
+				index = i;
+				break;
+			}
+		}
+		return index;
+	};
+
+	HitZoneRow.prototype.toJson = function(){
+		var json = [];
+		this.hitzones.forEach(function(hitzone){
+			json.push(hitzone.toJson());
+		});
+		return json;
+	};
+
+	HitZoneRow.prototype.add = function(view, zoneIndex){
+		var hitzone = this.hitzones[zoneIndex];
+		hitzone.add(view);
+		return hitzone;
+	};
+
+	HitZoneRow.prototype.clear = function(){
+		this.hitzones.forEach(function(hitzone){
+			hitzone.clear();
+		});
+	};
+
+	HitZoneRow.prototype.getZoneIndex = function(view){
+		return this.getAcceptedIndex(view);
+	};
+
+	HitZoneRow.prototype.remove = function(view){
+		this.hitzones.forEach(function(hitzone){
+			hitzone.remove(view);
+		});
+	};
+
+	HitZoneRow.prototype.destroy = function(){
+		this.hitzones.forEach(function(hitzone){
+			hitzone.destroy();
+		});
+		this.hitzones = [];
+	};
+
+	return HitZoneRow;
+});
+
+
 
 define('phasercomponents',[
 
@@ -2118,7 +2575,15 @@ define('phasercomponents',[
 	'phasercomponents/display/popups/abstractpopup',
 	'phasercomponents/display/loaderbar',
 	'phasercomponents/utils/utils',
-	'phasercomponents/text/textfactory'
+	'phasercomponents/text/textfactory',
+	'phasercomponents/drag/abstractaccepter',
+	'phasercomponents/drag/abstractdragview',
+	'phasercomponents/drag/abstractdropview',
+	'phasercomponents/drag/dragmanager',
+	'phasercomponents/drag/dragfailtypes',
+	'phasercomponents/drag/dragmodel',
+	'phasercomponents/drag/hitzone',
+	'phasercomponents/drag/hitzonerow'
 	], 
 
 	function (Context, 
@@ -2151,7 +2616,15 @@ define('phasercomponents',[
 		AbstractPopup,
 		LoaderBar,
 		Utils,
-		TextFactory
+		TextFactory,
+		AbstractAccepter,
+		AbstractDragView,
+		AbstractDropView,
+		DragManager,
+		DragFailTypes,
+		DragModel,
+		HitZone,
+		HitZoneRow
 	) {
 
     
@@ -2187,6 +2660,17 @@ define('phasercomponents',[
        	'AppEvents':			AppEvents
     };
 
+    var Drag = {
+    	'AbstractAccepter': 		AbstractAccepter,
+       	'AbstractDragView':			AbstractDragView,
+       	'AbstractDropView': 		AbstractDropView,
+       	'DragManager': 				DragManager,
+       	'DragModel': 				DragModel,
+       	'HitZone': 					HitZone,
+       	'HitZoneRow': 				HitZoneRow,
+       	'DragFailTypes': 			DragFailTypes
+    };
+
     var Commands = {
     	'AbstractCommand': 		AbstractCommand
     };
@@ -2195,6 +2679,7 @@ define('phasercomponents',[
         'Display':				Display,
         'Model':				Model,
         'Events':				Events,
+        'Drag':					Drag,
         'TextFactory':          TextFactory,
         'Commands':				Commands,
         'Context': 				Context,
