@@ -1809,13 +1809,11 @@ define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
 			TextFactory.fonts = {};
 		}
 		TextFactory.fonts[key] = fontData;
-		console.log("register for "+key+" is "+JSON.stringify(fontData));
 	};
 
 	TextFactory.make = function(key, game, x, y, label){
 		var fontData, font, text, fill;
 		fontData = TextFactory.fonts[key];
-		console.log("data for "+key+" is "+JSON.stringify(fontData));
 		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align};
 		text = new Phaser.Text(game, x, y, label, font);
 	    fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);

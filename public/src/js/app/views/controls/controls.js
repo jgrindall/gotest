@@ -7,7 +7,7 @@ define('app/views/controls/controls',[ 'app/views/background',
 
 'app/views/controls/controlmenu', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/views/commandpanels/commandspanelfactory',
+'app/views/commandpanels/commandspanelfactory', 'app/prog/progview',
 
 'app/events/events', 'app/assets', 'app/views/components/speedmarkers'
 
@@ -21,7 +21,7 @@ ModelFacade, Colors, PenWidths,
 
 ControlMenu, AbstractCommandsPanel,
 
-CommandsPanelFactory,
+CommandsPanelFactory, ProgView,
 
 Events, Assets, SpeedMarkers){
 	
@@ -45,6 +45,7 @@ Events, Assets, SpeedMarkers){
 		this.addButtons();
 		this.addSpeedSlider();
 		this.addSpeedMarkers();
+		this.addProg();
 	};
 
 	Controls.prototype.onScreenChanged = function(value) {
@@ -86,6 +87,10 @@ Events, Assets, SpeedMarkers){
 		this.group.add(this.bg.sprite);
 	};
 	
+	Controls.prototype.addProg = function() {
+		this.progView = new ProgView({"data":[[3, 2], 3], "bounds":this.bounds});
+	};
+
 	Controls.prototype.addButtons = function() {
 		var bounds = {'x':this.game.w - ControlMenu.WIDTH, 'y':this.bounds.y, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
 		this.menu = new ControlMenu({"bounds":bounds});
