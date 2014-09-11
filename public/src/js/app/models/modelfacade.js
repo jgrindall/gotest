@@ -117,7 +117,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.commTickerModel.duration = duration;
 	};
 
-	ModelFacade.prototype.changePlaying = function(value) {
+	ModelFacade.prototype.changePlaying = function() {
 		this.setDuration();
 	};
 
@@ -127,11 +127,11 @@ function(CommModel, ScreenModel, BgModel,
 		}
 	};
 
-	ModelFacade.prototype.changeSpeed = function(value) {
+	ModelFacade.prototype.changeSpeed = function() {
 		this.setDuration();
 	};
 
-	ModelFacade.prototype.changeBg = function(value) {
+	ModelFacade.prototype.changeBg = function() {
 		this.commTickerModel.reset();
 		this.commModel.reset();
 	};

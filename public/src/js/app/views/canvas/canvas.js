@@ -20,7 +20,7 @@ Indicator, Grid, Corners, Assets){
 	PhaserComponents.Utils.extends(Canvas, PhaserComponents.Display.Container);
 
 	Canvas.prototype.addBg = function() {
-		var w, h, bounds;
+		var w, h;
 		w = this.game.w;
 		h = this.game.h;
 		this.bg = new Background({"asset":Assets.BG, "bounds":this.bounds});
@@ -43,7 +43,7 @@ Indicator, Grid, Corners, Assets){
 	};
 	
 	Canvas.prototype.addIndicator = function() {
-		//this.indicator = new Indicator({'bounds':{'x':10, 'y':50}});
+		this.indicator = new Indicator({'bounds':{'x':10, 'y':50}});
 		//this.group.add(this.indicator.gfx);
 	};
 	

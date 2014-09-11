@@ -12,7 +12,7 @@ function(PhaserComponents, Growl, Assets) {
 	
 	PhaserComponents.Utils.extends(TeacherCommand, PhaserComponents.Commands.AbstractCommand);
 
-	TeacherCommand.prototype.execute = function(data){
+	TeacherCommand.prototype.execute = function(){
 		PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Teacher login with password?", "sfx":Assets.SOUNDS[2]}, null);
 	};
 	

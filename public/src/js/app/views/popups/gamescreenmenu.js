@@ -69,7 +69,7 @@ OkButton, CloseButton){
 	
 	GameScreenMenu.prototype.destroy = function() {
 		var that = this;
-		this.buttons.forEach(function(b, i){
+		this.buttons.forEach(function(b){
 			b.mouseUpSignal.remove(that.buttonUp, that);
 			b.destroy();
 		});

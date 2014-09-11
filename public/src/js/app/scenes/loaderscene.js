@@ -31,7 +31,7 @@ function(PhaserComponents, Assets,
 	};
 	
 	LoaderScene.prototype.addBg = function() {
-		var w, h, bounds;
+		var bounds;
 		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
 		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
 		this.world.add(this.bg.sprite);

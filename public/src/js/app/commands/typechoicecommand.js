@@ -16,7 +16,7 @@ function(ModelFacade,
 	
 	PhaserComponents.Utils.extends(TypeChoiceCommand, PhaserComponents.Commands.AbstractCommand);
 
-	TypeChoiceCommand.prototype.execute = function(data){
+	TypeChoiceCommand.prototype.execute = function(){
 		var screenModel, radioModel, options;
 		screenModel = new PhaserComponents.Model.ButtonGridModel();
 		radioModel = new PhaserComponents.Model.ButtonGridModel();

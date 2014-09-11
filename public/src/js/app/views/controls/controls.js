@@ -1,9 +1,7 @@
 
 define('app/views/controls/controls',[ 'app/views/background',
 
-'phasercomponents', 'app/views/buttons/tabbutton',
-
-'app/views/components/colorpicker', 'app/views/components/widthpicker',
+'phasercomponents', 'app/views/components/colorpicker', 'app/views/components/widthpicker',
 
 'app/models/modelfacade', 'app/consts/colors', 'app/consts/penwidths',
 
@@ -17,9 +15,7 @@ define('app/views/controls/controls',[ 'app/views/background',
 
 function(Background,
 
-PhaserComponents, TabButton,
-
-ColorPicker, WidthPicker,
+PhaserComponents, ColorPicker, WidthPicker,
 
 ModelFacade, Colors, PenWidths,
 
@@ -158,13 +154,6 @@ Events, Assets, SpeedMarkers){
 		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
 		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.sprite);
-	};
-	
-	Controls.prototype.addTabs = function() {
-		var bounds = {'x':this.bounds.x, 'y':5, 'w':600, 'h':50};
-		this.tabButtonBar = new PhaserComponents.Display.TabButtonBar({"bounds":bounds, "buttonClass":TabButton, "numX":3, "numY":1});
-		this.group.add(this.tabButtonBar.group);
-		this.tabButtonBar.select(0);
 	};
 	
 	Controls.prototype.destroy = function() {

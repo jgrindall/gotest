@@ -14,7 +14,7 @@ function(Phaser, PhaserComponents){
 	
 	PhaserComponents.Utils.extends(Corners, PhaserComponents.Display.Container);
 	
-	Corners.prototype.create = function(value) {
+	Corners.prototype.create = function() {
 		var d = 5;
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.top = new Phaser.TileSprite(this.game, this.bounds.x + d, this.bounds.y, this.bounds.w - 2*d, d, this.options.top);

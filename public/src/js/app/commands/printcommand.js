@@ -12,7 +12,7 @@ function(PhaserComponents, Growl, Assets) {
 	
 	PhaserComponents.Utils.extends(PrintCommand, PhaserComponents.Commands.AbstractCommand);
 
-	PrintCommand.prototype.execute = function(data){
+	PrintCommand.prototype.execute = function(){
 		PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"No printers found", "sfx":Assets.SOUNDS[2]}, null);
 	};
 	

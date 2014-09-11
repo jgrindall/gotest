@@ -16,7 +16,7 @@ function(PhaserComponents, ModelFacade,
 	
 	PhaserComponents.Utils.extends(NewFileCommand, PhaserComponents.Commands.AbstractCommand);
 
-	NewFileCommand.prototype.execute = function(data){
+	NewFileCommand.prototype.execute = function(){
 		var options = {'dataProvider': new BgDataProvider(this.game), "label":"Choose a background", "sfx":Assets.SOUNDS[2]};
 		PhaserComponents.AlertManager.getInstance().make(GameBgMenu, options, this.onBgChosen.bind(this));
 	};

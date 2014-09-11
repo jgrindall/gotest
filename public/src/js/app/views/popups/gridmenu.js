@@ -1,15 +1,11 @@
 
-define('app/views/popups/gridmenu',[ 'app/views/buttons/tickbutton',
-
-'app/assets',
+define('app/views/popups/gridmenu',[ 'app/assets',
 
 'app/models/modelfacade', 'phasercomponents',
 
 'app/views/buttons/okbutton', 'app/views/buttons/closebutton', 'app/consts/steplengths'],
 
-function(TickButton,
-
-Assets,
+function(Assets,
 
 ModelFacade, PhaserComponents,
 
@@ -28,10 +24,6 @@ OkButton, CloseButton, StepLengths){
 
 	GridMenu.WIDTH = 720;
 	GridMenu.HEIGHT = 540;
-	
-	GridMenu.prototype.addOk = function () {
-		this.addButton(TickButton, 'bottom', 0, 1);
-	};
 	
 	GridMenu.prototype.addOkButton = function () {
 		var middle, bounds;
@@ -114,7 +106,7 @@ OkButton, CloseButton, StepLengths){
 	
 	GridMenu.prototype.destroy = function() {
 		var that = this;
-		this.buttons.forEach(function(b, i){
+		this.buttons.forEach(function(b){
 			b.mouseUpSignal.remove(that.buttonUp, that);
 			b.destroy();
 		});

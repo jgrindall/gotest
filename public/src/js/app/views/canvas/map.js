@@ -14,7 +14,7 @@ PhaserComponents){
 	
 	PhaserComponents.Utils.extends(Map, PhaserComponents.Display.Container);
 	
-	Map.prototype.onChanged = function(data) {
+	Map.prototype.onChanged = function() {
 		this.updateImage();	
 	};
 	

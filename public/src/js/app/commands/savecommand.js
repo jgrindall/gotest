@@ -14,7 +14,7 @@ function(PhaserComponents,
 	
 	PhaserComponents.Utils.extends(SaveCommand, PhaserComponents.Commands.AbstractCommand);
 
-	SaveCommand.prototype.execute = function(data){
+	SaveCommand.prototype.execute = function(){
 		var json = ModelFacade.getInstance().getJson();
 		PhaserComponents.Storage.getInstance().save(json, this.onSaved.bind(this));
 	};

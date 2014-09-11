@@ -120,7 +120,7 @@ function(Phaser, PhaserComponents, Events){
 	};
 	
 	CommTickerModel.prototype.destroy = function(){
-		AbstractModel.prototype.destroy.call(this);
+		PhaserComponents.Model.AbstractModel.prototype.destroy.call(this);
 		this.clearSignals();
 	};
 	

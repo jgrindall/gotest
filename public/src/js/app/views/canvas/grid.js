@@ -24,7 +24,7 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 		this.setVisible(value === 1);
 	};
 
-	Grid.prototype.onChangeSize = function(value) {
+	Grid.prototype.onChangeSize = function() {
 		this.updateImage();
 	};
 

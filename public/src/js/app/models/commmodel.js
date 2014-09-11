@@ -24,7 +24,7 @@ PhaserComponents){
 	CommModel.prototype.set = function(commands) {
 		var that = this;
 		this.reset();
-		commands.forEach(function(c, i){
+		commands.forEach(function(c){
 			that.add(LogoCommandFactory.fromJson(c), false);
 		});
 	};
@@ -35,7 +35,7 @@ PhaserComponents){
 
 	CommModel.prototype.toJson = function() {
 		var jsonArray = [];
-		this.commands.forEach(function(c, i){
+		this.commands.forEach(function(c){
 			jsonArray.push(c.toJson());
 		});
 		return jsonArray;
@@ -78,7 +78,7 @@ PhaserComponents){
 	};
 	
 	CommModel.prototype.destroy = function(){
-		AbstractModel.prototype.destroy.call(this);
+		PhaserComponents.Model.AbstractModel.prototype.destroy.call(this);
 		this.commands = null;
 	};
 	

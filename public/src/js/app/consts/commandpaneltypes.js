@@ -5,7 +5,7 @@ function(){
 	
 	"use strict";
 	
-	var CommandPanelTypes  = function(options){
+	var CommandPanelTypes  = function(){
 		
 	};
 	

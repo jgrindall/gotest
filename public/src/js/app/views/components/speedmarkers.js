@@ -1,9 +1,7 @@
 
-define('app/views/components/speedmarkers',['phasercomponents', 'app/assets'
+define('app/views/components/speedmarkers',['phasercomponents'],
 
-],
-
-function(PhaserComponents, ModelFacade, Assets){
+function(PhaserComponents){
 	
 	"use strict";
 	

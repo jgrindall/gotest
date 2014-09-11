@@ -36,13 +36,13 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
 	AppContext.prototype.mapFonts = function(){
-		PhaserComponents.TextFactory.registerFont('vsmall', '15', 'center', 'TooSimple', '#bbbbbb', 1, 2, '#ffffff', '#eeeeee');
-		PhaserComponents.TextFactory.registerFont('small', '20', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
-		PhaserComponents.TextFactory.registerFont('medium', '40', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
-		PhaserComponents.TextFactory.registerFont('large', '60', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
-		PhaserComponents.TextFactory.registerFont('vlarge', '80', 'center', 'TooSimple', '#777777', 1, 2, '#ffffff', '#eeeeee');
+		PhaserComponents.TextFactory.registerFont('vsmall',	{"size":15, "align":'center', "fontName":'TooSimple', "stroke":'#bbbbbb', "color0":'#ffffff', "color1":'#ffffff', "strokeThickness":1});
+		PhaserComponents.TextFactory.registerFont('small', 	{"size":20, "align":'center', "fontName":'TooSimple', "stroke":'#bbbbbb', "color0":'#ffffff', "color1":'#ffffff', "strokeThickness":1});
+		PhaserComponents.TextFactory.registerFont('medium', {"size":30, "align":'center', "fontName":'TooSimple', "stroke":'#bbbbbb', "color0":'#ffffff', "color1":'#ffffff', "strokeThickness":1});
+		PhaserComponents.TextFactory.registerFont('large', 	{"size":45, "align":'center', "fontName":'TooSimple', "stroke":'#bbbbbb', "color0":'#ffffff', "color1":'#ffffff', "strokeThickness":1});
+		PhaserComponents.TextFactory.registerFont('vlarge', {"size":60, "align":'center', "fontName":'TooSimple', "stroke":'#bbbbbb', "color0":'#ffffff', "color1":'#ffffff', "strokeThickness":1});
 	};
-
+	
     AppContext.prototype.onChangeScene = function(event, obj){
     	var that = this;
     	if(obj.data.scene instanceof LoaderScene){

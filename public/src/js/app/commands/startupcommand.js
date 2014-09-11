@@ -10,7 +10,7 @@ function(Defaults, ModelFacade, PhaserComponents) {
 
 	PhaserComponents.Utils.extends(StartUpCommand, PhaserComponents.Commands.AbstractCommand);
 
-	StartUpCommand.prototype.execute = function(data){
+	StartUpCommand.prototype.execute = function(){
 		ModelFacade.getInstance().setData(Defaults.DEFAULT_JSON);
 	};
 	

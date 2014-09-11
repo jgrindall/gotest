@@ -34,13 +34,25 @@ module.exports = function(grunt) {
 		jshint: {
     		options: {
       			curly: true,
-      			eqeqeq: true,
-      			eqnull: true,
-     			browser: true,
-     			strict:true,
+                eqeqeq: true,
+                eqnull: true,
+                browser: true,
+                strict:true,
+                freeze:true,
+                immed:true,
+                indent:4,
+                latedef:true,
+                newcap:true,
+                nonbsp:true,
+                undef:true,
+                unused:true,
+                maxdepth:3,
       			globals: {
         			require:true,
         			define:true,
+                    Phaser:true,
+                    console:true,
+                    PIXI:true
       			}
     		},
     		all: ['public/src/js/app/**/*.js']

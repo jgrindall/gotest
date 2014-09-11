@@ -13,7 +13,7 @@ function(PlayingState, ModelFacade, PhaserComponents) {
 	
 	PhaserComponents.Utils.extends(ReplayCommand, PhaserComponents.Commands.AbstractCommand);
 
-	ReplayCommand.prototype.execute = function(data){
+	ReplayCommand.prototype.execute = function(){
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).set(PlayingState.REPLAYING);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).replay();
 	};

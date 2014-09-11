@@ -12,7 +12,7 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 	
 	PhaserComponents.Utils.extends(DrawCommand, PhaserComponents.Commands.AbstractCommand);
 
-	DrawCommand.prototype.execute = function(data){
+	DrawCommand.prototype.execute = function(){
 		var playingModel;
 		playingModel = ModelFacade.getInstance().get(ModelFacade.PLAYING);
 		if(playingModel.get() !== PlayingState.PLAYING){

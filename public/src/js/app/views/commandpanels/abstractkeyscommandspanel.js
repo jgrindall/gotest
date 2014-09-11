@@ -32,7 +32,7 @@ PhaserComponents, AbstractCommandsPanel
 	};
 	
 	AbstractKeysCommandsPanel.prototype.addKeys = function() {
-		var options, bounds, w, h, data, size, model;
+		var options, bounds, w, h, data, size;
 		data = this.getKeyData();
 		w = this.game.w;
 		h = this.game.h;

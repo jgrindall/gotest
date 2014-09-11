@@ -16,7 +16,7 @@ function(BgPanel, BgData, Assets){
 	};
 	
 	BgDataProvider.prototype.addPage = function(i, scroller){
-		var options, panel, bounds, w, h, top;
+		var options, panel, bounds, w, h;
 		var paddingX = 50;
 		var paddingY = 50;
 		w = scroller.bounds.w - 2*paddingX;

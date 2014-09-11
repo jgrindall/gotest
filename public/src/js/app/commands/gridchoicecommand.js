@@ -12,7 +12,7 @@ function(PhaserComponents, GridMenu, Assets) {
 	
 	PhaserComponents.Utils.extends(GridChoiceCommand, PhaserComponents.Commands.AbstractCommand);
 
-	GridChoiceCommand.prototype.execute = function(data){
+	GridChoiceCommand.prototype.execute = function(){
 		var options = {"label":"Settings", "sfx":Assets.SOUNDS[2]};
 		PhaserComponents.AlertManager.getInstance().make(GridMenu, options, null); 
 	};
