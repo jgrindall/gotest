@@ -28,7 +28,7 @@ OkButton, CloseButton, StepLengths){
 	GridMenu.prototype.addOkButton = function () {
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT/2 - 20};
+		bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT/2 - 30};
 		this.addButton(OkButton, bounds);
 	};
 	
@@ -64,22 +64,22 @@ OkButton, CloseButton, StepLengths){
 	};
 
 	GridMenu.prototype.addDiagLabel = function(){
-		this.diagLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.bounds.x + 50, 340, "Stretch diags");
+		this.diagLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 340, "Stretch diags");
 		this.group.add(this.diagLabel);
 	};
 
 	GridMenu.prototype.addGridLabel = function(){
-		this.gridLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.bounds.x + 50, 240, "Toggle grid");
+		this.gridLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 240, "Toggle grid");
 		this.group.add(this.gridLabel);
 	};
 
 	GridMenu.prototype.addStepLengthLabel = function(){
-		this.stepLengthLabel = PhaserComponents.TextFactory.make('vsmall', this.game, this.bounds.x + 50, 140, "Step Length");
+		this.stepLengthLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 140, "Step Length");
 		this.group.add(this.stepLengthLabel);
 	};
 	
 	GridMenu.prototype.addTitle = function() {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.label);
+		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 9, this.options.label);
  		this.group.add(this.label);
 	};
 

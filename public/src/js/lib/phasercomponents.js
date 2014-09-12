@@ -70,12 +70,16 @@ function($, Phaser, PhaserStateTrans){
 	};
 
 	GameManager.prototype.getSize = function(){
+		var size;
 		if(this.options.scaleType === "fill"){
-			return this.getSizeFill();
+			size = this.getSizeFill();
 		}
 		else{
-			return this.getSizeFit();
+			size = this.getSizeFit();
 		}
+		size.w = Math.max(size.w, this.options.minWidth);
+		size.h = Math.max(size.h, this.options.minHeight);
+		return size;
 	};
 
 	return GameManager;
@@ -211,7 +215,6 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	};
 	
 	SoundManager.prototype.add = function(key, sound){
-		console.log("add "+key+" "+sound);
 		this.sounds[key] = sound;
 	};
 
@@ -224,7 +227,6 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	
 	SoundManager.prototype.play = function(key){
 		var sound = this.sounds[key];
-		console.log("play "+key+" "+sound);
 		if(sound){
 			sound.play();
 		}
@@ -302,7 +304,6 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
 
    	var Context = function (options){
    		this.options = options;
-   		console.log("Context options "+JSON.stringify(options));
 		this.gameManager = new GameManager();
 		this.commandMap = new CommandMap();
 		this.mapFonts();
@@ -841,7 +842,7 @@ ButtonGridModel, Utils){
 	};
 	
 	ButtonGrid.prototype.addButtons = function(){
-		var pos, i, j, b, n = 0, options, ClassRef;
+		var pos, i, j, b, n = 0, options, ClassRef, view;
 		ClassRef = this.options.buttonClass;
 		this.buttonGroup = new Phaser.Group(this.game, 0, 0);
 		for(i = 1; i <= this.options.numY; i++){
@@ -851,8 +852,9 @@ ButtonGridModel, Utils){
 				pos.y += this.marginY;
 				options = {"bounds":pos, "index":n, "data":this.options.data[n], "frames":[0, 1, 2, 3]};
 				b = new ClassRef(options);
+				view = b.group || b.sprite;
 				b.mouseUpSignal.add(this.buttonUp, this);
-				this.buttonGroup.add(b.group || b.sprite);
+				this.buttonGroup.add(view);
 				this.buttons.push(b);
 				n++;
 			}
@@ -860,6 +862,10 @@ ButtonGridModel, Utils){
 		this.group.add(this.buttonGroup);
 	};
 	
+	ButtonGrid.prototype.getButtonAt = function(i) {
+		return this.buttons[i];
+	};
+
 	ButtonGrid.prototype.buttonUp = function(data) {
 		var target, index;
 		target = data.target.group || data.target.sprite;
@@ -1809,13 +1815,11 @@ define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
 			TextFactory.fonts = {};
 		}
 		TextFactory.fonts[key] = fontData;
-		console.log("register for "+key+" is "+JSON.stringify(fontData));
 	};
 
 	TextFactory.make = function(key, game, x, y, label){
 		var fontData, font, text, fill;
 		fontData = TextFactory.fonts[key];
-		console.log("data for "+key+" is "+JSON.stringify(fontData));
 		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align};
 		text = new Phaser.Text(game, x, y, label, font);
 	    fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
@@ -1856,8 +1860,8 @@ function(Container, Utils,
 		Container.call(this, options);
 	};
 	
-	RadioButtons.WIDTH = 120;
-	RadioButtons.HEIGHT = 120;
+	RadioButtons.WIDTH = 100;
+	RadioButtons.HEIGHT = 80;
 
 	Utils.extends(RadioButtons, Container);
 
@@ -1872,11 +1876,19 @@ function(Container, Utils,
 		this.buttons.buttons.forEach(function(button, i){
 			var label, bounds;
 			bounds = button.bounds;
-			label = TextFactory.make(that.options.fontKey, that.game, bounds.x + 55, bounds.y + 15, that.options.labels[i]);
+			label = TextFactory.make(that.options.fontKey, that.game, bounds.x + 41, bounds.y + 13, that.options.labels[i]);
 			that.group.add(label);
 		});
 	};
 
+	RadioButtons.prototype.disableInput = function(){
+		this.buttons.disableInput();
+	};
+
+	RadioButtons.prototype.enableInput = function(){
+		this.buttons.enableInput();
+	};
+	
 	RadioButtons.prototype.addButtons = function(){
 		this.buttons = new ButtonBar(this.options);
 		this.group.add(this.buttons.group);

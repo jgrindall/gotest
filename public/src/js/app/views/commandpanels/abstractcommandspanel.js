@@ -25,7 +25,7 @@ Events){
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 	};
 	
-	AbstractCommandsPanel.WIDTH = 190;
+	AbstractCommandsPanel.WIDTH = 170;
 	
 	PhaserComponents.Utils.extends(AbstractCommandsPanel, PhaserComponents.Display.Container);
 	

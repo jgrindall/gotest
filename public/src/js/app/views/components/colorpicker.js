@@ -12,7 +12,7 @@ function(PhaserComponents){
 	};
 
 	ColorPicker.WIDTH = 235;
-	ColorPicker.HEIGHT = 125;
+	ColorPicker.HEIGHT = 110;
 	
 	PhaserComponents.Utils.extends(ColorPicker, PhaserComponents.Display.MultiButton);
 

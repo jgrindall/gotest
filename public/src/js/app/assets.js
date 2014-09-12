@@ -15,7 +15,6 @@ define('app/assets',[], function(){
 	Assets.CORNERSX = 				'cornersx';
 	Assets.SOUNDS = 				['clickdown', 'clickup', 'swooshdown', 'swooshup'];
 	Assets.CLOSE = 					'close';
-	Assets.TICK = 					'tick';
 	Assets.MARKER = 				'marker';
 	Assets.PANEL = 					'panel';
 	Assets.SPEEDDECOR = 			'speeddecor';
@@ -44,7 +43,6 @@ define('app/assets',[], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/arrows.png", 				"key":Assets.ARROWS, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/keys.png", 					"key":Assets.KEYS, 						"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 					"key":Assets.CLOSE, 					"w":50, 	"h":50},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/tick.png", 					"key":Assets.TICK, 						"w":80, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Assets.OK_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Assets.MARKER, 					"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 						"key":Assets.PENS, 						"w":235, 	"h":125},
@@ -60,7 +58,7 @@ define('app/assets',[], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle9.png", 				"key":Assets.WIDTHS[9], 				"w":50, 	"h":85},
 		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle10.png", 				"key":Assets.WIDTHS[10], 				"w":50, 	"h":85},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/toggle.png", 				"key":Assets.TOGGLE, 					"w":120, 	"h":60},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/radiobutton.png", 			"key":Assets.RADIO, 					"w":120, 	"h":60},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/radiobutton.png", 			"key":Assets.RADIO, 					"w":100, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.jpg",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5},
 		{"type":"spritesheet", 	"asset":"assets/images/slider/decor.png",	 				"key":Assets.SPEEDDECOR,				"w":40, 	"h":40}
 	];

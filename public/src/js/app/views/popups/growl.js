@@ -30,18 +30,18 @@ CloseButton, Assets){
 	};
 
 	Growl.prototype.addTitle = function () {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 20, this.bounds.y + 20, this.options.title);
+		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.title);
 		this.group.add(this.label);
 	};
 	
 	Growl.prototype.addOkButton = function () {
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT - 20};
+		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT};
 		this.addButton(OkButton, bounds);
 	};
 	
 	Growl.prototype.addCloseButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - 55, "y":this.bounds.y + 15};
+		var bounds = {"x":this.bounds.x + this.bounds.w - 55, "y":this.bounds.y + 1};
 		this.addButton(CloseButton, bounds);
 	};
 	

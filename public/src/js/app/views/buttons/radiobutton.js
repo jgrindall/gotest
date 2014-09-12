@@ -10,8 +10,8 @@ function(PhaserComponents, Assets){
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 
-	RadioButton.WIDTH = 120;
-	RadioButton.HEIGHT = 60;
+	RadioButton.WIDTH = 100;
+	RadioButton.HEIGHT = 40;
 
 	PhaserComponents.Utils.extends(RadioButton, PhaserComponents.Display.AbstractButton);
 

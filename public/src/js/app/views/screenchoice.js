@@ -31,7 +31,7 @@ function(Phaser, PhaserComponents, Assets
 	};
 	
 	ScreenChoice.prototype.deselect = function(){
-		this.panel.sprite.alpha = 0.4;
+		this.panel.sprite.alpha = 0.3;
 	};
 	
 	ScreenChoice.prototype.mouseUp = function(){

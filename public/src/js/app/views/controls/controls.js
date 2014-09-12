@@ -110,7 +110,6 @@ Events, Assets, SpeedMarkers){
 
 	Controls.prototype.addSpeedSlider = function() {
 		var options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":{"x":this.game.w/2 - 120, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT}};
-		console.log("slider "+options.handle, options.sliderbg, options.sliderhl);
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.speedSlider.group);
 	};
