@@ -8,9 +8,12 @@ define('app/views/buttons/markerbutton',
 	"use strict";
 	
 	var MarkerButton = function(options){
-		options.asset = Assets.MARKERBUTTON;
+		options.asset = Assets.MARKER;
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
+
+	MarkerButton.WIDTH = 40;
+	MarkerButton.HEIGHT = 40;
 
 	PhaserComponents.Utils.extends(MarkerButton, PhaserComponents.Display.AbstractButton);
 
