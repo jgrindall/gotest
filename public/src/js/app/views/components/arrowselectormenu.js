@@ -32,8 +32,8 @@ PhaserComponents, Assets)
 		d = (this.game.w - w)/2;
 		//TODO - move tweens into phasercomponents
 		if(this.options.dataProvider.getNumPages() >= 2){
-			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':d/2 - ArrowButton.WIDTH/2, 'y':this.game.cy}});
-			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':this.game.w - d/2 - ArrowButton.WIDTH/2, 'y':this.game.cy}});
+			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':d - 20 - ArrowButton.WIDTH, 'y':this.game.cy - ArrowButton.HEIGHT/2}});
+			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':d + w + 20, 'y':this.game.cy - ArrowButton.HEIGHT/2}});
 			this.leftButton.sprite.alpha = 0;
 			this.rightButton.sprite.alpha = 0;
 			this.group.add(this.leftButton.sprite);
