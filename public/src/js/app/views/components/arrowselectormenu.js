@@ -30,7 +30,7 @@ PhaserComponents, Assets)
 		x = this.options.bounds.x;
 		w = this.options.bounds.w;
 		d = (this.game.w - w)/2;
-		//TODO - move tweens into phasercomponents
+		//TODO - move tweens into phasercomponents or buttons themselves
 		if(this.options.dataProvider.getNumPages() >= 2){
 			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':d - 20 - ArrowButton.WIDTH, 'y':this.game.cy - ArrowButton.HEIGHT/2}});
 			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':d + w + 20, 'y':this.game.cy - ArrowButton.HEIGHT/2}});
@@ -44,6 +44,7 @@ PhaserComponents, Assets)
 	};
 	
 	ArrowSelectorMenu.prototype.showArrows = function () {
+		// TODO move into ArrowButton
 		this.leftTween = this.game.add.tween(this.leftButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
 		this.rightTween = this.game.add.tween(this.rightButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
 		this.leftTween.onComplete.add(this.onArrowsShown, this);
