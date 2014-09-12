@@ -1590,15 +1590,11 @@ function(Container, Utils){
 	GroupMarker.prototype.create = function(){
 		var b, i, x, y, ClassRef;
 		ClassRef = this.options.buttonClass;
-		console.log("bounds "+JSON.stringify(this.options.bounds));
 		Container.prototype.create.call(this);
-		console.log("add buttons "+this.options.num+"  "+ClassRef);
 		for(i = 0; i <= this.options.num - 1; i++){
 			x = this.options.bounds.x + i * ClassRef.WIDTH;
 			y = this.options.bounds.y;
 			b = new ClassRef({'bounds':{"x":x, "y":y}});
-			console.log("add button "+i+" "+b+"  "+x+", "+y+"  "+ClassRef);
-			//  add button 0 [object Object]  447.5, -30  function (opti
 			this.group.add(b.sprite);
 			this.buttons.push(b);
 		}
@@ -1656,11 +1652,9 @@ function(GroupMarker, Scroller, Utils){
 		Scroller.prototype.addChildren.call(this);
 		buttonClass = this.options.markerButtonClass;
 		numPages = this.numPages();
-		console.log("b "+this.bounds.x+" "+this.bounds.w+" "+numPages+" "+buttonClass+" "+buttonClass.WIDTH);
 		bounds = {'x':this.bounds.x + this.bounds.w/2 - (numPages/2)*buttonClass.WIDTH, 'y':this.bounds.y + this.bounds.h - 83};
 		if(numPages >= 2){
 			this.groupMarker = new GroupMarker({"num":numPages, "buttonClass":buttonClass, "bounds":bounds});
-			console.log("add GroupMarker "+numPages+" "+buttonClass+" "+this.groupMarker);
 			this.group.add(this.groupMarker.group);
 		}
 	};
