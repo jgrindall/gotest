@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/abstractcommandspanel',[ 'phasercomponents',
+define([ 'phasercomponents',
 
 'app/views/buttons/dirbutton',
 

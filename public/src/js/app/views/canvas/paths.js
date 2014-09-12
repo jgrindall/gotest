@@ -1,5 +1,5 @@
 
-define('app/views/canvas/paths',['phaser', 'phasercomponents',
+define(['phaser', 'phasercomponents',
 
 'app/views/canvas/linedrawer'],
 

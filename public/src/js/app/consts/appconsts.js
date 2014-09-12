@@ -1,5 +1,5 @@
 
-define('app/consts/appconsts',[], function() {
+define([], function() {
 	
 	"use strict";
 	

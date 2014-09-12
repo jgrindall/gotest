@@ -1,5 +1,5 @@
 
-define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands/savecommand',
+define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands/savecommand',
 
 	'app/commands/printcommand', 'app/commands/undocommand', 'app/commands/stopcommand',
 

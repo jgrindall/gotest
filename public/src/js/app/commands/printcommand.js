@@ -1,4 +1,4 @@
-define('app/commands/printcommand',
+define(
 
 	['phasercomponents', 'app/views/popups/growl', 'app/assets'],
 

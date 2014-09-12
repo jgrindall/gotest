@@ -1,5 +1,5 @@
 
-define('app/views/buttons/dirbutton',[ 'phasercomponents', 'app/assets'],
+define([ 'phasercomponents', 'app/assets'],
 
 	function(PhaserComponents, Assets){
 	

@@ -1,4 +1,4 @@
-define('app/commands/stopcommand',
+define(
 
 	['app/models/modelfacade', 'app/consts/playingstate', 'phasercomponents'],
 

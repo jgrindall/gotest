@@ -1,4 +1,4 @@
-define('app/commands/replaycommand',
+define(
 
 
 	['app/consts/playingstate', 'app/models/modelfacade', 'phasercomponents'],

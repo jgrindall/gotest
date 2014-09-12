@@ -1,5 +1,5 @@
 
-define('app/views/canvas/map',['phaser', 'app/models/modelfacade', 'phasercomponents'],
+define(['phaser', 'app/models/modelfacade', 'phasercomponents'],
 
 function(Phaser, ModelFacade,
 

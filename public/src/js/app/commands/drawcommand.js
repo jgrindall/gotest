@@ -1,4 +1,4 @@
-define('app/commands/drawcommand',
+define(
 
 	['app/models/modelfacade', 'app/consts/playingstate', 'phasercomponents'],
 

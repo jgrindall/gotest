@@ -1,5 +1,5 @@
 
-define('app/models/speedmodel',['phasercomponents'],
+define(['phasercomponents'],
 
 function(PhaserComponents){
 	

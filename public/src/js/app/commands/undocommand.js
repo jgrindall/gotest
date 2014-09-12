@@ -1,4 +1,4 @@
-define('app/commands/undocommand',[
+define([
 
 	'app/events/events','phasercomponents','app/models/modelfacade'],
 

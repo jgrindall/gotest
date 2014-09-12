@@ -1,5 +1,5 @@
 
-define('app/views/buttons/arrowbutton',['phasercomponents', 'app/assets'],
+define(['phasercomponents', 'app/assets'],
 
 	function(PhaserComponents, Assets){
 	

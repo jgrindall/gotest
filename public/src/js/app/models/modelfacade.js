@@ -1,5 +1,5 @@
 
-define('app/models/modelfacade',['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel', 
+define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel', 
 
 'app/models/colormodel', 'app/models/speedmodel',
 

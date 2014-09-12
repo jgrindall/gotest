@@ -8,7 +8,6 @@
         <link rel="stylesheet" type="text/css" href="lib/jasmine-1.3.1/jasmine.css">
         <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine.js"></script>
         <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine-html.js"></script>
-
         <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
 
         <script type="text/javascript">
@@ -18,9 +17,13 @@
             require.config({
                 baseUrl: '../src/js/',
                 paths: {
-                    
+                    'jquery':                       'lib/zepto',
+                    'phaser':                       'lib/phaser',
+                    'phaserstatetrans':             'lib/phaser-state-transition.min',
+                    'phasercomponents':             'lib/phasercomponents'
                 }
             });
+
 
             require(["../../test/spec/MainSpec"], function(MainSpec){
                 init();

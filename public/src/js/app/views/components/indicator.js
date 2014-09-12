@@ -1,5 +1,5 @@
 
-define('app/views/components/indicator',['phaser',
+define(['phaser',
 
 'phasercomponents', 'app/models/modelfacade'],
 

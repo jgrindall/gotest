@@ -1,5 +1,5 @@
 
-define('app/views/canvas/grid',
+define(
 
 
 	['phaser',	'phasercomponents', 'app/consts/steplengths', 'app/assets'],

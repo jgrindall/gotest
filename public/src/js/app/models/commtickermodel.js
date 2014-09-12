@@ -1,5 +1,5 @@
 
-define('app/models/commtickermodel',['phaser', 'phasercomponents',
+define(['phaser', 'phasercomponents',
 
 'app/events/events'
 

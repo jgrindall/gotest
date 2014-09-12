@@ -1,5 +1,5 @@
 
-define('app/views/popups/growl',['phasercomponents',
+define(['phasercomponents',
 
 'app/views/buttons/okbutton',
 

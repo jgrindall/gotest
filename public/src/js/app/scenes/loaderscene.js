@@ -1,5 +1,5 @@
 
-define('app/scenes/loaderscene',['phasercomponents', 'app/assets', 
+define(['phasercomponents', 'app/assets', 
 
 	'app/views/loaderbar/loaderbar', 'app/views/background'],
 

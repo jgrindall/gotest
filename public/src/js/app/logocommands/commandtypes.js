@@ -1,5 +1,5 @@
 
-define('app/logocommands/commandtypes',
+define(
 
 	[],
 

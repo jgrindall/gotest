@@ -1,5 +1,5 @@
 
-define('app/models/playingmodel',['phasercomponents',
+define(['phasercomponents',
 
 'app/consts/playingstate'],
 

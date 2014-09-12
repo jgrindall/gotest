@@ -22,6 +22,14 @@ app.get('/build', function(req, res) {
 	app.render(res, "public/build/index.html");
 });
 
+app.get('/test', function(req, res) {
+	app.render(res, "public/test/SpecRunner.html");
+});
+
+app.get('/test2', function(req, res) {
+	app.render(res, "public/test/SpecRunner2.html");
+});
+
 app.get('/dep', function(req, res) {
 	var tree, treeString, options, baseUrl, dot;
 	options = {'format':'amd'};

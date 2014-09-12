@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/markerfactory',['app/views/commandpanels/markertypes',
+define(['app/views/commandpanels/markertypes',
 
 'app/views/commandpanels/marker',
 

@@ -1,5 +1,5 @@
 
-define('app/views/canvas/corners',
+define(
 
 
 	['phaser',	'phasercomponents'],

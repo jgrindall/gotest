@@ -1,5 +1,5 @@
 
-define('app/models/commmodel',['app/logocommands/logocommandfactory',
+define(['app/logocommands/logocommandfactory',
 
 'phasercomponents'],
 

@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/commandspanelfactory',['app/consts/commandpaneltypes',
+define(['app/consts/commandpaneltypes',
 
 'app/views/commandpanels/nsewcommandspanel',
 

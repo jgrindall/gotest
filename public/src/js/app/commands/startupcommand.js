@@ -1,4 +1,4 @@
-define('app/commands/startupcommand',['app/consts/defaults', 'app/models/modelfacade', 'phasercomponents'],
+define(['app/consts/defaults', 'app/models/modelfacade', 'phasercomponents'],
 
 function(Defaults, ModelFacade, PhaserComponents) {
 	

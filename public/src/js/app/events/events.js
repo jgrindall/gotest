@@ -1,4 +1,4 @@
-define('app/events/events',[],
+define([],
 
 function() {
 	

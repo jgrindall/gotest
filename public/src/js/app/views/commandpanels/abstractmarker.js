@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/abstractmarker',['phaser', 'phasercomponents', 'app/assets'],
+define(['phaser', 'phasercomponents', 'app/assets'],
 
 	function(Phaser,PhaserComponents, Assets){
 	

@@ -1,5 +1,5 @@
 
-define('app/models/diagmodel',['phasercomponents'],
+define(['phasercomponents'],
 
 function(PhaserComponents){
 	

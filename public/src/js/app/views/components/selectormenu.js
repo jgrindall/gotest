@@ -1,5 +1,5 @@
 
-define('app/views/components/selectormenu',['app/views/buttons/closebutton', 
+define(['app/views/buttons/closebutton', 
 
 'app/views/buttons/okbutton', 'phasercomponents'
 

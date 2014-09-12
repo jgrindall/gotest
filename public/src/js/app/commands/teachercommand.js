@@ -1,4 +1,4 @@
-define('app/commands/teachercommand',
+define(
 
 	['phasercomponents', 'app/views/popups/growl', 'app/assets'],
 

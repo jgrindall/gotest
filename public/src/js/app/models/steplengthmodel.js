@@ -1,5 +1,5 @@
 
-define('app/models/steplengthmodel',['phasercomponents'],
+define(['phasercomponents'],
 
 function(PhaserComponents){
 	

@@ -1,5 +1,5 @@
 
-define('app/models/colormodel',['phasercomponents'],
+define(['phasercomponents'],
 
 function(PhaserComponents){
 	

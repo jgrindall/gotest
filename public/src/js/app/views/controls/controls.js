@@ -1,5 +1,5 @@
 
-define('app/views/controls/controls',[ 'app/views/background',
+define([ 'app/views/background',
 
 'phasercomponents', 'app/views/components/colorpicker', 'app/views/components/widthpicker',
 

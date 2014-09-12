@@ -1,4 +1,4 @@
-define('app/commands/newfilecommand',
+define(
 
 	['phasercomponents', 'app/models/modelfacade',
 

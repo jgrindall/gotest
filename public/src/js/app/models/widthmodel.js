@@ -1,5 +1,5 @@
 
-define('app/models/widthmodel',['phasercomponents', 'app/consts/penwidths'],
+define(['phasercomponents', 'app/consts/penwidths'],
 
 function(PhaserComponents, PenWidths){
 	

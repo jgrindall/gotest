@@ -1,5 +1,5 @@
 
-define('app/assets',[], function(){
+define([], function(){
 	
 	"use strict";
 	

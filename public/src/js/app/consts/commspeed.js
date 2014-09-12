@@ -1,5 +1,5 @@
 
-define('app/consts/commspeed',[],
+define([],
 
 function(){
 	

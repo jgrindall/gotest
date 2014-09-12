@@ -1,5 +1,5 @@
 
-define('app/models/anglemodel',['phasercomponents'],
+define(['phasercomponents'],
 
 function(PhaserComponents){
 	

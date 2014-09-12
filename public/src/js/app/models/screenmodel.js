@@ -1,5 +1,5 @@
 
-define('app/models/screenmodel',['phasercomponents'],
+define(['phasercomponents'],
 
 function(PhaserComponents){
 	

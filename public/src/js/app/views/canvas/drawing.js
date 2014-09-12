@@ -1,5 +1,5 @@
 
-define('app/views/canvas/drawing',[ 'phasercomponents',
+define([ 'phasercomponents',
 
 'app/views/canvas/turtle', 'app/views/canvas/paths',
 

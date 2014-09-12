@@ -1,5 +1,5 @@
 
-define('app/logocommands/logocommandfactory', ['app/logocommands/movecommand',
+define( ['app/logocommands/movecommand',
 
 'app/logocommands/turncommand',
 

@@ -1,5 +1,5 @@
 
-define('app/views/canvas/linedrawer',['phaser', 'app/consts/colors', 'app/consts/penwidths'],
+define(['phaser', 'app/consts/colors', 'app/consts/penwidths'],
 
 function(Phaser, Colors, PenWidths){
 	

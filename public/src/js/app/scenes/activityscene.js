@@ -1,5 +1,5 @@
 
-define('app/scenes/activityscene',['app/views/canvas/canvas', 'app/views/controls/controls',
+define(['app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/views/components/menu', 
 

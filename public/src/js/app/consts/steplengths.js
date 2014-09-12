@@ -1,5 +1,5 @@
 
-define('app/consts/steplengths',[],
+define([],
 
 function(){
 	

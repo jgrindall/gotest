@@ -1,5 +1,5 @@
 
-define('app/views/popups/gamebgmenu',
+define(
 
 	['app/views/components/arrowselectormenu', 'phasercomponents'
 

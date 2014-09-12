@@ -1,4 +1,4 @@
-define('app/commands/gridchoicecommand',
+define(
 
 	['phasercomponents', 'app/views/popups/gridmenu', 'app/assets'],
 

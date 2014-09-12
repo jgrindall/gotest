@@ -1,5 +1,5 @@
 
-define('app/views/buttons/okbutton',[ 'phasercomponents', 'app/assets'],
+define([ 'phasercomponents', 'app/assets'],
 
 	function(PhaserComponents, Assets){
 	

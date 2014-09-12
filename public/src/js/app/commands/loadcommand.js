@@ -1,4 +1,4 @@
-define('app/commands/loadcommand',['app/models/modelfacade', 'app/views/popups/growl',
+define(['app/models/modelfacade', 'app/views/popups/growl',
 
 	'phasercomponents', 'app/events/events', 'app/assets'],
 

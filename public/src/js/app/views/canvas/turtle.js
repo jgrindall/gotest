@@ -1,5 +1,5 @@
 
-define('app/views/canvas/turtle',['phaser', 'phasercomponents'],
+define(['phaser', 'phasercomponents'],
 
 function(Phaser,PhaserComponents){
 	

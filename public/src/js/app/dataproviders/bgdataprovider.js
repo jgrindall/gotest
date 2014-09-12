@@ -1,5 +1,5 @@
 
-define('app/dataproviders/bgdataprovider',[
+define([
 
 'app/views/bgpanel', 'app/consts/bgdata', 'app/assets'],
 

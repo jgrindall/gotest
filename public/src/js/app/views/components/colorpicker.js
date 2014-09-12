@@ -1,5 +1,5 @@
 
-define('app/views/components/colorpicker',['phasercomponents'
+define(['phasercomponents'
 
 ],
 

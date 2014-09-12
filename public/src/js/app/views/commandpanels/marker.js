@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/marker',
+define(
 
 	['app/views/commandpanels/abstractmarker', 'phasercomponents'],
 

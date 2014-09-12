@@ -1,4 +1,4 @@
-define('app/commands/savecommand',['phasercomponents',
+define(['phasercomponents',
 
 	'app/models/modelfacade', 'app/views/popups/growl', 'app/assets'],
 

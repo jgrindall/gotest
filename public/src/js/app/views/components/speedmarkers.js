@@ -1,5 +1,5 @@
 
-define('app/views/components/speedmarkers',['phasercomponents'],
+define(['phasercomponents'],
 
 function(PhaserComponents){
 	

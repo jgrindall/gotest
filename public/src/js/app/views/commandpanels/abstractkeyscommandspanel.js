@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/abstractkeyscommandspanel',[ 'app/views/buttons/keybutton',
+define([ 'app/views/buttons/keybutton',
 
 'phasercomponents',
 

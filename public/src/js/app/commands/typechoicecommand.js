@@ -1,4 +1,4 @@
-define('app/commands/typechoicecommand',[
+define([
 
 	'app/models/modelfacade',
 

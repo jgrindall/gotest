@@ -1,5 +1,5 @@
 
-define('app/views/popups/gridmenu',[ 'app/assets',
+define([ 'app/assets',
 
 'app/models/modelfacade', 'phasercomponents',
 

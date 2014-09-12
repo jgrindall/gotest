@@ -1,5 +1,5 @@
 
-define('app/views/popups/gamescreenmenu',['phasercomponents','app/views/screenchoice', 'app/views/buttons/radiobutton',
+define(['phasercomponents','app/views/screenchoice', 'app/views/buttons/radiobutton',
 
 'app/views/buttons/okbutton', 'app/views/buttons/closebutton', 'app/models/modelfacade'],
 

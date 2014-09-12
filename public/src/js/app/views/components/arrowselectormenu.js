@@ -1,5 +1,5 @@
 
-define('app/views/components/arrowselectormenu',['jquery', 'phaser', 'app/views/buttons/arrowbutton',
+define(['jquery', 'phaser', 'app/views/buttons/arrowbutton',
 
 'app/views/components/selectormenu', 'app/views/buttons/markerbutton',
 

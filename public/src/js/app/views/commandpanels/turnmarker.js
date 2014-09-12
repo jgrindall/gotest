@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/turnmarker',['app/views/commandpanels/abstractmarker', 'phasercomponents'],
+define(['app/views/commandpanels/abstractmarker', 'phasercomponents'],
 
 	function(AbstractMarker, PhaserComponents){
 	

@@ -1,5 +1,5 @@
 
-define('app/views/buttons/markerbutton',
+define(
 
 	['phasercomponents', 'app/assets'],
 

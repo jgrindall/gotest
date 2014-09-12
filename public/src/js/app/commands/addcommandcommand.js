@@ -1,4 +1,4 @@
-define('app/commands/addcommandcommand',[
+define([
 
 	'app/events/events', 'phasercomponents',
 

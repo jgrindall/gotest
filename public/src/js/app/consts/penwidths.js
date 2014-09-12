@@ -1,5 +1,5 @@
 
-define('app/consts/penwidths',[],
+define([],
 
 function(){
 	

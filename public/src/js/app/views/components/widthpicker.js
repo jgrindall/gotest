@@ -1,5 +1,5 @@
 
-define('app/views/components/widthpicker',['phasercomponents', 'app/models/modelfacade', 'app/assets'
+define(['phasercomponents', 'app/models/modelfacade', 'app/assets'
 
 ],
 
