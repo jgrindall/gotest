@@ -21,10 +21,10 @@ function(PhaserComponents,
 	
 	SaveCommand.prototype.onSaved = function(data){
 		if(data.success){
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Saved", "sfx":Assets.SOUNDS[2]}, null);
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Your file has been saved!", "sfx":Assets.SOUNDS[2]}, null);
 		}
 		else{
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Error saving", "sfx":Assets.SOUNDS[2]}, null);
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Error saving your file!", "sfx":Assets.SOUNDS[2]}, null);
 		}
 	};
 	

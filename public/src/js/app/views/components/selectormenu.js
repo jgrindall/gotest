@@ -31,7 +31,7 @@ OkButton, PhaserComponents
 	
 	SelectorMenu.prototype.addOkButton = function () {
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT - 20};
+		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT + 4};
 		this.addButton(OkButton, bounds);
 	};
 	

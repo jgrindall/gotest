@@ -23,14 +23,14 @@ function(ModelFacade, Growl,
 			try{
 				ModelFacade.getInstance().setData(data.json);
 				this.eventDispatcher.trigger({"type":Events.REPLAY});
-				PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Loaded your file", "sfx":Assets.SOUNDS[2]}, null);
+				PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Your file has been loaded!", "sfx":Assets.SOUNDS[2]}, null);
 			}
 			catch(e){
-				PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Format error", "sfx":Assets.SOUNDS[2]}, null);
+				PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Format error, unable to load your file", "sfx":Assets.SOUNDS[2]}, null);
 			}
 		}
 		else{
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Error - unable to load", "sfx":Assets.SOUNDS[2]}, null);
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Error - unable to load your file", "sfx":Assets.SOUNDS[2]}, null);
 		}
 	};
 	

@@ -671,8 +671,8 @@ function(Phaser, View, Utils,
 
 	AbstractButton.prototype.tweenAlpha = function(a, immediate){
 		var duration, delay;
-		duration = 200;
-		delay = 1000;
+		duration = 250;
+		delay = 500;
 		this.stopTweens();
 		if(immediate){
 			duration = 50;
@@ -684,7 +684,7 @@ function(Phaser, View, Utils,
 	AbstractButton.prototype.disableInput = function(){
 		if(this.sprite.inputEnabled){
 			this.sprite.inputEnabled = false;
-			this.tweenAlpha(0.6, false);
+			this.tweenAlpha(0.5, false);
 			this.removeListeners();
 		}
 	};

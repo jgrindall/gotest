@@ -30,6 +30,7 @@ PhaserComponents, Assets)
 		x = this.options.bounds.x;
 		w = this.options.bounds.w;
 		d = (this.game.w - w)/2;
+		//TODO - move tweens into phasercomponents
 		if(this.options.dataProvider.getNumPages() >= 2){
 			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':d/2 - ArrowButton.WIDTH/2, 'y':this.game.cy}});
 			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':this.game.w - d/2 - ArrowButton.WIDTH/2, 'y':this.game.cy}});
@@ -67,7 +68,7 @@ PhaserComponents, Assets)
 	};
 	
 	ArrowSelectorMenu.prototype.addTitle = function() {
-		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.label);
+		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 8, this.options.label);
  		this.group.add(this.label);
 	};
 

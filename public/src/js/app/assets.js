@@ -25,6 +25,7 @@ define('app/assets',[], function(){
 	Assets.OK_BUTTON = 				'okbutton';
 	Assets.BUTTON = 				'button';
 	Assets.ARROWS = 				'arrows';
+	Assets.LEFTRIGHT = 				'leftright';
 	Assets.KEYS = 					'keys';
 	Assets.MARKERS = 				'markers';
 	Assets.SLIDERBG = 				'sliderbg';
@@ -41,6 +42,7 @@ define('app/assets',[], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/markers.png", 				"key":Assets.MARKERS, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/buttons.png", 				"key":Assets.BUTTON, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/arrows.png", 				"key":Assets.ARROWS, 					"w":50, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/leftright.png", 				"key":Assets.LEFTRIGHT, 				"w":60, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/keys.png", 					"key":Assets.KEYS, 						"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 					"key":Assets.CLOSE, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Assets.OK_BUTTON, 				"w":180, 	"h":70},
