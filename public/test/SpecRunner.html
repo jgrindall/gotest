@@ -16,13 +16,13 @@
             var init;
 
             require.config({
-                baseUrl: '/test/',
+                baseUrl: '../src/js/',
                 paths: {
                     
                 }
             });
 
-            require(["spec/MainSpec"], function(MainSpec){
+            require(["../../test/spec/MainSpec"], function(MainSpec){
                 init();
             });
 
