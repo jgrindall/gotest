@@ -1,22 +1,25 @@
-define('app/prog/dropview', ['phasercomponents'], function(PhaserComponents){
+define('app/prog/dropview', ['phasercomponents', 'app/assets'],
 
-	var DropView = function(game, options){
-		PhaserComponents.Drag.AbstractDropView.call(this, game, options);
+	function(PhaserComponents, Assets){
+
+	var DropView = function(options){
+		options.asset = Assets.DRAG_TARGET;
+		options.numFrames = 2;
+		PhaserComponents.Drag.AbstractDropView.call(this, options);
 	};
 
 	DropView.prototype = Object.create(PhaserComponents.Drag.AbstractDropView.prototype);
 	DropView.prototype.constructor = DropView;
 
 	DropView.prototype.highlight = function(show){
-		var scale = 1;
+		var frame;
 		if(show){
-			scale = 1.2;
+			frame = 1;
 		}
-		this.sprite.scale = {'x':scale, 'y':scale};
-	};
-
-	DropView.prototype.create = function(show){
-		this.sprite = new Phaser.Sprite(this.game, this.options.bounds.x, this.options.bounds.y, 'turtle');
+		else{
+			frame = 0;
+		}
+		this.goTo(frame);
 	};
 
 	return DropView;
