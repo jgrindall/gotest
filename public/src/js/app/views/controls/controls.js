@@ -49,7 +49,6 @@ Events, Assets, SpeedMarkers){
 
 	Controls.prototype.onScreenChanged = function(value) {
 		this.addCommandsPanel(value);
-		// TODO - Load the data from before
 	};
 	
 	Controls.prototype.onAlert = function(event, data) {
