@@ -154,7 +154,9 @@ OkButton, CloseButton, StepLengths){
 		if(this.showDiag){
 			this.diagToggle.destroy();
 		}
-		ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).changeSignal.remove(this.stepChange, this);
+		ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).changeSignal.remove(this.setSettings1, this);
+		ModelFacade.getInstance().get(ModelFacade.DIAG).changeSignal.remove(this.setSettings2, this);
+		ModelFacade.getInstance().get(ModelFacade.GRID).changeSignal.remove(this.setSettings2, this);
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	
