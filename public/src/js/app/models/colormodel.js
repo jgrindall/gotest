@@ -11,9 +11,12 @@ function(PhaserComponents){
 	
 	PhaserComponents.Utils.extends(ColorModel, PhaserComponents.Model.AbstractModel);
 
-	ColorModel.prototype.set = function(val) {
-		var currentVal = this.value;
-		if(val === currentVal){
+	ColorModel.prototype.set = function(val, options) {
+		var currentVal = this.value, force = false;
+		if(options && options.force){
+			force = true;
+		}
+		if(!force && val === currentVal){
 			PhaserComponents.Model.AbstractModel.prototype.set.call(this, null);
 		}
 		else{
@@ -24,4 +27,3 @@ function(PhaserComponents){
 	return ColorModel;
 
 });
-	

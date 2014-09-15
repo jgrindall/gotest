@@ -151,7 +151,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	ModelFacade.prototype.setData = function(json){
 		this.screenModel.set(json.settings.screen);
-		this.colorModel.set(json.settings.color);
+		this.colorModel.set(json.settings.color, {"force":true});
 		this.speedModel.set(json.settings.speed);
 		this.widthModel.set(json.settings.width);
 		this.bgModel.set(json.settings.bg);
