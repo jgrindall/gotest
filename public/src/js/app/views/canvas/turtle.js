@@ -23,8 +23,18 @@ function(Phaser,PhaserComponents){
 	};
 	
 	PhaserComponents.Utils.extends(Turtle, PhaserComponents.Display.Container);
-
+	
+			
+	Turtle.prototype.removeSprite = function() {
+		this.group.remove(this.sprite);
+		this.sprite.destroy(true);
+		this.sprite = null;
+	};
+	
 	Turtle.prototype.addImage = function() {
+		if(this.sprite){
+			this.removeSprite();
+		}
 		this.sprite = new Phaser.Image(this.game, 300, 300, this.options.asset);
 		this.group.add(this.sprite);
 		this.sprite.anchor.setTo(0.5, 0.5);
@@ -114,8 +124,8 @@ function(Phaser,PhaserComponents){
 		this.stopTweens();
 		this.endSignal.dispose();
 		this.endSignal = null;
+		this.removeSprite();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
-		this.sprite.destroy(true);
 	};
 	
 	return Turtle;
