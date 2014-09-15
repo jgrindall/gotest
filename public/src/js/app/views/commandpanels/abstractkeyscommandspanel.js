@@ -52,7 +52,7 @@ PhaserComponents, AbstractCommandsPanel
 	};
 	
 	AbstractKeysCommandsPanel.prototype.enableKeys = function() {
-		if(this.keys){
+		if(this.keys && this.selectedCommand){
 			this.keys.enableInput();
 			this.keys.alpha = 1;
 		}

@@ -389,9 +389,17 @@ define('phasercomponents/display/view',
 		this.eventDispatcher = null;
 	};
 
+	Object.defineProperty(View.prototype, "view", {
+		get : function(){
+			return (this.sprite || this.group);
+		}
+	});
+
 	return View;
 
 });
+
+
 
 
 
@@ -605,6 +613,7 @@ function(Phaser, View, Utils,
 	
 	
 	var AbstractButton = function(options){
+		options.asset = options.asset || 'button';
 		this.frames = options.frames || [0, 1, 2, 3];
 		this.mouseDownSignal = new Phaser.Signal();
 		this.mouseUpSignal = new Phaser.Signal();
@@ -842,7 +851,7 @@ ButtonGridModel, Utils){
 	};
 	
 	ButtonGrid.prototype.addButtons = function(){
-		var pos, i, j, b, n = 0, options, ClassRef, view;
+		var pos, i, j, b, n = 0, options, ClassRef;
 		ClassRef = this.options.buttonClass;
 		this.buttonGroup = new Phaser.Group(this.game, 0, 0);
 		for(i = 1; i <= this.options.numY; i++){
@@ -852,9 +861,8 @@ ButtonGridModel, Utils){
 				pos.y += this.marginY;
 				options = {"bounds":pos, "index":n, "data":this.options.data[n], "frames":[0, 1, 2, 3]};
 				b = new ClassRef(options);
-				view = b.group || b.sprite;
 				b.mouseUpSignal.add(this.buttonUp, this);
-				this.buttonGroup.add(view);
+				this.buttonGroup.add(b.view);
 				this.buttons.push(b);
 				n++;
 			}
@@ -868,7 +876,7 @@ ButtonGridModel, Utils){
 
 	ButtonGrid.prototype.buttonUp = function(data) {
 		var target, index;
-		target = data.target.group || data.target.sprite;
+		target = data.target.view;
 		index = this.buttonGroup.getIndex(target);
 		if(this.options.performSelect){
 			this.model.set(index);
