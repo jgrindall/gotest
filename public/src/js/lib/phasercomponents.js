@@ -580,7 +580,7 @@ function(Phaser, View, Utils){
 	Utils.extends(Container, View);
 
 	Container.prototype.create = function(){
-		this.group = new Phaser.Group(this.game);
+		this.group = new Phaser.Group(this.game, null);
 	};
 	
 	Container.prototype.setVisible = function(vis){
@@ -1282,7 +1282,10 @@ function(Phaser, Container, Utils){
 	};
 	
 	Scroller.prototype.addChildren = function(){
-		this.options.dataProvider.addAll(this);
+		var i, num = this.options.dataProvider.getNumPages();
+		for(i = 0; i < num; i++){
+			this.add(this.options.dataProvider.getPageAt(i, this));
+		}
 	};
 	
 	Scroller.prototype.onDown = function() {
