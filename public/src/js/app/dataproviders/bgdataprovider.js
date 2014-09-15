@@ -15,7 +15,7 @@ function(BgPanel, BgData, Assets){
 		return BgData.BACKGROUNDS.length;
 	};
 	
-	BgDataProvider.prototype.addPage = function(i, scroller){
+	BgDataProvider.prototype.getPageAt = function(i, scroller){
 		var options, panel, bounds, w, h, paddingX, paddingY;
 		paddingX = 50;
 		paddingY = 50;
@@ -24,13 +24,7 @@ function(BgPanel, BgData, Assets){
 		bounds = {"x":paddingX + scroller.bounds.x + i * this.game.w, "y":paddingY + scroller.bounds.y, "w":w, "h":h};
 		options = {"bounds":bounds, "bgasset":Assets.MAPS[i]};
 		panel = new BgPanel(options);
-		scroller.add(panel);
-	};
-	
-	BgDataProvider.prototype.addAll = function(scroller){
-		for(var i = 0; i < BgData.BACKGROUNDS.length; i++){
-			this.addPage(i, scroller);
-		}
+		return panel;
 	};
 	
 	return BgDataProvider;
