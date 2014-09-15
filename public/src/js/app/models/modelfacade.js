@@ -172,6 +172,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.speed = 		this.speedModel.get();
 		settings.grid = 		this.gridModel.get();
 		settings.color =	 	this.colorModel.get();
+		settings.diag =	 		this.diagModel.get();
 		json.commands = 		this.commModel.toJson();
 		json.settings = settings;
 		return json;
