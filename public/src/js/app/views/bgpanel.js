@@ -1,5 +1,5 @@
 
-define([ 'phasercomponents', 'phaser'
+define(['phasercomponents', 'phaser'
 
 ],
 

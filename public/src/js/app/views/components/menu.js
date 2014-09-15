@@ -1,5 +1,5 @@
 
-define([ 'app/views/buttons/menubutton',
+define(['app/views/buttons/menubutton',
 
 'phasercomponents', 'app/models/modelfacade', 'app/consts/playingstate'],
 
@@ -19,7 +19,7 @@ PhaserComponents, ModelFacade, PlayingState){
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 	};
 	
-	Menu.WIDTH = 252;
+	Menu.WIDTH = 240;
 	Menu.HEIGHT = 50;
 
 	PhaserComponents.Utils.extends(Menu, PhaserComponents.Display.ButtonBar);

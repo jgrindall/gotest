@@ -1,5 +1,5 @@
 
-define([ 'app/views/background',
+define(['app/views/background',
 
 'phasercomponents', 'app/views/components/colorpicker', 'app/views/components/widthpicker',
 
@@ -123,12 +123,9 @@ Events, Assets, SpeedMarkers){
 			this.eventDispatcher.trigger({"type":Events.UNDO});
 		}
 		else if(index === 2){
-			this.eventDispatcher.trigger({"type":Events.TEACHER_LOGIN});
-		}
-		else if(index === 3){
 			this.eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
 		}
-		else if(index === 4){
+		else if(index === 3){
 			this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
 		} 
 	};
@@ -144,7 +141,7 @@ Events, Assets, SpeedMarkers){
 	};
 	
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':-40 + this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
+		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
 		this.colorPicker = new ColorPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.sprite);
 	};

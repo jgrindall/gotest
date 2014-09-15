@@ -1,5 +1,5 @@
 
-define([ 'app/assets',
+define(['app/assets',
 
 'app/models/modelfacade', 'phasercomponents',
 

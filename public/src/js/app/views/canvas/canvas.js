@@ -1,5 +1,5 @@
 
-define([ 'phasercomponents', 'app/views/background',
+define(['phasercomponents', 'app/views/background',
 
 'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
 
