@@ -42,10 +42,16 @@ OkButton, CloseButton, StepLengths){
 
 	GridMenu.prototype.setSettings2 = function() {
 		var grid, diag, frame, frames;
-		frames = [[3, 2],[1, 0]];
 		grid = ModelFacade.getInstance().get(ModelFacade.GRID).get();
-		diag = ModelFacade.getInstance().get(ModelFacade.DIAG).get();
-		frame = frames[grid][diag];
+		if(this.showDiag){
+			frames = [[5, 4],[3, 2]];
+			diag = ModelFacade.getInstance().get(ModelFacade.DIAG).get();
+			frame = frames[grid][diag];
+		}
+		else{
+			frames = [0, 1];
+			frame = frames[grid];
+		}
 		this.settings2.goTo(frame);
 	};
 
