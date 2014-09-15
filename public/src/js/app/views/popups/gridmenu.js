@@ -14,10 +14,14 @@ OkButton, CloseButton, StepLengths){
 	"use strict";
 		
 	var GridMenu = function(options){
+		var screenModel;
 		options.bgasset = 'panel';
-		var screenModel = ModelFacade.getInstance().get(ModelFacade.SCREEN);
+		screenModel = ModelFacade.getInstance().get(ModelFacade.SCREEN);
 		this.showDiag = (screenModel.get() > 1);
 		PhaserComponents.Display.AbstractPopup.call(this, options);
+		ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).changeSignal.add(this.setSettings1, this);
+		ModelFacade.getInstance().get(ModelFacade.DIAG).changeSignal.add(this.setSettings2, this);
+		ModelFacade.getInstance().get(ModelFacade.GRID).changeSignal.add(this.setSettings2, this);
 	};
 	
 	PhaserComponents.Utils.extends(GridMenu, PhaserComponents.Display.AbstractPopup);
@@ -32,6 +36,19 @@ OkButton, CloseButton, StepLengths){
 		this.addButton(OkButton, bounds);
 	};
 	
+	GridMenu.prototype.setSettings1 = function() {
+		this.settings1.goTo(ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).get());
+	};
+
+	GridMenu.prototype.setSettings2 = function() {
+		var grid, diag, frame, frames;
+		frames = [[3, 2],[1, 0]];
+		grid = ModelFacade.getInstance().get(ModelFacade.GRID).get();
+		diag = ModelFacade.getInstance().get(ModelFacade.DIAG).get();
+		frame = frames[grid][diag];
+		this.settings2.goTo(frame);
+	};
+
 	GridMenu.prototype.addCloseButton = function () { 
 		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y};
 		this.addButton(CloseButton, bounds);
@@ -40,9 +57,8 @@ OkButton, CloseButton, StepLengths){
 	GridMenu.prototype.addSlider = function(){
 		var middle, bounds, options;
 		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + 90, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
+		bounds = {"x":middle, "y":this.bounds.y + 120, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
 		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds};
-		console.log("slider "+options.handle, options.sliderbg, options.sliderhl);
 		this.lengthSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.lengthSlider.group);
 	};
@@ -50,7 +66,7 @@ OkButton, CloseButton, StepLengths){
 	GridMenu.prototype.addDiagToggle = function(){
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + 286};
+		bounds = {"x":middle, "y":this.bounds.y + 356};
 		this.diagToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": ModelFacade.getInstance().get(ModelFacade.DIAG), "bounds":bounds});
 		this.group.add(this.diagToggle.sprite);
 	};
@@ -58,23 +74,23 @@ OkButton, CloseButton, StepLengths){
 	GridMenu.prototype.addGridToggle = function(){
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + 186};
+		bounds = {"x":middle, "y":this.bounds.y + 236};
 		this.gridToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": ModelFacade.getInstance().get(ModelFacade.GRID), "bounds":bounds});
 		this.group.add(this.gridToggle.sprite);
 	};
 
 	GridMenu.prototype.addDiagLabel = function(){
-		this.diagLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 340, "Stretch diags");
+		this.diagLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 405, "Stretch diags");
 		this.group.add(this.diagLabel);
 	};
 
 	GridMenu.prototype.addGridLabel = function(){
-		this.gridLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 240, "Toggle grid");
+		this.gridLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 287, "Toggle grid");
 		this.group.add(this.gridLabel);
 	};
 
 	GridMenu.prototype.addStepLengthLabel = function(){
-		this.stepLengthLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 140, "Step Length");
+		this.stepLengthLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, 160, "Step Length");
 		this.group.add(this.stepLengthLabel);
 	};
 	
@@ -91,12 +107,29 @@ OkButton, CloseButton, StepLengths){
 		}
 	};
 
+	GridMenu.prototype.addSettings1 = function () {
+		var bounds = {'x':this.bounds.x + this.bounds.w - 166, 'y':this.bounds.y + 41, 'w':160, 'h':160};
+		this.settings1 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":6, "asset":Assets.SETTINGS1});
+		this.group.add(this.settings1.sprite);
+		this.setSettings1();
+	};
+
+	GridMenu.prototype.addSettings2 = function () {
+		var bounds = {'x':this.bounds.x + this.bounds.w - 166, 'y':this.bounds.y + 245, 'w':160, 'h':160};
+		this.settings2 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":6, "asset":Assets.SETTINGS2});
+		this.group.add(this.settings2.sprite);
+		this.setSettings2();
+		//this.settings1.goTo(ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).get());
+	};
+
 	GridMenu.prototype.create = function () {
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addSlider();
 		this.addTitle();
 		this.addGridToggle();
 		this.addLabels();
+		this.addSettings1();
+		this.addSettings2();
 		if(this.showDiag){
 			this.addDiagToggle();
 		}
@@ -112,13 +145,16 @@ OkButton, CloseButton, StepLengths){
 		});
 		this.lengthSlider.destroy();
 		this.gridToggle.destroy();
+		this.settings1.destroy();
 		this.group.remove(this.label0);
 		this.group.remove(this.label1);
 		this.group.remove(this.label2);
 		this.group.remove(this.label);
+		this.group.remove(this.settings1);
 		if(this.showDiag){
 			this.diagToggle.destroy();
 		}
+		ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).changeSignal.remove(this.stepChange, this);
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	

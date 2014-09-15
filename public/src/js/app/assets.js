@@ -27,6 +27,8 @@ define([], function(){
 	Assets.BUTTON = 				'button';
 	Assets.ARROWS = 				'arrows';
 	Assets.LEFTRIGHT = 				'leftright';
+	Assets.SETTINGS1 = 				'settings1';
+	Assets.SETTINGS2 = 				'settings2';
 	Assets.KEYS = 					'keys';
 	Assets.MARKERS = 				'markers';
 	Assets.SLIDERBG = 				'sliderbg';
@@ -40,6 +42,8 @@ define([], function(){
 	
 	Assets.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/screens/smallpanel.png",	 			"key":Assets.SMALL_PANEL,				"w":225, 	"h":250},
+		{"type":"spritesheet", 	"asset":"assets/images/settings/settings1.png",	 			"key":Assets.SETTINGS1,					"w":160, 	"h":160},
+		{"type":"spritesheet", 	"asset":"assets/images/settings/settings2.png",	 			"key":Assets.SETTINGS2,					"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/markers.png", 				"key":Assets.MARKERS, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/buttons.png", 				"key":Assets.BUTTON, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/arrows.png", 				"key":Assets.ARROWS, 					"w":50, 	"h":50},
