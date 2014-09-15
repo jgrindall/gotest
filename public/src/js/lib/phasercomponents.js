@@ -369,7 +369,7 @@ define('phasercomponents/display/view',
 	
 	var View = function(options){
 		this.options = options;
-		this.bounds = options.bounds;
+		this.bounds = options.bounds || {'x':0, 'y':0, 'w':100, 'h':100};
 		this.model = options.model;
 		this.game = Context.game;
 		this.eventDispatcher = Context.eventDispatcher;
@@ -449,7 +449,7 @@ define('phasercomponents/display/interactivesprite',
 	};
 
 	InteractiveSprite.prototype.create = function(){
-		this.sprite = new Phaser.Sprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset, this.options.defaultFrame || 0);
+		this.sprite = new Phaser.Sprite(this.game, this.bounds.x, this.bounds.y, this.options.asset, this.options.defaultFrame || 0);
 	};
 
 	InteractiveSprite.prototype.removeListeners = function(){
@@ -630,7 +630,7 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.create = function(){
-		this.sprite = new Phaser.Button(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
+		this.sprite = new Phaser.Button(this.game, this.bounds.x, this.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
 		this.resetFrames();
 		this.sprite.inputEnabled = false;
 		this.enableInput();
@@ -1592,8 +1592,8 @@ function(Container, Utils){
 		ClassRef = this.options.buttonClass;
 		Container.prototype.create.call(this);
 		for(i = 0; i <= this.options.num - 1; i++){
-			x = this.options.bounds.x + i * ClassRef.WIDTH;
-			y = this.options.bounds.y;
+			x = this.bounds.x + i * ClassRef.WIDTH;
+			y = this.bounds.y;
 			b = new ClassRef({'bounds':{"x":x, "y":y}});
 			this.group.add(b.sprite);
 			this.buttons.push(b);
@@ -1731,7 +1731,7 @@ function(MovieClip, Utils, AppEvents){
 
 	MultiButton.prototype.mouseUp = function(data){
 		var p, frame;
-		p = data.localPoint.x / this.options.bounds.w;
+		p = data.localPoint.x / this.bounds.w;
 		frame = Math.floor(this.options.numSegments * p);
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});

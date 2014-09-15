@@ -1,4 +1,6 @@
-define(['../../src/js/app/assets', '../../src/js/app/models/diagmodel'], function(Assets, DiagModel){
+define(['../../src/js/app/assets', '../../src/js/app/models/diagmodel', '../../src/js/app/views/buttons/arrowbutton'],
+
+	function(Assets, DiagModel, ArrowButton){
   	
   	describe("Basic stuff", function(){
 		it("should work",
@@ -17,4 +19,14 @@ define(['../../src/js/app/assets', '../../src/js/app/models/diagmodel'], functio
 		); 
     });
 
+
+	describe("More stuff", function(){
+		it("should work",
+			function(){
+				var b = new ArrowButton({data:{}});
+				expect(b).toNotBe(null); 
+			}
+		); 
+    });
+    
 });
