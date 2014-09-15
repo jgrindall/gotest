@@ -108,14 +108,14 @@ OkButton, CloseButton, StepLengths){
 	};
 
 	GridMenu.prototype.addSettings1 = function () {
-		var bounds = {'x':this.bounds.x + this.bounds.w - 160, 'y':this.bounds.y + 51, 'w':160, 'h':160};
+		var bounds = {'x':this.bounds.x + this.bounds.w - 170, 'y':this.bounds.y + 51, 'w':160, 'h':160};
 		this.settings1 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":6, "asset":Assets.SETTINGS1});
 		this.group.add(this.settings1.sprite);
 		this.setSettings1();
 	};
 
 	GridMenu.prototype.addSettings2 = function () {
-		var bounds = {'x':this.bounds.x + this.bounds.w - 160, 'y':this.bounds.y + 253, 'w':160, 'h':160};
+		var bounds = {'x':this.bounds.x + this.bounds.w - 170, 'y':this.bounds.y + 253, 'w':160, 'h':160};
 		this.settings2 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":6, "asset":Assets.SETTINGS2});
 		this.group.add(this.settings2.sprite);
 		this.setSettings2();
