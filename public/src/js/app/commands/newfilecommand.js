@@ -2,11 +2,15 @@ define(
 
 	['phasercomponents', 'app/models/modelfacade',
 
-	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider', 'app/assets'],
+	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider',
+
+	'app/assets', 'app/views/popups/growl'],
 
 function(PhaserComponents, ModelFacade,
 
-	GameBgMenu, BgDataProvider, Assets) {
+	GameBgMenu, BgDataProvider,
+
+	Assets, Growl) {
 	
 	"use strict";
 	
@@ -24,6 +28,9 @@ function(PhaserComponents, ModelFacade,
 	NewFileCommand.prototype.onBgChosen = function(data){
 		if(data.index === 1){
 			ModelFacade.getInstance().get(ModelFacade.BG).set(data.selection.selectedPage, {"force":true});
+		}
+		else if(data.index === 2){
+			alert("Open external designer");
 		}
 	};
 	
