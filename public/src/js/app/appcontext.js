@@ -44,11 +44,8 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 	};
 
     AppContext.prototype.onChangeScene = function(event, obj){
-    	var that = this;
     	if(obj.data.scene instanceof LoaderScene){
-    		setTimeout(function(){
-    			that.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
-    		}, 1000); 
+    		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
     	}
     };
  
