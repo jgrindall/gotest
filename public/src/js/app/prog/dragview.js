@@ -7,8 +7,10 @@ define('app/prog/dragview',
 	"use strict";
 
 	var DragView = function(options){
+		var frame0;
 		options.asset = Assets.DRAG_ARROW;
-		options.defaultFrame = options.index;
+		frame0 = options.type * 10 + options.index;
+		options.defaultFrame = frame0;
 		AbstractDragView.call(this, options);
 	};
 

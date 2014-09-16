@@ -2159,7 +2159,7 @@ define('phasercomponents/drag/abstractdragview',
 	Utils.extends(AbstractDragView, InteractiveSprite);
 
 	AbstractDragView.prototype.snap = function(target, bounds){
-		this.moveTo(target.sprite.x + bounds.x, target.sprite.y + bounds.y);
+		this.moveTo(target.sprite.x + target.sprite.width/2 + bounds.x - this.sprite.width/2, target.sprite.y + target.sprite.height/2 + bounds.y - this.sprite.height/2);
 	};
 
 	AbstractDragView.prototype.reset = function(){
@@ -2268,15 +2268,12 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 	DragManager.prototype.addDrag = function(view){
 		view.mouseDownSignal.add(this.downHandler, this);
 		this.views.push(view);
-		console.log("added view ",view,this.views.length, this.views.indexOf(view));
 	};
 
 	DragManager.prototype.startDrag = function(view){
-		console.log("startDRag "+view, this.views.indexOf(view));
 		if(this.enabled){
 			this.addMoveListeners();
 			this.draggedView = view;
-			console.log("added view ",this.draggedView,this.views.length, this.views.indexOf(this.draggedView));
 			this.model.removeView(view);
 		}
 	};
@@ -2320,7 +2317,6 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 	};
 
 	DragManager.prototype.drop = function(){
-		console.log("ri "+this.dropPosition.rowIndex);
 		if(this.dropPosition.rowIndex >= 0){
 			this.snapTo(this.draggedView, this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
 			this.targets[this.dropPosition.rowIndex].highlight(false);
@@ -2334,7 +2330,6 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 		var index;
 		if(view){
 			index = this.views.indexOf(view);
-			console.log("remove", this.views, this.views.length, index);
 			view.mouseDownSignal.remove(this.downHandler, this);
 			view.destroy(true);
 			this.views.splice(index, 1);
@@ -2342,19 +2337,16 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 	};
 
 	DragManager.prototype.fail = function(){
-		console.log("fail "+this.options.fail);
 		if(this.options.fail === DragFailTypes.FAIL_RETURN){
 			this.draggedView.reset();
 		}
 		else if (this.options.fail === DragFailTypes.FAIL_REMOVE){
-			console.log("rmoveView!");
 			this.removeView(this.draggedView);
 			this.draggedView = null;
 		}
 	};
 
 	DragManager.prototype.onUp = function(){
-		console.log("onUP");
 		this.drop();
 		this.removeMoveListeners();
 		this.draggedView = null;
@@ -2386,6 +2378,12 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 		this.checkTargets();
 	};
 
+	DragManager.prototype.destroyTargets = function(){
+		while(this.targets.length > 0){
+			this.removeTarget(this.targets[0]);
+		}
+	};
+
 	DragManager.prototype.destroyViews = function(){
 		this.removeMoveListeners();
 		while(this.views.length > 0){
@@ -2395,9 +2393,13 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 
 	DragManager.prototype.destroy = function(){
 		this.destroyViews();
+		this.destroyTargets();
+		this.model.clear();
 		this.model = null;
 		this.views = null;
 		this.targets = null;
+		this.draggedView = null;
+		this.dropPosition = null;
 	};
 
 	return DragManager;
