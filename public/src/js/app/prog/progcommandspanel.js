@@ -1,8 +1,8 @@
 define('app/prog/progcommandspanel',
 
-	['app/prog/abstractprogcommandpanel', 'phasercomponents'],
+	['app/prog/abstractprogcommandpanel', 'phasercomponents', 'app/logocommands/commandtypes'],
 
-	function(AbstractProgCommandPanel, PhaserComponents){
+	function(AbstractProgCommandPanel, PhaserComponents, CommandTypes){
 	
 	"use strict";
 
@@ -11,6 +11,16 @@ define('app/prog/progcommandspanel',
 	};
 
 	PhaserComponents.Utils.extends(ProgCommandsPanel, AbstractProgCommandPanel);
+
+	ProgCommandsPanel.prototype.addAllCommands = function() {
+		var that = this, json = this.model.toJson(), hitzone;
+		json.forEach(function(hitZoneRow){
+			hitzone = hitZoneRow[0];
+			if(hitzone && hitzone.type === 0){
+				that.addCommand(hitzone.index, CommandTypes.MOVE);
+			}
+		});
+	};
 
 	return ProgCommandsPanel;
 });

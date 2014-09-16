@@ -26,7 +26,6 @@ OkButton, CloseButton){
 	};
 	
 	GameScreenMenu.prototype.addCloseButton = function () {
-		console.log("bounds "+JSON.stringify(this.bounds));
 		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y };
 		this.addButton(CloseButton, bounds);
 	};

@@ -23,30 +23,31 @@ define('app/prog/abstractprogcommandpanel',
 	PhaserComponents.Utils.extends(AbstractProgCommandPanel, AbstractCommandsPanel);
 
 	AbstractProgCommandPanel.prototype.clickButton = function(data){
-		var type, index, tick;
+		var type, index, tick, turn;
 		type = data.target.options.type
 		index = data.target.options.index;
+		turn = data.target.options.turn;
 		if(this.dragManager && this.dragManager.enabled){
-			tick = this.addDrag(type, index, {'x':data.target.sprite.x, 'y':data.target.sprite.y});
+			tick = this.addDrag(type, index, turn, {'x':data.target.sprite.x, 'y':data.target.sprite.y});
 			this.dragManager.startDrag(tick);
 		}
 	};
 
-	AbstractProgCommandPanel.prototype.addDrag = function(type, index, bounds){
-		var tick = new DragView({"type":type, "index":index, 'bounds':bounds});
+	AbstractProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
+		var tick = new DragView({"type":type, "turn":turn, "index":index, 'bounds':bounds});
 		this.group.add(tick.sprite);
 		this.dragManager.addDrag(tick);
 		return tick;
 	};
 
 	AbstractProgCommandPanel.prototype.addButtons = function(){
-		var i, j, button, buttons, bounds, index, options;
+		var i, j, button, buttons, bounds, data, options;
 		buttons = this.options.buttons;
 		for(i = 0; i < buttons.length; i++){
 			for(j = 0; j < buttons[i].length; j++){
-				index = buttons[i][j];
+				data = buttons[i][j];
 				bounds = {'x':this.bounds.x + 32*j, 'y':this.bounds.y + 50 + 40*i};
-				options = {'type':i, 'index':index, 'bounds':bounds};
+				options = {'type':i, 'index':data.num, 'turn':data.turn, 'bounds':bounds};
 				button = new DragButton(options);
 				this.buttons.push(button);
 				this.group.add(button.sprite);
@@ -61,6 +62,7 @@ define('app/prog/abstractprogcommandpanel',
 	};
 
 	AbstractProgCommandPanel.prototype.onLoadClick = function(){
+		/*
 		var i, j, json, jsonString, obj, tick;
 		this.dragManager.clear();
 		jsonString = localStorage.getItem("jsonData");
@@ -74,6 +76,7 @@ define('app/prog/abstractprogcommandpanel',
 				}
 			}
 		}
+		*/
 	};
 
 	AbstractProgCommandPanel.prototype.addTargets = function(){
@@ -109,14 +112,7 @@ define('app/prog/abstractprogcommandpanel',
 	};
 
 	AbstractProgCommandPanel.prototype.clickPlay = function() {
-		var that = this, json = this.model.toJson();
-		json.forEach(function(hitZoneRow){
-			hitZoneRow.forEach(function(hitzone){
-				if(hitzone && hitzone.type !== undefined && hitzone.type !== null){
-					that.addCommand(hitzone.index, CommandTypes.MOVE);
-				}
-			});
-		});
+		this.addAllCommands();
 	};
 	
 	AbstractProgCommandPanel.prototype.create = function() {
