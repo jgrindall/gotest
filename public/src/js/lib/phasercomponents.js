@@ -2211,7 +2211,11 @@ define('phasercomponents/drag/dragfailtypes', [], function(){
 });
 
 
-define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtypes'], function(DragFailTypes){
+define('phasercomponents/drag/dragmanager',
+
+	['phasercomponents/drag/dragfailtypes', 'phaser'],
+
+	function(DragFailTypes, Phaser){
 	
 	
 
@@ -2219,6 +2223,7 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 		this.game = game;
 		this.options = options;
 		this.model = options.model;
+		this.editSignal = new Phaser.Signal();
 		if(this.options.fail === null || this.options.fail === undefined){
 			throw "No fail specified";
 		}
@@ -2323,6 +2328,7 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 		if(this.dropPosition.rowIndex >= 0){
 			this.snapTo(this.draggedView, this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
 			this.targets[this.dropPosition.rowIndex].highlight(false);
+			this.editSignal.dispatch();
 		}
 		else{
 			this.fail();
@@ -2397,6 +2403,8 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 	DragManager.prototype.destroy = function(){
 		this.destroyViews();
 		this.destroyTargets();
+		this.editSignal.dispose();
+		this.editSignal = null;
 		this.model.clear();
 		this.model = null;
 		this.views = null;

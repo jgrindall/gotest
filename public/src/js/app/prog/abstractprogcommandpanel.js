@@ -130,10 +130,15 @@ define(
 		AbstractCommandsPanel.prototype.create.call(this);
 		this.model = new PhaserComponents.Drag.DragModel();
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.game, {"model":this.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
+		this.dragManager.editSignal.add(this.onEdited, this);
 		this.addButtons();
 		this.addTargets();
 		this.addPlay();
 		this.initDrag();
+	};
+
+	AbstractProgCommandPanel.prototype.onEdited = function() {
+		console.log("edited, activate play button??");
 	};
 
 	AbstractProgCommandPanel.prototype.removeTargets = function() {
@@ -161,6 +166,7 @@ define(
 		this.model = null;
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
+		this.dragManager.editSignal.remove(this.onEdited, this);
 		this.dragManager.destroy();
 		this.dragManager = null;
 		this.playButton.mouseUpSignal.remove(this.clickPlay, this);

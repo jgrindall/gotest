@@ -164,7 +164,6 @@ Events, Assets, SpeedMarkers){
 		this.removeCommandsPanel();
 		type = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
 		prog = ModelFacade.getInstance().get(ModelFacade.PROG).get();
-		console.log("PROG "+prog);
 		bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
