@@ -7,7 +7,7 @@ define(['app/views/background',
 
 'app/views/controls/controlmenu', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/views/commandpanels/commandspanelfactory',
+'app/views/commandpanels/commandspanelfactory', 'app/views/buttons/controlbarbutton',
 
 'app/events/events', 'app/assets', 'app/views/components/speedmarkers'
 
@@ -21,7 +21,7 @@ ModelFacade, Colors, PenWidths,
 
 ControlMenu, AbstractCommandsPanel,
 
-CommandsPanelFactory,
+CommandsPanelFactory, ControlBarButton,
 
 Events, Assets, SpeedMarkers){
 	
@@ -31,6 +31,7 @@ Events, Assets, SpeedMarkers){
 		PhaserComponents.Display.Container.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.PROG).changeSignal.add(this.onScreenChanged, this);
 	};
 
 	Controls.WIDTH = 320;
@@ -45,10 +46,11 @@ Events, Assets, SpeedMarkers){
 		this.addButtons();
 		this.addSpeedSlider();
 		this.addSpeedMarkers();
+		this.addControlBar();
 	};
 
-	Controls.prototype.onScreenChanged = function(value) {
-		this.addCommandsPanel(value);
+	Controls.prototype.onScreenChanged = function() {
+		this.addCommandsPanel();
 	};
 	
 	Controls.prototype.onAlert = function(event, data) {
@@ -84,7 +86,21 @@ Events, Assets, SpeedMarkers){
 		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
 		this.group.add(this.bg.sprite);
 	};
-	
+
+	Controls.prototype.addControlBar = function() {
+		var options, bounds;
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 50, 'w':220, 'h':50};
+		options = {"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
+		this.controlBar = new PhaserComponents.Display.ButtonBar(options);
+		this.controlBar.clickSignal.add(this.barClick, this);
+		this.group.add(this.controlBar.group);
+	};
+
+	Controls.prototype.barClick = function(data) {
+		var val = data.index;
+		this.eventDispatcher.trigger({"type":Events.PROG_CHANGE, "data":{"value":val}});
+	};
+
 	Controls.prototype.addButtons = function() {
 		var bounds = {'x':this.game.w - ControlMenu.WIDTH, 'y':this.bounds.y, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
 		this.menu = new ControlMenu({"bounds":bounds});
@@ -129,16 +145,26 @@ Events, Assets, SpeedMarkers){
 		} 
 	};
 	
-	Controls.prototype.addCommandsPanel = function(type) {
+	Controls.prototype.removeCommandsPanel = function() {
 		if(this.commandsPanel){
+			this.group.remove(this.commandsPanel.group);
 			this.commandsPanel.destroy();
 			this.commandsPanel = null;
 		}
-		var bounds = {'x':this.bounds.x + (this.bounds.w - AbstractCommandsPanel.WIDTH)/2, 'y':50, 'w':AbstractCommandsPanel.WIDTH, 'h':this.bounds.h - 50};
-		this.commandsPanel = CommandsPanelFactory.make(type, bounds);
-		this.group.add(this.commandsPanel.group);
 	};
-	
+
+	Controls.prototype.addCommandsPanel = function() {
+		var bounds, type, prog;
+		this.removeCommandsPanel();
+		type = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
+		prog = ModelFacade.getInstance().get(ModelFacade.PROG).get();
+		bounds = {'x':this.bounds.x + (this.bounds.w - AbstractCommandsPanel.WIDTH)/2, 'y':50, 'w':AbstractCommandsPanel.WIDTH, 'h':this.bounds.h - 50};
+		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
+		if(this.commandsPanel){
+			this.group.add(this.commandsPanel.group);
+		}
+	};
+
 	Controls.prototype.addColorPicker = function() {
 		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
 		this.colorPicker = new ColorPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
@@ -164,10 +190,7 @@ Events, Assets, SpeedMarkers){
 		this.bg = null;
 		this.colorPicker = null;
 		this.menu = null;
-		if(this.commandsPanel){
-			this.commandsPanel.destroy();
-			this.commandsPanel = null;
-		}
+		this.removeCommandsPanel();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	

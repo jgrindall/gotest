@@ -465,6 +465,11 @@ define('phasercomponents/display/interactivesprite',
 		this.sprite.events.onInputDown.remove(this.onMouseDown, this);
 	};
 	
+	InteractiveSprite.prototype.moveTo = function(x, y){
+		this.sprite.x = x;
+		this.sprite.y = y;
+	};
+
 	InteractiveSprite.prototype.enableInput = function(){
 		if(!this.sprite.inputEnabled){
 			this.sprite.inputEnabled = true;
@@ -494,24 +499,26 @@ define('phasercomponents/display/interactivesprite',
 	InteractiveSprite.prototype.onMouseUp = function(){
 		var hitData = this.hitData();
 		if(hitData.hits){
-			this.mouseUpSignal.dispatch({"localPoint":hitData.localPoint});
+			this.mouseUpSignal.dispatch({"target":this, "localPoint":hitData.localPoint});
 		}
 	};
 	
 	InteractiveSprite.prototype.onMouseDown = function(){
 		var hitData = this.hitData();
 		if(hitData.hits){
-			this.mouseDownSignal.dispatch({"localPoint":hitData.localPoint});
+			this.mouseDownSignal.dispatch({"target":this, "localPoint":hitData.localPoint});
 		}
 	};
 	
-	InteractiveSprite.prototype.destroy = function(children){
+	InteractiveSprite.prototype.destroy = function(){
 		this.disableInput();
 		this.mouseDownSignal.dispose();
 		this.mouseUpSignal.dispose();
 		this.mouseDownSignal = null;
 		this.mouseUpSignal = null;
-		View.prototype.destroy.call(this, children);
+		this.sprite.destroy(true);
+		this.sprite = null;
+		View.prototype.destroy.call(this);
 	};
 
 	return InteractiveSprite;
@@ -2136,53 +2143,32 @@ define('phasercomponents/drag/abstractaccepter', [], function(){
 });
 
 
-define('phasercomponents/drag/abstractdragview', [], function(){
+define('phasercomponents/drag/abstractdragview',
+
+	['phasercomponents/utils/utils', 'phasercomponents/display/interactivesprite'],
+
+	function(Utils, InteractiveSprite){
 	
 	
 
-	var AbstractDragView = function(game, options){
-		options.bounds = options.bounds || {'x':0,'y':0};
-		this.options = options;
-		this.game = game;
-		this.mouseDownSignal = new Phaser.Signal();
-		this.create();
-		this.options.origPos = {'x':options.bounds.x, 'y':options.bounds.y};
+	var AbstractDragView = function(options){
+		options.origPos = {'x':options.bounds.x, 'y':options.bounds.y};
+		InteractiveSprite.call(this, options);
 	};
 
-	AbstractDragView.prototype.onMouseDown = function(){
-		this.mouseDownSignal.dispatch({"target":this});
-	};
-
-	AbstractDragView.prototype.moveTo = function(x, y){
-		this.sprite.x = x;
-		this.sprite.y = y;
-	};
+	Utils.extends(AbstractDragView, InteractiveSprite);
 
 	AbstractDragView.prototype.snap = function(target, bounds){
-		this.moveTo(target.sprite.x + bounds.x, target.sprite.y + bounds.y);
+		this.moveTo(target.sprite.x + target.sprite.width/2 + bounds.x - this.sprite.width/2, target.sprite.y + target.sprite.height/2 + bounds.y - this.sprite.height/2);
 	};
 
 	AbstractDragView.prototype.reset = function(){
-		this.sprite.x = this.options.origPos.x;
-		this.sprite.x = this.options.origPos.y;
-	};
-
-	AbstractDragView.prototype.destroy = function(){
-		this.sprite.events.onInputDown.remove(this.onMouseDown, this);
-		this.sprite.inputEnabled = false;
-		this.sprite.destroy();
-		this.sprite = null;
-		this.options = null;
-	};
-
-	AbstractDragView.prototype.reset = function(){
-		this.sprite.x = this.options.origPos.x;
-		this.sprite.x = this.options.origPos.y;
+		this.moveTo(this.options.origPos.x, this.options.origPos.y);
 	};
 
 	AbstractDragView.prototype.create = function(){
-		this.sprite.inputEnabled = true;
-		this.sprite.events.onInputDown.add(this.onMouseDown, this);
+		InteractiveSprite.prototype.create.call(this);
+		this.enableInput();
 	};
 
 	return AbstractDragView;
@@ -2190,23 +2176,22 @@ define('phasercomponents/drag/abstractdragview', [], function(){
 });
 
 
-define('phasercomponents/drag/abstractdropview', [], function(){
+define('phasercomponents/drag/abstractdropview',
+
+	['phasercomponents/utils/utils', 'phasercomponents/display/movieclip'],
+
+	function(Utils, MovieClip){
 
 	
 
-	var AbstractDropView = function(game, options){
-		this.game = game;
-		this.options = options;
-		this.create();
+	var AbstractDropView = function(options){
+		MovieClip.call(this, options);
 	};
 
-	AbstractDropView.prototype.create = function(){
-		
-	};
+	Utils.extends(AbstractDropView, MovieClip);
 
 	return AbstractDropView;
 });
-
 
 define('phasercomponents/drag/dragfailtypes', [], function(){
 	
@@ -2298,14 +2283,16 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 	};
 
 	DragManager.prototype.getClosest = function(){
-		var i, x, y, index = -1, target, dist, w, h;
+		var i, x, y, index = -1, target, dist, w, h, dx, dy;
 		x = this.draggedView.sprite.x;
 		y = this.draggedView.sprite.y;
 		w = this.draggedView.sprite.width;
 		h = this.draggedView.sprite.height;
 		for(i = 0; i < this.targets.length; i++){
 			target = this.targets[i];
-			dist = Math.abs(x + w/2 - target.sprite.x - target.sprite.width/2) + Math.abs(y +h/2 - target.sprite.y- target.sprite.height/2);
+			dx = x + w/2 - target.sprite.x - target.sprite.width/2;
+			dy = y + h/2 - target.sprite.y - target.sprite.height/2;
+			dist = Math.sqrt(dx*dx + dy*dy);
 			if(dist < DragManager.TOLERANCE){
 				index = i;
 				break;
@@ -2343,9 +2330,9 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 		var index;
 		if(view){
 			index = this.views.indexOf(view);
-			this.views.splice(index, 1);
 			view.mouseDownSignal.remove(this.downHandler, this);
-			view.destroy();
+			view.destroy(true);
+			this.views.splice(index, 1);
 		}
 	};
 
@@ -2391,6 +2378,12 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 		this.checkTargets();
 	};
 
+	DragManager.prototype.destroyTargets = function(){
+		while(this.targets.length > 0){
+			this.removeTarget(this.targets[0]);
+		}
+	};
+
 	DragManager.prototype.destroyViews = function(){
 		this.removeMoveListeners();
 		while(this.views.length > 0){
@@ -2400,9 +2393,13 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 
 	DragManager.prototype.destroy = function(){
 		this.destroyViews();
+		this.destroyTargets();
+		this.model.clear();
 		this.model = null;
 		this.views = null;
 		this.targets = null;
+		this.draggedView = null;
+		this.dropPosition = null;
 	};
 
 	return DragManager;

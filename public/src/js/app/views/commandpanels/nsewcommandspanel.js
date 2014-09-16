@@ -1,11 +1,11 @@
 
-define(['app/views/commandpanels/abstractcommandspanel',
+define('app/views/commandpanels/nsewcommandspanel',['app/views/commandpanels/abstractexecutecommandpanel',
 
 'app/logocommands/commandtypes', 'phasercomponents'
 
 ],
 
-function(AbstractCommandsPanel, 
+function(AbstractExecuteCommandsPanel, 
 
 CommandTypes, PhaserComponents
 
@@ -14,10 +14,10 @@ CommandTypes, PhaserComponents
 	"use strict";
 	
 	var NSEWCommandsPanel  = function(options){
-		AbstractCommandsPanel.call(this, options);
+		AbstractExecuteCommandsPanel.call(this, options);
 	};
 	
-	PhaserComponents.Utils.extends(NSEWCommandsPanel, AbstractCommandsPanel);
+	PhaserComponents.Utils.extends(NSEWCommandsPanel, AbstractExecuteCommandsPanel);
 
 	NSEWCommandsPanel.prototype.addKeys = function() {
 		
@@ -34,7 +34,7 @@ CommandTypes, PhaserComponents
 	
 	NSEWCommandsPanel.prototype.destroy = function() {
 		this.grid.clickSignal.remove(this.selectComm, this);
-		AbstractCommandsPanel.prototype.destroy.call(this);
+		AbstractExecuteCommandsPanel.prototype.destroy.call(this);
 	};
 	
 	return NSEWCommandsPanel;

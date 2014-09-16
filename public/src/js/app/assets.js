@@ -24,7 +24,10 @@ define([], function(){
 	Assets.RIGHT = 					'right';
 	Assets.OK_BUTTON = 				'okbutton';
 	Assets.ADD_BUTTON = 			'addbutton';
+	Assets.DRAG_BUTTON = 			'dragbutton';
+	Assets.DRAG_ARROW = 			'dragarrow';
 	Assets.BUTTON = 				'button';
+	Assets.CONTROL_BAR =			'controlbar';
 	Assets.ARROWS = 				'arrows';
 	Assets.LEFTRIGHT = 				'leftright';
 	Assets.SETTINGS1 = 				'settings1';
@@ -34,6 +37,7 @@ define([], function(){
 	Assets.SLIDERBG = 				'sliderbg';
 	Assets.SLIDERHL = 				'sliderhl';
 	Assets.SLIDERHANDLE = 			'sliderhandle';
+	Assets.DRAG_TARGET =			'dragtarget';
 	Assets.PENS = 					'pens';
 	Assets.WIDTHS = 				['width0', 'width1', 'width2', 'width3', 'width4', 'width5', 'width6', 'width7', 'width8', 'width9', 'width10'];
 	Assets.TOGGLE = 				'toggle';
@@ -41,6 +45,10 @@ define([], function(){
 	Assets.BG = 					'bg';
 	
 	Assets.SPRITESHEETS = [
+		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":160, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/prog/controlbar.png",	 			"key":Assets.CONTROL_BAR,				"w":50, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/prog/dragbuttons.png",	 			"key":Assets.DRAG_BUTTON,				"w":32, 	"h":32},
+		{"type":"spritesheet", 	"asset":"assets/images/prog/dragarrows.png",	 			"key":Assets.DRAG_ARROW,				"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/screens/smallpanel.png",	 			"key":Assets.SMALL_PANEL,				"w":225, 	"h":250},
 		{"type":"spritesheet", 	"asset":"assets/images/settings/settings1.png",	 			"key":Assets.SETTINGS1,					"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/settings/settings2.png",	 			"key":Assets.SETTINGS2,					"w":160, 	"h":160},

@@ -1,9 +1,9 @@
 
-define(['app/views/commandpanels/markertypes',
+define('app/views/commandpanels/markers/markerfactory',['app/views/commandpanels/markers/markertypes',
 
-'app/views/commandpanels/marker',
+'app/views/commandpanels/markers/marker',
 
-'app/views/commandpanels/turnmarker'
+'app/views/commandpanels/markers/turnmarker'
 
 ],
 

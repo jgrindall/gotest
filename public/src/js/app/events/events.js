@@ -15,6 +15,7 @@ function() {
 	Events.UNDO				= 		"undo";
 	Events.STOP				= 		"stop";
 	Events.TEACHER_LOGIN	= 		"teacherLogin";
+	Events.PROG_CHANGE		= 		"progChange";
 	Events.TYPE_CHOICE		= 		"typeChoice";
 	Events.GRID_CHOICE		= 		"gridChoice";
 	Events.ADD_COMMAND		= 		"addCommand";
