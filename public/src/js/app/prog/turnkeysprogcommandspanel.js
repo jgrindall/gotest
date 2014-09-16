@@ -1,4 +1,4 @@
-define('app/prog/turnkeysprogcommandspanel',
+define(
 
 	['app/prog/keysprogcommandspanel', 'phasercomponents', 'app/logocommands/commandtypes'],
 

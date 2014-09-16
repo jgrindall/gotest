@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/nsewcommandspanel',['app/views/commandpanels/abstractexecutecommandpanel',
+define(['app/views/commandpanels/abstractexecutecommandpanel',
 
 'app/logocommands/commandtypes', 'phasercomponents'
 

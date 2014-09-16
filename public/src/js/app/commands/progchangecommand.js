@@ -1,4 +1,4 @@
-define('app/commands/progchangecommand',
+define(
 
 	['app/models/modelfacade', 'phasercomponents'],
 

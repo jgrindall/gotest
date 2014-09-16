@@ -1,4 +1,4 @@
-define('app/prog/abstractprogcommandpanel',
+define(
 
 	['phasercomponents', 'phaser', 'app/views/buttons/dragbutton', 'app/prog/dropview',
 

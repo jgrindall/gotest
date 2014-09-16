@@ -1,4 +1,4 @@
-define('app/prog/dragview',
+define(
 
 	['phasercomponents', 'app/prog/abstractdragview', 'app/assets'],
 

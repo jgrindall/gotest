@@ -1,5 +1,5 @@
 
-define('app/views/buttons/playbutton',
+define(
 
 	['phasercomponents', 'app/assets'],
 

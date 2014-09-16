@@ -1,4 +1,4 @@
-define('app/prog/progcommandspanel',
+define(
 
 	['app/prog/abstractprogcommandpanel', 'phasercomponents', 'app/logocommands/commandtypes'],
 

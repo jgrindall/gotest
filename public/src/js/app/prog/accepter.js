@@ -1,4 +1,4 @@
-define('app/prog/accepter', ['phasercomponents'], function(PhaserComponents){
+define( ['phasercomponents'], function(PhaserComponents){
 	
 	"use strict";
 

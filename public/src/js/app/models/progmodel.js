@@ -1,5 +1,5 @@
 
-define('app/models/progmodel',['phasercomponents'],
+define(['phasercomponents'],
 
 function(PhaserComponents){
 	

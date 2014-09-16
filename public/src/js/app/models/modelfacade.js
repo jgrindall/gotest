@@ -5,7 +5,9 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel',
 
-'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel', 'app/models/progmodel',
+'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
+
+'app/models/progmodel', 'app/models/allowprogmodel',
 
 'app/models/commtickermodel', 'app/consts/playingstate', 'app/consts/commspeed'],
 
@@ -15,7 +17,9 @@ function(CommModel, ScreenModel, BgModel,
 
 	PlayingModel, GridModel, AngleModel, 
 
-	WidthModel, StepLengthModel, DiagModel, ProgModel,
+	WidthModel, StepLengthModel, DiagModel,
+
+	ProgModel, AllowProgModel,
 
 	CommTickerModel, PlayingState, CommSpeed){
 	
@@ -38,6 +42,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.DIAG = 			"diag";
 	ModelFacade.ANGLE = 		"angle";
 	ModelFacade.PROG = 			"prog";
+	ModelFacade.ALLOW_PROG = 	"allowProg";
 
 	ModelFacade.prototype.get = function(name){
 		if(name === ModelFacade.SPEED){
@@ -79,6 +84,9 @@ function(CommModel, ScreenModel, BgModel,
 		else if(name === ModelFacade.PROG){
 			return this.progModel;
 		}
+		else if(name === ModelFacade.ALLOW_PROG){
+			return this.allowProgModel;
+		}
 		else{
 			throw "no model "+name;
 		}
@@ -98,6 +106,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.screenModel = new ScreenModel();
 		this.commTickerModel = new CommTickerModel();
 		this.progModel = new ProgModel();
+		this.allowProgModel = new AllowProgModel();
 	};
 
 	ModelFacade.prototype.init = function(){

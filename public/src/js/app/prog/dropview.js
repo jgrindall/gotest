@@ -1,4 +1,4 @@
-define('app/prog/dropview', ['phasercomponents', 'app/assets'],
+define( ['phasercomponents', 'app/assets'],
 
 	function(PhaserComponents, Assets){
 
