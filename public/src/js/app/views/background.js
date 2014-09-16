@@ -19,7 +19,7 @@ define(['phaser', 'phasercomponents'],
 	};
 	
 	Background.prototype.create = function(){
-    	this.sprite = new Phaser.TileSprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.bounds.w, this.options.bounds.h, this.options.asset);
+    	this.sprite = new Phaser.TileSprite(this.game, this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, this.options.asset);
 	    this.sprite.fixedToCamera = true;
 	};
 	

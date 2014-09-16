@@ -32,6 +32,7 @@ Events, Assets, SpeedMarkers){
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 		ModelFacade.getInstance().get(ModelFacade.PROG).changeSignal.add(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.add(this.onProgAllowedChanged, this);
 	};
 
 	Controls.WIDTH = 320;
@@ -47,6 +48,10 @@ Events, Assets, SpeedMarkers){
 		this.addSpeedSlider();
 		this.addSpeedMarkers();
 		this.addControlBar();
+	};
+
+	Controls.prototype.onProgAllowedChanged = function(value) {
+		this.controlBar.group.visible = (value === 1);
 	};
 
 	Controls.prototype.onScreenChanged = function() {
@@ -89,11 +94,12 @@ Events, Assets, SpeedMarkers){
 
 	Controls.prototype.addControlBar = function() {
 		var options, bounds;
-		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 50, 'w':220, 'h':50};
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y + this.bounds.h - ColorPicker.HEIGHT - 50, 'w':this.bounds.w, 'h':50};
 		options = {"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
 		this.controlBar = new PhaserComponents.Display.ButtonBar(options);
 		this.controlBar.clickSignal.add(this.barClick, this);
 		this.group.add(this.controlBar.group);
+		this.controlBar.group.visible = (ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).get() === 1);
 	};
 
 	Controls.prototype.barClick = function(data) {
@@ -158,7 +164,8 @@ Events, Assets, SpeedMarkers){
 		this.removeCommandsPanel();
 		type = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
 		prog = ModelFacade.getInstance().get(ModelFacade.PROG).get();
-		bounds = {'x':this.bounds.x + (this.bounds.w - AbstractCommandsPanel.WIDTH)/2, 'y':50, 'w':AbstractCommandsPanel.WIDTH, 'h':this.bounds.h - 50};
+		console.log("PROG "+prog);
+		bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
 			this.group.add(this.commandsPanel.group);
@@ -179,6 +186,9 @@ Events, Assets, SpeedMarkers){
 	
 	Controls.prototype.destroy = function() {
 		this.bg.destroy();
+		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.PROG).changeSignal.remove(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
 		this.colorPicker.destroy();
 		this.widthPicker.destroy();
 		this.speedSlider.destroy();

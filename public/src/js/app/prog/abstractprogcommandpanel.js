@@ -2,15 +2,23 @@ define(
 
 	['phasercomponents', 'phaser', 'app/views/buttons/dragbutton', 'app/prog/dropview',
 
-	'app/prog/dragview', 'app/prog/accepter', 'app/assets', 'app/views/commandpanels/abstractcommandspanel', 
+	'app/prog/dragview', 'app/prog/accepter', 'app/assets',
 
-	'app/views/buttons/playbutton', 'app/consts/progtypes', 'app/logocommands/commandtypes'],
+	'app/views/commandpanels/abstractcommandspanel', 
+
+	'app/views/buttons/playbutton', 'app/consts/progtypes',
+
+	'app/logocommands/commandtypes', 'app/prog/targetbuilder'],
 
 	function(PhaserComponents, Phaser, DragButton, DropView,
 
-		DragView, Accepter, Assets, AbstractCommandsPanel,
+		DragView, Accepter, Assets,
 
-		PlayButton, ProgTypes, CommandTypes){
+		AbstractCommandsPanel,
+
+		PlayButton, ProgTypes,
+
+		CommandTypes, TargetBuilder){
 	
 	"use strict";
 
@@ -40,13 +48,17 @@ define(
 		return tick;
 	};
 
+	AbstractProgCommandPanel.prototype.getButtonPos = function(i, j){
+		return {'x':this.bounds.x + 32*i, 'y':this.bounds.y + 10 + 40*j};
+	};
+
 	AbstractProgCommandPanel.prototype.addButtons = function(){
 		var i, j, button, buttons, bounds, data, options;
 		buttons = this.options.buttons;
 		for(i = 0; i < buttons.length; i++){
 			for(j = 0; j < buttons[i].length; j++){
 				data = buttons[i][j];
-				bounds = {'x':this.bounds.x + 32*j, 'y':this.bounds.y + 50 + 40*i};
+				bounds = this.getButtonPos(i, j);
 				options = {'type':i, 'index':data.num, 'turn':data.turn, 'bounds':bounds};
 				button = new DragButton(options);
 				this.buttons.push(button);
@@ -80,14 +92,7 @@ define(
 	};
 
 	AbstractProgCommandPanel.prototype.addTargets = function(){
-		var i, target, targetType, numTargets;
-		targetType = this.options.targets; // eg ProgTypes.LINEAR
-		numTargets = 5;
-		for(i = 0; i < numTargets; i++){
-			target = new DropView({'index':i, 'bounds':{'x':this.bounds.x + 10, 'y':this.bounds.y + 140 + 55*i}});
-			this.targets.push(target);
-			this.group.add(target.sprite);
-		}
+		new TargetBuilder(this.options.targets).build(this);
 	};
 
 	AbstractProgCommandPanel.prototype.initDrag = function(){
@@ -105,7 +110,7 @@ define(
 	};
 
 	AbstractProgCommandPanel.prototype.addPlay = function() {
-		var options = {"bounds":{'x':this.bounds.x + 50, 'y':this.bounds.y + 50, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
+		var options = {"bounds":{'x':this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.playButton = new PlayButton(options);
 		this.playButton.mouseUpSignal.add(this.clickPlay, this);
 		this.group.add(this.playButton.sprite);

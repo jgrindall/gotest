@@ -27,8 +27,8 @@ PhaserComponents, Assets)
 	
 	ArrowSelectorMenu.prototype.addArrows = function () {
 		var x, w, d;
-		x = this.options.bounds.x;
-		w = this.options.bounds.w;
+		x = this.bounds.x;
+		w = this.bounds.w;
 		d = (this.game.w - w)/2;
 		//TODO - move tweens into phasercomponents or buttons themselves
 		if(this.options.dataProvider.getNumPages() >= 2){

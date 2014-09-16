@@ -77,7 +77,7 @@ OkButton, CloseButton, ModelFacade){
 
 	GameScreenMenu.prototype.addGrid = function() {
 		var options, bounds;
-		bounds = {'x':this.options.bounds.x, 'y':this.options.bounds.y + 10, 'w':this.options.bounds.w, 'h':this.options.bounds.h + 12};
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 10, 'w':this.bounds.w, 'h':this.bounds.h + 12};
 		options = {"model":this.options.screenModel, "bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.onChanged, this);

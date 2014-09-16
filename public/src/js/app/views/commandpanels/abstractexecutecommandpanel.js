@@ -26,6 +26,8 @@ Events){
 	
 	PhaserComponents.Utils.extends(AbstractExecuteCommandsPanel, AbstractCommandsPanel);
 	
+	AbstractExecuteCommandsPanel.GRID_SIZE = 170;
+
 	AbstractExecuteCommandsPanel.prototype.disableInput = function() {
 		if(this.grid){
 			this.grid.disableInput();
@@ -52,7 +54,7 @@ Events){
 	AbstractExecuteCommandsPanel.prototype.addMarker = function() {
 		var x, y, options;
 		x = this.bounds.x + this.bounds.w/2;
-		y = this.bounds.y + this.bounds.w/2;
+		y = this.bounds.y + AbstractExecuteCommandsPanel.GRID_SIZE/2;
 		options = {'bounds':{'x':x, 'y':y}};
 		this.marker = MarkerFactory.make(this.options.markerType, options);
 		this.group.add(this.marker.sprite);
@@ -63,8 +65,7 @@ Events){
 		data = this.getGridData();
 		w = this.game.w;
 		h = this.game.h;
-		size = Math.min(this.options.bounds.w, this.options.bounds.h/2);
-		bounds = {"x":this.options.bounds.x, "y":this.options.bounds.y, "w":size, "h":size};
+		bounds = {"x":this.bounds.x + (this.bounds.w - AbstractExecuteCommandsPanel.GRID_SIZE)/2, "y":this.bounds.y, "w":AbstractExecuteCommandsPanel.GRID_SIZE, "h":AbstractExecuteCommandsPanel.GRID_SIZE};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.selectComm, this);

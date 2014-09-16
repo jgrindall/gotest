@@ -11,6 +11,7 @@ define(['phasercomponents', 'app/assets'],
 		options.sfx = Assets.SOUNDS[0];
 		frame0 = (4 * options.data.num);
 		options.frames = [frame0, frame0 + 1, frame0 + 2, frame0 + 3];
+		console.log("frames for button are "+JSON.stringify(options.frames));
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	

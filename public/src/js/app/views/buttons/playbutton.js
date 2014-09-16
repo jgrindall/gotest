@@ -8,12 +8,12 @@ define(
 	"use strict";
 	
 	var PlayButton = function(options){
-		var frame0;
-		options.asset = Assets.BUTTON;
-		frame0 = 32;
-		options.frames = [frame0, frame0 + 1, frame0 + 2, frame0 + 3];
+		options.asset = Assets.PLAY_BUTTON;
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
+
+	PlayButton.WIDTH = 100;
+	PlayButton.HEIGHT = 50;
 
 	PhaserComponents.Utils.extends(PlayButton, PhaserComponents.Display.AbstractButton);
 

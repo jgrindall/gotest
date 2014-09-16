@@ -117,6 +117,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.widthModel.changeSignal.add(this.changeWidth, this);
 		this.playingModel.changeSignal.add(this.changePlaying, this);
 		this.speedModel.changeSignal.add(this.changeSpeed, this);
+		this.allowProgModel.changeSignal.add(this.changeAllowProg, this);
 		//TODO - make them commands?
 	};
 
@@ -133,6 +134,13 @@ function(CommModel, ScreenModel, BgModel,
 
 	ModelFacade.prototype.changePlaying = function() {
 		this.setDuration();
+	};
+
+	ModelFacade.prototype.changeAllowProg = function(value) {
+		if(value === 0){
+			this.progModel.set(0);
+			//TODO - add consts
+		}
 	};
 
 	ModelFacade.prototype.changeWidth = function(value) {
@@ -171,6 +179,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.bgModel.set(json.settings.bg);
 		this.gridModel.set(json.settings.grid);
 		this.diagModel.set(json.settings.diag);
+		this.allowProgModel.set(json.settings.allowProg);
 		this.angleModel.set(json.settings.angle);
 		this.progModel.set(json.settings.prog);
 		this.stepLengthModel.set(json.settings.stepLength);
@@ -188,6 +197,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.prog = 		this.progModel.get();
 		settings.grid = 		this.gridModel.get();
 		settings.color =	 	this.colorModel.get();
+		settings.allowProg =	this.allowProgModel.get();
 		settings.diag =	 		this.diagModel.get();
 		json.commands = 		this.commModel.toJson();
 		json.settings = settings;

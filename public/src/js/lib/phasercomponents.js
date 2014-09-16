@@ -630,6 +630,7 @@ function(Phaser, View, Utils,
 	Utils.extends(AbstractButton, View);
 
 	AbstractButton.prototype.goToFrame = function(i){
+		console.log("button goes to frame "+i);
 		this.sprite.setFrames(this.frames[i], this.frames[i], this.frames[i], this.frames[i]);
 	};
 
@@ -638,11 +639,13 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.select = function(){
-		this.goToFrame(this.frames[1]);
+		console.log("select button! "+this.frames[1]);
+		this.goToFrame(1);
 	};
 
 	AbstractButton.prototype.deselect = function(){
-		this.goToFrame(this.frames[0]);
+		console.log("deselect button! "+this.frames[0]);
+		this.goToFrame(0);
 	};
 
 	AbstractButton.prototype.create = function(){
@@ -860,7 +863,7 @@ ButtonGridModel, Utils){
 	ButtonGrid.prototype.addButtons = function(){
 		var pos, i, j, b, n = 0, options, ClassRef;
 		ClassRef = this.options.buttonClass;
-		this.buttonGroup = new Phaser.Group(this.game, 0, 0);
+		this.buttonGroup = new Phaser.Group(this.game, null);
 		for(i = 1; i <= this.options.numY; i++){
 			for(j = 1; j <= this.options.numX; j++){
 				pos = {"x":this.bounds.x + this.spaceX * (j - 1), "y":this.bounds.y + this.spaceY * (i - 1)};
@@ -885,7 +888,9 @@ ButtonGridModel, Utils){
 		var target, index;
 		target = data.target.view;
 		index = this.buttonGroup.getIndex(target);
+		console.log("performSelect "+this.options.performSelect);
 		if(this.options.performSelect){
+			console.log("model -> "+index);
 			this.model.set(index);
 		}
 		this.clickSignal.dispatch({"index":index, "grid":this});
@@ -1227,7 +1232,7 @@ function(Phaser, Container, Utils){
 	
 	Scroller.prototype.create = function(){
 		Container.prototype.create.call(this);
-		this.contentGroup = new Phaser.Group(this.game);
+		this.contentGroup = new Phaser.Group(this.game, null);
 		this.addChildren();
 	    this.addListeners();
 	    this.group.add(this.contentGroup);
@@ -2078,7 +2083,7 @@ Container, Utils){
 	};
 	
 	AbstractPopup.prototype.addButtonGroup = function () {
-		this.buttonGroup = new Phaser.Group(this.game, 0, 0);
+		this.buttonGroup = new Phaser.Group(this.game, null);
 		this.group.add(this.buttonGroup);
 	};
 	

@@ -8,6 +8,9 @@ define( ['phasercomponents', 'app/assets'],
 		PhaserComponents.Drag.AbstractDropView.call(this, options);
 	};
 
+	DropView.WIDTH = 160;
+	DropView.HEIGHT = 50;
+
 	DropView.prototype = Object.create(PhaserComponents.Drag.AbstractDropView.prototype);
 	DropView.prototype.constructor = DropView;
 
