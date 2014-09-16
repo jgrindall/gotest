@@ -8,7 +8,7 @@ define(
 
 	'app/views/buttons/playbutton', 'app/consts/progtypes',
 
-	'app/logocommands/commandtypes', 'app/prog/targetbuilder'],
+	'app/logocommands/commandtypes', 'app/prog/targetbuilder', 'app/models/modelfacade'],
 
 	function(PhaserComponents, Phaser, DragButton, DropView,
 
@@ -18,7 +18,7 @@ define(
 
 		PlayButton, ProgTypes,
 
-		CommandTypes, TargetBuilder){
+		CommandTypes, TargetBuilder, ModelFacade){
 	
 	"use strict";
 
@@ -26,9 +26,15 @@ define(
 		this.buttons = [];
 		this.targets = [];
 		AbstractCommandsPanel.call(this, options);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
 	};
 
 	PhaserComponents.Utils.extends(AbstractProgCommandPanel, AbstractCommandsPanel);
+
+	AbstractProgCommandPanel.prototype.setProgress = function(data){
+		
+	};
 
 	AbstractProgCommandPanel.prototype.clickButton = function(data){
 		var type, index, tick, turn;
@@ -49,7 +55,7 @@ define(
 	};
 
 	AbstractProgCommandPanel.prototype.getButtonPos = function(i, j){
-		return {'x':this.bounds.x + 32*i, 'y':this.bounds.y + 10 + 40*j};
+		return {'x':this.bounds.x + 2 + 32*i, 'y':this.bounds.y + 10 + 40*j};
 	};
 
 	AbstractProgCommandPanel.prototype.addButtons = function(){
@@ -153,6 +159,8 @@ define(
 
 	AbstractProgCommandPanel.prototype.destroy = function() {
 		this.model = null;
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
 		this.dragManager.destroy();
 		this.dragManager = null;
 		this.playButton.mouseUpSignal.remove(this.clickPlay, this);

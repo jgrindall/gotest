@@ -22,6 +22,7 @@ OkButton, CloseButton, StepLengths){
 		ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).changeSignal.add(this.setSettings1, this);
 		ModelFacade.getInstance().get(ModelFacade.DIAG).changeSignal.add(this.setSettings2, this);
 		ModelFacade.getInstance().get(ModelFacade.GRID).changeSignal.add(this.setSettings2, this);
+		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.add(this.setSettings3, this);
 	};
 	
 	PhaserComponents.Utils.extends(GridMenu, PhaserComponents.Display.AbstractPopup);
@@ -43,6 +44,10 @@ OkButton, CloseButton, StepLengths){
 	
 	GridMenu.prototype.setSettings1 = function() {
 		this.settings1.goTo(ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).get());
+	};
+
+	GridMenu.prototype.setSettings3 = function() {
+		this.settings3.goTo(ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).get());
 	};
 
 	GridMenu.prototype.setSettings2 = function() {
@@ -138,6 +143,13 @@ OkButton, CloseButton, StepLengths){
 		this.setSettings1();
 	};
 
+	GridMenu.prototype.addSettings3 = function () {
+		var bounds = {'x':this.bounds.x + this.bounds.w - 170, 'y':this.bounds.y + 5, 'w':160, 'h':160};
+		this.settings3 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":2, "asset":Assets.SETTINGS3});
+		this.group.add(this.settings3.sprite);
+		this.setSettings3();
+	};
+
 	GridMenu.prototype.addSettings2 = function () {
 		var bounds = {'x':this.bounds.x + this.bounds.w - 170, 'y':this.bounds.y + 305, 'w':160, 'h':160};
 		this.settings2 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":6, "asset":Assets.SETTINGS2});
@@ -155,6 +167,7 @@ OkButton, CloseButton, StepLengths){
 		this.addProgLabel();
 		this.addSettings1();
 		this.addSettings2();
+		this.addSettings3();
 		if(this.showDiag){
 			this.addDiagToggle();
 		}
@@ -182,6 +195,7 @@ OkButton, CloseButton, StepLengths){
 		ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).changeSignal.remove(this.setSettings1, this);
 		ModelFacade.getInstance().get(ModelFacade.DIAG).changeSignal.remove(this.setSettings2, this);
 		ModelFacade.getInstance().get(ModelFacade.GRID).changeSignal.remove(this.setSettings2, this);
+		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.setSettings3, this);
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	

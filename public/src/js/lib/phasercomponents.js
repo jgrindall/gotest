@@ -639,12 +639,10 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.select = function(){
-		console.log("select button! "+this.frames[1]);
 		this.goToFrame(1);
 	};
 
 	AbstractButton.prototype.deselect = function(){
-		console.log("deselect button! "+this.frames[0]);
 		this.goToFrame(0);
 	};
 
@@ -1444,7 +1442,7 @@ function($, Phaser, Context, AppEvents){
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
 		this.game.world.add(this.bg);
-		this.game.add.tween(this.bg).to( {'alpha':0.6}, 300, Phaser.Easing.Linear.None, true, 50, false);
+		this.game.add.tween(this.bg).to( {'alpha':0.75}, 500, Phaser.Easing.Linear.None, true, 50, false);
 	};
 	
 	AlertManager.prototype.make = function(ClassRef, options, callback){
