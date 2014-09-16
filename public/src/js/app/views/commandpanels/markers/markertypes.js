@@ -1,5 +1,5 @@
 
-define('app/views/commandpanels/markertypes',[],
+define('app/views/commandpanels/markers/markertypes',[],
 
 function(){
 	

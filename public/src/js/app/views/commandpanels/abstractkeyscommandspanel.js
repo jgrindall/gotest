@@ -3,26 +3,26 @@ define('app/views/commandpanels/abstractkeyscommandspanel',[ 'app/views/buttons/
 
 'phasercomponents',
 
-'app/views/commandpanels/abstractcommandspanel'
+'app/views/commandpanels/abstractexecutecommandpanel'
 
 ],
 
 function(KeyButton,
 
-PhaserComponents, AbstractCommandsPanel
+PhaserComponents, AbstractExecuteCommandsPanel
 
 ){
 	
 	"use strict";
 	
 	var AbstractKeysCommandsPanel  = function(options){
-		AbstractCommandsPanel.call(this, options);
+		AbstractExecuteCommandsPanel.call(this, options);
 	};
 	
-	PhaserComponents.Utils.extends(AbstractKeysCommandsPanel, AbstractCommandsPanel);
+	PhaserComponents.Utils.extends(AbstractKeysCommandsPanel, AbstractExecuteCommandsPanel);
 
 	AbstractKeysCommandsPanel.prototype.create = function() {
-		AbstractCommandsPanel.prototype.create.call(this);
+		AbstractExecuteCommandsPanel.prototype.create.call(this);
 		this.addKeys();
 		this.disableKeys();
 	};
@@ -59,17 +59,17 @@ PhaserComponents, AbstractCommandsPanel
 	};
 	
 	AbstractKeysCommandsPanel.prototype.disableInput = function() {
-		AbstractCommandsPanel.prototype.disableInput.call(this);
+		AbstractExecuteCommandsPanel.prototype.disableInput.call(this);
 		this.disableKeys();
 	};
 	
 	AbstractKeysCommandsPanel.prototype.enableInput = function() {
-		AbstractCommandsPanel.prototype.enableInput.call(this);
+		AbstractExecuteCommandsPanel.prototype.enableInput.call(this);
 		this.enableKeys();
 	};
 	
 	AbstractKeysCommandsPanel.prototype.setSelectedCommand = function(i) {
-		AbstractCommandsPanel.prototype.setSelectedCommand.call(this, i);
+		AbstractExecuteCommandsPanel.prototype.setSelectedCommand.call(this, i);
 		this.enableKeys();
 	};
 	
@@ -81,7 +81,7 @@ PhaserComponents, AbstractCommandsPanel
 		if(this.keys){
 			this.keys.destroy();
 		}
-		AbstractCommandsPanel.prototype.destroy.call(this);
+		AbstractExecuteCommandsPanel.prototype.destroy.call(this);
 	};
 	
 	return AbstractKeysCommandsPanel;

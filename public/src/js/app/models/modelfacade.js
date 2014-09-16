@@ -5,7 +5,7 @@ define('app/models/modelfacade',['app/models/commmodel', 'app/models/screenmodel
 
 'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel',
 
-'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
+'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel', 'app/models/progmodel',
 
 'app/models/commtickermodel', 'app/consts/playingstate', 'app/consts/commspeed'],
 
@@ -15,7 +15,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	PlayingModel, GridModel, AngleModel, 
 
-	WidthModel, StepLengthModel, DiagModel,
+	WidthModel, StepLengthModel, DiagModel, ProgModel,
 
 	CommTickerModel, PlayingState, CommSpeed){
 	
@@ -37,6 +37,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.STEPLENGTH = 	"stepLength";
 	ModelFacade.DIAG = 			"diag";
 	ModelFacade.ANGLE = 		"angle";
+	ModelFacade.PROG = 			"prog";
 
 	ModelFacade.prototype.get = function(name){
 		if(name === ModelFacade.SPEED){
@@ -75,6 +76,9 @@ function(CommModel, ScreenModel, BgModel,
 		else if(name === ModelFacade.STEPLENGTH){
 			return this.stepLengthModel;
 		}
+		else if(name === ModelFacade.PROG){
+			return this.progModel;
+		}
 		else{
 			throw "no model "+name;
 		}
@@ -93,6 +97,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.playingModel = new PlayingModel();
 		this.screenModel = new ScreenModel();
 		this.commTickerModel = new CommTickerModel();
+		this.progModel = new ProgModel();
 	};
 
 	ModelFacade.prototype.init = function(){
@@ -158,6 +163,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.gridModel.set(json.settings.grid);
 		this.diagModel.set(json.settings.diag);
 		this.angleModel.set(json.settings.angle);
+		this.progModel.set(json.settings.prog);
 		this.stepLengthModel.set(json.settings.stepLength);
 		this.commModel.set(json.commands);
 	};
@@ -170,6 +176,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.angle = 		this.angleModel.get();
 		settings.stepLength = 	this.stepLengthModel.get();
 		settings.speed = 		this.speedModel.get();
+		settings.prog = 		this.progModel.get();
 		settings.grid = 		this.gridModel.get();
 		settings.color =	 	this.colorModel.get();
 		json.commands = 		this.commModel.toJson();

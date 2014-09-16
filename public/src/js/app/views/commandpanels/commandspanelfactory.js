@@ -9,7 +9,9 @@ define('app/views/commandpanels/commandspanelfactory',['app/consts/commandpanelt
 
 'app/views/commandpanels/nsturnkeyscommandspanel',
 
-'app/views/commandpanels/markertypes'
+'app/prog/progcommandspanel', 'app/consts/progtypes',
+
+'app/views/commandpanels/markers/markertypes'
 
 ],
 
@@ -23,6 +25,8 @@ NSEW45KeysCommandsPanel,
 
 NSTurnKeysCommandsPanel,
 
+ProgCommandsPanel, ProgTypes,
+
 MarkerTypes
 
 ){
@@ -33,10 +37,15 @@ MarkerTypes
 		
 	};
 	
-	CommandsPanelFactory.make = function(type, bounds) {
+	CommandsPanelFactory.make = function(type, prog, bounds) {
 		var panel;
 		if(type === CommandTypes.NSEW){
-			panel = new NSEWCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
+			if(prog === ProgTypes.NONE){
+				panel = new NSEWCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
+			}
+			else if(prog === ProgTypes.LINEAR){
+				panel = new ProgCommandsPanel({"data":[[8, 8], 5], "bounds":bounds});
+			}
 		}
 		else if(type === CommandTypes.NSEW_KEYS){
 			panel = new NSEWKeysCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});

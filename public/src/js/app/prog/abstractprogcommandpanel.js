@@ -1,24 +1,24 @@
-define('app/prog/abstractprogview',
+define('app/prog/abstractprogcommandpanel',
 
 	['phasercomponents', 'phaser', 'app/views/buttons/dragbutton', 'app/prog/dropview',
 
-	'app/prog/dragview', 'app/prog/accepter', 'app/assets'],
+	'app/prog/dragview', 'app/prog/accepter', 'app/assets', 'app/views/commandpanels/abstractcommandspanel'],
 
 	function(PhaserComponents, Phaser, DragButton, DropView,
 
-		DragView, Accepter, Assets){
+		DragView, Accepter, Assets, AbstractCommandsPanel){
 	
 	"use strict";
 
-	var AbstractProgView = function(options){
+	var AbstractProgCommandPanel = function(options){
 		this.buttons = [];
 		this.targets = [];
-		PhaserComponents.Display.Container.call(this, options);
+		AbstractCommandsPanel.call(this, options);
 	};
 
-	PhaserComponents.Utils.extends(AbstractProgView, PhaserComponents.Display.Container);
+	PhaserComponents.Utils.extends(AbstractProgCommandPanel, AbstractCommandsPanel);
 
-	AbstractProgView.prototype.clickButton = function(data){
+	AbstractProgCommandPanel.prototype.clickButton = function(data){
 		var type, index, tick;
 		type = data.target.options.type
 		index = data.target.options.index;
@@ -28,14 +28,14 @@ define('app/prog/abstractprogview',
 		}
 	};
 
-	AbstractProgView.prototype.addDrag = function(type, index, bounds){
+	AbstractProgCommandPanel.prototype.addDrag = function(type, index, bounds){
 		var tick = new DragView({"type":type, "index":index, 'bounds':bounds});
 		this.group.add(tick.sprite);
 		this.dragManager.addDrag(tick);
 		return tick;
 	};
 
-	AbstractProgView.prototype.addButtons = function(){
+	AbstractProgCommandPanel.prototype.addButtons = function(){
 		var i, j, button, buttons, bounds;
 		buttons = this.options.data[0];
 		for(i = 0; i < buttons.length; i++){
@@ -49,12 +49,12 @@ define('app/prog/abstractprogview',
 		}
 	};
 
-	AbstractProgView.prototype.onSaveClick = function(){
+	AbstractProgCommandPanel.prototype.onSaveClick = function(){
 		var jsonString = JSON.stringify(this.model.toJson());
 		localStorage.setItem("jsonData", jsonString);
 	};
 
-	AbstractProgView.prototype.onLoadClick = function(){
+	AbstractProgCommandPanel.prototype.onLoadClick = function(){
 		var i, j, json, jsonString, obj, tick;
 		this.dragManager.clear();
 		jsonString = localStorage.getItem("jsonData");
@@ -70,17 +70,17 @@ define('app/prog/abstractprogview',
 		}
 	};
 
-	AbstractProgView.prototype.addTargets = function(){
+	AbstractProgCommandPanel.prototype.addTargets = function(){
 		var i, target, numTargets;
 		numTargets = this.options.data[1];
 		for(i = 0; i < numTargets; i++){
-			target = new DropView({'index':i, 'bounds':{'x':this.bounds.x + 50, 'y':this.bounds.y + 200 + 55*i}});
+			target = new DropView({'index':i, 'bounds':{'x':this.bounds.x + 10, 'y':this.bounds.y + 140 + 55*i}});
 			this.targets.push(target);
 			this.group.add(target.sprite);
 		}
 	};
 
-	AbstractProgView.prototype.initDrag = function(){
+	AbstractProgCommandPanel.prototype.initDrag = function(){
 		var hitZoneRow0 = new PhaserComponents.Drag.HitZoneRow([new PhaserComponents.Drag.HitZone(new Accepter([0]), {'x':0, 'y':0}), new PhaserComponents.Drag.HitZone(new Accepter([1]), {'x':35, 'y':0})]);
 		var hitZoneRow1 = new PhaserComponents.Drag.HitZoneRow([new PhaserComponents.Drag.HitZone(new Accepter([0]), {'x':20, 'y':0})]);
 		var hitZoneRow2 = new PhaserComponents.Drag.HitZoneRow([new PhaserComponents.Drag.HitZone(new Accepter([0]), {'x':0, 'y':0}), new PhaserComponents.Drag.HitZone(new Accepter([1]), {'x':35, 'y':0})]);
@@ -89,8 +89,8 @@ define('app/prog/abstractprogview',
 		this.dragManager.addTarget(this.targets[2], hitZoneRow2); 
 	};
 
-	AbstractProgView.prototype.create = function() {
-		PhaserComponents.Display.Container.prototype.create.call(this);
+	AbstractProgCommandPanel.prototype.create = function() {
+		AbstractCommandsPanel.prototype.create.call(this);
 		this.model = new PhaserComponents.Drag.DragModel();
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.game, {"model":this.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.addButtons();
@@ -98,6 +98,36 @@ define('app/prog/abstractprogview',
 		this.initDrag();
 	};
 
-	return AbstractProgView;
+	AbstractProgCommandPanel.prototype.removeTargets = function() {
+		var target, i;
+		for(i = 0; i < this.targets.length; i++){
+			target = this.targets[i];
+			this.group.remove(target.sprite);
+			target.destroy();
+		}
+		this.targets = [];
+	};
+
+	AbstractProgCommandPanel.prototype.removeButtons = function() {
+		var button, i;
+		for(i = 0; i < this.buttons.length; i++){
+			button = this.buttons[i];
+			button.mouseDownSignal.remove(this.clickButton, this);
+			this.group.remove(button.sprite);
+			button.destroy();
+		}
+		this.buttons = [];
+	};
+
+	AbstractProgCommandPanel.prototype.destroy = function() {
+		this.model = null;
+		this.dragManager.destroy();
+		this.dragManager = null;
+		this.removeTargets();
+		this.removeButtons();
+		AbstractCommandsPanel.prototype.destroy.call(this);
+	};
+
+	return AbstractProgCommandPanel;
 });
 

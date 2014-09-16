@@ -16,6 +16,7 @@ define('app/consts/defaults',[], function() {
 		'stepLength':2,
 		'width':2,
 		'grid':0,
+		'prog':0,
 		'diag':0,
 	};
 

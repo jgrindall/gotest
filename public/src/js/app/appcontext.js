@@ -5,7 +5,7 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 
 	'app/commands/typechoicecommand', 'app/commands/gridchoicecommand', 'app/commands/teachercommand',
 
-	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/startupcommand', 
+	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/startupcommand', 'app/commands/progchangecommand', 
 
 	'app/commands/finishcommand', 'app/commands/replaycommand',
 
@@ -19,7 +19,7 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
 
 		TypeChoiceCommand, GridChoiceCommand, TeacherCommand,
 
-		AddCommandCommand, DrawCommand, StartUpCommand,
+		AddCommandCommand, DrawCommand,  StartUpCommand, ProgChangeCommand,
 
 		FinishCommand, ReplayCommand,
 
@@ -64,6 +64,7 @@ define('app/appcontext',['app/commands/newfilecommand', 'app/commands/loadcomman
     AppContext.prototype.mapCommands = function(){
     	PhaserComponents.Context.prototype.mapCommands.call(this);
     	this.commandMap.map(Events.NEW_FILE, 			NewFileCommand);
+    	this.commandMap.map(Events.PROG_CHANGE, 		ProgChangeCommand);
 		this.commandMap.map(Events.LOAD, 				LoadCommand);
 		this.commandMap.map(Events.SAVE, 				SaveCommand);
 		this.commandMap.map(Events.PRINT, 				PrintCommand);

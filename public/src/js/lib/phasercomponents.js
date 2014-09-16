@@ -70,12 +70,16 @@ function($, Phaser, PhaserStateTrans){
 	};
 
 	GameManager.prototype.getSize = function(){
+		var size;
 		if(this.options.scaleType === "fill"){
-			return this.getSizeFill();
+			size = this.getSizeFill();
 		}
 		else{
-			return this.getSizeFit();
+			size = this.getSizeFit();
 		}
+		size.w = Math.max(size.w, this.options.minWidth);
+		size.h = Math.max(size.h, this.options.minHeight);
+		return size;
 	};
 
 	return GameManager;
@@ -211,7 +215,6 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	};
 	
 	SoundManager.prototype.add = function(key, sound){
-		console.log("add "+key+" "+sound);
 		this.sounds[key] = sound;
 	};
 
@@ -224,7 +227,6 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	
 	SoundManager.prototype.play = function(key){
 		var sound = this.sounds[key];
-		console.log("play "+key+" "+sound);
 		if(sound){
 			sound.play();
 		}
@@ -302,7 +304,6 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
 
    	var Context = function (options){
    		this.options = options;
-   		console.log("Context options "+JSON.stringify(options));
 		this.gameManager = new GameManager();
 		this.commandMap = new CommandMap();
 		this.mapFonts();
@@ -368,7 +369,7 @@ define('phasercomponents/display/view',
 	
 	var View = function(options){
 		this.options = options;
-		this.bounds = options.bounds;
+		this.bounds = options.bounds || {'x':0, 'y':0, 'w':100, 'h':100};
 		this.model = options.model;
 		this.game = Context.game;
 		this.eventDispatcher = Context.eventDispatcher;
@@ -388,9 +389,17 @@ define('phasercomponents/display/view',
 		this.eventDispatcher = null;
 	};
 
+	Object.defineProperty(View.prototype, "view", {
+		get : function(){
+			return (this.sprite || this.group);
+		}
+	});
+
 	return View;
 
 });
+
+
 
 
 
@@ -448,7 +457,7 @@ define('phasercomponents/display/interactivesprite',
 	};
 
 	InteractiveSprite.prototype.create = function(){
-		this.sprite = new Phaser.Sprite(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset, this.options.defaultFrame || 0);
+		this.sprite = new Phaser.Sprite(this.game, this.bounds.x, this.bounds.y, this.options.asset, this.options.defaultFrame || 0);
 	};
 
 	InteractiveSprite.prototype.removeListeners = function(){
@@ -456,6 +465,11 @@ define('phasercomponents/display/interactivesprite',
 		this.sprite.events.onInputDown.remove(this.onMouseDown, this);
 	};
 	
+	InteractiveSprite.prototype.moveTo = function(x, y){
+		this.sprite.x = x;
+		this.sprite.y = y;
+	};
+
 	InteractiveSprite.prototype.enableInput = function(){
 		if(!this.sprite.inputEnabled){
 			this.sprite.inputEnabled = true;
@@ -485,24 +499,26 @@ define('phasercomponents/display/interactivesprite',
 	InteractiveSprite.prototype.onMouseUp = function(){
 		var hitData = this.hitData();
 		if(hitData.hits){
-			this.mouseUpSignal.dispatch({"localPoint":hitData.localPoint});
+			this.mouseUpSignal.dispatch({"target":this, "localPoint":hitData.localPoint});
 		}
 	};
 	
 	InteractiveSprite.prototype.onMouseDown = function(){
 		var hitData = this.hitData();
 		if(hitData.hits){
-			this.mouseDownSignal.dispatch({"localPoint":hitData.localPoint});
+			this.mouseDownSignal.dispatch({"target":this, "localPoint":hitData.localPoint});
 		}
 	};
 	
-	InteractiveSprite.prototype.destroy = function(children){
+	InteractiveSprite.prototype.destroy = function(){
 		this.disableInput();
 		this.mouseDownSignal.dispose();
 		this.mouseUpSignal.dispose();
 		this.mouseDownSignal = null;
 		this.mouseUpSignal = null;
-		View.prototype.destroy.call(this, children);
+		this.sprite.destroy(true);
+		this.sprite = null;
+		View.prototype.destroy.call(this);
 	};
 
 	return InteractiveSprite;
@@ -571,7 +587,7 @@ function(Phaser, View, Utils){
 	Utils.extends(Container, View);
 
 	Container.prototype.create = function(){
-		this.group = new Phaser.Group(this.game);
+		this.group = new Phaser.Group(this.game, null);
 	};
 	
 	Container.prototype.setVisible = function(vis){
@@ -604,6 +620,7 @@ function(Phaser, View, Utils,
 	
 	
 	var AbstractButton = function(options){
+		options.asset = options.asset || 'button';
 		this.frames = options.frames || [0, 1, 2, 3];
 		this.mouseDownSignal = new Phaser.Signal();
 		this.mouseUpSignal = new Phaser.Signal();
@@ -629,7 +646,7 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.create = function(){
-		this.sprite = new Phaser.Button(this.game, this.options.bounds.x, this.options.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
+		this.sprite = new Phaser.Button(this.game, this.bounds.x, this.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
 		this.resetFrames();
 		this.sprite.inputEnabled = false;
 		this.enableInput();
@@ -670,8 +687,8 @@ function(Phaser, View, Utils,
 
 	AbstractButton.prototype.tweenAlpha = function(a, immediate){
 		var duration, delay;
-		duration = 200;
-		delay = 1000;
+		duration = 250;
+		delay = 500;
 		this.stopTweens();
 		if(immediate){
 			duration = 50;
@@ -683,7 +700,7 @@ function(Phaser, View, Utils,
 	AbstractButton.prototype.disableInput = function(){
 		if(this.sprite.inputEnabled){
 			this.sprite.inputEnabled = false;
-			this.tweenAlpha(0.6, false);
+			this.tweenAlpha(0.5, false);
 			this.removeListeners();
 		}
 	};
@@ -852,7 +869,7 @@ ButtonGridModel, Utils){
 				options = {"bounds":pos, "index":n, "data":this.options.data[n], "frames":[0, 1, 2, 3]};
 				b = new ClassRef(options);
 				b.mouseUpSignal.add(this.buttonUp, this);
-				this.buttonGroup.add(b.group || b.sprite);
+				this.buttonGroup.add(b.view);
 				this.buttons.push(b);
 				n++;
 			}
@@ -860,9 +877,13 @@ ButtonGridModel, Utils){
 		this.group.add(this.buttonGroup);
 	};
 	
+	ButtonGrid.prototype.getButtonAt = function(i) {
+		return this.buttons[i];
+	};
+
 	ButtonGrid.prototype.buttonUp = function(data) {
 		var target, index;
-		target = data.target.group || data.target.sprite;
+		target = data.target.view;
 		index = this.buttonGroup.getIndex(target);
 		if(this.options.performSelect){
 			this.model.set(index);
@@ -1268,7 +1289,10 @@ function(Phaser, Container, Utils){
 	};
 	
 	Scroller.prototype.addChildren = function(){
-		this.options.dataProvider.addAll(this);
+		var i, num = this.options.dataProvider.getNumPages();
+		for(i = 0; i < num; i++){
+			this.add(this.options.dataProvider.getPageAt(i, this));
+		}
 	};
 	
 	Scroller.prototype.onDown = function() {
@@ -1582,12 +1606,13 @@ function(Container, Utils){
 	Utils.extends(GroupMarker, Container);
 	
 	GroupMarker.prototype.create = function(){
-		var b, i, x, ClassRef;
+		var b, i, x, y, ClassRef;
 		ClassRef = this.options.buttonClass;
 		Container.prototype.create.call(this);
 		for(i = 0; i <= this.options.num - 1; i++){
-			x = this.game.cx - 20 * this.options.num + i * 40;
-			b = new ClassRef({'bounds':{"x":x, "y":this.game.h - 40}});
+			x = this.bounds.x + i * ClassRef.WIDTH;
+			y = this.bounds.y;
+			b = new ClassRef({'bounds':{"x":x, "y":y}});
 			this.group.add(b.sprite);
 			this.buttons.push(b);
 		}
@@ -1595,6 +1620,10 @@ function(Container, Utils){
 	};
 	
 	GroupMarker.prototype.destroy = function() {
+		this.buttons.forEach(function(button){
+			button.destroy();
+		});
+		this.buttons = [];
 		Container.prototype.destroy.call(this);
 	};
 	
@@ -1637,10 +1666,13 @@ function(GroupMarker, Scroller, Utils){
 	Utils.extends(Pager, Scroller);
 	
 	Pager.prototype.addChildren = function(){
+		var numPages, bounds, buttonClass;
 		Scroller.prototype.addChildren.call(this);
-		var numPages = this.numPages();
+		buttonClass = this.options.markerButtonClass;
+		numPages = this.numPages();
+		bounds = {'x':this.bounds.x + this.bounds.w/2 - (numPages/2)*buttonClass.WIDTH, 'y':this.bounds.y + this.bounds.h - 83};
 		if(numPages >= 2){
-			this.groupMarker = new GroupMarker({"num":numPages, "buttonClass":this.options.markerButtonClass});
+			this.groupMarker = new GroupMarker({"num":numPages, "buttonClass":buttonClass, "bounds":bounds});
 			this.group.add(this.groupMarker.group);
 		}
 	};
@@ -1717,7 +1749,7 @@ function(MovieClip, Utils, AppEvents){
 
 	MultiButton.prototype.mouseUp = function(data){
 		var p, frame;
-		p = data.localPoint.x / this.options.bounds.w;
+		p = data.localPoint.x / this.bounds.w;
 		frame = Math.floor(this.options.numSegments * p);
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
@@ -1854,8 +1886,8 @@ function(Container, Utils,
 		Container.call(this, options);
 	};
 	
-	RadioButtons.WIDTH = 120;
-	RadioButtons.HEIGHT = 120;
+	RadioButtons.WIDTH = 100;
+	RadioButtons.HEIGHT = 80;
 
 	Utils.extends(RadioButtons, Container);
 
@@ -1870,11 +1902,19 @@ function(Container, Utils,
 		this.buttons.buttons.forEach(function(button, i){
 			var label, bounds;
 			bounds = button.bounds;
-			label = TextFactory.make(that.options.fontKey, that.game, bounds.x + 55, bounds.y + 15, that.options.labels[i]);
+			label = TextFactory.make(that.options.fontKey, that.game, bounds.x + 41, bounds.y + 13, that.options.labels[i]);
 			that.group.add(label);
 		});
 	};
 
+	RadioButtons.prototype.disableInput = function(){
+		this.buttons.disableInput();
+	};
+
+	RadioButtons.prototype.enableInput = function(){
+		this.buttons.enableInput();
+	};
+	
 	RadioButtons.prototype.addButtons = function(){
 		this.buttons = new ButtonBar(this.options);
 		this.group.add(this.buttons.group);
@@ -2103,53 +2143,32 @@ define('phasercomponents/drag/abstractaccepter', [], function(){
 });
 
 
-define('phasercomponents/drag/abstractdragview', [], function(){
+define('phasercomponents/drag/abstractdragview',
+
+	['phasercomponents/utils/utils', 'phasercomponents/display/interactivesprite'],
+
+	function(Utils, InteractiveSprite){
 	
 	
 
-	var AbstractDragView = function(game, options){
-		options.bounds = options.bounds || {'x':0,'y':0};
-		this.options = options;
-		this.game = game;
-		this.mouseDownSignal = new Phaser.Signal();
-		this.create();
-		this.options.origPos = {'x':options.bounds.x, 'y':options.bounds.y};
+	var AbstractDragView = function(options){
+		options.origPos = {'x':options.bounds.x, 'y':options.bounds.y};
+		InteractiveSprite.call(this, options);
 	};
 
-	AbstractDragView.prototype.onMouseDown = function(){
-		this.mouseDownSignal.dispatch({"target":this});
-	};
-
-	AbstractDragView.prototype.moveTo = function(x, y){
-		this.sprite.x = x;
-		this.sprite.y = y;
-	};
+	Utils.extends(AbstractDragView, InteractiveSprite);
 
 	AbstractDragView.prototype.snap = function(target, bounds){
 		this.moveTo(target.sprite.x + bounds.x, target.sprite.y + bounds.y);
 	};
 
 	AbstractDragView.prototype.reset = function(){
-		this.sprite.x = this.options.origPos.x;
-		this.sprite.x = this.options.origPos.y;
-	};
-
-	AbstractDragView.prototype.destroy = function(){
-		this.sprite.events.onInputDown.remove(this.onMouseDown, this);
-		this.sprite.inputEnabled = false;
-		this.sprite.destroy();
-		this.sprite = null;
-		this.options = null;
-	};
-
-	AbstractDragView.prototype.reset = function(){
-		this.sprite.x = this.options.origPos.x;
-		this.sprite.x = this.options.origPos.y;
+		this.moveTo(this.options.origPos.x, this.options.origPos.y);
 	};
 
 	AbstractDragView.prototype.create = function(){
-		this.sprite.inputEnabled = true;
-		this.sprite.events.onInputDown.add(this.onMouseDown, this);
+		InteractiveSprite.prototype.create.call(this);
+		this.enableInput();
 	};
 
 	return AbstractDragView;
@@ -2157,23 +2176,22 @@ define('phasercomponents/drag/abstractdragview', [], function(){
 });
 
 
-define('phasercomponents/drag/abstractdropview', [], function(){
+define('phasercomponents/drag/abstractdropview',
+
+	['phasercomponents/utils/utils', 'phasercomponents/display/movieclip'],
+
+	function(Utils, MovieClip){
 
 	
 
-	var AbstractDropView = function(game, options){
-		this.game = game;
-		this.options = options;
-		this.create();
+	var AbstractDropView = function(options){
+		MovieClip.call(this, options);
 	};
 
-	AbstractDropView.prototype.create = function(){
-		
-	};
+	Utils.extends(AbstractDropView, MovieClip);
 
 	return AbstractDropView;
 });
-
 
 define('phasercomponents/drag/dragfailtypes', [], function(){
 	
@@ -2250,12 +2268,15 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 	DragManager.prototype.addDrag = function(view){
 		view.mouseDownSignal.add(this.downHandler, this);
 		this.views.push(view);
+		console.log("added view ",view,this.views.length, this.views.indexOf(view));
 	};
 
 	DragManager.prototype.startDrag = function(view){
+		console.log("startDRag "+view, this.views.indexOf(view));
 		if(this.enabled){
 			this.addMoveListeners();
 			this.draggedView = view;
+			console.log("added view ",this.draggedView,this.views.length, this.views.indexOf(this.draggedView));
 			this.model.removeView(view);
 		}
 	};
@@ -2265,14 +2286,16 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 	};
 
 	DragManager.prototype.getClosest = function(){
-		var i, x, y, index = -1, target, dist, w, h;
+		var i, x, y, index = -1, target, dist, w, h, dx, dy;
 		x = this.draggedView.sprite.x;
 		y = this.draggedView.sprite.y;
 		w = this.draggedView.sprite.width;
 		h = this.draggedView.sprite.height;
 		for(i = 0; i < this.targets.length; i++){
 			target = this.targets[i];
-			dist = Math.abs(x + w/2 - target.sprite.x - target.sprite.width/2) + Math.abs(y +h/2 - target.sprite.y- target.sprite.height/2);
+			dx = x + w/2 - target.sprite.x - target.sprite.width/2;
+			dy = y + h/2 - target.sprite.y - target.sprite.height/2;
+			dist = Math.sqrt(dx*dx + dy*dy);
 			if(dist < DragManager.TOLERANCE){
 				index = i;
 				break;
@@ -2297,6 +2320,7 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 	};
 
 	DragManager.prototype.drop = function(){
+		console.log("ri "+this.dropPosition.rowIndex);
 		if(this.dropPosition.rowIndex >= 0){
 			this.snapTo(this.draggedView, this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
 			this.targets[this.dropPosition.rowIndex].highlight(false);
@@ -2310,23 +2334,27 @@ define('phasercomponents/drag/dragmanager', ['phasercomponents/drag/dragfailtype
 		var index;
 		if(view){
 			index = this.views.indexOf(view);
-			this.views.splice(index, 1);
+			console.log("remove", this.views, this.views.length, index);
 			view.mouseDownSignal.remove(this.downHandler, this);
-			view.destroy();
+			view.destroy(true);
+			this.views.splice(index, 1);
 		}
 	};
 
 	DragManager.prototype.fail = function(){
+		console.log("fail "+this.options.fail);
 		if(this.options.fail === DragFailTypes.FAIL_RETURN){
 			this.draggedView.reset();
 		}
 		else if (this.options.fail === DragFailTypes.FAIL_REMOVE){
+			console.log("rmoveView!");
 			this.removeView(this.draggedView);
 			this.draggedView = null;
 		}
 	};
 
 	DragManager.prototype.onUp = function(){
+		console.log("onUP");
 		this.drop();
 		this.removeMoveListeners();
 		this.draggedView = null;

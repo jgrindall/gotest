@@ -27,6 +27,7 @@ define('app/assets',[], function(){
 	Assets.DRAG_BUTTON = 			'dragbutton';
 	Assets.DRAG_ARROW = 			'dragarrow';
 	Assets.BUTTON = 				'button';
+	Assets.CONTROL_BAR =			'controlbar';
 	Assets.ARROWS = 				'arrows';
 	Assets.KEYS = 					'keys';
 	Assets.MARKERS = 				'markers';
@@ -42,6 +43,7 @@ define('app/assets',[], function(){
 	
 	Assets.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":160, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/controlbar.png",	 			"key":Assets.CONTROL_BAR,				"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/dragbuttons.png",	 		"key":Assets.DRAG_BUTTON,				"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/dragarrows.png",	 			"key":Assets.DRAG_ARROW,				"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/screens/smallpanel.png",	 			"key":Assets.SMALL_PANEL,				"w":225, 	"h":250},
