@@ -68,8 +68,21 @@ Events, Assets){
 		}
 	};
 	
+	ActivityScene.prototype.removeControls = function() {
+		if(this.controls){
+			this.world.remove(this.controls.group);
+			this.controls.destroy();
+			this.controls = null;
+		}
+	};
+
+	ActivityScene.prototype.resize = function() {
+		console.log("activity scene, resize");
+	};
+
 	ActivityScene.prototype.addControls = function() {
 		var bounds = {"x":this.game.w - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":this.game.h};
+		this.removeControls();
 		this.controls = new Controls({"bounds":bounds});
 		this.world.add(this.controls.group);
 	};

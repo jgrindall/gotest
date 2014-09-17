@@ -43,6 +43,10 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		PhaserComponents.TextFactory.registerFont('vlarge', {"size":60, "align":'center', "fontName":'TooSimple', "color0":'#ffffff', "color1":'#ffffff'});
 	};
 
+	AppContext.prototype.onResize = function(){
+		this.gameManager.getScene().resize();
+	};
+
     AppContext.prototype.onChangeScene = function(event, obj){
     	if(obj.data.scene instanceof LoaderScene){
     		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
