@@ -886,9 +886,7 @@ ButtonGridModel, Utils){
 		var target, index;
 		target = data.target.view;
 		index = this.buttonGroup.getIndex(target);
-		console.log("performSelect "+this.options.performSelect);
 		if(this.options.performSelect){
-			console.log("model -> "+index);
 			this.model.set(index);
 		}
 		this.clickSignal.dispatch({"index":index, "grid":this});
@@ -1008,7 +1006,7 @@ function(ButtonBar, Utils){
 	
 	TabButtonBar.prototype.create = function(){
 		ButtonBar.prototype.create.call(this);
-		this.setSelected(0);
+		this.model.set(0);
 	};
 	
 	return TabButtonBar;
@@ -2332,6 +2330,7 @@ define('phasercomponents/drag/dragmanager',
 		}
 		else{
 			this.fail();
+			this.editSignal.dispatch();
 		}
 	};
 
