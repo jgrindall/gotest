@@ -27,17 +27,14 @@ div#game{
 	height:100%;
 }
 
-p{
-	color:#bbb;
-	position:fixed;
-	top:2px;
-	right:3px;
-	font-size: 18px;
-	font-family: TooSimple;
-	padding:0;
-	margin:0;
-}
-
 canvas{
 	background:#5b6465;
+}
+
+input{
+	border:none;
+	font-family: TooSimple;
+	width:800px;
+	font-size:32px;
+	padding:2px;
 }
