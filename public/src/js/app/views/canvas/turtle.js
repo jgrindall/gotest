@@ -1,16 +1,17 @@
 
-define(['phaser', 'phasercomponents'],
+define(['phaser', 'phasercomponents', 'app/models/modelfacade'],
 
-function(Phaser,PhaserComponents){
+function(Phaser, PhaserComponents, ModelFacade){
 	
 	"use strict";
 	
 	var Turtle  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
+		ModelFacade.getInstance().get(ModelFacade.TURTLE).changeSignal.add(this.turtleChanged, this);
 		this.theta = 0;
 		this.endSignal = new Phaser.Signal();
 	};
-	
+
 	Turtle.getAngle = function(t, a){
 		// to stop it going from 359 to 0 via 180 for example!
 		while(t - a > 180){
@@ -24,33 +25,38 @@ function(Phaser,PhaserComponents){
 	
 	PhaserComponents.Utils.extends(Turtle, PhaserComponents.Display.Container);
 	
-			
+	Turtle.prototype.turtleChanged = function(value){
+		this.turtle.goTo(value);
+	};
+
 	Turtle.prototype.removeSprite = function() {
-		this.group.remove(this.sprite);
-		this.sprite.destroy(true);
-		this.sprite = null;
+		this.group.remove(this.turtle.sprite);
+		this.turtle.destroy(true);
+		this.turtle = null;
 	};
 	
 	Turtle.prototype.addImage = function() {
-		if(this.sprite){
+		var bounds;
+		bounds = {'x':0, 'y':0};
+		if(this.turtle){
 			this.removeSprite();
 		}
-		this.sprite = new Phaser.Image(this.game, 300, 300, this.options.asset);
-		this.group.add(this.sprite);
-		this.sprite.anchor.setTo(0.5, 0.5);
+		this.turtle = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":2, "asset":this.options.asset});
+		this.group.add(this.turtle.sprite);
+		this.turtle.sprite.anchor.setTo(0.5, 0.5);
 	};
 	
 	Turtle.prototype.setTo = function(theta) {
 		var target = theta + 90;
-		this.sprite.angle = target;
+		this.turtle.sprite.angle = target;
 	};
 	
 	Turtle.prototype.rotateTo = function(theta, time) {
 		var target = theta + 90;
 		this.stopTurnTween();
-		target = Turtle.getAngle(target, this.sprite.angle);
+		target = Turtle.getAngle(target, this.turtle.sprite.angle);
 		if(time === 0){
-			this.sprite.angle = target;
+			this.turtle.sprite.angle = target;
 			this.endSignal.dispatch({});
 		}
 		else{
@@ -96,13 +102,13 @@ function(Phaser,PhaserComponents){
 			this.move(p);
 		}
 		else{
-			this.moveTween = this.game.add.tween(this.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
+			this.moveTween = this.game.add.tween(this.turtle.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
 		}
 	};
 	
 	Turtle.prototype.move = function(p) {
-		this.sprite.x = p.x;
-		this.sprite.y = p.y;
+		this.turtle.sprite.x = p.x;
+		this.turtle.sprite.y = p.y;
 	};
 	
 	Turtle.prototype.addMask = function() {
@@ -117,10 +123,11 @@ function(Phaser,PhaserComponents){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addMask();
 		this.addImage();
-		this.sprite.mask = this.mask;
+		this.turtle.sprite.mask = this.mask;
 	};
 	
 	Turtle.prototype.destroy = function() {
+		ModelFacade.getInstance().get(ModelFacade.TURTLE).changeSignal.remove(this.turtleChanged, this);
 		this.stopTweens();
 		this.endSignal.dispose();
 		this.endSignal = null;

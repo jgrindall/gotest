@@ -80,7 +80,8 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/toggle.png", 				"key":Assets.TOGGLE, 					"w":120, 	"h":60},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/radiobutton.png", 			"key":Assets.RADIO, 					"w":100, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.jpg",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5},
-		{"type":"spritesheet", 	"asset":"assets/images/slider/decor.png",	 				"key":Assets.SPEEDDECOR,				"w":40, 	"h":40}
+		{"type":"spritesheet", 	"asset":"assets/images/slider/decor.png",	 				"key":Assets.SPEEDDECOR,				"w":40, 	"h":40},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle.png", 					"key":Assets.TURTLE,					"w":45, 	"h":45}
 	];
 	
 	Assets.SOUNDFX = [
@@ -103,7 +104,6 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/maps/map0.jpg", 					"key":Assets.MAPS[0]},
 		{"type":"image", 		"asset":"assets/images/maps/map1.jpg", 					"key":Assets.MAPS[1]},
 		{"type":"image", 		"asset":"assets/images/maps/map2.jpg", 					"key":Assets.MAPS[2]},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle.png", 				"key":Assets.TURTLE},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
 		{"type":"image", 		"asset":"assets/images/maps/corners.jpg",	 			"key":Assets.CORNERS}

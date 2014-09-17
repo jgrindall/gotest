@@ -14,14 +14,15 @@ define( ['phasercomponents', 'phaser', 'app/consts/progtypes', 'app/prog/dropvie
 	};
 
 	TargetBuilder.prototype.decorateLinear = function(parent){
-		var gfx, middle;
+		var gfx, middle, lineWidth;
+		lineWidth = 8;
 		gfx = new Phaser.Graphics(parent.game, 0, 0);
 		middle = parent.bounds.x + parent.bounds.w/2;
 		parent.group.add(gfx);
-		gfx.lineStyle(7, 0xbbbbbb, 1);
+		gfx.lineStyle(lineWidth, 0xbbbbbb, 1);
    		gfx.moveTo(middle + 2, 70);
    		gfx.lineTo(middle + 2, 400);
-		gfx.lineStyle(7, 0xffffff, 1);
+		gfx.lineStyle(lineWidth, 0xffffff, 1);
    		gfx.moveTo(middle, 70);
    		gfx.lineTo(middle, 400);
 	};

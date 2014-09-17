@@ -7,7 +7,7 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
 
-'app/models/progtypemodel', 'app/models/allowprogmodel',
+'app/models/progtypemodel', 'app/models/allowprogmodel', 'app/models/turtlemodel',
 
 'app/models/commtickermodel', 'app/consts/playingstate', 'app/consts/commspeed'],
 
@@ -19,7 +19,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	WidthModel, StepLengthModel, DiagModel,
 
-	ProgTypeModel, AllowProgModel,
+	ProgTypeModel, AllowProgModel, TurtleModel,
 
 	CommTickerModel, PlayingState, CommSpeed){
 	
@@ -43,6 +43,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.ANGLE = 		"angle";
 	ModelFacade.PROG_TYPE = 	"progType";
 	ModelFacade.ALLOW_PROG = 	"allowProg";
+	ModelFacade.TURTLE = 		"turtle";
 
 	ModelFacade.prototype.get = function(name){
 		if(name === ModelFacade.SPEED){
@@ -87,6 +88,9 @@ function(CommModel, ScreenModel, BgModel,
 		else if(name === ModelFacade.ALLOW_PROG){
 			return this.allowProgModel;
 		}
+		else if(name === ModelFacade.TURTLE){
+			return this.turtleModel;
+		}
 		else{
 			throw "no model "+name;
 		}
@@ -105,8 +109,9 @@ function(CommModel, ScreenModel, BgModel,
 		this.playingModel = new PlayingModel();
 		this.screenModel = new ScreenModel();
 		this.commTickerModel = new CommTickerModel();
-		this.progTypeModel = new ProgModel();
+		this.progTypeModel = new ProgTypeModel();
 		this.allowProgModel = new AllowProgModel();
+		this.turtleModel = new TurtleModel();
 	};
 
 	ModelFacade.prototype.init = function(){
@@ -179,6 +184,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.bgModel.set(json.settings.bg);
 		this.gridModel.set(json.settings.grid);
 		this.diagModel.set(json.settings.diag);
+		this.turtleModel.set(json.settings.turtle);
 		this.allowProgModel.set(json.settings.allowProg);
 		this.angleModel.set(json.settings.angle);
 		this.progTypeModel.set(json.settings.prog);
@@ -196,6 +202,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.speed = 		this.speedModel.get();
 		settings.prog = 		this.progTypeModel.get();
 		settings.grid = 		this.gridModel.get();
+		settings.turtle = 		this.turtleModel.get();
 		settings.color =	 	this.colorModel.get();
 		settings.allowProg =	this.allowProgModel.get();
 		settings.diag =	 		this.diagModel.get();

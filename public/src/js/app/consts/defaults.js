@@ -18,6 +18,7 @@ define([], function() {
 		'grid':0,
 		'prog':0,
 		'allowProg':0,
+		'turtle':0,
 		'diag':0,
 	};
 
