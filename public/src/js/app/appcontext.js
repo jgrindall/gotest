@@ -7,7 +7,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/startupcommand', 'app/commands/progchangecommand', 
 
-	'app/commands/finishcommand', 'app/commands/replaycommand',
+	'app/commands/finishcommand', 'app/commands/replaycommand', 
 
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
@@ -21,7 +21,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		AddCommandCommand, DrawCommand,  StartUpCommand, ProgChangeCommand,
 
-		FinishCommand, ReplayCommand,
+		FinishCommand, ReplayCommand, 
 
 		Events, PhaserComponents, AppConsts,
 
@@ -52,7 +52,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
     	}
     };
- 
+ 	
     AppContext.prototype.mapScenes = function(){
     	this.gameManager.mapScene(AppConsts.LOADER_SCENE, LoaderScene, true);
 		this.gameManager.mapScene(AppConsts.ACTIVITY_SCENE, ActivityScene);

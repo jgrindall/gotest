@@ -36,5 +36,6 @@ input{
 	font-family: TooSimple;
 	width:800px;
 	font-size:32px;
+	display:block;
 	padding:2px;
 }

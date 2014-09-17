@@ -1,17 +1,17 @@
 
 define(['app/views/canvas/canvas', 'app/views/controls/controls',
 
-'app/views/components/menu', 
+'app/views/components/menu', 'app/models/modelfacade',
 
-'app/views/background', 'phasercomponents',
+'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
 'app/events/events', 'app/assets'],
 
 function(Canvas, Controls,
 
-Menu,
+Menu, ModelFacade,
 
-Background, PhaserComponents,
+Background, PhaserComponents, NameView,
 
 Events, Assets){
 	
@@ -28,8 +28,15 @@ Events, Assets){
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
+		this.addName();
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
+	};
+
+	ActivityScene.prototype.addName = function() {
+		var nameView;
+    	this.nameView = new NameView(ModelFacade.getInstance().get(ModelFacade.NAME));
+    	$("#"+this.game.parent).append(this.nameView.el);	
 	};
 
 	ActivityScene.prototype.addBg = function() {
@@ -93,6 +100,7 @@ Events, Assets){
 		this.world.remove(this.controls.group);
 		this.world.remove(this.bg.sprite);
 		this.bg.destroy();
+		this.nameView.destroy();
 		this.menu.destroy();
 		this.canvas.destroy();
 		this.controls.destroy();
