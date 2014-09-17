@@ -60,7 +60,7 @@ function(Phaser, PhaserComponents, ModelFacade){
 			this.endSignal.dispatch({});
 		}
 		else{
-			this.turnTween = this.game.add.tween(this.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
+			this.turnTween = this.game.add.tween(this.turtle.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
 			this.turnTween.onComplete.add(this.turnComplete, this);
 		}
 	};
