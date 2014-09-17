@@ -47,6 +47,16 @@ define(
 		}
 	};
 
+	AbstractProgCommandPanel.prototype.disableInput = function(){
+		this.dragManager.disableInput();
+		this.playButton.mouseUpSignal.remove(this.clickPlay, this);
+	};
+	
+	AbstractProgCommandPanel.prototype.enableInput = function(){
+		this.dragManager.enableInput();
+		this.playButton.mouseUpSignal.add(this.clickPlay, this);
+	};
+
 	AbstractProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
 		var tick = new DragView({"type":type, "turn":turn, "index":index, 'bounds':bounds});
 		this.group.add(tick.sprite);
@@ -118,7 +128,6 @@ define(
 	AbstractProgCommandPanel.prototype.addPlay = function() {
 		var options = {"bounds":{'x':this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.playButton = new PlayButton(options);
-		this.playButton.mouseUpSignal.add(this.clickPlay, this);
 		this.group.add(this.playButton.sprite);
 	};
 
@@ -163,13 +172,13 @@ define(
 	};
 
 	AbstractProgCommandPanel.prototype.destroy = function() {
+		this.disableInput();
 		this.model = null;
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
 		this.dragManager.editSignal.remove(this.onEdited, this);
 		this.dragManager.destroy();
 		this.dragManager = null;
-		this.playButton.mouseUpSignal.remove(this.clickPlay, this);
 		this.group.remove(this.playButton.sprite);
 		this.removeTargets();
 		this.removeButtons();

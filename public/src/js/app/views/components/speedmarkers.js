@@ -21,10 +21,25 @@ function(PhaserComponents){
 		this.decor1 = new Phaser.Sprite(this.game, this.bounds.x + this.bounds.w, this.bounds.y, this.options.asset, 1);
 		this.group.add(this.decor0);
 		this.group.add(this.decor1);
-		this.decor0.inputEnabled = true;
-		this.decor1.inputEnabled = true;
-		this.decor0.events.onInputUp.add(this.onMouseUp0, this);
-		this.decor1.events.onInputUp.add(this.onMouseUp1, this);
+		this.enableInput();
+	};
+
+	SpeedMarkers.prototype.enableInput = function(){
+		if(!this.decor0.inputEnabled){
+			this.decor0.inputEnabled = true;
+			this.decor1.inputEnabled = true;
+			this.decor0.events.onInputUp.add(this.onMouseUp0, this);
+			this.decor1.events.onInputUp.add(this.onMouseUp1, this);
+		}
+	};
+
+	SpeedMarkers.prototype.disableInput = function(){
+		if(this.decor0.inputEnabled){
+			this.decor0.events.onInputUp.remove(this.onMouseUp0, this);
+			this.decor1.events.onInputUp.remove(this.onMouseUp1, this);
+			this.decor0.inputEnabled = false;
+			this.decor1.inputEnabled = false;
+		}
 	};
 
 	SpeedMarkers.prototype.onMouseUp0 = function(){
@@ -36,8 +51,7 @@ function(PhaserComponents){
 	};
 
 	SpeedMarkers.prototype.destroy = function(){
-		this.decor0.events.onInputUp.remove(this.onMouseUp0, this);
-		this.decor1.events.onInputUp.remove(this.onMouseUp1, this);
+		this.disableInput();
 		this.group.remove(this.decor0);
 		this.group.remove(this.decor1);
 		this.decor0 = null;

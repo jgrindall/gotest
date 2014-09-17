@@ -13,19 +13,9 @@ Events){
 	
 	var AbstractCommandsPanel  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 	};
 	
 	PhaserComponents.Utils.extends(AbstractCommandsPanel, PhaserComponents.Display.Container);
-	
-	AbstractCommandsPanel.prototype.onAlert = function(event, data) {
-		if(data.shown){
-			this.disableInput();
-		}
-		else{
-			this.enableInput();
-		}
-	};
 	
 	AbstractCommandsPanel.prototype.disableInput = function(){
 

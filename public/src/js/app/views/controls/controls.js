@@ -72,6 +72,10 @@ Events, Assets, SpeedMarkers){
 			this.colorPicker.disableInput();
 			this.speedSlider.disableInput();
 			this.menu.disableInput();
+			this.commandsPanel.disableInput();
+			this.widthPicker.disableInput();
+			this.controlBar.disableInput();
+			this.speedMarkers.disableInput();
 		}
 	};
 	
@@ -80,6 +84,10 @@ Events, Assets, SpeedMarkers){
 			this.colorPicker.enableInput();
 			this.speedSlider.enableInput();
 			this.menu.enableInput();
+			this.widthPicker.enableInput();
+			this.commandsPanel.enableInput();
+			this.controlBar.enableInput();
+			this.speedMarkers.enableInput();
 		}
 	};
 	
