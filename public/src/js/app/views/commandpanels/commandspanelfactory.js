@@ -64,7 +64,7 @@ MarkerTypes, KeysProgCommandsPanel, TurnKeysProgCommandsPanel
 				panel = new NSEW45KeysCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
 			}
 			else{
-				panel = new KeysProgCommandsPanel({"buttons":[[{"num":0}, {"num":1}, {"num":2}, {"num":3}, {"num":5}, {"num":6}, {"num":7}], [{"num":0}, {"num":1}, {"num":2}, {"num":3}, {"num":4}, {"num":5}, {"num":6}, {"num":7}]], "hitzones":CommandsPanelFactory.makeHitzones(5, true), "targets":prog, "bounds":bounds});
+				panel = new KeysProgCommandsPanel({"buttons":[[{"num":0}, {"num":1}, {"num":2}, {"num":3}, {"num":5}, {"num":6}, {"num":7}, {"num":8}], [{"num":0}, {"num":1}, {"num":2}, {"num":3}, {"num":4}, {"num":5}, {"num":6}, {"num":7}]], "hitzones":CommandsPanelFactory.makeHitzones(5, true), "targets":prog, "bounds":bounds});
 			}
 		}
 		else if(type === CommandTypes.TURNING_KEYS){
