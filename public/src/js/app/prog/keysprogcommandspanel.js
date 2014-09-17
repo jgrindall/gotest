@@ -12,6 +12,13 @@ define(
 
 	PhaserComponents.Utils.extends(KeysProgCommandsPanel, AbstractProgCommandPanel);
 
+	KeysProgCommandsPanel.prototype.isFull = function(hitZoneRow) {
+		var hitZone0, hitZone1;
+		hitZone0 = hitZoneRow[0];
+		hitZone1 = hitZoneRow[1];
+		return ( (typeof hitZone0.type === 'number') && (typeof hitZone1.type === 'number'));
+	};
+
 	KeysProgCommandsPanel.prototype.addAllCommands = function() {
 		var that = this, json = this.model.toJson(), hitzone0, hitzone1;
 		json.forEach(function(hitZoneRow){

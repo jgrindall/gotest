@@ -49,12 +49,24 @@ define(
 
 	AbstractProgCommandPanel.prototype.disableInput = function(){
 		this.dragManager.disableInput();
-		this.playButton.mouseUpSignal.remove(this.clickPlay, this);
+		this.disableStart();
 	};
 	
 	AbstractProgCommandPanel.prototype.enableInput = function(){
 		this.dragManager.enableInput();
-		this.playButton.mouseUpSignal.add(this.clickPlay, this);
+		this.enableStart();
+	};
+
+	AbstractProgCommandPanel.prototype.disableStart = function(){
+		if(this.playButton.mouseUpSignal.has(this.clickPlay, this)){
+			this.playButton.mouseUpSignal.remove(this.clickPlay, this);
+		}	
+	};
+	
+	AbstractProgCommandPanel.prototype.enableStart = function(){
+		if(!this.playButton.mouseUpSignal.has(this.clickPlay, this)){
+			this.playButton.mouseUpSignal.add(this.clickPlay, this);
+		}
 	};
 
 	AbstractProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
@@ -132,6 +144,7 @@ define(
 	};
 
 	AbstractProgCommandPanel.prototype.clickPlay = function() {
+		console.log("play");
 		this.addAllCommands();
 	};
 	
@@ -147,7 +160,13 @@ define(
 	};
 
 	AbstractProgCommandPanel.prototype.onEdited = function() {
-		console.log("edited, activate play button??");
+		var enable = this.startEnabled();
+		if(enable){
+			this.enableStart();
+		}
+		else{
+			this.disableStart();
+		}
 	};
 
 	AbstractProgCommandPanel.prototype.removeTargets = function() {
@@ -169,6 +188,17 @@ define(
 			button.destroy();
 		}
 		this.buttons = [];
+	};
+
+	AbstractProgCommandPanel.prototype.startEnabled = function() {
+		var i, hitZoneRow, json = this.model.toJson();
+		for(i = 0; i < json.length; i++){
+			hitZoneRow = json[i];
+			if(this.isFull(hitZoneRow)){
+				return true;
+			}
+		}
+		return false;
 	};
 
 	AbstractProgCommandPanel.prototype.destroy = function() {
