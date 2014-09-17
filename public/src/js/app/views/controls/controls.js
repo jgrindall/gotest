@@ -96,7 +96,7 @@ Events, Assets, SpeedMarkers){
 		var options, bounds;
 		bounds = {'x':this.bounds.x, 'y':this.bounds.y + this.bounds.h - ColorPicker.HEIGHT - 50, 'w':this.bounds.w, 'h':50};
 		options = {"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
-		this.controlBar = new PhaserComponents.Display.ButtonBar(options);
+		this.controlBar = new PhaserComponents.Display.TabButtonBar(options);
 		this.controlBar.clickSignal.add(this.barClick, this);
 		this.group.add(this.controlBar.group);
 		this.controlBar.group.visible = (ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).get() === 1);
