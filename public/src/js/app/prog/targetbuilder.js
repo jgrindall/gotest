@@ -1,16 +1,32 @@
-define( ['phasercomponents', 'app/consts/progtypes', 'app/prog/dropview'],
+define( ['phasercomponents', 'phaser', 'app/consts/progtypes', 'app/prog/dropview'],
 
-	function(PhaserComponents, ProgTypes, DropView){
+	function(PhaserComponents, Phaser, ProgTypes, DropView){
 	
 	"use strict";
 
 	var TargetBuilder = function(type){
-		console.log("type is "+type);
 		this.type = type;
 	};
 
 	TargetBuilder.prototype.buildLinear = function(parent){
-		console.log("buildLinear");
+		this.decorateLinear(parent);
+		this.addBlocksLinear(parent);
+	};
+
+	TargetBuilder.prototype.decorateLinear = function(parent){
+		var gfx, middle;
+		gfx = new Phaser.Graphics(parent.game, 0, 0);
+		middle = parent.bounds.x + parent.bounds.w/2;
+		parent.group.add(gfx);
+		gfx.lineStyle(7, 0xbbbbbb, 1);
+   		gfx.moveTo(middle + 2, 70);
+   		gfx.lineTo(middle + 2, 400);
+		gfx.lineStyle(7, 0xffffff, 1);
+   		gfx.moveTo(middle, 70);
+   		gfx.lineTo(middle, 400);
+	};
+
+	TargetBuilder.prototype.addBlocksLinear = function(parent){
 		var i, target, numTargets = 6, bounds;
 		for(i = 0; i < numTargets; i++){
 			bounds = {'x':parent.bounds.x + (parent.bounds.w - DropView.WIDTH)/2, 'y':parent.bounds.y + 60 + 55*i};
@@ -21,7 +37,6 @@ define( ['phasercomponents', 'app/consts/progtypes', 'app/prog/dropview'],
 	};
 
 	TargetBuilder.prototype.build = function(parent){
-		console.log("build "+parent+" "+this.type+" "+ProgTypes.LINEAR);
 		if(this.type === ProgTypes.LINEAR){
 			this.buildLinear(parent);
 		}
