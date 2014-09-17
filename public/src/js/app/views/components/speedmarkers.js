@@ -1,12 +1,13 @@
 
-define(['phasercomponents'],
+define(['phasercomponents', 'app/models/modelfacade', 'app/consts/commspeed'],
 
-function(PhaserComponents){
+function(PhaserComponents, ModelFacade, CommSpeed){
 	
 	"use strict";
 	
 	var SpeedMarkers  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
+		ModelFacade.getInstance().get(ModelFacade.SPEED).changeSignal.add(this.speedChanged, this);
 		this.clickSignal = new Phaser.Signal();
 	};
 
@@ -19,9 +20,20 @@ function(PhaserComponents){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.decor0 = new Phaser.Sprite(this.game, this.bounds.x - 40, this.bounds.y, this.options.asset, 0);
 		this.decor1 = new Phaser.Sprite(this.game, this.bounds.x + this.bounds.w, this.bounds.y, this.options.asset, 1);
+		//this.decor0.animations.add('play', [1, 2, 3, 4], 300, true);
+		//this.decor1.animations.add('play', [1, 2, 3, 4], 300, true);
 		this.group.add(this.decor0);
 		this.group.add(this.decor1);
 		this.enableInput();
+	};
+
+	SpeedMarkers.prototype.speedChanged = function(value){
+		if(value === 0){
+			//this.decor0.animate();
+		}
+		else if(value === CommSpeed.ALL.length - 1){
+			//this.decor1.animate();
+		}
 	};
 
 	SpeedMarkers.prototype.enableInput = function(){
@@ -52,6 +64,7 @@ function(PhaserComponents){
 
 	SpeedMarkers.prototype.destroy = function(){
 		this.disableInput();
+		ModelFacade.getInstance().get(ModelFacade.SPEED).changeSignal.remove(this.speedChanged, this);
 		this.group.remove(this.decor0);
 		this.group.remove(this.decor1);
 		this.decor0 = null;
