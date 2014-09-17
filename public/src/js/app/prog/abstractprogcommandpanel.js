@@ -4,7 +4,7 @@ define(
 
 	'app/prog/dragview', 'app/prog/accepter', 'app/assets',
 
-	'app/views/commandpanels/abstractcommandspanel', 
+	'app/views/commandpanels/abstractcommandspanel', 'app/views/buttons/closebutton',
 
 	'app/views/buttons/playbutton', 'app/consts/progtypes',
 
@@ -14,7 +14,7 @@ define(
 
 		DragView, Accepter, Assets,
 
-		AbstractCommandsPanel,
+		AbstractCommandsPanel, CloseButton,
 
 		PlayButton, ProgTypes,
 
@@ -50,11 +50,13 @@ define(
 	AbstractProgCommandPanel.prototype.disableInput = function(){
 		this.dragManager.disableInput();
 		this.disableStart();
+		this.disableClear();
 	};
 	
 	AbstractProgCommandPanel.prototype.enableInput = function(){
 		this.dragManager.enableInput();
 		this.enableStart();
+		this.enableClear();
 	};
 
 	AbstractProgCommandPanel.prototype.disableStart = function(){
@@ -66,6 +68,18 @@ define(
 	AbstractProgCommandPanel.prototype.enableStart = function(){
 		if(!this.playButton.mouseUpSignal.has(this.clickPlay, this)){
 			this.playButton.mouseUpSignal.add(this.clickPlay, this);
+		}
+	};
+
+	AbstractProgCommandPanel.prototype.disableClear = function(){
+		if(this.clearButton.mouseUpSignal.has(this.clickClear, this)){
+			this.clearButton.mouseUpSignal.remove(this.clickClear, this);
+		}	
+	};
+	
+	AbstractProgCommandPanel.prototype.enableClear = function(){
+		if(!this.clearButton.mouseUpSignal.has(this.clickClear, this)){
+			this.clearButton.mouseUpSignal.add(this.clickClear, this);
 		}
 	};
 
@@ -143,8 +157,18 @@ define(
 		this.group.add(this.playButton.sprite);
 	};
 
+	AbstractProgCommandPanel.prototype.addClear = function() {
+		var options = {"bounds":{'x':this.bounds.x + 100 + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
+		this.clearButton = new CloseButton(options);
+		this.clearButton.sprite.scale = {'x':0.5, 'y':0.5};
+		this.group.add(this.clearButton.sprite);
+	};
+
+	AbstractProgCommandPanel.prototype.clickClear = function() {
+		this.dragManager.clear();
+	};
+
 	AbstractProgCommandPanel.prototype.clickPlay = function() {
-		console.log("play");
 		this.addAllCommands();
 	};
 	
@@ -156,6 +180,7 @@ define(
 		this.addButtons();
 		this.addTargets();
 		this.addPlay();
+		this.addClear();
 		this.initDrag();
 	};
 
