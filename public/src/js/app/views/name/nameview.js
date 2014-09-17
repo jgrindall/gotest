@@ -47,7 +47,7 @@ function($, PhaserComponents){
 		this.el.val(value);
 	};
 
-	NameView.prototype.destroy = function(value) {
+	NameView.prototype.destroy = function() {
 		this.model.changeSignal.remove(this.nameChanged, this);
 		this.el.off("input propertychange paste");
 		this.el.remove();

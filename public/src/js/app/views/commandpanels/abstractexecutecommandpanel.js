@@ -3,9 +3,7 @@ define([ 'phasercomponents',
 
 'app/views/buttons/dirbutton', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/views/commandpanels/markers/markerfactory', 
-
-'app/events/events'
+'app/views/commandpanels/markers/markerfactory'
 ],
 
 
@@ -13,9 +11,7 @@ function(PhaserComponents,
 
 DirButton, AbstractCommandsPanel,
 
-MarkerFactory, 
-
-Events){
+MarkerFactory){
 	
 	"use strict";
 	
@@ -61,7 +57,7 @@ Events){
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.addGrid = function() {
-		var options, bounds, w, h, data, size;
+		var options, bounds, w, h, data;
 		data = this.getGridData();
 		w = this.game.w;
 		h = this.game.h;

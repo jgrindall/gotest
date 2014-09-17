@@ -1,11 +1,7 @@
 
-define(['phasercomponents',
+define(['phasercomponents'],
 
-'app/consts/playingstate'],
-
-function(PhaserComponents,
-
-PlayingState){
+function(PhaserComponents){
 	
 	"use strict";
 	

@@ -5,7 +5,7 @@ define(['app/views/background',
 
 'app/models/modelfacade', 'app/consts/colors', 'app/consts/penwidths',
 
-'app/views/controls/controlmenu', 'app/views/commandpanels/abstractcommandspanel',
+'app/views/controls/controlmenu', 
 
 'app/views/commandpanels/commandspanelfactory', 'app/views/buttons/controlbarbutton',
 
@@ -19,7 +19,7 @@ PhaserComponents, ColorPicker, WidthPicker,
 
 ModelFacade, Colors, PenWidths,
 
-ControlMenu, AbstractCommandsPanel,
+ControlMenu, 
 
 CommandsPanelFactory, ControlBarButton,
 

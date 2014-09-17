@@ -2,6 +2,8 @@ define( ['phasercomponents', 'app/assets'],
 
 	function(PhaserComponents, Assets){
 
+	"use strict";
+
 	var DropView = function(options){
 		options.asset = Assets.DRAG_TARGET;
 		options.numFrames = 2;

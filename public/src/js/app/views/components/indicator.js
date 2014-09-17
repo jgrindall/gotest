@@ -1,11 +1,7 @@
 
-define(['phaser',
+define(['phasercomponents', 'app/models/modelfacade'],
 
-'phasercomponents', 'app/models/modelfacade'],
-
-function(Phaser,
-
-PhaserComponents, ModelFacade){
+function(PhaserComponents, ModelFacade){
 	
 	"use strict";
 	

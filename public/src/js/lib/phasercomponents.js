@@ -58,6 +58,10 @@ function($, Phaser, PhaserStateTrans){
 		return size;
 	};
 
+	GameManager.prototype.getScene = function(){
+		return this.game.state.getCurrentState();
+	};
+
 	GameManager.prototype.getSizeFill = function(){
 		var w, h, size, el;
 		el = $("#"+this.options.containerTagId); 
@@ -288,17 +292,70 @@ function(SoundManager, AbstractCommand) {
 
 
 
-define('phasercomponents/context',['phasercomponents/gamemanager',
+define('phasercomponents/utils/utils',[], function(){
+	
+	
+	
+	var Utils = function(){
+		
+	};
+	
+	Utils.extends = function(SubClassRef, SuperClassRef){
+		var F = function(){
+		
+		};
+		F.prototype = Object.create(SuperClassRef.prototype);
+		SubClassRef.prototype = new F();
+		SubClassRef.prototype.constructor = SubClassRef;
+	};
+	
+	Utils.checkImplements = function(obj, theInterface) {
+	    for (var member in theInterface) {
+	        if (typeof obj[member] !== typeof theInterface[member]) {
+	            throw("Object "+obj+" failed to implement interface member " + member);
+	        }
+	    }
+	};
+
+	Utils.debounce = function(f, waitDuration) {
+		var timeout, returnFunction;
+		returnFunction = function() {
+			var context = this, args = arguments, later;
+			later = function() {
+				clearTimeout(timeout);
+				timeout = null;
+				f.apply(context, args);
+			};
+			if(timeout){
+				clearTimeout(timeout);
+			}
+			timeout = setTimeout(later, waitDuration);
+		};
+		return returnFunction;
+	};
+
+	return Utils;
+	
+});
+
+
+
+
+define('phasercomponents/context',['jquery', 'phasercomponents/gamemanager',
 
 	'phasercomponents/commands/commandmap', 'phasercomponents/events/eventdispatcher',
 
 	'phasercomponents/events/appevents', 
 
-	'phasercomponents/commands/playsoundcommand'],
+	'phasercomponents/commands/playsoundcommand', 'phasercomponents/utils/utils'],
 
-	function(GameManager, CommandMap, EventDispatcher,
+	function($, GameManager,
 
-		AppEvents, PlaySoundCommand) {
+		CommandMap, EventDispatcher,
+
+		AppEvents,
+
+		PlaySoundCommand, Utils) {
 	
 	
 
@@ -310,8 +367,9 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
 		Context.eventDispatcher = new EventDispatcher();
 		Context.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
 		this.makeGame();
+		this.addResizeListeners();
     };
-	
+
     Context.prototype.onChangeScene = function(){
     	
     };
@@ -326,6 +384,15 @@ define('phasercomponents/context',['phasercomponents/gamemanager',
     		"create":this.create.bind(this),
     	};
     	this.gameManager.init(this.options, config);
+    };
+
+    Context.prototype.addResizeListeners = function(){
+    	var resizeHandler = Utils.debounce($.proxy(this.onResize, this), 750);
+    	$(window).resize(resizeHandler);
+    };
+
+    Context.prototype.onResize = function(){
+
     };
 
     Context.prototype.mapScenes = function(){
@@ -399,38 +466,6 @@ define('phasercomponents/display/view',
 
 });
 
-
-
-
-
-define('phasercomponents/utils/utils',[], function(){
-	
-	
-	
-	var Utils = function(){
-		
-	};
-	
-	Utils.extends = function(SubClassRef, SuperClassRef){
-		var F = function(){
-		
-		};
-		F.prototype = Object.create(SuperClassRef.prototype);
-		SubClassRef.prototype = new F();
-		SubClassRef.prototype.constructor = SubClassRef;
-	};
-	
-	Utils.checkImplements = function(obj, theInterface) {
-	    for (var member in theInterface) {
-	        if (typeof obj[member] !== typeof theInterface[member]) {
-	            throw("Object "+obj+" failed to implement interface member " + member);
-	        }
-	    }
-	};
-
-	return Utils;
-	
-});
 
 
 
@@ -1382,6 +1417,10 @@ define('phasercomponents/scene',
 		this.game = Context.game;
 		this.world = Context.game.world;
 		this.eventDispatcher = Context.eventDispatcher;
+	};
+
+	Scene.prototype.resize = function() {
+		
 	};
 
 	Scene.prototype.shutdown = function() {

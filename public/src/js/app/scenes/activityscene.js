@@ -1,5 +1,5 @@
 
-define(['app/views/canvas/canvas', 'app/views/controls/controls',
+define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/views/components/menu', 'app/models/modelfacade',
 
@@ -7,7 +7,7 @@ define(['app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/events/events', 'app/assets'],
 
-function(Canvas, Controls,
+function($, Canvas, Controls,
 
 Menu, ModelFacade,
 
@@ -34,7 +34,6 @@ Events, Assets){
 	};
 
 	ActivityScene.prototype.addName = function() {
-		var nameView;
     	this.nameView = new NameView(ModelFacade.getInstance().get(ModelFacade.NAME));
     	$("#"+this.game.parent).append(this.nameView.el);	
 	};

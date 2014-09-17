@@ -1,6 +1,6 @@
-define( ['phasercomponents', 'phaser', 'app/consts/progtypes', 'app/prog/dropview'],
+define( ['phaser', 'app/consts/progtypes', 'app/prog/dropview'],
 
-	function(PhaserComponents, Phaser, ProgTypes, DropView){
+	function(Phaser, ProgTypes, DropView){
 	
 	"use strict";
 

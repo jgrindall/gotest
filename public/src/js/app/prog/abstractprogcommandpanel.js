@@ -1,24 +1,24 @@
 define(
 
-	['phasercomponents', 'phaser', 'app/views/buttons/dragbutton', 'app/prog/dropview',
+	['phasercomponents', 'app/views/buttons/dragbutton', 
 
-	'app/prog/dragview', 'app/prog/accepter', 'app/assets',
+	'app/prog/dragview', 'app/prog/accepter',
 
 	'app/views/commandpanels/abstractcommandspanel', 'app/views/buttons/closebutton',
 
-	'app/views/buttons/playbutton', 'app/consts/progtypes',
+	'app/views/buttons/playbutton',
 
-	'app/logocommands/commandtypes', 'app/prog/targetbuilder', 'app/models/modelfacade'],
+	'app/prog/targetbuilder', 'app/models/modelfacade'],
 
-	function(PhaserComponents, Phaser, DragButton, DropView,
+	function(PhaserComponents, DragButton,
 
-		DragView, Accepter, Assets,
+		DragView, Accepter,
 
 		AbstractCommandsPanel, CloseButton,
 
-		PlayButton, ProgTypes,
+		PlayButton,
 
-		CommandTypes, TargetBuilder, ModelFacade){
+		TargetBuilder, ModelFacade){
 	
 	"use strict";
 
@@ -32,13 +32,13 @@ define(
 
 	PhaserComponents.Utils.extends(AbstractProgCommandPanel, AbstractCommandsPanel);
 
-	AbstractProgCommandPanel.prototype.setProgress = function(data){
+	AbstractProgCommandPanel.prototype.setProgress = function(){
 		
 	};
 
 	AbstractProgCommandPanel.prototype.clickButton = function(data){
 		var type, index, tick, turn;
-		type = data.target.options.type
+		type = data.target.options.type;
 		index = data.target.options.index;
 		turn = data.target.options.turn;
 		if(this.dragManager && this.dragManager.enabled){
