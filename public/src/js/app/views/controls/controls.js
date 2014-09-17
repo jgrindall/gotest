@@ -31,7 +31,7 @@ Events, Assets, SpeedMarkers){
 		PhaserComponents.Display.Container.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.PROG).changeSignal.add(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.add(this.onScreenChanged, this);
 		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.add(this.onProgAllowedChanged, this);
 	};
 
@@ -101,9 +101,10 @@ Events, Assets, SpeedMarkers){
 	};
 
 	Controls.prototype.addControlBar = function() {
-		var options, bounds;
+		var options, bounds, model;
+		model = ModelFacade.getInstance().get(ModelFacade.PROG_TYPE);
 		bounds = {'x':this.bounds.x, 'y':this.bounds.y + this.bounds.h - ColorPicker.HEIGHT - 50, 'w':this.bounds.w, 'h':50};
-		options = {"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
+		options = {"model":model,"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
 		this.controlBar = new PhaserComponents.Display.TabButtonBar(options);
 		this.controlBar.clickSignal.add(this.barClick, this);
 		this.group.add(this.controlBar.group);
@@ -171,7 +172,7 @@ Events, Assets, SpeedMarkers){
 		var bounds, type, prog;
 		this.removeCommandsPanel();
 		type = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
-		prog = ModelFacade.getInstance().get(ModelFacade.PROG).get();
+		prog = ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).get();
 		bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
@@ -194,7 +195,7 @@ Events, Assets, SpeedMarkers){
 	Controls.prototype.destroy = function() {
 		this.bg.destroy();
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.PROG).changeSignal.remove(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);
 		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
 		this.colorPicker.destroy();
 		this.widthPicker.destroy();

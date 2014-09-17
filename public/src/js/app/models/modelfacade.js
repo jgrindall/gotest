@@ -7,7 +7,7 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
 
-'app/models/progmodel', 'app/models/allowprogmodel',
+'app/models/progtypemodel', 'app/models/allowprogmodel',
 
 'app/models/commtickermodel', 'app/consts/playingstate', 'app/consts/commspeed'],
 
@@ -19,7 +19,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	WidthModel, StepLengthModel, DiagModel,
 
-	ProgModel, AllowProgModel,
+	ProgTypeModel, AllowProgModel,
 
 	CommTickerModel, PlayingState, CommSpeed){
 	
@@ -41,7 +41,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.STEPLENGTH = 	"stepLength";
 	ModelFacade.DIAG = 			"diag";
 	ModelFacade.ANGLE = 		"angle";
-	ModelFacade.PROG = 			"prog";
+	ModelFacade.PROG_TYPE = 	"progType";
 	ModelFacade.ALLOW_PROG = 	"allowProg";
 
 	ModelFacade.prototype.get = function(name){
@@ -81,8 +81,8 @@ function(CommModel, ScreenModel, BgModel,
 		else if(name === ModelFacade.STEPLENGTH){
 			return this.stepLengthModel;
 		}
-		else if(name === ModelFacade.PROG){
-			return this.progModel;
+		else if(name === ModelFacade.PROG_TYPE){
+			return this.progTypeModel;
 		}
 		else if(name === ModelFacade.ALLOW_PROG){
 			return this.allowProgModel;
@@ -105,7 +105,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.playingModel = new PlayingModel();
 		this.screenModel = new ScreenModel();
 		this.commTickerModel = new CommTickerModel();
-		this.progModel = new ProgModel();
+		this.progTypeModel = new ProgModel();
 		this.allowProgModel = new AllowProgModel();
 	};
 
@@ -138,7 +138,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	ModelFacade.prototype.changeAllowProg = function(value) {
 		if(value === 0){
-			this.progModel.set(0);
+			this.progTypeModel.set(0);
 			//TODO - add consts
 		}
 	};
@@ -181,7 +181,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.diagModel.set(json.settings.diag);
 		this.allowProgModel.set(json.settings.allowProg);
 		this.angleModel.set(json.settings.angle);
-		this.progModel.set(json.settings.prog);
+		this.progTypeModel.set(json.settings.prog);
 		this.stepLengthModel.set(json.settings.stepLength);
 		this.commModel.set(json.commands);
 	};
@@ -194,7 +194,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.angle = 		this.angleModel.get();
 		settings.stepLength = 	this.stepLengthModel.get();
 		settings.speed = 		this.speedModel.get();
-		settings.prog = 		this.progModel.get();
+		settings.prog = 		this.progTypeModel.get();
 		settings.grid = 		this.gridModel.get();
 		settings.color =	 	this.colorModel.get();
 		settings.allowProg =	this.allowProgModel.get();
