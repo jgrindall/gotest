@@ -77,7 +77,7 @@ define(
 	};
 
 	AbstractProgCommandPanel.prototype.getButtonPos = function(i, j){
-		return {'x':this.bounds.x + 2 + 32*i, 'y':this.bounds.y + 10 + 40*j};
+		return {'x':this.bounds.x + 10 + 32*i, 'y':this.bounds.y + 10 + 40*j};
 	};
 
 	AbstractProgCommandPanel.prototype.addButtons = function(){
