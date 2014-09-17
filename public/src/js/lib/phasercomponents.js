@@ -630,7 +630,6 @@ function(Phaser, View, Utils,
 	Utils.extends(AbstractButton, View);
 
 	AbstractButton.prototype.goToFrame = function(i){
-		console.log("button goes to frame "+i);
 		this.sprite.setFrames(this.frames[i], this.frames[i], this.frames[i], this.frames[i]);
 	};
 
