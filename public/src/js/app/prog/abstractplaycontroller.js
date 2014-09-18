@@ -1,6 +1,6 @@
-define( ['app/prog/dropview'],
+define( [],
 
-	function(DropView){
+	function(){
 	
 	"use strict";
 

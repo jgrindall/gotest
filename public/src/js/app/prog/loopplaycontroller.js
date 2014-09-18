@@ -1,14 +1,10 @@
-define( ['phaser', 'phasercomponents', 'app/consts/progtypes',
+define( ['phasercomponents', 
 
-	'app/prog/dropview', 'app/consts/proglayout',
+	'app/prog/abstractplaycontroller', 'app/models/modelfacade'],
 
-	'app/assets', 'app/prog/abstractplaycontroller', 'app/models/modelfacade'],
+	function(PhaserComponents,
 
-	function(Phaser, PhaserComponents, ProgTypes,
-
-		DropView, ProgLayout,
-
-		Assets, AbstractPlayController, ModelFacade){
+		AbstractPlayController, ModelFacade){
 	
 	"use strict";
 
@@ -19,14 +15,15 @@ define( ['phaser', 'phasercomponents', 'app/consts/progtypes',
 	PhaserComponents.Utils.extends(LoopPlayController, AbstractPlayController);
 
 	LoopPlayController.prototype.addCommands = function(commands){
-		var rpt, i, that = this;
+		var rpt, i, j, that = this, command;
 		rpt = ModelFacade.getInstance().get(ModelFacade.PROG_NUM).get() + 1;
 		for(i = 1; i <= rpt; i++){
-			commands.forEach(function(command){
+			for(j = 0; j < commands.length; j++){
+				command = commands[j];
 				if(command){
 					that.parent.addCommand(command.direction, command.type, command.total);
 				}
-			});
+			}
 		}
 	};
 

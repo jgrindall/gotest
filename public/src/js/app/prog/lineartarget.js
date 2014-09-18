@@ -1,10 +1,10 @@
-define( ['phaser', 'app/consts/progtypes',
+define( ['phaser', 	'app/prog/dropview', 'app/consts/proglayout',
 
-	'app/prog/dropview', 'app/consts/proglayout', 'app/assets', 'phasercomponents', 'app/prog/abstracttarget'],
+	'app/assets', 'phasercomponents', 'app/prog/abstracttarget'],
 
-	function(Phaser, ProgTypes,
+	function(Phaser, DropView, ProgLayout,
 
-		DropView, ProgLayout, Assets, PhaserComponents, AbstractTarget){
+		Assets, PhaserComponents, AbstractTarget){
 	
 	"use strict";
 
@@ -29,7 +29,7 @@ define( ['phaser', 'app/consts/progtypes',
 	};
 
 	LinearTarget.prototype.addBlocks = function(){
-		var i, target, numTargets = ProgLayout.LINEAR.num, bounds;
+		var i, numTargets = ProgLayout.LINEAR.num, bounds;
 		for(i = 0; i < numTargets; i++){
 			bounds = {'x':this.bounds.x + (this.bounds.w - DropView.WIDTH)/2, 'y':this.bounds.y + 60 + 55*i};
 			this.addTarget({'index':i, 'bounds':bounds, 'asset':Assets.DRAG_TARGET});

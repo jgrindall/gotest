@@ -1,14 +1,6 @@
-define( ['phaser', 'app/consts/progtypes',
+define( ['phasercomponents', 'app/prog/abstractplaycontroller'],
 
-	'app/prog/dropview', 'app/consts/proglayout', 'app/assets',
-
-	'phasercomponents', 'app/prog/abstractplaycontroller'],
-
-	function(Phaser, ProgTypes,
-
-		DropView, ProgLayout, Assets,
-
-		PhaserComponents, AbstractPlayController){
+	function(PhaserComponents, AbstractPlayController){
 	
 	"use strict";
 

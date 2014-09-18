@@ -1,14 +1,14 @@
-define( ['phaser', 'app/consts/progtypes', 'app/logocommands/commandtypes',
+define( ['app/logocommands/commandtypes',
 
-	'app/prog/dropview', 'app/consts/proglayout', 'app/assets', 'phasercomponents',
+	'phasercomponents',
 
-	'app/prog/abstracttarget', 'app/prog/abstractprogcontroller'],
+	'app/prog/abstractprogcontroller'],
 
-	function(Phaser, ProgTypes, CommandTypes,
+	function(CommandTypes,
 
-		DropView, ProgLayout, Assets, PhaserComponents,
+		PhaserComponents,
 
-		AbstractTarget, AbstractProgController){
+		AbstractProgController){
 	
 	"use strict";
 
@@ -19,7 +19,7 @@ define( ['phaser', 'app/consts/progtypes', 'app/logocommands/commandtypes',
 	PhaserComponents.Utils.extends(ProgController, AbstractProgController);
 
 	ProgController.prototype.getAllCommands = function() {
-		var that = this, json = this.model.toJson(), hitzone, commands = [], command;
+		var json = this.model.toJson(), hitzone, commands = [], command;
 		json.forEach(function(hitZoneRow){
 			hitzone = hitZoneRow[0];
 			if(hitzone && hitzone.type === 0){

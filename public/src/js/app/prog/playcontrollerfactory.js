@@ -1,8 +1,8 @@
-define( ['app/consts/commandpaneltypes', 'app/prog/linearplaycontroller',
+define( ['app/prog/linearplaycontroller',
 
 	'app/prog/dbllinearplaycontroller', 'app/prog/loopplaycontroller', 'app/consts/progtypes'],
 
-	function(CommandPanelTypes, LinearPlayController,
+	function(LinearPlayController,
 
 		DblLinearPlayController, LoopPlayController, ProgTypes){
 	

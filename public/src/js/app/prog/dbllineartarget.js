@@ -1,7 +1,7 @@
 
-define( ['app/prog/dropview', 'phasercomponents', 'app/consts/proglayout', 'app/assets', 'app/prog/abstracttarget'],
+define( ['phasercomponents', 'app/prog/abstracttarget', 'app/consts/proglayout', 'app/assets', 'app/prog/dropview'],
 
-	function(DropView, PhaserComponents, ProgLayout, Assets, AbstractTarget){
+	function(PhaserComponents, AbstractTarget, ProgLayout, Assets, DropView){
 	
 	"use strict";
 
@@ -36,11 +36,11 @@ define( ['app/prog/dropview', 'phasercomponents', 'app/consts/proglayout', 'app/
 	};
 
 	DblLinearTarget.prototype.addBlocks = function(){
-		var i, target, column, row, numTargets = ProgLayout.DBL_LINEAR.num, bounds;
+		var i, column, row, numTargets = ProgLayout.DBL_LINEAR.num, bounds;
 		for(i = 0; i < numTargets; i++){
 			column = Math.round(i/numTargets);
 			row = i - column*numTargets/2;
-			bounds = {'x':this.bounds.x + (this.bounds.w - DropView.WIDTH)/2 + column*120, 'y':this.bounds.y + 60 + 55*row};
+			bounds = {'x':this.bounds.x + (this.bounds.w - DropView.SMALL_WIDTH)/2 + column*120, 'y':this.bounds.y + 60 + 55*row};
 			this.addTarget({'index':i, 'bounds':bounds, 'asset':Assets.DRAG_TARGET_SMALL});
 		}
 	};

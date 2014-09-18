@@ -1,14 +1,6 @@
-define( ['phaser', 'app/consts/progtypes',
+define( ['phasercomponents', 'app/prog/abstractprogcontroller', 'app/logocommands/commandtypes'],
 
-	'app/prog/dropview', 'app/consts/proglayout', 'app/assets',
-
-	'phasercomponents', 'app/prog/abstracttarget', 'app/prog/abstractprogcontroller'],
-
-	function(Phaser, ProgTypes,
-
-		DropView, ProgLayout, Assets,
-
-		PhaserComponents, AbstractTarget, AbstractProgController){
+	function(PhaserComponents, AbstractProgController, CommandTypes){
 	
 	"use strict";
 
@@ -19,7 +11,7 @@ define( ['phaser', 'app/consts/progtypes',
 	PhaserComponents.Utils.extends(TurnKeysProgController, AbstractProgController);
 
 	TurnKeysProgController.prototype.getAllCommands = function() {
-		var that = this, type, json = this.model.toJson(), hitzone0, hitzone1, commands = [], command;
+		var type, json = this.model.toJson(), hitzone0, hitzone1, commands = [], command;
 		json.forEach(function(hitZoneRow){
 			hitzone0 = hitZoneRow[0];
 			hitzone1 = hitZoneRow[1];
