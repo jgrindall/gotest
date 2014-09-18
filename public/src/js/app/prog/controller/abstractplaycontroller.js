@@ -20,7 +20,7 @@ define( [],
 		var that = this;
 		commands.forEach(function(command){
 			if(command){
-				that.parent.addCommand(command.direction, command.type, command.total);
+				that.parent.addCommands(command.direction, command.type, command.total);
 			}
 		});
 	};

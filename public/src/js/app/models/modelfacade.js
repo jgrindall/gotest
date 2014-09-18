@@ -205,7 +205,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.progTypeModel.set(json.settings.prog);
 		this.stepLengthModel.set(json.settings.stepLength);
 		this.nameModel.set(json.settings.name);
-		this.progNumModel.set(json.settings.name);
+		this.progNumModel.set(json.settings.progNum);
 		this.commModel.set(json.commands);
 		this.progModel.set(json.prog);
 	};

@@ -131,17 +131,15 @@ define(
 		json = ModelFacade.getInstance().get(ModelFacade.PROG).get();
 		numTargets = Math.min(json.length, this.targets.length);
 		for(i = 0; i < numTargets; i++){
-			console.log("loading row: "+i+":  "+JSON.stringify(json[i]));
 			for(j = 0; j < json[i].length; j++){
 				obj = json[i][j];
-				console.log("loading: "+JSON.stringify(obj));
 				if(obj.type !== null && obj.type !== undefined){					
 					drag = this.addDrag(obj.type, obj.index, false, {'x':0, 'y':0});
-					console.log("drag "+drag);
 					this.dragManager.snapTo(drag, i, j);
 				}
 			}
 		}
+		this.onEdited();
 	};
 
 	ProgCommandPanel.prototype.addProgController = function(){
@@ -190,8 +188,8 @@ define(
 	};
 
 	ProgCommandPanel.prototype.clickPlay = function() {
-		var commandList = this.progController.getAllCommands();
-		this.playController.addCommands(commandList);
+		var commands = this.progController.getAllCommands();
+		this.playController.addCommands(commands);
 	};
 	
 	ProgCommandPanel.prototype.create = function() {

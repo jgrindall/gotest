@@ -22,6 +22,12 @@ function($, Phaser, PhaserStateTrans){
 		this.game.cy = h/2;
 	};
 
+	GameManager.prototype.destroy = function(){
+		this.game.destroy();
+		this.options = null;
+		this.game = null;
+	};
+
 	GameManager.prototype.mapScene = function(key, scene, first){
 		this.game.state.add(key, scene);
 		if(first){
@@ -115,6 +121,10 @@ function() {
 			cmd.game = this.game;
 			cmd.start(obj.data);
 		}
+	};
+
+	CommandMap.prototype.destroy = function(){
+		this.hash = [];
 	};
 
 	CommandMap.prototype.map = function(eventName, CommandClassRef){
@@ -368,6 +378,15 @@ define('phasercomponents/context',['jquery', 'phasercomponents/gamemanager',
 		Context.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
 		this.makeGame();
 		this.addResizeListeners();
+    };
+
+    Context.prototype.reload = function(){
+        this.shutdown();
+    };
+
+    Context.prototype.shutdown = function(){
+        this.gameManager.destroy();
+        this.commandMap.destroy();
     };
 
     Context.prototype.onChangeScene = function(){
@@ -2384,10 +2403,7 @@ define('phasercomponents/drag/dragmanager',
 	};
 
 	DragManager.prototype.snapTo = function(view, rowIndex, zoneIndex){
-		console.log("snapTo ", view, rowIndex, zoneIndex);
 		var hitzone = this.model.addView(view, rowIndex, zoneIndex);
-		console.log("hitzone ", hitzone);
-		console.log(this.targets[rowIndex] + "  bounds " + JSON.stringify(hitzone.bounds));
 		view.snap(this.targets[rowIndex], hitzone.bounds);
 	};
 

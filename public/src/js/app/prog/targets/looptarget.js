@@ -1,14 +1,10 @@
-define( ['phaser', 
-
-	'app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
+define( ['app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
 
 	'app/assets', 'app/prog/targets/abstracttarget',
 
 	'app/views/components/prognumbutton', 'app/models/modelfacade'],
 
-	function(Phaser, 
-		
-		DropView, ProgLayout, PhaserComponents,
+	function(DropView, ProgLayout, PhaserComponents,
 
 		Assets, AbstractTarget,
 

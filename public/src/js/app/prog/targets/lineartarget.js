@@ -1,8 +1,8 @@
-define( ['phaser', 	'app/prog/views/dropview', 'app/consts/proglayout',
+define( ['app/prog/views/dropview', 'app/consts/proglayout',
 
 	'app/assets', 'phasercomponents', 'app/prog/targets/abstracttarget'],
 
-	function(Phaser, DropView, ProgLayout,
+	function(DropView, ProgLayout,
 
 		Assets, PhaserComponents, AbstractTarget){
 	

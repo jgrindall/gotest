@@ -22,17 +22,17 @@ define( ['app/prog/views/dropview'],
 		this.addBlocks();
 	};
 
-	AbstractTarget.prototype.circle = function(p, clr){
-		this.gfx.beginFill(clr, 1);
-		this.gfx.drawCircle(p.x, p.y, width/2);
+	AbstractTarget.prototype.circle = function(p){
+		this.gfx.lineStyle(0, 0x000000, 0);
+		this.gfx.beginFill(0xffffff, 1);
+		this.gfx.drawCircle(p.x, p.y, AbstractTarget.LINE_THICK/2);
 		this.gfx.endFill();
 	};
 
 	AbstractTarget.prototype.drawLine = function(p0, p1){
-		this.gfx.lineStyle(AbstractTarget.LINE_THICK, 0xbbbbbb, 1);
-   		this.gfx.moveTo(p0.x + 1, p0.y + 1);
-   		this.gfx.lineTo(p1.x + 1, p1.y + 1);
-   		this.gfx.lineStyle(AbstractTarget.LINE_THICK, 0xffffff, 1);
+		this.circle(p0);
+		this.circle(p1);
+		this.gfx.lineStyle(AbstractTarget.LINE_THICK, 0xffffff, 1);
    		this.gfx.moveTo(p0.x, p0.y);
    		this.gfx.lineTo(p1.x, p1.y);
 	};

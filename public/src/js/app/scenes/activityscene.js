@@ -55,7 +55,9 @@ Events, Assets){
 		var bounds = {'x':0, 'y':0, 'w':Menu.WIDTH, 'h':Menu.HEIGHT};
 		this.menu = new Menu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
+		this.menu.group.y = -60;
 		this.world.add(this.menu.group);
+		this.game.add.tween(this.menu.group).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 0, false);
 	};
 	
 	ActivityScene.prototype.menuClick = function(data) {
@@ -90,7 +92,9 @@ Events, Assets){
 		var bounds = {"x":this.game.w - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":this.game.h};
 		this.removeControls();
 		this.controls = new Controls({"bounds":bounds});
+		this.controls.group.y = -50;
 		this.world.add(this.controls.group);
+		this.game.add.tween(this.controls.group).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 800, false);
 	};
 	
 	ActivityScene.prototype.destroy = function() {

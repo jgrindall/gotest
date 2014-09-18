@@ -33,7 +33,6 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget', 'app/consts/prog
 		xpos = [this.left, this.right];
 		w = DropView.SMALL_WIDTH/2;
 		w = 50;
-		console.log("w "+(DropView.SMALL_WIDTH) + "  "+(DropView.SMALL_WIDTH/2));
 		y0 = this.bounds.y + ProgLayout.DBL_LINEAR.blockTop;
 		for(i = 0; i < numTargets; i++){
 			column = Math.round(i/numTargets);
