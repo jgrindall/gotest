@@ -3,7 +3,7 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/colormodel', 'app/models/speedmodel',
 
-'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel',
+'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel', 'app/models/progmodel',
 
 'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel', 'app/models/prognummodel',
 
@@ -15,7 +15,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	ColorModel, SpeedModel,
 
-	PlayingModel, GridModel, AngleModel, 
+	PlayingModel, GridModel, AngleModel, ProgModel,
 
 	WidthModel, StepLengthModel, DiagModel, ProgNumModel,
 
@@ -44,6 +44,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.PROG_TYPE = 	"progType";
 	ModelFacade.ALLOW_PROG = 	"allowProg";
 	ModelFacade.PROG_NUM = 		"progNum";
+	ModelFacade.PROG = 			"prog";
 	ModelFacade.NAME = 			"name";
 	ModelFacade.TURTLE = 		"turtle";
 
@@ -93,6 +94,9 @@ function(CommModel, ScreenModel, BgModel,
 		else if(name === ModelFacade.PROG_TYPE){
 			return this.progTypeModel;
 		}
+		else if(name === ModelFacade.PROG){
+			return this.progModel;
+		}
 		else if(name === ModelFacade.ALLOW_PROG){
 			return this.allowProgModel;
 		}
@@ -118,6 +122,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.screenModel = new ScreenModel();
 		this.commTickerModel = new CommTickerModel();
 		this.progTypeModel = new ProgTypeModel();
+		this.progModel = new ProgModel();
 		this.allowProgModel = new AllowProgModel();
 		this.turtleModel = new TurtleModel();
 		this.nameModel = new NameModel();
@@ -202,6 +207,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.nameModel.set(json.settings.name);
 		this.progNumModel.set(json.settings.name);
 		this.commModel.set(json.commands);
+		this.progModel.set(json.prog);
 	};
 
 	ModelFacade.prototype.getJson = function() {
@@ -221,6 +227,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.progNum =	 	this.progNumModel.get();
 		settings.name =	 		this.nameModel.get();
 		json.commands = 		this.commModel.toJson();
+		json.prog = 			this.progModel.get();
 		json.settings = settings;
 		return json;
 	};

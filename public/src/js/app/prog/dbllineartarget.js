@@ -6,7 +6,6 @@ define( ['app/prog/dropview', 'phasercomponents', 'app/consts/proglayout', 'app/
 	"use strict";
 
 	var DblLinearTarget = function(parent){
-		console.log("dbl constructor");
 		AbstractTarget.call(this, parent);
 	};
 

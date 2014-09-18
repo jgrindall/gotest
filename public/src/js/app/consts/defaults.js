@@ -25,7 +25,8 @@ define([], function() {
 
 	Defaults.DEFAULT_JSON = {
 		'settings':Defaults.SETTINGS,
-		'commands':[]
+		'commands':[],
+		'prog':[]
 	};
 	
 	return Defaults;

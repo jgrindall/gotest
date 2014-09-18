@@ -17,7 +17,6 @@ define( ['app/prog/lineartarget', 'app/prog/dbllineartarget',
 			return new LinearTarget(parent);
 		}
 		else if(type === ProgTypes.DBL_LINEAR){
-			console.log("dbl");
 			return new DblLinearTarget(parent);
 		}
 		else if(type === ProgTypes.LOOP){

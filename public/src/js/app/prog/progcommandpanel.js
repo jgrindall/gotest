@@ -47,13 +47,13 @@ define(
 	};
 
 	ProgCommandPanel.prototype.clickButton = function(data){
-		var type, index, tick, turn;
+		var type, index, drag, turn;
 		type = data.target.options.type;
 		index = data.target.options.index;
 		turn = data.target.options.turn;
 		if(this.dragManager && this.dragManager.enabled){
-			tick = this.addDrag(type, index, turn, {'x':data.target.sprite.x, 'y':data.target.sprite.y});
-			this.dragManager.startDrag(tick);
+			drag = this.addDrag(type, index, turn, {'x':data.target.sprite.x, 'y':data.target.sprite.y});
+			this.dragManager.startDrag(drag);
 		}
 	};
 
@@ -94,10 +94,10 @@ define(
 	};
 
 	ProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
-		var tick = new DragView({"type":type, "turn":turn, "index":index, 'bounds':bounds});
-		this.group.add(tick.sprite);
-		this.dragManager.addDrag(tick);
-		return tick;
+		var drag = new DragView({"type":type, "turn":turn, "index":index, 'bounds':bounds});
+		this.group.add(drag.sprite);
+		this.dragManager.addDrag(drag);
+		return drag;
 	};
 
 	ProgCommandPanel.prototype.getButtonPos = function(i, j){
@@ -125,22 +125,22 @@ define(
 		localStorage.setItem("jsonData", jsonString);
 	};
 
-	ProgCommandPanel.prototype.onLoadClick = function(){
-		/*
-		var i, j, json, jsonString, obj, tick;
+	ProgCommandPanel.prototype.load = function(){
+		var json, i, j, obj, drag;
 		this.dragManager.clear();
-		jsonString = localStorage.getItem("jsonData");
-		json = JSON.parse(jsonString);
+		json = ModelFacade.getInstance().get(ModelFacade.PROG).get();
 		for(i = 0; i < json.length; i++){
+			console.log("loading row: "+i+":  "+JSON.stringify(json[i]));
 			for(j = 0; j < json[i].length; j++){
 				obj = json[i][j];
-				if(obj.type !== null && obj.type !== undefined){
-					tick = this.addDrag(obj.type, obj.index);
-					this.dragManager.snapTo(tick, i, j);
+				console.log("loading: "+JSON.stringify(obj));
+				if(obj.type !== null && obj.type !== undefined){					
+					drag = this.addDrag(obj.type, obj.index, false, {'x':0, 'y':0});
+					console.log("drag "+drag);
+					this.dragManager.snapTo(drag, i, j);
 				}
 			}
 		}
-		*/
 	};
 
 	ProgCommandPanel.prototype.addProgController = function(){
@@ -205,9 +205,11 @@ define(
 		this.addPlay();
 		this.addClear();
 		this.initDrag();
+		this.load();
 	};
 
 	ProgCommandPanel.prototype.onEdited = function() {
+		ModelFacade.getInstance().get(ModelFacade.PROG).set(this.model.toJson());
 		var enable = this.startEnabled();
 		if(enable){
 			this.enableStart();
