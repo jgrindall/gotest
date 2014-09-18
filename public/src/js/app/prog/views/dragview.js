@@ -1,6 +1,6 @@
 define(
 
-	['phasercomponents', 'app/prog/abstractdragview', 'app/assets'],
+	['phasercomponents', 'app/prog/views/abstractdragview', 'app/assets'],
 
 	function(PhaserComponents, AbstractDragView, Assets){
 	

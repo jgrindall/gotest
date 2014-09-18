@@ -1,6 +1,6 @@
 define( ['phasercomponents',
 
-	'app/prog/controller/abstractprogcontroller', 'app/logocommands/commandtypes'],
+	'app/prog/abstractprogcontroller', 'app/logocommands/commandtypes'],
 
 	function(PhaserComponents,
 

@@ -1,4 +1,4 @@
-define( ['app/prog/dropview'],
+define( ['app/prog/views/dropview'],
 
 	function(DropView){
 	

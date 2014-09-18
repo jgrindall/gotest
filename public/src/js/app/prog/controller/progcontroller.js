@@ -2,7 +2,7 @@ define( ['app/logocommands/commandtypes',
 
 	'phasercomponents',
 
-	'app/prog/controller/abstractprogcontroller'],
+	'app/prog/abstractprogcontroller'],
 
 	function(CommandTypes,
 

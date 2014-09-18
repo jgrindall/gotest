@@ -2,13 +2,13 @@ define(
 
 	['phasercomponents', 'app/views/buttons/dragbutton', 
 
-	'app/prog/dragview', 'app/prog/accepter', 'app/consts/commandpaneltypes',
+	'app/prog/views/dragview', 'app/prog/accepter', 'app/consts/commandpaneltypes',
 
 	'app/views/commandpanels/abstractcommandspanel', 'app/views/buttons/closebutton',
 
-	'app/views/buttons/playbutton', 'app/prog/progcontrollerfactory', 'app/prog/playcontrollerfactory',
+	'app/views/buttons/playbutton', 'app/prog/controller/progcontrollerfactory', 'app/prog/controller/playcontrollerfactory',
 
-	'app/prog/targetfactory', 'app/models/modelfacade', 'app/consts/playingstate'],
+	'app/prog/targets/targetfactory', 'app/models/modelfacade', 'app/consts/playingstate'],
 
 	function(PhaserComponents, DragButton,
 

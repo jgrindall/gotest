@@ -2,7 +2,7 @@ define( ['phaser',
 
 	'app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
 
-	'app/assets', 'app/prog/targets/abstracttarget',
+	'app/assets', 'app/prog/abstracttarget',
 
 	'app/views/components/prognumbutton', 'app/models/modelfacade'],
 

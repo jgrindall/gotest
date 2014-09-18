@@ -1,6 +1,6 @@
-define( ['app/consts/commandpaneltypes', 'app/prog/controller/progcontroller',
+define( ['app/consts/commandpaneltypes', 'app/prog/progcontroller',
 
-	'app/prog/controller/keysprogcontroller', 'app/prog/controller/turnkeysprogcontroller'],
+	'app/prog/keysprogcontroller', 'app/prog/turnkeysprogcontroller'],
 
 	function(CommandPanelTypes, ProgController,
 

@@ -1,4 +1,4 @@
-define( ['phasercomponents', 'app/prog/controller/abstractplaycontroller'],
+define( ['phasercomponents', 'app/prog/abstractplaycontroller'],
 
 	function(PhaserComponents, AbstractPlayController){
 	

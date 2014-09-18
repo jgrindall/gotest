@@ -1,6 +1,6 @@
-define( ['app/prog/controller/linearplaycontroller',
+define( ['app/prog/linearplaycontroller',
 
-	'app/prog/controller/dbllinearplaycontroller', 'app/prog/controller/loopplaycontroller', 'app/consts/progtypes'],
+	'app/prog/dbllinearplaycontroller', 'app/prog/loopplaycontroller', 'app/consts/progtypes'],
 
 	function(LinearPlayController,
 

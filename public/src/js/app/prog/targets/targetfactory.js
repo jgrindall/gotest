@@ -1,6 +1,6 @@
-define( ['app/prog/targets/lineartarget', 'app/prog/targets/dbllineartarget',
+define( ['app/prog/lineartarget', 'app/prog/dbllineartarget',
 
-	'app/prog/targets/looptarget', 'app/consts/progtypes'],
+	'app/prog/looptarget', 'app/consts/progtypes'],
 
 	function(LinearTarget, DblLinearTarget,
 

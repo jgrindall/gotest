@@ -1,6 +1,6 @@
 define( ['phaser', 	'app/prog/views/dropview', 'app/consts/proglayout',
 
-	'app/assets', 'phasercomponents', 'app/prog/targets/abstracttarget'],
+	'app/assets', 'phasercomponents', 'app/prog/abstracttarget'],
 
 	function(Phaser, DropView, ProgLayout,
 
