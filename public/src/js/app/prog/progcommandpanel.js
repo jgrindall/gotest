@@ -2,41 +2,51 @@ define(
 
 	['phasercomponents', 'app/views/buttons/dragbutton', 
 
-	'app/prog/dragview', 'app/prog/accepter',
+	'app/prog/dragview', 'app/prog/accepter', 'app/consts/commandpaneltypes',
 
 	'app/views/commandpanels/abstractcommandspanel', 'app/views/buttons/closebutton',
 
-	'app/views/buttons/playbutton',
+	'app/views/buttons/playbutton', 'app/prog/progcontrollerfactory', 'app/prog/playcontrollerfactory',
 
-	'app/prog/targetbuilder', 'app/models/modelfacade'],
+	'app/prog/targetfactory', 'app/models/modelfacade', 'app/consts/playingstate'],
 
 	function(PhaserComponents, DragButton,
 
-		DragView, Accepter,
+		DragView, Accepter, CommandPanelTypes, 
 
 		AbstractCommandsPanel, CloseButton,
 
-		PlayButton,
+		PlayButton, ProgControllerFactory, PlayControllerFactory,
 
-		TargetBuilder, ModelFacade){
+		TargetFactory, ModelFacade, PlayingState){
 	
 	"use strict";
 
-	var AbstractProgCommandPanel = function(options){
+	var ProgCommandPanel = function(options){
 		this.buttons = [];
 		this.targets = [];
 		AbstractCommandsPanel.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 	};
 
-	PhaserComponents.Utils.extends(AbstractProgCommandPanel, AbstractCommandsPanel);
+	PhaserComponents.Utils.extends(ProgCommandPanel, AbstractCommandsPanel);
 
-	AbstractProgCommandPanel.prototype.setProgress = function(){
+	ProgCommandPanel.prototype.setProgress = function(){
 		
 	};
 
-	AbstractProgCommandPanel.prototype.clickButton = function(data){
+	ProgCommandPanel.prototype.playingChanged = function(value){
+		if(value === PlayingState.PLAYING){
+			this.disableInput();
+		}
+		else if(value=== PlayingState.NOT_PLAYING){
+			this.enableInput();
+		}
+	};
+
+	ProgCommandPanel.prototype.clickButton = function(data){
 		var type, index, tick, turn;
 		type = data.target.options.type;
 		index = data.target.options.index;
@@ -47,54 +57,54 @@ define(
 		}
 	};
 
-	AbstractProgCommandPanel.prototype.disableInput = function(){
+	ProgCommandPanel.prototype.disableInput = function(){
 		this.dragManager.disableInput();
 		this.disableStart();
 		this.disableClear();
 	};
 	
-	AbstractProgCommandPanel.prototype.enableInput = function(){
+	ProgCommandPanel.prototype.enableInput = function(){
 		this.dragManager.enableInput();
 		this.enableStart();
 		this.enableClear();
 	};
 
-	AbstractProgCommandPanel.prototype.disableStart = function(){
+	ProgCommandPanel.prototype.disableStart = function(){
 		if(this.playButton.mouseUpSignal.has(this.clickPlay, this)){
 			this.playButton.mouseUpSignal.remove(this.clickPlay, this);
 		}	
 	};
 	
-	AbstractProgCommandPanel.prototype.enableStart = function(){
+	ProgCommandPanel.prototype.enableStart = function(){
 		if(!this.playButton.mouseUpSignal.has(this.clickPlay, this)){
 			this.playButton.mouseUpSignal.add(this.clickPlay, this);
 		}
 	};
 
-	AbstractProgCommandPanel.prototype.disableClear = function(){
+	ProgCommandPanel.prototype.disableClear = function(){
 		if(this.clearButton.mouseUpSignal.has(this.clickClear, this)){
 			this.clearButton.mouseUpSignal.remove(this.clickClear, this);
 		}	
 	};
 	
-	AbstractProgCommandPanel.prototype.enableClear = function(){
+	ProgCommandPanel.prototype.enableClear = function(){
 		if(!this.clearButton.mouseUpSignal.has(this.clickClear, this)){
 			this.clearButton.mouseUpSignal.add(this.clickClear, this);
 		}
 	};
 
-	AbstractProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
+	ProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
 		var tick = new DragView({"type":type, "turn":turn, "index":index, 'bounds':bounds});
 		this.group.add(tick.sprite);
 		this.dragManager.addDrag(tick);
 		return tick;
 	};
 
-	AbstractProgCommandPanel.prototype.getButtonPos = function(i, j){
+	ProgCommandPanel.prototype.getButtonPos = function(i, j){
 		return {'x':this.bounds.x + 10 + 32*i, 'y':this.bounds.y + 10 + 40*j};
 	};
 
-	AbstractProgCommandPanel.prototype.addButtons = function(){
+	ProgCommandPanel.prototype.addButtons = function(){
 		var i, j, button, buttons, bounds, data, options;
 		buttons = this.options.buttons;
 		for(i = 0; i < buttons.length; i++){
@@ -110,12 +120,12 @@ define(
 		}
 	};
 
-	AbstractProgCommandPanel.prototype.onSaveClick = function(){
+	ProgCommandPanel.prototype.onSaveClick = function(){
 		var jsonString = JSON.stringify(this.model.toJson());
 		localStorage.setItem("jsonData", jsonString);
 	};
 
-	AbstractProgCommandPanel.prototype.onLoadClick = function(){
+	ProgCommandPanel.prototype.onLoadClick = function(){
 		/*
 		var i, j, json, jsonString, obj, tick;
 		this.dragManager.clear();
@@ -133,11 +143,20 @@ define(
 		*/
 	};
 
-	AbstractProgCommandPanel.prototype.addTargets = function(){
-		new TargetBuilder(this.options.targets).build(this);
+	ProgCommandPanel.prototype.addProgController = function(){
+		this.progController = ProgControllerFactory.make(this.options.type, this);
 	};
 
-	AbstractProgCommandPanel.prototype.initDrag = function(){
+	ProgCommandPanel.prototype.addPlayController = function(){
+		this.playController = PlayControllerFactory.make(this.options.targets, this);
+	};
+
+	ProgCommandPanel.prototype.addTargets = function(){
+		this.targetObj = TargetFactory.make(this.options.targets, this);
+		this.targetObj.build();
+	};
+
+	ProgCommandPanel.prototype.initDrag = function(){
 		var i, j, hitZones, hitZone, hitZoneRow, h;
 		hitZones = this.options.hitzones;
 		for(i = 0; i < hitZones.length; i++){
@@ -151,40 +170,44 @@ define(
 		}
 	};
 
-	AbstractProgCommandPanel.prototype.addPlay = function() {
+	ProgCommandPanel.prototype.addPlay = function() {
 		var options = {"bounds":{'x':this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.playButton = new PlayButton(options);
 		this.group.add(this.playButton.sprite);
 	};
 
-	AbstractProgCommandPanel.prototype.addClear = function() {
+	ProgCommandPanel.prototype.addClear = function() {
 		var options = {"bounds":{'x':this.bounds.x + 100 + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.clearButton = new CloseButton(options);
 		this.clearButton.sprite.scale = {'x':0.5, 'y':0.5};
 		this.group.add(this.clearButton.sprite);
+		this.enableClear();
 	};
 
-	AbstractProgCommandPanel.prototype.clickClear = function() {
+	ProgCommandPanel.prototype.clickClear = function() {
 		this.dragManager.clear();
 	};
 
-	AbstractProgCommandPanel.prototype.clickPlay = function() {
-		this.addAllCommands();
+	ProgCommandPanel.prototype.clickPlay = function() {
+		var commandList = this.progController.getAllCommands();
+		this.playController.addCommands(commandList);
 	};
 	
-	AbstractProgCommandPanel.prototype.create = function() {
+	ProgCommandPanel.prototype.create = function() {
 		AbstractCommandsPanel.prototype.create.call(this);
 		this.model = new PhaserComponents.Drag.DragModel();
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.game, {"model":this.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.dragManager.editSignal.add(this.onEdited, this);
 		this.addButtons();
 		this.addTargets();
+		this.addProgController();
+		this.addPlayController();
 		this.addPlay();
 		this.addClear();
 		this.initDrag();
 	};
 
-	AbstractProgCommandPanel.prototype.onEdited = function() {
+	ProgCommandPanel.prototype.onEdited = function() {
 		var enable = this.startEnabled();
 		if(enable){
 			this.enableStart();
@@ -194,7 +217,7 @@ define(
 		}
 	};
 
-	AbstractProgCommandPanel.prototype.removeTargets = function() {
+	ProgCommandPanel.prototype.removeTargets = function() {
 		var target, i;
 		for(i = 0; i < this.targets.length; i++){
 			target = this.targets[i];
@@ -204,7 +227,7 @@ define(
 		this.targets = [];
 	};
 
-	AbstractProgCommandPanel.prototype.removeButtons = function() {
+	ProgCommandPanel.prototype.removeButtons = function() {
 		var button, i;
 		for(i = 0; i < this.buttons.length; i++){
 			button = this.buttons[i];
@@ -215,7 +238,19 @@ define(
 		this.buttons = [];
 	};
 
-	AbstractProgCommandPanel.prototype.startEnabled = function() {
+	ProgCommandPanel.prototype.isFull = function(hitZoneRow) {
+		var hitZone0, hitZone1;
+		hitZone0 = hitZoneRow[0];
+		hitZone1 = hitZoneRow[1];
+		if(this.options.type === CommandPanelTypes.NSEW){
+			return (typeof hitZone0.type === 'number');
+		}
+		else{
+			return ( (typeof hitZone0.type === 'number') && (typeof hitZone1.type === 'number'));
+		}
+	};
+
+	ProgCommandPanel.prototype.startEnabled = function() {
 		var i, hitZoneRow, json = this.model.toJson();
 		for(i = 0; i < json.length; i++){
 			hitZoneRow = json[i];
@@ -226,20 +261,27 @@ define(
 		return false;
 	};
 
-	AbstractProgCommandPanel.prototype.destroy = function() {
+	ProgCommandPanel.prototype.destroy = function() {
 		this.disableInput();
 		this.model = null;
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
 		this.dragManager.editSignal.remove(this.onEdited, this);
 		this.dragManager.destroy();
 		this.dragManager = null;
+		this.targetObj.destroy();
+		this.targetObj = null;
+		//TODO - more
 		this.group.remove(this.playButton.sprite);
+		this.group.remove(this.clearButton.sprite);
 		this.removeTargets();
 		this.removeButtons();
 		AbstractCommandsPanel.prototype.destroy.call(this);
 	};
 
-	return AbstractProgCommandPanel;
+	return ProgCommandPanel;
 });
+
+
 

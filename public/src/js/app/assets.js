@@ -29,6 +29,7 @@ define([], function(){
 	Assets.DRAG_ARROW = 			'dragarrow';
 	Assets.BUTTON = 				'button';
 	Assets.CONTROL_BAR =			'controlbar';
+	Assets.PROG_NUM =				'progNum';
 	Assets.ARROWS = 				'arrows';
 	Assets.LEFTRIGHT = 				'leftright';
 	Assets.SETTINGS1 = 				'settings1';
@@ -40,6 +41,7 @@ define([], function(){
 	Assets.SLIDERHL = 				'sliderhl';
 	Assets.SLIDERHANDLE = 			'sliderhandle';
 	Assets.DRAG_TARGET =			'dragtarget';
+	Assets.DRAG_TARGET_SMALL =		'dragtargetsmall';
 	Assets.PENS = 					'pens';
 	Assets.WIDTHS = 				['width0', 'width1', 'width2', 'width3', 'width4', 'width5', 'width6', 'width7', 'width8', 'width9', 'width10'];
 	Assets.TOGGLE = 				'toggle';
@@ -48,6 +50,7 @@ define([], function(){
 	
 	Assets.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":160, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtargetsmall.png",	 		"key":Assets.DRAG_TARGET_SMALL,			"w":95, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/controlbar.png",	 			"key":Assets.CONTROL_BAR,				"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragbuttons.png",	 			"key":Assets.DRAG_BUTTON,				"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragarrows.png",	 			"key":Assets.DRAG_ARROW,				"w":32, 	"h":32},
@@ -56,6 +59,7 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/settings/settings2.png",	 			"key":Assets.SETTINGS2,					"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/settings/settings3.png",	 			"key":Assets.SETTINGS3,					"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/markers.png", 				"key":Assets.MARKERS, 					"w":50, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/prognum.png", 				"key":Assets.PROG_NUM, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/buttons.png", 				"key":Assets.BUTTON, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/arrows.png", 				"key":Assets.ARROWS, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/leftright.png", 				"key":Assets.LEFTRIGHT, 				"w":60, 	"h":80},

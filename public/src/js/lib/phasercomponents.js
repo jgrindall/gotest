@@ -1810,17 +1810,40 @@ function(MovieClip, Utils, AppEvents){
 
 
 
+define('phasercomponents/display/buttongrid/steppermodel',
+
+	['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
+
+function(AbstractModel, Utils){
+	
+	
+	
+	var StepperModel  = function(){
+		AbstractModel.call(this);
+	};
+	
+	Utils.extends(StepperModel, AbstractModel);
+	
+	return StepperModel;
+
+});
+	
+
+define("phasercomponents/display/buttons/steppermodel", function(){});
+
+
 define('phasercomponents/display/buttons/stepperbutton',[ 
 	
 'phasercomponents/display/movieclip', 'phasercomponents/utils/utils',
 
-'phasercomponents/events/appevents'],
+'phasercomponents/events/appevents', 'phasercomponents/display/buttons/steppermodel'],
 
-function(MovieClip, Utils, AppEvents){
+function(MovieClip, Utils, AppEvents, StepperModel){
 	
 	
 	
 	var StepperButton = function(options){
+		options.model = options.model || new StepperModel();
 		MovieClip.call(this, options);
 		this.mouseUpSignal.add(this.onStep, this);
 		this.model.changeSignal.add(this.onChanged, this);

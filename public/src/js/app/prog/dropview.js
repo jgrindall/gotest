@@ -1,11 +1,10 @@
-define( ['phasercomponents', 'app/assets'],
+define( ['phasercomponents'],
 
-	function(PhaserComponents, Assets){
+	function(PhaserComponents){
 
 	"use strict";
 
 	var DropView = function(options){
-		options.asset = Assets.DRAG_TARGET;
 		options.numFrames = 2;
 		PhaserComponents.Drag.AbstractDropView.call(this, options);
 	};

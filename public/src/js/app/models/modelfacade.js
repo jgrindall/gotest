@@ -5,7 +5,7 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel',
 
-'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
+'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel', 'app/models/prognummodel',
 
 'app/models/progtypemodel', 'app/models/allowprogmodel', 'app/models/turtlemodel', 'app/models/namemodel',
 
@@ -17,7 +17,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	PlayingModel, GridModel, AngleModel, 
 
-	WidthModel, StepLengthModel, DiagModel,
+	WidthModel, StepLengthModel, DiagModel, ProgNumModel,
 
 	ProgTypeModel, AllowProgModel, TurtleModel, NameModel,
 
@@ -43,6 +43,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.ANGLE = 		"angle";
 	ModelFacade.PROG_TYPE = 	"progType";
 	ModelFacade.ALLOW_PROG = 	"allowProg";
+	ModelFacade.PROG_NUM = 		"progNum";
 	ModelFacade.NAME = 			"name";
 	ModelFacade.TURTLE = 		"turtle";
 
@@ -76,6 +77,9 @@ function(CommModel, ScreenModel, BgModel,
 		}
 		else if(name === ModelFacade.PLAYING){
 			return this.playingModel;
+		}
+		else if(name === ModelFacade.PROG_NUM){
+			return this.progNumModel;
 		}
 		else if(name === ModelFacade.GRID){
 			return this.gridModel;
@@ -117,6 +121,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.allowProgModel = new AllowProgModel();
 		this.turtleModel = new TurtleModel();
 		this.nameModel = new NameModel();
+		this.progNumModel = new ProgNumModel();
 	};
 
 	ModelFacade.prototype.init = function(){
@@ -195,6 +200,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.progTypeModel.set(json.settings.prog);
 		this.stepLengthModel.set(json.settings.stepLength);
 		this.nameModel.set(json.settings.name);
+		this.progNumModel.set(json.settings.name);
 		this.commModel.set(json.commands);
 	};
 
@@ -212,6 +218,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.color =	 	this.colorModel.get();
 		settings.allowProg =	this.allowProgModel.get();
 		settings.diag =	 		this.diagModel.get();
+		settings.progNum =	 	this.progNumModel.get();
 		settings.name =	 		this.nameModel.get();
 		json.commands = 		this.commModel.toJson();
 		json.settings = settings;

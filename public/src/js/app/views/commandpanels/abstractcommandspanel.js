@@ -24,11 +24,11 @@ Events){
 	AbstractCommandsPanel.prototype.enableInput = function(){
 	
 	};
-
+	
 	AbstractCommandsPanel.prototype.addCommand = function(direction, type){
 		this.addCommands(direction, type, 1);
 	};
-	
+
 	AbstractCommandsPanel.prototype.addCommands = function(direction, type, total){
 		var index, json;
 		for(index = 0; index < total; index++){

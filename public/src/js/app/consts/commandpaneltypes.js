@@ -13,7 +13,6 @@ function(){
 	CommandPanelTypes.NSEW_KEYS = 		1;
 	CommandPanelTypes.NSEW_45_KEYS = 	2;
 	CommandPanelTypes.TURNING_KEYS = 	3;
-	CommandPanelTypes.PROG0 = 			4;
 	
 	return CommandPanelTypes;
 });
