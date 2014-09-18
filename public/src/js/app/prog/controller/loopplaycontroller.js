@@ -21,7 +21,7 @@ define( ['phasercomponents',
 			for(j = 0; j < commands.length; j++){
 				command = commands[j];
 				if(command){
-					that.parent.addCommand(command.direction, command.type, command.total);
+					that.parent.addCommands(command.direction, command.type, command.total);
 				}
 			}
 		}
