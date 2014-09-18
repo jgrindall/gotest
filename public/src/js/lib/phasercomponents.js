@@ -46,7 +46,7 @@ function($, Phaser, PhaserStateTrans){
 		el = $("#"+this.options.containerTagId); 
 		ratio  = 4/3;
 		w = el.width();
-		h = el.height();
+		h = el.height() - 50; //TODO - this needs changing!
 		if(w/h > ratio){
 			size = {"w":ratio*h, "h":h};
 		}
@@ -1822,6 +1822,11 @@ function(AbstractModel, Utils){
 		AbstractModel.call(this);
 	};
 	
+	StepperModel.prototype.increment = function() {
+		var newValue = (this.get() + 1) % 4;
+		this.set(newValue);
+	};
+
 	Utils.extends(StepperModel, AbstractModel);
 	
 	return StepperModel;
@@ -2379,7 +2384,10 @@ define('phasercomponents/drag/dragmanager',
 	};
 
 	DragManager.prototype.snapTo = function(view, rowIndex, zoneIndex){
+		console.log("snapTo ", view, rowIndex, zoneIndex);
 		var hitzone = this.model.addView(view, rowIndex, zoneIndex);
+		console.log("hitzone ", hitzone);
+		console.log(this.targets[rowIndex] + "  bounds " + JSON.stringify(hitzone.bounds));
 		view.snap(this.targets[rowIndex], hitzone.bounds);
 	};
 
