@@ -1,4 +1,4 @@
-define( ['phasercomponents', 'app/prog/abstractprogcontroller', 'app/logocommands/commandtypes'],
+define( ['phasercomponents', 'app/prog/controller/abstractprogcontroller', 'app/logocommands/commandtypes'],
 
 	function(PhaserComponents, AbstractProgController, CommandTypes){
 	

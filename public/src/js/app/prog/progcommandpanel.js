@@ -126,10 +126,11 @@ define(
 	};
 
 	ProgCommandPanel.prototype.load = function(){
-		var json, i, j, obj, drag;
+		var json, i, j, obj, drag, numTargets;
 		this.dragManager.clear();
 		json = ModelFacade.getInstance().get(ModelFacade.PROG).get();
-		for(i = 0; i < json.length; i++){
+		numTargets = Math.min(json.length, this.targets.length);
+		for(i = 0; i < numTargets; i++){
 			console.log("loading row: "+i+":  "+JSON.stringify(json[i]));
 			for(j = 0; j < json[i].length; j++){
 				obj = json[i][j];

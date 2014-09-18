@@ -1,6 +1,6 @@
 define( ['phasercomponents', 
 
-	'app/prog/abstractplaycontroller', 'app/models/modelfacade'],
+	'app/prog/controller/abstractplaycontroller', 'app/models/modelfacade'],
 
 	function(PhaserComponents,
 

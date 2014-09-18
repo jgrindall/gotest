@@ -8,13 +8,33 @@ define( ['app/prog/views/dropview'],
 		this.parent = parent;
 		this.group = parent.group;
 		this.bounds = parent.bounds;
+		this.middle = this.bounds.x + this.bounds.w/2;
 		this.game = parent.game;
 		this.targets = parent.targets;
+		this.gfx = new Phaser.Graphics(this.game, 0, 0);
+		this.group.add(this.gfx);
 	};
+
+	AbstractTarget.LINE_THICK = 8;
 
 	AbstractTarget.prototype.build = function(){
 		this.decorate();
 		this.addBlocks();
+	};
+
+	AbstractTarget.prototype.circle = function(p, clr){
+		this.gfx.beginFill(clr, 1);
+		this.gfx.drawCircle(p.x, p.y, width/2);
+		this.gfx.endFill();
+	};
+
+	AbstractTarget.prototype.drawLine = function(p0, p1){
+		this.gfx.lineStyle(AbstractTarget.LINE_THICK, 0xbbbbbb, 1);
+   		this.gfx.moveTo(p0.x + 1, p0.y + 1);
+   		this.gfx.lineTo(p1.x + 1, p1.y + 1);
+   		this.gfx.lineStyle(AbstractTarget.LINE_THICK, 0xffffff, 1);
+   		this.gfx.moveTo(p0.x, p0.y);
+   		this.gfx.lineTo(p1.x, p1.y);
 	};
 
 	AbstractTarget.prototype.addTarget = function(options){
@@ -24,6 +44,9 @@ define( ['app/prog/views/dropview'],
 	};
 
 	AbstractTarget.prototype.destroy = function(){
+		this.group.remove(this.gfx);
+		this.gfx.destroy();
+		this.gfx = null;
 		this.parent = null;
 		this.group = null;
 		this.bounds = null;

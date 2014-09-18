@@ -10,7 +10,7 @@ define( ['phasercomponents'],
 	};
 
 	DropView.WIDTH = 			160;
-	DropView.SMALL_WIDTH = 		115;
+	DropView.SMALL_WIDTH = 		95;
 	DropView.HEIGHT = 			50;
 
 	DropView.prototype = Object.create(PhaserComponents.Drag.AbstractDropView.prototype);

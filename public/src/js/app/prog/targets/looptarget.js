@@ -2,7 +2,7 @@ define( ['phaser',
 
 	'app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
 
-	'app/assets', 'app/prog/abstracttarget',
+	'app/assets', 'app/prog/targets/abstracttarget',
 
 	'app/views/components/prognumbutton', 'app/models/modelfacade'],
 
@@ -28,25 +28,16 @@ define( ['phaser',
 	};
 
 	LoopTarget.prototype.decorate = function(){
-		var gfx, middle, lineWidth;
-		lineWidth = 8;
-		gfx = new Phaser.Graphics(this.game, 0, 0);
-		middle = this.bounds.x + this.bounds.w/2;
-		this.group.add(gfx);
-		gfx.lineStyle(lineWidth, 0xbbbbbb, 1);
-   		gfx.moveTo(middle + 2, ProgLayout.LOOP.top);
-   		gfx.lineTo(middle + 2, ProgLayout.LOOP.bottom);
-   		gfx.moveTo(middle + 2 , ProgLayout.LOOP.top + ProgLayout.LOOP.paddingTop);
-   		gfx.lineTo(middle + 2 + ProgLayout.LOOP.lineWidth, ProgLayout.LOOP.top + ProgLayout.LOOP.paddingTop);
-   		gfx.lineTo(middle + 2 + ProgLayout.LOOP.lineWidth, ProgLayout.LOOP.bottom - ProgLayout.LOOP.paddingBottom);
-   		gfx.lineTo(middle + 2, ProgLayout.LOOP.bottom - ProgLayout.LOOP.paddingBottom);
-		gfx.lineStyle(lineWidth, 0xffffff, 1);
-   		gfx.moveTo(middle, ProgLayout.LOOP.top);
-   		gfx.lineTo(middle, ProgLayout.LOOP.bottom);
-   		gfx.moveTo(middle , ProgLayout.LOOP.top + ProgLayout.LOOP.paddingTop);
-   		gfx.lineTo(middle + ProgLayout.LOOP.lineWidth, ProgLayout.LOOP.top + ProgLayout.LOOP.paddingTop);
-   		gfx.lineTo(middle + ProgLayout.LOOP.lineWidth, ProgLayout.LOOP.bottom - ProgLayout.LOOP.paddingBottom);
-   		gfx.lineTo(middle, ProgLayout.LOOP.bottom - ProgLayout.LOOP.paddingBottom);
+		var p0, p1, p2, p3, p4;
+		p0 = {'x':this.middle, 'y':ProgLayout.LOOP.top};
+   		p1 = {'x':p0.x, 'y':ProgLayout.LOOP.bottom};
+   		p2 = {'x':p0.x, 'y':p0.y + ProgLayout.LOOP.paddingTop};
+   		p3 = {'x':p2.x + ProgLayout.LOOP.lineWidth, 'y':p2.y};
+   		p4 = {'x':p1.x + ProgLayout.LOOP.lineWidth, 'y':p1.y};
+   		this.drawLine(p0, p1);
+   		this.drawLine(p2, p3);
+   		this.drawLine(p3, p4);
+   		this.drawLine(p4, p1);
 	};
 
 	LoopTarget.prototype.addNum = function(){
@@ -56,9 +47,10 @@ define( ['phaser',
 	};
 
 	LoopTarget.prototype.addBlocks = function(){
-		var i, target, numTargets = ProgLayout.LOOP.num, bounds;
+		var i, target, numTargets = ProgLayout.LOOP.num, bounds, y0;
+		y0 = this.bounds.y + ProgLayout.LOOP.blockTop; 
 		for(i = 0; i < numTargets; i++){
-			bounds = {'x':this.bounds.x + (this.bounds.w - DropView.WIDTH)/2, 'y':this.bounds.y + 60 + 55*i};
+			bounds = {'x':this.middle - DropView.WIDTH/2, 'y': y0 + ProgLayout.LOOP.gap*i};
 			target = new DropView({'index':i, 'bounds':bounds, 'asset':Assets.DRAG_TARGET});
 			this.targets.push(target);
 			this.group.add(target.sprite);
