@@ -27,11 +27,11 @@ function(Phaser, PhaserComponents, Assets
 	};
 	
 	ScreenChoice.prototype.select = function(){
-		this.panel.sprite.alpha = 1;
+		this.panel.view.alpha = 1;
 	};
 	
 	ScreenChoice.prototype.deselect = function(){
-		this.panel.sprite.alpha = 0.3;
+		this.panel.view.alpha = 0.3;
 	};
 	
 	ScreenChoice.prototype.mouseUp = function(){
@@ -42,7 +42,7 @@ function(Phaser, PhaserComponents, Assets
 		this.panel = new PhaserComponents.Display.MovieClip(this.options);
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
-		this.group.add(this.panel.sprite);
+		this.group.add(this.panel.view);
 		this.panel.goTo(this.options.index);
 	};
 	

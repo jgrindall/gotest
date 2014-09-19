@@ -53,7 +53,7 @@ MarkerFactory){
 		y = this.bounds.y + AbstractExecuteCommandsPanel.GRID_SIZE/2;
 		options = {'bounds':{'x':x, 'y':y}};
 		this.marker = MarkerFactory.make(this.options.markerType, options);
-		this.group.add(this.marker.sprite);
+		this.group.add(this.marker.view);
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.addGrid = function() {
@@ -65,7 +65,7 @@ MarkerFactory){
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.selectComm, this);
-		this.group.add(this.grid.group);
+		this.group.add(this.grid.view);
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.destroy = function() {

@@ -24,7 +24,7 @@ Indicator, Grid, Corners, Assets){
 		w = this.game.w;
 		h = this.game.h;
 		this.bg = new Background({"asset":Assets.BG, "bounds":this.bounds});
-		this.group.add(this.bg.sprite);
+		this.group.add(this.bg.view);
 	};
 
 	Canvas.prototype.addCorners = function() {
@@ -49,12 +49,12 @@ Indicator, Grid, Corners, Assets){
 	
 	Canvas.prototype.addDrawing = function() {
 		this.drawing = new Drawing({'bounds':this.bounds});
-		this.group.add(this.drawing.group);
+		this.group.add(this.drawing.view);
 	};
 	
 	Canvas.prototype.addMap = function() {
 		this.map = new Map({'bounds':this.bounds});
-		this.group.add(this.map.group);
+		this.group.add(this.map.view);
 	};
 
 	Canvas.prototype.addGrid = function() {
@@ -62,13 +62,13 @@ Indicator, Grid, Corners, Assets){
 		visModel = ModelFacade.getInstance().get(ModelFacade.GRID);
 		sizeModel = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH);
 		this.grid = new Grid({'bounds':this.bounds, 'sizeModel':sizeModel, 'visModel':visModel});
-		this.group.add(this.grid.group);
+		this.group.add(this.grid.view);
 	};
 	
 	Canvas.prototype.destroy = function() {
-		this.group.remove(this.grid.group);
-		this.group.remove(this.map.group);
-		this.group.remove(this.grid.group);
+		this.group.remove(this.grid.view);
+		this.group.remove(this.map.view);
+		this.group.remove(this.grid.view);
 		this.group.remove(this.indicator.gfx);
 		this.group.remove(this.bg.sprite);
 		this.map.destroy();

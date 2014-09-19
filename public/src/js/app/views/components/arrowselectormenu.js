@@ -34,10 +34,10 @@ PhaserComponents, Assets)
 		if(this.options.dataProvider.getNumPages() >= 2){
 			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':d - 20 - ArrowButton.WIDTH, 'y':this.game.cy - ArrowButton.HEIGHT/2}});
 			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':d + w + 20, 'y':this.game.cy - ArrowButton.HEIGHT/2}});
-			this.leftButton.sprite.alpha = 0;
-			this.rightButton.sprite.alpha = 0;
-			this.group.add(this.leftButton.sprite);
-			this.group.add(this.rightButton.sprite);
+			this.leftButton.view.alpha = 0;
+			this.rightButton.view.alpha = 0;
+			this.group.add(this.leftButton.view);
+			this.group.add(this.rightButton.view);
 			this.addArrowListeners();
 			this.showArrows();
 		}
@@ -45,8 +45,8 @@ PhaserComponents, Assets)
 	
 	ArrowSelectorMenu.prototype.showArrows = function () {
 		// TODO move into ArrowButton
-		this.leftTween = this.game.add.tween(this.leftButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
-		this.rightTween = this.game.add.tween(this.rightButton.sprite).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
+		this.leftTween = this.game.add.tween(this.leftButton.view).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
+		this.rightTween = this.game.add.tween(this.rightButton.view).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
 		this.leftTween.onComplete.add(this.onArrowsShown, this);
 	};
 	
@@ -86,7 +86,7 @@ PhaserComponents, Assets)
 		this.pager = new PhaserComponents.Display.Pager(options);
 		this.pager.pageSignal.add(this.choose, this);
 		this.pager.selectSignal.add(this.onSelected, this);
-		this.group.add(this.pager.group);
+		this.group.add(this.pager.view);
 	};
 	
 	ArrowSelectorMenu.prototype.onSelected = function (data) {

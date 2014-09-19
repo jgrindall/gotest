@@ -34,7 +34,7 @@ function(PhaserComponents, Assets,
 		var bounds;
 		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
 		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
-		this.world.add(this.bg.sprite);
+		this.world.add(this.bg.view);
 	};
 
 	LoaderScene.prototype.addBar = function() {
@@ -43,7 +43,7 @@ function(PhaserComponents, Assets,
 		y = this.game.cy - 20;
 		bounds = {"x":x, "y":y};
 		this.loaderBar = new LoaderBar({'bounds':bounds, 'asset':Assets.LOADER_BAR, 'numFrames':8});
-		this.world.add(this.loaderBar.sprite);
+		this.world.add(this.loaderBar.view);
 	};
 	
 	LoaderScene.prototype.loadProgress = function(data) {

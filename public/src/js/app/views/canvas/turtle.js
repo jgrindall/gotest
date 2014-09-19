@@ -30,7 +30,7 @@ function(Phaser, PhaserComponents, ModelFacade){
 	};
 
 	Turtle.prototype.removeSprite = function() {
-		this.group.remove(this.turtle.sprite);
+		this.group.remove(this.turtle.view);
 		this.turtle.destroy(true);
 		this.turtle = null;
 	};
@@ -42,25 +42,25 @@ function(Phaser, PhaserComponents, ModelFacade){
 			this.removeSprite();
 		}
 		this.turtle = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":2, "asset":this.options.asset});
-		this.group.add(this.turtle.sprite);
-		this.turtle.sprite.anchor.setTo(0.5, 0.5);
+		this.group.add(this.turtle.view);
+		this.turtle.view.anchor.setTo(0.5, 0.5);
 	};
 	
 	Turtle.prototype.setTo = function(theta) {
 		var target = theta + 90;
-		this.turtle.sprite.angle = target;
+		this.turtle.view.angle = target;
 	};
 	
 	Turtle.prototype.rotateTo = function(theta, time) {
 		var target = theta + 90;
 		this.stopTurnTween();
-		target = Turtle.getAngle(target, this.turtle.sprite.angle);
+		target = Turtle.getAngle(target, this.turtle.view.angle);
 		if(time === 0){
-			this.turtle.sprite.angle = target;
+			this.turtle.view.angle = target;
 			this.endSignal.dispatch({});
 		}
 		else{
-			this.turnTween = this.game.add.tween(this.turtle.sprite).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
+			this.turnTween = this.game.add.tween(this.turtle.view).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
 			this.turnTween.onComplete.add(this.turnComplete, this);
 		}
 	};
@@ -102,13 +102,13 @@ function(Phaser, PhaserComponents, ModelFacade){
 			this.move(p);
 		}
 		else{
-			this.moveTween = this.game.add.tween(this.turtle.sprite).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
+			this.moveTween = this.game.add.tween(this.turtle.view).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
 		}
 	};
 	
 	Turtle.prototype.move = function(p) {
-		this.turtle.sprite.x = p.x;
-		this.turtle.sprite.y = p.y;
+		this.turtle.view.x = p.x;
+		this.turtle.view.y = p.y;
 	};
 	
 	Turtle.prototype.addMask = function() {
@@ -123,7 +123,7 @@ function(Phaser, PhaserComponents, ModelFacade){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addMask();
 		this.addImage();
-		this.turtle.sprite.mask = this.mask;
+		this.turtle.view.mask = this.mask;
 	};
 	
 	Turtle.prototype.destroy = function() {

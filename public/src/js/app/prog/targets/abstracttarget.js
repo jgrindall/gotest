@@ -40,7 +40,7 @@ define( ['app/prog/views/dropview'],
 	AbstractTarget.prototype.addTarget = function(options){
 		var target = new DropView(options);
 		this.targets.push(target);
-		this.group.add(target.sprite);
+		this.group.add(target.view);
 	};
 
 	AbstractTarget.prototype.destroy = function(){

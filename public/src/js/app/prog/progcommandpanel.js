@@ -52,7 +52,7 @@ define(
 		index = data.target.options.index;
 		turn = data.target.options.turn;
 		if(this.dragManager && this.dragManager.enabled){
-			drag = this.addDrag(type, index, turn, {'x':data.target.sprite.x, 'y':data.target.sprite.y});
+			drag = this.addDrag(type, index, turn, {'x':data.target.view.x, 'y':data.target.view.y});
 			this.dragManager.startDrag(drag);
 		}
 	};
@@ -95,7 +95,7 @@ define(
 
 	ProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
 		var drag = new DragView({"type":type, "turn":turn, "index":index, 'bounds':bounds});
-		this.group.add(drag.sprite);
+		this.group.add(drag.view);
 		this.dragManager.addDrag(drag);
 		return drag;
 	};
@@ -114,7 +114,7 @@ define(
 				options = {'type':i, 'index':data.num, 'turn':data.turn, 'bounds':bounds};
 				button = new DragButton(options);
 				this.buttons.push(button);
-				this.group.add(button.sprite);
+				this.group.add(button.view);
 				button.mouseDownSignal.add(this.clickButton, this);
 			}
 		}
@@ -172,14 +172,14 @@ define(
 	ProgCommandPanel.prototype.addPlay = function() {
 		var options = {"bounds":{'x':this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.playButton = new PlayButton(options);
-		this.group.add(this.playButton.sprite);
+		this.group.add(this.playButton.view);
 	};
 
 	ProgCommandPanel.prototype.addClear = function() {
 		var options = {"bounds":{'x':this.bounds.x + 100 + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.clearButton = new CloseButton(options);
-		this.clearButton.sprite.scale = {'x':0.5, 'y':0.5};
-		this.group.add(this.clearButton.sprite);
+		this.clearButton.view.scale = {'x':0.5, 'y':0.5};
+		this.group.add(this.clearButton.view);
 		this.enableClear();
 	};
 
@@ -222,7 +222,7 @@ define(
 		var target, i;
 		for(i = 0; i < this.targets.length; i++){
 			target = this.targets[i];
-			this.group.remove(target.sprite);
+			this.group.remove(target.view);
 			target.destroy();
 		}
 		this.targets = [];
@@ -233,7 +233,7 @@ define(
 		for(i = 0; i < this.buttons.length; i++){
 			button = this.buttons[i];
 			button.mouseDownSignal.remove(this.clickButton, this);
-			this.group.remove(button.sprite);
+			this.group.remove(button.view);
 			button.destroy();
 		}
 		this.buttons = [];
@@ -274,8 +274,8 @@ define(
 		this.targetObj.destroy();
 		this.targetObj = null;
 		//TODO - more
-		this.group.remove(this.playButton.sprite);
-		this.group.remove(this.clearButton.sprite);
+		this.group.remove(this.playButton.view);
+		this.group.remove(this.clearButton.view);
 		this.removeTargets();
 		this.removeButtons();
 		AbstractCommandsPanel.prototype.destroy.call(this);

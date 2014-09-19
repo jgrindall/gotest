@@ -97,7 +97,7 @@ Events, Assets, SpeedMarkers){
 		h = this.game.h;
 		bounds = {'x':this.bounds.x, 'y':0, 'w':this.bounds.w, 'h':h};
 		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
-		this.group.add(this.bg.sprite);
+		this.group.add(this.bg.view);
 	};
 
 	Controls.prototype.addControlBar = function() {
@@ -107,8 +107,8 @@ Events, Assets, SpeedMarkers){
 		options = {"model":model,"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
 		this.controlBar = new PhaserComponents.Display.TabButtonBar(options);
 		this.controlBar.clickSignal.add(this.barClick, this);
-		this.group.add(this.controlBar.group);
-		this.controlBar.group.visible = (ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).get() === 1);
+		this.group.add(this.controlBar.view);
+		this.controlBar.view.visible = (ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).get() === 1);
 	};
 
 	Controls.prototype.barClick = function(data) {
@@ -120,15 +120,15 @@ Events, Assets, SpeedMarkers){
 		var bounds = {'x':this.game.w - ControlMenu.WIDTH, 'y':this.bounds.y, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
 		this.menu = new ControlMenu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
-		this.group.add(this.menu.group);
+		this.group.add(this.menu.view);
 	};
 	
 	Controls.prototype.addSpeedMarkers = function() {
 		this.speedMarkers = new SpeedMarkers({"bounds":this.speedSlider.bounds, "asset":Assets.SPEEDDECOR});
 		this.speedMarkers.clickSignal.add(this.clickMarker, this);
-		this.speedMarkers.group.y = -100;
-		this.group.add(this.speedMarkers.group);
-		this.game.add.tween(this.speedMarkers.group).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
+		this.speedMarkers.view.y = -100;
+		this.group.add(this.speedMarkers.view);
+		this.game.add.tween(this.speedMarkers.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
 	};
 
 	Controls.prototype.clickMarker = function(data) {
@@ -146,8 +146,8 @@ Events, Assets, SpeedMarkers){
 		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":bounds};
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.speedSlider.group.y = -100;
-		this.group.add(this.speedSlider.group);
-		this.game.add.tween(this.speedSlider.group).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
+		this.group.add(this.speedSlider.view);
+		this.game.add.tween(this.speedSlider.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
 	};
 	
 	Controls.prototype.menuClick = function(data) {
@@ -168,7 +168,7 @@ Events, Assets, SpeedMarkers){
 	
 	Controls.prototype.removeCommandsPanel = function() {
 		if(this.commandsPanel){
-			this.group.remove(this.commandsPanel.group);
+			this.group.remove(this.commandsPanel.view);
 			this.commandsPanel.destroy();
 			this.commandsPanel = null;
 		}
@@ -182,24 +182,24 @@ Events, Assets, SpeedMarkers){
 		bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
-			this.commandsPanel.group.alpha = 0;
-			this.group.add(this.commandsPanel.group);
-			this.game.add.tween(this.commandsPanel.group).to( {'alpha':1}, 1000, Phaser.Easing.Linear.None, true, 800, false);
+			this.commandsPanel.view.alpha = 0;
+			this.group.add(this.commandsPanel.view);
+			this.game.add.tween(this.commandsPanel.view).to( {'alpha':1}, 1000, Phaser.Easing.Linear.None, true, 800, false);
 		}
 	};
 
 	Controls.prototype.addColorPicker = function() {
 		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2, 'y':this.game.h + 100, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
 		this.colorPicker = new ColorPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
-		this.group.add(this.colorPicker.sprite);
-		this.game.add.tween(this.colorPicker.sprite).to( {'y':this.game.h - ColorPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1200, false);
+		this.group.add(this.colorPicker.view);
+		this.game.add.tween(this.colorPicker.view).to( {'y':this.game.h - ColorPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1200, false);
 	};
 
 	Controls.prototype.addWidthPicker = function() {
 		var bounds = {'x':this.bounds.x + this.bounds.w + 10, 'y':this.game.h + 100, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
 		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
-		this.group.add(this.widthPicker.sprite);
-		this.game.add.tween(this.widthPicker.sprite).to( {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT}, 1600, Phaser.Easing.Bounce.InOut, true, 700, false);
+		this.group.add(this.widthPicker.view);
+		this.game.add.tween(this.widthPicker.view).to( {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT}, 1600, Phaser.Easing.Bounce.InOut, true, 700, false);
 	};
 	
 	Controls.prototype.destroy = function() {
@@ -211,7 +211,7 @@ Events, Assets, SpeedMarkers){
 		this.widthPicker.destroy();
 		this.speedSlider.destroy();
 		this.speedMarkers.clickSignal.remove(this.clickMarker, this);
-		this.group.remove(this.speedMarkers.group);
+		this.group.remove(this.speedMarkers.view);
 		this.speedMarkers.destroy();
 		this.menu.clickSignal.remove(this.menuClick, this);
 		this.menu.destroy();

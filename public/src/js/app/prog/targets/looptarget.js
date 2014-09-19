@@ -39,7 +39,7 @@ define( ['app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
 	LoopTarget.prototype.addNum = function(){
 		var bounds = {'x':this.bounds.x + this.bounds.w - ProgNumButton.WIDTH - 20, 'y':this.bounds.y + this.bounds.h/2 - ProgNumButton.HEIGHT - 35, 'w':ProgNumButton.WIDTH, 'h':ProgNumButton.HEIGHT};
 		this.numButton = new ProgNumButton({"model":ModelFacade.getInstance().get(ModelFacade.PROG_NUM), "sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PROG_NUM, "numFrames":4});	
-		this.group.add(this.numButton.sprite);
+		this.group.add(this.numButton.view);
 	};
 
 	LoopTarget.prototype.addBlocks = function(){
@@ -49,7 +49,7 @@ define( ['app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
 			bounds = {'x':this.middle - DropView.WIDTH/2, 'y': y0 + ProgLayout.LOOP.gap*i};
 			target = new DropView({'index':i, 'bounds':bounds, 'asset':Assets.DRAG_TARGET});
 			this.targets.push(target);
-			this.group.add(target.sprite);
+			this.group.add(target.view);
 		}
 	};
 

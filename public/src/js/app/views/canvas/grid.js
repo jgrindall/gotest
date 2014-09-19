@@ -44,16 +44,16 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 	Grid.prototype.updateTile = function() {
 		var asset, offset, index;
 		index = this.sizeModel.get();
-		if(this.sprite){
-			this.sprite.destroy(true);
-			this.sprite = null;
+		if(this.tile){
+			this.tile.destroy(true);
+			this.tile = null;
 		}
 		offset = this.getOffset();
 		asset = Assets.GRIDS[index];
-		this.sprite = new Phaser.TileSprite(this.game, this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, asset);
-		this.sprite.tilePosition = new PIXI.Point(-offset.x, -offset.y);
-		this.sprite.alpha = 0.15;
-		this.group.add(this.sprite);
+		this.tile = new Phaser.TileSprite(this.game, this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, asset);
+		this.tile.tilePosition = new PIXI.Point(-offset.x, -offset.y);
+		this.tile.alpha = 0.15;
+		this.group.add(this.tile);
 	};
 
 	Grid.prototype.updateImage = function() {
@@ -63,8 +63,8 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 	Grid.prototype.destroy = function() {
 		this.visModel.changeSignal.remove(this.onChangeGrid, this);
 		this.sizeModel.changeSignal.remove(this.onChangeSize, this);
-		this.group.remove(this.sprite);
-		this.sprite.destroy(true);
+		this.group.remove(this.tile);
+		this.tile.destroy(true);
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	

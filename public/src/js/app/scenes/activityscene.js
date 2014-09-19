@@ -42,22 +42,22 @@ Events, Assets){
 		var bounds;
 		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
 		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
-		this.world.add(this.bg.sprite);
+		this.world.add(this.bg.view);
 	};
 	
 	ActivityScene.prototype.addCanvas = function() {
 		var bounds = {"x":0, "y":50, "w":this.game.w - Controls.WIDTH, "h":this.game.h - 50};
 		this.canvas = new Canvas({"bounds":bounds});
-		this.world.add(this.canvas.group);
+		this.world.add(this.canvas.view);
 	};
 	
 	ActivityScene.prototype.addMenu = function() {
 		var bounds = {'x':0, 'y':0, 'w':Menu.WIDTH, 'h':Menu.HEIGHT};
 		this.menu = new Menu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
-		this.menu.group.y = -60;
-		this.world.add(this.menu.group);
-		this.game.add.tween(this.menu.group).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 0, false);
+		this.menu.view.y = -60;
+		this.world.add(this.menu.view);
+		this.game.add.tween(this.menu.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 0, false);
 	};
 	
 	ActivityScene.prototype.menuClick = function(data) {
@@ -78,7 +78,7 @@ Events, Assets){
 	
 	ActivityScene.prototype.removeControls = function() {
 		if(this.controls){
-			this.world.remove(this.controls.group);
+			this.world.remove(this.controls.view);
 			this.controls.destroy();
 			this.controls = null;
 		}
@@ -92,16 +92,16 @@ Events, Assets){
 		var bounds = {"x":this.game.w - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":this.game.h};
 		this.removeControls();
 		this.controls = new Controls({"bounds":bounds});
-		this.controls.group.y = -50;
-		this.world.add(this.controls.group);
-		this.game.add.tween(this.controls.group).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 800, false);
+		this.controls.view.y = -50;
+		this.world.add(this.controls.view);
+		this.game.add.tween(this.controls.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 800, false);
 	};
 	
 	ActivityScene.prototype.destroy = function() {
-		this.world.remove(this.menu.group);
-		this.world.remove(this.canvas.group);
-		this.world.remove(this.controls.group);
-		this.world.remove(this.bg.sprite);
+		this.world.remove(this.menu.view);
+		this.world.remove(this.canvas.view);
+		this.world.remove(this.controls.view);
+		this.world.remove(this.bg.view);
 		this.bg.destroy();
 		this.nameView.destroy();
 		this.menu.destroy();
