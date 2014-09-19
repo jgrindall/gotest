@@ -19,7 +19,8 @@ define([], function(){
 	Assets.PANEL = 					'panel';
 	Assets.SPEEDDECOR = 			'speeddecor';
 	Assets.SMALL_PANEL = 			'smallpanel';
-	Assets.TOOLTIP = 				'tooltip';
+	Assets.TOOLTIPS = 				['tooltip0', 'tooltip1', 'tooltip2', 'tooltip3', 'tooltip4'];
+	Assets.TOOLTIP_IMAGE = 			'tooltipImage';
 	Assets.ALERT = 					'alert';
 	Assets.LEFT = 					'left';
 	Assets.RIGHT = 					'right';
@@ -53,6 +54,7 @@ define([], function(){
 	
 	Assets.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":160, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/prog/tooltipimages.png",	 			"key":Assets.TOOLTIP_IMAGE,				"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtargetsmall.png",	 		"key":Assets.DRAG_TARGET_SMALL,			"w":95, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/controlbar.png",	 			"key":Assets.CONTROL_BAR,				"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragbuttons.png",	 			"key":Assets.DRAG_BUTTON,				"w":32, 	"h":32},
@@ -101,6 +103,11 @@ define([], function(){
 	];
 	
 	Assets.IMAGES = [
+		{"type":"image", 		"asset":"assets/images/popups/tooltip0.png",	 		"key":Assets.TOOLTIPS[0]},
+		{"type":"image", 		"asset":"assets/images/popups/tooltip1.png",	 		"key":Assets.TOOLTIPS[1]},
+		{"type":"image", 		"asset":"assets/images/popups/tooltip2.png",	 		"key":Assets.TOOLTIPS[2]},
+		{"type":"image", 		"asset":"assets/images/popups/tooltip3.png",	 		"key":Assets.TOOLTIPS[3]},
+		{"type":"image", 		"asset":"assets/images/popups/tooltip4.png",	 		"key":Assets.TOOLTIPS[4]},
 		{"type":"image", 		"asset":"assets/images/grids/grid0.png", 				"key":Assets.GRIDS[0]},
 		{"type":"image", 		"asset":"assets/images/grids/grid1.png", 				"key":Assets.GRIDS[1]},
 		{"type":"image", 		"asset":"assets/images/grids/grid2.png", 				"key":Assets.GRIDS[2]},
@@ -115,7 +122,6 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/maps/map2.jpg", 					"key":Assets.MAPS[2]},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
-		{"type":"image", 		"asset":"assets/images/popups/tooltip.png",	 			"key":Assets.TOOLTIP},
 		{"type":"image", 		"asset":"assets/images/maps/corners.jpg",	 			"key":Assets.CORNERS}
 	];
 	

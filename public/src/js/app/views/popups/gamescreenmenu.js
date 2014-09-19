@@ -69,7 +69,7 @@ OkButton, CloseButton, ModelFacade){
 		w = PhaserComponents.Display.RadioButtons.WIDTH;
 		h = PhaserComponents.Display.RadioButtons.HEIGHT;
 		labels = ["45 degrees", "90 degrees"];
-		bounds = {'x':this.bounds.x + this.bounds.w - w - 18, 'y':this.game.h - h - 109, 'w':w, 'h':h};
+		bounds = {'x':this.bounds.x + this.bounds.w - w - 13, 'y':this.game.h - h - 109, 'w':w, 'h':h};
 		this.radio = new PhaserComponents.Display.RadioButtons({"labels":labels, "fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 		this.initRadio();
@@ -77,7 +77,7 @@ OkButton, CloseButton, ModelFacade){
 
 	GameScreenMenu.prototype.addGrid = function() {
 		var options, bounds;
-		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 10, 'w':this.bounds.w, 'h':this.bounds.h + 12};
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 30, 'w':this.bounds.w, 'h':this.bounds.h - 31};
 		options = {"model":this.options.screenModel, "bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.onChanged, this);
@@ -88,7 +88,7 @@ OkButton, CloseButton, ModelFacade){
 	GameScreenMenu.prototype.adjustLayout = function() {
 		var button3;
 		button3 = this.grid.getButtonAt(3);
-		button3.group.x -= 20;
+		button3.group.x -= 7;
 	};
 
 	GameScreenMenu.prototype.addTitle = function() {

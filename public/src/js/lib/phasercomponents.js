@@ -1480,28 +1480,17 @@ function($, Phaser, Context, AppEvents){
 
 	AlertManager.prototype.close = function(callback){
 		var that = this;
-		console.log("close "+this.alert);
 		if(this.alert){
 			this.alert.selectSignal.remove(this.callbackProxy);
 			this.alert.hideMe();
-			setTimeout(function(){
-				console.log("timeout! " + that.alert);
-				that.removeBg();
-				that.alert.destroy();
-				that.alert = null;
-				that.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
-				console.log("timeout done");
+			that.removeBg();
+			that.alert.destroy();
+			that.alert = null;
+			that.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
+			if(callback){
 				callback();
-			}, 300);
+			}
 		}
-		else{
-			console.log("callback immediate");
-			callback();
-		}
-	};
-	
-	AlertManager.prototype.alertClick = function(){
-		this.closeAlert();
 	};
 	
 	AlertManager.prototype.addBg = function(){
@@ -1515,17 +1504,8 @@ function($, Phaser, Context, AppEvents){
 	};
 	
 	AlertManager.prototype.make = function(ClassRef, options, callback, bounds){
-		console.log("make");
-		var args = [ClassRef, options, callback, bounds];
-		this.close($.proxy(this.onClosed, this, args));
-	};
-
-	AlertManager.prototype.onClosed = function(args){
-		var x, y, newBounds, newOptions, ClassRef, options, callback, bounds;
-		ClassRef = args[0];
-		options = args[1];
-		callback = args[2];
-		bounds = args[3];
+		var x, y, newBounds, newOptions;
+		this.close();
 		this.callbackProxy = this.buttonClick.bind(this, callback);
 		x = (this.game.w - ClassRef.WIDTH)/2;
 		y = (this.game.h - ClassRef.HEIGHT)/2;
@@ -1542,8 +1522,9 @@ function($, Phaser, Context, AppEvents){
 		this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
 		this.alert.showMe();
 	};
-	
+
 	AlertManager.prototype.buttonClick = function(callback, data){
+		this.close();
 		if(callback){
 			callback(data);
 		}
@@ -2174,9 +2155,6 @@ Container, Utils){
 	};
 
 	AbstractPopup.prototype.hideMe = function () {
-		if(this.options.sfx){
-			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
-		}
 		this.game.add.tween(this.group).to( {'y': this.game.h + 50}, 400, Phaser.Easing.Back.Out, true, 200, false);
 	};
 
@@ -2190,7 +2168,7 @@ Container, Utils){
 		selectionData = this.getData();
 		this.selectSignal.dispatch({"index":index, "selection":selectionData});
 	};
-	
+
 	AbstractPopup.prototype.addButton = function (ClassRef, bounds) {
 		var b = new ClassRef({'bounds':bounds});
 		b.mouseUpSignal.add(this.buttonUp, this);

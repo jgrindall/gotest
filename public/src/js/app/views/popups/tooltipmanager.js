@@ -10,18 +10,20 @@ function($, PhaserComponents, ToolTip, Assets){
 		this.num = 0;
 	};
 	
-	ToolTipManager.TEXT = ["Label0", "Label1"];
-	ToolTipManager.POS = [{'x':100, 'y':10}, {'x':400, 'y':300}];
+	ToolTipManager.TEXT = 		["Use the arrow buttons to control the turtle", "Change the speed here", "These are the stop and undo buttons", "This button lets you choose how to program the turtle, you can program it in a number of different ways", "Start a new file, load, save and print your work"];
+	ToolTipManager.POS = 		[{'x':100, 'y':10}, {'x':400, 'y':300}, {'x':200, 'y':200}, {'x':200, 'y':200}, {'x':200, 'y':200}];
+	ToolTipManager.ARROW_POS = 	[0, 1, 2, 3, 4, 0];
 
 	ToolTipManager.prototype.start = function() {
 		this.open();
 	};
 
 	ToolTipManager.prototype.open = function() {
-		var text, pos, options;
+		var text, pos, arrow, options;
 		text = ToolTipManager.TEXT[this.num];
+		arrow = ToolTipManager.ARROW_POS[this.num];
 		pos = ToolTipManager.POS[this.num];
-		options = {"title":"Message", "label":text, "sfx":Assets.SOUNDS[2]};
+		options = {"label":text, "sfx":Assets.SOUNDS[2], "num":this.num, "arrow":arrow};
 		PhaserComponents.AlertManager.getInstance().make(ToolTip, options, $.proxy(this.onClosed, this), pos);
 	};
 

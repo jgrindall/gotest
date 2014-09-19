@@ -14,7 +14,7 @@ CloseButton, Assets){
 	"use strict";
 		
 	var ToolTip = function(options){
-		options.bgasset = Assets.TOOLTIP;
+		options.bgasset = Assets.TOOLTIPS[options.arrow];
 		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	
@@ -24,18 +24,13 @@ CloseButton, Assets){
 	ToolTip.HEIGHT = 250;
 	
 	ToolTip.prototype.addText = function () {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + this.bounds.w/2, this.bounds.y + 90, this.options.label);
+		this.label = PhaserComponents.TextFactory.make('small', this.game, 160 + this.bounds.x + this.bounds.w/2, this.bounds.y + 90, this.options.label);
 		this.label.x -= this.label.width/2;
 		this.group.add(this.label);
 	};
 
 	ToolTip.prototype.useBg = function () {
 		return false;
-	};
-
-	ToolTip.prototype.addTitle = function () {
-		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.title);
-		this.group.add(this.label);
 	};
 	
 	ToolTip.prototype.addSkipButton = function () {
@@ -61,12 +56,19 @@ CloseButton, Assets){
 		PhaserComponents.Display.AbstractPopup.prototype.onShown.call(this);
 	};
 
+	ToolTip.prototype.addImage = function () {
+		var bounds = {'x':this.bounds.x, 'y':this.bounds.y + 30};
+		this.img = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":5, "asset":Assets.TOOLTIP_IMAGE});
+		this.img.goTo(this.options.num);
+		this.group.add(this.img.view);
+	};
+
 	ToolTip.prototype.create = function () {
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addText();
-		this.addTitle();
 		this.addSkipButton();
 		this.addNextButton();
+		this.addImage();
 		this.addCloseButton();
 	};
 	
