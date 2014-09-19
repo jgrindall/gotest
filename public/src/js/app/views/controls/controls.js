@@ -28,6 +28,7 @@ Events, Assets, SpeedMarkers){
 	"use strict";
 	
 	var Controls  = function(options){
+		this.firstShow = true;
 		PhaserComponents.Display.Container.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
@@ -121,6 +122,8 @@ Events, Assets, SpeedMarkers){
 		this.menu = new ControlMenu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
 		this.group.add(this.menu.view);
+		this.menu.view.y = -100;
+		this.game.add.tween(this.menu.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 800, false);
 	};
 	
 	Controls.prototype.addSpeedMarkers = function() {
@@ -175,16 +178,18 @@ Events, Assets, SpeedMarkers){
 	};
 
 	Controls.prototype.addCommandsPanel = function() {
-		var bounds, type, prog;
+		var bounds, type, prog, delay;
 		this.removeCommandsPanel();
 		type = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
 		prog = ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).get();
 		bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
-			this.commandsPanel.view.alpha = 0;
+			delay = (this.firstShow ? 800 : 100);
+			this.commandsPanel.view.x = this.game.w + 100;
 			this.group.add(this.commandsPanel.view);
-			this.game.add.tween(this.commandsPanel.view).to( {'alpha':1}, 1000, Phaser.Easing.Linear.None, true, 800, false);
+			this.game.add.tween(this.commandsPanel.view).to( {'x':0}, 1000, Phaser.Easing.Linear.None, true, delay, false);
+			this.firstShow = false;
 		}
 	};
 
@@ -199,7 +204,7 @@ Events, Assets, SpeedMarkers){
 		var bounds = {'x':this.bounds.x + this.bounds.w + 10, 'y':this.game.h + 100, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
 		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.view);
-		this.game.add.tween(this.widthPicker.view).to( {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT}, 1600, Phaser.Easing.Bounce.InOut, true, 700, false);
+		this.game.add.tween(this.widthPicker.view).to( {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1600, false);
 	};
 	
 	Controls.prototype.destroy = function() {

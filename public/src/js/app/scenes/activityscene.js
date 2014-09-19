@@ -92,9 +92,7 @@ Events, Assets){
 		var bounds = {"x":this.game.w - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":this.game.h};
 		this.removeControls();
 		this.controls = new Controls({"bounds":bounds});
-		this.controls.view.y = -50;
 		this.world.add(this.controls.view);
-		this.game.add.tween(this.controls.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 800, false);
 	};
 	
 	ActivityScene.prototype.destroy = function() {
