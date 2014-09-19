@@ -5,7 +5,7 @@ define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
-'app/events/events', 'app/assets'],
+'app/events/events', 'app/assets', 'app/views/popups/tooltipmanager'],
 
 function($, Canvas, Controls,
 
@@ -13,7 +13,7 @@ Menu, ModelFacade,
 
 Background, PhaserComponents, NameView,
 
-Events, Assets){
+Events, Assets, ToolTipManager){
 	
 	"use strict";
 	
@@ -31,6 +31,10 @@ Events, Assets){
 		this.addName();
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
+		console.log("ToolTipManager " + ToolTipManager);
+		setTimeout(function(){
+			ToolTipManager.getInstance().start();
+		}, 2000);
 	};
 
 	ActivityScene.prototype.addName = function() {

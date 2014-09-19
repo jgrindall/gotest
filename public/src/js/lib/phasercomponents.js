@@ -1471,18 +1471,32 @@ function($, Phaser, Context, AppEvents){
 		this.eventDispatcher = Context.eventDispatcher;
 	};
 	
-	AlertManager.prototype.close = function(){
+	AlertManager.prototype.removeBg = function(){
+		if(this.bg){
+			this.bg.destroy();
+			this.bg = null;
+		}
+	};
+
+	AlertManager.prototype.close = function(callback){
 		var that = this;
+		console.log("close "+this.alert);
 		if(this.alert){
 			this.alert.selectSignal.remove(this.callbackProxy);
 			this.alert.hideMe();
 			setTimeout(function(){
+				console.log("timeout! " + that.alert);
+				that.removeBg();
 				that.alert.destroy();
-				that.bg.destroy();
-				that.bg = null;
 				that.alert = null;
 				that.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
+				console.log("timeout done");
+				callback();
 			}, 300);
+		}
+		else{
+			console.log("callback immediate");
+			callback();
 		}
 	};
 	
@@ -1500,24 +1514,36 @@ function($, Phaser, Context, AppEvents){
 		this.game.add.tween(this.bg).to( {'alpha':0.75}, 500, Phaser.Easing.Linear.None, true, 50, false);
 	};
 	
-	AlertManager.prototype.make = function(ClassRef, options, callback){
-		var x, y, bounds, newOptions;
-		this.close();
+	AlertManager.prototype.make = function(ClassRef, options, callback, bounds){
+		console.log("make");
+		var args = [ClassRef, options, callback, bounds];
+		this.close($.proxy(this.onClosed, this, args));
+	};
+
+	AlertManager.prototype.onClosed = function(args){
+		var x, y, newBounds, newOptions, ClassRef, options, callback, bounds;
+		ClassRef = args[0];
+		options = args[1];
+		callback = args[2];
+		bounds = args[3];
 		this.callbackProxy = this.buttonClick.bind(this, callback);
 		x = (this.game.w - ClassRef.WIDTH)/2;
 		y = (this.game.h - ClassRef.HEIGHT)/2;
-		this.addBg();
-		bounds = {"x":x, "y":y, "w":ClassRef.WIDTH, "h":ClassRef.HEIGHT};
-		newOptions = $.extend({}, options, {"bounds":bounds});
+		newBounds = bounds || {"x":x, "y":y};
+		newBounds.w = ClassRef.WIDTH;
+		newBounds.h = ClassRef.HEIGHT;
+		newOptions = $.extend({}, options, {"bounds":newBounds});
 		this.alert = new ClassRef(newOptions);
 		this.alert.selectSignal.add(this.callbackProxy);
+		if(this.alert.useBg()){
+			this.addBg();
+		}
 		this.game.world.add(this.alert.group);
 		this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
 		this.alert.showMe();
 	};
 	
 	AlertManager.prototype.buttonClick = function(callback, data){
-		this.close();
 		if(callback){
 			callback(data);
 		}
@@ -2130,18 +2156,28 @@ Container, Utils){
 		this.group.add(this.panel);
 	};
 	
+	AbstractPopup.prototype.useBg = function () {
+		return true;
+	};
+
 	AbstractPopup.prototype.showMe = function () {
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
 		}
-		this.game.add.tween(this.group).to( {y: 0}, 400, Phaser.Easing.Back.Out, true, 200, false);
+		this.moveTween = this.game.add.tween(this.group).to( {'y': 0}, 400, Phaser.Easing.Back.Out, true, 200, false);
+		this.moveTween.onComplete.add(this.onShown, this);
+	};
+
+	AbstractPopup.prototype.onShown = function () {
+		this.moveTween.onComplete.remove(this.onShown, this);
+		this.moveTween = null;
 	};
 
 	AbstractPopup.prototype.hideMe = function () {
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
 		}
-		this.game.add.tween(this.group).to( {y: this.game.h + 50}, 400, Phaser.Easing.Back.Out, true, 200, false);
+		this.game.add.tween(this.group).to( {'y': this.game.h + 50}, 400, Phaser.Easing.Back.Out, true, 200, false);
 	};
 
 	AbstractPopup.prototype.getData = function() {

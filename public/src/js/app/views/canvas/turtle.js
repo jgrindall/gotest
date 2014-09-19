@@ -47,7 +47,7 @@ function(Phaser, PhaserComponents, ModelFacade){
 		this.turtle.view.anchor.setTo(0.5, 0.5);
 		if(this.firstShow){
 			this.firstShow = false;
-			this.game.add.tween(this.turtle.view).to( {'angle':this.turtle.view.angle+359}, 1000, Phaser.Easing.Linear.None, true, 2000, false);
+			this.game.add.tween(this.turtle.view).to( {'angle':this.turtle.view.angle+359}, 1000, Phaser.Easing.Linear.None, true, 2300, false);
 		}
 	};
 	
