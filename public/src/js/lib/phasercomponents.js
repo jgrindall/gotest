@@ -2467,7 +2467,7 @@ define('phasercomponents/drag/dragmanager',
 	};
 
 	DragManager.prototype.drop = function(){
-		if(this.dropPosition.rowIndex >= 0){
+		if(this.dropPosition && this.dropPosition.rowIndex >= 0){
 			this.snapTo(this.draggedView, this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
 			this.targets[this.dropPosition.rowIndex].highlight(false);
 			this.editSignal.dispatch();
@@ -2499,6 +2499,7 @@ define('phasercomponents/drag/dragmanager',
 	};
 
 	DragManager.prototype.onUp = function(){
+		this.setDropPosition();
 		this.drop();
 		this.removeMoveListeners();
 		this.draggedView = null;
