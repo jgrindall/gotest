@@ -2459,7 +2459,9 @@ define('phasercomponents/drag/dragmanager',
 
 	DragManager.prototype.snapTo = function(view, rowIndex, zoneIndex){
 		var hitzone = this.model.addView(view, rowIndex, zoneIndex);
-		view.snap(this.targets[rowIndex], hitzone.bounds);
+		if(hitzone){
+			view.snap(this.targets[rowIndex], hitzone.bounds);
+		}
 	};
 
 	DragManager.prototype.drop = function(){
@@ -2573,7 +2575,11 @@ define('phasercomponents/drag/dragmodel', [], function(){
 	};
 
 	DragModel.prototype.addView = function(view, rowIndex, zoneIndex){
-		var hitzone = this.rows[rowIndex].add(view, zoneIndex);
+		var row, hitzone = null;
+		row = this.rows[rowIndex];
+		if(row){
+			hitzone = row.add(view, zoneIndex);
+		}
 		return hitzone;
 	};
 
@@ -2689,7 +2695,9 @@ define('phasercomponents/drag/hitzonerow', [], function(){
 
 	HitZoneRow.prototype.add = function(view, zoneIndex){
 		var hitzone = this.hitzones[zoneIndex];
-		hitzone.add(view);
+		if(hitzone){
+			hitzone.add(view);
+		}
 		return hitzone;
 	};
 

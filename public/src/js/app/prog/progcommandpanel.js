@@ -94,6 +94,7 @@ define(
 	};
 
 	ProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
+		bounds = bounds || {'x':0, 'y':0};
 		var drag = new DragView({"type":type, "turn":turn, "index":index, 'bounds':bounds});
 		this.group.add(drag.view);
 		this.dragManager.addDrag(drag);
@@ -133,8 +134,10 @@ define(
 		for(i = 0; i < numTargets; i++){
 			for(j = 0; j < json[i].length; j++){
 				obj = json[i][j];
-				if(obj.type !== null && obj.type !== undefined){					
-					drag = this.addDrag(obj.type, obj.index, false, {'x':0, 'y':0});
+				if(obj.type !== null && obj.type !== undefined){
+					console.log("loading obj "+JSON.stringify(obj));
+					drag = this.addDrag(obj.type, obj.index, false);
+					console.log("added drag "+drag);
 					this.dragManager.snapTo(drag, i, j);
 				}
 			}

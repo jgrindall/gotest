@@ -9,7 +9,7 @@ define([], function(){
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
-	Assets.MAPS = 					['map0', 'map1', 'map2'];
+	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9', 'map10', 'map11', 'map12'];
 	Assets.TURTLE = 				'turtle';
 	Assets.CORNERS = 				'corners';
 	Assets.CORNERSX = 				'cornersx';
@@ -120,9 +120,19 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Assets.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhl.png", 			"key":Assets.SLIDERHL},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Assets.SLIDERHANDLE},
-		{"type":"image", 		"asset":"assets/images/maps/map0.jpg", 					"key":Assets.MAPS[0]},
-		{"type":"image", 		"asset":"assets/images/maps/map1.jpg", 					"key":Assets.MAPS[1]},
-		{"type":"image", 		"asset":"assets/images/maps/map2.jpg", 					"key":Assets.MAPS[2]},
+		{"type":"image", 		"asset":"assets/images/maps/map0.png", 					"key":Assets.MAPS[0]},
+		{"type":"image", 		"asset":"assets/images/maps/map1.png", 					"key":Assets.MAPS[1]},
+		{"type":"image", 		"asset":"assets/images/maps/map2.png", 					"key":Assets.MAPS[2]},
+		{"type":"image", 		"asset":"assets/images/maps/map3.png", 					"key":Assets.MAPS[3]},
+		{"type":"image", 		"asset":"assets/images/maps/map4.png", 					"key":Assets.MAPS[4]},
+		{"type":"image", 		"asset":"assets/images/maps/map5.png", 					"key":Assets.MAPS[5]},
+		{"type":"image", 		"asset":"assets/images/maps/map6.png", 					"key":Assets.MAPS[6]},
+		{"type":"image", 		"asset":"assets/images/maps/map7.png", 					"key":Assets.MAPS[7]},
+		{"type":"image", 		"asset":"assets/images/maps/map8.png", 					"key":Assets.MAPS[8]},
+		{"type":"image", 		"asset":"assets/images/maps/map9.png", 					"key":Assets.MAPS[9]},
+		{"type":"image", 		"asset":"assets/images/maps/map10.png", 				"key":Assets.MAPS[10]},
+		{"type":"image", 		"asset":"assets/images/maps/map11.png", 				"key":Assets.MAPS[11]},
+		{"type":"image", 		"asset":"assets/images/maps/map12.png", 				"key":Assets.MAPS[12]},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
 		{"type":"image", 		"asset":"assets/images/maps/corners.jpg",	 			"key":Assets.CORNERS}
