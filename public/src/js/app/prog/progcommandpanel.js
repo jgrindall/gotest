@@ -237,6 +237,18 @@ define(
 		this.buttons = [];
 	};
 
+	ProgCommandPanel.prototype.isEmpty = function(hitZoneRow) {
+		var hitZone0, hitZone1;
+		hitZone0 = hitZoneRow[0];
+		hitZone1 = hitZoneRow[1];
+		if(this.options.type === CommandPanelTypes.NSEW){
+			return (typeof hitZone0.type === 'undefined');
+		}
+		else{
+			return ( (typeof hitZone0.type === 'undefined') && (typeof hitZone1.type === 'undefined'));
+		}
+	};
+
 	ProgCommandPanel.prototype.isFull = function(hitZoneRow) {
 		var hitZone0, hitZone1;
 		hitZone0 = hitZoneRow[0];
@@ -253,11 +265,12 @@ define(
 		var i, hitZoneRow, json = this.model.toJson();
 		for(i = 0; i < json.length; i++){
 			hitZoneRow = json[i];
-			if(this.isFull(hitZoneRow)){
-				return true;
+			if(!this.isEmpty(hitZoneRow) && !this.isFull(hitZoneRow)){
+				// not empty and not full is no good!
+				return false;
 			}
 		}
-		return false;
+		return true;
 	};
 
 	ProgCommandPanel.prototype.destroy = function() {
