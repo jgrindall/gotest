@@ -3,13 +3,13 @@ define(['phasercomponents',
 
 'app/views/buttons/nextbutton', 'app/views/buttons/skipbutton', 'app/views/buttons/startbutton',
 
-'app/views/buttons/closebutton', 'app/assets'],
+'app/assets'],
 
 function(PhaserComponents,
 
 NextButton, SkipButton, StartButton,
 
-CloseButton, Assets){
+Assets){
 	
 	"use strict";
 		

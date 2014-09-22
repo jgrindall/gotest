@@ -15,7 +15,7 @@ function($, PhaserComponents, ToolTip, Assets){
 	ToolTipManager.NUM = 		5;
 	ToolTipManager.DX = 		[0, 0, 0, -20, 30];
 
-	ToolTipManager.prototype.start = function(w, h) {
+	ToolTipManager.prototype.start = function(w) {
 		w -= ToolTip.WIDTH;
 		ToolTipManager.pos = [];
 		ToolTipManager.pos.push({'x':w - 260, 	'y':90});
