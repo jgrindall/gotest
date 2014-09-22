@@ -70,15 +70,11 @@ define(
 	};
 
 	ProgCommandPanel.prototype.disableStart = function(){
-		if(this.playButton.mouseUpSignal.has(this.clickPlay, this)){
-			this.playButton.mouseUpSignal.remove(this.clickPlay, this);
-		}	
+		this.playButton.disableInput();
 	};
 	
 	ProgCommandPanel.prototype.enableStart = function(){
-		if(!this.playButton.mouseUpSignal.has(this.clickPlay, this)){
-			this.playButton.mouseUpSignal.add(this.clickPlay, this);
-		}
+		this.playButton.enableInput();
 	};
 
 	ProgCommandPanel.prototype.disableClear = function(){
@@ -135,9 +131,7 @@ define(
 			for(j = 0; j < json[i].length; j++){
 				obj = json[i][j];
 				if(obj.type !== null && obj.type !== undefined){
-					console.log("loading obj "+JSON.stringify(obj));
 					drag = this.addDrag(obj.type, obj.index, false);
-					console.log("added drag "+drag);
 					this.dragManager.snapTo(drag, i, j);
 				}
 			}
@@ -176,6 +170,7 @@ define(
 		var options = {"bounds":{'x':this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.playButton = new PlayButton(options);
 		this.group.add(this.playButton.view);
+		this.playButton.mouseUpSignal.add(this.clickPlay, this);
 	};
 
 	ProgCommandPanel.prototype.addClear = function() {

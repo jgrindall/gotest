@@ -674,6 +674,9 @@ function(Phaser, View, Utils,
 	
 	
 	var AbstractButton = function(options){
+		if(typeof options.disabledAlpha === 'undefined'){
+			options.disabledAlpha = 0.5;
+		}
 		options.asset = options.asset || 'button';
 		this.frames = options.frames || [0, 1, 2, 3];
 		this.mouseDownSignal = new Phaser.Signal();
@@ -692,10 +695,12 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.select = function(){
+		console.log("select button");
 		this.goToFrame(1);
 	};
 
 	AbstractButton.prototype.deselect = function(){
+		console.log("deselect button");
 		this.goToFrame(0);
 	};
 
@@ -711,7 +716,6 @@ function(Phaser, View, Utils,
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
 		}
 		this.mouseUpSignal.dispatch({"target":this});
-		
 	};
 	
 	AbstractButton.prototype.addListeners = function(){
@@ -733,6 +737,14 @@ function(Phaser, View, Utils,
 		}
 	};
 	
+	AbstractButton.prototype.disableInput = function(){
+		if(this.sprite.inputEnabled){
+			this.sprite.inputEnabled = false;
+			this.tweenAlpha(this.options.disabledAlpha, false);
+			this.removeListeners();
+		}
+	};
+
 	AbstractButton.prototype.stopTweens = function(){
 		if(this.fadeTween){
 			this.fadeTween.stop();
@@ -749,14 +761,6 @@ function(Phaser, View, Utils,
 			delay = 50;
 		}
 		this.fadeTween = this.game.add.tween(this.sprite).to( {'alpha':a}, duration, Phaser.Easing.Linear.None, true, delay, false);
-	};
-
-	AbstractButton.prototype.disableInput = function(){
-		if(this.sprite.inputEnabled){
-			this.sprite.inputEnabled = false;
-			this.tweenAlpha(0.5, false);
-			this.removeListeners();
-		}
 	};
 	
 	AbstractButton.prototype.mouseDown = function(){
@@ -947,6 +951,7 @@ ButtonGridModel, Utils){
 	};
 	
 	ButtonGrid.prototype.showSelected = function(index) {
+		console.log("ButtonGrid showSelected "+index);
 		this.buttons.forEach(function(button, i){
 			if(i === index){
 				button.select();
