@@ -183,6 +183,7 @@ define(
 
 	ProgCommandPanel.prototype.clickClear = function() {
 		this.dragManager.clear();
+		this.onEdited();
 	};
 
 	ProgCommandPanel.prototype.clickPlay = function() {

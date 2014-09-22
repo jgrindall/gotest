@@ -2400,7 +2400,6 @@ define('phasercomponents/drag/dragmanager',
 	DragManager.prototype.clear = function(){
 		this.destroyViews();
 		this.model.clear();
-		this.editSignal.dispatch();
 	};
 
 	DragManager.prototype.addTarget = function(target, row){
