@@ -695,12 +695,10 @@ function(Phaser, View, Utils,
 	};
 
 	AbstractButton.prototype.select = function(){
-		console.log("select button");
 		this.goToFrame(1);
 	};
 
 	AbstractButton.prototype.deselect = function(){
-		console.log("deselect button");
 		this.goToFrame(0);
 	};
 
@@ -951,7 +949,6 @@ ButtonGridModel, Utils){
 	};
 	
 	ButtonGrid.prototype.showSelected = function(index) {
-		console.log("ButtonGrid showSelected "+index);
 		this.buttons.forEach(function(button, i){
 			if(i === index){
 				button.select();
@@ -2403,6 +2400,7 @@ define('phasercomponents/drag/dragmanager',
 	DragManager.prototype.clear = function(){
 		this.destroyViews();
 		this.model.clear();
+		this.editSignal.dispatch();
 	};
 
 	DragManager.prototype.addTarget = function(target, row){
