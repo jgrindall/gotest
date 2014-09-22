@@ -24,7 +24,6 @@ Events, Assets, ToolTipManager){
 	PhaserComponents.Utils.extends(ActivityScene, PhaserComponents.Scene);
 
 	ActivityScene.prototype.create = function() {
-		
 		this.addBg();
 		this.addCanvas();
 		this.addControls();
@@ -32,6 +31,7 @@ Events, Assets, ToolTipManager){
 		this.addName();
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
+		this.eventDispatcher.trigger({"type":Events.ENTER_FS});
 		setTimeout($.proxy(this.openToolTips, this), 2000);
 	};
 

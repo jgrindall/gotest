@@ -5,9 +5,13 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/typechoicecommand', 'app/commands/gridchoicecommand', 'app/commands/teachercommand',
 
-	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/startupcommand', 'app/commands/progchangecommand', 
+	'app/commands/addcommandcommand', 'app/commands/drawcommand',
 
-	'app/commands/finishcommand', 'app/commands/replaycommand', 
+	'app/commands/startupcommand', 'app/commands/progchangecommand', 
+
+	'app/commands/finishcommand', 'app/commands/replaycommand', 'app/commands/designimgcommand', 
+
+	'app/commands/enterfscommand', 'app/commands/exitfscommand', 
 
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
@@ -19,9 +23,13 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		TypeChoiceCommand, GridChoiceCommand, TeacherCommand,
 
-		AddCommandCommand, DrawCommand,  StartUpCommand, ProgChangeCommand,
+		AddCommandCommand, DrawCommand,
 
-		FinishCommand, ReplayCommand, 
+		StartUpCommand, ProgChangeCommand,
+
+		FinishCommand, ReplayCommand, DesignImgCommand,
+
+		EnterFsCommand, ExitFsCommand,
 
 		Events, PhaserComponents, AppConsts,
 
@@ -82,6 +90,9 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.DRAW, 				DrawCommand);
 		this.commandMap.map(Events.REPLAY, 				ReplayCommand);
 		this.commandMap.map(Events.FINISHED, 			FinishCommand);
+		this.commandMap.map(Events.ENTER_FS, 			EnterFsCommand);
+		this.commandMap.map(Events.EXIT_FS, 			ExitFsCommand);
+		this.commandMap.map(Events.DESIGN_IMG, 			DesignImgCommand);
     };
 	
 	AppContext.prototype.preload = function(){

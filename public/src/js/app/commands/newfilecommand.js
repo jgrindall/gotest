@@ -4,13 +4,13 @@ define(
 
 	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider',
 
-	'app/assets'],
+	'app/assets', 'app/events/events'],
 
 function(PhaserComponents, ModelFacade,
 
 	GameBgMenu, BgDataProvider,
 
-	Assets) {
+	Assets, Events) {
 	
 	"use strict";
 	
@@ -30,7 +30,7 @@ function(PhaserComponents, ModelFacade,
 			ModelFacade.getInstance().get(ModelFacade.BG).set(data.selection.selectedPage, {"force":true});
 		}
 		else if(data.index === 2){
-			window.alert("Open external designer");
+			this.eventDispatcher.trigger({"type":Events.DESIGN_IMG});
 		}
 	};
 	
