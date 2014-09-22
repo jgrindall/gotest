@@ -108,7 +108,7 @@ define(
 			for(j = 0; j < buttons[i].length; j++){
 				data = buttons[i][j];
 				bounds = this.getButtonPos(i, j);
-				options = {'type':i, 'index':data.num, 'turn':data.turn, 'bounds':bounds};
+				options = {'type':i, 'index':data.num, 'turn':(data.turn === true), 'bounds':bounds};
 				button = new DragButton(options);
 				this.buttons.push(button);
 				this.group.add(button.view);
@@ -122,15 +122,31 @@ define(
 		localStorage.setItem("jsonData", jsonString);
 	};
 
+	ProgCommandPanel.prototype.objAllowed = function(obj){
+		var i, button;
+		if(obj.type === null || obj.type === undefined || obj.index === null || obj.index === undefined){
+			return false;
+		}
+		for(i = 0; i < this.buttons.length; i++){
+			button = this.buttons[i];
+			if(obj.type === button.options.type && obj.index === button.options.index && obj.turn === button.options.turn){
+				// found!
+				return true;
+			}
+		}
+		return false;
+	};
+
 	ProgCommandPanel.prototype.load = function(){
-		var json, i, j, obj, drag, numTargets;
+		var json, i, j, obj, drag, numTargets, objAllowed;
 		this.dragManager.clear();
 		json = ModelFacade.getInstance().get(ModelFacade.PROG).get();
 		numTargets = Math.min(json.length, this.targets.length);
 		for(i = 0; i < numTargets; i++){
 			for(j = 0; j < json[i].length; j++){
 				obj = json[i][j];
-				if(obj.type !== null && obj.type !== undefined){
+				objAllowed = this.objAllowed(obj);
+				if(objAllowed){
 					drag = this.addDrag(obj.type, obj.index, false);
 					this.dragManager.snapTo(drag, i, j);
 				}

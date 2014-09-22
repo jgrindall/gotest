@@ -9,7 +9,7 @@ define(['phasercomponents'], function(PhaserComponents){
 	PhaserComponents.Utils.extends(AbstractDragView, PhaserComponents.Drag.AbstractDragView);
 
 	AbstractDragView.prototype.toJson = function(){
-		return {"type":this.options.type, "index":this.options.index};
+		return {"type":this.options.type, "index":this.options.index, "turn":this.options.turn};
 	};
 
 	AbstractDragView.prototype.create = function(){

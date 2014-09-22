@@ -45,7 +45,7 @@ MarkerTypes
 				panel = new NSEWCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
 			}
 			else{
-				panel = new ProgCommandPanel({"buttons":[[{"num":1}, {"num":3}, {"num":5}, {"num":7}]], "type":type, "hitzones":CommandsPanelFactory.makeHitzones(numTargets, false), "targets":prog, "bounds":bounds});
+				panel = new ProgCommandPanel({"buttons":[[{"num":1, "turn":false}, {"num":3, "turn":false}, {"num":5, "turn":false}, {"num":7, "turn":false}]], "type":type, "hitzones":CommandsPanelFactory.makeHitzones(numTargets, false), "targets":prog, "bounds":bounds});
 			}
 		}
 		else if(type === CommandPanelTypes.NSEW_KEYS){
@@ -53,7 +53,7 @@ MarkerTypes
 				panel = new NSEWKeysCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
 			}
 			else{
-				panel = new ProgCommandPanel({"buttons":[[{"num":1}, {"num":3}, {"num":5}, {"num":7}], [{"num":0}, {"num":1}, {"num":2}, {"num":3}, {"num":4}, {"num":5}, {"num":6}, {"num":7}]], "type":type, "hitzones":CommandsPanelFactory.makeHitzones(numTargets, true), "targets":prog, "bounds":bounds});
+				panel = new ProgCommandPanel({"buttons":[[{"num":1, "turn":false}, {"num":3, "turn":false}, {"num":5, "turn":false}, {"num":7, "turn":false}], [{"num":0, "turn":false}, {"num":1, "turn":false}, {"num":2, "turn":false}, {"num":3, "turn":false}, {"num":4, "turn":false}, {"num":5, "turn":false}, {"num":6, "turn":false}, {"num":7, "turn":false}]], "type":type, "hitzones":CommandsPanelFactory.makeHitzones(numTargets, true), "targets":prog, "bounds":bounds});
 			}
 		}
 		else if(type === CommandPanelTypes.NSEW_45_KEYS){
@@ -61,7 +61,7 @@ MarkerTypes
 				panel = new NSEW45KeysCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});
 			}
 			else{
-				panel = new ProgCommandPanel({"buttons":[[{"num":0}, {"num":1}, {"num":2}, {"num":3}, {"num":5}, {"num":6}, {"num":7}, {"num":8}], [{"num":0}, {"num":1}, {"num":2}, {"num":3}, {"num":4}, {"num":5}, {"num":6}, {"num":7}]], "type":type, "hitzones":CommandsPanelFactory.makeHitzones(numTargets, true), "targets":prog, "bounds":bounds});
+				panel = new ProgCommandPanel({"buttons":[[{"num":0, "turn":false}, {"num":1, "turn":false}, {"num":2, "turn":false}, {"num":3, "turn":false}, {"num":5, "turn":false}, {"num":6, "turn":false}, {"num":7, "turn":false}, {"num":8, "turn":false}], [{"num":0, "turn":false}, {"num":1, "turn":false}, {"num":2, "turn":false}, {"num":3, "turn":false}, {"num":4, "turn":false}, {"num":5, "turn":false}, {"num":6, "turn":false}, {"num":7, "turn":false}]], "type":type, "hitzones":CommandsPanelFactory.makeHitzones(numTargets, true), "targets":prog, "bounds":bounds});
 			}
 		}
 		else if(type === CommandPanelTypes.TURNING_KEYS){
@@ -69,7 +69,7 @@ MarkerTypes
 				panel = new NSTurnKeysCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.TURN});
 			}
 			else{
-				panel = new ProgCommandPanel({"buttons":[[{"num":1}, {"num":3, "turn":true}, {"num":5, "turn":true}, {"num":7}], [{"num":0}, {"num":1}, {"num":2}, {"num":3}, {"num":4}, {"num":5}, {"num":6}, {"num":7}]], "type":type, "hitzones":CommandsPanelFactory.makeHitzones(numTargets, true), "targets":prog, "bounds":bounds});
+				panel = new ProgCommandPanel({"buttons":[[{"num":1, "turn":false}, {"num":3, "turn":true}, {"num":5, "turn":true}, {"num":7, "turn":false}], [{"num":0, "turn":false}, {"num":1, "turn":false}, {"num":2, "turn":false}, {"num":3, "turn":false}, {"num":4, "turn":false}, {"num":5, "turn":false}, {"num":6, "turn":false}, {"num":7, "turn":false}]], "type":type, "hitzones":CommandsPanelFactory.makeHitzones(numTargets, true), "targets":prog, "bounds":bounds});
 			}
 		}
 		return panel;
