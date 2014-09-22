@@ -8,6 +8,7 @@ function(PhaserComponents, ModelFacade, Assets){
 	"use strict";
 	
 	var WidthPicker  = function(options){
+		options.num = Assets.WIDTHS.length;
 		PhaserComponents.Display.StepperButton.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.COLOR).changeSignal.add(this.changeColor, this);
 	};

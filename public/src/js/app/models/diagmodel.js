@@ -6,14 +6,10 @@ function(PhaserComponents){
 	"use strict";
 	
 	var DiagModel  = function(){
-		PhaserComponents.Model.AbstractModel.call(this);
+		PhaserComponents.Model.ToggleModel.call(this);
 	};
 	
-	PhaserComponents.Utils.extends(DiagModel, PhaserComponents.Model.AbstractModel);
-	
-	DiagModel.prototype.increment = function() {
-		this.set(1 - this.get());
-	};
+	PhaserComponents.Utils.extends(DiagModel, PhaserComponents.Model.ToggleModel);
 
 	return DiagModel;
 

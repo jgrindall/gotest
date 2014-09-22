@@ -6,16 +6,11 @@ function(PhaserComponents, PenWidths){
 	"use strict";
 	
 	var WidthModel  = function(){
-		PhaserComponents.Model.AbstractModel.call(this);
+		PhaserComponents.Model.IncrementModel.call(this, {"num":PenWidths.ALL.length});
 	};
 	
-	PhaserComponents.Utils.extends(WidthModel, PhaserComponents.Model.AbstractModel);
-
-	WidthModel.prototype.increment = function() {
-		var newValue = (this.get() + 1) % PenWidths.ALL.length;
-		this.set(newValue);
-	};
-
+	PhaserComponents.Utils.extends(WidthModel, PhaserComponents.Model.IncrementModel);
+	
 	return WidthModel;
 
 });

@@ -824,6 +824,52 @@ function(Phaser, Context){
 	
 
 
+define('phasercomponents/models/incrementmodel',
+
+	['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
+
+function(AbstractModel, Utils){
+	
+	
+	
+	var IncrementModel  = function(options){
+		this.num = options.num;
+		AbstractModel.call(this);
+	};
+
+	Utils.extends(IncrementModel, AbstractModel);
+	
+	IncrementModel.prototype.increment = function() {
+		var newValue = (this.get() + 1) % this.num;
+		this.set(newValue);
+	};
+	
+	return IncrementModel;
+
+});
+	
+
+
+define('phasercomponents/models/togglemodel',
+
+	['phasercomponents/models/incrementmodel', 'phasercomponents/utils/utils'],
+
+function(IncrementModel, Utils){
+	
+	
+	
+	var ToggleModel  = function(){
+		IncrementModel.call(this, {"num":2});
+	};
+	
+	Utils.extends(ToggleModel, IncrementModel);
+	
+	return ToggleModel;
+
+});
+	
+
+
 define('phasercomponents/display/buttongrid/buttongridmodel',
 
 	['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
@@ -1838,22 +1884,17 @@ function(MovieClip, Utils, AppEvents){
 
 define('phasercomponents/display/buttongrid/steppermodel',
 
-	['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
+	['phasercomponents/models/incrementmodel', 'phasercomponents/utils/utils'],
 
-function(AbstractModel, Utils){
+function(IncrementModel, Utils){
 	
 	
 	
-	var StepperModel  = function(){
-		AbstractModel.call(this);
-	};
-	
-	StepperModel.prototype.increment = function() {
-		var newValue = (this.get() + 1) % 4;
-		this.set(newValue);
+	var StepperModel = function(options){
+		IncrementModel.call(this, options);
 	};
 
-	Utils.extends(StepperModel, AbstractModel);
+	Utils.extends(StepperModel, IncrementModel);
 	
 	return StepperModel;
 
@@ -1874,7 +1915,7 @@ function(MovieClip, Utils, AppEvents, StepperModel){
 	
 	
 	var StepperButton = function(options){
-		options.model = options.model || new StepperModel();
+		options.model = options.model || new StepperModel({"num":options.numFrames});
 		MovieClip.call(this, options);
 		this.mouseUpSignal.add(this.onStep, this);
 		this.model.changeSignal.add(this.onChanged, this);
@@ -2688,6 +2729,8 @@ define('phasercomponents',[
 	'phasercomponents/display/interactivesprite',
 	'phasercomponents/display/buttons/abstractbutton',
 	'phasercomponents/models/abstractmodel',
+	'phasercomponents/models/togglemodel',
+	'phasercomponents/models/incrementmodel',
 	'phasercomponents/display/buttongrid/buttongrid',
 	'phasercomponents/display/buttongrid/buttongridmodel',
 	'phasercomponents/display/buttongrid/tabbuttonbar',
@@ -2729,6 +2772,8 @@ define('phasercomponents',[
 		InteractiveSprite, 
 		AbstractButton, 
 		AbstractModel,
+		ToggleModel,
+		IncrementModel,
 		ButtonGrid,
 		ButtonGridModel,
 		TabButtonBar,
@@ -2789,6 +2834,8 @@ define('phasercomponents',[
 
     var Model = {
     	'AbstractModel': 		AbstractModel,
+    	'IncrementModel': 		IncrementModel,
+    	'ToggleModel': 			ToggleModel,
        	'ButtonGridModel': 		ButtonGridModel
     };
 
