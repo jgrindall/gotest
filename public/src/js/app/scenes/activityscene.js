@@ -24,6 +24,7 @@ Events, Assets, ToolTipManager){
 	PhaserComponents.Utils.extends(ActivityScene, PhaserComponents.Scene);
 
 	ActivityScene.prototype.create = function() {
+		
 		this.addBg();
 		this.addCanvas();
 		this.addControls();
@@ -31,10 +32,11 @@ Events, Assets, ToolTipManager){
 		this.addName();
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
-		console.log("ToolTipManager " + ToolTipManager);
-		setTimeout(function(){
-			ToolTipManager.getInstance().start();
-		}, 2000);
+		setTimeout($.proxy(this.openToolTips, this), 2000);
+	};
+
+	ActivityScene.prototype.openToolTips = function(){
+		ToolTipManager.getInstance().start(this.game.w, this.game.h);
 	};
 
 	ActivityScene.prototype.addName = function() {

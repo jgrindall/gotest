@@ -19,7 +19,7 @@ define([], function(){
 	Assets.PANEL = 					'panel';
 	Assets.SPEEDDECOR = 			'speeddecor';
 	Assets.SMALL_PANEL = 			'smallpanel';
-	Assets.TOOLTIPS = 				['tooltip0', 'tooltip1', 'tooltip2', 'tooltip3', 'tooltip4'];
+	Assets.TOOLTIPS = 				['tooltip0', 'tooltip1', 'tooltip2', 'tooltip3', 'tooltip4', 'tooltip5'];
 	Assets.TOOLTIP_IMAGE = 			'tooltipImage';
 	Assets.ALERT = 					'alert';
 	Assets.LEFT = 					'left';
@@ -27,6 +27,7 @@ define([], function(){
 	Assets.OK_BUTTON = 				'okbutton';
 	Assets.ADD_BUTTON = 			'addbutton';
 	Assets.NEXT_BUTTON = 			'nextbutton';
+	Assets.START_BUTTON = 			'startbutton';
 	Assets.SKIP_BUTTON = 			'skipbutton';
 	Assets.DRAG_BUTTON = 			'dragbutton';
 	Assets.PLAY_BUTTON =			'playButton';
@@ -72,6 +73,7 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 					"key":Assets.CLOSE, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Assets.OK_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/next.png", 					"key":Assets.NEXT_BUTTON, 				"w":180, 	"h":70},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/start.png", 					"key":Assets.START_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/skip.png", 					"key":Assets.SKIP_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/play.png", 					"key":Assets.PLAY_BUTTON, 				"w":100, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/addMyButton.png", 			"key":Assets.ADD_BUTTON, 				"w":180, 	"h":70},
@@ -108,6 +110,7 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/popups/tooltip2.png",	 		"key":Assets.TOOLTIPS[2]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip3.png",	 		"key":Assets.TOOLTIPS[3]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip4.png",	 		"key":Assets.TOOLTIPS[4]},
+		{"type":"image", 		"asset":"assets/images/popups/tooltip5.png",	 		"key":Assets.TOOLTIPS[5]},
 		{"type":"image", 		"asset":"assets/images/grids/grid0.png", 				"key":Assets.GRIDS[0]},
 		{"type":"image", 		"asset":"assets/images/grids/grid1.png", 				"key":Assets.GRIDS[1]},
 		{"type":"image", 		"asset":"assets/images/grids/grid2.png", 				"key":Assets.GRIDS[2]},

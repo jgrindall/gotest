@@ -20,8 +20,6 @@ function(PhaserComponents, ModelFacade, CommSpeed){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.decor0 = new Phaser.Sprite(this.game, this.bounds.x - 40, this.bounds.y, this.options.asset, 0);
 		this.decor1 = new Phaser.Sprite(this.game, this.bounds.x + this.bounds.w, this.bounds.y, this.options.asset, 1);
-		//this.decor0.animations.add('play', [1, 2, 3, 4], 300, true);
-		//this.decor1.animations.add('play', [1, 2, 3, 4], 300, true);
 		this.group.add(this.decor0);
 		this.group.add(this.decor1);
 		this.enableInput();

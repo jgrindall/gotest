@@ -10,11 +10,20 @@ function($, PhaserComponents, ToolTip, Assets){
 		this.num = 0;
 	};
 	
-	ToolTipManager.TEXT = 		["Use the arrow buttons to control the turtle", "Change the speed here", "These are the stop and undo buttons", "This button lets you choose how to program the turtle, you can program it in a number of different ways", "Start a new file, load, save and print your work"];
-	ToolTipManager.POS = 		[{'x':100, 'y':10}, {'x':400, 'y':300}, {'x':200, 'y':200}, {'x':200, 'y':200}, {'x':200, 'y':200}];
-	ToolTipManager.ARROW_POS = 	[0, 1, 2, 3, 4, 0];
+	ToolTipManager.TEXT = 		["Welcome to 2Go!\n\nUse the arrow buttons\nto control the turtle", "Change the speed here", "These are the stop and\nundo buttons", "This button lets you choose\nhow to program the turtle.", "Start a new file, load,\nsave and print your work"];
+	ToolTipManager.ARROW_POS = 	[1, 0, 1, 1, 2, 4];
+	ToolTipManager.NUM = 		5;
+	ToolTipManager.DX = 		[0, 0, 0, -20, 30];
 
-	ToolTipManager.prototype.start = function() {
+	ToolTipManager.prototype.start = function(w, h) {
+		console.log("w, h "+w, h);
+		w -= ToolTip.WIDTH;
+		ToolTipManager.pos = [];
+		ToolTipManager.pos.push({'x':w - 260, 	'y':90});
+		ToolTipManager.pos.push({'x':w/2, 		'y':60});
+		ToolTipManager.pos.push({'x':w - 240, 	'y':10});
+		ToolTipManager.pos.push({'x':w - 120, 	'y':10});
+		ToolTipManager.pos.push({'x':240, 		'y':10});
 		this.open();
 	};
 
@@ -22,8 +31,8 @@ function($, PhaserComponents, ToolTip, Assets){
 		var text, pos, arrow, options;
 		text = ToolTipManager.TEXT[this.num];
 		arrow = ToolTipManager.ARROW_POS[this.num];
-		pos = ToolTipManager.POS[this.num];
-		options = {"label":text, "sfx":Assets.SOUNDS[2], "num":this.num, "arrow":arrow};
+		pos = ToolTipManager.pos[this.num];
+		options = {"label":text, "sfx":Assets.SOUNDS[2], "end":(this.num === ToolTipManager.NUM - 1), "num":this.num, "arrow":arrow, "dx":ToolTipManager.DX[this.num]};
 		PhaserComponents.AlertManager.getInstance().make(ToolTip, options, $.proxy(this.onClosed, this), pos);
 	};
 
@@ -33,7 +42,12 @@ function($, PhaserComponents, ToolTip, Assets){
 		}
 		else if(data.index === 1){
 			this.num++;
-			this.open();
+			if(this.num === ToolTipManager.NUM){
+				//close
+			}
+			else{
+				this.open();
+			}
 		}
 	};
 

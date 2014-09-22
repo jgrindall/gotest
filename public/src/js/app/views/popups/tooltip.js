@@ -1,13 +1,13 @@
 
 define(['phasercomponents',
 
-'app/views/buttons/nextbutton', 'app/views/buttons/skipbutton',
+'app/views/buttons/nextbutton', 'app/views/buttons/skipbutton', 'app/views/buttons/startbutton',
 
 'app/views/buttons/closebutton', 'app/assets'],
 
 function(PhaserComponents,
 
-NextButton, SkipButton,
+NextButton, SkipButton, StartButton,
 
 CloseButton, Assets){
 	
@@ -22,10 +22,12 @@ CloseButton, Assets){
 
 	ToolTip.WIDTH = 420;
 	ToolTip.HEIGHT = 250;
-	
+	ToolTip.DX = 50;
+
 	ToolTip.prototype.addText = function () {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, 160 + this.bounds.x + this.bounds.w/2, this.bounds.y + 90, this.options.label);
+		this.label = PhaserComponents.TextFactory.make('small', this.game, ToolTip.DX + this.bounds.x + this.bounds.w/2, this.bounds.y + 55, this.options.label);
 		this.label.x -= this.label.width/2;
+		this.label.x += this.options.dx;
 		this.group.add(this.label);
 	};
 
@@ -36,20 +38,18 @@ CloseButton, Assets){
 	ToolTip.prototype.addSkipButton = function () {
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (SkipButton.WIDTH/2);
-		bounds = {"x":middle - 100, "y":this.bounds.y + this.bounds.h - SkipButton.HEIGHT};
+		bounds = {"x":middle - 100 + this.options.dx, "y":this.bounds.y + this.bounds.h - SkipButton.HEIGHT};
 		this.addButton(SkipButton, bounds);
-	};
-	
-	ToolTip.prototype.addCloseButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - 55, "y":this.bounds.y + 1};
-		this.addButton(CloseButton, bounds);
 	};
 
 	ToolTip.prototype.addNextButton = function () { 
-		var middle, bounds;
-		middle = this.bounds.x + this.bounds.w/2 - (NextButton.WIDTH/2);
-		bounds = {"x":middle + 100, "y":this.bounds.y + this.bounds.h - NextButton.HEIGHT};
-		this.addButton(NextButton, bounds);
+		var middle, bounds, ClassRef = NextButton;
+		if(this.options.end){
+			ClassRef = StartButton;
+		}
+		middle = this.bounds.x + this.bounds.w/2 - (ClassRef.WIDTH/2);
+		bounds = {"x":middle + 100 + this.options.dx, "y":this.bounds.y + this.bounds.h - ClassRef.HEIGHT};
+		this.addButton(ClassRef, bounds);
 	};
 
 	ToolTip.prototype.onShown = function () {
@@ -57,7 +57,7 @@ CloseButton, Assets){
 	};
 
 	ToolTip.prototype.addImage = function () {
-		var bounds = {'x':this.bounds.x, 'y':this.bounds.y + 30};
+		var bounds = {'x':this.bounds.x, 'y':this.bounds.y + 15};
 		this.img = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":5, "asset":Assets.TOOLTIP_IMAGE});
 		this.img.goTo(this.options.num);
 		this.group.add(this.img.view);
@@ -69,7 +69,6 @@ CloseButton, Assets){
 		this.addSkipButton();
 		this.addNextButton();
 		this.addImage();
-		this.addCloseButton();
 	};
 	
 	ToolTip.prototype.destroy = function() {
