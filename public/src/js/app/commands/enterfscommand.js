@@ -1,8 +1,8 @@
 define(
 
-	['app/models/modelfacade', 'phasercomponents'],
+	['phasercomponents'],
 
-function(ModelFacade, PhaserComponents) {
+function(PhaserComponents) {
 	
 	"use strict";
 	

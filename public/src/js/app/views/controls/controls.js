@@ -117,13 +117,22 @@ Events, Assets, SpeedMarkers){
 		this.eventDispatcher.trigger({"type":Events.PROG_CHANGE, "data":{"value":val}});
 	};
 
+	Controls.prototype.stopTweens = function() {
+		this.menuTween.stop();
+		this.speedTween.stop();
+		this.sliderTween.stop();
+		this.commandsTween.stop();
+		this.colorTween.stop();
+		this.widthTween.stop();
+	};
+
 	Controls.prototype.addButtons = function() {
 		var bounds = {'x':this.game.w - ControlMenu.WIDTH, 'y':this.bounds.y, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
 		this.menu = new ControlMenu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
 		this.group.add(this.menu.view);
 		this.menu.view.y = -100;
-		this.game.add.tween(this.menu.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 800, false);
+		this.menuTween = this.game.add.tween(this.menu.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 800, false);
 	};
 	
 	Controls.prototype.addSpeedMarkers = function() {
@@ -131,7 +140,7 @@ Events, Assets, SpeedMarkers){
 		this.speedMarkers.clickSignal.add(this.clickMarker, this);
 		this.speedMarkers.view.y = -100;
 		this.group.add(this.speedMarkers.view);
-		this.game.add.tween(this.speedMarkers.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
+		this.speedTween = this.game.add.tween(this.speedMarkers.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
 	};
 
 	Controls.prototype.clickMarker = function(data) {
@@ -150,7 +159,7 @@ Events, Assets, SpeedMarkers){
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.speedSlider.group.y = -100;
 		this.group.add(this.speedSlider.view);
-		this.game.add.tween(this.speedSlider.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
+		this.sliderTween = this.game.add.tween(this.speedSlider.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
 	};
 	
 	Controls.prototype.menuClick = function(data) {
@@ -188,7 +197,7 @@ Events, Assets, SpeedMarkers){
 			delay = (this.firstShow ? 800 : 100);
 			this.commandsPanel.view.x = this.game.w + 100;
 			this.group.add(this.commandsPanel.view);
-			this.game.add.tween(this.commandsPanel.view).to( {'x':0}, 1000, Phaser.Easing.Linear.None, true, delay, false);
+			this.commandsTween = this.game.add.tween(this.commandsPanel.view).to( {'x':0}, 1000, Phaser.Easing.Linear.None, true, delay, false);
 			this.firstShow = false;
 		}
 	};
@@ -197,17 +206,18 @@ Events, Assets, SpeedMarkers){
 		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2, 'y':this.game.h + 100, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
 		this.colorPicker = new ColorPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.view);
-		this.game.add.tween(this.colorPicker.view).to( {'y':this.game.h - ColorPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1200, false);
+		this.colorTween = this.game.add.tween(this.colorPicker.view).to( {'y':this.game.h - ColorPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1200, false);
 	};
 
 	Controls.prototype.addWidthPicker = function() {
 		var bounds = {'x':this.bounds.x + this.bounds.w + 10, 'y':this.game.h + 100, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
 		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.view);
-		this.game.add.tween(this.widthPicker.view).to( {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1600, false);
+		this.widthTween = this.game.add.tween(this.widthPicker.view).to( {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1600, false);
 	};
 	
 	Controls.prototype.destroy = function() {
+		this.stopTweens();
 		this.bg.destroy();
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
 		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);

@@ -72,11 +72,6 @@ Assets){
 	};
 	
 	ToolTip.prototype.destroy = function() {
-		var that = this;
-		this.buttons.forEach(function(b){
-			b.mouseUpSignal.remove(that.buttonUp, that);
-			b.destroy();
-		});
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	

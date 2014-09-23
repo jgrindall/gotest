@@ -32,7 +32,7 @@ Events, Assets, ToolTipManager){
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
 		this.eventDispatcher.trigger({"type":Events.ENTER_FS});
-		setTimeout($.proxy(this.openToolTips, this), 2000);
+		this.toolTipTimeout = setTimeout($.proxy(this.openToolTips, this), 2000);
 	};
 
 	ActivityScene.prototype.openToolTips = function(){
@@ -63,7 +63,7 @@ Events, Assets, ToolTipManager){
 		this.menu.clickSignal.add(this.menuClick, this);
 		this.menu.view.y = -60;
 		this.world.add(this.menu.view);
-		this.game.add.tween(this.menu.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 0, false);
+		this.menuTween = this.game.add.tween(this.menu.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 0, false);
 	};
 	
 	ActivityScene.prototype.menuClick = function(data) {
@@ -102,6 +102,7 @@ Events, Assets, ToolTipManager){
 	};
 	
 	ActivityScene.prototype.destroy = function() {
+		clearTimeout(this.toolTipTimeout);
 		this.world.remove(this.menu.view);
 		this.world.remove(this.canvas.view);
 		this.world.remove(this.controls.view);
@@ -113,9 +114,9 @@ Events, Assets, ToolTipManager){
 		this.controls.destroy();
 	};
 
-
 	ActivityScene.prototype.shutdown = function() {
 		PhaserComponents.Scene.prototype.shutdown.apply(this, arguments);
+		this.menuTween.stop();
 		this.destroy();
 	};
 	

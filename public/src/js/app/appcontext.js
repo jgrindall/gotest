@@ -7,6 +7,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/addcommandcommand', 'app/commands/drawcommand',
 
+	'app/commands/preshutdowncommand', 'app/commands/postshutdowncommand',	
+
 	'app/commands/startupcommand', 'app/commands/progchangecommand', 
 
 	'app/commands/finishcommand', 'app/commands/replaycommand', 'app/commands/designimgcommand', 
@@ -24,6 +26,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		TypeChoiceCommand, GridChoiceCommand, TeacherCommand,
 
 		AddCommandCommand, DrawCommand,
+
+		PreShutdownCommand, PostShutdownCommand,
 
 		StartUpCommand, ProgChangeCommand,
 
@@ -75,24 +79,26 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
     AppContext.prototype.mapCommands = function(){
     	PhaserComponents.Context.prototype.mapCommands.call(this);
-    	this.commandMap.map(Events.NEW_FILE, 			NewFileCommand);
-    	this.commandMap.map(Events.PROG_CHANGE, 		ProgChangeCommand);
-		this.commandMap.map(Events.LOAD, 				LoadCommand);
-		this.commandMap.map(Events.SAVE, 				SaveCommand);
-		this.commandMap.map(Events.PRINT, 				PrintCommand);
-		this.commandMap.map(Events.UNDO,				UndoCommand);
-		this.commandMap.map(Events.STOP, 				StopCommand);
-		this.commandMap.map(Events.TEACHER_LOGIN, 		TeacherCommand);
-		this.commandMap.map(Events.TYPE_CHOICE, 		TypeChoiceCommand);
-		this.commandMap.map(Events.GRID_CHOICE, 		GridChoiceCommand);
-		this.commandMap.map(Events.ADD_COMMAND, 		AddCommandCommand);
-		this.commandMap.map(Events.STARTUP, 			StartUpCommand);
-		this.commandMap.map(Events.DRAW, 				DrawCommand);
-		this.commandMap.map(Events.REPLAY, 				ReplayCommand);
-		this.commandMap.map(Events.FINISHED, 			FinishCommand);
-		this.commandMap.map(Events.ENTER_FS, 			EnterFsCommand);
-		this.commandMap.map(Events.EXIT_FS, 			ExitFsCommand);
-		this.commandMap.map(Events.DESIGN_IMG, 			DesignImgCommand);
+    	this.commandMap.map(Events.NEW_FILE, 									NewFileCommand);
+    	this.commandMap.map(Events.PROG_CHANGE, 								ProgChangeCommand);
+		this.commandMap.map(Events.LOAD, 										LoadCommand);
+		this.commandMap.map(Events.SAVE, 										SaveCommand);
+		this.commandMap.map(Events.PRINT, 										PrintCommand);
+		this.commandMap.map(Events.UNDO,										UndoCommand);
+		this.commandMap.map(Events.STOP, 										StopCommand);
+		this.commandMap.map(Events.TEACHER_LOGIN, 								TeacherCommand);
+		this.commandMap.map(Events.TYPE_CHOICE, 								TypeChoiceCommand);
+		this.commandMap.map(Events.GRID_CHOICE, 								GridChoiceCommand);
+		this.commandMap.map(Events.ADD_COMMAND, 								AddCommandCommand);
+		this.commandMap.map(Events.STARTUP, 									StartUpCommand);
+		this.commandMap.map(Events.DRAW, 										DrawCommand);
+		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
+		this.commandMap.map(Events.FINISHED, 									FinishCommand);
+		this.commandMap.map(Events.ENTER_FS, 									EnterFsCommand);
+		this.commandMap.map(Events.EXIT_FS, 									ExitFsCommand);
+		this.commandMap.map(Events.DESIGN_IMG, 									DesignImgCommand);
+		this.commandMap.map(PhaserComponents.Events.AppEvents.PRE_SHUTDOWN, 	PreShutdownCommand);
+		this.commandMap.map(PhaserComponents.Events.AppEvents.POST_SHUTDOWN, 	PostShutdownCommand);
     };
 	
 	AppContext.prototype.preload = function(){

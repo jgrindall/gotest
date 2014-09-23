@@ -18452,6 +18452,8 @@ Phaser.Stage.prototype.checkVisibility = function () {
 */
 Phaser.Stage.prototype.visibilityChange = function (event) {
 
+    console.log("visibilityChange "+this.disableVisibilityChange);
+
     if (event.type === 'pagehide' || event.type === 'blur' || event.type === 'pageshow' || event.type === 'focus')
     {
         if (event.type === 'pagehide' || event.type === 'blur')
@@ -18479,6 +18481,22 @@ Phaser.Stage.prototype.visibilityChange = function (event) {
     {
         this.game.gameResumed(event);
     }
+
+};
+
+
+Phaser.Stage.prototype.destroy  = function () {
+
+    if (this._hiddenVar)
+    {
+        document.removeEventListener(this._hiddenVar, this._onChange, false);
+    }
+
+    window.onpagehide = null;
+    window.onpageshow = null;
+
+    window.onblur = null;
+    window.onfocus = null;
 
 };
 
@@ -21883,6 +21901,8 @@ Phaser.Game.prototype = {
     * @protected
     */
     boot: function () {
+
+        console.log("boot game ", this.isBooted, this.time, this.id);
 
         if (this.isBooted)
         {

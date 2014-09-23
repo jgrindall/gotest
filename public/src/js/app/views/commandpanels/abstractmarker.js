@@ -22,7 +22,7 @@ define(['phaser', 'phasercomponents', 'app/assets'],
 	AbstractMarker.prototype.goTo = function(i){
 		PhaserComponents.Display.MovieClip.prototype.goTo.call(this, i);
 		this.game.add.tween(this.sprite.scale).to( {'x':1.2, 'y':1.2}, 200, Phaser.Easing.Back.InOut, true, 0, false);
-		this.game.add.tween(this.sprite.scale).to( {'x':1, 'y':1}, 200, Phaser.Easing.Back.InOut, true, 200, false);
+		this.game.add.tween(this.sprite.scale).to( {'x':1, 'y':1}, 200, Phaser.Easing.Back.InOut, true, 203, false);
 	};
 	
 	return AbstractMarker;

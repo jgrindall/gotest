@@ -38,13 +38,7 @@ Indicator, Grid, Corners, Assets){
 		this.addMap();
 		this.addGrid();
 		this.addDrawing();
-		this.addIndicator();
 		this.addCorners();
-	};
-	
-	Canvas.prototype.addIndicator = function() {
-		this.indicator = new Indicator({'bounds':{'x':10, 'y':50}});
-		//this.group.add(this.indicator.gfx);
 	};
 	
 	Canvas.prototype.addDrawing = function() {
@@ -69,13 +63,11 @@ Indicator, Grid, Corners, Assets){
 		this.group.remove(this.grid.view);
 		this.group.remove(this.map.view);
 		this.group.remove(this.grid.view);
-		this.group.remove(this.indicator.gfx);
 		this.group.remove(this.bg.sprite);
 		this.map.destroy();
 		this.bg.destroy();
 		this.grid.destroy();
 		this.drawing.destroy();
-		this.indicator.destroy();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	

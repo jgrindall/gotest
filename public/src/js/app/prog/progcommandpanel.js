@@ -29,12 +29,17 @@ define(
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.PROG).changeSignal.add(this.progChanged, this);
 	};
 
 	PhaserComponents.Utils.extends(ProgCommandPanel, AbstractCommandsPanel);
 
 	ProgCommandPanel.prototype.setProgress = function(){
 		
+	};
+
+	ProgCommandPanel.prototype.progChanged = function(value){
+		this.load();
 	};
 
 	ProgCommandPanel.prototype.playingChanged = function(value){
@@ -139,7 +144,9 @@ define(
 
 	ProgCommandPanel.prototype.load = function(){
 		var json, i, j, obj, drag, numTargets, objAllowed;
-		this.dragManager.clear();
+		if(this.dragManager){
+			this.dragManager.clear();
+		}
 		json = ModelFacade.getInstance().get(ModelFacade.PROG).get();
 		numTargets = Math.min(json.length, this.targets.length);
 		for(i = 0; i < numTargets; i++){
@@ -198,7 +205,9 @@ define(
 	};
 
 	ProgCommandPanel.prototype.clickClear = function() {
-		this.dragManager.clear();
+		if(this.dragManager){
+			this.dragManager.clear();
+		}
 		this.onEdited();
 	};
 

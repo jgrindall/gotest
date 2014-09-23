@@ -176,11 +176,6 @@ OkButton, CloseButton, StepLengths){
 	};
 	
 	GridMenu.prototype.destroy = function() {
-		var that = this;
-		this.buttons.forEach(function(b){
-			b.mouseUpSignal.remove(that.buttonUp, that);
-			b.destroy();
-		});
 		this.lengthSlider.destroy();
 		this.gridToggle.destroy();
 		this.settings1.destroy();

@@ -129,16 +129,28 @@ function(CommModel, ScreenModel, BgModel,
 		this.progNumModel = new ProgNumModel();
 	};
 
-	ModelFacade.prototype.init = function(){
-		this.makeModels();
-		this.commTickerModel.init(this.commModel);
+	ModelFacade.prototype.addListeners = function(){
 		this.colorModel.changeSignal.add(this.changeColor, this);
 		this.bgModel.changeSignal.add(this.changeBg, this);
 		this.widthModel.changeSignal.add(this.changeWidth, this);
 		this.playingModel.changeSignal.add(this.changePlaying, this);
 		this.speedModel.changeSignal.add(this.changeSpeed, this);
 		this.allowProgModel.changeSignal.add(this.changeAllowProg, this);
-		//TODO - make them commands?
+	};
+
+	ModelFacade.prototype.removeListeners = function(){
+		this.colorModel.changeSignal.remove(this.changeColor, this);
+		this.bgModel.changeSignal.remove(this.changeBg, this);
+		this.widthModel.changeSignal.remove(this.changeWidth, this);
+		this.playingModel.changeSignal.remove(this.changePlaying, this);
+		this.speedModel.changeSignal.remove(this.changeSpeed, this);
+		this.allowProgModel.changeSignal.remove(this.changeAllowProg, this);
+	};
+
+	ModelFacade.prototype.init = function(){
+		this.makeModels();
+		this.commTickerModel.init(this.commModel);
+		this.addListeners();
 	};
 
 	ModelFacade.prototype.setDuration = function() {
@@ -207,6 +219,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.nameModel.set(json.settings.name);
 		this.progNumModel.set(json.settings.progNum);
 		this.commModel.set(json.commands);
+		console.log("loaded "+JSON.stringify(json.prog));
 		this.progModel.set(json.prog);
 	};
 
@@ -228,10 +241,56 @@ function(CommModel, ScreenModel, BgModel,
 		settings.name =	 		this.nameModel.get();
 		json.commands = 		this.commModel.toJson();
 		json.prog = 			this.progModel.get();
+		console.log("save, prog is "+JSON.stringify(json.prog));
 		json.settings = settings;
 		return json;
 	};
 	
+	ModelFacade.prototype.destroyModels = function(){
+		this.screenModel.destroy();
+		this.colorModel.destroy();
+		this.speedModel.destroy();
+		this.widthModel.destroy();
+		this.bgModel.destroy();
+		this.gridModel.destroy();
+		this.diagModel.destroy();
+		this.turtleModel.destroy();
+		this.allowProgModel.destroy();
+		this.angleModel.destroy();
+		this.progTypeModel.destroy();
+		this.stepLengthModel.destroy();
+		this.nameModel.destroy();
+		this.progNumModel.destroy();
+		this.commModel.destroy();
+		this.progModel.destroy();
+		this.screenModel = null;
+		this.colorModel = null;
+		this.speedModel = null;
+		this.widthModel = null;
+		this.bgModel = null;
+		this.gridModel = null;
+		this.diagModel = null;
+		this.turtleModel = null;
+		this.allowProgModel = null;
+		this.angleModel = null;
+		this.progTypeModel = null;
+		this.stepLengthModel = null;
+		this.nameModel = null;
+		this.progNumModel = null;
+		this.commModel = null;
+		this.progModel = null;
+	};
+
+	ModelFacade.shutdown = function(){
+		ModelFacade.getInstance().shutdown();
+		ModelFacade.instance = null;
+	};
+
+	ModelFacade.prototype.shutdown = function(){
+		this.removeListeners();
+		this.destroyModels();
+	};
+
 	return ModelFacade;
 
 });

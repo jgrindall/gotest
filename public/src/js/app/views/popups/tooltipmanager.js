@@ -6,7 +6,6 @@ function($, PhaserComponents, ToolTip, Assets){
 	"use strict";
 	
 	var ToolTipManager  = function(){
-		this.started = true;
 		this.num = 0;
 	};
 	
@@ -48,6 +47,15 @@ function($, PhaserComponents, ToolTip, Assets){
 				this.open();
 			}
 		}
+	};
+
+	ToolTipManager.prototype.shutdown = function() {
+		
+	};
+
+	ToolTipManager.shutdown = function() {
+		ToolTipManager.getInstance().shutdown();
+		ToolTipManager.instance = null;
 	};
 
 	ToolTipManager.getInstance = function(){

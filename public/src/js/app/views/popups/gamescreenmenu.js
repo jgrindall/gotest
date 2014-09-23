@@ -106,11 +106,6 @@ OkButton, CloseButton, ModelFacade){
 	};
 	
 	GameScreenMenu.prototype.destroy = function() {
-		var that = this;
-		this.buttons.forEach(function(b){
-			b.mouseUpSignal.remove(that.buttonUp, that);
-			b.destroy();
-		});
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onChanged, this);
 		this.radio.destroy();
 		this.grid.destroy();
