@@ -3,13 +3,13 @@ define(['phasercomponents', 'app/views/background',
 
 'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
 
-'app/views/components/indicator', 'app/views/canvas/grid', 'app/views/canvas/corners', 'app/assets'],
+'app/views/canvas/grid', 'app/views/canvas/corners', 'app/assets'],
 
 function(PhaserComponents, Background,
 
 Map, Drawing, ModelFacade,
 
-Indicator, Grid, Corners, Assets){
+Grid, Corners, Assets){
 	
 	"use strict";
 	
