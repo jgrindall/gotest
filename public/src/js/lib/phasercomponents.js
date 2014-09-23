@@ -103,20 +103,85 @@ function($, Phaser, PhaserStateTrans){
 });
 
 
+
+define('phasercomponents/injector',
+
+    [],
+
+	function() {
+	
+	
+
+   	var Injector = function (){
+   	    this.classRefs = {};
+    };
+
+    Injector.prototype.map = function(key, varNames, vals){
+        var obj = this.classRefs[key];
+        if(!obj){
+            this.classRefs[key] = {"varNames":varNames, "vals":vals};
+        }
+        else{
+            throw ("already mapped " + key);
+        }
+    };
+
+    Injector.getInstance = function(){
+        if(!Injector.instance){
+            Injector.instance = new Injector();
+        }
+        return Injector.instance;
+    };
+
+    Injector.prototype.shutdown = function(){
+        this.classRefs = {};
+    };
+
+    Injector.shutdown = function(){
+        Injector.getInstance().shutdown();
+        Injector.instance = null;
+    };
+
+    Injector.prototype.unInject = function(_instance){
+        _instance.game = null;
+        _instance.world = null;
+        _instance.eventDispatcher = null;
+    };
+
+    Injector.prototype.getObj = function(key){
+       return this.classRefs[key];
+    };
+
+    Injector.prototype.injectInto = function(_instance, key){
+        var obj, i;
+        obj = this.getObj(key);
+        if(obj){
+            for(i = 0; i < obj.varNames.length; i++){
+                _instance[obj.varNames[i]] = obj.vals[i];
+            }
+        }
+    };
+
+	return Injector;
+	
+});
+
+
 define('phasercomponents/commands/commandmap',
 
-	[],
+	['phasercomponents/injector'],
 
-function() {
+function(Injector) {
 	
 	
 	
 	var CommandMap = function(){
 		this.hash = {};
+		Injector.getInstance().injectInto(this, "commandmap");
 	};
 
 	CommandMap.prototype.trigger = function(event, obj){
-		var cmd, commandClassRefs, that = this;
+		var cmd, commandClassRefs;
 		if(!obj || !obj.type){
 			throw "Undefined command";
 		}
@@ -125,8 +190,6 @@ function() {
 			commandClassRefs.forEach(function(CommandClassRef){
 				if(CommandClassRef && (typeof CommandClassRef === "function")){
 					cmd = new CommandClassRef();
-					cmd.eventDispatcher = that.eventDispatcher;
-					cmd.game = that.game;
 					cmd.start(obj.data);
 				}
 			});
@@ -134,7 +197,13 @@ function() {
 	};
 
 	CommandMap.prototype.destroy = function(){
-		this.hash = [];
+		var eventName;
+		for(eventName in this.hash){
+			this.eventDispatcher.removeListener(eventName);
+			this.hash[eventName] = null;
+		}
+		this.hash = null;
+		Injector.getInstance().unInject(this);
 	};
 
 	CommandMap.prototype.map = function(eventName, CommandClassRef){
@@ -239,70 +308,6 @@ function() {
 
 
 
-define('phasercomponents/injector',
-
-    [],
-
-	function() {
-	
-	
-
-   	var Injector = function (){
-   	    this.classRefs = {};
-    };
-
-    Injector.prototype.map = function(key, varNames, vals){
-        var obj = this.classRefs[key];
-        if(!obj){
-            this.classRefs[key] = {"varNames":varNames, "vals":vals};
-        }
-        else{
-            throw ("already mapped " + key);
-        }
-    };
-
-    Injector.getInstance = function(){
-        if(!Injector.instance){
-            Injector.instance = new Injector();
-        }
-        return Injector.instance;
-    };
-
-    Injector.prototype.shutdown = function(){
-        this.classRefs = {};
-    };
-
-    Injector.shutdown = function(){
-        Injector.getInstance().shutdown();
-        Injector.instance = null;
-    };
-
-    Injector.prototype.unInject = function(_instance){
-        _instance.game = null;
-        _instance.world = null;
-        _instance.eventDispatcher = null;
-    };
-
-    Injector.prototype.getObj = function(key){
-       return this.classRefs[key];
-    };
-
-    Injector.prototype.injectInto = function(_instance, key){
-        var obj, i;
-        obj = this.getObj(key);
-        if(obj){
-            for(i = 0; i < obj.varNames.length; i++){
-                _instance[obj.varNames[i]] = obj.vals[i];
-            }
-        }
-    };
-
-	return Injector;
-	
-});
-
-
-
 define('phasercomponents/utils/soundmanager',[], function(){
 	
 	
@@ -394,12 +399,12 @@ define('phasercomponents/utils/utils',[], function(){
 
 define('phasercomponents/commands/abstractcommand',
 
-	[], function(){
+	['phasercomponents/injector'], function(Injector){
 	
 	
 	
 	var AbstractCommand = function(){
-		
+		Injector.getInstance().injectInto(this, "abstractcommand");
 	};
 	
 	AbstractCommand.prototype.start = function(data){
@@ -407,8 +412,7 @@ define('phasercomponents/commands/abstractcommand',
 	};
 
 	AbstractCommand.prototype.cleanUp = function(){
-		this.eventDispatcher = null;
-		this.game = null;
+		Injector.getInstance().unInject(this);
 	};
 	
 	return AbstractCommand;
@@ -771,31 +775,29 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
    	var Context = function (options){
    		this.options = options;
 		this.gameManager = new GameManager();
-		this.commandMap = new CommandMap();
-		this.mapFonts();
-		Context.eventDispatcher = new EventDispatcher();
-		Context.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
 		this.makeGame();
-		this.addListeners();
     };
 
     Context.prototype.inject = function(){
-        Injector.getInstance().map("alertmanager",  ["game", "eventDispatcher"],            [Context.game, Context.eventDispatcher]);
-        Injector.getInstance().map("view",          ["game", "eventDispatcher"],            [Context.game, Context.eventDispatcher]);
-        Injector.getInstance().map("scene",         ["game", "world", "eventDispatcher"],   [Context.game, Context.game.world, Context.eventDispatcher]);
+        Injector.getInstance().map("alertmanager",      ["game", "eventDispatcher"],            [this.gameManager.game, this.eventDispatcher]);
+        Injector.getInstance().map("view",              ["game", "eventDispatcher"],            [this.gameManager.game, this.eventDispatcher]);
+        Injector.getInstance().map("scene",             ["game", "world", "eventDispatcher"],   [this.gameManager.game, this.gameManager.game.world, this.eventDispatcher]);
+        Injector.getInstance().map("abstractmodel",     ["eventDispatcher"],                    [this.eventDispatcher]);
+        Injector.getInstance().map("abstractcommand",   ["eventDispatcher"],                    [this.eventDispatcher]);
+        Injector.getInstance().map("commandmap",        ["game", "eventDispatcher"],            [this.gameManager.game, this.eventDispatcher]);
     };
 
     Context.prototype.shutdown = function(){
-        Context.eventDispatcher.trigger({"type":AppEvents.PRE_SHUTDOWN});
+        this.eventDispatcher.trigger({"type":AppEvents.PRE_SHUTDOWN});
         this.removeListeners();
         this.commandMap.destroy();
         this.gameManager.destroy();
-        Context.eventDispatcher.removeListener(AppEvents.CHANGE_SCENE);
-        Context.eventDispatcher.trigger({"type":AppEvents.POST_SHUTDOWN});
+        this.eventDispatcher.removeListener(AppEvents.CHANGE_SCENE);
+        this.eventDispatcher.trigger({"type":AppEvents.POST_SHUTDOWN});
         this.gameManager = null;
         this.commandMap = null;
         Injector.shutdown();
-        Context.eventDispatcher = null;
+        this.eventDispatcher = null;
     };
 
     Context.prototype.onChangeScene = function(){
@@ -809,7 +811,7 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
     Context.prototype.makeGame = function(){
     	var config = {
     		"preload":this.preload.bind(this),
-    		"create":this.create.bind(this),
+    		"create":this.gameCreated.bind(this),
     	};
     	this.gameManager.init(this.options, config);
     };
@@ -837,17 +839,18 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
     };
 
     Context.prototype.mapCommands = function(){
+        this.commandMap = new CommandMap();
         this.commandMap.map(AppEvents.PLAY_SOUND,               PlaySoundCommand);
         this.commandMap.map(AppEvents.PRE_SHUTDOWN,             PreShutdownCommand);
         this.commandMap.map(AppEvents.POST_SHUTDOWN,            PostShutdownCommand);
     };
 
-	Context.prototype.create = function(){
-		Context.game = this.gameManager.game;
-		this.game = this.gameManager.game;
+	Context.prototype.gameCreated = function(){
+        this.mapFonts();
+        this.eventDispatcher = new EventDispatcher();
+        this.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
+        this.addListeners();
         this.inject();
-		this.commandMap.eventDispatcher = Context.eventDispatcher;
-		this.commandMap.game = Context.game;
 		this.mapCommands();
     	this.mapScenes();
     	this.addSounds();
@@ -1199,15 +1202,15 @@ function(Phaser, View, Utils,
 
 
 
-define('phasercomponents/models/abstractmodel',['phaser', 'phasercomponents/context'],
+define('phasercomponents/models/abstractmodel',['phaser', 'phasercomponents/injector'],
 
-function(Phaser, Context){
+function(Phaser, Injector){
 	
 	
 	
 	var AbstractModel  = function(){
 		this.changeSignal = new Phaser.Signal();
-		this.eventDispatcher = Context.eventDispatcher;
+		Injector.getInstance().injectInto(this, "abstractmodel");
 		this.value = null;
 	};
 	
@@ -1252,7 +1255,7 @@ function(Phaser, Context){
 	AbstractModel.prototype.destroy = function() {
 		this.changeSignal.dispose();
 		this.changeSignal = null;
-		this.eventDispatcher = null;
+		Injector.getInstance().unInject(this);
 		this.value = null;
 	};
 	
