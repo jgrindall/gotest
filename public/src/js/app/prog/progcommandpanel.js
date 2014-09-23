@@ -38,7 +38,7 @@ define(
 		
 	};
 
-	ProgCommandPanel.prototype.progChanged = function(value){
+	ProgCommandPanel.prototype.progChanged = function(){
 		this.load();
 	};
 
@@ -134,9 +134,8 @@ define(
 		}
 		for(i = 0; i < this.buttons.length; i++){
 			button = this.buttons[i];
-			if(obj.type === button.options.type && obj.index === button.options.index && obj.turn === button.options.turn){
-				// found!
-				return true;
+			if(obj.type === button.options.type && obj.index === button.options.index){
+				return button.options;
 			}
 		}
 		return false;
@@ -154,7 +153,7 @@ define(
 				obj = json[i][j];
 				objAllowed = this.objAllowed(obj);
 				if(objAllowed){
-					drag = this.addDrag(obj.type, obj.index, obj.turn);
+					drag = this.addDrag(objAllowed.type, objAllowed.index, objAllowed.turn);
 					this.dragManager.snapTo(drag, i, j);
 				}
 			}
