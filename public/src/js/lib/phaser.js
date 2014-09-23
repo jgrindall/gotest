@@ -18452,8 +18452,6 @@ Phaser.Stage.prototype.checkVisibility = function () {
 */
 Phaser.Stage.prototype.visibilityChange = function (event) {
 
-    console.log("visibilityChange "+this.disableVisibilityChange);
-
     if (event.type === 'pagehide' || event.type === 'blur' || event.type === 'pageshow' || event.type === 'focus')
     {
         if (event.type === 'pagehide' || event.type === 'blur')
