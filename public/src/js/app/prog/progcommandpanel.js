@@ -39,6 +39,7 @@ define(
 	};
 
 	ProgCommandPanel.prototype.progChanged = function(value){
+		console.log("progChanged!");
 		this.load();
 	};
 
@@ -154,7 +155,7 @@ define(
 				obj = json[i][j];
 				objAllowed = this.objAllowed(obj);
 				if(objAllowed){
-					drag = this.addDrag(obj.type, obj.index, false);
+					drag = this.addDrag(obj.type, obj.index, obj.turn);
 					this.dragManager.snapTo(drag, i, j);
 				}
 			}
@@ -232,7 +233,9 @@ define(
 	};
 
 	ProgCommandPanel.prototype.onEdited = function() {
-		ModelFacade.getInstance().get(ModelFacade.PROG).set(this.model.toJson());
+		if(this.model){
+			ModelFacade.getInstance().get(ModelFacade.PROG).set(this.model.toJson(), {"silent":true});
+		}
 		var enable = this.startEnabled();
 		if(enable){
 			this.enableStart();
