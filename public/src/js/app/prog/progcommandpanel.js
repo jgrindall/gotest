@@ -39,7 +39,6 @@ define(
 	};
 
 	ProgCommandPanel.prototype.progChanged = function(value){
-		console.log("progChanged!");
 		this.load();
 	};
 

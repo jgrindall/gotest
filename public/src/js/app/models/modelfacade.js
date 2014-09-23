@@ -219,7 +219,6 @@ function(CommModel, ScreenModel, BgModel,
 		this.nameModel.set(json.settings.name);
 		this.progNumModel.set(json.settings.progNum);
 		this.commModel.set(json.commands);
-		console.log("loaded "+JSON.stringify(json.prog));
 		this.progModel.set(json.prog);
 	};
 
@@ -241,7 +240,6 @@ function(CommModel, ScreenModel, BgModel,
 		settings.name =	 		this.nameModel.get();
 		json.commands = 		this.commModel.toJson();
 		json.prog = 			this.progModel.get();
-		console.log("save, prog is "+JSON.stringify(json.prog));
 		json.settings = settings;
 		return json;
 	};

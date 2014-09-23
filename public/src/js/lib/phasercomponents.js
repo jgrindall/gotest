@@ -255,7 +255,6 @@ define('phasercomponents/injector',
         var obj = this.classRefs[key];
         if(!obj){
             this.classRefs[key] = {"varNames":varNames, "vals":vals};
-            console.log("mapped "+key);
         }
         else{
             throw ("already mapped " + key);
@@ -2576,9 +2575,7 @@ define('phasercomponents/drag/abstractdragview',
 	Utils.extends(AbstractDragView, InteractiveSprite);
 
 	AbstractDragView.prototype.snap = function(target, bounds){
-		console.log("snap ", this, target, JSON.stringify(bounds));
 		this.moveTo(target.sprite.x + target.sprite.width/2 + bounds.x - this.sprite.width/2, target.sprite.y + target.sprite.height/2 + bounds.y - this.sprite.height/2);
-		console.log("moved ", this.sprite.x, this.sprite.y);
 	};
 
 	AbstractDragView.prototype.reset = function(){
@@ -2737,7 +2734,6 @@ define('phasercomponents/drag/dragmanager',
 
 	DragManager.prototype.snapTo = function(view, rowIndex, zoneIndex){
 		var hitzone = this.model.addView(view, rowIndex, zoneIndex);
-		console.log("snapTo", view, rowIndex, zoneIndex);
 		if(hitzone){
 			view.snap(this.targets[rowIndex], hitzone.bounds);
 		}
@@ -2745,13 +2741,9 @@ define('phasercomponents/drag/dragmanager',
 
 	DragManager.prototype.drop = function(){
 		if(this.dropPosition && this.dropPosition.rowIndex >= 0){
-			console.log("--drop, snapTo");
 			this.snapTo(this.draggedView, this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
-			console.log("--drop1");
 			this.targets[this.dropPosition.rowIndex].highlight(false);
-			console.log("--drop2");
 			this.editSignal.dispatch();
-			console.log("--dropped, snappedTo");
 		}
 		else{
 			this.fail();
@@ -2780,7 +2772,6 @@ define('phasercomponents/drag/dragmanager',
 	};
 
 	DragManager.prototype.onUp = function(){
-		console.log("-----------------   onUp");
 		this.setDropPosition();
 		this.drop();
 		this.removeMoveListeners();
