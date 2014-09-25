@@ -34,8 +34,49 @@ define(
 
 	PhaserComponents.Utils.extends(ProgCommandPanel, AbstractCommandsPanel);
 
+	ProgCommandPanel.prototype.getBlockIndex = function(num){
+		var sum, numCommands, index = 0;
+		numCommands = this.getNumCommands();
+		sum = numCommands[0];
+		index = 0;
+		while(sum <= num){
+			index = (index + 1) % numCommands.length;
+			sum += numCommands[index];
+		}
+		return index;
+	};
+
 	ProgCommandPanel.prototype.setProgress = function(){
-		
+		var num, total, index = -1;
+		num = ModelFacade.getInstance().get(ModelFacade.COMMTICKER).get();
+		total = ModelFacade.getInstance().get(ModelFacade.COMM).getNum();
+		if(num < total){
+			index = this.getBlockIndex(num);
+		}
+		this.color(index);
+	};
+
+	ProgCommandPanel.prototype.color = function(index){
+		var i, target;
+		for(i = 0; i < this.targets.length; i++){
+			target = this.targets[i];
+			target.color(i === index);
+		}
+	};
+
+	ProgCommandPanel.prototype.getNumCommands = function(){
+		var i, hitZoneRow, n, numCommands, json;
+		numCommands = [];
+		json = this.model.toJson();
+		for(i = 0; i < json.length; i++){
+			n = 0;
+			hitZoneRow = json[i];
+			if(this.isFull(hitZoneRow)){
+				n = (hitZoneRow[1] ? (hitZoneRow[1].index + 1) : 1);
+			}
+			numCommands.push(n);
+		}
+		return numCommands;
 	};
 
 	ProgCommandPanel.prototype.progChanged = function(){
