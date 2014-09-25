@@ -58,6 +58,7 @@ function(Phaser, PhaserComponents, Events){
 	CommTickerModel.prototype.reset = function(){
 		this.commandNum = 0;
 		this.resetSignal.dispatch();
+		this.trigger();
 	};
 	
 	CommTickerModel.prototype.init = function(commandProvider) {
@@ -65,9 +66,15 @@ function(Phaser, PhaserComponents, Events){
 	};
 	
 	CommTickerModel.prototype.start = function() {
+		this.markStart();
 		this.performCommand();
 	};
 	
+	CommTickerModel.prototype.markStart = function() {
+		this.startNum = this.commandNum;
+		console.log(" ------->   START AT "+this.startNum+"\n");
+	};
+
 	CommTickerModel.prototype.dispatch = function(data) {
 		this.executeSignal.dispatch(data);
 	};

@@ -55,6 +55,7 @@ PhaserComponents){
 	
 	CommModel.prototype.stop = function() {
 		this.reset();
+		this.trigger();
 	};
 	
 	CommModel.prototype.reset = function() {

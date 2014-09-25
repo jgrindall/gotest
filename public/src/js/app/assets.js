@@ -31,6 +31,7 @@ define([], function(){
 	Assets.SKIP_BUTTON = 			'skipbutton';
 	Assets.DRAG_BUTTON = 			'dragbutton';
 	Assets.PLAY_BUTTON =			'playButton';
+	Assets.STOP_BUTTON =			'stopButton';
 	Assets.DRAG_ARROW = 			'dragarrow';
 	Assets.BUTTON = 				'button';
 	Assets.CONTROL_BAR =			'controlbar';
@@ -76,6 +77,7 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/start.png", 					"key":Assets.START_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/skip.png", 					"key":Assets.SKIP_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/play.png", 					"key":Assets.PLAY_BUTTON, 				"w":100, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/stop.png", 					"key":Assets.STOP_BUTTON, 				"w":100, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/addMyButton.png", 			"key":Assets.ADD_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Assets.MARKER, 					"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 						"key":Assets.PENS, 						"w":235, 	"h":125},

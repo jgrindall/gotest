@@ -6,7 +6,9 @@ define(
 
 	'app/views/commandpanels/abstractcommandspanel', 'app/views/buttons/closebutton',
 
-	'app/views/buttons/playbutton', 'app/prog/controller/progcontrollerfactory', 'app/prog/controller/playcontrollerfactory',
+	'app/views/buttons/playbutton', 'app/views/buttons/stopbutton', 'app/events/events', 
+
+	'app/prog/controller/progcontrollerfactory', 'app/prog/controller/playcontrollerfactory',
 
 	'app/prog/targets/targetfactory', 'app/models/modelfacade', 'app/consts/playingstate'],
 
@@ -16,7 +18,9 @@ define(
 
 		AbstractCommandsPanel, CloseButton,
 
-		PlayButton, ProgControllerFactory, PlayControllerFactory,
+		PlayButton, StopButton, Events,
+
+		ProgControllerFactory, PlayControllerFactory,
 
 		TargetFactory, ModelFacade, PlayingState){
 	
@@ -47,11 +51,13 @@ define(
 	};
 
 	ProgCommandPanel.prototype.setProgress = function(){
-		var num, total, index = -1;
+		var num, total, start, progress, index = -1;
 		num = ModelFacade.getInstance().get(ModelFacade.COMMTICKER).get();
 		total = ModelFacade.getInstance().get(ModelFacade.COMM).getNum();
+		start = ModelFacade.getInstance().get(ModelFacade.COMMTICKER).startNum;
+		progress = num - start;
 		if(num < total){
-			index = this.getBlockIndex(num);
+			index = this.getBlockIndex(progress);
 		}
 		this.color(index);
 	};
@@ -236,6 +242,13 @@ define(
 		this.playButton.mouseUpSignal.add(this.clickPlay, this);
 	};
 
+	ProgCommandPanel.prototype.addStop = function() {
+		var options = {"bounds":{'x':80 + this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
+		this.stopButton = new StopButton(options);
+		this.group.add(this.stopButton.view);
+		this.stopButton.mouseUpSignal.add(this.clickStop, this);
+	};
+
 	ProgCommandPanel.prototype.addClear = function() {
 		var options = {"bounds":{'x':this.bounds.x + 100 + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.clearButton = new CloseButton(options);
@@ -255,6 +268,10 @@ define(
 		var commands = this.progController.getAllCommands();
 		this.playController.addCommands(commands);
 	};
+
+	ProgCommandPanel.prototype.clickStop = function() {
+		this.eventDispatcher.trigger({"type":Events.STOP});
+	};
 	
 	ProgCommandPanel.prototype.create = function() {
 		AbstractCommandsPanel.prototype.create.call(this);
@@ -266,6 +283,7 @@ define(
 		this.addProgController();
 		this.addPlayController();
 		this.addPlay();
+		this.addStop();
 		this.addClear();
 		this.initDrag();
 		this.load();
