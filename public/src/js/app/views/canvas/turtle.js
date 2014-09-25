@@ -11,6 +11,7 @@ function(Phaser, PhaserComponents, ModelFacade){
 		ModelFacade.getInstance().get(ModelFacade.TURTLE).changeSignal.add(this.turtleChanged, this);
 		this.theta = 0;
 		this.endSignal = new Phaser.Signal();
+		this.enableMove();
 	};
 
 	Turtle.getAngle = function(t, a){
@@ -28,6 +29,38 @@ function(Phaser, PhaserComponents, ModelFacade){
 	
 	Turtle.prototype.turtleChanged = function(value){
 		this.turtle.goTo(value);
+	};
+
+	Turtle.prototype.enableMove = function(){
+		this.turtle.enableInput();
+		this.turtle.mouseDownSignal.add(this.downHandler, this);
+	};
+
+	Turtle.prototype.downHandler = function(){
+		this.addMoveListeners();
+	};
+
+	Turtle.prototype.onMove = function(pointer, x, y){
+		this.turtle.moveTo(x, y);
+	};
+
+	Turtle.prototype.drop = function(){
+
+	};
+
+	Turtle.prototype.onUp = function(pointer, x, y){
+		this.drop();
+		this.removeMoveListeners();
+	};
+
+	Turtle.prototype.addMoveListeners = function(){
+		this.game.input.moveCallback = this.onMove.bind(this);
+		this.game.input.onUp.add(this.onUp, this);
+	};
+
+	Turtle.prototype.removeMoveListeners = function(){
+		this.game.input.moveCallback = null;
+		this.game.input.onUp.remove(this.onUp, this);
 	};
 
 	Turtle.prototype.removeSprite = function() {
