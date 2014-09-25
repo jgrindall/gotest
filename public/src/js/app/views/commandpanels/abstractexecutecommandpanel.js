@@ -33,6 +33,8 @@ MarkerFactory){
 	AbstractExecuteCommandsPanel.prototype.setSelectedCommand = function(i) {
 		this.selectedCommand = i;
 		this.marker.goTo(i);
+		//TODO also rotate the turtle!
+		//this.eventDispatcher.trigger({});
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.enableInput = function() {
