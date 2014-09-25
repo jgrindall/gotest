@@ -779,12 +779,15 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
     };
 
     Context.prototype.inject = function(){
-        Injector.getInstance().map("alertmanager",      ["game", "eventDispatcher"],            [this.gameManager.game, this.eventDispatcher]);
-        Injector.getInstance().map("view",              ["game", "eventDispatcher"],            [this.gameManager.game, this.eventDispatcher]);
-        Injector.getInstance().map("scene",             ["game", "world", "eventDispatcher"],   [this.gameManager.game, this.gameManager.game.world, this.eventDispatcher]);
-        Injector.getInstance().map("abstractmodel",     ["eventDispatcher"],                    [this.eventDispatcher]);
-        Injector.getInstance().map("abstractcommand",   ["eventDispatcher"],                    [this.eventDispatcher]);
-        Injector.getInstance().map("commandmap",        ["game", "eventDispatcher"],            [this.gameManager.game, this.eventDispatcher]);
+        var game, eventDispatcher;
+        game = this.gameManager.game;
+        eventDispatcher = this.eventDispatcher;
+        Injector.getInstance().map("alertmanager",      ["game", "eventDispatcher"],            [game, eventDispatcher]);
+        Injector.getInstance().map("view",              ["game", "eventDispatcher"],            [game, eventDispatcher]);
+        Injector.getInstance().map("scene",             ["game", "eventDispatcher", "world"],   [game, eventDispatcher, game.world]);
+        Injector.getInstance().map("abstractmodel",     ["game", "eventDispatcher"],            [game, eventDispatcher]);
+        Injector.getInstance().map("abstractcommand",   ["game", "eventDispatcher"],            [game, eventDispatcher]);
+        Injector.getInstance().map("commandmap",        ["game", "eventDispatcher"],            [game, eventDispatcher]);
     };
 
     Context.prototype.shutdown = function(){
@@ -2608,6 +2611,14 @@ define('phasercomponents/drag/abstractdropview',
 	};
 
 	Utils.extends(AbstractDropView, MovieClip);
+
+	AbstractDropView.prototype.highlight = function(){
+
+	};
+
+	AbstractDropView.prototype.color = function(){
+		
+	};
 
 	return AbstractDropView;
 });
