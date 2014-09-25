@@ -11,6 +11,8 @@ function(Phaser, PhaserComponents, ModelFacade){
 		ModelFacade.getInstance().get(ModelFacade.TURTLE).changeSignal.add(this.turtleChanged, this);
 		this.theta = 0;
 		this.endSignal = new Phaser.Signal();
+		this.movedSignal = new Phaser.Signal();
+		this.turtle.mouseDownSignal.add(this.downHandler, this);
 		this.enableMove();
 	};
 
@@ -33,7 +35,10 @@ function(Phaser, PhaserComponents, ModelFacade){
 
 	Turtle.prototype.enableMove = function(){
 		this.turtle.enableInput();
-		this.turtle.mouseDownSignal.add(this.downHandler, this);
+	};
+
+	Turtle.prototype.disableMove = function(){
+		this.turtle.disableInput();
 	};
 
 	Turtle.prototype.downHandler = function(){
@@ -45,7 +50,7 @@ function(Phaser, PhaserComponents, ModelFacade){
 	};
 
 	Turtle.prototype.drop = function(){
-
+		this.movedSignal.dispatch({'x':this.turtle.sprite.x, 'y':this.turtle.sprite.y});
 	};
 
 	Turtle.prototype.onUp = function(pointer, x, y){
@@ -168,7 +173,9 @@ function(Phaser, PhaserComponents, ModelFacade){
 		ModelFacade.getInstance().get(ModelFacade.TURTLE).changeSignal.remove(this.turtleChanged, this);
 		this.stopTweens();
 		this.endSignal.dispose();
+		this.movedSignal.dispose();
 		this.endSignal = null;
+		this.movedSignal = null;
 		this.removeSprite();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};

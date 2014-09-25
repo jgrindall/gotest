@@ -1,7 +1,7 @@
 
 define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel', 
 
-'app/models/colormodel', 'app/models/speedmodel',
+'app/models/colormodel', 'app/models/speedmodel', 'app/models/startposmodel',
 
 'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel', 'app/models/progmodel',
 
@@ -13,7 +13,7 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 function(CommModel, ScreenModel, BgModel,
 
-	ColorModel, SpeedModel,
+	ColorModel, SpeedModel, StartPosModel,
 
 	PlayingModel, GridModel, AngleModel, ProgModel,
 
@@ -32,6 +32,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.SPEED = 		"speed";
 	ModelFacade.BG = 			"bg";
 	ModelFacade.COLOR = 		"color";
+	ModelFacade.STARTPOS = 		"startpos";
 	ModelFacade.GRID = 			"grid";
 	ModelFacade.COMM = 			"comm";
 	ModelFacade.SCREEN = 		"screen";
@@ -54,6 +55,9 @@ function(CommModel, ScreenModel, BgModel,
 		}
 		else if(name === ModelFacade.BG){
 			return this.bgModel;
+		}
+		else if(name === ModelFacade.STARTPOS){
+			return this.startPosModel;
 		}
 		else if(name === ModelFacade.ANGLE){
 			return this.angleModel;
@@ -127,6 +131,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.turtleModel = new TurtleModel();
 		this.nameModel = new NameModel();
 		this.progNumModel = new ProgNumModel();
+		this.startPosModel = new StartPosModel();
 	};
 
 	ModelFacade.prototype.addListeners = function(){
@@ -216,6 +221,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.angleModel.set(json.settings.angle);
 		this.progTypeModel.set(json.settings.prog);
 		this.stepLengthModel.set(json.settings.stepLength);
+		this.startPosModel.set(json.settings.startPos);
 		this.nameModel.set(json.settings.name);
 		this.progNumModel.set(json.settings.progNum);
 		this.commModel.set(json.commands);
@@ -230,6 +236,7 @@ function(CommModel, ScreenModel, BgModel,
 		settings.angle = 		this.angleModel.get();
 		settings.stepLength = 	this.stepLengthModel.get();
 		settings.speed = 		this.speedModel.get();
+		settings.startPos = 	this.startPosModel.get();
 		settings.prog = 		this.progTypeModel.get();
 		settings.grid = 		this.gridModel.get();
 		settings.turtle = 		this.turtleModel.get();
@@ -277,6 +284,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.progNumModel = null;
 		this.commModel = null;
 		this.progModel = null;
+		this.startPosModel = null;
 	};
 
 	ModelFacade.shutdown = function(){

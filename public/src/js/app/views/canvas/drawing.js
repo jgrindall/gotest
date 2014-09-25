@@ -26,17 +26,16 @@ FdCommand, StepLengths, Assets){
 	"use strict";
 	
 	var Drawing  = function(options){
-		var x, y;
-		x = options.bounds.x + options.bounds.w/2;
-		y = options.bounds.y + options.bounds.h/2;
-		this.centre = {'x':x, 'y':y};
 		PhaserComponents.Display.Container.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
+		ModelFacade.getInstance().get(ModelFacade.STARTPOS).changeSignal.add(this.onChangeStartPos, this);
+		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
 		this.onReset();
 	};
-	
-	Drawing.PI180 = 3.14159265359/180;
+
+	Drawing.PI = 3.14159265359;
+	Drawing.PI180 = Drawing.PI/180;
 	Drawing.RT2 = 1.4142135624;
 	Drawing.ONE_RT2 = 1/Drawing.RT2;
 	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
@@ -45,14 +44,40 @@ FdCommand, StepLengths, Assets){
 		
 	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
 
+	Drawing.prototype.onChangeStartPos = function(value){
+		console.log("change start "+JSON.stringify(value));
+		this.setStart();
+		this.turtle.reset(this.startPos);
+	};
+
+	Drawing.prototype.setProgress = function(value){
+		var total = ModelFacade.getInstance().get(ModelFacade.COMM).getNum();
+		if(total > 0){
+			this.turtle.disableMove();
+		}
+		else{
+			this.turtle.enableMove();
+		}
+	};
+
 	Drawing.prototype.onReset = function(){
-		this.startPos = {'x':this.centre.x, 'y':this.centre.y};
+		this.setStart();
 		this.turtle.reset(this.startPos);
 		this.angle = -90;
 		this.setTurtle();
 		this.paths.clear();
 	};
 	
+	Drawing.prototype.setStart = function(){
+		var x, y, pos;
+		pos = ModelFacade.getInstance().get(ModelFacade.STARTPOS).get();
+		if(pos){
+			x = this.bounds.x + this.bounds.w * pos.x;
+			y = this.bounds.y + this.bounds.h * pos.y;
+			this.startPos = {'x':x, 'y':y};
+		}
+	};
+
 	Drawing.prototype.commandExecute = function(data){
 		this.command = data.command;
 		this.duration = data.duration;
@@ -103,6 +128,8 @@ FdCommand, StepLengths, Assets){
 		dx *= scale;
 		dy *= scale;
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
+		console.log("startPos \t\t"+JSON.stringify(this.startPos));
+		console.log("endPos \t\t"+JSON.stringify(this.endPos));
 	};
 	
 	Drawing.prototype.moveTurtle = function() {
@@ -141,6 +168,11 @@ FdCommand, StepLengths, Assets){
 		this.rotateTurtle(this.duration);
 	};
 	
+	Drawing.prototype.turtleMoved = function(pos) {
+		var p = {'x':(pos.x - this.bounds.x)/this.bounds.w, 'y':(pos.y - this.bounds.y)/this.bounds.h};
+		ModelFacade.getInstance().get(ModelFacade.STARTPOS).set(p);
+	};
+
 	Drawing.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addPaths();
@@ -150,6 +182,7 @@ FdCommand, StepLengths, Assets){
 	Drawing.prototype.addTurtle = function() {
 		this.turtle = new Turtle({'bounds':this.bounds, 'asset':Assets.TURTLE});
 		this.turtle.endSignal.add(this.commandFinished, this);
+		this.turtle.movedSignal.add(this.turtleMoved, this);
 		this.group.add(this.turtle.group);
 	};
 	
@@ -168,6 +201,7 @@ FdCommand, StepLengths, Assets){
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
+		this.turtle.movedSignal.remove(this.turtleMoved, this);
 		this.paths.destroy();
 		this.turtle.destroy();
 	};
