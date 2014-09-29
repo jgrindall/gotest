@@ -39,13 +39,13 @@ FdCommand, StepLengths, Assets){
 		this.onReset();
 	};
 
-	Drawing.PI = 3.14159265359;
-	Drawing.PI180 = Drawing.PI/180;
-	Drawing.RT2 = 1.4142135624;
-	Drawing.ONE_RT2 = 1/Drawing.RT2;
-	Drawing.ANGLES = [135, 90, 45, 180, 0, 0, 225, -90, -45];
-	Drawing.ROTATE = [[0, 0, 0, -45, 0, 45, 0, 0, 0], [0, 0, 0, -90, 0, 90, 0, 0, 0]];
-	Drawing.DIAG = [Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2];
+	Drawing.PI = 			3.1415;
+	Drawing.PI180 = 		Drawing.PI/180;
+	Drawing.RT2 = 			1.4142;
+	Drawing.ONE_RT2 = 		1/Drawing.RT2;
+	Drawing.ANGLES = 		[135, 90, 45, 180, 0, 0, 225, -90, -45];
+	Drawing.ROTATE = 		[[0, 0, 0, -45, 0, 45, 0, 0, 0], [0, 0, 0, -90, 0, 90, 0, 0, 0]];
+	Drawing.DIAG = 			[Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2];
 		
 	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
 
