@@ -35,7 +35,7 @@ FdCommand, StepLengths, Assets){
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
 		ModelFacade.getInstance().get(ModelFacade.STARTPOS).changeSignal.add(this.onChangeStartPos, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
-		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, $.proxy(this.onRotateTurtle, this));
+		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, this.onRotateTurtle.bind(this));
 		this.onReset();
 	};
 
