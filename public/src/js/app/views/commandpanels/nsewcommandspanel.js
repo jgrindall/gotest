@@ -15,9 +15,23 @@ CommandTypes, PhaserComponents
 	
 	var NSEWCommandsPanel  = function(options){
 		AbstractExecuteCommandsPanel.call(this, options);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.KEY_UP, this.onKeyUp.bind(this));
 	};
 	
+	NSEWCommandsPanel.KEY_MAP = [null, 38, null, 37, null, 39, null, 40, null];
+
 	PhaserComponents.Utils.extends(NSEWCommandsPanel, AbstractExecuteCommandsPanel);
+
+	NSEWCommandsPanel.prototype.onKeyUp = function(event, obj) {
+		var i, code, direction;
+		code = obj.data.keyCode;
+		for(i = 0; i < NSEWCommandsPanel.KEY_MAP.length; i++){
+			if(NSEWCommandsPanel.KEY_MAP[i] === code){
+				this.selectComm({"index":i});
+				break;
+			}
+		}
+	};
 
 	NSEWCommandsPanel.prototype.addKeys = function() {
 		
@@ -33,7 +47,7 @@ CommandTypes, PhaserComponents
 	};
 	
 	NSEWCommandsPanel.prototype.destroy = function() {
-		this.grid.clickSignal.remove(this.selectComm, this);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.KEY_UP);
 		AbstractExecuteCommandsPanel.prototype.destroy.call(this);
 	};
 	

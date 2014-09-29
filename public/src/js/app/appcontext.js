@@ -65,6 +65,11 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     	}
     };
  	
+    AppContext.prototype.setupKeys = function(){
+    	PhaserComponents.KeyManager.getInstance().add(this.options.containerTagId, [37, 38, 39, 40]);
+        PhaserComponents.KeyManager.getInstance().startListening();    
+    };
+
     AppContext.prototype.mapScenes = function(){
     	this.gameManager.mapScene(AppConsts.LOADER_SCENE, LoaderScene, true);
 		this.gameManager.mapScene(AppConsts.ACTIVITY_SCENE, ActivityScene);
