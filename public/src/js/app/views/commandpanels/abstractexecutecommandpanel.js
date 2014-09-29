@@ -3,7 +3,7 @@ define([ 'phasercomponents',
 
 'app/views/buttons/dirbutton', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/views/commandpanels/markers/markerfactory'
+'app/views/commandpanels/markers/markerfactory', 'app/events/events'
 ],
 
 
@@ -11,7 +11,7 @@ function(PhaserComponents,
 
 DirButton, AbstractCommandsPanel,
 
-MarkerFactory){
+MarkerFactory, Events){
 	
 	"use strict";
 	
@@ -33,8 +33,6 @@ MarkerFactory){
 	AbstractExecuteCommandsPanel.prototype.setSelectedCommand = function(i) {
 		this.selectedCommand = i;
 		this.marker.goTo(i);
-		//TODO also rotate the turtle!
-		//this.eventDispatcher.trigger({});
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.enableInput = function() {

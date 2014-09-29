@@ -72,7 +72,6 @@ function(Phaser, PhaserComponents, Events){
 	
 	CommTickerModel.prototype.markStart = function() {
 		this.startNum = this.commandNum;
-		console.log(" ------->   START AT "+this.startNum+"\n");
 	};
 
 	CommTickerModel.prototype.dispatch = function(data) {

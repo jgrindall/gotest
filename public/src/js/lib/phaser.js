@@ -21900,8 +21900,6 @@ Phaser.Game.prototype = {
     */
     boot: function () {
 
-        console.log("boot game ", this.isBooted, this.time, this.id);
-
         if (this.isBooted)
         {
             return;

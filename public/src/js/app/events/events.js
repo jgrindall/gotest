@@ -26,6 +26,7 @@ function() {
 	Events.FINISHED			= 		"finished";
 	Events.STARTUP			= 		"startup";
 	Events.DESIGN_IMG		=		"designImg";
+	Events.ROTATE_TURTLE	=		"rotateTurtle";
 	
   	return Events;
 });

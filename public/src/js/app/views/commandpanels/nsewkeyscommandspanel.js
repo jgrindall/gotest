@@ -1,13 +1,13 @@
 
 define(['app/views/commandpanels/abstractkeyscommandspanel',
 
-'app/logocommands/commandtypes', 'phasercomponents'
+'app/logocommands/commandtypes', 'phasercomponents', 'app/events/events'
 
 ],
 
 function(AbstractKeysCommandsPanel,
 
-CommandTypes, PhaserComponents){
+CommandTypes, PhaserComponents, Events){
 	
 	"use strict";
 	
@@ -25,7 +25,10 @@ CommandTypes, PhaserComponents){
 		this.addCommands(this.selectedCommand, CommandTypes.MOVE, data.index + 1);
 	};
 	
+	NSEWKeysCommandsPanel.prototype.setSelectedCommand = function(i) {
+		AbstractKeysCommandsPanel.prototype.setSelectedCommand.call(this, i);
+		this.eventDispatcher.trigger({"type":Events.ROTATE_TURTLE, "data":{"direction":i}});
+	};
+		
 	return NSEWKeysCommandsPanel;
 });
-	
-	

@@ -1,5 +1,5 @@
 
-define(['phasercomponents',
+define(['jquery', 'phasercomponents',
 
 'app/views/canvas/turtle', 'app/views/canvas/paths',
 
@@ -9,9 +9,11 @@ define(['phasercomponents',
 
 'app/logocommands/turncommand',
 
+'app/events/events',
+
 'app/logocommands/fdcommand', 'app/consts/steplengths', 'app/assets'],
 
-function(PhaserComponents,
+function($, PhaserComponents,
 
 Turtle, Paths,
 
@@ -20,6 +22,8 @@ ModelFacade,
 MoveCommand,
 
 TurnCommand,
+
+Events,
 
 FdCommand, StepLengths, Assets){
 	
@@ -31,6 +35,7 @@ FdCommand, StepLengths, Assets){
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
 		ModelFacade.getInstance().get(ModelFacade.STARTPOS).changeSignal.add(this.onChangeStartPos, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
+		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, $.proxy(this.onRotateTurtle, this));
 		this.onReset();
 	};
 
@@ -44,8 +49,12 @@ FdCommand, StepLengths, Assets){
 		
 	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
 
+	Drawing.prototype.onRotateTurtle = function(event, obj){
+		this.angle = -Drawing.ANGLES[obj.data.direction];
+		this.setTurtle();
+	};
+
 	Drawing.prototype.onChangeStartPos = function(value){
-		console.log("change start "+JSON.stringify(value));
 		this.setStart();
 		this.turtle.reset(this.startPos);
 	};
@@ -128,8 +137,6 @@ FdCommand, StepLengths, Assets){
 		dx *= scale;
 		dy *= scale;
 		this.endPos = {'x':this.startPos.x + dx, 'y':this.startPos.y + dy};
-		console.log("startPos \t\t"+JSON.stringify(this.startPos));
-		console.log("endPos \t\t"+JSON.stringify(this.endPos));
 	};
 	
 	Drawing.prototype.moveTurtle = function() {
@@ -198,12 +205,17 @@ FdCommand, StepLengths, Assets){
 	};
 	
 	Drawing.prototype.destroy = function() {
-		PhaserComponents.Display.Container.prototype.destroy.call(this);
+		this.eventDispatcher.removeListener(Events.ROTATE_TURTLE);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.remove(this.commandExecute, this);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.remove(this.onReset, this);
+		ModelFacade.getInstance().get(ModelFacade.STARTPOS).changeSignal.remove(this.onChangeStartPos, this);
+		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
 		this.turtle.movedSignal.remove(this.turtleMoved, this);
 		this.paths.destroy();
 		this.turtle.destroy();
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
 	return Drawing;
