@@ -28,7 +28,6 @@ Events, Assets, SpeedMarkers){
 	"use strict";
 	
 	var Controls  = function(options){
-		this.firstShow = true;
 		PhaserComponents.Display.Container.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
@@ -49,6 +48,7 @@ Events, Assets, SpeedMarkers){
 		this.addSpeedSlider();
 		this.addSpeedMarkers();
 		this.addControlBar();
+		this.addCommandsPanel();
 	};
 
 	Controls.prototype.onProgAllowedChanged = function(value) {
@@ -118,12 +118,9 @@ Events, Assets, SpeedMarkers){
 	};
 
 	Controls.prototype.stopTweens = function() {
-		this.menuTween.stop();
-		this.speedTween.stop();
-		this.sliderTween.stop();
-		this.commandsTween.stop();
-		this.colorTween.stop();
-		this.widthTween.stop();
+		if(this.commandsTween){
+			this.commandsTween.stop();
+		}
 	};
 
 	Controls.prototype.addButtons = function() {
@@ -131,16 +128,12 @@ Events, Assets, SpeedMarkers){
 		this.menu = new ControlMenu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
 		this.group.add(this.menu.view);
-		this.menu.view.y = -100;
-		this.menuTween = this.game.add.tween(this.menu.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 800, false);
 	};
 	
 	Controls.prototype.addSpeedMarkers = function() {
 		this.speedMarkers = new SpeedMarkers({"bounds":this.speedSlider.bounds, "asset":Assets.SPEEDDECOR});
 		this.speedMarkers.clickSignal.add(this.clickMarker, this);
-		this.speedMarkers.view.y = -100;
 		this.group.add(this.speedMarkers.view);
-		this.speedTween = this.game.add.tween(this.speedMarkers.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
 	};
 
 	Controls.prototype.clickMarker = function(data) {
@@ -157,9 +150,7 @@ Events, Assets, SpeedMarkers){
 		bounds = {"x":this.game.w/2 - 120, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
 		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":bounds};
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
-		this.speedSlider.group.y = -100;
 		this.group.add(this.speedSlider.view);
-		this.sliderTween = this.game.add.tween(this.speedSlider.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 400, false);
 	};
 	
 	Controls.prototype.menuClick = function(data) {
@@ -194,26 +185,20 @@ Events, Assets, SpeedMarkers){
 		bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
-			delay = (this.firstShow ? 800 : 100);
-			this.commandsPanel.view.x = this.game.w + 100;
 			this.group.add(this.commandsPanel.view);
-			this.commandsTween = this.game.add.tween(this.commandsPanel.view).to( {'x':0}, 1000, Phaser.Easing.Linear.None, true, delay, false);
-			this.firstShow = false;
 		}
 	};
 
 	Controls.prototype.addColorPicker = function() {
-		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2, 'y':this.game.h + 100, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
+		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2, 'y':this.game.h - ColorPicker.HEIGHT, 'w':ColorPicker.WIDTH, 'h':ColorPicker.HEIGHT};
 		this.colorPicker = new ColorPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.view);
-		this.colorTween = this.game.add.tween(this.colorPicker.view).to( {'y':this.game.h - ColorPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1200, false);
 	};
 
 	Controls.prototype.addWidthPicker = function() {
-		var bounds = {'x':this.bounds.x + this.bounds.w + 10, 'y':this.game.h + 100, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
+		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH + 10, 'y':this.game.h - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
 		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.view);
-		this.widthTween = this.game.add.tween(this.widthPicker.view).to( {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH, 'y':this.game.h - WidthPicker.HEIGHT}, 1000, Phaser.Easing.Bounce.InOut, true, 1600, false);
 	};
 	
 	Controls.prototype.destroy = function() {
@@ -222,12 +207,20 @@ Events, Assets, SpeedMarkers){
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
 		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);
 		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
-		this.colorPicker.destroy();
-		this.widthPicker.destroy();
-		this.speedSlider.destroy();
-		this.speedMarkers.clickSignal.remove(this.clickMarker, this);
-		this.group.remove(this.speedMarkers.view);
-		this.speedMarkers.destroy();
+		if(this.colorPicker){
+			this.colorPicker.destroy();
+		}
+		if(this.widthPicker){
+			this.widthPicker.destroy();
+		}
+		if(this.speedSlider){
+			this.speedSlider.destroy();
+		}
+		if(this.speedMarkers){
+			this.speedMarkers.clickSignal.remove(this.clickMarker, this);
+			this.group.remove(this.speedMarkers.view);
+			this.speedMarkers.destroy();
+		}
 		this.menu.clickSignal.remove(this.menuClick, this);
 		this.menu.destroy();
 		this.bg = null;
