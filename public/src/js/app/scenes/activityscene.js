@@ -33,6 +33,7 @@ Events, Assets, ToolTipManager){
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
 		this.eventDispatcher.trigger({"type":Events.ENTER_FS});
 		this.toolTipTimeout = setTimeout($.proxy(this.openToolTips, this), 2000);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.onResize.bind(this));
 	};
 
 	ActivityScene.prototype.openToolTips = function(){
@@ -61,9 +62,7 @@ Events, Assets, ToolTipManager){
 		var bounds = {'x':0, 'y':0, 'w':Menu.WIDTH, 'h':Menu.HEIGHT};
 		this.menu = new Menu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
-		this.menu.view.y = -60;
 		this.world.add(this.menu.view);
-		this.menuTween = this.game.add.tween(this.menu.view).to( {'y':0}, 1000, Phaser.Easing.Bounce.InOut, true, 0, false);
 	};
 	
 	ActivityScene.prototype.menuClick = function(data) {
@@ -90,13 +89,13 @@ Events, Assets, ToolTipManager){
 		}
 	};
 
-	ActivityScene.prototype.resize = function() {
-		console.log("activity scene, resize");
+	ActivityScene.prototype.onResize = function() {
+		this.removeControls();
+		this.addControls();
 	};
 
 	ActivityScene.prototype.addControls = function() {
 		var bounds = {"x":this.game.w - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":this.game.h};
-		this.removeControls();
 		this.controls = new Controls({"bounds":bounds});
 		this.world.add(this.controls.view);
 	};
@@ -116,7 +115,6 @@ Events, Assets, ToolTipManager){
 
 	ActivityScene.prototype.shutdown = function() {
 		PhaserComponents.Scene.prototype.shutdown.apply(this, arguments);
-		this.menuTween.stop();
 		this.destroy();
 	};
 	
