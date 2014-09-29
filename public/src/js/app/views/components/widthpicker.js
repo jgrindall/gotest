@@ -28,6 +28,11 @@ function(PhaserComponents, ModelFacade, Assets){
 		
 	};
 
+	WidthPicker.prototype.destroy = function(){
+		ModelFacade.getInstance().get(ModelFacade.COLOR).changeSignal.remove(this.changeColor, this);
+		PhaserComponents.Display.StepperButton.prototype.destroy.call(this);
+	};
+
 	return WidthPicker;
 });
 	

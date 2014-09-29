@@ -42,7 +42,12 @@ PlayingState){
 			this.enableButtonAt(3);
 		}
 	};
-	
+
+	ControlMenu.prototype.destroy = function(){
+		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
+		PhaserComponents.Display.ButtonBar.prototype.destroy.call(this);
+	};
+
 	return ControlMenu;
 
 });
