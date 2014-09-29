@@ -57,10 +57,15 @@ function(Phaser, Colors, PenWidths){
 	};
 	
 	LineDrawer.prototype.getColor = function() {
+		var clr;
+		console.log("CLR  "+JSON.stringify(this.command.toJson()));
 		if(this.command.color === null || this.command.color === undefined){
-			return null;
+			clr = null;
 		}
-		return Colors.ALL[this.command.color];
+		else{
+			clr = Colors.ALL[this.command.color];
+		}
+		return clr;
 	};
 
 	LineDrawer.prototype.getWidth = function() {
@@ -76,8 +81,8 @@ function(Phaser, Colors, PenWidths){
 	LineDrawer.prototype.segment = function(p) {
 		var clr, width;
 		clr = this.getColor();
+		width = this.getWidth();
 		if(clr !== null){
-			width = this.getWidth();
 			this.context2d.lineStyle(width, clr, 1);
    			this.context2d.moveTo(this.pos.x, this.pos.y);
    			this.context2d.lineTo(p.x, p.y);

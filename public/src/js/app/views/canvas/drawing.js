@@ -190,7 +190,7 @@ FdCommand, StepLengths, Assets){
 		this.turtle = new Turtle({'bounds':this.bounds, 'asset':Assets.TURTLE});
 		this.turtle.endSignal.add(this.commandFinished, this);
 		this.turtle.movedSignal.add(this.turtleMoved, this);
-		this.group.add(this.turtle.group);
+		this.group.add(this.turtle.view);
 	};
 	
 	Drawing.prototype.commandFinished = function() {
@@ -201,7 +201,7 @@ FdCommand, StepLengths, Assets){
 	Drawing.prototype.addPaths = function() {
 		this.paths = new Paths({'bounds':this.bounds});
 		this.paths.endSignal.add(this.commandFinished, this);
-		this.group.add(this.paths.group);
+		this.group.add(this.paths.view);
 	};
 	
 	Drawing.prototype.destroy = function() {
@@ -213,6 +213,8 @@ FdCommand, StepLengths, Assets){
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
 		this.turtle.movedSignal.remove(this.turtleMoved, this);
+		this.group.remove(this.paths.view);
+		this.group.remove(this.turtle.view);
 		this.paths.destroy();
 		this.turtle.destroy();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);

@@ -21,6 +21,7 @@ function(PhaserComponents){
 		}
 		else{
 			PhaserComponents.Model.AbstractModel.prototype.set.call(this, val);
+			this.trigger();
 		}
 	};
 
