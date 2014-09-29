@@ -10,7 +10,7 @@ function($, PhaserComponents){
 		this.el = $("<input id='name' maxlength='32' placeholder='Your name here' type='text'></input>");
 		this.model = model;
 		this.model.changeSignal.add(this.modelChanged, this);
-		onChange = PhaserComponents.Utils.debounce($.proxy(this.valChanged, this), 2000);
+		onChange = PhaserComponents.Utils.debounce(this.valChanged.bind(this), 2000);
 		this.el.on("input propertychange paste", onChange);
 	};
 	

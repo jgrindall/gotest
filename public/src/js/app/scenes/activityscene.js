@@ -32,7 +32,7 @@ Events, Assets, ToolTipManager){
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
 		this.eventDispatcher.trigger({"type":Events.ENTER_FS});
-		this.toolTipTimeout = setTimeout($.proxy(this.openToolTips, this), 2000);
+		this.toolTipTimeout = setTimeout(this.openToolTips.bind(this), 2000);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.onResize.bind(this));
 	};
 
