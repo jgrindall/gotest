@@ -21,6 +21,7 @@ define([], function() {
 		'allowProg':0,
 		'turtle':0,
 		'diag':0,
+		'startPos':{'x':0.5, 'y':0.5},
 	};
 
 	Defaults.DEFAULT_JSON = {
