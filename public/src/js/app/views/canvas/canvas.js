@@ -17,6 +17,8 @@ Grid, Corners, Assets){
 		PhaserComponents.Display.Container.call(this, options);
 	};
 	
+	Canvas.RATIO = 1.3333;
+
 	PhaserComponents.Utils.extends(Canvas, PhaserComponents.Display.Container);
 
 	Canvas.prototype.addBg = function() {

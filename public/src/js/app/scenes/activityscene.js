@@ -52,8 +52,26 @@ Events, Assets, ToolTipManager){
 		this.world.add(this.bg.view);
 	};
 	
+	ActivityScene.prototype.removeCanvas = function() {
+		if(this.canvas){
+			this.world.remove(this.canvas.view);
+			this.canvas.destroy();
+			this.canvas = null;
+		}
+	};
+
+	ActivityScene.prototype.getCanvasBounds = function() {
+		var rect, size, newRect;
+		rect = {"x":0, "y":50, "w":this.game.w - Controls.WIDTH, "h":this.game.h - 50};
+		size = PhaserComponents.Utils.fitRect(rect, Canvas.RATIO);
+		newRect = {'w':size.w, 'h':size.h};
+		newRect.x = rect.x + (rect.w - size.w)/2;
+		newRect.y = rect.y + (rect.h - size.h)/2;
+		return newRect;
+	};
+
 	ActivityScene.prototype.addCanvas = function() {
-		var bounds = {"x":0, "y":50, "w":this.game.w - Controls.WIDTH, "h":this.game.h - 50};
+		var bounds = this.getCanvasBounds();
 		this.canvas = new Canvas({"bounds":bounds});
 		this.world.add(this.canvas.view);
 	};
@@ -92,6 +110,9 @@ Events, Assets, ToolTipManager){
 	ActivityScene.prototype.onResize = function() {
 		this.removeControls();
 		this.addControls();
+		this.removeCanvas();
+		this.addCanvas();
+		this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 
 	ActivityScene.prototype.addControls = function() {
