@@ -7,6 +7,7 @@ define(['phasercomponents', 'app/assets'],
 	
 	var ControlMenuButton = function(options){
 		var frame0;
+		options.disabledAlpha = 1;
 		options.asset = Assets.BUTTON;
 		options.sfx = Assets.SOUNDS[0];
 		frame0 = (4 * options.data.num);

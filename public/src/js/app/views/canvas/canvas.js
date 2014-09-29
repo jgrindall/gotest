@@ -15,19 +15,10 @@ Grid, Corners, Assets){
 	
 	var Canvas  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
+		this.view.scale = {'x':options.scale, 'y':options.scale};
 	};
-	
-	Canvas.RATIO = 1.3333;
 
 	PhaserComponents.Utils.extends(Canvas, PhaserComponents.Display.Container);
-
-	Canvas.prototype.addBg = function() {
-		var w, h;
-		w = this.game.w;
-		h = this.game.h;
-		this.bg = new Background({"asset":Assets.BG, "bounds":this.bounds});
-		this.group.add(this.bg.view);
-	};
 
 	Canvas.prototype.addCorners = function() {
 		this.corners = new Corners({"bounds":this.options.bounds, "top":Assets.CORNERS, "right":Assets.CORNERS, "left":Assets.CORNERS, "bottom":Assets.CORNERS, "topleft":Assets.CORNERSX, "topright":Assets.CORNERSX, "bottomleft":Assets.CORNERSX, "bottomright":Assets.CORNERSX});
@@ -36,7 +27,6 @@ Grid, Corners, Assets){
 
 	Canvas.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
-		this.addBg();
 		this.addMap();
 		this.addGrid();
 		this.addDrawing();
@@ -64,10 +54,8 @@ Grid, Corners, Assets){
 	Canvas.prototype.destroy = function() {
 		this.group.remove(this.grid.view);
 		this.group.remove(this.map.view);
-		this.group.remove(this.grid.view);
-		this.group.remove(this.bg.sprite);
+		this.group.remove(this.drawing.view);
 		this.map.destroy();
-		this.bg.destroy();
 		this.grid.destroy();
 		this.drawing.destroy();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);

@@ -41,7 +41,6 @@ Events, Assets, SpeedMarkers){
 
 	Controls.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
-		this.addBg();
 		this.addColorPicker();
 		this.addWidthPicker();
 		this.addButtons();
@@ -90,15 +89,6 @@ Events, Assets, SpeedMarkers){
 			this.controlBar.enableInput();
 			this.speedMarkers.enableInput();
 		}
-	};
-	
-	Controls.prototype.addBg = function() {
-		var w, h, bounds;
-		w = this.game.w;
-		h = this.game.h;
-		bounds = {'x':this.bounds.x, 'y':0, 'w':this.bounds.w, 'h':h};
-		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
-		this.group.add(this.bg.view);
 	};
 
 	Controls.prototype.addControlBar = function() {
@@ -203,7 +193,6 @@ Events, Assets, SpeedMarkers){
 	
 	Controls.prototype.destroy = function() {
 		this.stopTweens();
-		this.bg.destroy();
 		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
 		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);
 		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
@@ -223,7 +212,6 @@ Events, Assets, SpeedMarkers){
 		}
 		this.menu.clickSignal.remove(this.menuClick, this);
 		this.menu.destroy();
-		this.bg = null;
 		this.colorPicker = null;
 		this.menu = null;
 		this.removeCommandsPanel();

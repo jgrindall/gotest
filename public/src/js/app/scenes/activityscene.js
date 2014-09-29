@@ -1,7 +1,7 @@
 
 define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
-'app/views/components/menu', 'app/models/modelfacade',
+'app/views/components/menu', 'app/models/modelfacade', 'app/consts/canvaslayout',
 
 'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
@@ -9,7 +9,7 @@ define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 function($, Canvas, Controls,
 
-Menu, ModelFacade,
+Menu, ModelFacade, CanvasLayout,
 
 Background, PhaserComponents, NameView,
 
@@ -45,6 +45,14 @@ Events, Assets, ToolTipManager){
     	$("#"+this.game.parent).append(this.nameView.el);	
 	};
 
+	ActivityScene.prototype.removeBg = function() {
+		if(this.bg){
+			this.world.remove(this.bg.view);
+			this.bg.destroy();
+			this.bg = null;
+		}
+	};
+
 	ActivityScene.prototype.addBg = function() {
 		var bounds;
 		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
@@ -60,19 +68,25 @@ Events, Assets, ToolTipManager){
 		}
 	};
 
-	ActivityScene.prototype.getCanvasBounds = function() {
-		var rect, size, newRect;
-		rect = {"x":0, "y":50, "w":this.game.w - Controls.WIDTH, "h":this.game.h - 50};
-		size = PhaserComponents.Utils.fitRect(rect, Canvas.RATIO);
-		newRect = {'w':size.w, 'h':size.h};
-		newRect.x = rect.x + (rect.w - size.w)/2;
-		newRect.y = rect.y + (rect.h - size.h)/2;
-		return newRect;
+	ActivityScene.prototype.getCanvasSize = function() {
+		var rect, size, scale, ratio;
+		ratio = CanvasLayout.REF_WIDTH/CanvasLayout.REF_HEIGHT;
+		rect = {"w":this.game.w - Controls.WIDTH, "h":this.game.h - 50};
+		size = PhaserComponents.Utils.fitRect(rect, ratio);
+		scale = size.w / CanvasLayout.REF_WIDTH;
+		return size;
 	};
 
 	ActivityScene.prototype.addCanvas = function() {
-		var bounds = this.getCanvasBounds();
-		this.canvas = new Canvas({"bounds":bounds});
+		var scale, x, y, xtimesscale, ytimesscale, bounds, size;
+		size = this.getCanvasSize();
+		scale = size.w/CanvasLayout.REF_WIDTH;
+		xtimesscale = (this.game.w - Controls.WIDTH - CanvasLayout.REF_WIDTH * scale)/2;
+		ytimesscale = 50 + (this.game.h - CanvasLayout.REF_HEIGHT * scale - 50)/2;
+		x = xtimesscale / scale;
+		y = ytimesscale / scale;
+		bounds = {'x':x, 'y':y, 'w':CanvasLayout.REF_WIDTH, 'h':CanvasLayout.REF_HEIGHT};
+		this.canvas = new Canvas({"bounds":bounds, "scale":scale});
 		this.world.add(this.canvas.view);
 	};
 	
@@ -81,6 +95,13 @@ Events, Assets, ToolTipManager){
 		this.menu = new Menu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
 		this.world.add(this.menu.view);
+	};
+
+	ActivityScene.prototype.removeMenu = function() {
+		this.menu.clickSignal.remove(this.menuClick, this);
+		this.world.remove(this.menu.view);
+		this.menu.destroy();
+		this.menu = null;
 	};
 	
 	ActivityScene.prototype.menuClick = function(data) {
@@ -108,10 +129,14 @@ Events, Assets, ToolTipManager){
 	};
 
 	ActivityScene.prototype.onResize = function() {
+		this.removeBg();
 		this.removeControls();
-		this.addControls();
 		this.removeCanvas();
+		this.removeMenu();
+		this.addBg();
+		this.addControls();
 		this.addCanvas();
+		this.addMenu();
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 
@@ -124,13 +149,11 @@ Events, Assets, ToolTipManager){
 	ActivityScene.prototype.destroy = function() {
 		clearTimeout(this.toolTipTimeout);
 		this.world.remove(this.menu.view);
-		this.world.remove(this.canvas.view);
 		this.world.remove(this.controls.view);
-		this.world.remove(this.bg.view);
-		this.bg.destroy();
+		this.removeBg();
+		this.removeCanvas();
 		this.nameView.destroy();
 		this.menu.destroy();
-		this.canvas.destroy();
 		this.controls.destroy();
 	};
 
