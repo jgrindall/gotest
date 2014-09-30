@@ -24,7 +24,7 @@ CommandTypes, PhaserComponents, Events
 	};
 	
 	NSEW45KeysCommandsPanel.prototype.selectKey = function(data){
-		this.addCommands(this.selectedCommand, CommandTypes.MOVE, data.index + 1);
+		this.addCommands(this.getSelectedCommand(), CommandTypes.MOVE, data.index + 1);
 	};
 	
 	NSEW45KeysCommandsPanel.prototype.setSelectedCommand = function(i) {

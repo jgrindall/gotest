@@ -22,14 +22,15 @@ CommandTypes, PhaserComponents){
 	};
 	
 	NSTurnKeysCommandsPanel.prototype.selectKey = function(data){
-		var type;
-		if(this.selectedCommand === 1 || this.selectedCommand === 7){
+		var type, comm;
+		comm = this.getSelectedCommand();
+		if(comm === 1 || comm === 7){
 			type = CommandTypes.FD;
 		}
 		else{
 			type = CommandTypes.TURN;
 		}
-		this.addCommands(this.selectedCommand, type, data.index + 1);
+		this.addCommands(comm, type, data.index + 1);
 	};
 	
 	return NSTurnKeysCommandsPanel;

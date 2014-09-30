@@ -6,21 +6,22 @@ define(['phaser', 'phasercomponents', 'app/assets'],
 	"use strict";
 	
 	var AbstractMarker = function(options){
-		var model;
-		model = new PhaserComponents.Model.MovieClipModel();
-		model.set(4);
-		options.model = model;
 		options.asset = Assets.MARKERS;
 		options.numFrames = 11;
 		PhaserComponents.Display.MovieClip.call(this, options);
 		this.sprite.anchor.setTo(0.5, 0.5);
 		this.sprite.alpha = 0.5;
+		this.model.changeSignal.add(this.onChanged, this);
 	};
 	
 	PhaserComponents.Utils.extends(AbstractMarker, PhaserComponents.Display.MovieClip);
 
 	AbstractMarker.WIDTH = 50;
 	AbstractMarker.HEIGHT = 50;
+
+	AbstractMarker.prototype.onChanged = function(value){
+		this.goTo(value);
+	};
 
 	AbstractMarker.prototype.goTo = function(i){
 		PhaserComponents.Display.MovieClip.prototype.goTo.call(this, i);

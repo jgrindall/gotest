@@ -1,7 +1,7 @@
 
 define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel', 
 
-'app/models/colormodel', 'app/models/speedmodel', 'app/models/startposmodel',
+'app/models/colormodel', 'app/models/speedmodel', 'app/models/startposmodel', 'app/models/selectedcommmodel',
 
 'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel', 'app/models/progmodel',
 
@@ -13,7 +13,7 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 function(CommModel, ScreenModel, BgModel,
 
-	ColorModel, SpeedModel, StartPosModel,
+	ColorModel, SpeedModel, StartPosModel, SelectedCommModel,
 
 	PlayingModel, GridModel, AngleModel, ProgModel,
 
@@ -48,6 +48,7 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.PROG = 			"prog";
 	ModelFacade.NAME = 			"name";
 	ModelFacade.TURTLE = 		"turtle";
+	ModelFacade.SELECTED_COMM = "selectedComm";
 
 	ModelFacade.prototype.get = function(name){
 		if(name === ModelFacade.SPEED){
@@ -58,6 +59,9 @@ function(CommModel, ScreenModel, BgModel,
 		}
 		else if(name === ModelFacade.STARTPOS){
 			return this.startPosModel;
+		}
+		else if(name === ModelFacade.SELECTED_COMM){
+			return this.selCommModel;
 		}
 		else if(name === ModelFacade.ANGLE){
 			return this.angleModel;
@@ -132,15 +136,16 @@ function(CommModel, ScreenModel, BgModel,
 		this.nameModel = new NameModel();
 		this.progNumModel = new ProgNumModel();
 		this.startPosModel = new StartPosModel();
+		this.selCommModel = new SelectedCommModel();
 	};
 
 	ModelFacade.prototype.addListeners = function(){
-		this.colorModel.changeSignal.add(this.changeColor, this);
-		this.bgModel.changeSignal.add(this.changeBg, this);
-		this.widthModel.changeSignal.add(this.changeWidth, this);
-		this.playingModel.changeSignal.add(this.changePlaying, this);
-		this.speedModel.changeSignal.add(this.changeSpeed, this);
-		this.allowProgModel.changeSignal.add(this.changeAllowProg, this);
+		this.colorModel.changeSignal.add(		this.changeColor, 		this);
+		this.bgModel.changeSignal.add(			this.changeBg, 			this);
+		this.widthModel.changeSignal.add(		this.changeWidth, 		this);
+		this.playingModel.changeSignal.add(		this.changePlaying, 	this);
+		this.speedModel.changeSignal.add(		this.changeSpeed, 		this);
+		this.allowProgModel.changeSignal.add(	this.changeAllowProg, 	this);
 	};
 
 	ModelFacade.prototype.removeListeners = function(){

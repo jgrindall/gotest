@@ -21,6 +21,11 @@ PhaserComponents, AbstractExecuteCommandsPanel
 	
 	PhaserComponents.Utils.extends(AbstractKeysCommandsPanel, AbstractExecuteCommandsPanel);
 
+	AbstractKeysCommandsPanel.prototype.init = function() {
+		var comm = this.getSelectedCommand();
+		this.selectComm({"index":comm});
+	};
+
 	AbstractKeysCommandsPanel.prototype.create = function() {
 		AbstractExecuteCommandsPanel.prototype.create.call(this);
 		this.addKeys();
@@ -51,7 +56,7 @@ PhaserComponents, AbstractExecuteCommandsPanel
 	};
 	
 	AbstractKeysCommandsPanel.prototype.enableKeys = function() {
-		if(this.keys && this.selectedCommand){
+		if(this.keys && this.getSelectedCommand() !== null){
 			this.keys.enableInput();
 			this.keys.alpha = 1;
 		}

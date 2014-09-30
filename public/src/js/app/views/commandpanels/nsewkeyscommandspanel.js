@@ -22,7 +22,7 @@ CommandTypes, PhaserComponents, Events){
 	};
 	
 	NSEWKeysCommandsPanel.prototype.selectKey = function(data){
-		this.addCommands(this.selectedCommand, CommandTypes.MOVE, data.index + 1);
+		this.addCommands(this.getSelectedCommand(), CommandTypes.MOVE, data.index + 1);
 	};
 	
 	NSEWKeysCommandsPanel.prototype.setSelectedCommand = function(i) {

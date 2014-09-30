@@ -3,7 +3,7 @@ define([ 'phasercomponents',
 
 'app/views/buttons/dirbutton', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/views/commandpanels/markers/markerfactory'
+'app/views/commandpanels/markers/markerfactory', 'app/models/modelfacade'
 ],
 
 
@@ -11,18 +11,22 @@ function(PhaserComponents,
 
 DirButton, AbstractCommandsPanel,
 
-MarkerFactory){
+MarkerFactory, ModelFacade){
 	
 	"use strict";
 	
 	var AbstractExecuteCommandsPanel  = function(options){
-		this.selectedCommand = null;
 		AbstractCommandsPanel.call(this, options);
+		this.init();
 	};
 	
 	PhaserComponents.Utils.extends(AbstractExecuteCommandsPanel, AbstractCommandsPanel);
 	
 	AbstractExecuteCommandsPanel.GRID_SIZE = 170;
+
+	AbstractExecuteCommandsPanel.prototype.init = function() {
+		
+	};
 
 	AbstractExecuteCommandsPanel.prototype.disableInput = function() {
 		if(this.grid){
@@ -30,9 +34,12 @@ MarkerFactory){
 		}
 	};
 	
+	AbstractExecuteCommandsPanel.prototype.getSelectedCommand = function(){
+		return ModelFacade.getInstance().get(ModelFacade.SELECTED_COMM).get();
+	};
+
 	AbstractExecuteCommandsPanel.prototype.setSelectedCommand = function(i) {
-		this.selectedCommand = i;
-		this.marker.goTo(i);
+		ModelFacade.getInstance().get(ModelFacade.SELECTED_COMM).set(i);
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.enableInput = function() {
@@ -48,10 +55,11 @@ MarkerFactory){
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.addMarker = function() {
-		var x, y, options;
+		var x, y, options, model;
 		x = this.bounds.x + this.bounds.w/2;
 		y = this.bounds.y + AbstractExecuteCommandsPanel.GRID_SIZE/2;
-		options = {'bounds':{'x':x, 'y':y}};
+		model = ModelFacade.getInstance().get(ModelFacade.SELECTED_COMM);
+		options = {'bounds':{'x':x, 'y':y}, "model":model};
 		this.marker = MarkerFactory.make(this.options.markerType, options);
 		this.group.add(this.marker.view);
 	};
