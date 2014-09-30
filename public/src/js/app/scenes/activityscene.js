@@ -98,10 +98,12 @@ Events, Assets, ToolTipManager){
 	};
 
 	ActivityScene.prototype.removeMenu = function() {
-		this.menu.clickSignal.remove(this.menuClick, this);
-		this.world.remove(this.menu.view);
-		this.menu.destroy();
-		this.menu = null;
+		if(this.menu){
+			this.menu.clickSignal.remove(this.menuClick, this);
+			this.world.remove(this.menu.view);
+			this.menu.destroy();
+			this.menu = null;
+		}
 	};
 	
 	ActivityScene.prototype.menuClick = function(data) {
