@@ -80,10 +80,8 @@ function(Phaser, PhaserComponents, Events){
 	
 	CommTickerModel.prototype.replay = function() {
 		this.resetSignal.dispatch();
-		this.commandNum = 0;
-		if(this.getNum() >= 1){
-			this.performCommand();
-		}
+		this.commandNum = -1;
+		this.nextCommand();
 	};
 	
 	CommTickerModel.prototype.removeCommands = function() {
