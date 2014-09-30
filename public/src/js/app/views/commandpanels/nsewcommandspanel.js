@@ -23,7 +23,7 @@ CommandTypes, PhaserComponents
 	PhaserComponents.Utils.extends(NSEWCommandsPanel, AbstractExecuteCommandsPanel);
 
 	NSEWCommandsPanel.prototype.onKeyUp = function(event, obj) {
-		var i, code, direction;
+		var i, code;
 		code = obj.data.keyCode;
 		for(i = 0; i < NSEWCommandsPanel.KEY_MAP.length; i++){
 			if(NSEWCommandsPanel.KEY_MAP[i] === code){

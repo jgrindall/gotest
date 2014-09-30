@@ -1,11 +1,11 @@
 
-define(['phasercomponents', 'app/views/background',
+define(['phasercomponents',
 
 'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
 
 'app/views/canvas/grid', 'app/views/canvas/corners', 'app/assets'],
 
-function(PhaserComponents, Background,
+function(PhaserComponents,
 
 Map, Drawing, ModelFacade,
 

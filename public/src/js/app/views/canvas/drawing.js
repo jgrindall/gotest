@@ -1,5 +1,5 @@
 
-define(['jquery', 'phasercomponents',
+define(['phasercomponents',
 
 'app/views/canvas/turtle', 'app/views/canvas/paths',
 
@@ -13,7 +13,7 @@ define(['jquery', 'phasercomponents',
 
 'app/logocommands/fdcommand', 'app/consts/steplengths', 'app/assets'],
 
-function($, PhaserComponents,
+function(PhaserComponents,
 
 Turtle, Paths,
 
@@ -54,12 +54,12 @@ FdCommand, StepLengths, Assets){
 		this.setTurtle();
 	};
 
-	Drawing.prototype.onChangeStartPos = function(value){
+	Drawing.prototype.onChangeStartPos = function(){
 		this.setStart();
 		this.turtle.reset(this.startPos);
 	};
 
-	Drawing.prototype.setProgress = function(value){
+	Drawing.prototype.setProgress = function(){
 		var total = ModelFacade.getInstance().get(ModelFacade.COMM).getNum();
 		if(total > 0){
 			this.turtle.disableMove();

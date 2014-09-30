@@ -51,7 +51,7 @@ function(Phaser, PhaserComponents, ModelFacade){
 		this.movedSignal.dispatch({'x':this.turtle.sprite.x, 'y':this.turtle.sprite.y});
 	};
 
-	Turtle.prototype.onUp = function(pointer, x, y){
+	Turtle.prototype.onUp = function(){
 		this.drop();
 		this.removeMoveListeners();
 	};

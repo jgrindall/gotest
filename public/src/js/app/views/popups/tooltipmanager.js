@@ -1,7 +1,7 @@
 
-define(['jquery', 'phasercomponents', 'app/views/popups/tooltip', 'app/assets'], 
+define(['phasercomponents', 'app/views/popups/tooltip', 'app/assets'], 
 
-function($, PhaserComponents, ToolTip, Assets){
+function(PhaserComponents, ToolTip, Assets){
 
 	"use strict";
 	

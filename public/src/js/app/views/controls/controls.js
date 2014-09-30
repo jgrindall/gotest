@@ -1,7 +1,5 @@
 
-define(['app/views/background',
-
-'phasercomponents', 'app/views/components/colorpicker', 'app/views/components/widthpicker',
+define(['phasercomponents', 'app/views/components/colorpicker', 'app/views/components/widthpicker',
 
 'app/models/modelfacade', 'app/consts/colors', 'app/consts/penwidths',
 
@@ -13,9 +11,7 @@ define(['app/views/background',
 
 ],
 
-function(Background,
-
-PhaserComponents, ColorPicker, WidthPicker,
+function(PhaserComponents, ColorPicker, WidthPicker,
 
 ModelFacade, Colors, PenWidths,
 
@@ -168,7 +164,7 @@ Events, Assets, SpeedMarkers){
 	};
 
 	Controls.prototype.addCommandsPanel = function() {
-		var bounds, type, prog, delay;
+		var bounds, type, prog;
 		this.removeCommandsPanel();
 		type = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
 		prog = ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).get();
