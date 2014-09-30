@@ -1671,7 +1671,9 @@ function(ButtonBar, Utils){
 	
 	TabButtonBar.prototype.create = function(){
 		ButtonBar.prototype.create.call(this);
-		this.model.set(0);
+		if(this.model.get() === null){
+			this.model.set(0);
+		}
 	};
 	
 	return TabButtonBar;
@@ -1810,6 +1812,14 @@ InteractiveSprite, Utils, AppEvents){
 		this.onUp();
 	};
 	
+	Slider.prototype.removeHandle = function(){
+		if(this.handle){
+			this.group.remove(this.handle.sprite);
+			this.handle.destroy();
+			this.handle = null;
+		}
+	};
+
 	Slider.prototype.addHandle = function(){
 		var x, y, options;
 		x = this.bounds.x + Slider.HANDLEHEIGHT/2;
@@ -1843,6 +1853,22 @@ InteractiveSprite, Utils, AppEvents){
    		this.hl.mask = this.mask;
 	};
 
+	Slider.prototype.removeBg = function(){
+		if(this.bg){
+			this.group.remove(this.bg);
+			this.bg.destroy(true);
+			this.bg = null;
+		}
+	};
+
+	Slider.prototype.removeHighlight = function(){
+		if(this.hl){
+			this.group.remove(this.hl);
+			this.hl.destroy(true);
+			this.hl = null;
+		}
+	};
+
 	Slider.prototype.create = function(){
 		Container.prototype.create.call(this);
 		this.addBg();
@@ -1854,11 +1880,11 @@ InteractiveSprite, Utils, AppEvents){
 	
 	Slider.prototype.destroy = function(){
 		this.removeListeners();
-		this.bg.destroy(true);
-		this.model.changeSignal.remove(this.onChanged, this);
-		this.handle.destroy();
-		this.handle = null;
-		this.bg = null;
+		this.removeBg();
+		this.removeHandle();
+		this.removeHighlight();
+		this.model.changeSignal.remove(this.onChanged, this);		
+		Container.prototype.destroy.call(this);
 	};
 	
 	return Slider;
