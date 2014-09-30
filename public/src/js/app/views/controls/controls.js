@@ -39,7 +39,7 @@ Events, Assets, SpeedMarkers){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addColorPicker();
 		this.addWidthPicker();
-		this.addButtons();
+		this.addMenu();
 		this.addSpeedSlider();
 		this.addSpeedMarkers();
 		this.addControlBar();
@@ -135,7 +135,7 @@ Events, Assets, SpeedMarkers){
 		}
 	};
 
-	Controls.prototype.addButtons = function() {
+	Controls.prototype.addMenu = function() {
 		var bounds = {'x':this.game.w - ControlMenu.WIDTH, 'y':this.bounds.y, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
 		this.menu = new ControlMenu({"bounds":bounds});
 		this.menu.clickSignal.add(this.menuClick, this);
@@ -213,31 +213,69 @@ Events, Assets, SpeedMarkers){
 		this.group.add(this.widthPicker.view);
 	};
 	
-	Controls.prototype.destroy = function() {
-		this.stopTweens();
-		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
+	Controls.prototype.removeColorPicker = function() {
 		if(this.colorPicker){
+			this.group.remove(this.colorPicker.view);
 			this.colorPicker.destroy();
 			this.colorPicker = null;
 		}
+	};
+
+	Controls.prototype.removeWidthPicker = function() {
 		if(this.widthPicker){
+			this.group.remove(this.widthPicker.view);
 			this.widthPicker.destroy();
+			this.widthPicker = null;
 		}
+	};
+
+	Controls.prototype.removeSpeedSlider = function(){
 		if(this.speedSlider){
+			this.group.remove(this.speedSlider.view);
 			this.speedSlider.destroy();
+			this.speedSlider = null;
 		}
+	};
+
+	Controls.prototype.removeControlBar = function(){
+		if(this.controlBar){
+			this.group.remove(this.controlBar.view);
+			this.controlBar.clickSignal.remove(this.barClick, this);
+			this.controlBar.destroy();
+			this.controlBar = null;
+		}
+	};
+	
+	Controls.prototype.removeSpeedMarkers = function(){
 		if(this.speedMarkers){
 			this.speedMarkers.clickSignal.remove(this.clickMarker, this);
 			this.group.remove(this.speedMarkers.view);
 			this.speedMarkers.destroy();
+			this.speedMarkers = null;
 		}
+	};
+
+	Controls.prototype.removeMenu = function(){
 		if(this.menu){
 			this.menu.clickSignal.remove(this.menuClick, this);
+			this.group.remove(this.menu.view);
 			this.menu.destroy();
 			this.menu = null;
 		}
+	};
+
+	Controls.prototype.destroy = function() {
+		this.stopTweens();
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN);
+		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
+		this.removeColorPicker();
+		this.removeMenu();
+		this.removeWidthPicker();
+		this.removeControlBar();
+		this.removeSpeedSlider();
+		this.removeSpeedMarkers();
 		this.removeCommandsPanel();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
