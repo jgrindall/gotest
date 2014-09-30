@@ -14,10 +14,28 @@ require(['phaser'], function(Phaser){
 	require(['jquery', 'app/appcontext'], function($, AppContext){
 	
 		$(document).ready(function(){
-			var app = new AppContext({"containerTagId":"game", "scaleType":"fill", "minHeight":0, "minWidth":0});
+			var options, app;
+			options = {"containerTagId":"game", "scaleType":"fill", "minWidth":600, "minHeight":400, "paddingBottom":45};
+			app = new AppContext(options);
 			app.start();
 		});
 
 	});
 
 });
+
+
+/**
+
+1440x900	7
+1600x900	6
+1680x1050	5
+1920x1200	3
+1360x768	2
+1024x768	6
+1280x800	7
+1280x1024	8
+1366x768	31
+1920x1080	13
+
+**/
