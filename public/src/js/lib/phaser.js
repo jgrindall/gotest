@@ -27842,7 +27842,6 @@ Phaser.InputHandler.prototype = {
     * @method Phaser.InputHandler#stop
     */
     stop: function () {
-
         //  Turning off
         if (this.enabled === false)
         {

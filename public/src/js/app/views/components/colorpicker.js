@@ -8,6 +8,7 @@ function(PhaserComponents){
 	"use strict";
 	
 	var ColorPicker  = function(options){
+		this.name = "colorPicker";
 		PhaserComponents.Display.MultiButton.call(this, options);
 	};
 
@@ -16,15 +17,23 @@ function(PhaserComponents){
 	
 	PhaserComponents.Utils.extends(ColorPicker, PhaserComponents.Display.MultiButton);
 
-	ColorPicker.prototype.onChanged = function(value){
-		if(value === null){
-			// go to frame 0
-			PhaserComponents.Display.MultiButton.prototype.onChanged.call(this, 0);
+	ColorPicker.prototype.setFrame = function(frame, options){
+		var currentVal;
+		currentVal = this.model.get();
+		if(currentVal !== null && currentVal === frame){
+			frame = null;
+		}
+		PhaserComponents.Display.MultiButton.prototype.setFrame.call(this, frame, options);
+	};
+
+	ColorPicker.prototype.goTo = function(i){
+		if(i === null || i === undefined){
+			i = 0;
 		}
 		else{
-			// go to frame + 1
-			PhaserComponents.Display.MultiButton.prototype.onChanged.call(this, value + 1);
+			i++;
 		}
+		this.sprite.animations.play('frame'+ i);
 	};
 
 	return ColorPicker;

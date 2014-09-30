@@ -140,7 +140,7 @@ FdCommand, StepLengths, Assets){
 	};
 	
 	Drawing.prototype.moveTurtle = function() {
-		this.turtle.tweenTo(this.endPos, this.duration);
+		this.turtle.tweenTo(this.endPos, this.duration*1.1);
 	};
 	
 	Drawing.prototype.rotateTurtle = function(duration) {

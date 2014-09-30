@@ -42,7 +42,7 @@ Events, Assets, ToolTipManager){
 
 	ActivityScene.prototype.addName = function() {
     	this.nameView = new NameView(ModelFacade.getInstance().get(ModelFacade.NAME));
-    	$("#"+this.game.parent).append(this.nameView.el);	
+    	$("#"+this.game.parent).append(this.nameView.el);
 	};
 
 	ActivityScene.prototype.removeBg = function() {
@@ -148,15 +148,36 @@ Events, Assets, ToolTipManager){
 		this.world.add(this.controls.view);
 	};
 	
+	ActivityScene.prototype.removeMenu = function() {
+		if(this.menu){
+			this.world.remove(this.menu.view);
+			this.menu.destroy();
+			this.menu = null;
+		}
+	};
+
+	ActivityScene.prototype.removeName = function() {
+		if(this.nameView){
+			this.nameView.destroy();
+			this.nameView = null;
+		}
+	};
+
+	ActivityScene.prototype.removeControls = function() {
+		if(this.controls){
+			this.world.remove(this.controls.view);
+			this.controls.destroy();
+			this.controls = null;
+		}
+	};
+
 	ActivityScene.prototype.destroy = function() {
 		clearTimeout(this.toolTipTimeout);
-		this.world.remove(this.menu.view);
-		this.world.remove(this.controls.view);
+		this.removeMenu();
+		this.removeControls();
 		this.removeBg();
 		this.removeCanvas();
-		this.nameView.destroy();
-		this.menu.destroy();
-		this.controls.destroy();
+		this.removeName();
 	};
 
 	ActivityScene.prototype.shutdown = function() {

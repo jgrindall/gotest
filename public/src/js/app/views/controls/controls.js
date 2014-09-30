@@ -47,7 +47,9 @@ Events, Assets, SpeedMarkers){
 	};
 
 	Controls.prototype.onProgAllowedChanged = function(value) {
-		this.controlBar.group.visible = (value === 1);
+		if(this.controlBar){
+			this.controlBar.group.visible = (value === 1);
+		}
 	};
 
 	Controls.prototype.onScreenChanged = function() {
@@ -66,11 +68,23 @@ Events, Assets, SpeedMarkers){
 	Controls.prototype.disableInput = function() {
 		if(this.colorPicker){
 			this.colorPicker.disableInput();
+		}
+		if(this.speedSlider){
 			this.speedSlider.disableInput();
+		}
+		if(this.menu){
 			this.menu.disableInput();
+		}
+		if(this.commandsPanel){
 			this.commandsPanel.disableInput();
+		}
+		if(this.widthPicker){
 			this.widthPicker.disableInput();
+		}
+		if(this.controlBar){
 			this.controlBar.disableInput();
+		}
+		if(this.speedMarkers){
 			this.speedMarkers.disableInput();
 		}
 	};
@@ -78,11 +92,23 @@ Events, Assets, SpeedMarkers){
 	Controls.prototype.enableInput = function() {
 		if(this.colorPicker){
 			this.colorPicker.enableInput();
+		}
+		if(this.speedSlider){
 			this.speedSlider.enableInput();
+		}
+		if(this.menu){
 			this.menu.enableInput();
+		}
+		if(this.widthPicker){
 			this.widthPicker.enableInput();
+		}
+		if(this.commandsPanel){
 			this.commandsPanel.enableInput();
+		}
+		if(this.controlBar){
 			this.controlBar.enableInput();
+		}
+		if(this.speedMarkers){
 			this.speedMarkers.enableInput();
 		}
 	};
@@ -194,6 +220,7 @@ Events, Assets, SpeedMarkers){
 		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
 		if(this.colorPicker){
 			this.colorPicker.destroy();
+			this.colorPicker = null;
 		}
 		if(this.widthPicker){
 			this.widthPicker.destroy();
@@ -206,10 +233,11 @@ Events, Assets, SpeedMarkers){
 			this.group.remove(this.speedMarkers.view);
 			this.speedMarkers.destroy();
 		}
-		this.menu.clickSignal.remove(this.menuClick, this);
-		this.menu.destroy();
-		this.colorPicker = null;
-		this.menu = null;
+		if(this.menu){
+			this.menu.clickSignal.remove(this.menuClick, this);
+			this.menu.destroy();
+			this.menu = null;
+		}
 		this.removeCommandsPanel();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};

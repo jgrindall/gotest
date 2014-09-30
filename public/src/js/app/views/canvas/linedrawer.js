@@ -58,7 +58,6 @@ function(Phaser, Colors, PenWidths){
 	
 	LineDrawer.prototype.getColor = function() {
 		var clr;
-		console.log("CLR  "+JSON.stringify(this.command.toJson()));
 		if(this.command.color === null || this.command.color === undefined){
 			clr = null;
 		}

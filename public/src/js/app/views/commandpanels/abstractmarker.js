@@ -1,12 +1,15 @@
 
 define(['phaser', 'phasercomponents', 'app/assets'],
 
-	function(Phaser,PhaserComponents, Assets){
+	function(Phaser, PhaserComponents, Assets){
 	
 	"use strict";
 	
 	var AbstractMarker = function(options){
-		options.defaultFrame = 4;
+		var model;
+		model = new PhaserComponents.Model.MovieClipModel();
+		model.set(4);
+		options.model = model;
 		options.asset = Assets.MARKERS;
 		options.numFrames = 11;
 		PhaserComponents.Display.MovieClip.call(this, options);

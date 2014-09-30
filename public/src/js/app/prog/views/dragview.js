@@ -7,7 +7,8 @@ define(
 	"use strict";
 
 	var DragView = function(options){
-		var frame0, index = options.index;
+		var frame, model, index = options.index;
+		model = new PhaserComponents.Model.MovieClipModel();
 		options.asset = Assets.DRAG_ARROW;
 		if(options.turn && index === 3){
 			index = 9;
@@ -15,8 +16,9 @@ define(
 		else if(options.turn && index === 5){
 			index = 10;
 		}
-		frame0 = options.type * 11 + index;
-		options.defaultFrame = frame0;
+		frame = options.type * 11 + index;
+		model.set(frame);
+		options.model = model;
 		AbstractDragView.call(this, options);
 	};
 

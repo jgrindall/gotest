@@ -6,6 +6,7 @@ function(PhaserComponents, PenWidths){
 	"use strict";
 	
 	var WidthModel  = function(){
+		this.name = "widthModel";
 		PhaserComponents.Model.IncrementModel.call(this, {"num":PenWidths.ALL.length});
 	};
 	
