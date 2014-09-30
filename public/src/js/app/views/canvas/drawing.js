@@ -9,7 +9,7 @@ define(['phasercomponents',
 
 'app/logocommands/turncommand',
 
-'app/events/events',
+'app/events/events', 'app/consts/playingstate',
 
 'app/logocommands/fdcommand', 'app/consts/steplengths', 'app/assets'],
 
@@ -23,7 +23,7 @@ MoveCommand,
 
 TurnCommand,
 
-Events,
+Events, PlayingState,
 
 FdCommand, StepLengths, Assets){
 	
@@ -50,8 +50,11 @@ FdCommand, StepLengths, Assets){
 	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
 
 	Drawing.prototype.onRotateTurtle = function(event, obj){
-		this.angle = -Drawing.ANGLES[obj.data.direction];
-		this.setTurtle();
+		var playingState = ModelFacade.getInstance().get(ModelFacade.PLAYING).get();
+		if(playingState === PlayingState.NOT_PLAYING){
+			this.angle = -Drawing.ANGLES[obj.data.direction];
+			this.setTurtle();
+		}
 	};
 
 	Drawing.prototype.onChangeStartPos = function(){
