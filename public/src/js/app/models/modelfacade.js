@@ -146,6 +146,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.playingModel.changeSignal.add(		this.changePlaying, 	this);
 		this.speedModel.changeSignal.add(		this.changeSpeed, 		this);
 		this.allowProgModel.changeSignal.add(	this.changeAllowProg, 	this);
+		this.screenModel.changeSignal.add(		this.changeScreen, 		this);
 	};
 
 	ModelFacade.prototype.removeListeners = function(){
@@ -176,6 +177,10 @@ function(CommModel, ScreenModel, BgModel,
 
 	ModelFacade.prototype.changePlaying = function() {
 		this.setDuration();
+	};
+
+	ModelFacade.prototype.changeScreen = function() {
+		this.selCommModel.reset();
 	};
 
 	ModelFacade.prototype.changeAllowProg = function(value) {
