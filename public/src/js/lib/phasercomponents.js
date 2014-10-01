@@ -49,11 +49,16 @@ function($, Phaser, PhaserStateTrans){
 		this.game.cx = w/2;
 		this.game.cy = h/2;
 		if (this.game.renderType === Phaser.WEBGL && this.game.renderer && this.game.renderer.resize){
+			//TODO = does this work??
 			this.game.renderer.resize(w, h);
 		}
 	};
 
 	GameManager.prototype.resize = function(){
+		this.makeGame();
+	};
+
+	GameManager.prototype.orient = function(){
 		this.makeGame();
 	};
 
@@ -71,8 +76,8 @@ function($, Phaser, PhaserStateTrans){
 	GameManager.prototype.getSizeFit = function(){
 		var w, h, ratio, size;
 		ratio  = 4/3;
-		w = this.el.width();
-		h = this.el.height() - this.options.paddingBottom;
+		w = this.el.innerWidth();
+		h = this.el.innerHeight() - this.options.paddingBottom;
 		if(w/h > ratio){
 			size = {"w":ratio*h, "h":h};
 		}
@@ -90,8 +95,9 @@ function($, Phaser, PhaserStateTrans){
 
 	GameManager.prototype.getSizeFill = function(){
 		var w, h, size;
-		w = this.el.width();
-		h = this.el.height() - this.options.paddingBottom;
+		w = this.el.innerWidth();
+		h = this.el.innerHeight() - this.options.paddingBottom;
+		window.alert(this.el.innerWidth(), this.el.innerHeight(), window.orientation);
 		size = {"w":w, "h":h};
 		size.w = size.w * window.devicePixelRatio;
 		size.h = size.h * window.devicePixelRatio;
@@ -313,6 +319,7 @@ function() {
 	AppEvents.PRE_SHUTDOWN =		"app:preShutdown";
 	AppEvents.POST_SHUTDOWN =		"app:postShutdown";
 	AppEvents.RESIZE =				"app:resize";
+	AppEvents.ORIENT =				"app:orient";
 	AppEvents.KEY_UP =				"app:keyUp";
 
   	return AppEvents;
@@ -916,11 +923,20 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
     Context.prototype.removeListeners = function(){
         $(window).off("resize");
         this.resizeHandler = null;
+        $(window).off("orientationchange");
+        this.orientHandler = null;
     };
 
     Context.prototype.addListeners = function(){
-    	this.resizeHandler = Utils.debounce(this.onResize.bind(this), 300);
+    	this.resizeHandler = Utils.debounce(this.onResize.bind(this), 237);
     	$(window).on("resize", this.resizeHandler);
+        this.orientHandler = Utils.debounce(this.onOrient.bind(this), 500);
+        $(window).on("orientationchange", this.orientHandler);
+    };
+
+    Context.prototype.onOrient = function(){
+        this.gameManager.orient();
+        this.eventDispatcher.trigger({"type":AppEvents.ORIENT});
     };
 
     Context.prototype.onResize = function(){
@@ -969,6 +985,25 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
 });
 
 
+
+/**
+
+var output = function(){
+                $("body").append("<p>window.innerHeight "+window.innerHeight+"</p>");
+                $("body").append("<p>window.innerWidth "+window.innerWidth+"</p>");
+                $("body").append("<p>window.orientation "+window.orientation+"</p>");
+                $("body").append("<p></p>");
+            };
+
+            var init = function(){
+                window.addEventListener("orientationchange", output);
+                output();
+            };
+            
+            $(document).ready(init);
+**/
+
+;
 
 define('phasercomponents/display/view',
 
@@ -1728,8 +1763,8 @@ InteractiveSprite, Utils, AppEvents){
 	};
 
 	Slider.prototype.posHandle = function(x) {
-		var p = (x - this.bounds.x)/this.bounds.w;
-		this.handle.sprite.x = x;
+		var p = (x - this.bounds.x - this.view.x)/this.bounds.w;
+		this.handle.sprite.x = x - this.view.x;
 		this.setMask(p);
 	};
 
@@ -1753,13 +1788,17 @@ InteractiveSprite, Utils, AppEvents){
 	};
 	
 	Slider.prototype.snap = function() {
-		var num;
-		num = (this.handle.sprite.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
-		num = Math.round(num);
-		this.model.set(num);
+		//var num;
+		//num = (this.handle.sprite.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
+		//num = Math.round(num);
+		//this.model.set(num);
 	};
 
-	Slider.prototype.isOutside = function(x, y) {
+	Slider.prototype.isOutside = function() {
+		//x, y
+		return false;
+		
+		/*
 		if(x < this.bounds.x  - Slider.TOLERANCE || x > this.bounds.x + Slider.WIDTH + Slider.TOLERANCE){
 			return true;
 		}
@@ -1767,6 +1806,7 @@ InteractiveSprite, Utils, AppEvents){
 			return true;
 		}
 		return false;
+		*/
 	};
 	
 	Slider.prototype.move = function(pointer, x, y) {
@@ -1775,8 +1815,8 @@ InteractiveSprite, Utils, AppEvents){
 			this.onUp();
 		}
 		else{
-			xmin = this.bounds.x + Slider.HANDLEWIDTH/2;
-			xmax = this.bounds.x + Slider.WIDTH - Slider.HANDLEWIDTH/2;
+			xmin = this.view.x + this.bounds.x + Slider.HANDLEWIDTH/2;
+			xmax = this.view.x + this.bounds.x + Slider.WIDTH - Slider.HANDLEWIDTH/2;
 			xpos = Math.min(Math.max(x, xmin), xmax);
 			this.posHandle(xpos);
 		}
@@ -2763,8 +2803,9 @@ define('phasercomponents/drag/dragmanager',
 	
 	
 
-	var DragManager = function(game, options){
+	var DragManager = function(container, game, options){
 		this.game = game;
+		this.container = container;
 		this.options = options;
 		this.model = options.model;
 		this.editSignal = new Phaser.Signal();
@@ -2930,8 +2971,12 @@ define('phasercomponents/drag/dragmanager',
 		});
 	};
 
-	DragManager.prototype.onMove = function(pointer, x, y){
-		this.draggedView.moveTo(x - this.draggedView.sprite.width/2, y - this.draggedView.sprite.height/2);
+	DragManager.prototype.onMove = function(pointer){
+		var newX, newY, p;
+		p = this.game.input.getLocalPosition(this.container, pointer);
+		newX = p.x - this.draggedView.view.width/2;
+		newY = p.y - this.draggedView.view.height/2;
+		this.draggedView.moveTo(newX, newY);
 		this.checkTargets();
 	};
 
