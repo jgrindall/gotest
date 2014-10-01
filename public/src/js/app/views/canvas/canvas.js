@@ -15,7 +15,6 @@ Grid, Corners, Assets){
 	
 	var Canvas  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		this.view.scale = {'x':options.scale, 'y':options.scale};
 	};
 
 	PhaserComponents.Utils.extends(Canvas, PhaserComponents.Display.Container);

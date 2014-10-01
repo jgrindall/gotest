@@ -25,23 +25,8 @@ ControlsKeys, ControlsPens){
 
 	Controls.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
-		this.addTop();
 		this.addKeys();
 		this.addPens();
-	};
-
-	Controls.prototype.addTop = function() {
-		var bounds = this.bounds;
-		this.top = new ControlTop({"bounds":bounds});
-		this.group.add(this.top.view);
-	};
-
-	Controls.prototype.removeTop = function(){
-		if(this.top){
-			this.group.remove(this.top.view);
-			this.top.destroy();
-			this.top = null;
-		}
 	};
 
 	Controls.prototype.addKeys = function() {
@@ -73,7 +58,6 @@ ControlsKeys, ControlsPens){
 	};
 
 	Controls.prototype.destroy = function() {
-		this.removeTop();
 		this.removeKeys();
 		this.removePens();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);

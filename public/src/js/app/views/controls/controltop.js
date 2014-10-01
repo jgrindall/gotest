@@ -23,8 +23,6 @@ Events, Assets, SpeedMarkers){
 		PhaserComponents.Display.Container.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 	};
-
-	ControlTop.WIDTH = 320;
 	
 	PhaserComponents.Utils.extends(ControlTop, PhaserComponents.Display.Container);
 
@@ -68,16 +66,47 @@ Events, Assets, SpeedMarkers){
 		}
 	};
 
+	ControlTop.prototype.positionMarkers = function() {
+		var x, y = 0;
+		x = this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2;
+		this.speedMarkers.view.x = x;
+		this.speedMarkers.view.y = y;
+	};
+
+	ControlTop.prototype.positionSpeed = function() {
+		var x, y = 0;
+		x = this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2;
+		this.speedSlider.view.x = x;
+		this.speedSlider.view.y = y;
+	};
+
+	ControlTop.prototype.positionMenu = function() {
+		var x, y;
+		x = this.game.w - ControlMenu.WIDTH;
+		y = this.bounds.y;
+		this.menu.view.x = x;
+		this.menu.view.y = y;
+	};
+
+	ControlTop.prototype.onResize = function() {
+		this.positionMenu();
+		this.positionSpeed();
+		this.positionMarkers();
+	};
+
 	ControlTop.prototype.addMenu = function() {
-		var bounds = {'x':this.game.w - ControlMenu.WIDTH, 'y':this.bounds.y, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
+		var bounds = {'x':0, 'y':0, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
 		this.menu = new ControlMenu({"bounds":bounds});
 		this.group.add(this.menu.view);
+		this.positionMenu();
 	};
 	
 	ControlTop.prototype.addSpeedMarkers = function() {
-		this.speedMarkers = new SpeedMarkers({"bounds":this.speedSlider.bounds, "asset":Assets.SPEEDDECOR});
+		var bounds = {"x":0, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
+		this.speedMarkers = new SpeedMarkers({"bounds":bounds, "asset":Assets.SPEEDDECOR});
 		this.speedMarkers.clickSignal.add(this.clickMarker, this);
 		this.group.add(this.speedMarkers.view);
+		this.positionMarkers();
 	};
 
 	ControlTop.prototype.clickMarker = function(data) {
@@ -91,10 +120,11 @@ Events, Assets, SpeedMarkers){
 
 	ControlTop.prototype.addSpeedSlider = function() {
 		var options, bounds;
-		bounds = {"x":this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
+		bounds = {"x":0, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
 		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":bounds};
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.speedSlider.view);
+		this.positionSpeed();
 	};
 
 	ControlTop.prototype.removeSpeedSlider = function(){

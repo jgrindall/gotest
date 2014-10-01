@@ -1,7 +1,9 @@
 
 define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
-'app/views/components/menu', 'app/models/modelfacade', 'app/consts/canvaslayout',
+'app/views/components/menu', 'app/models/modelfacade',
+
+'app/consts/canvaslayout', 'app/views/controls/controltop',
 
 'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
@@ -9,7 +11,9 @@ define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 function($, Canvas, Controls,
 
-Menu, ModelFacade, CanvasLayout,
+Menu, ModelFacade,
+
+CanvasLayout, ControlTop,
 
 Background, PhaserComponents, NameView,
 
@@ -23,13 +27,30 @@ Events, Assets, ToolTipManager){
 	
 	PhaserComponents.Utils.extends(MainView, PhaserComponents.Display.Container);
 
+	MainView.TOP_PADDING = 50;
+
 	MainView.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addBg();
+		this.addTop();
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
 		this.addName();
+	};
+
+	MainView.prototype.addTop = function() {
+		var bounds = this.bounds;
+		this.top = new ControlTop({"bounds":bounds});
+		this.group.add(this.top.view);
+	};
+
+	MainView.prototype.removeTop = function(){
+		if(this.top){
+			this.group.remove(this.top.view);
+			this.top.destroy();
+			this.top = null;
+		}
 	};
 
 	MainView.prototype.addName = function() {
@@ -60,30 +81,32 @@ Events, Assets, ToolTipManager){
 		}
 	};
 
-	MainView.prototype.getCanvasSize = function() {
+	MainView.prototype.positionCanvas = function() {
+		var scale, w, h, x, y;
+		scale = this.getCanvasScale();
+		w = CanvasLayout.REF_WIDTH * scale;
+		h = CanvasLayout.REF_HEIGHT * scale;
+		x = (this.game.w - Controls.WIDTH - w)/2;
+		y = 50 + (this.game.h - h - 50)/2;
+		this.canvas.view.x = x;
+		this.canvas.view.y = y;
+		this.canvas.view.scale = {'x':scale, 'y':scale};
+	};
+
+	MainView.prototype.getCanvasScale = function() {
 		var rect, size, scale, ratio;
 		ratio = CanvasLayout.REF_WIDTH/CanvasLayout.REF_HEIGHT;
-		rect = {"w":this.game.w - Controls.WIDTH, "h":this.game.h - 50};
+		rect = {"w":this.game.w - Controls.WIDTH, "h":this.game.h - MainView.TOP_PADDING};
 		size = PhaserComponents.Utils.fitRect(rect, ratio);
 		scale = size.w / CanvasLayout.REF_WIDTH;
-		return size;
+		return Math.max(scale, 0.1);
 	};
 
 	MainView.prototype.addCanvas = function() {
-		var scale, x, y, xtimesscale, ytimesscale, bounds, size;
-		size = this.getCanvasSize();
-		scale = size.w/CanvasLayout.REF_WIDTH;
-		xtimesscale = (this.game.w - Controls.WIDTH - CanvasLayout.REF_WIDTH * scale)/2;
-		ytimesscale = 50 + (this.game.h - CanvasLayout.REF_HEIGHT * scale - 50)/2;
-		x = xtimesscale / scale;
-		y = ytimesscale / scale;
-		bounds = {'x':x, 'y':y, 'w':CanvasLayout.REF_WIDTH, 'h':CanvasLayout.REF_HEIGHT};
-		bounds = {'x':50, 'y':50, 'w':CanvasLayout.REF_WIDTH, 'h':CanvasLayout.REF_HEIGHT};
-		scale = 1;
-		this.canvas = new Canvas({"bounds":bounds, "scale":scale});
-		CanvasLayout.bounds = bounds;
-		CanvasLayout.scale = scale;
+		var bounds = {'x':0, 'y':0, 'w':CanvasLayout.REF_WIDTH, 'h':CanvasLayout.REF_HEIGHT};
+		this.canvas = new Canvas({"bounds":bounds});
 		this.group.add(this.canvas.view);
+		this.positionCanvas();
 	};
 	
 	MainView.prototype.addMenu = function() {
@@ -108,21 +131,28 @@ Events, Assets, ToolTipManager){
 		}
 	};
 
+	MainView.prototype.positionControls = function() {
+		var x, y;
+		x = this.game.w - Controls.WIDTH;
+		y = 0;
+		this.controls.view.x = x;
+		this.controls.view.y = y;
+	};
+
 	MainView.prototype.onResize = function() {
 		this.removeBg();
-		this.removeControls();
-		this.removeCanvas();
-		this.removeMenu();
 		this.addBg();
-		this.addControls();
-		this.addCanvas();
-		this.addMenu();
+		this.group.sendToBack(this.bg.view);
+		this.top.onResize();
+		this.positionCanvas();
+		this.positionControls();
 	};
 
 	MainView.prototype.addControls = function() {
-		var bounds = {"x":this.game.w - Controls.WIDTH, "y":0, "w": Controls.WIDTH, "h":this.game.h};
+		var bounds = {"x":0, "y":0, "w": Controls.WIDTH, "h":this.game.h};
 		this.controls = new Controls({"bounds":bounds});
 		this.group.add(this.controls.view);
+		this.positionControls();
 	};
 	
 	MainView.prototype.removeMenu = function() {
@@ -150,6 +180,7 @@ Events, Assets, ToolTipManager){
 
 	MainView.prototype.destroy = function() {
 		this.removeMenu();
+		this.removeTop();
 		this.removeControls();
 		this.removeBg();
 		this.removeCanvas();
