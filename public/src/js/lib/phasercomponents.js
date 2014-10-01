@@ -97,7 +97,7 @@ function($, Phaser, PhaserStateTrans){
 		var w, h, size;
 		w = this.el.width();
 		h = this.el.height() - this.options.paddingBottom;
-		window.alert(this.el.width(), this.el.height(), window.orientation);
+		window.alert(this.el.width()+", " +this.el.height()+", " + window.orientation);
 		size = {"w":w, "h":h};
 		size.w = size.w * window.devicePixelRatio;
 		size.h = size.h * window.devicePixelRatio;
