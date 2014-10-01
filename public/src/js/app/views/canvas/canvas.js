@@ -51,13 +51,34 @@ Grid, Corners, Assets){
 		this.group.add(this.grid.view);
 	};
 	
+	Canvas.prototype.removeMap = function() {
+		if(this.map){
+			this.group.remove(this.map.view);
+			this.map.destroy();
+			this.map = null;
+		}
+	};
+	
+	Canvas.prototype.removeGrid = function() {
+		if(this.grid){
+			this.group.remove(this.grid.view);
+			this.grid.destroy();
+			this.grid = null;
+		}
+	};
+
+	Canvas.prototype.removeDrawing = function() {
+		if(this.drawing){
+			this.group.remove(this.drawing.view);
+			this.drawing.destroy();
+			this.drawing = null;
+		}
+	};
+
 	Canvas.prototype.destroy = function() {
-		this.group.remove(this.grid.view);
-		this.group.remove(this.map.view);
-		this.group.remove(this.drawing.view);
-		this.map.destroy();
-		this.grid.destroy();
-		this.drawing.destroy();
+		this.removeMap();
+		this.removeGrid();
+		this.removeDrawing();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	

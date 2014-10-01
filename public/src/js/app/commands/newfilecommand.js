@@ -26,8 +26,9 @@ function(PhaserComponents, ModelFacade,
 	};
 	
 	NewFileCommand.prototype.onBgChosen = function(data){
+		var selectedPage = data.selection.selectedPage;
 		if(data.index === 1){
-			ModelFacade.getInstance().get(ModelFacade.BG).set(data.selection.selectedPage, {"force":true});
+			ModelFacade.getInstance().get(ModelFacade.BG).set(selectedPage, {"force":true});
 		}
 		else if(data.index === 2){
 			this.eventDispatcher.trigger({"type":Events.DESIGN_IMG});
