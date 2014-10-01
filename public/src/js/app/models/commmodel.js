@@ -67,6 +67,7 @@ PhaserComponents){
 	
 	CommModel.prototype.reset = function() {
 		this.commands = [];
+		this.trigger();
 	};
 	
 	CommModel.prototype.undo = function() {
