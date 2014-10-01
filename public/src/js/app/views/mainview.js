@@ -7,7 +7,7 @@ define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
-'app/events/events', 'app/assets', 'app/views/popups/tooltipmanager'],
+'app/assets'],
 
 function($, Canvas, Controls,
 
@@ -17,7 +17,7 @@ CanvasLayout, ControlTop,
 
 Background, PhaserComponents, NameView,
 
-Events, Assets, ToolTipManager){
+Assets){
 	
 	"use strict";
 	

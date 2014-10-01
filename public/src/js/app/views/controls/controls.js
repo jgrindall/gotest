@@ -1,15 +1,11 @@
 
 define(['phasercomponents', 
 
-'app/views/controls/controltop',
-
 'app/views/controls/controlskeys', 'app/views/controls/controlspens', 
 
 ],
 
 function(PhaserComponents, 
-
-ControlTop,
 
 ControlsKeys, ControlsPens){
 	

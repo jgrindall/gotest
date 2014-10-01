@@ -5,7 +5,7 @@ define(['phasercomponents',
 
 'app/views/controls/controlmenu', 
 
-'app/events/events', 'app/assets', 'app/views/components/speedmarkers'
+'app/assets', 'app/views/components/speedmarkers'
 
 ],
 
@@ -15,7 +15,7 @@ ModelFacade,
 
 ControlMenu, 
 
-Events, Assets, SpeedMarkers){
+Assets, SpeedMarkers){
 	
 	"use strict";
 	

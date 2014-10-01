@@ -59,7 +59,7 @@ PhaserComponents, ModelFacade, PlayingState){
 		}
 	};
 
-	Menu.prototype.destroy = function(data){
+	Menu.prototype.destroy = function(){
 		this.clickSignal.add(this.menuClick, this);
 		PhaserComponents.Display.ButtonBar.prototype.destroy.call(this);
 	};

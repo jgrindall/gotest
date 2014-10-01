@@ -1,9 +1,9 @@
 
-define(['jquery', 'app/models/modelfacade', 'phasercomponents',
+define(['phasercomponents',
 
 'app/events/events', 'app/views/popups/tooltipmanager', 'app/views/mainview'],
 
-function($, ModelFacade, PhaserComponents,
+function(PhaserComponents,
 
 Events, ToolTipManager, MainView){
 	

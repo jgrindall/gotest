@@ -1,8 +1,8 @@
 define(
 
-	['app/models/modelfacade', 'app/consts/playingstate', 'phasercomponents'],
+	['app/models/modelfacade', 'phasercomponents'],
 
-function(ModelFacade, PlayingState, PhaserComponents) {
+function(ModelFacade,  PhaserComponents) {
 	
 	"use strict";
 	
