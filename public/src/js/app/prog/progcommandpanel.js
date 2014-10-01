@@ -276,7 +276,7 @@ define(
 	ProgCommandPanel.prototype.create = function() {
 		AbstractCommandsPanel.prototype.create.call(this);
 		this.model = new PhaserComponents.Drag.DragModel();
-		this.dragManager = new PhaserComponents.Drag.DragManager(this.game, {"model":this.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
+		this.dragManager = new PhaserComponents.Drag.DragManager(this.group, this.game, {"model":this.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.dragManager.editSignal.add(this.onEdited, this);
 		this.addButtons();
 		this.addTargets();
