@@ -15,16 +15,16 @@ PlayingState, Events){
 	
 	var ControlMenu  = function(options){
 		options.buttonClass = ControlMenuButton;
-		options.numX = 4;
+		options.numX = 5;
 		options.numY = 1;
-		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}];
+		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}, {'num':8}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
 		this.disableButtonAt(1);
 	};
 	
-	ControlMenu.WIDTH = 240;
+	ControlMenu.WIDTH = 300;
 	ControlMenu.HEIGHT = 50;
 
 	PhaserComponents.Utils.extends(ControlMenu, PhaserComponents.Display.ButtonBar);
@@ -32,15 +32,18 @@ PlayingState, Events){
 	ControlMenu.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
+			this.eventDispatcher.trigger({"type":Events.STOP});
+		}
+		if(index === 1){
 			this.eventDispatcher.trigger({"type":Events.REWIND});
 		}
-		else if(index === 1){
+		else if(index === 2){
 			this.eventDispatcher.trigger({"type":Events.UNDO});
 		}
-		else if(index === 2){
+		else if(index === 3){
 			this.eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
 		}
-		else if(index === 3){
+		else if(index === 45){
 			this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
 		} 
 	};

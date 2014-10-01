@@ -24,6 +24,7 @@ function() {
 	Events.EXIT_FS			= 		"exitFs";
 	Events.REPLAY			= 		"replay";
 	Events.FINISHED			= 		"finished";
+	Events.STOP				= 		"stop";
 	Events.STARTUP			= 		"startup";
 	Events.DESIGN_IMG		=		"designImg";
 	Events.ROTATE_TURTLE	=		"rotateTurtle";
