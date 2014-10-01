@@ -71,7 +71,6 @@ Events, Assets, SpeedMarkers){
 	ControlTop.prototype.addMenu = function() {
 		var bounds = {'x':this.game.w - ControlMenu.WIDTH, 'y':this.bounds.y, 'w':ControlMenu.WIDTH, 'h':ControlMenu.HEIGHT};
 		this.menu = new ControlMenu({"bounds":bounds});
-		this.menu.clickSignal.add(this.menuClick, this);
 		this.group.add(this.menu.view);
 	};
 	
@@ -97,22 +96,6 @@ Events, Assets, SpeedMarkers){
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.speedSlider.view);
 	};
-	
-	ControlTop.prototype.menuClick = function(data) {
-		var index = data.index;
-		if(index === 0){
-			this.eventDispatcher.trigger({"type":Events.REWIND});
-		}
-		else if(index === 1){
-			this.eventDispatcher.trigger({"type":Events.UNDO});
-		}
-		else if(index === 2){
-			this.eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
-		}
-		else if(index === 3){
-			this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
-		} 
-	};
 
 	ControlTop.prototype.removeSpeedSlider = function(){
 		if(this.speedSlider){
@@ -133,7 +116,6 @@ Events, Assets, SpeedMarkers){
 
 	ControlTop.prototype.removeMenu = function(){
 		if(this.menu){
-			this.menu.clickSignal.remove(this.menuClick, this);
 			this.group.remove(this.menu.view);
 			this.menu.destroy();
 			this.menu = null;

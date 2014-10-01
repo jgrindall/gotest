@@ -3,13 +3,13 @@ define(['app/views/buttons/controlmenubutton',
 
 'phasercomponents', 'app/models/modelfacade',
 
-'app/consts/playingstate'],
+'app/consts/playingstate', 'app/events/events'],
 
 function(ControlMenuButton,
 
 PhaserComponents, ModelFacade,
 
-PlayingState){
+PlayingState, Events){
 	
 	"use strict";
 	
@@ -20,6 +20,7 @@ PlayingState){
 		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.clickSignal.add(this.menuClick, this);
 		this.disableButtonAt(1);
 	};
 	
@@ -27,6 +28,22 @@ PlayingState){
 	ControlMenu.HEIGHT = 50;
 
 	PhaserComponents.Utils.extends(ControlMenu, PhaserComponents.Display.ButtonBar);
+
+	ControlMenu.prototype.menuClick = function(data) {
+		var index = data.index;
+		if(index === 0){
+			this.eventDispatcher.trigger({"type":Events.REWIND});
+		}
+		else if(index === 1){
+			this.eventDispatcher.trigger({"type":Events.UNDO});
+		}
+		else if(index === 2){
+			this.eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
+		}
+		else if(index === 3){
+			this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
+		} 
+	};
 
 	ControlMenu.prototype.playingChanged = function(value){
 		if(value === PlayingState.PLAYING){
@@ -44,6 +61,7 @@ PlayingState){
 	};
 
 	ControlMenu.prototype.destroy = function(){
+		this.clickSignal.remove(this.menuClick, this);
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
 		PhaserComponents.Display.ButtonBar.prototype.destroy.call(this);
 	};

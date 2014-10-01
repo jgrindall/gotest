@@ -1,9 +1,9 @@
 
-define(['app/views/buttons/menubutton',
+define(['app/views/buttons/menubutton', 'app/events/events',
 
 'phasercomponents', 'app/models/modelfacade', 'app/consts/playingstate'],
 
-function(MenuButton,
+function(MenuButton, Events,
 
 PhaserComponents, ModelFacade, PlayingState){
 	
@@ -17,6 +17,7 @@ PhaserComponents, ModelFacade, PlayingState){
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.clickSignal.add(this.menuClick, this);
 	};
 	
 	Menu.WIDTH = 240;
@@ -33,6 +34,22 @@ PhaserComponents, ModelFacade, PlayingState){
 		}
 	};
 
+	Menu.prototype.menuClick = function(data) {
+		var i = data.index;
+		if(i === 0){
+			this.eventDispatcher.trigger({"type":Events.NEW_FILE});
+		}
+		else if(i === 1){
+			this.eventDispatcher.trigger({"type":Events.LOAD});
+		}
+		else if(i === 2){
+			this.eventDispatcher.trigger({"type":Events.SAVE});
+		}
+		else if(i === 3){
+			this.eventDispatcher.trigger({"type":Events.PRINT});
+		}
+	};
+
 	Menu.prototype.playingChanged = function(data){
 		if(data.playing === PlayingState.PLAYING){
 			this.disableInput();
@@ -40,6 +57,11 @@ PhaserComponents, ModelFacade, PlayingState){
 		else if(data.playing === PlayingState.NOT_PLAYING){
 			this.enableInput();
 		}
+	};
+
+	Menu.prototype.destroy = function(data){
+		this.clickSignal.add(this.menuClick, this);
+		PhaserComponents.Display.ButtonBar.prototype.destroy.call(this, options);
 	};
 
 	return Menu;

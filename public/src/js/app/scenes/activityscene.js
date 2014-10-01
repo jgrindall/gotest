@@ -95,32 +95,14 @@ Events, Assets, ToolTipManager){
 	ActivityScene.prototype.addMenu = function() {
 		var bounds = {'x':0, 'y':0, 'w':Menu.WIDTH, 'h':Menu.HEIGHT};
 		this.menu = new Menu({"bounds":bounds});
-		this.menu.clickSignal.add(this.menuClick, this);
 		this.world.add(this.menu.view);
 	};
 
 	ActivityScene.prototype.removeMenu = function() {
 		if(this.menu){
-			this.menu.clickSignal.remove(this.menuClick, this);
 			this.world.remove(this.menu.view);
 			this.menu.destroy();
 			this.menu = null;
-		}
-	};
-	
-	ActivityScene.prototype.menuClick = function(data) {
-		var i = data.index;
-		if(i === 0){
-			this.eventDispatcher.trigger({"type":Events.NEW_FILE});
-		}
-		else if(i === 1){
-			this.eventDispatcher.trigger({"type":Events.LOAD});
-		}
-		else if(i === 2){
-			this.eventDispatcher.trigger({"type":Events.SAVE});
-		}
-		else if(i === 3){
-			this.eventDispatcher.trigger({"type":Events.PRINT});
 		}
 	};
 	
