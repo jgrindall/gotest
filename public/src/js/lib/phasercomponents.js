@@ -40,7 +40,7 @@ function($, Phaser, PhaserStateTrans){
 		w = size.w;
     	h = size.h;
     	if(!this.game){
-			this.game = new Phaser.Game(w, h, Phaser.WEBGL, this.options.containerTagId, config);
+			this.game = new Phaser.Game(w, h, Phaser.AUTO, this.options.containerTagId, config);
 		}
 		this.game.width = w;
 		this.game.height = h;
@@ -97,7 +97,6 @@ function($, Phaser, PhaserStateTrans){
 		var w, h, size;
 		w = this.el.width();
 		h = this.el.height() - this.options.paddingBottom;
-		window.alert(this.el.width()+", " +this.el.height()+", " + window.orientation);
 		size = {"w":w, "h":h};
 		size.w = size.w * window.devicePixelRatio;
 		size.h = size.h * window.devicePixelRatio;
@@ -443,6 +442,14 @@ define('phasercomponents/utils/utils',[], function(){
 		SubClassRef.prototype.constructor = SubClassRef;
 	};
 	
+	Utils.isPortrait = function(){
+		return (window.orientation === 0 || window.orientation === 180);
+	};
+
+	Utils.deviceIsIncorrectSize = function(){
+		return (Utils.isPortrait() && window.innerWidth < window.innerHeight);
+	};
+
 	Utils.fitRect = function(rect, ratio) {
 		var w, h, size;
 		w = rect.w;
