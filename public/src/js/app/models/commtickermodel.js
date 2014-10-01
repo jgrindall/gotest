@@ -55,6 +55,10 @@ function(Phaser, PhaserComponents, Events){
 		}
 	};
 
+	CommTickerModel.prototype.stop = function(){
+		this.commandProvider.removeNext(this.commandNum);
+	};
+
 	CommTickerModel.prototype.reset = function(){
 		this.commandNum = 0;
 		this.resetSignal.dispatch();

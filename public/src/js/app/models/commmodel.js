@@ -52,8 +52,15 @@ PhaserComponents){
 	CommModel.prototype.getCommandAt = function(i) {
 		return this.commands[i];
 	};
-	
-	CommModel.prototype.stop = function() {
+
+	CommModel.prototype.removeNext = function(currentNum) {
+		var correctLength = currentNum + 1;
+		while(this.commands.length > correctLength){
+			this.commands.pop();
+		}
+	};
+
+	CommModel.prototype.rewind = function() {
 		this.reset();
 		this.trigger();
 	};
