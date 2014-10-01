@@ -76,8 +76,8 @@ function($, Phaser, PhaserStateTrans){
 	GameManager.prototype.getSizeFit = function(){
 		var w, h, ratio, size;
 		ratio  = 4/3;
-		w = this.el.innerWidth();
-		h = this.el.innerHeight() - this.options.paddingBottom;
+		w = this.el.width();
+		h = this.el.height() - this.options.paddingBottom;
 		if(w/h > ratio){
 			size = {"w":ratio*h, "h":h};
 		}
@@ -95,9 +95,9 @@ function($, Phaser, PhaserStateTrans){
 
 	GameManager.prototype.getSizeFill = function(){
 		var w, h, size;
-		w = this.el.innerWidth();
-		h = this.el.innerHeight() - this.options.paddingBottom;
-		window.alert(this.el.innerWidth(), this.el.innerHeight(), window.orientation);
+		w = this.el.width();
+		h = this.el.height() - this.options.paddingBottom;
+		window.alert(this.el.width(), this.el.height(), window.orientation);
 		size = {"w":w, "h":h};
 		size.w = size.w * window.devicePixelRatio;
 		size.h = size.h * window.devicePixelRatio;
