@@ -1,33 +1,28 @@
 
-define(['phaser', 'app/models/modelfacade', 'phasercomponents'],
+define(['phaser', 'app/models/modelfacade',
+
+	'phasercomponents', 'app/assets'],
 
 function(Phaser, ModelFacade,
 
-PhaserComponents){
+PhaserComponents, Assets){
 	
 	"use strict";
 	
 	var Map  = function(options){
-		ModelFacade.getInstance().get(ModelFacade.BG).changeSignal.add(this.onChanged, this);
+		ModelFacade.getInstance().get(ModelFacade.BG).changeSignal.add(this.updateImage, this);
 		PhaserComponents.Display.Container.call(this, options);
 	};
 	
 	PhaserComponents.Utils.extends(Map, PhaserComponents.Display.Container);
 	
-	Map.prototype.onChanged = function() {
-		this.updateImage();	
-	};
-	
 	Map.prototype.updateImage = function() {
 		var bg = ModelFacade.getInstance().get(ModelFacade.BG).get();
-		if(this.sprite){
-			this.sprite.destroy(true);
-			this.sprite = null;
-		}
+		this.removeSprite();
 		if(bg !== null){
-			this.sprite = new Phaser.Image(this.game, this.bounds.x, this.bounds.y, 'map'+bg);
-			this.sprite.scale = {x:this.bounds.w/this.sprite.width, y:this.bounds.h/this.sprite.height};
-			this.group.add(this.sprite);
+			this.bg = new Phaser.Image(this.game, this.bounds.x, this.bounds.y, Assets.MAPS[bg]);
+			this.bg.scale = {'x':this.bounds.w/this.bg.width, 'y':this.bounds.h/this.bg.height};
+			this.group.add(this.bg);
 		}
 	};
 	
@@ -36,8 +31,18 @@ PhaserComponents){
 		this.updateImage();	
 	};
 	
+	Map.prototype.removeSprite = function() {
+		if(this.bg){
+			this.group.remove(this.bg);
+			this.bg.destroy();
+			this.bg = null;
+		}
+	};
+
 	Map.prototype.destroy = function() {
-		this.sprite.destroy(true);
+		ModelFacade.getInstance().get(ModelFacade.BG).changeSignal.remove(this.updateImage, this);
+		this.removeSprite();
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
 	return Map;
