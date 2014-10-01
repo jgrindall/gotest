@@ -4,6 +4,22 @@
     src: url("../fonts/Trebuchet-MS.ttf") format('truetype');
 }
 
+@viewport{
+    zoom: 1.0;
+    width: device-width;
+    min-zoom: 1.0;
+    max-zoom: 1.0;
+    zoom: fixed;
+}
+
+@-ms-viewport{
+    zoom: 1.0;
+    width: device-width;
+    min-zoom: 1.0;
+    max-zoom: 1.0;
+    zoom: fixed;
+}
+
 html, body{
 	padding:0;
 	margin:0;
