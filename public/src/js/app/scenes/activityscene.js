@@ -56,7 +56,7 @@ Events, ToolTipManager, MainView){
 	ActivityScene.prototype.checkDevice = function() {
 		var incorrect = PhaserComponents.Utils.deviceIsIncorrectSize();
 		if(incorrect){
-			// do stuff
+			window.alert("no!");
 		}
 		else{
 			// do other stuff

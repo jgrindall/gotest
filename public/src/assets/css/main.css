@@ -22,16 +22,13 @@ div#game{
 
 canvas{
 	background:#5b6465;
+	border: 1px solid red;
 }
 
 input{
 	border:none;
 	font-family: TooSimple;
 	width:99.4%;
-	position:relative;
-	left:0.25%;
-	top: 1px;
 	text-align: center;
 	font-size:32px;
-	display:block;
 }
