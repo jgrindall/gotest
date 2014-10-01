@@ -48,12 +48,12 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.onMove = function(pointer, x, y){
-		var bounds, scale, newX, newY;
-		bounds = CanvasLayout.bounds;
-		scale = CanvasLayout.scale;
-		newX = Math.min(Math.max(x/scale, bounds.x + 20), bounds.x + bounds.w - 20);
-		newY = Math.min(Math.max(y/scale, bounds.y + 20), bounds.y + bounds.h - 20);
-		this.turtle.moveTo(newX, newY);
+		var p, localPoint;
+		p = 20;
+		localPoint = this.game.input.getLocalPosition(this.group, pointer);
+		localPoint.x = Math.min(Math.max(p, localPoint.x), this.bounds.w - p);
+		localPoint.y = Math.min(Math.max(p, localPoint.y), this.bounds.h - p);
+		this.turtle.moveTo(localPoint.x, localPoint.y);
 	};
 
 	Turtle.prototype.snap = function(){

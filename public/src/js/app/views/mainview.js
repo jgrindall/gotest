@@ -87,7 +87,7 @@ Assets){
 		w = CanvasLayout.REF_WIDTH * scale;
 		h = CanvasLayout.REF_HEIGHT * scale;
 		x = (this.game.w - Controls.WIDTH - w)/2;
-		y = 50 + (this.game.h - h - 50)/2;
+		y = MainView.TOP_PADDING + (this.game.h - h - MainView.TOP_PADDING)/2;
 		this.canvas.view.x = x;
 		this.canvas.view.y = y;
 		this.canvas.view.scale = {'x':scale, 'y':scale};
