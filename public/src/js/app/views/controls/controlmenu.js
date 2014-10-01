@@ -43,7 +43,7 @@ PlayingState, Events){
 		else if(index === 3){
 			this.eventDispatcher.trigger({"type":Events.TYPE_CHOICE});
 		}
-		else if(index === 45){
+		else if(index === 4){
 			this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
 		} 
 	};
