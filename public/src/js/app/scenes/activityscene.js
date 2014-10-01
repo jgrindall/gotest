@@ -48,9 +48,7 @@ Events, ToolTipManager, MainView){
 	};
 
 	ActivityScene.prototype.onResize = function() {
-		this.eventDispatcher.trigger({"type":Events.REWIND});
 		this.mainView.onResize();
-		this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 
 	ActivityScene.prototype.destroy = function() {
