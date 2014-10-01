@@ -9,6 +9,7 @@ function($, PhaserComponents){
 		var onChange;
 		this.el = $("<input id='name' maxlength='56' placeholder='Your name here' type='text'></input>");
 		this.model = model;
+		this.el.on("keydown", this.onKeyDown.bind(this));
 		this.model.changeSignal.add(this.modelChanged, this);
 		onChange = PhaserComponents.Utils.debounce(this.valChanged.bind(this), 2000);
 		this.el.on("input propertychange paste", onChange);
@@ -35,6 +36,10 @@ function($, PhaserComponents){
 		return s;
 	};
 
+	NameView.prototype.onKeyDown = function(event) {
+		event.stopPropagation();
+	};
+
 	NameView.prototype.valChanged = function() {
 		var newVal = NameView.filter(this.el.val());
 		this.model.set(newVal);
@@ -50,6 +55,7 @@ function($, PhaserComponents){
 	NameView.prototype.destroy = function() {
 		this.model.changeSignal.remove(this.nameChanged, this);
 		this.el.off("input propertychange paste");
+		this.el.off("keydown");
 		this.el.remove();
 		this.el = null;
 		this.model = null;

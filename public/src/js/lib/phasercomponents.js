@@ -40,7 +40,7 @@ function($, Phaser, PhaserStateTrans){
 		w = size.w;
     	h = size.h;
     	if(!this.game){
-			this.game = new Phaser.Game(w, h, Phaser.AUTO, this.options.containerTagId, config);
+			this.game = new Phaser.Game(w, h, Phaser.WEBGL, this.options.containerTagId, config);
 		}
 		this.game.width = w;
 		this.game.height = h;
@@ -48,7 +48,7 @@ function($, Phaser, PhaserStateTrans){
 		this.game.h = h;
 		this.game.cx = w/2;
 		this.game.cy = h/2;
-		if (this.game.renderType === Phaser.WEBGL){
+		if (this.game.renderType === Phaser.WEBGL && this.game.renderer && this.game.renderer.resize){
 			this.game.renderer.resize(w, h);
 		}
 	};

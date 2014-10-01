@@ -1,7 +1,11 @@
 
-define(['phaser', 'phasercomponents', 'app/models/modelfacade'],
+define(['phaser', 'phasercomponents',
 
-function(Phaser, PhaserComponents, ModelFacade){
+	'app/models/modelfacade', 'app/consts/canvaslayout'],
+
+function(Phaser, PhaserComponents, 
+
+	ModelFacade, CanvasLayout){
 	
 	"use strict";
 	
@@ -44,10 +48,20 @@ function(Phaser, PhaserComponents, ModelFacade){
 	};
 
 	Turtle.prototype.onMove = function(pointer, x, y){
-		this.turtle.moveTo(x, y);
+		var bounds, scale, newX, newY;
+		bounds = CanvasLayout.bounds;
+		scale = CanvasLayout.scale;
+		newX = Math.min(Math.max(x/scale, bounds.x + 20), bounds.x + bounds.w - 20);
+		newY = Math.min(Math.max(y/scale, bounds.y + 20), bounds.y + bounds.h - 20);
+		this.turtle.moveTo(newX, newY);
+	};
+
+	Turtle.prototype.snap = function(){
+		
 	};
 
 	Turtle.prototype.drop = function(){
+		this.snap();
 		this.movedSignal.dispatch({'x':this.turtle.sprite.x, 'y':this.turtle.sprite.y});
 	};
 

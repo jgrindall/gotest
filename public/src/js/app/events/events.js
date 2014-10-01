@@ -13,7 +13,7 @@ function() {
 	Events.SAVE				= 		"save";
 	Events.PRINT			= 		"print";
 	Events.UNDO				= 		"undo";
-	Events.STOP				= 		"stop";
+	Events.REWIND			= 		"rewind";
 	Events.TEACHER_LOGIN	= 		"teacherLogin";
 	Events.PROG_CHANGE		= 		"progChange";
 	Events.TYPE_CHOICE		= 		"typeChoice";

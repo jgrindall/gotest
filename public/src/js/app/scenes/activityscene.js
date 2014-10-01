@@ -87,6 +87,8 @@ Events, Assets, ToolTipManager){
 		y = ytimesscale / scale;
 		bounds = {'x':x, 'y':y, 'w':CanvasLayout.REF_WIDTH, 'h':CanvasLayout.REF_HEIGHT};
 		this.canvas = new Canvas({"bounds":bounds, "scale":scale});
+		CanvasLayout.bounds = bounds;
+		CanvasLayout.scale = scale;
 		this.world.add(this.canvas.view);
 	};
 	
@@ -131,6 +133,7 @@ Events, Assets, ToolTipManager){
 	};
 
 	ActivityScene.prototype.onResize = function() {
+		this.eventDispatcher.trigger({"type":Events.REWIND});
 		this.removeBg();
 		this.removeControls();
 		this.removeCanvas();

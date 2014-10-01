@@ -15,7 +15,7 @@ require(['phaser'], function(Phaser){
 	
 		$(document).ready(function(){
 			var options, app;
-			options = {"containerTagId":"game", "scaleType":"fill", "minWidth":600, "minHeight":400, "paddingBottom":45};
+			options = {"containerTagId":"game", "scaleType":"fill", "minWidth":800, "minHeight":620, "paddingBottom":45};
 			app = new AppContext(options);
 			app.start();
 		});

@@ -13,5 +13,6 @@ function(){
 	CanvasLayout.REF_HEIGHT = 			600;
 
 	return CanvasLayout;
+
 });
 	

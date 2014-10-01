@@ -270,7 +270,7 @@ define(
 	};
 
 	ProgCommandPanel.prototype.clickStop = function() {
-		this.eventDispatcher.trigger({"type":Events.STOP});
+		this.eventDispatcher.trigger({"type":Events.REWIND});
 	};
 	
 	ProgCommandPanel.prototype.create = function() {
