@@ -20,6 +20,8 @@ Events, ToolTipManager, MainView){
 		this.init();
 		this.toolTipTimeout = setTimeout(this.openToolTips.bind(this), 300);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.onResize.bind(this));
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ORIENT, this.onOrient.bind(this));
+		this.checkDevice();
 	};
 
 	ActivityScene.prototype.init = function(){
@@ -49,6 +51,20 @@ Events, ToolTipManager, MainView){
 
 	ActivityScene.prototype.onResize = function() {
 		this.mainView.onResize();
+	};
+	
+	ActivityScene.prototype.checkDevice = function() {
+		var incorrect = PhaserComponents.Utils.deviceIsIncorrectSize();
+		if(incorrect){
+			// do stuff
+		}
+		else{
+			// do other stuff
+		}
+	};
+	
+	ActivityScene.prototype.onOrient = function() {
+		this.checkDevice();
 	};
 
 	ActivityScene.prototype.destroy = function() {
