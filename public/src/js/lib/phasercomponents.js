@@ -956,6 +956,11 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
     	$(window).on("resize", this.resizeHandler);
         this.orientHandler = Utils.debounce(this.onOrient.bind(this), 500);
         $(window).on("orientationchange", this.orientHandler);
+        document.addEventListener('focusout', this.scrollTop.bind(this));
+    };
+
+    Context.prototype.scrollTop = function(){
+        window.scrollTo(0, 0);
     };
 
     Context.prototype.onOrient = function(){
@@ -963,7 +968,7 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
         setTimeout(function(){
             that.gameManager.orient();
             that.eventDispatcher.trigger({"type":AppEvents.ORIENT});
-            window.scrollTo(0, 0);
+            that.scrollTop();
         }, 300);
     };
 
@@ -972,7 +977,7 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
         setTimeout(function(){
             that.gameManager.resize();
             that.eventDispatcher.trigger({"type":AppEvents.RESIZE});
-            window.scrollTo(0, 0);
+            that.scrollTop();
         }, 300);
     };
 
