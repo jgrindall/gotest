@@ -13,12 +13,12 @@ define( ['app/prog/views/dropview', 'app/consts/proglayout',
 		this.middle = this.bounds.x + this.bounds.w/2;
 	};
 
-	LinearTarget.NUM = 			6;
-	LinearTarget.TOP = 			30;
-	LinearTarget.BOTTOM = 		230;
-	LinearTarget.BLOCK_TOP = 	48;
-	LinearTarget.GAP = 			48;
-	LinearTarget.STOP_POS = 	{'x':110, 'y':330};
+	LinearTarget.NUM = 			5;
+	LinearTarget.TOP = 			34;
+	LinearTarget.BOTTOM = 		310;
+	LinearTarget.BLOCK_TOP = 	54;
+	LinearTarget.GAP = 			55;
+	LinearTarget.STOP_POS = 	{'x':110, 'y':322};
 
 	PhaserComponents.Utils.extends(LinearTarget, AbstractTarget);
 

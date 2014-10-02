@@ -18,15 +18,15 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 
 	PhaserComponents.Utils.extends(LoopTarget, AbstractTarget);
 
-	LoopTarget.NUM = 				6;
-	LoopTarget.TOP = 				70;
-	LoopTarget.BOTTOM = 			410;
-	LoopTarget.PADDING_BOTTOM = 	10;
-	LoopTarget.PADDING_TOP = 		65;
+	LoopTarget.NUM = 				5;
+	LoopTarget.TOP = 				28;
+	LoopTarget.BOTTOM = 			294;
+	LoopTarget.PADDING_BOTTOM = 	50;
+	LoopTarget.PADDING_TOP = 		50;
 	LoopTarget.LINE_WIDTH = 		115;
-	LoopTarget.BLOCK_TOP = 			60;
-	LoopTarget.GAP = 				55;
-	LoopTarget.STOP_POS = 			{'x':205, 'y':320};
+	LoopTarget.BLOCK_TOP = 			54;
+	LoopTarget.GAP = 				54;
+	LoopTarget.STOP_POS = 			{'x':105, 'y':320};
 
 	LoopTarget.prototype.build = function(){
 		AbstractTarget.prototype.build.call(this);
@@ -34,16 +34,18 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	};
 
 	LoopTarget.prototype.decorate = function(){
-		var p0, p1, p2, p3, p4;
+		var p0, p1, p2, p3, p4, p5;
 		p0 = {'x':this.middle, 'y':LoopTarget.TOP};
    		p1 = {'x':p0.x, 'y':LoopTarget.BOTTOM};
-   		p2 = {'x':p0.x, 'y':p0.y + LoopTarget.PADDING_TOP};
-   		p3 = {'x':p2.x + LoopTarget.LINE_WIDTH, 'y':p2.y};
-   		p4 = {'x':p1.x + LoopTarget.LINE_WIDTH, 'y':p1.y};
+   		p2 = {'x':p1.x + LoopTarget.LINE_WIDTH, 'y':p1.y};
+   		p3 = {'x':p2.x, 'y':p0.y + LoopTarget.PADDING_TOP};
+   		p4 = {'x':p0.x, 'y':p0.y + LoopTarget.PADDING_TOP};
+   		p5 = {'x':p1.x, 'y':p1.y + LoopTarget.PADDING_BOTTOM};
    		this.drawLine(p0, p1);
+   		this.drawLine(p1, p2);
    		this.drawLine(p2, p3);
    		this.drawLine(p3, p4);
-   		this.drawLine(p4, p1);
+   		this.drawLine(p1, p5);
 	};
 
 	LoopTarget.prototype.addNum = function(){

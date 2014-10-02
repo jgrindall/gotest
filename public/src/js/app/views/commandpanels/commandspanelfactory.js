@@ -39,7 +39,7 @@ MarkerTypes
 	
 	CommandsPanelFactory.make = function(type, prog, bounds) {
 		var panel, numTargets;
-		numTargets = [6, 10, 6, 10, 6][prog];
+		numTargets = [5, 10, 5][prog];
 		if(type === CommandPanelTypes.NSEW){
 			if(prog === ProgTypes.NONE){
 				panel = new NSEWCommandsPanel({"bounds":bounds, "markerType":MarkerTypes.ARROW});

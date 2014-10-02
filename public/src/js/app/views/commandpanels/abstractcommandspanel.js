@@ -13,7 +13,6 @@ Events){
 	
 	var AbstractCommandsPanel  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		this.view.alpha = 0.4;
 	};
 	
 	AbstractCommandsPanel.HEIGHT = 370;
