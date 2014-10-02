@@ -170,6 +170,7 @@ function($, Phaser, PhaserStateTrans, Utils){
 		if (Utils.isIos7() && Utils.isLandscape() ) {
     		h = 672;
 		}
+		console.log("final w, h "+w+", "+h);
 		return {"w":w, "h":h};
 	};
 
