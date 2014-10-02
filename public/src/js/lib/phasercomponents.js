@@ -51,6 +51,8 @@ function($, Phaser, PhaserStateTrans){
 		this.game.cy = h/2;
 		this.body.width(w).height(h + this.options.paddingBottom);
 		this.el.width(w).height(h);
+		console.log("body, w= "+w+", h="+(h+this.options.paddingBottom));
+		console.log("el, w= "+w+", h="+h);
 		if (this.game.renderType === Phaser.WEBGL && this.game.renderer && this.game.renderer.resize){
 			//TODO = does this work??
 			this.game.renderer.resize(w, h);
@@ -80,7 +82,10 @@ function($, Phaser, PhaserStateTrans){
 		var w, h;
 		this.body.width("100%").height("100%");	
 		w = this.body.width();
-		h = this.body.height() - this.options.paddingBottom;
+		h = this.body.height();
+		console.log("w, h "+w+", "+h);
+		h -= this.options.paddingBottom;
+		console.log("w, h "+w+", "+h);
 		return {"w":w, "h":h};
 	};
 
@@ -99,6 +104,7 @@ function($, Phaser, PhaserStateTrans){
 	GameManager.prototype.getSizeFill = function(){
 		var size, availableSize;
 		availableSize = this.getAvailableSize();
+		console.log("availableSize "+JSON.stringify(availableSize));
 		size = {"w":availableSize.w, "h":availableSize.h};
 		return size;
 	};
