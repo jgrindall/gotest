@@ -1,7 +1,87 @@
 
-define('phasercomponents/gamemanager', ['jquery', 'phaser', 'phaserstatetrans'],
+define('phasercomponents/utils/utils',[], function(){
+	
+	
+	
+	var Utils = function(){
+		
+	};
+	
+	Utils.extends = function(SubClassRef, SuperClassRef){
+		var F = function(){
+		
+		};
+		F.prototype = Object.create(SuperClassRef.prototype);
+		SubClassRef.prototype = new F();
+		SubClassRef.prototype.constructor = SubClassRef;
+	};
 
-function($, Phaser, PhaserStateTrans){
+	Utils.isIos7 = function(){
+		return navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i);	
+	};
+
+	Utils.isPortrait = function(){
+		return (window.orientation === 0 || window.orientation === 180);
+	};
+
+	Utils.isLandscape = function(){
+		return !Utils.isPortrait();
+	};
+
+	Utils.deviceIsIncorrectSize = function(){
+		return (Utils.isPortrait() && window.innerWidth < window.innerHeight);
+	};
+
+	Utils.fitRect = function(rect, ratio) {
+		var w, h, size;
+		w = rect.w;
+		h = rect.h;
+		if(w/h > ratio){
+			size = {"w":ratio*h, "h":h};
+		}
+		else{
+			size = {"w":w, "h":w*(1/ratio)};
+		}
+		return size;
+	};
+
+	Utils.checkImplements = function(obj, theInterface) {
+	    for (var member in theInterface) {
+	        if (typeof obj[member] !== typeof theInterface[member]) {
+	            throw("Object "+obj+" failed to implement interface member " + member);
+	        }
+	    }
+	};
+
+	Utils.debounce = function(f, waitDuration) {
+		var timeout, returnFunction;
+		returnFunction = function() {
+			var context = this, args = arguments, later;
+			later = function() {
+				clearTimeout(timeout);
+				timeout = null;
+				f.apply(context, args);
+			};
+			if(timeout){
+				clearTimeout(timeout);
+			}
+			timeout = setTimeout(later, waitDuration);
+		};
+		return returnFunction;
+	};
+
+	return Utils;
+	
+});
+
+
+
+
+define('phasercomponents/gamemanager',
+
+	['jquery', 'phaser', 'phaserstatetrans', 'phasercomponents/utils/utils'],
+
+function($, Phaser, PhaserStateTrans, Utils){
 	
 	
 	
@@ -87,6 +167,9 @@ function($, Phaser, PhaserStateTrans){
 		console.log("w, h "+w+", "+h);
 		h -= this.options.paddingBottom;
 		console.log("w, h "+w+", "+h);
+		if (Utils.isIos7() && Utils.isLandscape() ) {
+    		h = 672;
+		}
 		return {"w":w, "h":h};
 	};
 
@@ -436,76 +519,6 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	return SoundManager;
 	
 });
-
-
-define('phasercomponents/utils/utils',[], function(){
-	
-	
-	
-	var Utils = function(){
-		
-	};
-	
-	Utils.extends = function(SubClassRef, SuperClassRef){
-		var F = function(){
-		
-		};
-		F.prototype = Object.create(SuperClassRef.prototype);
-		SubClassRef.prototype = new F();
-		SubClassRef.prototype.constructor = SubClassRef;
-	};
-	
-	Utils.isPortrait = function(){
-		return (window.orientation === 0 || window.orientation === 180);
-	};
-
-	Utils.deviceIsIncorrectSize = function(){
-		return (Utils.isPortrait() && window.innerWidth < window.innerHeight);
-	};
-
-	Utils.fitRect = function(rect, ratio) {
-		var w, h, size;
-		w = rect.w;
-		h = rect.h;
-		if(w/h > ratio){
-			size = {"w":ratio*h, "h":h};
-		}
-		else{
-			size = {"w":w, "h":w*(1/ratio)};
-		}
-		return size;
-	};
-
-	Utils.checkImplements = function(obj, theInterface) {
-	    for (var member in theInterface) {
-	        if (typeof obj[member] !== typeof theInterface[member]) {
-	            throw("Object "+obj+" failed to implement interface member " + member);
-	        }
-	    }
-	};
-
-	Utils.debounce = function(f, waitDuration) {
-		var timeout, returnFunction;
-		returnFunction = function() {
-			var context = this, args = arguments, later;
-			later = function() {
-				clearTimeout(timeout);
-				timeout = null;
-				f.apply(context, args);
-			};
-			if(timeout){
-				clearTimeout(timeout);
-			}
-			timeout = setTimeout(later, waitDuration);
-		};
-		return returnFunction;
-	};
-
-	return Utils;
-	
-});
-
-
 
 
 define('phasercomponents/commands/abstractcommand',
