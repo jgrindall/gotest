@@ -1,11 +1,11 @@
 
 define(['phaser', 'phasercomponents',
 
-	'app/models/modelfacade', 'app/consts/canvaslayout'],
+	'app/models/modelfacade'],
 
 function(Phaser, PhaserComponents, 
 
-	ModelFacade, CanvasLayout){
+	ModelFacade){
 	
 	"use strict";
 	
@@ -47,7 +47,7 @@ function(Phaser, PhaserComponents,
 		this.addMoveListeners();
 	};
 
-	Turtle.prototype.onMove = function(pointer, x, y){
+	Turtle.prototype.onMove = function(pointer){
 		var p, localPoint;
 		p = 20;
 		localPoint = this.game.input.getLocalPosition(this.group, pointer);
