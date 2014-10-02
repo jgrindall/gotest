@@ -22,6 +22,7 @@ define([], function(){
 	Assets.TOOLTIPS = 				['tooltip0', 'tooltip1', 'tooltip2', 'tooltip3', 'tooltip4', 'tooltip5'];
 	Assets.TOOLTIP_IMAGE = 			'tooltipImage';
 	Assets.ALERT = 					'alert';
+	Assets.IPAD = 					'ipad';
 	Assets.LEFT = 					'left';
 	Assets.RIGHT = 					'right';
 	Assets.OK_BUTTON = 				'okbutton';
@@ -136,6 +137,7 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/maps/map11.png", 				"key":Assets.MAPS[11]},
 		{"type":"image", 		"asset":"assets/images/maps/map12.png", 				"key":Assets.MAPS[12]},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
+		{"type":"image", 		"asset":"assets/images/popups/ipad.png",	 			"key":Assets.IPAD},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
 		{"type":"image", 		"asset":"assets/images/maps/corners.jpg",	 			"key":Assets.CORNERS}
 	];

@@ -1,11 +1,11 @@
 
 define(['phasercomponents',
 
-'app/events/events', 'app/views/popups/tooltipmanager', 'app/views/mainview'],
+'app/events/events', 'app/views/popups/tooltipmanager', 'app/views/mainview', 'app/views/popups/ipad'],
 
 function(PhaserComponents,
 
-Events, ToolTipManager, MainView){
+Events, ToolTipManager, MainView, IPad){
 	
 	"use strict";
 	
@@ -51,18 +51,35 @@ Events, ToolTipManager, MainView){
 
 	ActivityScene.prototype.onResize = function() {
 		this.mainView.onResize();
+		this.removeIPad();
+		this.checkDevice();
 	};
 	
 	ActivityScene.prototype.checkDevice = function() {
 		var incorrect = PhaserComponents.Utils.deviceIsIncorrectSize();
 		if(incorrect){
-			window.alert("no!");
+			this.showIPad();
 		}
 		else{
-			// do other stuff
+			this.removeIPad();
 		}
 	};
 	
+	ActivityScene.prototype.showIPad = function() {
+		if(!this.ipad){
+			this.ipad = new IPad({"bounds":this.bounds});
+			this.world.add(this.ipad.view);
+		}
+	};
+
+	ActivityScene.prototype.removeIPad = function() {
+		if(this.ipad){
+			this.world.remove(this.ipad.view);
+			this.ipad.destroy();
+			this.ipad = null;
+		}
+	};
+
 	ActivityScene.prototype.onOrient = function() {
 		this.checkDevice();
 	};
@@ -70,6 +87,7 @@ Events, ToolTipManager, MainView){
 	ActivityScene.prototype.destroy = function() {
 		clearTimeout(this.toolTipTimeout);
 		this.removeMain();
+		this.removeIPad();
 	};
 
 	ActivityScene.prototype.shutdown = function() {
