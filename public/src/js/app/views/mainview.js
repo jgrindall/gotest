@@ -144,6 +144,7 @@ Assets){
 		this.addBg();
 		this.group.sendToBack(this.bg.view);
 		this.top.onResize();
+		this.controls.onResize();
 		this.positionCanvas();
 		this.positionControls();
 	};

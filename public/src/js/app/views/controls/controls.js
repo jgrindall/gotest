@@ -39,6 +39,10 @@ ControlsKeys, ControlsPens){
 		}
 	};
 
+	Controls.prototype.onResize = function() {
+		this.pens.onResize();
+	};
+
 	Controls.prototype.addPens = function() {
 		var bounds = this.bounds;
 		this.pens = new ControlsPens({"bounds":bounds});

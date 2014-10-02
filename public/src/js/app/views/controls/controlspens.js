@@ -61,16 +61,38 @@ Assets){
 		}
 	};
 
+	ControlsPens.prototype.positionColorPicker = function() {
+		var x, y;
+		x = this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2;
+		y = this.game.h - ControlsLayout.PEN_HEIGHT;
+		this.colorPicker.view.x = x;
+		this.colorPicker.view.y = y;
+	};
+	ControlsPens.prototype.positionWidthPicker = function() {
+		var x, y;
+		x = this.bounds.x + this.bounds.w - WidthPicker.WIDTH + 10;
+		y = this.game.h - WidthPicker.HEIGHT;
+		this.widthPicker.view.x = x;
+		this.widthPicker.view.y = y;
+	};
+	
+	ControlsPens.prototype.onResize = function() {
+		this.positionColorPicker();
+		this.positionWidthPicker();
+	};
+
 	ControlsPens.prototype.addColorPicker = function() {
-		var bounds = {'x':this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2, 'y':this.game.h - ControlsLayout.PEN_HEIGHT, 'w':ColorPicker.WIDTH, 'h':ControlsLayout.PEN_HEIGHT};
+		var bounds = {'x':0, 'y':0, 'w':ColorPicker.WIDTH, 'h':ControlsLayout.PEN_HEIGHT};
 		this.colorPicker = new ColorPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.view);
+		this.positionColorPicker();
 	};
 
 	ControlsPens.prototype.addWidthPicker = function() {
-		var bounds = {'x':this.bounds.x + this.bounds.w - WidthPicker.WIDTH + 10, 'y':this.game.h - WidthPicker.HEIGHT, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
+		var bounds = {'x':0, 'y':0, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
 		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.view);
+		this.positionWidthPicker();
 	};
 	
 	ControlsPens.prototype.removeColorPicker = function() {

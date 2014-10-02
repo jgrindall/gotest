@@ -53,6 +53,7 @@ function($, Phaser, PhaserStateTrans){
 		this.game.cy = h/2;
 		this.body.width(w).height(h + this.options.paddingBottom);
 		this.el.width(w).height(h);
+		$("canvas").width(w).height(h).attr("width", w).attr("height", h);
 		console.log("body, w= "+w+", h="+(h+this.options.paddingBottom));
 		console.log("el, w= "+w+", h="+h);
 		console.log("el, w= "+this.el.width()+", h="+this.el.height());
@@ -80,7 +81,7 @@ function($, Phaser, PhaserStateTrans){
 
 	GameManager.prototype.getAvailableSize = function(){
 		var w, h;
-		this.body.width("100%").height("100%");	
+		this.body.width("100%").height("100%");
 		w = this.body.width();
 		h = this.body.height();
 		console.log("w, h "+w+", "+h);
@@ -954,13 +955,19 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
     };
 
     Context.prototype.onOrient = function(){
-        this.gameManager.orient();
-        this.eventDispatcher.trigger({"type":AppEvents.ORIENT});
+        var that = this;
+        setTimeout(function(){
+            that.gameManager.orient();
+            that.eventDispatcher.trigger({"type":AppEvents.ORIENT});
+        }, 300);
     };
 
     Context.prototype.onResize = function(){
-        this.gameManager.resize();
-        this.eventDispatcher.trigger({"type":AppEvents.RESIZE});
+        var that = this;
+        setTimeout(function(){
+            that.gameManager.resize();
+            that.eventDispatcher.trigger({"type":AppEvents.RESIZE});
+        }, 300);
     };
 
     Context.prototype.setupKeys = function(){
