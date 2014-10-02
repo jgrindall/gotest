@@ -123,8 +123,8 @@ function($, Phaser, PhaserStateTrans){
 		}
 		size.w = size.w * window.devicePixelRatio;
 		size.h = size.h * window.devicePixelRatio;
-		size.w = Math.max(size.w, this.options.minWidth);
-		size.h = Math.max(size.h, this.options.minHeight);
+		//size.w = Math.max(size.w, this.options.minWidth);
+		//size.h = Math.max(size.h, this.options.minHeight);
 		return size;
 	};
 
