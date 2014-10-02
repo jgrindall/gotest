@@ -134,10 +134,6 @@ function($, Phaser, PhaserStateTrans, Utils){
 		this.body.width(w).height(h + this.options.paddingBottom);
 		this.el.width(w).height(h);
 		$("canvas").width(w).height(h).attr("width", w).attr("height", h);
-		console.log("body, w= "+w+", h="+(h+this.options.paddingBottom));
-		console.log("el, w= "+w+", h="+h);
-		console.log("el, w= "+this.el.width()+", h="+this.el.height());
-		console.log("canvas, w= "+$("canvas").width()+", h="+$("canvas").height());
 	};
 
 	GameManager.prototype.resize = function(){
@@ -164,12 +160,10 @@ function($, Phaser, PhaserStateTrans, Utils){
 		this.body.width("100%").height("100%");
 		w = this.body.width();
 		h = this.body.height();
-		console.log("w, h "+w+", "+h);
 		if (Utils.isIos7() && Utils.isLandscape() ) {
     		h = 672;
 		}
 		h -= this.options.paddingBottom;
-		console.log("final w, h "+w+", "+h);
 		return {"w":w, "h":h};
 	};
 
@@ -188,7 +182,6 @@ function($, Phaser, PhaserStateTrans, Utils){
 	GameManager.prototype.getSizeFill = function(){
 		var size, availableSize;
 		availableSize = this.getAvailableSize();
-		console.log("availableSize "+JSON.stringify(availableSize));
 		size = {"w":availableSize.w, "h":availableSize.h};
 		return size;
 	};
@@ -207,8 +200,6 @@ function($, Phaser, PhaserStateTrans, Utils){
 		}
 		size.w = size.w * window.devicePixelRatio;
 		size.h = size.h * window.devicePixelRatio;
-		//size.w = Math.max(size.w, this.options.minWidth);
-		//size.h = Math.max(size.h, this.options.minHeight);
 		return size;
 	};
 
@@ -2422,14 +2413,10 @@ define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
 	};
 
 	TextFactory.make = function(key, game, x, y, label){
-		var fontData, font, text, fill;
+		var fontData, font, text;
 		fontData = TextFactory.fonts[key];
-		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align};
+		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align, "fill":fontData.color};
 		text = new Phaser.Text(game, x, y, label, font);
-	    fill = text.context.createLinearGradient(0, 0, 0, text.canvas.height);
-		fill.addColorStop(0, fontData.color0);   
-		fill.addColorStop(1, fontData.color1);
-		text.fill = fill;
 		return text;
 	};
 	
