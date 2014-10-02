@@ -69,11 +69,13 @@ Events, ToolTipManager, MainView, IPad){
 		if(!this.ipad){
 			this.ipad = new IPad({"bounds":this.bounds});
 			this.world.add(this.ipad.view);
+			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
 		}
 	};
 
 	ActivityScene.prototype.removeIPad = function() {
 		if(this.ipad){
+			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
 			this.world.remove(this.ipad.view);
 			this.ipad.destroy();
 			this.ipad = null;

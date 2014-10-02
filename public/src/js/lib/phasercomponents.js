@@ -957,6 +957,7 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
         this.orientHandler = Utils.debounce(this.onOrient.bind(this), 500);
         $(window).on("orientationchange", this.orientHandler);
         document.addEventListener('focusout', this.scrollTop.bind(this));
+        this.scrollTop();
     };
 
     Context.prototype.scrollTop = function(){
@@ -1022,25 +1023,6 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
 });
 
 
-
-/**
-
-var output = function(){
-                $("body").append("<p>window.innerHeight "+window.innerHeight+"</p>");
-                $("body").append("<p>window.innerWidth "+window.innerWidth+"</p>");
-                $("body").append("<p>window.orientation "+window.orientation+"</p>");
-                $("body").append("<p></p>");
-            };
-
-            var init = function(){
-                window.addEventListener("orientationchange", output);
-                output();
-            };
-            
-            $(document).ready(init);
-**/
-
-;
 
 define('phasercomponents/display/view',
 
@@ -3212,6 +3194,7 @@ define('phasercomponents/drag/hitzonerow', [], function(){
 define('phasercomponents',[
 
 	'phasercomponents/context',
+	'phasercomponents/injector',
 	'phasercomponents/display/movieclip',
 	'phasercomponents/display/container',
 	'phasercomponents/display/interactivesprite',
@@ -3256,7 +3239,8 @@ define('phasercomponents',[
 	'phasercomponents/drag/hitzonerow'
 	], 
 
-	function (Context, 
+	function (Context,
+		Injector,
 		MovieClip,
 		Container,
 		InteractiveSprite, 
@@ -3364,6 +3348,7 @@ define('phasercomponents',[
         'Scene': 				Scene,
         'Storage': 				Storage,
         'AlertManager': 		AlertManager,
+        'Injector': 			Injector,
         'KeyManager': 			KeyManager,
         'PrintManager': 		PrintManager,
         'SoundManager': 		SoundManager

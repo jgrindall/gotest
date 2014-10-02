@@ -59,6 +59,14 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		PhaserComponents.TextFactory.registerFont('vlarge', {"size":60, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
 	};
 
+	AppContext.prototype.inject = function(){
+        var game, eventDispatcher;
+        PhaserComponents.Context.prototype.inject.call(this);
+        game = this.gameManager.game;
+        eventDispatcher = this.eventDispatcher;
+        PhaserComponents.Injector.getInstance().map("nameview",        ["game", "eventDispatcher"],            [game, eventDispatcher]);
+    };
+
     AppContext.prototype.onChangeScene = function(event, obj){
     	if(obj.data.scene instanceof LoaderScene){
     		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
