@@ -12,6 +12,7 @@ function($, Phaser, PhaserStateTrans){
 	GameManager.prototype.init = function(options, config){
 		this.options = options;
 		this.el = $("#"+this.options.containerTagId);
+		this.body = $("body");
 		this.makeGame(config);
 	};
 	
@@ -48,6 +49,8 @@ function($, Phaser, PhaserStateTrans){
 		this.game.h = h;
 		this.game.cx = w/2;
 		this.game.cy = h/2;
+		this.body.width(w).height(h + this.options.paddingBottom);
+		this.el.width(w).height(h);
 		if (this.game.renderType === Phaser.WEBGL && this.game.renderer && this.game.renderer.resize){
 			//TODO = does this work??
 			this.game.renderer.resize(w, h);
@@ -73,34 +76,35 @@ function($, Phaser, PhaserStateTrans){
 		this.transitions.to(key);
 	};
 
+	GameManager.prototype.getAvailableSize = function(){
+		var w, h;
+		this.body.width("100%").height("100%");	
+		w = this.body.width();
+		h = this.body.height() - this.options.paddingBottom;
+		return {"w":w, "h":h};
+	};
+
 	GameManager.prototype.getSizeFit = function(){
-		var w, h, ratio, size;
-		ratio  = 4/3;
-		w = this.el.width();
-		h = this.el.height() - this.options.paddingBottom;
-		if(w/h > ratio){
-			size = {"w":ratio*h, "h":h};
+		var ratio = 4/3, size, availableSize;
+		availableSize = this.getAvailableSize();
+		if(availableSize.w/availableSize.h > ratio){
+			size = {"w":ratio*availableSize.h, "h":availableSize.h};
 		}
 		else{
-			size = {"w":w, "h":w*(1/ratio)};
+			size = {"w":availableSize.w, "h":availableSize.w*(1/ratio)};
 		}
-		size.w = size.w * window.devicePixelRatio;
-		size.h = size.h * window.devicePixelRatio;
+		return size;
+	};
+
+	GameManager.prototype.getSizeFill = function(){
+		var size, availableSize;
+		availableSize = this.getAvailableSize();
+		size = {"w":availableSize.w, "h":availableSize.h};
 		return size;
 	};
 
 	GameManager.prototype.getScene = function(){
 		return this.game.state.getCurrentState();
-	};
-
-	GameManager.prototype.getSizeFill = function(){
-		var w, h, size;
-		w = this.el.width();
-		h = this.el.height() - this.options.paddingBottom;
-		size = {"w":w, "h":h};
-		size.w = size.w * window.devicePixelRatio;
-		size.h = size.h * window.devicePixelRatio;
-		return size;
 	};
 
 	GameManager.prototype.getSize = function(){
@@ -111,6 +115,8 @@ function($, Phaser, PhaserStateTrans){
 		else{
 			size = this.getSizeFit();
 		}
+		size.w = size.w * window.devicePixelRatio;
+		size.h = size.h * window.devicePixelRatio;
 		size.w = Math.max(size.w, this.options.minWidth);
 		size.h = Math.max(size.h, this.options.minHeight);
 		return size;
@@ -1758,7 +1764,7 @@ InteractiveSprite, Utils, AppEvents){
 	};
 	
 	Slider.prototype.goTo = function(n) {
-		this.posHandle(this.bounds.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist));
+		this.posHandle(this.bounds.x + this.view.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist));
 	};
 	
 	Slider.prototype.toMin = function() {
@@ -1795,25 +1801,20 @@ InteractiveSprite, Utils, AppEvents){
 	};
 	
 	Slider.prototype.snap = function() {
-		//var num;
-		//num = (this.handle.sprite.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
-		//num = Math.round(num);
-		//this.model.set(num);
+		var num;
+		num = (this.handle.sprite.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
+		num = Math.round(num);
+		this.model.set(num);
 	};
 
-	Slider.prototype.isOutside = function() {
-		//x, y
-		return false;
-		
-		/*
-		if(x < this.bounds.x  - Slider.TOLERANCE || x > this.bounds.x + Slider.WIDTH + Slider.TOLERANCE){
+	Slider.prototype.isOutside = function(x, y) {
+		if(x < this.bounds.x + this.view.x - Slider.TOLERANCE || x > this.bounds.x + this.view.x + Slider.WIDTH + Slider.TOLERANCE){
 			return true;
 		}
-		else if(y < this.bounds.y - Slider.TOLERANCE || y > this.bounds.y + Slider.HEIGHT + Slider.TOLERANCE){
+		else if(y < this.bounds.y  + this.view.y - Slider.TOLERANCE || y > this.bounds.y  + this.view.y + Slider.HEIGHT + Slider.TOLERANCE){
 			return true;
 		}
 		return false;
-		*/
 	};
 	
 	Slider.prototype.move = function(pointer, x, y) {
