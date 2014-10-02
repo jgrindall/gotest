@@ -9,6 +9,8 @@ function($, Phaser, PhaserStateTrans){
 
 	};
 
+	GameManager.RATIO = 1.3333;
+
 	GameManager.prototype.init = function(options, config){
 		this.options = options;
 		this.el = $("#"+this.options.containerTagId);
@@ -41,7 +43,7 @@ function($, Phaser, PhaserStateTrans){
 		w = size.w;
     	h = size.h;
     	if(!this.game){
-			this.game = new Phaser.Game(w, h, Phaser.AUTO, this.options.containerTagId, config);
+			this.game = new Phaser.Game(w, h, Phaser.CANVAS, this.options.containerTagId, config);
 		}
 		this.game.width = w;
 		this.game.height = h;
@@ -53,10 +55,8 @@ function($, Phaser, PhaserStateTrans){
 		this.el.width(w).height(h);
 		console.log("body, w= "+w+", h="+(h+this.options.paddingBottom));
 		console.log("el, w= "+w+", h="+h);
-		if (this.game.renderType === Phaser.WEBGL && this.game.renderer && this.game.renderer.resize){
-			//TODO = does this work??
-			this.game.renderer.resize(w, h);
-		}
+		console.log("el, w= "+this.el.width()+", h="+this.el.height());
+		console.log("canvas, w= "+$("canvas").width()+", h="+$("canvas").height());
 	};
 
 	GameManager.prototype.resize = function(){
@@ -90,13 +90,13 @@ function($, Phaser, PhaserStateTrans){
 	};
 
 	GameManager.prototype.getSizeFit = function(){
-		var ratio = 4/3, size, availableSize;
+		var size, availableSize;
 		availableSize = this.getAvailableSize();
-		if(availableSize.w/availableSize.h > ratio){
-			size = {"w":ratio*availableSize.h, "h":availableSize.h};
+		if(availableSize.w/availableSize.h > GameManager.RATIO){
+			size = {"w":GameManager.RATIO*availableSize.h, "h":availableSize.h};
 		}
 		else{
-			size = {"w":availableSize.w, "h":availableSize.w*(1/ratio)};
+			size = {"w":availableSize.w, "h":availableSize.w*(1/GameManager.RATIO)};
 		}
 		return size;
 	};
