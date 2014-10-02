@@ -55,7 +55,7 @@ Assets){
 
 	MainView.prototype.addName = function() {
     	this.nameView = new NameView(ModelFacade.getInstance().get(ModelFacade.NAME));
-    	$("#"+this.game.parent).append(this.nameView.el);
+    	$("body").append(this.nameView.el);
 	};
 
 	MainView.prototype.removeBg = function() {
