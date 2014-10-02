@@ -69,7 +69,7 @@ OkButton, CloseButton, ModelFacade){
 		w = PhaserComponents.Display.RadioButtons.WIDTH;
 		h = PhaserComponents.Display.RadioButtons.HEIGHT;
 		labels = ["45 degrees", "90 degrees"];
-		bounds = {'x':this.bounds.x + this.bounds.w - w - 13, 'y':this.game.h - h - 109, 'w':w, 'h':h};
+		bounds = {'x':this.bounds.x + this.bounds.w - w - 13, 'y':this.bounds.y + this.bounds.h - 178, 'w':w, 'h':h};
 		this.radio = new PhaserComponents.Display.RadioButtons({"labels":labels, "fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 		this.initRadio();
