@@ -248,7 +248,6 @@ define(
 	ProgCommandPanel.prototype.addStop = function() {
 		var options, bounds;
 		bounds = this.targetObj.constructor.STOP_POS;
-		this.targetObj
 		options = {"bounds":bounds};
 		this.stopButton = new StopButton(options);
 		this.group.add(this.stopButton.view);

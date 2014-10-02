@@ -121,7 +121,6 @@ function($, Phaser, PhaserStateTrans, Utils){
 	GameManager.prototype.makeGame = function(config){
 		var w, h, size;
 		size = this.getSize();
-		console.log("size "+JSON.stringify(size));
 		w = size.w;
     	h = size.h;
     	if(!this.game){

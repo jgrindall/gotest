@@ -9,7 +9,7 @@ define(['app/consts/commandpaneltypes',
 
 'app/views/commandpanels/nsturnkeyscommandspanel',
 
-'app/prog/progcommandpanel', 'app/consts/progtypes', 'app/consts/proglayout',
+'app/prog/progcommandpanel', 'app/consts/progtypes',
 
 'app/views/commandpanels/markers/markertypes'
 
@@ -25,7 +25,7 @@ NSEW45KeysCommandsPanel,
 
 NSTurnKeysCommandsPanel,
 
-ProgCommandPanel, ProgTypes, ProgLayout,
+ProgCommandPanel, ProgTypes,
 
 MarkerTypes
 

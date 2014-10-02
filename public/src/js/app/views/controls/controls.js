@@ -3,17 +3,13 @@ define(['phasercomponents',
 
 'app/views/controls/controlskeys',
 
-'app/views/controls/controlspens', 'app/consts/controlslayout',
-
-'app/views/commandpanels/abstractcommandspanel'
+'app/views/controls/controlspens'
 
 ],
 
 function(PhaserComponents, 
 
-ControlsKeys, ControlsPens,
-
-ControlsLayout, AbstractCommandsPanel){
+ControlsKeys, ControlsPens){
 	
 	"use strict";
 	

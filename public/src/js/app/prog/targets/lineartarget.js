@@ -1,10 +1,10 @@
-define( ['app/prog/views/dropview', 'app/consts/proglayout',
+define( ['app/prog/views/dropview',	'app/assets',
 
-	'app/assets', 'phasercomponents', 'app/prog/targets/abstracttarget'],
+	'phasercomponents', 'app/prog/targets/abstracttarget'],
 
-	function(DropView, ProgLayout,
+	function(DropView, Assets,
 
-		Assets, PhaserComponents, AbstractTarget){
+		PhaserComponents, AbstractTarget){
 	
 	"use strict";
 
@@ -30,7 +30,7 @@ define( ['app/prog/views/dropview', 'app/consts/proglayout',
 	};
 
 	LinearTarget.prototype.addBlocks = function(){
-		var i, numTargets = LinearTarget.NUM, bounds, y0, gapY;
+		var i, numTargets = LinearTarget.NUM, bounds, y0;
 		y0 = this.bounds.y + LinearTarget.BLOCK_TOP;
 		for(i = 0; i < numTargets; i++){
 			bounds = {'x':this.middle - DropView.WIDTH/2, 'y':y0 + LinearTarget.GAP*i};

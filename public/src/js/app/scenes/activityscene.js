@@ -18,7 +18,7 @@ Events, ToolTipManager, MainView, IPad){
 	ActivityScene.prototype.create = function() {
 		this.addMain();
 		this.init();
-		this.toolTipTimeout = setTimeout(this.openToolTips.bind(this), 300);
+		//this.toolTipTimeout = setTimeout(this.openToolTips.bind(this), 300);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.onResize.bind(this));
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ORIENT, this.onOrient.bind(this));
 		this.checkDevice();
@@ -38,7 +38,7 @@ Events, ToolTipManager, MainView, IPad){
 	};
 
 	ActivityScene.prototype.openToolTips = function(){
-		//ToolTipManager.getInstance().start(this.game.w, this.game.h);
+		ToolTipManager.getInstance().start(this.game.w, this.game.h);
 	};
 
 	ActivityScene.prototype.removeCanvas = function() {
@@ -69,13 +69,13 @@ Events, ToolTipManager, MainView, IPad){
 		if(!this.ipad){
 			this.ipad = new IPad({"bounds":this.bounds});
 			this.world.add(this.ipad.view);
-			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
+			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.ALERT_SHOWN, "shown":true});
 		}
 	};
 
 	ActivityScene.prototype.removeIPad = function() {
 		if(this.ipad){
-			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
+			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.ALERT_SHOWN, "shown":false});
 			this.world.remove(this.ipad.view);
 			this.ipad.destroy();
 			this.ipad = null;

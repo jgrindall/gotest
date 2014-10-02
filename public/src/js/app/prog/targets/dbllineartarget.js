@@ -1,7 +1,7 @@
 
-define( ['phasercomponents', 'app/prog/targets/abstracttarget', 'app/assets', 'app/prog/views/dropview'],
+define( ['phasercomponents', 'app/prog/targets/abstracttarget', 'app/assets'],
 
-	function(PhaserComponents, AbstractTarget, Assets, DropView){
+	function(PhaserComponents, AbstractTarget, Assets){
 	
 	"use strict";
 

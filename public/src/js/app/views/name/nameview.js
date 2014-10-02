@@ -62,7 +62,7 @@ function($, PhaserComponents){
 		}
 	};
 
-	NameView.prototype.scrollTop = function(event) {
+	NameView.prototype.scrollTop = function() {
 		setTimeout(function(){
 			window.scrollTo(0, 0);
 		}, 100);
