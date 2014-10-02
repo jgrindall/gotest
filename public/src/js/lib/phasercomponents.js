@@ -165,11 +165,10 @@ function($, Phaser, PhaserStateTrans, Utils){
 		w = this.body.width();
 		h = this.body.height();
 		console.log("w, h "+w+", "+h);
-		h -= this.options.paddingBottom;
-		console.log("w, h "+w+", "+h);
 		if (Utils.isIos7() && Utils.isLandscape() ) {
     		h = 672;
 		}
+		h -= this.options.paddingBottom;
 		console.log("final w, h "+w+", "+h);
 		return {"w":w, "h":h};
 	};
