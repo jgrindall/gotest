@@ -1,10 +1,10 @@
-define( ['app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
+define( ['app/prog/views/dropview', 'phasercomponents',
 
 	'app/assets', 'app/prog/targets/abstracttarget',
 
 	'app/views/components/prognumbutton', 'app/models/modelfacade'],
 
-	function(DropView, ProgLayout, PhaserComponents,
+	function(DropView, PhaserComponents,
 
 		Assets, AbstractTarget,
 
@@ -18,6 +18,16 @@ define( ['app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
 
 	PhaserComponents.Utils.extends(LoopTarget, AbstractTarget);
 
+	LoopTarget.NUM = 				6;
+	LoopTarget.TOP = 				70;
+	LoopTarget.BOTTOM = 			410;
+	LoopTarget.PADDING_BOTTOM = 	10;
+	LoopTarget.PADDING_TOP = 		65;
+	LoopTarget.LINE_WIDTH = 		115;
+	LoopTarget.BLOCK_TOP = 			60;
+	LoopTarget.GAP = 				55;
+	LoopTarget.STOP_POS = 			{'x':205, 'y':320};
+
 	LoopTarget.prototype.build = function(){
 		AbstractTarget.prototype.build.call(this);
 		this.addNum();
@@ -25,11 +35,11 @@ define( ['app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
 
 	LoopTarget.prototype.decorate = function(){
 		var p0, p1, p2, p3, p4;
-		p0 = {'x':this.middle, 'y':ProgLayout.LOOP.top};
-   		p1 = {'x':p0.x, 'y':ProgLayout.LOOP.bottom};
-   		p2 = {'x':p0.x, 'y':p0.y + ProgLayout.LOOP.paddingTop};
-   		p3 = {'x':p2.x + ProgLayout.LOOP.lineWidth, 'y':p2.y};
-   		p4 = {'x':p1.x + ProgLayout.LOOP.lineWidth, 'y':p1.y};
+		p0 = {'x':this.middle, 'y':LoopTarget.TOP};
+   		p1 = {'x':p0.x, 'y':LoopTarget.BOTTOM};
+   		p2 = {'x':p0.x, 'y':p0.y + LoopTarget.PADDING_TOP};
+   		p3 = {'x':p2.x + LoopTarget.LINE_WIDTH, 'y':p2.y};
+   		p4 = {'x':p1.x + LoopTarget.LINE_WIDTH, 'y':p1.y};
    		this.drawLine(p0, p1);
    		this.drawLine(p2, p3);
    		this.drawLine(p3, p4);
@@ -43,10 +53,10 @@ define( ['app/prog/views/dropview', 'app/consts/proglayout', 'phasercomponents',
 	};
 
 	LoopTarget.prototype.addBlocks = function(){
-		var i, target, numTargets = ProgLayout.LOOP.num, bounds, y0;
-		y0 = this.bounds.y + ProgLayout.LOOP.blockTop; 
+		var i, target, numTargets = LoopTarget.NUM, bounds, y0;
+		y0 = this.bounds.y + LoopTarget.BLOCK_TOP; 
 		for(i = 0; i < numTargets; i++){
-			bounds = {'x':this.middle - DropView.WIDTH/2, 'y': y0 + ProgLayout.LOOP.gap*i};
+			bounds = {'x':this.middle - DropView.WIDTH/2, 'y': y0 + LoopTarget.GAP*i};
 			target = new DropView({'index':i, 'bounds':bounds, 'asset':Assets.DRAG_TARGET});
 			this.targets.push(target);
 			this.group.add(target.view);

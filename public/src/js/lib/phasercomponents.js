@@ -95,6 +95,7 @@ function($, Phaser, PhaserStateTrans, Utils){
 		this.options = options;
 		this.el = $("#"+this.options.containerTagId);
 		this.body = $("body");
+		this.html = $("html");
 		this.makeGame(config);
 	};
 	
@@ -120,6 +121,7 @@ function($, Phaser, PhaserStateTrans, Utils){
 	GameManager.prototype.makeGame = function(config){
 		var w, h, size;
 		size = this.getSize();
+		console.log("size "+JSON.stringify(size));
 		w = size.w;
     	h = size.h;
     	if(!this.game){
@@ -155,11 +157,21 @@ function($, Phaser, PhaserStateTrans, Utils){
 		this.transitions.to(key);
 	};
 
+	GameManager.prototype.stopScrollBars = function(){
+		this.html.css("overflow", "hidden");
+		this.body.width("100%").height("100%");
+	};
+
+	GameManager.prototype.enableScrollBars = function(){
+		this.html.css("overflow", "auto");
+	};
+
 	GameManager.prototype.getAvailableSize = function(){
 		var w, h;
-		this.body.width("100%").height("100%");
+		this.stopScrollBars();
 		w = this.body.width();
 		h = this.body.height();
+		this.enableScrollBars();
 		if (Utils.isIos7() && Utils.isLandscape() ) {
     		h = 672;
 		}
@@ -200,6 +212,10 @@ function($, Phaser, PhaserStateTrans, Utils){
 		}
 		size.w = size.w * window.devicePixelRatio;
 		size.h = size.h * window.devicePixelRatio;
+		if(size.h < this.options.minHeight){
+			size.w -= 15;
+			size.h = this.options.minHeight;
+		}
 		return size;
 	};
 

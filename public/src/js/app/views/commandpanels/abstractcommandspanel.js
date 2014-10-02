@@ -13,8 +13,11 @@ Events){
 	
 	var AbstractCommandsPanel  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
+		this.view.alpha = 0.4;
 	};
 	
+	AbstractCommandsPanel.HEIGHT = 370;
+
 	PhaserComponents.Utils.extends(AbstractCommandsPanel, PhaserComponents.Display.Container);
 	
 	AbstractCommandsPanel.prototype.disableInput = function(){
@@ -23,6 +26,10 @@ Events){
 	
 	AbstractCommandsPanel.prototype.enableInput = function(){
 	
+	};
+
+	AbstractCommandsPanel.prototype.onResize = function(){
+		
 	};
 	
 	AbstractCommandsPanel.prototype.addCommand = function(direction, type){

@@ -1,13 +1,19 @@
 
 define(['phasercomponents', 
 
-'app/views/controls/controlskeys', 'app/views/controls/controlspens', 
+'app/views/controls/controlskeys',
+
+'app/views/controls/controlspens', 'app/consts/controlslayout',
+
+'app/views/commandpanels/abstractcommandspanel'
 
 ],
 
 function(PhaserComponents, 
 
-ControlsKeys, ControlsPens){
+ControlsKeys, ControlsPens,
+
+ControlsLayout, AbstractCommandsPanel){
 	
 	"use strict";
 	
@@ -41,6 +47,7 @@ ControlsKeys, ControlsPens){
 
 	Controls.prototype.onResize = function() {
 		this.pens.onResize();
+		this.keys.onResize();
 	};
 
 	Controls.prototype.addPens = function() {

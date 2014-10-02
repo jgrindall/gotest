@@ -25,7 +25,7 @@ Assets){
 	};
 
 	ControlsPens.WIDTH = 320;
-	
+
 	PhaserComponents.Utils.extends(ControlsPens, PhaserComponents.Display.Container);
 
 	ControlsPens.prototype.create = function() {

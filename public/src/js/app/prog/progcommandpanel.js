@@ -50,6 +50,10 @@ define(
 		return index;
 	};
 
+	ProgCommandPanel.prototype.onResize = function(){
+		
+	};
+
 	ProgCommandPanel.prototype.setProgress = function(){
 		var num, total, start, progress, index = -1;
 		num = ModelFacade.getInstance().get(ModelFacade.COMMTICKER).get();
@@ -217,7 +221,6 @@ define(
 	};
 
 	ProgCommandPanel.prototype.addTargets = function(){
-		this.targetObj = TargetFactory.make(this.options.targets, this);
 		this.targetObj.build();
 	};
 
@@ -236,14 +239,17 @@ define(
 	};
 
 	ProgCommandPanel.prototype.addPlay = function() {
-		var options = {"bounds":{'x':this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
+		var options = {"bounds":{'x':this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
 		this.playButton = new PlayButton(options);
 		this.group.add(this.playButton.view);
 		this.playButton.mouseUpSignal.add(this.clickPlay, this);
 	};
 
 	ProgCommandPanel.prototype.addStop = function() {
-		var options = {"bounds":{'x':80 + this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
+		var options, bounds;
+		bounds = this.targetObj.constructor.STOP_POS;
+		this.targetObj
+		options = {"bounds":bounds};
 		this.stopButton = new StopButton(options);
 		this.group.add(this.stopButton.view);
 		this.stopButton.mouseUpSignal.add(this.clickStop, this);
@@ -278,6 +284,7 @@ define(
 		this.model = new PhaserComponents.Drag.DragModel();
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.group, this.game, {"model":this.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.dragManager.editSignal.add(this.onEdited, this);
+		this.targetObj = TargetFactory.make(this.options.targets, this);
 		this.addButtons();
 		this.addTargets();
 		this.addProgController();

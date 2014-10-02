@@ -38,8 +38,11 @@ function($, PhaserComponents){
 	};
 
 	NameView.prototype.onAlert = function(event, data) {
+		var that = this;
 		if(data.shown){
-			this.el.css("display", "none");
+			setTimeout(function(){
+				that.el.css("display", "none");
+			}, 200);
 		}
 		else{
 			this.el.css("display", "block");

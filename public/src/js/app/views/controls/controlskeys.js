@@ -1,5 +1,5 @@
 
-define(['phasercomponents',
+define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
 
 'app/models/modelfacade', 'app/consts/controlslayout',
 
@@ -9,7 +9,7 @@ define(['phasercomponents',
 
 ],
 
-function(PhaserComponents,
+function(PhaserComponents, AbstractCommandsPanel,
 
 ModelFacade, ControlsLayout,
 
@@ -39,8 +39,30 @@ Events){
 
 	ControlsKeys.prototype.onProgAllowedChanged = function(value) {
 		if(this.controlBar){
-			this.controlBar.group.visible = (value === 1);
+			this.controlBar.view.visible = (value === 1);
 		}
+	};
+
+	ControlsKeys.prototype.positionPanel = function() {
+		var x, y;
+		x = 0;
+		y = 50 + (this.game.h - 200 - AbstractCommandsPanel.HEIGHT)/2;
+		y = Math.max(y, 50);
+		this.commandsPanel.view.x = x;
+		this.commandsPanel.view.y = y;
+	};
+
+	ControlsKeys.prototype.positionControlBar = function() {
+		var x, y;
+		x = 0;
+		y = this.game.h - ControlsLayout.PEN_HEIGHT - 43;
+		this.controlBar.view.x = x;
+		this.controlBar.view.y = y;
+	};
+
+	ControlsKeys.prototype.onResize = function() {
+		this.positionControlBar();
+		this.positionPanel();
 	};
 
 	ControlsKeys.prototype.onScreenChanged = function() {
@@ -77,12 +99,13 @@ Events){
 	ControlsKeys.prototype.addControlBar = function() {
 		var options, bounds, model;
 		model = ModelFacade.getInstance().get(ModelFacade.PROG_TYPE);
-		bounds = {'x':this.bounds.x, 'y':this.bounds.y + this.bounds.h - ControlsLayout.PEN_HEIGHT - 50, 'w':this.bounds.w, 'h':50};
+		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':50};
 		options = {"model":model,"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
 		this.controlBar = new PhaserComponents.Display.TabButtonBar(options);
 		this.controlBar.clickSignal.add(this.barClick, this);
 		this.group.add(this.controlBar.view);
 		this.controlBar.view.visible = (ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).get() === 1);
+		this.positionControlBar();
 	};
 
 	ControlsKeys.prototype.barClick = function(data) {
@@ -103,11 +126,12 @@ Events){
 		this.removeCommandsPanel();
 		type = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
 		prog = ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).get();
-		bounds = {'x':this.bounds.x, 'y':50, 'w':this.bounds.w, 'h':this.bounds.h - 50};
+		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
 			this.group.add(this.commandsPanel.view);
 		}
+		this.positionPanel();
 	};
 
 	ControlsKeys.prototype.removeControlBar = function(){

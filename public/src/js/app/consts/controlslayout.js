@@ -9,7 +9,7 @@ function(){
 		
 	};
 	
-	ControlsLayout.PEN_HEIGHT = 	110;
+	ControlsLayout.PEN_HEIGHT = 	100;
 
 	return ControlsLayout;
 

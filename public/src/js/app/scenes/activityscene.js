@@ -38,7 +38,7 @@ Events, ToolTipManager, MainView, IPad){
 	};
 
 	ActivityScene.prototype.openToolTips = function(){
-		ToolTipManager.getInstance().start(this.game.w, this.game.h);
+		//ToolTipManager.getInstance().start(this.game.w, this.game.h);
 	};
 
 	ActivityScene.prototype.removeCanvas = function() {
