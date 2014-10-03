@@ -8,9 +8,8 @@ define( ['app/prog/views/dropview',	'app/assets',
 	
 	"use strict";
 
-	var LinearTarget = function(parent){
-		AbstractTarget.call(this, parent);
-		this.middle = this.bounds.x + this.bounds.w/2;
+	var LinearTarget = function(){
+		AbstractTarget.call(this);
 	};
 
 	LinearTarget.NUM = 			5;

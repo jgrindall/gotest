@@ -12,15 +12,15 @@ define( ['app/prog/targets/lineartarget', 'app/prog/targets/dbllineartarget',
 
 	};
 	
-	TargetFactory.make = function(type, parent){
+	TargetFactory.make = function(type){
 		if(type === ProgTypes.LINEAR){
-			return new LinearTarget(parent);
+			return new LinearTarget();
 		}
 		else if(type === ProgTypes.DBL_LINEAR){
-			return new DblLinearTarget(parent);
+			return new DblLinearTarget();
 		}
 		else if(type === ProgTypes.LOOP){
-			return new LoopTarget(parent);
+			return new LoopTarget();
 		}
 	};
 

@@ -5,10 +5,8 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget', 'app/assets'],
 	
 	"use strict";
 
-	var DblLinearTarget = function(parent){
+	var DblLinearTarget = function(){
 		AbstractTarget.call(this, parent);
-		this.left = this.middle - DblLinearTarget.LEFTX;
-		this.right = this.middle + DblLinearTarget.RIGHTX;
 	};
 	
 	DblLinearTarget.NUM = 			10;
@@ -21,11 +19,12 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget', 'app/assets'],
 	DblLinearTarget.GAP = 			55;
 	DblLinearTarget.STOP_POS = 		{'x':205, 'y':320};
 
-
 	PhaserComponents.Utils.extends(DblLinearTarget, AbstractTarget);
-
+	
 	DblLinearTarget.prototype.decorate = function(){
    		var p0, p1, p2, p3, p4, p5, p6;
+   		this.left = this.middle - DblLinearTarget.LEFTX;
+		this.right = this.middle + DblLinearTarget.RIGHTX;
    		p0 = {'x':this.middle, 'y':DblLinearTarget.TOP};
    		p1 = {'x':this.left, 'y':p0.y + DblLinearTarget.FIRST_Y};
    		p2 = {'x':this.left, 'y':DblLinearTarget.BOTTOM};

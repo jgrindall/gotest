@@ -4,7 +4,13 @@ define( ['app/prog/views/dropview'],
 	
 	"use strict";
 
-	var AbstractTarget = function(parent){
+	var AbstractTarget = function(){
+		
+	};
+
+	AbstractTarget.LINE_THICK = 8;
+
+	AbstractTarget.prototype.build = function(parent){
 		this.parent = parent;
 		this.group = parent.group;
 		this.bounds = parent.bounds;
@@ -13,11 +19,6 @@ define( ['app/prog/views/dropview'],
 		this.targets = parent.targets;
 		this.gfx = new Phaser.Graphics(this.game, 0, 0);
 		this.group.add(this.gfx);
-	};
-
-	AbstractTarget.LINE_THICK = 8;
-
-	AbstractTarget.prototype.build = function(){
 		this.decorate();
 		this.addBlocks();
 	};

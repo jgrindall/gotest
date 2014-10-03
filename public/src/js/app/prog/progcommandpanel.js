@@ -10,7 +10,7 @@ define(
 
 	'app/prog/controller/progcontrollerfactory', 'app/prog/controller/playcontrollerfactory',
 
-	'app/prog/targets/targetfactory', 'app/models/modelfacade', 'app/consts/playingstate'],
+	'app/models/modelfacade', 'app/consts/playingstate'],
 
 	function(PhaserComponents, DragButton, Assets,
 
@@ -22,7 +22,7 @@ define(
 
 		ProgControllerFactory, PlayControllerFactory,
 
-		TargetFactory, ModelFacade, PlayingState){
+		ModelFacade, PlayingState){
 	
 	"use strict";
 
@@ -221,7 +221,7 @@ define(
 	};
 
 	ProgCommandPanel.prototype.addTargets = function(){
-		this.targetObj.build();
+		this.options.targetObj.build(this);
 	};
 
 	ProgCommandPanel.prototype.initDrag = function(){
@@ -247,7 +247,7 @@ define(
 
 	ProgCommandPanel.prototype.addStop = function() {
 		var options, bounds;
-		bounds = this.targetObj.constructor.STOP_POS;
+		bounds = this.options.targetObj.constructor.STOP_POS;
 		options = {"bounds":bounds};
 		this.stopButton = new StopButton(options);
 		this.group.add(this.stopButton.view);
@@ -288,7 +288,6 @@ define(
 		this.model = new PhaserComponents.Drag.DragModel();
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.group, this.game, {"model":this.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.dragManager.editSignal.add(this.onEdited, this);
-		this.targetObj = TargetFactory.make(this.options.targets, this);
 		this.addDomain();
 		this.addButtons();
 		this.addTargets();
@@ -380,9 +379,9 @@ define(
 		this.dragManager.editSignal.remove(this.onEdited, this);
 		this.dragManager.destroy();
 		this.dragManager = null;
-		this.targetObj.destroy();
-		this.targetObj = null;
-		//TODO - more
+		this.options.targetObj.destroy();
+		this.options = null;
+		//TODO - more??
 		this.group.remove(this.playButton.view);
 		this.group.remove(this.clearButton.view);
 		this.removeTargets();

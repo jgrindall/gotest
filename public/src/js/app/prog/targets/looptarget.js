@@ -12,9 +12,8 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	
 	"use strict";
 
-	var LoopTarget = function(parent){
-		AbstractTarget.call(this, parent);
-		this.right = this.middle + LoopTarget.LINE_WIDTH;
+	var LoopTarget = function(){
+		AbstractTarget.call(this);
 	};
 
 	PhaserComponents.Utils.extends(LoopTarget, AbstractTarget);
@@ -29,13 +28,14 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	LoopTarget.GAP = 				54;
 	LoopTarget.STOP_POS = 			{'x':105, 'y':320};
 
-	LoopTarget.prototype.build = function(){
-		AbstractTarget.prototype.build.call(this);
+	LoopTarget.prototype.build = function(parent){
+		AbstractTarget.prototype.build.call(this, parent);
 		this.addNum();
 	};
 
 	LoopTarget.prototype.decorate = function(){
 		var p0, p1, p2, p3, p4, p5;
+		this.right = this.middle + LoopTarget.LINE_WIDTH;
 		p0 = {'x':this.middle, 'y':LoopTarget.TOP};
    		p1 = {'x':p0.x, 'y':LoopTarget.BOTTOM};
    		p2 = {'x':this.right, 'y':p1.y};
@@ -54,7 +54,7 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 		x = this.right;
 		y = (LoopTarget.BOTTOM + LoopTarget.TOP + LoopTarget.PADDING_TOP)/2;
 		bounds = {'x':x - ProgNumButton.WIDTH/2, 'y':y - ProgNumButton.WIDTH/2, 'w':ProgNumButton.WIDTH, 'h':ProgNumButton.HEIGHT};
-		this.numButton = new ProgNumButton({"model":ModelFacade.getInstance().get(ModelFacade.PROG_NUM), "sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PROG_NUM, "numFrames":4});	
+		this.numButton = new ProgNumButton({"model":ModelFacade.getInstance().get(ModelFacade.PROG_NUM), "sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PROG_NUM, "numFrames":9});	
 		this.group.add(this.numButton.view);
 	};
 
