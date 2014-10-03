@@ -7,7 +7,7 @@ function(PhaserComponents, Assets){
 	
 	var DragButton = function(options){
 		var frame0, index = options.index;
-		options.asset = Assets.DRAG_BUTTON;
+		options.asset = Assets.DRAG_ARROW;
 		if(options.turn && index === 3){
 			index = 9;
 		}

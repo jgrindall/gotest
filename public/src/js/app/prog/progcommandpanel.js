@@ -1,6 +1,6 @@
 define(
 
-	['phasercomponents', 'app/views/buttons/dragbutton', 
+	['phasercomponents', 'app/views/buttons/dragbutton', 'app/assets',
 
 	'app/prog/views/dragview', 'app/prog/accepter', 'app/consts/commandpaneltypes',
 
@@ -12,7 +12,7 @@ define(
 
 	'app/prog/targets/targetfactory', 'app/models/modelfacade', 'app/consts/playingstate'],
 
-	function(PhaserComponents, DragButton,
+	function(PhaserComponents, DragButton, Assets,
 
 		DragView, Accepter, CommandPanelTypes, 
 
@@ -154,7 +154,7 @@ define(
 	};
 
 	ProgCommandPanel.prototype.getButtonPos = function(i, j){
-		return {'x':this.bounds.x + 10 + 32*i, 'y':this.bounds.y + 10 + 40*j};
+		return {'x':this.bounds.x + 32*i, 'y':this.bounds.y + 10 + 40*j};
 	};
 
 	ProgCommandPanel.prototype.addButtons = function(){
@@ -274,6 +274,11 @@ define(
 		this.playController.addCommands(commands);
 	};
 
+	ProgCommandPanel.prototype.addDomain = function() {
+		this.domain = new Phaser.Sprite(this.game, -12, 0, Assets.DRAG_DOMAIN);
+		this.group.add(this.domain);
+	};
+
 	ProgCommandPanel.prototype.clickStop = function() {
 		this.eventDispatcher.trigger({"type":Events.STOP});
 	};
@@ -284,6 +289,7 @@ define(
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.group, this.game, {"model":this.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.dragManager.editSignal.add(this.onEdited, this);
 		this.targetObj = TargetFactory.make(this.options.targets, this);
+		this.addDomain();
 		this.addButtons();
 		this.addTargets();
 		this.addProgController();

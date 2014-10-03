@@ -30,12 +30,12 @@ define([], function(){
 	Assets.NEXT_BUTTON = 			'nextbutton';
 	Assets.START_BUTTON = 			'startbutton';
 	Assets.SKIP_BUTTON = 			'skipbutton';
-	Assets.DRAG_BUTTON = 			'dragbutton';
 	Assets.PLAY_BUTTON =			'playButton';
 	Assets.STOP_BUTTON =			'stopButton';
 	Assets.DRAG_ARROW = 			'dragarrow';
 	Assets.BUTTON = 				'button';
 	Assets.CONTROL_BAR =			'controlbar';
+	Assets.DRAG_DOMAIN =			'dragDomain';
 	Assets.PROG_NUM =				'progNum';
 	Assets.ARROWS = 				'arrows';
 	Assets.LEFTRIGHT = 				'leftright';
@@ -60,7 +60,6 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtargetsmall.png",	 		"key":Assets.DRAG_TARGET_SMALL,			"w":95, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/tooltipimages.png",	 			"key":Assets.TOOLTIP_IMAGE,				"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/controlbar.png",	 			"key":Assets.CONTROL_BAR,				"w":40, 	"h":40},
-		{"type":"spritesheet", 	"asset":"assets/images/prog/dragbuttons.png",	 			"key":Assets.DRAG_BUTTON,				"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragarrows.png",	 			"key":Assets.DRAG_ARROW,				"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/screens/smallpanel.png",	 			"key":Assets.SMALL_PANEL,				"w":225, 	"h":250},
 		{"type":"spritesheet", 	"asset":"assets/images/settings/settings1.png",	 			"key":Assets.SETTINGS1,					"w":160, 	"h":160},
@@ -139,7 +138,8 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/ipad.png",	 			"key":Assets.IPAD},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
-		{"type":"image", 		"asset":"assets/images/maps/corners.jpg",	 			"key":Assets.CORNERS}
+		{"type":"image", 		"asset":"assets/images/maps/corners.jpg",	 			"key":Assets.CORNERS},
+		{"type":"image", 		"asset":"assets/images/prog/dragdomains.png",	 		"key":Assets.DRAG_DOMAIN}
 	];
 	
 	
