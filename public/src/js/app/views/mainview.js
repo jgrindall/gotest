@@ -1,9 +1,9 @@
 
 define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
-'app/views/components/menu', 'app/models/modelfacade',
+'app/views/components/menu', 'app/models/modelfacade', 'app/views/img/imgview',
 
-'app/consts/canvaslayout', 'app/views/controls/controltop',
+'app/consts/canvaslayout', 'app/views/controls/controltop', 'app/events/events',
 
 'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
@@ -11,9 +11,9 @@ define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 function($, Canvas, Controls,
 
-Menu, ModelFacade,
+Menu, ModelFacade, ImgView,
 
-CanvasLayout, ControlTop,
+CanvasLayout, ControlTop, Events,
 
 Background, PhaserComponents, NameView,
 
@@ -31,12 +31,27 @@ Assets){
 
 	MainView.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.closeImg.bind(this));
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.closeImg.bind(this));
+		this.eventDispatcher.addListener(Events.CLOSE_IMG, this.closeImg.bind(this));
 		this.addBg();
 		this.addTop();
 		this.addCanvas();
 		this.addControls();
 		this.addMenu();
 		this.addName();
+	};
+
+	MainView.prototype.closeImg = function(data) {
+		if(this.imgView){
+			this.imgView.destroy();
+			this.imgView = null;
+		}
+	};
+	
+	MainView.prototype.addImg = function(data) {
+		this.imgView = new ImgView(data);
+    	$("body").append(this.imgView.el);
 	};
 
 	MainView.prototype.addTop = function() {
@@ -180,6 +195,10 @@ Assets){
 	};
 
 	MainView.prototype.destroy = function() {
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE);
+		this.eventDispatcher.removeListener(Events.CLOSE_IMG);
+		this.closeImg();
 		this.removeMenu();
 		this.removeTop();
 		this.removeControls();

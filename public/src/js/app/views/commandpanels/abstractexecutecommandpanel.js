@@ -22,7 +22,7 @@ MarkerFactory, ModelFacade){
 	
 	PhaserComponents.Utils.extends(AbstractExecuteCommandsPanel, AbstractCommandsPanel);
 	
-	AbstractExecuteCommandsPanel.GRID_SIZE = 157;
+	AbstractExecuteCommandsPanel.GRID_SIZE = 175;
 
 	AbstractExecuteCommandsPanel.prototype.init = function() {
 		

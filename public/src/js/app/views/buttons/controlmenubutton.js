@@ -10,7 +10,7 @@ define(['phasercomponents', 'app/assets'],
 		options.disabledAlpha = 1;
 		options.asset = Assets.BUTTON;
 		options.sfx = Assets.SOUNDS[0];
-		frame0 = (4 * options.data.num);
+		frame0 = (5 * options.data.num);
 		options.frames = [frame0, frame0 + 1, frame0 + 2, frame0 + 3];
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};

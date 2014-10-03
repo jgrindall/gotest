@@ -1,7 +1,7 @@
 
 define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands/savecommand',
 
-	'app/commands/printcommand', 'app/commands/undocommand',
+	'app/commands/printcommand', 'app/commands/undocommand', 'app/commands/downloadcommand',
 
 	'app/commands/rewindcommand', 'app/commands/stopcommand',
 
@@ -15,15 +15,13 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/finishcommand', 'app/commands/replaycommand', 'app/commands/designimgcommand', 
 
-	'app/commands/enterfscommand', 'app/commands/exitfscommand', 
-
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
 	'app/scenes/loaderscene', 'app/scenes/activityscene', 'app/assets'],
 
 	function(NewFileCommand, LoadCommand, SaveCommand,
 
-		PrintCommand, UndoCommand,
+		PrintCommand, UndoCommand, DownloadCommand,
 
 		RewindCommand, StopCommand, 
 
@@ -36,8 +34,6 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		StartUpCommand, ProgChangeCommand,
 
 		FinishCommand, ReplayCommand, DesignImgCommand,
-
-		EnterFsCommand, ExitFsCommand,
 
 		Events, PhaserComponents, AppConsts,
 
@@ -64,7 +60,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
         PhaserComponents.Context.prototype.inject.call(this);
         game = this.gameManager.game;
         eventDispatcher = this.eventDispatcher;
-        PhaserComponents.Injector.getInstance().map("nameview",        ["game", "eventDispatcher"],            [game, eventDispatcher]);
+        PhaserComponents.Injector.getInstance().map("nameview",			["game", "eventDispatcher"],            [game, eventDispatcher]);
+        PhaserComponents.Injector.getInstance().map("imgview",			["game", "eventDispatcher"],            [game, eventDispatcher]);
     };
 
     AppContext.prototype.onChangeScene = function(event, obj){
@@ -107,9 +104,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.STARTUP, 									StartUpCommand);
 		this.commandMap.map(Events.DRAW, 										DrawCommand);
 		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
+		this.commandMap.map(Events.DOWNLOAD, 									DownloadCommand);
 		this.commandMap.map(Events.FINISHED, 									FinishCommand);
-		this.commandMap.map(Events.ENTER_FS, 									EnterFsCommand);
-		this.commandMap.map(Events.EXIT_FS, 									ExitFsCommand);
 		this.commandMap.map(Events.DESIGN_IMG, 									DesignImgCommand);
 		this.commandMap.map(PhaserComponents.Events.AppEvents.PRE_SHUTDOWN, 	PreShutdownCommand);
 		this.commandMap.map(PhaserComponents.Events.AppEvents.POST_SHUTDOWN, 	PostShutdownCommand);

@@ -11,16 +11,16 @@ PhaserComponents, ModelFacade, PlayingState){
 	
 	var Menu  = function(options){
 		options.buttonClass = MenuButton;
-		options.numX = 4;
+		options.numX = 5;
 		options.numY = 1;
-		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}];
+		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}, {'num':4}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
 	};
 	
-	Menu.WIDTH = 240;
+	Menu.WIDTH = 280;
 	Menu.HEIGHT = 50;
 
 	PhaserComponents.Utils.extends(Menu, PhaserComponents.Display.ButtonBar);
@@ -47,6 +47,9 @@ PhaserComponents, ModelFacade, PlayingState){
 		}
 		else if(i === 3){
 			this.eventDispatcher.trigger({"type":Events.PRINT});
+		}
+		else if(i === 4){
+			this.eventDispatcher.trigger({"type":Events.DOWNLOAD});
 		}
 	};
 

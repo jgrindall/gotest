@@ -67,6 +67,7 @@ module.exports = function(grunt) {
                     include: ['main'],
                     findNestedDependencies: true,
                     paths: {
+                        html2canvas:                   'lib/html2canvas',
                         jquery:                        'lib/zepto',
                         phaser: 			           'lib/phaser',
                         phaserstatetrans: 	           'lib/phaser-state-transition.min',

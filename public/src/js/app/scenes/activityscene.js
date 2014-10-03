@@ -18,16 +18,19 @@ Events, ToolTipManager, MainView, IPad){
 	ActivityScene.prototype.create = function() {
 		this.addMain();
 		this.init();
-		//this.toolTipTimeout = setTimeout(this.openToolTips.bind(this), 300);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.onResize.bind(this));
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ORIENT, this.onOrient.bind(this));
+		this.eventDispatcher.addListener(Events.IMG_CAPTURED, this.onImgCaptured.bind(this));
 		this.checkDevice();
 	};
 
 	ActivityScene.prototype.init = function(){
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
-		this.eventDispatcher.trigger({"type":Events.ENTER_FS});
+	};
+
+	ActivityScene.prototype.onImgCaptured = function(event, obj){
+		this.mainView.addImg(obj.data);
 	};
 
 	ActivityScene.prototype.addMain = function(){
@@ -88,6 +91,9 @@ Events, ToolTipManager, MainView, IPad){
 
 	ActivityScene.prototype.destroy = function() {
 		clearTimeout(this.toolTipTimeout);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ORIENT);
+		this.eventDispatcher.removeListener(Events.IMG_CAPTURED);
 		this.removeMain();
 		this.removeIPad();
 	};

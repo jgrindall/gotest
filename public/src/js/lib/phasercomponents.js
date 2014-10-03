@@ -16,8 +16,18 @@ define('phasercomponents/utils/utils',[], function(){
 		SubClassRef.prototype.constructor = SubClassRef;
 	};
 
+	Utils.isTouch = function(){
+		var msTouch, t0, t1, el = document.createElement('div');
+		msTouch = window.navigator.msMaxTouchPoints;
+  	 	el.setAttribute('ongesturestart', 'return;');
+  	 	el.setAttribute('ontouchstart', 'return;');
+  	 	t0 = (typeof el.ongesturestart === "function");
+  	 	t1 = (typeof el.ontouchstart === "function");
+   		return msTouch || t0 || t1;
+	};
+
 	Utils.isIos7 = function(){
-		return navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i);	
+		return Utils.isTouch() && navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i);	
 	};
 
 	Utils.isPortrait = function(){
@@ -90,6 +100,7 @@ function($, Phaser, PhaserStateTrans, Utils){
 	};
 
 	GameManager.RATIO = 1.3333;
+	GameManager.SCROLL_BAR_SIZE = 15;
 
 	GameManager.prototype.init = function(options, config){
 		this.options = options;
@@ -212,8 +223,12 @@ function($, Phaser, PhaserStateTrans, Utils){
 		size.w = size.w * window.devicePixelRatio;
 		size.h = size.h * window.devicePixelRatio;
 		if(size.h < this.options.minHeight){
-			size.w -= 15;
+			size.w -= GameManager.SCROLL_BAR_SIZE;
 			size.h = this.options.minHeight;
+		}
+		if(size.w < this.options.minWidth){
+			size.h -= GameManager.SCROLL_BAR_SIZE;
+			size.w = this.options.minWidth;
 		}
 		return size;
 	};
@@ -564,7 +579,8 @@ function($, Phaser, Injector, AppEvents){
 	
 	var AlertManager  = function(){
 		this.inject();
-		this.eventDispatcher.addListener(AppEvents.RESIZE, this.onResize.bind(this));
+		this.eventDispatcher.addListener(AppEvents.RESIZE, this.close.bind(this));
+		this.eventDispatcher.addListener(AppEvents.RESIZE, this.close.bind(this));
 	};
 	
 	AlertManager.prototype.inject = function(){
@@ -576,10 +592,6 @@ function($, Phaser, Injector, AppEvents){
 			this.bg.destroy();
 			this.bg = null;
 		}
-	};
-
-	AlertManager.prototype.onResize = function(){
-		this.close();
 	};
 
 	AlertManager.prototype.close = function(callback){
@@ -648,6 +660,8 @@ function($, Phaser, Injector, AppEvents){
 
 	AlertManager.prototype.shutdown = function(){
 		this.close();
+		this.eventDispatcher.removeListener(AppEvents.RESIZE);
+		this.eventDispatcher.removeListener(AppEvents.RESIZE);
 		Injector.getInstance().unInject(this);
 	};
 

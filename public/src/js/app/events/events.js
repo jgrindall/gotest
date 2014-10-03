@@ -20,10 +20,12 @@ function() {
 	Events.GRID_CHOICE		= 		"gridChoice";
 	Events.ADD_COMMAND		= 		"addCommand";
 	Events.DRAW				= 		"draw";
-	Events.ENTER_FS			= 		"enterFs";
-	Events.EXIT_FS			= 		"exitFs";
 	Events.REPLAY			= 		"replay";
+	Events.IMG_CAPTURED		= 		"imgCaptured";
+	Events.CLOSE_IMG		= 		"closeImg";
+	Events.SHOW_TOUCH_IMG	= 		"showTouchImg";
 	Events.FINISHED			= 		"finished";
+	Events.DOWNLOAD			= 		"download";
 	Events.STOP				= 		"stop";
 	Events.STARTUP			= 		"startup";
 	Events.DESIGN_IMG		=		"designImg";

@@ -71,8 +71,14 @@ function(Phaser, Colors, PenWidths){
 		return PenWidths.ALL[this.command.width];
 	};
 	
+	LineDrawer.prototype.complete = function() {
+		this.pos = {'x':this.p0.x, 'y':this.p0.y};
+		this.segment(this.p1);
+	};
+
 	LineDrawer.prototype.endLine = function() {
 		this.circle(this.p1);
+		this.complete();
 		this.stop();
 		this.endSignal.dispatch({});
 	};
