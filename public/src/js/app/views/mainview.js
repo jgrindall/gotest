@@ -42,7 +42,7 @@ Assets){
 		this.addName();
 	};
 
-	MainView.prototype.closeImg = function(data) {
+	MainView.prototype.closeImg = function() {
 		if(this.imgView){
 			this.imgView.destroy();
 			this.imgView = null;
