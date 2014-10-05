@@ -17,7 +17,9 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
-	'app/scenes/loaderscene', 'app/scenes/activityscene', 'app/assets'],
+	'app/scenes/loaderscene', 'app/scenes/activityscene',
+
+	'app/assets', 'app/storage/purplemashadapter'],
 
 	function(NewFileCommand, LoadCommand, SaveCommand,
 
@@ -37,12 +39,17 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		Events, PhaserComponents, AppConsts,
 
-		LoaderScene, ActivityScene, Assets) {
+		LoaderScene, ActivityScene,
+
+		Assets, PurpleMashAdapter) {
 	
 	"use strict";
 
    	var AppContext = function (options){
+		var adapter = new PurpleMashAdapter();
 		PhaserComponents.Context.call(this, options);
+		console.log("adapter ", adapter);
+		//PhaserComponents.Storage.Storage.getInstance().setAdapter(adapter);
     };
 	
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
@@ -62,11 +69,16 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
         eventDispatcher = this.eventDispatcher;
         PhaserComponents.Injector.getInstance().map("nameview",			["game", "eventDispatcher"],            [game, eventDispatcher]);
         PhaserComponents.Injector.getInstance().map("imgview",			["game", "eventDispatcher"],            [game, eventDispatcher]);
+        PhaserComponents.Injector.getInstance().map("showmanager",		["game", "eventDispatcher"],            [game, eventDispatcher]);
     };
+
+	AppContext.prototype.startActivity = function(){
+		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
+	};
 
     AppContext.prototype.onChangeScene = function(event, obj){
     	if(obj.data.scene instanceof LoaderScene){
-    		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
+    		this.startActivity();
     	}
     };
  	

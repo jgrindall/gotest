@@ -16,7 +16,7 @@ function(PhaserComponents,
 
 	SaveCommand.prototype.execute = function(){
 		var json = ModelFacade.getInstance().getJson();
-		PhaserComponents.Storage.getInstance().save(json, this.onSaved.bind(this));
+		PhaserComponents.Storage.Storage.getInstance().saveForKeyPath(null, json, this.onSaved.bind(this));
 	};
 	
 	SaveCommand.prototype.onSaved = function(data){

@@ -17,16 +17,15 @@ Events, ToolTipManager, MainView, IPad){
 
 	ActivityScene.prototype.create = function() {
 		this.addMain();
-		this.init();
+		this.startScene();
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.onResize.bind(this));
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ORIENT, this.onOrient.bind(this));
 		this.eventDispatcher.addListener(Events.IMG_CAPTURED, this.onImgCaptured.bind(this));
 		this.checkDevice();
 	};
 
-	ActivityScene.prototype.init = function(){
+	ActivityScene.prototype.startScene = function(){
 		this.eventDispatcher.trigger({"type":Events.STARTUP});
-		this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 
 	ActivityScene.prototype.onImgCaptured = function(event, obj){

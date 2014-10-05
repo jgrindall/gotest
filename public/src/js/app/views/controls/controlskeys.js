@@ -3,6 +3,8 @@ define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
 
 'app/models/modelfacade', 'app/consts/controlslayout',
 
+'app/views/showmanager', 'app/consts/showdirections',
+
 'app/views/commandpanels/commandspanelfactory', 'app/views/buttons/controlbarbutton',
 
 'app/events/events'
@@ -12,6 +14,8 @@ define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
 function(PhaserComponents, AbstractCommandsPanel,
 
 ModelFacade, ControlsLayout,
+
+ShowManager, ShowDirections,
 
 CommandsPanelFactory, ControlBarButton,
 
@@ -106,6 +110,7 @@ Events){
 		this.group.add(this.controlBar.view);
 		this.controlBar.view.visible = (ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).get() === 1);
 		this.positionControlBar();
+		ShowManager.getInstance().add(this.controlBar.view, 3, ShowDirections.UP);
 	};
 
 	ControlsKeys.prototype.barClick = function(data) {
@@ -130,8 +135,9 @@ Events){
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
 			this.group.add(this.commandsPanel.view);
+			this.positionPanel();
+			ShowManager.getInstance().add(this.commandsPanel.view, 3, ShowDirections.LEFT, "commandsPanel");
 		}
-		this.positionPanel();
 	};
 
 	ControlsKeys.prototype.removeControlBar = function(){

@@ -35,6 +35,7 @@ FdCommand, StepLengths, Assets){
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
 		ModelFacade.getInstance().get(ModelFacade.STARTPOS).changeSignal.add(this.onChangeStartPos, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onChangeScreen, this);
 		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, this.onRotateTurtle.bind(this));
 		this.onReset();
 	};
@@ -43,11 +44,16 @@ FdCommand, StepLengths, Assets){
 	Drawing.PI180 = 		Drawing.PI/180;
 	Drawing.RT2 = 			1.4142;
 	Drawing.ONE_RT2 = 		1/Drawing.RT2;
-	Drawing.ANGLES = 		[135, 90, 45, 180, 0, 0, 225, -90, -45];
+	Drawing.ANGLES = 		[135, 90, 45, 180, 90, 0, 225, -90, -45];
 	Drawing.ROTATE = 		[[0, 0, 0, -45, 0, 45, 0, 0, 0], [0, 0, 0, -90, 0, 90, 0, 0, 0]];
 	Drawing.DIAG = 			[Drawing.RT2, 1, Drawing.RT2, 1, 1, 1, Drawing.RT2, 1, Drawing.RT2];
 		
 	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
+
+	Drawing.prototype.onChangeScreen = function(){
+		this.angle = -90;
+		this.setTurtle();
+	};
 
 	Drawing.prototype.onRotateTurtle = function(event, obj){
 		var playingState = ModelFacade.getInstance().get(ModelFacade.PLAYING).get();
@@ -213,6 +219,7 @@ FdCommand, StepLengths, Assets){
 		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.remove(this.onReset, this);
 		ModelFacade.getInstance().get(ModelFacade.STARTPOS).changeSignal.remove(this.onChangeStartPos, this);
 		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
+		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onChangeScreen, this);
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
 		this.turtle.movedSignal.remove(this.turtleMoved, this);

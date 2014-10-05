@@ -1,10 +1,14 @@
 define(['app/models/modelfacade', 'app/views/popups/growl',
 
-	'phasercomponents', 'app/events/events', 'app/assets'],
+	'phasercomponents', 'app/events/events',
+
+	'app/assets'],
 
 function(ModelFacade, Growl,
 
-	PhaserComponents, Events, Assets) {
+	PhaserComponents, Events,
+
+	Assets) {
 	
 	"use strict";
 	
@@ -15,13 +19,13 @@ function(ModelFacade, Growl,
 	PhaserComponents.Utils.extends(LoadCommand, PhaserComponents.Commands.AbstractCommand);
 
 	LoadCommand.prototype.execute = function(){
-		PhaserComponents.Storage.getInstance().load(this.onLoaded.bind(this));
+		PhaserComponents.Storage.Storage.getInstance().getForKeyPath(null, this.onLoaded.bind(this));
 	};
 	
 	LoadCommand.prototype.onLoaded = function(data){
 		if(data.success){
 			try{
-				ModelFacade.getInstance().setData(data.json);
+				ModelFacade.getInstance().setData(data.response);
 				this.eventDispatcher.trigger({"type":Events.REPLAY});
 				PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Your file has been loaded!", "sfx":Assets.SOUNDS[2]}, null);
 			}

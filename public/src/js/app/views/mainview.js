@@ -1,4 +1,5 @@
 
+
 define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/views/components/menu', 'app/models/modelfacade', 'app/views/img/imgview',
@@ -7,7 +8,7 @@ define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
-'app/assets'],
+'app/assets', 'app/views/showmanager', 'app/consts/showdirections'],
 
 function($, Canvas, Controls,
 
@@ -17,7 +18,7 @@ CanvasLayout, ControlTop, Events,
 
 Background, PhaserComponents, NameView,
 
-Assets){
+Assets, ShowManager, ShowDirections){
 	
 	"use strict";
 	
@@ -122,12 +123,14 @@ Assets){
 		this.canvas = new Canvas({"bounds":bounds});
 		this.group.add(this.canvas.view);
 		this.positionCanvas();
+		ShowManager.getInstance().add(this.canvas.view, 5, ShowDirections.UP);
 	};
 	
 	MainView.prototype.addMenu = function() {
 		var bounds = {'x':0, 'y':0, 'w':Menu.WIDTH, 'h':Menu.HEIGHT};
 		this.menu = new Menu({"bounds":bounds});
 		this.group.add(this.menu.view);
+		ShowManager.getInstance().add(this.menu.view, 0, ShowDirections.DOWN);
 	};
 
 	MainView.prototype.removeMenu = function() {

@@ -173,11 +173,6 @@ define(
 		}
 	};
 
-	ProgCommandPanel.prototype.onSaveClick = function(){
-		var jsonString = JSON.stringify(this.model.toJson());
-		localStorage.setItem("jsonData", jsonString);
-	};
-
 	ProgCommandPanel.prototype.objAllowed = function(obj){
 		var i, button;
 		if(obj.type === null || obj.type === undefined || obj.index === null || obj.index === undefined){

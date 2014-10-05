@@ -1,8 +1,8 @@
 define(
 
-	['app/models/modelfacade', 'phasercomponents'],
+	['app/models/modelfacade', 'phasercomponents', 'app/views/showmanager'],
 
-function(ModelFacade, PhaserComponents) {
+function(ModelFacade, PhaserComponents, ShowManager) {
 	
 	"use strict";
 
@@ -14,6 +14,7 @@ function(ModelFacade, PhaserComponents) {
 
 	PreShutdownCommand.prototype.execute = function(){
 		ModelFacade.shutdown();
+		ShowManager.shutdown();
 	};
 	
   	return PreShutdownCommand;
