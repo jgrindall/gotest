@@ -157,7 +157,7 @@ function($, Phaser, PhaserStateTrans, Utils){
 	};
 
 	GameManager.prototype.start = function(){
-		var settings = {'duration': 400, 'properties': {'alpha': 0, 'scale': {'x': 1.1, 'y': 1.1}}};
+		var settings = {'duration': 1500, 'properties': {'alpha': 0, 'scale': {'x': 2, 'y': 2}}};
 		this.transitions = this.game.plugins.add(PhaserStateTrans);
 		this.transitions.settings(settings);
 		this.game.state.start(this.firstSceneKey);
@@ -673,38 +673,128 @@ function($, Phaser, Injector, AppEvents){
 
 
 
-define('phasercomponents/utils/storage',['phasercomponents/utils/alertmanager'],
+define('phasercomponents/utils/abstractstorageadapter',
 
-function(AlertManager){
+	[],
+
+function(){
+	
+	
+
+	var AbstractStorageAdapter = function(){
+		
+	};
+	
+	AbstractStorageAdapter.prototype.loadDefaults = function(callback){
+		console.log("loadDefaults ", callback);
+	};
+
+	AbstractStorageAdapter.prototype.saveForKeyPath = function(keyPath, data, callback){
+		console.log("save ", keyPath, data, callback);
+	};
+
+	AbstractStorageAdapter.prototype.getForKeyPath = function(keyPath, callback){
+		console.log("load ", keyPath, callback);
+	};
+
+	AbstractStorageAdapter.prototype.destroy = function(){
+		
+	};
+
+	return AbstractStorageAdapter;
+	
+});
+
+
+
+define('phasercomponents/utils/localstorageadapter',
+
+	['phasercomponents/utils/utils','phasercomponents/utils/abstractstorageadapter'],
+
+function(Utils, AbstractStorageAdapter){
+	
+	
+
+	var LocalStorageAdapter = function(){
+		AbstractStorageAdapter.call(this);
+	};
+
+	LocalStorageAdapter.DEFAULT_KEY = "app_settings";
+
+	Utils.extends(LocalStorageAdapter, AbstractStorageAdapter);
+
+	LocalStorageAdapter.prototype.loadDefaults = function(callback){
+		callback({"success":true, "data":null});
+	};
+
+	LocalStorageAdapter.prototype.saveForKeyPath = function(keyPath, data, callback){
+		if(!keyPath){
+			keyPath = LocalStorageAdapter.DEFAULT_KEY;
+		}
+		window.localStorage.setItem(keyPath, JSON.stringify(data));
+		callback({"success":true});
+	};
+
+	LocalStorageAdapter.prototype.getForKeyPath = function(keyPath, callback){
+		var dataString, parsedData;
+		if(!keyPath){
+			keyPath = LocalStorageAdapter.DEFAULT_KEY;
+		}
+		dataString = window.localStorage.getItem(keyPath);
+		if(dataString){
+			try{
+				parsedData = JSON.parse(dataString);
+				callback({'success':true, 'response':parsedData});
+			}
+			catch(e){
+				callback({'success':false, 'response':null});
+			}
+		}
+		else{
+			callback({'success':true, 'response':null});
+		}
+	};
+
+	LocalStorageAdapter.prototype.destroy = function(){
+		
+	};
+
+	return LocalStorageAdapter;
+	
+});
+
+
+
+define('phasercomponents/utils/storage',
+
+	['phasercomponents/utils/localstorageadapter'],
+
+function(LocalStorageAdapter){
 	
 	
 
 	var Storage = function(){
-		
+		this.adapter = new LocalStorageAdapter();
 	};
 	
-	Storage.VERSION = "v1.0";
-	
-	Storage.SETTINGS_KEY = "2go_settings" + Storage.VERSION;
-	
-	Storage.prototype.load = function(callback){
-		this.getForKey(Storage.SETTINGS_KEY, function(options){
-			var json;
-			if(options.success){
-				json = options.data || Storage.DEFAULT;
-				if(callback){
-					callback({"success":true, "json":json});
-				}
+	Storage.prototype.setAdapter = function(adapter){
+		this.adapter = adapter;
+	};
+
+	Storage.prototype.loadDefaults = function(callback){
+		this.adapter.loadDefaults(function(data){
+			if(data.success){
+				callback({"success":true, "response":data.response});
 			}
 			else{
-				AlertManager.makeGrowl({"label":"Error loading"}, null);
+				callback({"success":false});
 			}
 		});
 	};
-	
-	Storage.prototype.save = function(json, callback){
-		this.saveForKey(Storage.SETTINGS_KEY, json, function(options){
-			if(options.success){
+
+	Storage.prototype.saveForKeyPath = function(keyPath, dataToSave, callback){
+		this.adapter.saveForKeyPath(keyPath, dataToSave, function(data){
+			if(data.success){
 				callback({"success":true});
 			}
 			else{
@@ -712,46 +802,28 @@ function(AlertManager){
 			}
 		});
 	};
-	
-	Storage.prototype.init = function(){
-		this.cache = [];
-		this.persistence = localStorage;
-	};
-	
-	Storage.prototype.saveForKey = function(key, data, callback){
-		this.persistence.setItem(key, JSON.stringify(data));
-		this.addToCache(key, data);
-		callback({success:true});
-	};
-	
-	Storage.prototype.addToCache = function(key, data){
-		this.cache[key] = data;
-	};
-	
-	Storage.prototype.getForKey = function(key, callback){
-		var data;
-		data = this.cache[key];
-		if(!data){
-			data = this.persistence.getItem(key);
-			if(data){
-				data = JSON.parse(data);
-				this.addToCache(key, data);
+
+	Storage.prototype.getForKeyPath = function(keyPath, callback){
+		this.adapter.getForKeyPath(keyPath, function(data){
+			if(data.success){
+				callback({"success":true, "response":data.response});
 			}
-		}
-		callback({'success':true, 'data':data});
+			else{
+				callback({"success":false});
+			}
+		});
 	};
 	
 	Storage.getInstance = function(){
 		if(!Storage.instance){
 			Storage.instance = new Storage();
-			Storage.instance.init();
 		}
 		return Storage.instance;
 	};
 
 	Storage.prototype.shutdown = function(){
-		this.cache = [];
-		this.persistence = null;
+		this.adapter.destroy();
+		this.adapter = null;
 	};
 
 	Storage.shutdown = function(){
@@ -3243,6 +3315,7 @@ define('phasercomponents',[
 	'phasercomponents/scene',
 	'phasercomponents/display/view',
 	'phasercomponents/utils/storage',
+	'phasercomponents/utils/abstractstorageadapter',
 	'phasercomponents/utils/alertmanager',
 	'phasercomponents/utils/printmanager',
 	'phasercomponents/utils/soundmanager',
@@ -3289,6 +3362,7 @@ define('phasercomponents',[
 		Scene,
 		View,
 		Storage,
+		AbstractStorageAdapter,
 		AlertManager,
 		PrintManager,
 		SoundManager,
@@ -3350,6 +3424,11 @@ define('phasercomponents',[
        	'AppEvents':			AppEvents
     };
 
+    var Storage = {
+    	  'Storage': 					Storage,
+    	  'AbstractStorageAdapter': 	AbstractStorageAdapter
+    };
+
     var Drag = {
     	'AbstractAccepter': 		AbstractAccepter,
        	'AbstractDragView':			AbstractDragView,
@@ -3374,8 +3453,8 @@ define('phasercomponents',[
         'Commands':				Commands,
         'Context': 				Context,
         'Utils': 				Utils,
-        'Scene': 				Scene,
         'Storage': 				Storage,
+        'Scene': 				Scene,
         'AlertManager': 		AlertManager,
         'Injector': 			Injector,
         'KeyManager': 			KeyManager,
