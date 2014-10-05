@@ -48,8 +48,10 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
    	var AppContext = function (options){
 		var adapter = new PurpleMashAdapter();
 		PhaserComponents.Context.call(this, options);
-		console.log("adapter ", adapter);
-		//PhaserComponents.Storage.Storage.getInstance().setAdapter(adapter);
+		if(Math.random() < 0.5){
+			console.log("using PM");
+			PhaserComponents.Storage.Storage.getInstance().setAdapter(adapter);
+		}
     };
 	
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
