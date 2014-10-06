@@ -1,10 +1,14 @@
 define(['phasercomponents',
 
-	'app/models/modelfacade', 'app/views/popups/growl', 'app/assets'],
+	'app/models/modelfacade', 'app/utils/message',
+
+	'app/utils/error', 'app/utils/errorcodes'],
 
 function(PhaserComponents,
 
-	ModelFacade, Growl, Assets) {
+	ModelFacade, Message,
+
+	Error, ErrorCodes) {
 	
 	"use strict";
 	
@@ -21,10 +25,10 @@ function(PhaserComponents,
 	
 	SaveCommand.prototype.onSaved = function(data){
 		if(data.success){
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Your file has been saved!", "sfx":Assets.SOUNDS[2]}, null);
+			Message.show(Message.SAVE_SUCCESS);
 		}
 		else{
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Error saving your file!", "sfx":Assets.SOUNDS[2]}, null);
+			Error.show(ErrorCodes.SAVE_ERROR);
 		}
 	};
 	

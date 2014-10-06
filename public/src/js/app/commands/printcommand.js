@@ -1,8 +1,8 @@
 define(
 
-	['phasercomponents', 'app/views/popups/growl', 'app/assets'],
+	['phasercomponents', 'app/utils/errorcodes'],
 
-function(PhaserComponents, Growl, Assets) {
+function(PhaserComponents, ErrorCodes) {
 	
 	"use strict";
 
@@ -13,7 +13,7 @@ function(PhaserComponents, Growl, Assets) {
 	PhaserComponents.Utils.extends(PrintCommand, PhaserComponents.Commands.AbstractCommand);
 
 	PrintCommand.prototype.execute = function(){
-		PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"No printers found", "sfx":Assets.SOUNDS[2]}, null);
+		Error.show(ErrorCodes.NO_PRINTERS);
 	};
 	
   	return PrintCommand;

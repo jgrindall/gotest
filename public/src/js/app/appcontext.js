@@ -5,7 +5,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/rewindcommand', 'app/commands/stopcommand',
 
-	'app/commands/typechoicecommand', 'app/commands/gridchoicecommand', 'app/commands/teachercommand',
+	'app/commands/typechoicecommand', 'app/commands/gridchoicecommand',
 
 	'app/commands/addcommandcommand', 'app/commands/drawcommand',
 
@@ -27,7 +27,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		RewindCommand, StopCommand, 
 
-		TypeChoiceCommand, GridChoiceCommand, TeacherCommand,
+		TypeChoiceCommand, GridChoiceCommand,
 
 		AddCommandCommand, DrawCommand,
 
@@ -112,7 +112,6 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.UNDO,										UndoCommand);
 		this.commandMap.map(Events.REWIND, 										RewindCommand);
 		this.commandMap.map(Events.STOP, 										StopCommand);
-		this.commandMap.map(Events.TEACHER_LOGIN, 								TeacherCommand);
 		this.commandMap.map(Events.TYPE_CHOICE, 								TypeChoiceCommand);
 		this.commandMap.map(Events.GRID_CHOICE, 								GridChoiceCommand);
 		this.commandMap.map(Events.ADD_COMMAND, 								AddCommandCommand);

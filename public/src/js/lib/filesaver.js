@@ -27,6 +27,8 @@ try{
   // Everyone else
   || (function(view) {
 	"use strict";
+
+
 	// IE <10 is explicitly unsupported
 	if (typeof navigator !== "undefined" &&
 	    /MSIE [1-9]\./.test(navigator.userAgent)) {
@@ -89,6 +91,7 @@ try{
 			}
 		}
 		, FileSaver = function(blob, name) {
+
 			// First try a.download, then web filesystem, then object URLs
 			var
 				  filesaver = this

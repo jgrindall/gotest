@@ -14,7 +14,6 @@ function() {
 	Events.PRINT			= 		"print";
 	Events.UNDO				= 		"undo";
 	Events.REWIND			= 		"rewind";
-	Events.TEACHER_LOGIN	= 		"teacherLogin";
 	Events.PROG_CHANGE		= 		"progChange";
 	Events.TYPE_CHOICE		= 		"typeChoice";
 	Events.GRID_CHOICE		= 		"gridChoice";

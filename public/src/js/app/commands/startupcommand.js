@@ -1,10 +1,14 @@
 define(['app/consts/defaults', 'app/models/modelfacade',
 
-	'phasercomponents', 'app/events/events', 'app/views/popups/growl', 'app/assets'],
+	'phasercomponents', 'app/events/events',
+
+	'app/utils/error', 'app/utils/errorcodes'],
 
 function(Defaults, ModelFacade,
 
-	PhaserComponents, Events, Growl, Assets) {
+	PhaserComponents, Events,
+
+	Error, ErrorCodes) {
 	
 	"use strict";
 	
@@ -23,7 +27,7 @@ function(Defaults, ModelFacade,
 			}
 		}
 		else{
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Error loading defaults", "sfx":Assets.SOUNDS[2]}, null);
+			Error.show(ErrorCodes.LOAD_DEFAULTS_ERROR);
 		}
 	};
 

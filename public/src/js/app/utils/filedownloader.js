@@ -1,16 +1,20 @@
 
-define(['phasercomponents', 'app/views/popups/growl', 'filesaver',
+define(['phasercomponents', 'filesaver',
 
-	'html2canvas', 'app/events/events', 'app/assets', 'canvastoblob'],
+	'html2canvas', 'app/events/events',
 
-	function(PhaserComponents, Growl, filesaver,
+	'canvastoblob', 'app/utils/error', 'app/utils/errorcodes'],
 
-		html2canvas, Events, Assets, canvastoblob){
+	function(PhaserComponents, filesaver,
+
+		html2canvas, Events,
+
+		canvastoblob, Error, ErrorCodes){
 	
 		"use strict";
 		
 		var FileDownloader = function(){
-			console.log("canvastoblob "+canvastoblob);
+			console.log("canvastoblob", canvastoblob);
 			PhaserComponents.Injector.getInstance().injectInto(this, "filedownloader");
 		};
 
@@ -29,9 +33,38 @@ define(['phasercomponents', 'app/views/popups/growl', 'filesaver',
 			}
 		};
 
-		FileDownloader.prototype.processBlob = function(blob){
+		FileDownloader.prototype.processBlob = function(canvas, blob){
 			try{
 				filesaver(blob, "my2goimage.png");
+			}
+			catch(e){
+				this.fallback(canvas);
+			}
+		};
+
+		FileDownloader.prototype.saveBlob = function(canvas){
+			try{
+				canvas.toBlob(this.processBlob.bind(this, canvas));
+			}
+			catch(e){
+				this.fallback(canvas);
+			}
+		};
+
+		FileDownloader.prototype.fallback = function(canvas){
+			if(canvas){
+				this.saveImage(canvas);
+			}
+			else{
+				this.message();
+			}
+		};
+
+		FileDownloader.prototype.saveImage = function(canvas){
+			var imgData;
+			try{
+				imgData = canvas.toDataURL("image/png");
+				this.displayImage(imgData);
 			}
 			catch(e){
 				this.message();
@@ -43,19 +76,12 @@ define(['phasercomponents', 'app/views/popups/growl', 'filesaver',
 		};
 
 		FileDownloader.prototype.onRendered = function(canvas){
-			var imgData;
 			if(canvas){
 				if(canvas.toBlob && filesaver){
-					canvas.toBlob(this.processBlob.bind(this));
+					this.saveBlob(canvas);
 				}
 				else if(canvas.toDataURL){
-					try{
-						imgData = canvas.toDataURL("image/png");
-						this.displayImage(imgData);
-					}
-					catch(e){
-						this.message();
-					}
+					this.fallback(canvas);
 				}
 			}
 			else{
@@ -63,11 +89,8 @@ define(['phasercomponents', 'app/views/popups/growl', 'filesaver',
 			}
 		};
 
-		FileDownloader.prototype.message = function(s){
-			if(!s){
-				s = "Sorry, saving images does not seem\nto be supported on your browser.";
-			}
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":s, "sfx":Assets.SOUNDS[2]}, null);
+		FileDownloader.prototype.message = function(){
+			Error.show(ErrorCodes.IMAGE_DOWNLOAD_ERROR);
 		};
 
 		return FileDownloader;
