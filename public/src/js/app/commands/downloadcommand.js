@@ -1,33 +1,28 @@
 define(
 
-	['phasercomponents', 'app/events/events', 'html2canvas'],
+	['phasercomponents', 'app/utils/filedownloader',
 
-	function(PhaserComponents, Events, html2canvas) {
+	'app/views/popups/growl', 'app/assets'],
+
+	function(PhaserComponents, FileDownloader,
+
+	Growl, Assets) {
 	
 	"use strict";
 
 	var DownloadCommand = function(){
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
-	
+
 	PhaserComponents.Utils.extends(DownloadCommand, PhaserComponents.Commands.AbstractCommand);
-
-	DownloadCommand.prototype.onRendered = function(canvas){
-		var img = canvas.toDataURL("image/png");
-		this.eventDispatcher.trigger({"type":Events.IMG_CAPTURED, "data":img});
-	};
-
-	DownloadCommand.prototype.toCanvas = function(){
-		var options = {"onrendered" : this.onRendered.bind(this)};
-		html2canvas(document.body, options);
-	};
 
 	DownloadCommand.prototype.execute = function(){
 		if(PhaserComponents.Utils.isTouch()){
-			this.eventDispatcher.trigger({"type":Events.SHOW_TOUCH_IMG});
+			//this.eventDispatcher.trigger({"type":Events.SHOW_TOUCH_IMG});
+			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":"Use your device to take a screenshot\nand save it to your camera roll.\nIf you're not sure how, ask your teacher.", "sfx":Assets.SOUNDS[2]}, null);
 		}
 		else{
-			this.toCanvas();
+			new FileDownloader().download();
 		}
 	};
 	

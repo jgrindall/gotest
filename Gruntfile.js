@@ -66,13 +66,23 @@ module.exports = function(grunt) {
                     removeCombined: true,
                     include: ['main'],
                     findNestedDependencies: true,
+                    optimize: "uglify",
                     paths: {
-                        html2canvas:                   'lib/html2canvas',
                         jquery:                        'lib/zepto',
+                        html2canvas:                   'lib/html2canvas',
                         phaser: 			           'lib/phaser',
                         phaserstatetrans: 	           'lib/phaser-state-transition.min',
-                        phasercomponents:              'lib/phasercomponents'
+                        phasercomponents:              'lib/phasercomponents',
+                        filesaver:                     'lib/filesaver',
+                        canvastoblob:                  'lib/canvastoblob'
                     }
+                }
+            },
+            css: {
+                options: {
+                    optimizeCss: 'standard',
+                    cssIn: 'public/src/assets/css/main.css',
+                    out: 'public/build/assets/css/main.css'
                 }
             }
         },
@@ -94,7 +104,7 @@ module.exports = function(grunt) {
             main: {
                 expand:true,
                 cwd: 'public/src/', 
-                src: ['assets/**/*.png','assets/**/*.jpg','assets/**/*.css','assets/**/*.mp3','assets/**/*.ttf','assets/**/*.json'],
+                src: ['assets/**/*.png','assets/**/*.jpg','assets/**/*.mp3','assets/**/*.ttf','assets/**/*.json'],
                 dest: 'public/build/'
             }
         }

@@ -72,6 +72,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
         PhaserComponents.Injector.getInstance().map("nameview",			["game", "eventDispatcher"],            [game, eventDispatcher]);
         PhaserComponents.Injector.getInstance().map("imgview",			["game", "eventDispatcher"],            [game, eventDispatcher]);
         PhaserComponents.Injector.getInstance().map("showmanager",		["game", "eventDispatcher"],            [game, eventDispatcher]);
+        PhaserComponents.Injector.getInstance().map("filedownloader",	["eventDispatcher"],            		[eventDispatcher]);
     };
 
 	AppContext.prototype.startActivity = function(){

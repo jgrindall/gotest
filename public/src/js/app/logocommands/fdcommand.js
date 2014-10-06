@@ -1,8 +1,6 @@
 
 define(
 
-	'app/logocommands/fdcommand',
-
 	['app/logocommands/abstractlogocommand',
 
 	'app/logocommands/commandtypes', 'phasercomponents'],

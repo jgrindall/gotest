@@ -29,6 +29,7 @@ Events, ToolTipManager, MainView, IPad){
 	};
 
 	ActivityScene.prototype.onImgCaptured = function(event, obj){
+		console.log("addImg");
 		this.mainView.addImg(obj.data);
 	};
 
@@ -66,7 +67,7 @@ Events, ToolTipManager, MainView, IPad){
 			this.removeIPad();
 		}
 	};
-	
+
 	ActivityScene.prototype.showIPad = function() {
 		if(!this.ipad){
 			this.ipad = new IPad({"bounds":this.bounds});

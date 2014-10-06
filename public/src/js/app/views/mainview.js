@@ -52,6 +52,7 @@ Assets, ShowManager, ShowDirections){
 	
 	MainView.prototype.addImg = function(data) {
 		this.imgView = new ImgView(data);
+		console.log("add img "+data);
     	$("body").append(this.imgView.el);
 	};
 

@@ -1,6 +1,10 @@
 define([], function(){
   
 
+
+try{
+
+
 /*
   html2canvas 0.4.1 <http://html2canvas.hertzen.com>
   Copyright (c) 2013 Niklas von Hertzen
@@ -2869,6 +2873,13 @@ _html2canvas.Renderer.Canvas = function(options) {
   };
 };
 })(window,document);
+
+}
+
+catch(e){
+  return null;
+}
+
 
 return window.html2canvas;
 
