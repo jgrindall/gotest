@@ -15,26 +15,25 @@ CommandTypes, PhaserComponents
 	
 	var NSEWCommandsPanel  = function(options){
 		AbstractExecuteCommandsPanel.call(this, options);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.KEY_UP, this.onKeyUp.bind(this));
 	};
-	
-	NSEWCommandsPanel.KEY_MAP = [null, 38, null, 37, null, 39, null, 40, null];
 
 	PhaserComponents.Utils.extends(NSEWCommandsPanel, AbstractExecuteCommandsPanel);
 
 	NSEWCommandsPanel.prototype.onKeyUp = function(event, obj) {
 		var i, code;
 		code = obj.data.keyCode;
-		for(i = 0; i < NSEWCommandsPanel.KEY_MAP.length; i++){
-			if(NSEWCommandsPanel.KEY_MAP[i] === code){
-				this.selectComm({"index":i});
-				break;
-			}
+		if(code === 37 || code === 100){
+			this.selectComm({"index":3});
 		}
-	};
-
-	NSEWCommandsPanel.prototype.addKeys = function() {
-		
+		else if(code === 38 || code === 104){
+			this.selectComm({"index":1});
+		}
+		else if(code === 39 || code === 102){
+			this.selectComm({"index":5});
+		}
+		else if(code === 40 || code === 98){
+			this.selectComm({"index":7});
+		}
 	};
 	
 	NSEWCommandsPanel.prototype.getGridData = function() {
@@ -47,7 +46,6 @@ CommandTypes, PhaserComponents
 	};
 	
 	NSEWCommandsPanel.prototype.destroy = function() {
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.KEY_UP);
 		AbstractExecuteCommandsPanel.prototype.destroy.call(this);
 	};
 	

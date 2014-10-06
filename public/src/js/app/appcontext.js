@@ -86,7 +86,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     };
  	
     AppContext.prototype.setupKeys = function(){
-    	PhaserComponents.KeyManager.getInstance().add(this.options.containerTagId, [37, 38, 39, 40]);
+    	PhaserComponents.KeyManager.getInstance().add(this.options.containerTagId, [37, 38, 39, 40, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105]);
         PhaserComponents.KeyManager.getInstance().startListening();    
     };
 

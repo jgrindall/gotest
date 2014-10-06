@@ -17,15 +17,27 @@ MarkerFactory, ModelFacade){
 	
 	var AbstractExecuteCommandsPanel  = function(options){
 		AbstractCommandsPanel.call(this, options);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.KEY_UP, this.onKeyUp.bind(this));
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onCommReset, this);
+		this.commTime = new Date().getTime();
 		this.init();
 	};
 	
 	PhaserComponents.Utils.extends(AbstractExecuteCommandsPanel, AbstractCommandsPanel);
 	
 	AbstractExecuteCommandsPanel.GRID_SIZE = 175;
+	AbstractExecuteCommandsPanel.KEY_TIME = 2500;
+	
+	AbstractExecuteCommandsPanel.prototype.onKeyUp = function() {
+		
+	};
 
 	AbstractExecuteCommandsPanel.prototype.init = function() {
 		
+	};
+
+	AbstractExecuteCommandsPanel.prototype.onCommReset = function() {
+		this.setSelectedCommand(4);
 	};
 
 	AbstractExecuteCommandsPanel.prototype.disableInput = function() {
@@ -38,7 +50,13 @@ MarkerFactory, ModelFacade){
 		return ModelFacade.getInstance().get(ModelFacade.SELECTED_COMM).get();
 	};
 
+	AbstractExecuteCommandsPanel.prototype.recentComm = function() {
+		var d = new Date().getTime();
+		return (d - this.commTime < AbstractExecuteCommandsPanel.KEY_TIME);
+	};
+
 	AbstractExecuteCommandsPanel.prototype.setSelectedCommand = function(i) {
+		this.commTime = new Date().getTime();
 		ModelFacade.getInstance().get(ModelFacade.SELECTED_COMM).set(i);
 	};
 	
@@ -77,6 +95,8 @@ MarkerFactory, ModelFacade){
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.destroy = function() {
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.KEY_UP);
+		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.remove(this.onCommReset, this);
 		if(this.grid){
 			this.grid.clickSignal.remove(this.selectComm, this);
 			this.grid.destroy();

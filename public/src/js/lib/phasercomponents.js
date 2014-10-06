@@ -468,6 +468,7 @@ define('phasercomponents/utils/keymanager',
 	
 	KeyManager.prototype.keyDown = function(event){
 		var code = event.keyCode, obj;
+		console.log("code "+code);
 		if(this.codes && this.codes.indexOf(code) >= 0){
 			event.stopPropagation();
 			event.preventDefault();

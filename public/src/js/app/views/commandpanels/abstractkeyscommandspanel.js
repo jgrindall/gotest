@@ -12,10 +12,10 @@ function(KeyButton,
 PhaserComponents, AbstractExecuteCommandsPanel
 
 ){
-	
 	"use strict";
 	
 	var AbstractKeysCommandsPanel  = function(options){
+		this.keyTime = new Date().getTime();
 		AbstractExecuteCommandsPanel.call(this, options);
 	};
 	
@@ -36,6 +36,10 @@ PhaserComponents, AbstractExecuteCommandsPanel
 		return [{'num':0}, {'num':1}, {'num':2}, {'num':3}, {'num':4}, {'num':5}, {'num':6}, {'num':7}, {'num':8}];
 	};
 	
+	AbstractKeysCommandsPanel.prototype.selectKey = function(data){
+		this.keyTime = new Date().getTime();
+	};
+
 	AbstractKeysCommandsPanel.prototype.addKeys = function() {
 		var options, bounds, w, h, data;
 		data = this.getKeyData();
@@ -55,8 +59,12 @@ PhaserComponents, AbstractExecuteCommandsPanel
 		}
 	};
 	
+	AbstractKeysCommandsPanel.prototype.commSelected = function() {
+		return (this.getSelectedCommand() !== null && this.getSelectedCommand() !== 4);
+	};
+
 	AbstractKeysCommandsPanel.prototype.enableKeys = function() {
-		if(this.keys && this.getSelectedCommand() !== null && this.getSelectedCommand() !== 4){
+		if(this.keys && this.commSelected()){
 			this.keys.enableInput();
 			this.keys.alpha = 1;
 		}
