@@ -8,7 +8,6 @@ require.config({
 		'phaserstatetrans': 			'lib/phaser-state-transition.min',
 		'phasercomponents':  			'lib/phasercomponents',
 		'filesaver':  					'lib/filesaver',
-		'canvastoblob':  				'lib/canvastoblob'
 	}
 });
 

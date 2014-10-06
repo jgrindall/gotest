@@ -45,7 +45,7 @@ module.exports = function(grunt) {
                 nonbsp:true,
                 undef:true,
                 unused:true,
-                maxdepth:3,
+                maxdepth:4,
                 globals: {
                     require:true,
                     define:true,
@@ -73,8 +73,7 @@ module.exports = function(grunt) {
                         phaser: 			           'lib/phaser',
                         phaserstatetrans: 	           'lib/phaser-state-transition.min',
                         phasercomponents:              'lib/phasercomponents',
-                        filesaver:                     'lib/filesaver',
-                        canvastoblob:                  'lib/canvastoblob'
+                        filesaver:                     'lib/filesaver'
                     }
                 }
             },

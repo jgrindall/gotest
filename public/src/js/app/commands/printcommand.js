@@ -1,8 +1,8 @@
 define(
 
-	['phasercomponents', 'app/utils/errorcodes'],
+	['phasercomponents', 'app/utils/errorcodes', 'app/utils/error'],
 
-function(PhaserComponents, ErrorCodes) {
+function(PhaserComponents, ErrorCodes, Error) {
 	
 	"use strict";
 
