@@ -1142,7 +1142,7 @@ define('phasercomponents/display/interactivesprite',
 	InteractiveSprite.prototype.enableInput = function(){
 		if(!this.sprite.inputEnabled){
 			this.sprite.inputEnabled = true;
-			this.game.input.useHandCursor = true;
+			this.sprite.input.useHandCursor = true;
 			this.addListeners();
 		}
 	};
@@ -1632,7 +1632,7 @@ ButtonGridModel, Utils){
 				pos = {"x":this.bounds.x + this.spaceX * (j - 1), "y":this.bounds.y + this.spaceY * (i - 1)};
 				pos.x += this.marginX;
 				pos.y += this.marginY;
-				options = {"bounds":pos, "index":n, "data":this.options.data[n], "frames":[0, 1, 2, 3]};
+				options = {"bounds":pos, "index":n, "data":this.options.data[n], "frames":[0, 1, 2, 3], "sfx":this.options.sfx};
 				b = new ClassRef(options);
 				b.mouseUpSignal.add(this.buttonUp, this);
 				this.buttonGroup.add(b.view);
@@ -1828,6 +1828,7 @@ InteractiveSprite, Utils, AppEvents){
 	
 	Slider.prototype.enableInput = function() {
 		this.handle.enableInput();
+		this.handle.sprite.input.useHandCursor = true;
 		this.addListeners();
 	};	
 	
@@ -2390,7 +2391,6 @@ function(MovieClip, Utils, AppEvents, StepperModel){
 		this.mouseUpSignal.add(this.onStep, this);
 		this.model.changeSignal.add(this.onChanged, this);
 		this.enableInput();
-		this.view.input.useHandCursor = true;
 	};
 
 	Utils.extends(StepperButton, MovieClip);
@@ -2623,6 +2623,7 @@ Container, Utils){
 		this.buttons = [];
 		this.selectSignal = new Phaser.Signal();
 		Container.call(this, options);
+		this.group.y = this.game.h + 50;
 	};
 	
 	Utils.extends(AbstractPopup, Container);

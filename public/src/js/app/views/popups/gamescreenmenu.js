@@ -1,11 +1,11 @@
 
 define(['phasercomponents','app/views/screenchoice', 'app/views/buttons/radiobutton',
 
-'app/views/buttons/okbutton', 'app/views/buttons/closebutton', 'app/models/modelfacade'],
+'app/views/buttons/okbutton', 'app/views/buttons/closebutton', 'app/models/modelfacade', 'app/assets'],
 
 function(PhaserComponents, ScreenChoice, RadioButton,
 
-OkButton, CloseButton, ModelFacade){
+OkButton, CloseButton, ModelFacade, Assets){
 	
 	"use strict";
 		
@@ -70,7 +70,7 @@ OkButton, CloseButton, ModelFacade){
 		h = PhaserComponents.Display.RadioButtons.HEIGHT;
 		labels = ["45 degrees", "90 degrees"];
 		bounds = {'x':this.bounds.x + this.bounds.w - w - 13, 'y':this.bounds.y + this.bounds.h - 178, 'w':w, 'h':h};
-		this.radio = new PhaserComponents.Display.RadioButtons({"labels":labels, "fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
+		this.radio = new PhaserComponents.Display.RadioButtons({"sfx":Assets.SOUNDS[1], "labels":labels, "fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 		this.initRadio();
 	};

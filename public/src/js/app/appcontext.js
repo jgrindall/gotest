@@ -97,8 +97,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     AppContext.prototype.addStorage = function(){
     	var adapter = new PurpleMashAdapter();
 		if(Math.random() < 0.5){
-			//console.log("using PM");
-			//this.storage.setAdapter(adapter);
+			console.log("using PM");
+			this.storage.setAdapter(adapter);
 		}
     };
 
