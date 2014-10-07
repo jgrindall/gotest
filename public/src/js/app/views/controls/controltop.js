@@ -21,7 +21,8 @@ Assets, SpeedMarkers){
 	
 	var ControlTop  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
+		this.alertHandler = this.onAlert.bind(this);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.alertHandler);
 	};
 	
 	PhaserComponents.Utils.extends(ControlTop, PhaserComponents.Display.Container);
@@ -156,7 +157,7 @@ Assets, SpeedMarkers){
 	};
 
 	ControlTop.prototype.destroy = function() {
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.alertHandler);
 		this.removeMenu();
 		this.removeSpeedSlider();
 		this.removeSpeedMarkers();

@@ -21,7 +21,8 @@ Assets){
 	
 	var ControlsPens  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
+		this.alertHandler = this.onAlert.bind(this);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.alertHandler);
 	};
 
 	ControlsPens.WIDTH = 320;
@@ -112,7 +113,7 @@ Assets){
 	};
 
 	ControlsPens.prototype.destroy = function() {
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.alertHandler);
 		this.removeColorPicker();
 		this.removeWidthPicker();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);

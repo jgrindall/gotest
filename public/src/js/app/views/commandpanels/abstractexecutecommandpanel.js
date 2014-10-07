@@ -17,7 +17,8 @@ MarkerFactory, ModelFacade){
 	
 	var AbstractExecuteCommandsPanel  = function(options){
 		AbstractCommandsPanel.call(this, options);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.KEY_UP, this.onKeyUp.bind(this));
+		this.keyHandler = this.onKeyUp.bind(this);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.KEY_UP, this.keyHandler);
 		this.modelFacade.get(ModelFacade.COMMTICKER).resetSignal.add(this.onCommReset, this);
 		this.commTime = new Date().getTime();
 		this.init();
@@ -96,7 +97,8 @@ MarkerFactory, ModelFacade){
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.destroy = function() {
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.KEY_UP);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.KEY_UP, this.keyHandler);
+		this.keyHandler = null;
 		this.modelFacade.get(ModelFacade.COMMTICKER).resetSignal.remove(this.onCommReset, this);
 		if(this.grid){
 			this.grid.clickSignal.remove(this.selectComm, this);

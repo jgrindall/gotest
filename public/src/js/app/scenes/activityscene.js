@@ -18,10 +18,17 @@ Events, ToolTipManager, MainView, IPad){
 	ActivityScene.prototype.create = function() {
 		this.addMain();
 		this.startScene();
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.onResize.bind(this));
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ORIENT, this.onOrient.bind(this));
-		this.eventDispatcher.addListener(Events.IMG_CAPTURED, this.onImgCaptured.bind(this));
+		this.addListeners();
 		this.checkDevice();
+	};
+
+	ActivityScene.prototype.addListeners = function(){
+		this.resizeHandler = this.onResize.bind(this);
+		this.orientHandler = this.onOrient.bind(this);
+		this.imgHandler = this.onImgCaptured.bind(this);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.resizeHandler);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ORIENT, this.orientHandler);
+		this.eventDispatcher.addListener(Events.IMG_CAPTURED, this.imgHandler);
 	};
 
 	ActivityScene.prototype.startScene = function(){
@@ -91,9 +98,12 @@ Events, ToolTipManager, MainView, IPad){
 
 	ActivityScene.prototype.destroy = function() {
 		clearTimeout(this.toolTipTimeout);
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE);
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ORIENT);
-		this.eventDispatcher.removeListener(Events.IMG_CAPTURED);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE, this.resizeHandler);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ORIENT, this.orientHandler);
+		this.eventDispatcher.removeListener(Events.IMG_CAPTURED, this.imgHandler);
+		this.resizeHandler = null;
+		this.orientHandler = null;
+		this.imgHandler = null;
 		this.removeMain();
 		this.removeIPad();
 	};

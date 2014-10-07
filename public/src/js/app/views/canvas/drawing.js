@@ -36,7 +36,8 @@ FdCommand, StepLengths, Assets){
 		this.modelFacade.get(ModelFacade.STARTPOS).changeSignal.add(this.onChangeStartPos, this);
 		this.modelFacade.get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.add(this.onChangeScreen, this);
-		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, this.onRotateTurtle.bind(this));
+		this.rotateHandler = this.onRotateTurtle.bind(this);
+		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, this.rotateHandler);
 		this.onReset();
 	};
 
@@ -214,7 +215,7 @@ FdCommand, StepLengths, Assets){
 	};
 	
 	Drawing.prototype.destroy = function() {
-		this.eventDispatcher.removeListener(Events.ROTATE_TURTLE);
+		this.eventDispatcher.removeListener(Events.ROTATE_TURTLE, this.rotateHandler);
 		this.modelFacade.get(ModelFacade.COMMTICKER).executeSignal.remove(this.commandExecute, this);
 		this.modelFacade.get(ModelFacade.COMMTICKER).resetSignal.remove(this.onReset, this);
 		this.modelFacade.get(ModelFacade.STARTPOS).changeSignal.remove(this.onChangeStartPos, this);
@@ -228,6 +229,9 @@ FdCommand, StepLengths, Assets){
 		this.paths.destroy();
 		this.turtle.destroy();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
+		this.rotateHandler = null;
+		this.paths = null;
+		this.turtle = null;
 	};
 	
 	return Drawing;

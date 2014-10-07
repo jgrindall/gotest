@@ -25,7 +25,8 @@ Events){
 	
 	var ControlsKeys  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
+		this.alertHandler = this.onAlert.bind(this);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.alertHandler);
 		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
 		this.modelFacade.get(ModelFacade.PROG_TYPE).changeSignal.add(this.onScreenChanged, this);
 		this.modelFacade.get(ModelFacade.ALLOW_PROG).changeSignal.add(this.onProgAllowedChanged, this);
@@ -150,7 +151,8 @@ Events){
 	};
 
 	ControlsKeys.prototype.destroy = function() {
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.alertHandler);
+		this.alertHandler = null;
 		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
 		this.modelFacade.get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);
 		this.modelFacade.get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);

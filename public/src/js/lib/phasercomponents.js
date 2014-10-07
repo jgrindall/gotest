@@ -694,8 +694,9 @@ function($, Phaser, Injector, AppEvents){
 	
 	AlertManager.prototype.init = function(){
 		this.inject();
-		this.eventDispatcher.addListener(AppEvents.RESIZE, this.close.bind(this));
-		this.eventDispatcher.addListener(AppEvents.ORIENT, this.close.bind(this));
+		this.closeHandler = this.close.bind(this);
+		this.eventDispatcher.addListener(AppEvents.RESIZE, this.closeHandler);
+		this.eventDispatcher.addListener(AppEvents.ORIENT, this.closeHandler);
 	};
 
 	AlertManager.prototype.inject = function(){
@@ -763,8 +764,9 @@ function($, Phaser, Injector, AppEvents){
 
 	AlertManager.prototype.destroy = function(){
 		this.close();
-		this.eventDispatcher.removeListener(AppEvents.RESIZE);
-		this.eventDispatcher.removeListener(AppEvents.ORIENT);
+		this.eventDispatcher.removeListener(AppEvents.RESIZE, this.closeHandler);
+		this.eventDispatcher.removeListener(AppEvents.ORIENT, this.closeHandler);
+		this.closeHandler = null;
 		Injector.getInstance().unInject(this);
 	};
 
@@ -957,7 +959,8 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
         this.orientHandler = Utils.debounce(this.onOrient.bind(this), 500);
         $(window).on("orientationchange", this.orientHandler);
         document.addEventListener('focusout', this.scrollTop.bind(this));
-        this.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
+        this.sceneHandler = this.onChangeScene.bind(this);
+        this.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.sceneHandler);
         this.scrollTop();
     };
 
@@ -1027,7 +1030,8 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
 	};
 	
      Context.prototype.shutdown = function(){
-        this.eventDispatcher.removeListener(AppEvents.CHANGE_SCENE);
+        this.eventDispatcher.removeListener(AppEvents.CHANGE_SCENE, this.sceneHandler);
+        this.sceneHandler = null;
         this.eventDispatcher.trigger({"type":AppEvents.PRE_SHUTDOWN});
         this.removeListeners();
         this.commandMap.destroy();

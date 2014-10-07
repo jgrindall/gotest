@@ -32,9 +32,10 @@ Assets, ShowDirections){
 
 	MainView.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.closeImg.bind(this));
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.closeImg.bind(this));
-		this.eventDispatcher.addListener(Events.CLOSE_IMG, this.closeImg.bind(this));
+		this.closeHandler = this.closeImg.bind(this);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.closeHandler);
+		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ORIENT, this.closeHandler);
+		this.eventDispatcher.addListener(Events.CLOSE_IMG, this.closeHandler);
 		this.addBg();
 		this.addTop();
 		this.addCanvas();
@@ -199,9 +200,10 @@ Assets, ShowDirections){
 	};
 
 	MainView.prototype.destroy = function() {
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE);
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE);
-		this.eventDispatcher.removeListener(Events.CLOSE_IMG);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE, this.closeHandler);
+		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ORIENT, this.closeHandler);
+		this.eventDispatcher.removeListener(Events.CLOSE_IMG, this.closeHandler);
+		this.closeHandler = null;
 		this.closeImg();
 		this.removeMenu();
 		this.removeTop();
