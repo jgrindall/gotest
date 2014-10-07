@@ -97,8 +97,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     AppContext.prototype.addStorage = function(){
     	var adapter = new PurpleMashAdapter();
 		if(Math.random() < 0.5){
-			console.log("using PM");
-			this.storage.setAdapter(adapter);
+			//console.log("using PM");
+			//this.storage.setAdapter(adapter);
 		}
     };
 
@@ -138,8 +138,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     };
 	
 	AppContext.prototype.preload = function(){
-		this.gameManager.game.load.image(Assets.BG, 'assets/images/bg/bg.png');
-		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/loader/bar.png', 350, 30);
+		this.gameManager.game.load.image(Assets.BG, 'assets/images/bg/stressed_linen.png');
+		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/loader/bar.png', 425, 40);
 	};
 	
 	return AppContext;

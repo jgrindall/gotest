@@ -14,7 +14,7 @@ define(['app/views/popups/growl', 'app/assets'],
 		Message.LOAD_SUCCESS = "Your file has been loaded!";
 
 		Message.show = function(alertManager, s){
-			alertManager.getInstance().make(Growl, {"title":"Message", "label":s, "sfx":Assets.SOUNDS[2]}, null);
+			alertManager.make(Growl, {"title":"Message", "label":s, "sfx":Assets.SOUNDS[2]}, null);
 		};
 		
 		

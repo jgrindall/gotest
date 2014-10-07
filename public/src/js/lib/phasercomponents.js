@@ -1014,8 +1014,8 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
         this.soundManager = new SoundManager();
         this.storage = new Storage();
         this.addListeners();
-        this.inject();
-		this.mapCommands();
+		this.inject();
+        this.mapCommands();
     	this.mapScenes();
     	this.addSounds();
         this.addStorage();
@@ -2390,6 +2390,7 @@ function(MovieClip, Utils, AppEvents, StepperModel){
 		this.mouseUpSignal.add(this.onStep, this);
 		this.model.changeSignal.add(this.onChanged, this);
 		this.enableInput();
+		this.view.input.useHandCursor = true;
 	};
 
 	Utils.extends(StepperButton, MovieClip);

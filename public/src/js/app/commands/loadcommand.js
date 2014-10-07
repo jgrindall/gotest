@@ -20,13 +20,18 @@ function(PhaserComponents, Events,
 	
 	LoadCommand.prototype.onLoaded = function(data){
 		if(data.success){
-			try{
-				this.modelFacade.setData(data.response);
-				this.eventDispatcher.trigger({"type":Events.REPLAY});
-				Message.show(this.alertManager, Message.LOAD_SUCCESS);
+			if(data.response){
+				try{
+					this.modelFacade.setData(data.response);
+					this.eventDispatcher.trigger({"type":Events.REPLAY});
+					Message.show(this.alertManager, Message.LOAD_SUCCESS);
+				}
+				catch(e){
+					Error.show(this.alertManager, ErrorCodes.FORMAT_ERROR);
+				}
 			}
-			catch(e){
-				Error.show(this.alertManager, ErrorCodes.FORMAT_ERROR);
+			else{
+				Error.show(this.alertManager, ErrorCodes.FILE_NOT_FOUND);
 			}
 		}
 		else{

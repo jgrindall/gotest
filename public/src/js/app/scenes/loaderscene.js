@@ -42,7 +42,7 @@ function(PhaserComponents, Assets,
 		x = this.game.cx - LoaderBar.WIDTH/2;
 		y = this.game.cy - 20;
 		bounds = {"x":x, "y":y};
-		this.loaderBar = new LoaderBar({'bounds':bounds, 'asset':Assets.LOADER_BAR, 'numFrames':8});
+		this.loaderBar = new LoaderBar({'bounds':bounds, 'asset':Assets.LOADER_BAR, 'numFrames':21});
 		this.world.add(this.loaderBar.view);
 	};
 	
