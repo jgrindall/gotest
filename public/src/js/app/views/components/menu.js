@@ -16,7 +16,7 @@ PhaserComponents, ModelFacade, PlayingState){
 		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}, {'num':4}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
 	};
 	

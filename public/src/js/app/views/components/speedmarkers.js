@@ -7,7 +7,7 @@ function(PhaserComponents, ModelFacade, CommSpeed){
 	
 	var SpeedMarkers  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		ModelFacade.getInstance().get(ModelFacade.SPEED).changeSignal.add(this.speedChanged, this);
+		this.modelFacade.get(ModelFacade.SPEED).changeSignal.add(this.speedChanged, this);
 		this.clickSignal = new Phaser.Signal();
 	};
 
@@ -62,7 +62,7 @@ function(PhaserComponents, ModelFacade, CommSpeed){
 
 	SpeedMarkers.prototype.destroy = function(){
 		this.disableInput();
-		ModelFacade.getInstance().get(ModelFacade.SPEED).changeSignal.remove(this.speedChanged, this);
+		this.modelFacade.get(ModelFacade.SPEED).changeSignal.remove(this.speedChanged, this);
 		this.group.remove(this.decor0);
 		this.group.remove(this.decor1);
 		this.decor0 = null;

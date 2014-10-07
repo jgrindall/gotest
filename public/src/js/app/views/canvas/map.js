@@ -10,14 +10,14 @@ PhaserComponents, Assets){
 	"use strict";
 	
 	var Map  = function(options){
-		ModelFacade.getInstance().get(ModelFacade.BG).changeSignal.add(this.updateImage, this);
 		PhaserComponents.Display.Container.call(this, options);
+		this.modelFacade.get(ModelFacade.BG).changeSignal.add(this.updateImage, this);
 	};
 	
 	PhaserComponents.Utils.extends(Map, PhaserComponents.Display.Container);
 	
 	Map.prototype.updateImage = function() {
-		var bg = ModelFacade.getInstance().get(ModelFacade.BG).get();
+		var bg = this.modelFacade.get(ModelFacade.BG).get();
 		this.removeSprite();
 		if(bg !== null){
 			this.bg = new Phaser.Image(this.game, this.bounds.x, this.bounds.y, Assets.MAPS[bg]);
@@ -40,7 +40,7 @@ PhaserComponents, Assets){
 	};
 
 	Map.prototype.destroy = function() {
-		ModelFacade.getInstance().get(ModelFacade.BG).changeSignal.remove(this.updateImage, this);
+		this.modelFacade.get(ModelFacade.BG).changeSignal.remove(this.updateImage, this);
 		this.removeSprite();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};

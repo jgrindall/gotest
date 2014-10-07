@@ -45,10 +45,11 @@ CommandTypes, PhaserComponents, Events
 			else if(code >= 97 && code <= 105){
 				if(this.recentComm()){
 					this.selectKey({"index":code - 97});
+					this.onCommReset();
 				}
 				else{
 					i = (code - 97);
-					this.selectComm({"index":[6, 7, 8, 3, 4, 5, 0, 1, 2][i]});	
+					this.selectComm({"index":[6, 7, 8, 3, 4, 5, 0, 1, 2][i]});
 				}
 			}
 		}

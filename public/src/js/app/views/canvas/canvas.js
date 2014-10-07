@@ -44,8 +44,8 @@ Grid, Corners, Assets){
 
 	Canvas.prototype.addGrid = function() {
 		var sizeModel, visModel;
-		visModel = ModelFacade.getInstance().get(ModelFacade.GRID);
-		sizeModel = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH);
+		visModel = this.modelFacade.get(ModelFacade.GRID);
+		sizeModel = this.modelFacade.get(ModelFacade.STEPLENGTH);
 		this.grid = new Grid({'bounds':this.bounds, 'sizeModel':sizeModel, 'visModel':visModel});
 		this.group.add(this.grid.view);
 	};

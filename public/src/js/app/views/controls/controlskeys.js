@@ -3,7 +3,7 @@ define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
 
 'app/models/modelfacade', 'app/consts/controlslayout',
 
-'app/views/showmanager', 'app/consts/showdirections',
+'app/consts/showdirections',
 
 'app/views/commandpanels/commandspanelfactory', 'app/views/buttons/controlbarbutton',
 
@@ -15,7 +15,7 @@ function(PhaserComponents, AbstractCommandsPanel,
 
 ModelFacade, ControlsLayout,
 
-ShowManager, ShowDirections,
+ShowDirections,
 
 CommandsPanelFactory, ControlBarButton,
 
@@ -26,9 +26,9 @@ Events){
 	var ControlsKeys  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
-		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.add(this.onScreenChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.add(this.onProgAllowedChanged, this);
+		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.add(this.onScreenChanged, this);
+		this.modelFacade.get(ModelFacade.PROG_TYPE).changeSignal.add(this.onScreenChanged, this);
+		this.modelFacade.get(ModelFacade.ALLOW_PROG).changeSignal.add(this.onProgAllowedChanged, this);
 	};
 
 	ControlsKeys.WIDTH = 320;
@@ -49,7 +49,7 @@ Events){
 
 	ControlsKeys.prototype.positionPanel = function() {
 		var x, y;
-		x = 0;
+		x = 16;
 		y = 50 + (this.game.h - 200 - AbstractCommandsPanel.HEIGHT)/2;
 		y = Math.max(y, 50);
 		this.commandsPanel.view.x = x;
@@ -102,15 +102,15 @@ Events){
 
 	ControlsKeys.prototype.addControlBar = function() {
 		var options, bounds, model;
-		model = ModelFacade.getInstance().get(ModelFacade.PROG_TYPE);
+		model = this.modelFacade.get(ModelFacade.PROG_TYPE);
 		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':50};
 		options = {"model":model,"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
 		this.controlBar = new PhaserComponents.Display.TabButtonBar(options);
 		this.controlBar.clickSignal.add(this.barClick, this);
 		this.group.add(this.controlBar.view);
-		this.controlBar.view.visible = (ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).get() === 1);
+		this.controlBar.view.visible = (this.modelFacade.get(ModelFacade.ALLOW_PROG).get() === 1);
 		this.positionControlBar();
-		ShowManager.getInstance().add(this.controlBar.view, 3, ShowDirections.UP);
+		this.showManager.add(this.controlBar.view, 3, ShowDirections.UP);
 	};
 
 	ControlsKeys.prototype.barClick = function(data) {
@@ -129,14 +129,14 @@ Events){
 	ControlsKeys.prototype.addCommandsPanel = function() {
 		var bounds, type, prog;
 		this.removeCommandsPanel();
-		type = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
-		prog = ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).get();
+		type = this.modelFacade.get(ModelFacade.SCREEN).get();
+		prog = this.modelFacade.get(ModelFacade.PROG_TYPE).get();
 		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':this.bounds.h - 50};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
 			this.group.add(this.commandsPanel.view);
 			this.positionPanel();
-			ShowManager.getInstance().add(this.commandsPanel.view, 3, ShowDirections.LEFT, "commandsPanel");
+			this.showManager.add(this.commandsPanel.view, 3, ShowDirections.LEFT, "commandsPanel");
 		}
 	};
 
@@ -151,9 +151,9 @@ Events){
 
 	ControlsKeys.prototype.destroy = function() {
 		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN);
-		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
+		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.remove(this.onScreenChanged, this);
+		this.modelFacade.get(ModelFacade.PROG_TYPE).changeSignal.remove(this.onScreenChanged, this);
+		this.modelFacade.get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.onProgAllowedChanged, this);
 		this.removeControlBar();
 		this.removeCommandsPanel();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);

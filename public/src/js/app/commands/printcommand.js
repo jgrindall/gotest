@@ -13,7 +13,7 @@ function(PhaserComponents, ErrorCodes, Error) {
 	PhaserComponents.Utils.extends(PrintCommand, PhaserComponents.Commands.AbstractCommand);
 
 	PrintCommand.prototype.execute = function(){
-		Error.show(ErrorCodes.NO_PRINTERS);
+		Error.show(this.alertManager, ErrorCodes.NO_PRINTERS);
 	};
 	
   	return PrintCommand;

@@ -1,10 +1,10 @@
-define(['app/consts/defaults', 'app/models/modelfacade',
+define(['app/consts/defaults',
 
 	'phasercomponents', 'app/events/events',
 
 	'app/utils/error', 'app/utils/errorcodes'],
 
-function(Defaults, ModelFacade,
+function(Defaults,
 
 	PhaserComponents, Events,
 
@@ -22,19 +22,19 @@ function(Defaults, ModelFacade,
 		console.log("onDefaultsLoaded "+JSON.stringify(data));
 		if(data.success){
 			if(data.response){
-				ModelFacade.getInstance().setData(data.response);
+				this.modelFacade.setData(data.response);
 				this.eventDispatcher.trigger({"type":Events.REPLAY});
 			}
 		}
 		else{
-			Error.show(ErrorCodes.LOAD_DEFAULTS_ERROR);
+			Error.show(this.alertManager, ErrorCodes.LOAD_DEFAULTS_ERROR);
 		}
 	};
 
 	StartUpCommand.prototype.execute = function(){
-		ModelFacade.getInstance().setData(Defaults.DEFAULT_JSON);
+		this.modelFacade.setData(Defaults.DEFAULT_JSON);
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
-		PhaserComponents.Storage.Storage.getInstance().loadDefaults(this.onDefaultsLoaded.bind(this));
+		this.storage.loadDefaults(this.onDefaultsLoaded.bind(this));
 	};
 	
   	return StartUpCommand;

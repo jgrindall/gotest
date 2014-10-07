@@ -20,13 +20,13 @@ function(
 
 	AddCommandCommand.prototype.execute = function(data){
 		var command;
-		data.color = ModelFacade.getInstance().get(ModelFacade.COLOR).get();
-		data.width = ModelFacade.getInstance().get(ModelFacade.WIDTH).get();
-		data.diag = ModelFacade.getInstance().get(ModelFacade.DIAG).get();
-		data.angle = ModelFacade.getInstance().get(ModelFacade.ANGLE).get();
-		data.stepLength = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).get();
+		data.color = this.modelFacade.get(ModelFacade.COLOR).get();
+		data.width = this.modelFacade.get(ModelFacade.WIDTH).get();
+		data.diag = this.modelFacade.get(ModelFacade.DIAG).get();
+		data.angle = this.modelFacade.get(ModelFacade.ANGLE).get();
+		data.stepLength = this.modelFacade.get(ModelFacade.STEPLENGTH).get();
 		command = LogoCommandFactory.fromJson(data);
-		ModelFacade.getInstance().get(ModelFacade.COMM).add(command);
+		this.modelFacade.get(ModelFacade.COMM).add(command);
 		this.eventDispatcher.trigger({"type":Events.DRAW});
 	};
 	

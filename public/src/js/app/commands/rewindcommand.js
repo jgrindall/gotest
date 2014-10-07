@@ -13,9 +13,9 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 	PhaserComponents.Utils.extends(RewindCommand, PhaserComponents.Commands.AbstractCommand);
 
 	RewindCommand.prototype.execute = function(){
-		ModelFacade.getInstance().get(ModelFacade.COMM).rewind();
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).reset();
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).set(PlayingState.NOT_PLAYING);
+		this.modelFacade.get(ModelFacade.COMM).rewind();
+		this.modelFacade.get(ModelFacade.COMMTICKER).reset();
+		this.modelFacade.get(ModelFacade.PLAYING).set(PlayingState.NOT_PLAYING);
 	};
 	
   	return RewindCommand;

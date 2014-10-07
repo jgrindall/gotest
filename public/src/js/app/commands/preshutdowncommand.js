@@ -1,8 +1,8 @@
 define(
 
-	['app/models/modelfacade', 'phasercomponents', 'app/views/showmanager'],
+	['phasercomponents'],
 
-function(ModelFacade, PhaserComponents, ShowManager) {
+function( PhaserComponents) {
 	
 	"use strict";
 
@@ -13,8 +13,7 @@ function(ModelFacade, PhaserComponents, ShowManager) {
 	PhaserComponents.Utils.extends(PreShutdownCommand, PhaserComponents.Commands.AbstractCommand);
 
 	PreShutdownCommand.prototype.execute = function(){
-		ModelFacade.shutdown();
-		ShowManager.shutdown();
+		
 	};
 	
   	return PreShutdownCommand;

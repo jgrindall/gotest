@@ -19,7 +19,7 @@ define(
 	DownloadCommand.prototype.execute = function(){
 		if(PhaserComponents.Utils.isTouch()){
 			//this.eventDispatcher.trigger({"type":Events.SHOW_TOUCH_IMG});
-			Message.show(Message.SCREENSHOT);
+			Message.show(this.alertManager, Message.SCREENSHOT);
 		}
 		else{
 			new FileDownloader().download();

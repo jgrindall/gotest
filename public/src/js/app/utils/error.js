@@ -1,9 +1,7 @@
 
-define(['phasercomponents',
+define(['app/views/popups/growl', 'app/assets', 'app/utils/errorcodes'],
 
-	'app/views/popups/growl', 'app/assets', 'app/utils/errorcodes'],
-
-	function(PhaserComponents, Growl, Assets, ErrorCodes){
+	function(Growl, Assets, ErrorCodes){
 	
 		"use strict";
 		
@@ -11,10 +9,10 @@ define(['phasercomponents',
 			
 		};
 
-		Error.show = function(code){
+		Error.show = function(alertManager, code){
 			var s = ErrorCodes.MESSAGES[code];
 			s = s + "\n(error code " + code + ")";
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Error", "label":s, "sfx":Assets.SOUNDS[2]}, null);
+			alertManager.make(Growl, {"title":"Error", "label":s, "sfx":Assets.SOUNDS[2]}, null);
 		};
 		
 		return Error;

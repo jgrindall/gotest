@@ -14,10 +14,10 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 
 	DrawCommand.prototype.execute = function(){
 		var playingModel;
-		playingModel = ModelFacade.getInstance().get(ModelFacade.PLAYING);
+		playingModel = this.modelFacade.get(ModelFacade.PLAYING);
 		if(playingModel.get() !== PlayingState.PLAYING){
 			playingModel.set(PlayingState.PLAYING);
-			ModelFacade.getInstance().get(ModelFacade.COMMTICKER).start();
+			this.modelFacade.get(ModelFacade.COMMTICKER).start();
 		}
 	};
 	

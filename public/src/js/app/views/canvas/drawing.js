@@ -31,11 +31,11 @@ FdCommand, StepLengths, Assets){
 	
 	var Drawing  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
-		ModelFacade.getInstance().get(ModelFacade.STARTPOS).changeSignal.add(this.onChangeStartPos, this);
-		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
-		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onChangeScreen, this);
+		this.modelFacade.get(ModelFacade.COMMTICKER).executeSignal.add(this.commandExecute, this);
+		this.modelFacade.get(ModelFacade.COMMTICKER).resetSignal.add(this.onReset, this);
+		this.modelFacade.get(ModelFacade.STARTPOS).changeSignal.add(this.onChangeStartPos, this);
+		this.modelFacade.get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.add(this.onChangeScreen, this);
 		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, this.onRotateTurtle.bind(this));
 		this.onReset();
 	};
@@ -56,7 +56,7 @@ FdCommand, StepLengths, Assets){
 	};
 
 	Drawing.prototype.onRotateTurtle = function(event, obj){
-		var playingState = ModelFacade.getInstance().get(ModelFacade.PLAYING).get();
+		var playingState = this.modelFacade.get(ModelFacade.PLAYING).get();
 		if(playingState === PlayingState.NOT_PLAYING){
 			this.angle = -Drawing.ANGLES[obj.data.direction];
 			this.setTurtle();
@@ -69,7 +69,7 @@ FdCommand, StepLengths, Assets){
 	};
 
 	Drawing.prototype.setProgress = function(){
-		var total = ModelFacade.getInstance().get(ModelFacade.COMM).getNum();
+		var total = this.modelFacade.get(ModelFacade.COMM).getNum();
 		if(total > 0){
 			this.turtle.disableMove();
 		}
@@ -88,7 +88,7 @@ FdCommand, StepLengths, Assets){
 	
 	Drawing.prototype.setStart = function(){
 		var x, y, pos;
-		pos = ModelFacade.getInstance().get(ModelFacade.STARTPOS).get();
+		pos = this.modelFacade.get(ModelFacade.STARTPOS).get();
 		if(pos){
 			x = this.bounds.x + this.bounds.w * pos.x;
 			y = this.bounds.y + this.bounds.h * pos.y;
@@ -136,7 +136,7 @@ FdCommand, StepLengths, Assets){
 	Drawing.prototype.setEndPoint = function() {
 		var dx, dy, thetaRad, distIndex, scale, dist, currentStepLengthIndex, currentStepLength;
 		distIndex = this.command.stepLength;
-		currentStepLengthIndex = ModelFacade.getInstance().get(ModelFacade.STEPLENGTH).get();
+		currentStepLengthIndex = this.modelFacade.get(ModelFacade.STEPLENGTH).get();
 		currentStepLength = StepLengths.ALL[currentStepLengthIndex];
 		dist = StepLengths.ALL[distIndex];
 		thetaRad = this.angle * Drawing.PI180;
@@ -186,7 +186,7 @@ FdCommand, StepLengths, Assets){
 	
 	Drawing.prototype.turtleMoved = function(pos) {
 		var p = {'x':(pos.x - this.bounds.x)/this.bounds.w, 'y':(pos.y - this.bounds.y)/this.bounds.h};
-		ModelFacade.getInstance().get(ModelFacade.STARTPOS).set(p);
+		this.modelFacade.get(ModelFacade.STARTPOS).set(p);
 	};
 
 	Drawing.prototype.create = function() {
@@ -204,7 +204,7 @@ FdCommand, StepLengths, Assets){
 	
 	Drawing.prototype.commandFinished = function() {
 		this.startPos = this.endPos;
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).nextCommand();
+		this.modelFacade.get(ModelFacade.COMMTICKER).nextCommand();
 	};
 	
 	Drawing.prototype.addPaths = function() {
@@ -215,11 +215,11 @@ FdCommand, StepLengths, Assets){
 	
 	Drawing.prototype.destroy = function() {
 		this.eventDispatcher.removeListener(Events.ROTATE_TURTLE);
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).executeSignal.remove(this.commandExecute, this);
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).resetSignal.remove(this.onReset, this);
-		ModelFacade.getInstance().get(ModelFacade.STARTPOS).changeSignal.remove(this.onChangeStartPos, this);
-		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
-		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onChangeScreen, this);
+		this.modelFacade.get(ModelFacade.COMMTICKER).executeSignal.remove(this.commandExecute, this);
+		this.modelFacade.get(ModelFacade.COMMTICKER).resetSignal.remove(this.onReset, this);
+		this.modelFacade.get(ModelFacade.STARTPOS).changeSignal.remove(this.onChangeStartPos, this);
+		this.modelFacade.get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.remove(this.onChangeScreen, this);
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
 		this.turtle.movedSignal.remove(this.turtleMoved, this);

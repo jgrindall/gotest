@@ -7,16 +7,16 @@ function(PhaserComponents, ModelFacade){
 	
 	var Indicator = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
-		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
 	};
 
 	Indicator.RADIUS = 40;
 	
 	Indicator.prototype.setProgress = function(){
 		var num, total;
-		num = ModelFacade.getInstance().get(ModelFacade.COMMTICKER).get();
-		total = ModelFacade.getInstance().get(ModelFacade.COMM).getNum();
+		num = this.modelFacade.get(ModelFacade.COMMTICKER).get();
+		total = this.modelFacade.get(ModelFacade.COMM).getNum();
 		this.drawText(num, total);
 	};
 
@@ -26,8 +26,8 @@ function(PhaserComponents, ModelFacade){
 	
 	Indicator.prototype.destroy = function() {
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
-		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
 		this.group.remove(this.label);
 		this.label.destroy();
 		this.label = null;

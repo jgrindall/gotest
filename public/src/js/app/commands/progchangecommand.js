@@ -13,7 +13,7 @@ function(ModelFacade, PhaserComponents) {
 	PhaserComponents.Utils.extends(ProgChangeCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ProgChangeCommand.prototype.execute = function(data){
-		ModelFacade.getInstance().get(ModelFacade.PROG_TYPE).set(data.value);
+		this.modelFacade.get(ModelFacade.PROG_TYPE).set(data.value);
 	};
 	
   	return ProgChangeCommand;

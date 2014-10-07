@@ -14,7 +14,7 @@ function(PhaserComponents, GridMenu, Assets) {
 
 	GridChoiceCommand.prototype.execute = function(){
 		var options = {"label":"Settings", "sfx":Assets.SOUNDS[2]};
-		PhaserComponents.AlertManager.getInstance().make(GridMenu, options, null); 
+		this.alertManager.make(GridMenu, options, null); 
 	};
 	
   	return GridChoiceCommand;

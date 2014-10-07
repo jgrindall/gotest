@@ -83,14 +83,14 @@ Assets){
 
 	ControlsPens.prototype.addColorPicker = function() {
 		var bounds = {'x':0, 'y':0, 'w':ColorPicker.WIDTH, 'h':ControlsLayout.PEN_HEIGHT};
-		this.colorPicker = new ColorPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":ModelFacade.getInstance().get(ModelFacade.COLOR)});	
+		this.colorPicker = new ColorPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PENS, "numSegments":Colors.ALL.length, "numFrames":Colors.ALL.length + 1, "model":this.modelFacade.get(ModelFacade.COLOR)});	
 		this.group.add(this.colorPicker.view);
 		this.positionColorPicker();
 	};
 
 	ControlsPens.prototype.addWidthPicker = function() {
 		var bounds = {'x':0, 'y':0, 'w':WidthPicker.WIDTH, 'h':WidthPicker.HEIGHT};
-		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":ModelFacade.getInstance().get(ModelFacade.WIDTH)});	
+		this.widthPicker = new WidthPicker({"sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.WIDTHS[1], "numFrames":PenWidths.ALL.length, "model":this.modelFacade.get(ModelFacade.WIDTH)});	
 		this.group.add(this.widthPicker.view);
 		this.positionWidthPicker();
 	};

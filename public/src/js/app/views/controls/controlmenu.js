@@ -19,7 +19,7 @@ PlayingState, Events){
 		options.numY = 1;
 		options.data = [{'num':5}, {'num':6}, {'num':7}, {'num':8}, {'num':9}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
 		this.disableButtonAt(1);
 	};
@@ -67,7 +67,7 @@ PlayingState, Events){
 
 	ControlMenu.prototype.destroy = function(){
 		this.clickSignal.remove(this.menuClick, this);
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
+		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
 		PhaserComponents.Display.ButtonBar.prototype.destroy.call(this);
 	};
 

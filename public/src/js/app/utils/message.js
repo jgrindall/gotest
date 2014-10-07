@@ -1,11 +1,7 @@
 
-define(['phasercomponents',
+define(['app/views/popups/growl', 'app/assets'],
 
-	'app/views/popups/growl', 'app/assets'],
-
-	function(PhaserComponents,
-
-		Growl, Assets){
+	function(Growl, Assets){
 	
 		"use strict";
 		
@@ -17,8 +13,8 @@ define(['phasercomponents',
 		Message.SAVE_SUCCESS = "Your file has been saved!";
 		Message.LOAD_SUCCESS = "Your file has been loaded!";
 
-		Message.show = function(s){
-			PhaserComponents.AlertManager.getInstance().make(Growl, {"title":"Message", "label":s, "sfx":Assets.SOUNDS[2]}, null);
+		Message.show = function(alertManager, s){
+			alertManager.getInstance().make(Growl, {"title":"Message", "label":s, "sfx":Assets.SOUNDS[2]}, null);
 		};
 		
 		

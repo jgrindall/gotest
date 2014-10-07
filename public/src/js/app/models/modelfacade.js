@@ -26,7 +26,7 @@ function(CommModel, ScreenModel, BgModel,
 	"use strict";
 
 	var ModelFacade  = function(){
-		this.init();
+		
 	};
 
 	ModelFacade.SPEED = 		"speed";
@@ -186,7 +186,6 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.prototype.changeAllowProg = function(value) {
 		if(value === 0){
 			this.progTypeModel.set(0);
-			//TODO - add consts
 		}
 	};
 
@@ -209,13 +208,6 @@ function(CommModel, ScreenModel, BgModel,
 		if(this.playingModel.get() === PlayingState.PLAYING){
 			this.commTickerModel.update("color", value);
 		}
-	};
-
-	ModelFacade.getInstance = function(){
-		if(!ModelFacade.instance){
-			ModelFacade.instance = new ModelFacade();
-		}
-		return ModelFacade.instance;
 	};
 
 	ModelFacade.prototype.setData = function(json){
@@ -297,12 +289,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.startPosModel = null;
 	};
 
-	ModelFacade.shutdown = function(){
-		ModelFacade.getInstance().shutdown();
-		ModelFacade.instance = null;
-	};
-
-	ModelFacade.prototype.shutdown = function(){
+	ModelFacade.prototype.destroy = function(){
 		this.removeListeners();
 		this.destroyModels();
 	};

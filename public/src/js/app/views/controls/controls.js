@@ -1,5 +1,5 @@
 
-define(['phasercomponents', 'app/views/showmanager',
+define(['phasercomponents',
 
 'app/views/controls/controlskeys',
 
@@ -9,7 +9,7 @@ define(['phasercomponents', 'app/views/showmanager',
 
 ],
 
-function(PhaserComponents, ShowManager,
+function(PhaserComponents, 
 
 ControlsKeys, ControlsPens, ShowDirections){
 	
@@ -52,7 +52,7 @@ ControlsKeys, ControlsPens, ShowDirections){
 		var bounds = this.bounds;
 		this.pens = new ControlsPens({"bounds":bounds});
 		this.group.add(this.pens.view);
-		ShowManager.getInstance().add(this.pens.view, 4, ShowDirections.UP);
+		this.showManager.add(this.pens.view, 4, ShowDirections.UP);
 	};
 
 	Controls.prototype.removePens = function(){

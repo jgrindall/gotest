@@ -50,11 +50,12 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	};
 
 	LoopTarget.prototype.addNum = function(){
-		var x, y, bounds;
+		var x, y, bounds, model;
 		x = this.right;
 		y = (LoopTarget.BOTTOM + LoopTarget.TOP + LoopTarget.PADDING_TOP)/2;
 		bounds = {'x':x - ProgNumButton.WIDTH/2, 'y':y - ProgNumButton.WIDTH/2, 'w':ProgNumButton.WIDTH, 'h':ProgNumButton.HEIGHT};
-		this.numButton = new ProgNumButton({"model":ModelFacade.getInstance().get(ModelFacade.PROG_NUM), "sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PROG_NUM, "numFrames":9});	
+		model = this.parent.modelFacade.get(ModelFacade.PROG_NUM);
+		this.numButton = new ProgNumButton({"model":model, "sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PROG_NUM, "numFrames":9});	
 		this.group.add(this.numButton.view);
 	};
 

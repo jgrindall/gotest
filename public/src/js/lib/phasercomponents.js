@@ -253,12 +253,20 @@ define('phasercomponents/injector',
 
     Injector.prototype.map = function(key, varNames, vals){
         var obj = this.classRefs[key];
-        if(!obj){
-            this.classRefs[key] = {"varNames":varNames, "vals":vals};
+        if(obj){
+            obj.varNames = obj.varNames.concat(varNames);
+            obj.vals = obj.vals.concat(vals);
         }
         else{
-            throw ("already mapped " + key);
+            this.classRefs[key] = {"varNames":varNames, "vals":vals};
         }
+    };
+
+    Injector.prototype.mapArray = function(keys, varNames, vals){
+        var that = this;
+        keys.forEach(function(key){
+            that.map(key, varNames, vals);
+        });
     };
 
     Injector.getInstance = function(){
@@ -419,260 +427,6 @@ function($) {
 
 
 
-define('phasercomponents/events/appevents',[],
-
-function() {
-
-	
-	
-	var AppEvents = function(){
-		
-	};
-
-	AppEvents.ALERT_SHOWN =			"app:alertShown";
-	AppEvents.CHANGE_SCENE =		"app:changeScene";
-	AppEvents.PLAY_SOUND =			"app:playSound";
-	AppEvents.PRE_SHUTDOWN =		"app:preShutdown";
-	AppEvents.POST_SHUTDOWN =		"app:postShutdown";
-	AppEvents.RESIZE =				"app:resize";
-	AppEvents.ORIENT =				"app:orient";
-	AppEvents.KEY_UP =				"app:keyUp";
-
-  	return AppEvents;
-});
-
-
-
-
-
-
-define('phasercomponents/utils/keymanager',
-
-	['jquery', 'phasercomponents/injector', 'phasercomponents/events/appevents'],
-
-	function($, Injector, AppEvents){
-	
-	
-	
-	var KeyManager = function(){
-		this.ids = [];
-		Injector.getInstance().injectInto(this, "keymanager");
-	};
-
-	KeyManager.getInstance = function(){
-		if(!KeyManager.instance){
-			KeyManager.instance = new KeyManager();
-		}
-		return KeyManager.instance;
-	};
-	
-	KeyManager.prototype.keyDown = function(event){
-		var code = event.keyCode, obj;
-		console.log("code "+code);
-		if(this.codes && this.codes.indexOf(code) >= 0){
-			event.stopPropagation();
-			event.preventDefault();
-			obj = {"type":AppEvents.KEY_UP, "data":{"keyCode":code}};
-			this.eventDispatcher.trigger(obj);
-		}
-	};
-
-	KeyManager.prototype.shutdown = function(){
-		$(document).off('keydown');
-		this.ids = [];
-	};
-
-	KeyManager.shutdown = function(){
-		if(KeyManager.instance){
-			KeyManager.instance.shutdown();
-			KeyManager.instance = null;
-		}
-	};
-
-	KeyManager.prototype.add = function(id, codes){
-		this.ids.push(id);
-		this.codes = codes;
-	};
-
-	KeyManager.prototype.startListening = function(){
-		$(document).on('keydown', this.keyDown.bind(this));
-	};
-	
-	return KeyManager;
-	
-});
-
-
-define('phasercomponents/utils/soundmanager',[], function(){
-	
-	
-	
-	var SoundManager = function(){
-		this.sounds = {};
-	};
-	
-	SoundManager.prototype.add = function(key, sound){
-		this.sounds[key] = sound;
-	};
-
-	SoundManager.getInstance = function(){
-		if(!SoundManager.instance){
-			SoundManager.instance = new SoundManager();
-		}
-		return SoundManager.instance;
-	};
-	
-	SoundManager.prototype.shutdown = function(){
-		this.sounds = {};
-	};
-
-	SoundManager.shutdown = function(){
-		SoundManager.getInstance().shutdown();
-		SoundManager.instance = null;
-	};
-
-	SoundManager.prototype.play = function(key){
-		var sound = this.sounds[key];
-		if(sound){
-			sound.play();
-		}
-	};
-	
-	return SoundManager;
-	
-});
-
-
-define('phasercomponents/commands/abstractcommand',
-
-	['phasercomponents/injector'], function(Injector){
-	
-	
-	
-	var AbstractCommand = function(){
-		Injector.getInstance().injectInto(this, "abstractcommand");
-	};
-	
-	AbstractCommand.prototype.start = function(data){
-		this.execute(data);
-	};
-
-	AbstractCommand.prototype.cleanUp = function(){
-		Injector.getInstance().unInject(this);
-	};
-	
-	return AbstractCommand;
-
-});
-
-
-
-
-
-
-define('phasercomponents/utils/alertmanager',
-
-	['jquery', 'phaser', 'phasercomponents/injector', 'phasercomponents/events/appevents'], 
-
-function($, Phaser, Injector, AppEvents){
-
-	
-	
-	var AlertManager  = function(){
-		this.inject();
-		this.eventDispatcher.addListener(AppEvents.RESIZE, this.close.bind(this));
-		this.eventDispatcher.addListener(AppEvents.RESIZE, this.close.bind(this));
-	};
-	
-	AlertManager.prototype.inject = function(){
-		Injector.getInstance().injectInto(this, "alertmanager");
-	};
-
-	AlertManager.prototype.removeBg = function(){
-		if(this.bg){
-			this.bg.destroy();
-			this.bg = null;
-		}
-	};
-
-	AlertManager.prototype.close = function(callback){
-		var that = this;
-		if(this.alert){
-			this.alert.selectSignal.remove(this.callbackProxy);
-			this.alert.hideMe();
-			that.removeBg();
-			that.alert.destroy();
-			that.alert = null;
-			that.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
-			if(callback){
-				callback();
-			}
-		}
-	};
-	
-	AlertManager.prototype.addBg = function(){
-		this.bg = new Phaser.Graphics(this.game, 0, 0);
-		this.bg.beginFill(0x000000);
-		this.bg.alpha = 0;
-    	this.bg.drawRect(0, 0, this.game.w, this.game.h);
-    	this.bg.endFill();
-		this.game.world.add(this.bg);
-		this.game.add.tween(this.bg).to( {'alpha':0.75}, 500, Phaser.Easing.Linear.None, true, 50, false);
-	};
-	
-	AlertManager.prototype.make = function(ClassRef, options, callback, bounds){
-		var x, y, newBounds, newOptions;
-		this.close();
-		this.callbackProxy = this.buttonClick.bind(this, callback);
-		x = (this.game.w - ClassRef.WIDTH)/2;
-		y = (this.game.h - ClassRef.HEIGHT)/2;
-		newBounds = bounds || {"x":x, "y":y};
-		newBounds.w = ClassRef.WIDTH;
-		newBounds.h = ClassRef.HEIGHT;
-		newOptions = $.extend({}, options, {"bounds":newBounds});
-		this.alert = new ClassRef(newOptions);
-		this.alert.selectSignal.add(this.callbackProxy);
-		if(this.alert.useBg()){
-			this.addBg();
-		}
-		this.game.world.add(this.alert.group);
-		this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
-		this.alert.showMe();
-	};
-
-	AlertManager.prototype.buttonClick = function(callback, data){
-		this.close();
-		if(callback){
-			callback(data);
-		}
-	};
-	
-	AlertManager.getInstance = function(){
-		if(!AlertManager.instance){
-			AlertManager.instance = new AlertManager();
-		}
-		return AlertManager.instance;
-	};
-	
-	AlertManager.shutdown = function(){
-		AlertManager.getInstance().shutdown();
-		AlertManager.instance = null;
-	};
-
-	AlertManager.prototype.shutdown = function(){
-		this.close();
-		this.eventDispatcher.removeListener(AppEvents.RESIZE);
-		this.eventDispatcher.removeListener(AppEvents.RESIZE);
-		Injector.getInstance().unInject(this);
-	};
-
-	return AlertManager;
-
-});
-
-	
-
-
 
 define('phasercomponents/utils/abstractstorageadapter',
 
@@ -815,21 +569,9 @@ function(LocalStorageAdapter){
 		});
 	};
 	
-	Storage.getInstance = function(){
-		if(!Storage.instance){
-			Storage.instance = new Storage();
-		}
-		return Storage.instance;
-	};
-
-	Storage.prototype.shutdown = function(){
+	Storage.prototype.destroy = function(){
 		this.adapter.destroy();
 		this.adapter = null;
-	};
-
-	Storage.shutdown = function(){
-		Storage.getInstance().shutdown();
-		Storage.instance = null;
 	};
 
 	return Storage;
@@ -837,72 +579,240 @@ function(LocalStorageAdapter){
 });
 
 
+define('phasercomponents/events/appevents',[],
 
-define('phasercomponents/utils/printmanager',[],
+function() {
 
-function(){
 	
 	
-	
-	var PrintManager = function(){
-		
-	};
-	
-	PrintManager.prototype.init = function(){
+	var AppEvents = function(){
 		
 	};
 
-	PrintManager.prototype.print = function(){
+	AppEvents.ALERT_SHOWN =			"app:alertShown";
+	AppEvents.CHANGE_SCENE =		"app:changeScene";
+	AppEvents.PLAY_SOUND =			"app:playSound";
+	AppEvents.PRE_SHUTDOWN =		"app:preShutdown";
+	AppEvents.POST_SHUTDOWN =		"app:postShutdown";
+	AppEvents.RESIZE =				"app:resize";
+	AppEvents.ORIENT =				"app:orient";
+	AppEvents.KEY_UP =				"app:keyUp";
+
+  	return AppEvents;
+});
+
+
+
+
+
+
+define('phasercomponents/utils/keymanager',
+
+	['jquery', 'phasercomponents/injector', 'phasercomponents/events/appevents'],
+
+	function($, Injector, AppEvents){
+	
+	
+	
+	var KeyManager = function(){
 		
 	};
+
+	KeyManager.prototype.init = function(){
+		Injector.getInstance().injectInto(this, "keymanager");
+	};
 	
-	PrintManager.getInstance = function(){
-		if(!PrintManager.instance){
-			PrintManager.instance = new PrintManager();
-			PrintManager.instance.init();
+	KeyManager.prototype.keyDown = function(event){
+		var code = event.keyCode, obj;
+		if(this.codes && this.codes.indexOf(code) >= 0){
+			event.stopPropagation();
+			event.preventDefault();
+			obj = {"type":AppEvents.KEY_UP, "data":{"keyCode":code}};
+			this.eventDispatcher.trigger(obj);
 		}
-		return PrintManager.instance;
 	};
 
-	PrintManager.prototype.shutdown = function(){
-		
+	KeyManager.prototype.destroy = function(){
+		$(document).off('keydown');
+		this.codes = null;
 	};
 
-	PrintManager.shutdown = function(){
-		PrintManager.getInstance().shutdown();
-		PrintManager.instance = null;
+	KeyManager.prototype.setCodes = function(codes){
+		this.codes = codes;
+	};
+
+	KeyManager.prototype.startListening = function(){
+		if(this.codes.length >= 1){
+			$(document).on('keydown', this.keyDown.bind(this));
+		}
 	};
 	
-	return PrintManager;
+	return KeyManager;
 	
 });
 
 
-define('phasercomponents/commands/preshutdowncommand',[
+define('phasercomponents/utils/soundmanager',[], function(){
+	
+	
+	
+	var SoundManager = function(){
+		this.sounds = {};
+	};
+	
+	SoundManager.prototype.add = function(key, sound){
+		this.sounds[key] = sound;
+	};
 
-	'phasercomponents/utils/soundmanager',
+	SoundManager.prototype.destroy = function(){
+		this.sounds = {};
+	};
+
+	SoundManager.prototype.play = function(key){
+		var sound = this.sounds[key];
+		if(sound){
+			sound.play();
+		}
+	};
+	
+	return SoundManager;
+	
+});
+
+
+define('phasercomponents/utils/alertmanager',
+
+	['jquery', 'phaser', 'phasercomponents/injector', 'phasercomponents/events/appevents'], 
+
+function($, Phaser, Injector, AppEvents){
+
+	
+	
+	var AlertManager  = function(){
+
+	};
+	
+	AlertManager.prototype.init = function(){
+		this.inject();
+		this.eventDispatcher.addListener(AppEvents.RESIZE, this.close.bind(this));
+		this.eventDispatcher.addListener(AppEvents.ORIENT, this.close.bind(this));
+	};
+
+	AlertManager.prototype.inject = function(){
+		Injector.getInstance().injectInto(this, "alertmanager");
+	};
+
+	AlertManager.prototype.removeBg = function(){
+		if(this.bg){
+			this.bg.destroy();
+			this.bg = null;
+		}
+	};
+
+	AlertManager.prototype.close = function(callback){
+		var that = this;
+		if(this.alert){
+			this.alert.selectSignal.remove(this.callbackProxy);
+			this.alert.hideMe();
+			that.removeBg();
+			that.alert.destroy();
+			that.alert = null;
+			that.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
+			if(callback && typeof(callback) === "function"){
+				callback();
+			}
+		}
+	};
+	
+	AlertManager.prototype.addBg = function(){
+		this.bg = new Phaser.Graphics(this.game, 0, 0);
+		this.bg.beginFill(0x000000);
+		this.bg.alpha = 0;
+    	this.bg.drawRect(0, 0, this.game.w, this.game.h);
+    	this.bg.endFill();
+		this.game.world.add(this.bg);
+		this.game.add.tween(this.bg).to( {'alpha':0.75}, 500, Phaser.Easing.Linear.None, true, 50, false);
+	};
+	
+	AlertManager.prototype.make = function(ClassRef, options, callback, bounds){
+		var x, y, newBounds, newOptions;
+		this.close();
+		this.callbackProxy = this.buttonClick.bind(this, callback);
+		x = (this.game.w - ClassRef.WIDTH)/2;
+		y = (this.game.h - ClassRef.HEIGHT)/2;
+		newBounds = bounds || {"x":x, "y":y};
+		newBounds.w = ClassRef.WIDTH;
+		newBounds.h = ClassRef.HEIGHT;
+		newOptions = $.extend({}, options, {"bounds":newBounds});
+		this.alert = new ClassRef(newOptions);
+		this.alert.selectSignal.add(this.callbackProxy);
+		if(this.alert.useBg()){
+			this.addBg();
+		}
+		this.game.world.add(this.alert.group);
+		this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
+		this.alert.showMe();
+	};
+
+	AlertManager.prototype.buttonClick = function(callback, data){
+		this.close();
+		if(callback){
+			callback(data);
+		}
+	};
+
+	AlertManager.prototype.destroy = function(){
+		this.close();
+		this.eventDispatcher.removeListener(AppEvents.RESIZE);
+		this.eventDispatcher.removeListener(AppEvents.ORIENT);
+		Injector.getInstance().unInject(this);
+	};
+
+	return AlertManager;
+
+});
+
+	
+
+
+
+define('phasercomponents/commands/abstractcommand',
+
+	['phasercomponents/injector'], function(Injector){
+	
+	
+	
+	var AbstractCommand = function(){
+		Injector.getInstance().injectInto(this, "abstractcommand");
+	};
+	
+	AbstractCommand.prototype.start = function(data){
+		this.execute(data);
+	};
+
+	AbstractCommand.prototype.cleanUp = function(){
+		
+	};
+	
+	return AbstractCommand;
+
+});
+
+
+
+
+
+define('phasercomponents/commands/preshutdowncommand',[
 
 	'phasercomponents/utils/utils',
 
-	'phasercomponents/commands/abstractcommand', 
+	'phasercomponents/commands/abstractcommand'
 
-	'phasercomponents/utils/alertmanager',
+	],
 
-	'phasercomponents/utils/storage',
+function(Utils,
 
-	'phasercomponents/utils/printmanager'],
-
-function(SoundManager,
-
-	Utils,
-
-	AbstractCommand,
-
-	AlertManager,
-
-	Storage,
-
-	PrintManager) {
+	AbstractCommand) {
 	
 	
 	
@@ -913,10 +823,7 @@ function(SoundManager,
 	Utils.extends(PreShutdownCommand, AbstractCommand);
 
 	PreShutdownCommand.prototype.execute = function(){
-		AlertManager.shutdown();
-		SoundManager.shutdown();
-		PrintManager.shutdown();
-		Storage.shutdown();
+		
 	};
 	
   	return PreShutdownCommand;
@@ -947,20 +854,23 @@ function(Utils, AbstractCommand) {
 
 define('phasercomponents/commands/playsoundcommand',[
 
-	'phasercomponents/utils/utils', 'phasercomponents/utils/soundmanager', 'phasercomponents/commands/abstractcommand'],
+	'phasercomponents/utils/utils', 
+	
+	'phasercomponents/commands/abstractcommand', 'phasercomponents/injector'],
 
-function(Utils, SoundManager, AbstractCommand) {
+function(Utils, AbstractCommand, Injector) {
 	
 	
 	
 	var PlaySoundCommand = function(){
 		AbstractCommand.call(this);
+		Injector.getInstance().injectInto(this, "playsoundcommand");
 	};
 	
 	Utils.extends(PlaySoundCommand, AbstractCommand);
 
 	PlaySoundCommand.prototype.execute = function(data){
-		SoundManager.getInstance().play(data);
+		this.soundManager.play(data);
 	};
 	
   	return PlaySoundCommand;
@@ -970,11 +880,11 @@ function(Utils, SoundManager, AbstractCommand) {
 
 define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
 
-	'phasercomponents/commands/commandmap', 'phasercomponents/events/eventdispatcher',
+	'phasercomponents/commands/commandmap', 'phasercomponents/events/eventdispatcher', 'phasercomponents/utils/storage',
 
-	'phasercomponents/events/appevents', 'phasercomponents/utils/keymanager',
+	'phasercomponents/events/appevents', 'phasercomponents/utils/keymanager','phasercomponents/utils/soundmanager',
 
-    'phasercomponents/injector',
+    'phasercomponents/injector', 'phasercomponents/utils/alertmanager',
 
     'phasercomponents/commands/preshutdowncommand', 'phasercomponents/commands/postshutdowncommand',
 
@@ -982,11 +892,11 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
 
 	function($, GameManager,
 
-		CommandMap, EventDispatcher,
+		CommandMap, EventDispatcher, Storage,
 
-		AppEvents, KeyManager,
+		AppEvents, KeyManager, SoundManager,
 
-        Injector,
+        Injector, AlertManager,
 
         PreShutdownCommand, PostShutdownCommand,
 
@@ -1004,30 +914,18 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
     };
 
     Context.prototype.inject = function(){
-        var game, eventDispatcher;
+        var game, eventDispatcher, alertManager, soundManager, storage;
         game = this.gameManager.game;
         eventDispatcher = this.eventDispatcher;
-        Injector.getInstance().map("alertmanager",      ["game", "eventDispatcher"],            [game, eventDispatcher]);
-        Injector.getInstance().map("keymanager",        ["eventDispatcher"],                    [eventDispatcher]);
-        Injector.getInstance().map("view",              ["game", "eventDispatcher"],            [game, eventDispatcher]);
-        Injector.getInstance().map("scene",             ["game", "eventDispatcher", "world"],   [game, eventDispatcher, game.world]);
-        Injector.getInstance().map("abstractmodel",     ["game", "eventDispatcher"],            [game, eventDispatcher]);
-        Injector.getInstance().map("abstractcommand",   ["game", "eventDispatcher"],            [game, eventDispatcher]);
-        Injector.getInstance().map("commandmap",        ["game", "eventDispatcher"],            [game, eventDispatcher]);
-    };
-
-    Context.prototype.shutdown = function(){
-        this.eventDispatcher.trigger({"type":AppEvents.PRE_SHUTDOWN});
-        this.removeListeners();
-        this.commandMap.destroy();
-        this.gameManager.destroy();
-        this.eventDispatcher.removeListener(AppEvents.CHANGE_SCENE);
-        this.eventDispatcher.trigger({"type":AppEvents.POST_SHUTDOWN});
-        KeyManager.shutdown();
-        this.gameManager = null;
-        this.commandMap = null;
-        Injector.shutdown();
-        this.eventDispatcher = null;
+        alertManager = this.alertManager;
+        soundManager = this.soundManager;
+        storage = this.storage;
+        Injector.getInstance().mapArray(["alertmanager", "abstractmodel", "commandmap"],        ["game", "eventDispatcher"],                                [game, eventDispatcher]);
+        Injector.getInstance().map("keymanager",                                                ["eventDispatcher"],                                        [eventDispatcher]);
+        Injector.getInstance().map("view",                                                      ["game", "eventDispatcher", "alertManager"],                [game, eventDispatcher, alertManager]);
+        Injector.getInstance().map("abstractcommand",                                           ["game", "eventDispatcher", "alertManager", "storage"],     [game, eventDispatcher, alertManager, storage]);
+        Injector.getInstance().map("scene",                                                     ["game", "eventDispatcher", "world"],                       [game, eventDispatcher, game.world]);
+        Injector.getInstance().map("playsoundcommand",                                          ["soundManager"],                                           [soundManager]);
     };
 
     Context.prototype.onChangeScene = function(){
@@ -1059,6 +957,7 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
         this.orientHandler = Utils.debounce(this.onOrient.bind(this), 500);
         $(window).on("orientationchange", this.orientHandler);
         document.addEventListener('focusout', this.scrollTop.bind(this));
+        this.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
         this.scrollTop();
     };
 
@@ -1096,6 +995,10 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
     	
     };
 
+    Context.prototype.addStorage = function(){
+        
+    };
+
     Context.prototype.mapCommands = function(){
         this.commandMap = new CommandMap();
         this.commandMap.map(AppEvents.PLAY_SOUND,               PlaySoundCommand);
@@ -1106,16 +1009,44 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
 	Context.prototype.gameCreated = function(){
         this.mapFonts();
         this.eventDispatcher = new EventDispatcher();
-        this.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.onChangeScene.bind(this));
+        this.alertManager = new AlertManager();
+        this.keyManager = new KeyManager();
+        this.soundManager = new SoundManager();
+        this.storage = new Storage();
         this.addListeners();
         this.inject();
 		this.mapCommands();
     	this.mapScenes();
     	this.addSounds();
+        this.addStorage();
+        this.keyManager.init();
+        this.alertManager.init();
         this.setupKeys();
+        this.keyManager.startListening();
 		this.gameManager.start();
 	};
 	
+     Context.prototype.shutdown = function(){
+        this.eventDispatcher.removeListener(AppEvents.CHANGE_SCENE);
+        this.eventDispatcher.trigger({"type":AppEvents.PRE_SHUTDOWN});
+        this.removeListeners();
+        this.commandMap.destroy();
+        this.gameManager.destroy();
+        this.alertManager.destroy();
+        this.soundManager.destroy();
+        this.storage.destroy();
+        this.keyManager.destroy();
+        this.eventDispatcher.trigger({"type":AppEvents.POST_SHUTDOWN});
+        this.gameManager = null;
+        this.commandMap = null;
+        this.keyManager = null;
+        this.alertManager = null;
+        this.soundManager = null;
+        this.storage = null;
+        this.eventDispatcher = null;
+        Injector.shutdown();
+    };
+
 	Context.prototype.preload = function(){
 		
 	};
@@ -1440,6 +1371,7 @@ function(Phaser, View, Utils,
 	AbstractButton.prototype.stopTweens = function(){
 		if(this.fadeTween){
 			this.fadeTween.stop();
+			this.fadeTween = null;
 		}
 	};
 
@@ -2690,7 +2622,6 @@ Container, Utils){
 		this.buttons = [];
 		this.selectSignal = new Phaser.Signal();
 		Container.call(this, options);
-		this.group.y = this.game.h + 50;
 	};
 	
 	Utils.extends(AbstractPopup, Container);
@@ -3318,7 +3249,6 @@ define('phasercomponents',[
 	'phasercomponents/utils/storage',
 	'phasercomponents/utils/abstractstorageadapter',
 	'phasercomponents/utils/alertmanager',
-	'phasercomponents/utils/printmanager',
 	'phasercomponents/utils/soundmanager',
 	'phasercomponents/utils/keymanager',
 	'phasercomponents/commands/abstractcommand',
@@ -3365,7 +3295,6 @@ define('phasercomponents',[
 		Storage,
 		AbstractStorageAdapter,
 		AlertManager,
-		PrintManager,
 		SoundManager,
 		KeyManager,
 		AbstractCommand, 
@@ -3459,7 +3388,6 @@ define('phasercomponents',[
         'AlertManager': 		AlertManager,
         'Injector': 			Injector,
         'KeyManager': 			KeyManager,
-        'PrintManager': 		PrintManager,
         'SoundManager': 		SoundManager
     };
     

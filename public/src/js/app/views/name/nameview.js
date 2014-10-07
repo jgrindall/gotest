@@ -7,7 +7,7 @@ function($, PhaserComponents){
 		
 	var NameView = function(model){
 		this.model = model;
-		this.el = $("<input id='name' maxlength='56' placeholder='Your name here' type='text'></input>");
+		this.el = $("<input class='_2goname' maxlength='56' placeholder='Your name here' type='text'></input>");
 		PhaserComponents.Injector.getInstance().injectInto(this, "nameview");
 		this.cacheRegExp();
 		this.addListeners();

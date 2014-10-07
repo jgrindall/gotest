@@ -20,16 +20,16 @@ function(ModelFacade,
 		var screenModel, radioModel, options;
 		screenModel = new PhaserComponents.Model.ButtonGridModel();
 		radioModel = new PhaserComponents.Model.ButtonGridModel();
-		screenModel.set(ModelFacade.getInstance().get(ModelFacade.SCREEN).get());
-		radioModel.set(ModelFacade.getInstance().get(ModelFacade.ANGLE).get());
+		screenModel.set(this.modelFacade.get(ModelFacade.SCREEN).get());
+		radioModel.set(this.modelFacade.get(ModelFacade.ANGLE).get());
 		options = {"screenModel":screenModel, "radioModel":radioModel, "sfx":Assets.SOUNDS[2]};
-		PhaserComponents.AlertManager.getInstance().make(GameScreenMenu, options, this.onScreenChosen.bind(this)); 
+		this.alertManager.make(GameScreenMenu, options, this.onScreenChosen.bind(this)); 
 	};
 	
 	TypeChoiceCommand.prototype.onScreenChosen = function(data) {
 		if(data.index === 0){
-			ModelFacade.getInstance().get(ModelFacade.SCREEN).set(data.selection.screenIndex);
-			ModelFacade.getInstance().get(ModelFacade.ANGLE).set(data.selection.radioIndex);
+			this.modelFacade.get(ModelFacade.SCREEN).set(data.selection.screenIndex);
+			this.modelFacade.get(ModelFacade.ANGLE).set(data.selection.radioIndex);
 		}
 	};
 	

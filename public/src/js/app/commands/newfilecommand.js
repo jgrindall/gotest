@@ -22,13 +22,13 @@ function(PhaserComponents, ModelFacade,
 
 	NewFileCommand.prototype.execute = function(){
 		var options = {'dataProvider': new BgDataProvider(this.game), "label":"Start a new file - choose a background", "sfx":Assets.SOUNDS[2]};
-		PhaserComponents.AlertManager.getInstance().make(GameBgMenu, options, this.onBgChosen.bind(this));
+		this.alertManager.make(GameBgMenu, options, this.onBgChosen.bind(this));
 	};
 	
 	NewFileCommand.prototype.onBgChosen = function(data){
 		var selectedPage = data.selection.selectedPage;
 		if(data.index === 1){
-			ModelFacade.getInstance().get(ModelFacade.BG).set(selectedPage, {"force":true});
+			this.modelFacade.get(ModelFacade.BG).set(selectedPage, {"force":true});
 		}
 		else if(data.index === 2){
 			this.eventDispatcher.trigger({"type":Events.DESIGN_IMG});

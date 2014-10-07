@@ -1,0 +1,26 @@
+@viewport{
+    zoom: 1.0;
+    width: device-width;
+    initial-scale: 1;
+    min-zoom: 1.0;
+    max-zoom: 1.0;
+    zoom: fixed;
+}
+
+@-ms-viewport{
+    zoom: 1.0;
+    width: device-width;
+    initial-scale: 1;
+    min-zoom: 1.0;
+    max-zoom: 1.0;
+    zoom: fixed;
+}
+
+@-moz-viewport{
+    zoom: 1.0;
+    width: device-width;
+    initial-scale: 1;
+    min-zoom: 1.0;
+    max-zoom: 1.0;
+    zoom: fixed;
+}

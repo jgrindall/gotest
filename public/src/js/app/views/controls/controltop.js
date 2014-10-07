@@ -3,7 +3,7 @@ define(['phasercomponents',
 
 'app/models/modelfacade', 'app/consts/showdirections',
 
-'app/views/controls/controlmenu', 'app/views/showmanager',
+'app/views/controls/controlmenu', 
 
 'app/assets', 'app/views/components/speedmarkers'
 
@@ -13,7 +13,7 @@ function(PhaserComponents,
 
 ModelFacade, ShowDirections,
 
-ControlMenu, ShowManager,
+ControlMenu,
 
 Assets, SpeedMarkers){
 	
@@ -99,7 +99,7 @@ Assets, SpeedMarkers){
 		this.menu = new ControlMenu({"bounds":bounds});
 		this.group.add(this.menu.view);
 		this.positionMenu();
-		ShowManager.getInstance().add(this.menu.view, 2, ShowDirections.DOWN);
+		this.showManager.add(this.menu.view, 2, ShowDirections.DOWN);
 	};
 	
 	ControlTop.prototype.addSpeedMarkers = function() {
@@ -108,7 +108,7 @@ Assets, SpeedMarkers){
 		this.speedMarkers.clickSignal.add(this.clickMarker, this);
 		this.group.add(this.speedMarkers.view);
 		this.positionMarkers();
-		ShowManager.getInstance().add(this.speedMarkers.view, 1, ShowDirections.DOWN);
+		this.showManager.add(this.speedMarkers.view, 1, ShowDirections.DOWN);
 	};
 
 	ControlTop.prototype.clickMarker = function(data) {
@@ -123,11 +123,11 @@ Assets, SpeedMarkers){
 	ControlTop.prototype.addSpeedSlider = function() {
 		var options, bounds;
 		bounds = {"x":0, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
-		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": ModelFacade.getInstance().get(ModelFacade.SPEED), "num":4, "bounds":bounds};
+		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelFacade.SPEED), "num":4, "bounds":bounds};
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.speedSlider.view);
 		this.positionSpeed();
-		ShowManager.getInstance().add(this.speedSlider.view, 1, ShowDirections.DOWN);
+		this.showManager.add(this.speedSlider.view, 1, ShowDirections.DOWN);
 	};
 
 	ControlTop.prototype.removeSpeedSlider = function(){

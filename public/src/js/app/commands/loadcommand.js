@@ -1,12 +1,8 @@
-define(['app/models/modelfacade', 
-
-	'phasercomponents', 'app/events/events',
+define(['phasercomponents', 'app/events/events',
 
 	'app/utils/errorcodes', 'app/utils/error', 'app/utils/message'],
 
-function(ModelFacade,
-
-	PhaserComponents, Events,
+function(PhaserComponents, Events,
 
 	ErrorCodes, Error, Message) {
 	
@@ -19,22 +15,22 @@ function(ModelFacade,
 	PhaserComponents.Utils.extends(LoadCommand, PhaserComponents.Commands.AbstractCommand);
 
 	LoadCommand.prototype.execute = function(){
-		PhaserComponents.Storage.Storage.getInstance().getForKeyPath(null, this.onLoaded.bind(this));
+		this.storage.getForKeyPath(null, this.onLoaded.bind(this));
 	};
 	
 	LoadCommand.prototype.onLoaded = function(data){
 		if(data.success){
 			try{
-				ModelFacade.getInstance().setData(data.response);
+				this.modelFacade.setData(data.response);
 				this.eventDispatcher.trigger({"type":Events.REPLAY});
-				Message.show(Message.LOAD_SUCCESS);
+				Message.show(this.alertManager, Message.LOAD_SUCCESS);
 			}
 			catch(e){
-				Error.show(ErrorCodes.FORMAT_ERROR);
+				Error.show(this.alertManager, ErrorCodes.FORMAT_ERROR);
 			}
 		}
 		else{
-			Error.show(ErrorCodes.LOAD_ERROR);
+			Error.show(this.alertManager, ErrorCodes.LOAD_ERROR);
 		}
 	};
 	

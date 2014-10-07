@@ -11,7 +11,7 @@ function(PhaserComponents, ModelFacade, Assets){
 		this.name = "widthPicker";
 		options.num = Assets.WIDTHS.length;
 		PhaserComponents.Display.StepperButton.call(this, options);
-		ModelFacade.getInstance().get(ModelFacade.COLOR).changeSignal.add(this.changeColor, this);
+		this.modelFacade.get(ModelFacade.COLOR).changeSignal.add(this.changeColor, this);
 		this.init();
 	};
 
@@ -26,7 +26,7 @@ function(PhaserComponents, ModelFacade, Assets){
 	};
 
 	WidthPicker.prototype.load = function(){
-		var value = ModelFacade.getInstance().get(ModelFacade.COLOR).get();
+		var value = this.modelFacade.get(ModelFacade.COLOR).get();
 		if(value === null){
 			this.loadTexture(Assets.WIDTHS[0]);
 		}
@@ -40,7 +40,7 @@ function(PhaserComponents, ModelFacade, Assets){
 	};
 
 	WidthPicker.prototype.destroy = function(){
-		ModelFacade.getInstance().get(ModelFacade.COLOR).changeSignal.remove(this.changeColor, this);
+		this.modelFacade.get(ModelFacade.COLOR).changeSignal.remove(this.changeColor, this);
 		PhaserComponents.Display.StepperButton.prototype.destroy.call(this);
 	};
 

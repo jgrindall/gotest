@@ -19,7 +19,9 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/scenes/loaderscene', 'app/scenes/activityscene',
 
-	'app/assets', 'app/storage/purplemashadapter'],
+	'app/assets', 'app/storage/purplemashadapter',
+
+	'app/views/showmanager', 'app/models/modelfacade'],
 
 	function(NewFileCommand, LoadCommand, SaveCommand,
 
@@ -41,17 +43,14 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		LoaderScene, ActivityScene,
 
-		Assets, PurpleMashAdapter) {
+		Assets, PurpleMashAdapter,
+
+		ShowManager, ModelFacade) {
 	
 	"use strict";
 
    	var AppContext = function (options){
-		var adapter = new PurpleMashAdapter();
 		PhaserComponents.Context.call(this, options);
-		if(Math.random() < 0.5){
-			console.log("using PM");
-			PhaserComponents.Storage.Storage.getInstance().setAdapter(adapter);
-		}
     };
 	
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
@@ -65,14 +64,20 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 	};
 
 	AppContext.prototype.inject = function(){
-        var game, eventDispatcher;
+        var game, eventDispatcher, alertManager;
         PhaserComponents.Context.prototype.inject.call(this);
         game = this.gameManager.game;
         eventDispatcher = this.eventDispatcher;
-        PhaserComponents.Injector.getInstance().map("nameview",			["game", "eventDispatcher"],            [game, eventDispatcher]);
-        PhaserComponents.Injector.getInstance().map("imgview",			["game", "eventDispatcher"],            [game, eventDispatcher]);
-        PhaserComponents.Injector.getInstance().map("showmanager",		["game", "eventDispatcher"],            [game, eventDispatcher]);
-        PhaserComponents.Injector.getInstance().map("filedownloader",	["eventDispatcher"],            		[eventDispatcher]);
+        alertManager = this.alertManager;
+        this.showManager = new ShowManager();
+        this.modelFacade = new ModelFacade();
+        PhaserComponents.Injector.getInstance().mapArray(["nameview","imgview"],			["game", "eventDispatcher"],            [game, eventDispatcher]);
+        PhaserComponents.Injector.getInstance().map("showmanager",							["game"],            					[game, eventDispatcher]);
+        PhaserComponents.Injector.getInstance().map("filedownloader",						["eventDispatcher"],            		[eventDispatcher]);
+        PhaserComponents.Injector.getInstance().map("view",									["showManager", "modelFacade"],         [this.showManager, this.modelFacade]);
+        PhaserComponents.Injector.getInstance().map("abstractcommand",						["modelFacade"],            			[this.modelFacade]);
+        this.showManager.init();
+        this.modelFacade.init();
     };
 
 	AppContext.prototype.startActivity = function(){
@@ -86,8 +91,15 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     };
  	
     AppContext.prototype.setupKeys = function(){
-    	PhaserComponents.KeyManager.getInstance().add(this.options.containerTagId, [37, 38, 39, 40, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105]);
-        PhaserComponents.KeyManager.getInstance().startListening();    
+    	this.keyManager.setCodes([37, 38, 39, 40, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105]);
+    };
+
+    AppContext.prototype.addStorage = function(){
+    	var adapter = new PurpleMashAdapter();
+		if(Math.random() < 0.5){
+			console.log("using PM");
+			this.storage.setAdapter(adapter);
+		}
     };
 
     AppContext.prototype.mapScenes = function(){
@@ -96,10 +108,10 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     };
 
     AppContext.prototype.addSounds = function(){
-    	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[0], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[0]));
-    	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[1], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[1]));
-    	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[2], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[2]));
-    	PhaserComponents.SoundManager.getInstance().add(Assets.SOUNDS[3], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[3]));
+    	this.soundManager.add(Assets.SOUNDS[0], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[0]));
+    	this.soundManager.add(Assets.SOUNDS[1], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[1]));
+    	this.soundManager.add(Assets.SOUNDS[2], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[2]));
+    	this.soundManager.add(Assets.SOUNDS[3], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[3]));
     };
 
     AppContext.prototype.mapCommands = function(){

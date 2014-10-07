@@ -13,7 +13,7 @@ function(Events, PhaserComponents, ModelFacade) {
 	PhaserComponents.Utils.extends(UndoCommand, PhaserComponents.Commands.AbstractCommand);
 
 	UndoCommand.prototype.execute = function(){
-		ModelFacade.getInstance().get(ModelFacade.COMM).undo();
+		this.modelFacade.get(ModelFacade.COMM).undo();
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 	

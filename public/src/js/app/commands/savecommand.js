@@ -1,12 +1,12 @@
 define(['phasercomponents',
 
-	'app/models/modelfacade', 'app/utils/message',
+	'app/utils/message',
 
 	'app/utils/error', 'app/utils/errorcodes'],
 
 function(PhaserComponents,
 
-	ModelFacade, Message,
+	Message,
 
 	Error, ErrorCodes) {
 	
@@ -19,16 +19,16 @@ function(PhaserComponents,
 	PhaserComponents.Utils.extends(SaveCommand, PhaserComponents.Commands.AbstractCommand);
 
 	SaveCommand.prototype.execute = function(){
-		var json = ModelFacade.getInstance().getJson();
-		PhaserComponents.Storage.Storage.getInstance().saveForKeyPath(null, json, this.onSaved.bind(this));
+		var json = this.modelFacade.getJson();
+		this.storage.saveForKeyPath(null, json, this.onSaved.bind(this));
 	};
 	
 	SaveCommand.prototype.onSaved = function(data){
 		if(data.success){
-			Message.show(Message.SAVE_SUCCESS);
+			Message.show(this.alertManager, Message.SAVE_SUCCESS);
 		}
 		else{
-			Error.show(ErrorCodes.SAVE_ERROR);
+			Error.show(this.alertManager, ErrorCodes.SAVE_ERROR);
 		}
 	};
 	

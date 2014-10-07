@@ -30,10 +30,10 @@ define(
 		this.buttons = [];
 		this.targets = [];
 		AbstractCommandsPanel.call(this, options);
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
-		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
-		ModelFacade.getInstance().get(ModelFacade.PROG).changeSignal.add(this.progChanged, this);
+		this.modelFacade.get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.modelFacade.get(ModelFacade.PROG).changeSignal.add(this.progChanged, this);
 	};
 
 	PhaserComponents.Utils.extends(ProgCommandPanel, AbstractCommandsPanel);
@@ -56,9 +56,9 @@ define(
 
 	ProgCommandPanel.prototype.setProgress = function(){
 		var num, total, start, progress, index = -1;
-		num = ModelFacade.getInstance().get(ModelFacade.COMMTICKER).get();
-		total = ModelFacade.getInstance().get(ModelFacade.COMM).getNum();
-		start = ModelFacade.getInstance().get(ModelFacade.COMMTICKER).startNum;
+		num = this.modelFacade.get(ModelFacade.COMMTICKER).get();
+		total = this.modelFacade.get(ModelFacade.COMM).getNum();
+		start = this.modelFacade.get(ModelFacade.COMMTICKER).startNum;
 		progress = num - start;
 		if(num < total){
 			index = this.getBlockIndex(progress);
@@ -192,7 +192,7 @@ define(
 		if(this.dragManager){
 			this.dragManager.clear();
 		}
-		json = ModelFacade.getInstance().get(ModelFacade.PROG).get();
+		json = this.modelFacade.get(ModelFacade.PROG).get();
 		numTargets = Math.min(json.length, this.targets.length);
 		for(i = 0; i < numTargets; i++){
 			for(j = 0; j < json[i].length; j++){
@@ -297,7 +297,7 @@ define(
 
 	ProgCommandPanel.prototype.onEdited = function() {
 		if(this.model){
-			ModelFacade.getInstance().get(ModelFacade.PROG).set(this.model.toJson(), {"silent":true});
+			this.modelFacade.get(ModelFacade.PROG).set(this.model.toJson(), {"silent":true});
 		}
 		var enable = this.startEnabled();
 		if(enable){
@@ -368,19 +368,25 @@ define(
 	ProgCommandPanel.prototype.destroy = function() {
 		this.disableInput();
 		this.model = null;
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
-		ModelFacade.getInstance().get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
+		this.modelFacade.get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
 		this.dragManager.editSignal.remove(this.onEdited, this);
 		this.dragManager.destroy();
 		this.dragManager = null;
 		this.options.targetObj.destroy();
 		this.options = null;
-		//TODO - more??
 		this.group.remove(this.playButton.view);
 		this.group.remove(this.clearButton.view);
+		this.group.remove(this.stopButton.view);
+		this.playButton.mouseUpSignal.remove(this.clickPlay, this);
+		this.clearButton.mouseUpSignal.remove(this.clickClear, this);
+		this.stopButton.mouseUpSignal.remove(this.clickStop, this);
 		this.removeTargets();
 		this.removeButtons();
+		this.playButton = null;
+		this.clearButton = null;
+		this.stopButton = null;
 		AbstractCommandsPanel.prototype.destroy.call(this);
 	};
 

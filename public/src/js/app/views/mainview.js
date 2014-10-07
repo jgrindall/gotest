@@ -8,7 +8,7 @@ define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
-'app/assets', 'app/views/showmanager', 'app/consts/showdirections'],
+'app/assets', 'app/consts/showdirections'],
 
 function($, Canvas, Controls,
 
@@ -18,7 +18,7 @@ CanvasLayout, ControlTop, Events,
 
 Background, PhaserComponents, NameView,
 
-Assets, ShowManager, ShowDirections){
+Assets, ShowDirections){
 	
 	"use strict";
 	
@@ -71,7 +71,7 @@ Assets, ShowManager, ShowDirections){
 	};
 
 	MainView.prototype.addName = function() {
-    	this.nameView = new NameView(ModelFacade.getInstance().get(ModelFacade.NAME));
+    	this.nameView = new NameView(this.modelFacade.get(ModelFacade.NAME));
     	$("body").append(this.nameView.el);
 	};
 
@@ -124,14 +124,14 @@ Assets, ShowManager, ShowDirections){
 		this.canvas = new Canvas({"bounds":bounds});
 		this.group.add(this.canvas.view);
 		this.positionCanvas();
-		ShowManager.getInstance().add(this.canvas.view, 5, ShowDirections.UP);
+		this.showManager.add(this.canvas.view, 5, ShowDirections.UP);
 	};
 	
 	MainView.prototype.addMenu = function() {
 		var bounds = {'x':0, 'y':0, 'w':Menu.WIDTH, 'h':Menu.HEIGHT};
 		this.menu = new Menu({"bounds":bounds});
 		this.group.add(this.menu.view);
-		ShowManager.getInstance().add(this.menu.view, 0, ShowDirections.DOWN);
+		this.showManager.add(this.menu.view, 0, ShowDirections.DOWN);
 	};
 
 	MainView.prototype.removeMenu = function() {

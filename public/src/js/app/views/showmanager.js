@@ -6,7 +6,6 @@ function(PhaserComponents, ShowDirections){
 	"use strict";
 	
 	var ShowManager  = function(){
-		PhaserComponents.Injector.getInstance().injectInto(this, "showmanager");
 		this.cache = [];
 		this.tweens = [];
 	};
@@ -14,11 +13,8 @@ function(PhaserComponents, ShowDirections){
 	ShowManager.DELAY = 250;
 	ShowManager.DURATION = 600;
 
-	ShowManager.getInstance = function(){
-		if(!ShowManager.instance){
-			ShowManager.instance = new ShowManager();
-		}
-		return ShowManager.instance;
+	ShowManager.prototype.init = function(){
+		PhaserComponents.Injector.getInstance().injectInto(this, "showmanager");
 	};
 
 	ShowManager.prototype.show = function(key){
@@ -53,16 +49,10 @@ function(PhaserComponents, ShowDirections){
 		});
 	};
 
-	ShowManager.prototype.shutdown = function(){
+	ShowManager.prototype.destroy = function(){
 		this.stopTweens();
 		this.cache = null;
 		this.tweens = [];
-	};
-
-	ShowManager.shutdown = function(){
-		if(ShowManager.instance){
-			ShowManager.instance.shutdown();
-		}
 	};
 
 	return ShowManager;

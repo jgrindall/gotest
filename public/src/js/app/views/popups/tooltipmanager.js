@@ -1,7 +1,7 @@
 
-define(['phasercomponents', 'app/views/popups/tooltip', 'app/assets'], 
+define(['app/views/popups/tooltip', 'app/assets'], 
 
-function(PhaserComponents, ToolTip, Assets){
+function(ToolTip, Assets){
 
 	"use strict";
 	
@@ -31,7 +31,7 @@ function(PhaserComponents, ToolTip, Assets){
 		arrow = ToolTipManager.ARROW_POS[this.num];
 		pos = ToolTipManager.pos[this.num];
 		options = {"label":text, "sfx":Assets.SOUNDS[2], "end":(this.num === ToolTipManager.NUM - 1), "num":this.num, "arrow":arrow, "dx":ToolTipManager.DX[this.num]};
-		PhaserComponents.AlertManager.getInstance().make(ToolTip, options, this.onClosed.bind(this), pos);
+		this.alertManager.getInstance().make(ToolTip, options, this.onClosed.bind(this), pos);
 	};
 
 	ToolTipManager.prototype.onClosed = function(data) {

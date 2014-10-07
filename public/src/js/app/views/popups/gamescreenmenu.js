@@ -12,7 +12,7 @@ OkButton, CloseButton, ModelFacade){
 	var GameScreenMenu = function(options){
 		options.bgasset = 'panel';
 		PhaserComponents.Display.AbstractPopup.call(this, options);
-		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.add(this.onChanged, this);
+		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.add(this.onChanged, this);
 	};
 	
 	PhaserComponents.Utils.extends(GameScreenMenu, PhaserComponents.Display.AbstractPopup);
@@ -36,7 +36,7 @@ OkButton, CloseButton, ModelFacade){
 	};
 
 	GameScreenMenu.prototype.initRadio = function () {
-		var screen = ModelFacade.getInstance().get(ModelFacade.SCREEN).get();
+		var screen = this.modelFacade.get(ModelFacade.SCREEN).get();
 		if(screen === 3){
 			this.enableRadio();
 		}
@@ -106,7 +106,7 @@ OkButton, CloseButton, ModelFacade){
 	};
 	
 	GameScreenMenu.prototype.destroy = function() {
-		ModelFacade.getInstance().get(ModelFacade.SCREEN).changeSignal.remove(this.onChanged, this);
+		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.remove(this.onChanged, this);
 		this.radio.destroy();
 		this.grid.destroy();
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);

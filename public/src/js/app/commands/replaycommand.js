@@ -14,8 +14,8 @@ function(PlayingState, ModelFacade, PhaserComponents) {
 	PhaserComponents.Utils.extends(ReplayCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ReplayCommand.prototype.execute = function(){
-		ModelFacade.getInstance().get(ModelFacade.PLAYING).set(PlayingState.REPLAYING);
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).replay();
+		this.modelFacade.get(ModelFacade.PLAYING).set(PlayingState.REPLAYING);
+		this.modelFacade.get(ModelFacade.COMMTICKER).replay();
 	};
 	
   	return ReplayCommand;

@@ -42,10 +42,12 @@ Events, AbstractExecuteCommandsPanel){
 			}
 			else if(code === 97 || code === 99  || code === 101  || code === 103  || code === 105){
 				this.selectKey({"index":code - 97});
+				this.onCommReset();
 			}
 			else if(code === 98 || code === 100  || code === 102  || code === 104){
 				if(this.recentComm()){
 					this.selectKey({"index":code - 97});
+					this.onCommReset();
 				}
 				else{
 					i = (code - 98)/2;

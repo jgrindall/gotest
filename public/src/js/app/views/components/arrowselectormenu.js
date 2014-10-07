@@ -1,5 +1,5 @@
 
-define(['jquery', 'phaser', 'app/views/buttons/arrowbutton',
+define(['jquery', 'app/views/buttons/arrowbutton',
 
 'app/views/components/selectormenu', 'app/views/buttons/markerbutton',
 
@@ -7,7 +7,7 @@ define(['jquery', 'phaser', 'app/views/buttons/arrowbutton',
 
 ],
 
-function($, Phaser, ArrowButton, 
+function($, ArrowButton, 
 
 SelectorMenu, MarkerButton,
 
@@ -30,31 +30,15 @@ PhaserComponents, Assets)
 		x = this.bounds.x;
 		w = this.bounds.w;
 		d = (this.game.w - w)/2;
-		//TODO - move tweens into phasercomponents or buttons themselves
 		if(this.options.dataProvider.getNumPages() >= 2){
 			this.leftButton = new ArrowButton({"data":{"num":0, "visible":true}, "bounds":{'x':d - 20 - ArrowButton.WIDTH, 'y':this.game.cy - ArrowButton.HEIGHT/2}});
 			this.rightButton = new ArrowButton({"data":{"num":1, "visible":true}, "bounds":{'x':d + w + 20, 'y':this.game.cy - ArrowButton.HEIGHT/2}});
-			this.leftButton.view.alpha = 0;
-			this.rightButton.view.alpha = 0;
 			this.group.add(this.leftButton.view);
 			this.group.add(this.rightButton.view);
 			this.addArrowListeners();
-			this.showArrows();
 		}
 	};
-	
-	ArrowSelectorMenu.prototype.showArrows = function () {
-		// TODO move into ArrowButton
-		this.leftTween = this.game.add.tween(this.leftButton.view).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
-		this.rightTween = this.game.add.tween(this.rightButton.view).to( {'alpha': 1}, 400, Phaser.Easing.Linear.None, true, 400, false);
-		this.leftTween.onComplete.add(this.onArrowsShown, this);
-	};
-	
-	ArrowSelectorMenu.prototype.onArrowsShown = function () {
-		this.leftButton.disableInput();
-		this.leftTween.onComplete.remove(this.onArrowsShown, this);
-	};
-	
+
 	ArrowSelectorMenu.prototype.addArrowListeners = function () {
 		this.leftButton.mouseUpSignal.add(this.leftClicked, this);
 		this.rightButton.mouseUpSignal.add(this.rightClicked, this);

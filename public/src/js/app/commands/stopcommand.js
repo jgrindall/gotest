@@ -13,7 +13,7 @@ function(ModelFacade,  PhaserComponents) {
 	PhaserComponents.Utils.extends(StopCommand, PhaserComponents.Commands.AbstractCommand);
 
 	StopCommand.prototype.execute = function(){
-		ModelFacade.getInstance().get(ModelFacade.COMMTICKER).stop();
+		this.modelFacade.get(ModelFacade.COMMTICKER).stop();
 	};
 	
   	return StopCommand;

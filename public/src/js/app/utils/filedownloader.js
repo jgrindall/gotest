@@ -134,7 +134,7 @@ define(['phasercomponents', 'filesaver',
 		};
 
 		FileDownloader.prototype.message = function(){
-			Error.show(ErrorCodes.IMAGE_DOWNLOAD_ERROR);
+			Error.show(this.alertManager, ErrorCodes.IMAGE_DOWNLOAD_ERROR);
 		};
 
 		return FileDownloader;
