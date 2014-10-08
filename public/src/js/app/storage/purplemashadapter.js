@@ -42,7 +42,7 @@ function(PhaserComponents) {
 			options.thumb = PurpleMashAdapter.THUMB;
 			options.filter = PurpleMashAdapter.FILTER_SAVE;
 			options.onSave = this.onFileSaved.bind(this, callback);
-			options.data = data;
+			options.data = JSON.stringify(data);
 			console.log("options ", options);
 			window.DocumentHandler.save(options);
 		}
@@ -58,7 +58,15 @@ function(PhaserComponents) {
 
 	PurpleMashAdapter.prototype.onFileLoaded = function(callback, result){
 		console.log("onFileLoaded ", callback, result, JSON.stringify(result));
-		callback({"success":true, "data":result});
+		try{
+			if(typeof result === 'object'){
+				result = JSON.parse(result);
+			}
+			callback({'success':true, 'data':result});
+		}
+		catch(e){
+			callback({'success':false, 'data':null});
+		}
 	};
 
 	PurpleMashAdapter.prototype.getForKeyPath = function(keyPath, callback){

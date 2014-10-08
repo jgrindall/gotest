@@ -1,5 +1,5 @@
 
-define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands/savecommand',
+define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands/savecommand',
 
 	'app/commands/printcommand', 'app/commands/undocommand', 'app/commands/downloadcommand',
 
@@ -23,7 +23,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/views/showmanager', 'app/models/modelfacade'],
 
-	function(NewFileCommand, LoadCommand, SaveCommand,
+	function($, NewFileCommand, LoadCommand, SaveCommand,
 
 		PrintCommand, UndoCommand, DownloadCommand,
 
@@ -87,6 +87,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     AppContext.prototype.onChangeScene = function(event, obj){
     	if(obj.data.scene instanceof LoaderScene){
     		this.startActivity();
+    		$("html").css("background", "#191919");
     	}
     };
  	
