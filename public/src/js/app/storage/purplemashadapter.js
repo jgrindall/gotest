@@ -42,6 +42,7 @@ function(PhaserComponents) {
 			options.thumb = PurpleMashAdapter.THUMB;
 			options.filter = PurpleMashAdapter.FILTER_SAVE;
 			options.onSave = this.onFileSaved.bind(this, callback);
+			options.data = data;
 			console.log("options ", options);
 			window.DocumentHandler.save(options);
 		}
