@@ -140,7 +140,7 @@ define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'ap
 	
 	AppContext.prototype.preload = function(){
 		this.gameManager.game.load.image(Assets.BG, 'assets/images/bg/stressed_linen.png');
-		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/loader/bar.png', 425, 40);
+		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/loader/bar.png', 435, 40);
 	};
 	
 	return AppContext;
