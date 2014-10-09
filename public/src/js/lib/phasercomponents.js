@@ -671,7 +671,7 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	SoundManager.prototype.play = function(key){
 		var sound = this.sounds[key];
 		if(sound){
-			sound.play();
+			sound.play("", 0, 0.5, false, true);
 		}
 	};
 	
@@ -1360,6 +1360,7 @@ function(Phaser, View, Utils,
 			this.sprite.inputEnabled = true;
 			this.tweenAlpha(1, true);
 			this.sprite.input.useHandCursor = true;
+			this.sprite.tint = 0xFFFFFF;
 			this.addListeners();
 		}
 	};
@@ -1368,6 +1369,7 @@ function(Phaser, View, Utils,
 		if(this.sprite.inputEnabled){
 			this.sprite.inputEnabled = false;
 			this.tweenAlpha(this.options.disabledAlpha, false);
+			this.sprite.tint = 0xCCCCCC;
 			this.removeListeners();
 		}
 	};

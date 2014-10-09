@@ -1,7 +1,11 @@
 
-define(['phasercomponents', 'app/models/modelfacade', 'app/consts/commspeed'],
+define(['phasercomponents', 'app/models/modelfacade',
 
-function(PhaserComponents, ModelFacade, CommSpeed){
+	'app/consts/commspeed', 'app/assets'],
+
+function(PhaserComponents, ModelFacade,
+
+	CommSpeed, Assets){
 	
 	"use strict";
 	
@@ -57,9 +61,11 @@ function(PhaserComponents, ModelFacade, CommSpeed){
 	SpeedMarkers.prototype.speedChanged = function(value){
 		if(value === 0){
 			this.decor0.animations.play('play0');
+			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":Assets.SOUNDS[5]});
 		}
 		else if(value === CommSpeed.ALL.length - 1){
 			this.decor1.animations.play('play1');
+			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":Assets.SOUNDS[4]});
 		}
 	};
 
