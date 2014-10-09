@@ -1360,7 +1360,7 @@ function(Phaser, View, Utils,
 			this.sprite.inputEnabled = true;
 			this.tweenAlpha(1, true);
 			this.sprite.input.useHandCursor = true;
-			this.sprite.tint = 0xFFFFFF;
+			//this.sprite.tint = 0xFFFFFF;
 			this.addListeners();
 		}
 	};
@@ -1369,7 +1369,7 @@ function(Phaser, View, Utils,
 		if(this.sprite.inputEnabled){
 			this.sprite.inputEnabled = false;
 			this.tweenAlpha(this.options.disabledAlpha, false);
-			this.sprite.tint = 0xCCCCCC;
+			//this.sprite.tint = 0xdddddd;
 			this.removeListeners();
 		}
 	};
