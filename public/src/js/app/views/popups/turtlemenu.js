@@ -5,7 +5,7 @@ define(['phasercomponents',
 
 'app/assets', 'app/views/buttons/addbutton',
 
-'app/views/popups/turtlechoice', 'app/models/modelconsts'],
+'app/views/popups/turtlechoice'],
 
 function(PhaserComponents, 
 
@@ -13,7 +13,7 @@ OkButton, CloseButton,
 
 Assets, AddButton,
 
-TurtleChoice, ModelConsts){
+TurtleChoice){
 	
 	"use strict";
 		
@@ -50,7 +50,7 @@ TurtleChoice, ModelConsts){
 	};
 
 	TurtleMenu.prototype.addGrid = function() {
-		var options, bounds, model;
+		var options, bounds;
 		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 30, 'w':this.bounds.w, 'h':this.bounds.h - 31};
 		options = {"model":this.model, "bounds":bounds, "numX": 2, "numY": 1, "buttonClass": TurtleChoice};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
