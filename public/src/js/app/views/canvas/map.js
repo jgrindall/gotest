@@ -1,11 +1,11 @@
 
 define(['phaser', 'app/models/modelconsts',
 
-	'phasercomponents', 'app/assets', 'app/events/events'],
+	'phasercomponents', 'app/assets'],
 
 function(Phaser, ModelConsts,
 
-PhaserComponents, Assets, Events){
+PhaserComponents, Assets){
 	
 	"use strict";
 	

@@ -2,11 +2,11 @@ define(
 
 	['jquery', 'phasercomponents',
 
-	'app/events/events', 'app/models/modelconsts'],
+	'app/models/modelconsts'],
 
 function($, PhaserComponents,
 
-	Events, ModelConsts) {
+	ModelConsts) {
 	
 	"use strict";
 
