@@ -37,10 +37,9 @@ FdCommand, StepLengths){
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.SCREEN).changeSignal.add(this.onChangeScreen, this);
 		this.modelFacade.get(ModelConsts.TURTLE).changeSignal.add(this.turtleChanged, this);
+		this.modelFacade.get(ModelConsts.TURTLE_PNG).changeSignal.add(this.turtlePngChanged, this);
 		this.rotateHandler = this.onRotateTurtle.bind(this);
 		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, this.rotateHandler);
-		this.onEditorDone = this.onEditDone.bind(this);
-		this.eventDispatcher.addListener(Events.TURTLE_EDITOR_DONE, this.onEditorDone);
 		this.onReset();
 	};
 
@@ -54,14 +53,18 @@ FdCommand, StepLengths){
 		
 	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
 
-	Drawing.prototype.turtleChanged = function(){
-		this.turtle.addTurtle();
-		this.turtle.reset(this.startPos);
+	Drawing.prototype.turtleChanged = function(value){
+		console.log("turtle png changed", value);
+		if(value !== null){
+			this.turtle.addTurtle();
+			this.turtle.reset(this.startPos);
+		}
 	};
 
-	Drawing.prototype.onEditDone = function(event, data) {
-		var pngData = data.data, img;
-		if(pngData){
+	Drawing.prototype.turtlePngChanged = function(pngData){
+		console.log("turtle png changed", pngData);
+		var img;
+		if(pngData !== null){
 			img = new Image();
 			img.src = pngData;
 			this.game.cache.addImage(Turtle.EDITOR_KEY, pngData, img);
@@ -206,6 +209,8 @@ FdCommand, StepLengths){
 	
 	Drawing.prototype.turtleMoved = function(pos) {
 		var p = {'x':(pos.x - this.bounds.x)/this.bounds.w, 'y':(pos.y - this.bounds.y)/this.bounds.h};
+		p.x = Math.round(p.x * 100)/100;
+		p.y = Math.round(p.y * 100)/100;
 		this.modelFacade.get(ModelConsts.STARTPOS).set(p);
 	};
 
@@ -240,7 +245,7 @@ FdCommand, StepLengths){
 		this.modelFacade.get(ModelConsts.STARTPOS).changeSignal.remove(this.onChangeStartPos, this);
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.remove(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.SCREEN).changeSignal.remove(this.onChangeScreen, this);
-		this.eventDispatcher.removeListener(Events.TURTLE_EDITOR_DONE, this.onEditorDone);
+		this.modelFacade.get(ModelConsts.TURTLE_PNG).changeSignal.remove(this.turtlePngChanged, this);
 		this.modelFacade.get(ModelConsts.TURTLE).changeSignal.remove(this.turtleChanged, this);
 		this.onEditorDone = null;
 		this.paths.endSignal.remove(this.commandFinished, this);

@@ -35,8 +35,6 @@ function() {
 	Events.START_ACTIVITY		= 		"startactivity";
 	Events.CHOOSE_CHALLENGE	 	=		"chooseChallenge";
 	Events.ROTATE_TURTLE		=		"rotateTurtle";
-	Events.BG_EDITOR_DONE		=		"bgEditorDone";
-	Events.TURTLE_EDITOR_DONE	=		"turtleEditorDone";
 	
   	return Events;
 });

@@ -12,17 +12,23 @@ PhaserComponents, Assets, Events){
 	var Map  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.BG).changeSignal.add(this.updateImage, this);
-		this.onEditorDone = this.onEditDone.bind(this);
-		this.eventDispatcher.addListener(Events.BG_EDITOR_DONE, this.onEditorDone);
+		this.modelFacade.get(ModelConsts.BG_PNG).changeSignal.add(this.updatePngImage, this);
 	};
 	
 	PhaserComponents.Utils.extends(Map, PhaserComponents.Display.Container);
 	
 	Map.EDITOR_KEY = 'bgEditorImage';
 
-	Map.prototype.onEditDone = function(event, data) {
-		var pngData = data.data, img;
-		if(pngData){
+	Map.prototype.updateImage = function(value) {
+		if(value !== null){
+			var bg = this.modelFacade.get(ModelConsts.BG).get();
+			this.addMapUsingKey(Assets.MAPS[bg]);
+		}
+	};
+
+	Map.prototype.updatePngImage = function(pngData) {
+		var img;
+		if(pngData !== null){
 			img = new Image();
 			img.src = pngData;
 			this.game.cache.addImage(Map.EDITOR_KEY, pngData, img);
@@ -31,8 +37,8 @@ PhaserComponents, Assets, Events){
 	};
 
 	Map.prototype.addMapUsingKey = function(key) {
-		this.removeSprite();
 		var p = 5;
+		this.removeSprite();
 		this.bg = new Phaser.Image(this.game, this.bounds.x + p, this.bounds.y + p, key);
 		this.bg.scale = {'x':(this.bounds.w - 2*p)/this.bg.width, 'y':(this.bounds.h - 2*p)/this.bg.height};
 		this.group.add(this.bg);
@@ -40,11 +46,6 @@ PhaserComponents, Assets, Events){
 
 	Map.prototype.addYourImage = function() {
 		this.addMapUsingKey(Map.EDITOR_KEY);
-	};
-
-	Map.prototype.updateImage = function() {
-		var bg = this.modelFacade.get(ModelConsts.BG).get() || 0;
-		this.addMapUsingKey(Assets.MAPS[bg]);
 	};
 	
 	Map.prototype.create = function() {
@@ -62,9 +63,8 @@ PhaserComponents, Assets, Events){
 
 	Map.prototype.destroy = function() {
 		this.modelFacade.get(ModelConsts.BG).changeSignal.remove(this.updateImage, this);
+		this.modelFacade.get(ModelConsts.BG_PNG).changeSignal.remove(this.updatePngImage, this);
 		this.removeSprite();
-		this.eventDispatcher.removeListener(Events.BG_EDITOR_DONE, this.onEditorDone);
-		this.onEditorDone = null;
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	

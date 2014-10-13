@@ -11,6 +11,8 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/commtickermodel', 'app/consts/playingstate', 'app/consts/commspeed',
 
+'app/models/bgpngmodel', 'app/models/turtlepngmodel',
+
 'app/models/modelconsts'],
 
 function(CommModel, ScreenModel, BgModel,
@@ -23,7 +25,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	ProgTypeModel, AllowProgModel, TurtleModel, NameModel,
 
-	CommTickerModel, PlayingState, CommSpeed,
+	CommTickerModel, PlayingState, CommSpeed, BgPngModel, TurtlePngModel,
 
 	ModelConsts){
 	
@@ -76,6 +78,12 @@ function(CommModel, ScreenModel, BgModel,
 		else if(name === ModelConsts.GRID){
 			return this.gridModel;
 		}
+		else if(name === ModelConsts.BG_PNG){
+			return this.bgPngModel;
+		}
+		else if(name === ModelConsts.TURTLE_PNG){
+			return this.turtlePngModel;
+		}
 		else if(name === ModelConsts.WIDTH){
 			return this.widthModel;
 		}
@@ -120,6 +128,8 @@ function(CommModel, ScreenModel, BgModel,
 		this.progNumModel = new ProgNumModel();
 		this.startPosModel = new StartPosModel();
 		this.selCommModel = new SelectedCommModel();
+		this.bgPngModel = new BgPngModel();
+		this.turtlePngModel = new TurtlePngModel();
 	};
 
 	ModelFacade.prototype.addListeners = function(){
@@ -130,15 +140,22 @@ function(CommModel, ScreenModel, BgModel,
 		this.speedModel.changeSignal.add(		this.changeSpeed, 		this);
 		this.allowProgModel.changeSignal.add(	this.changeAllowProg, 	this);
 		this.screenModel.changeSignal.add(		this.changeScreen, 		this);
+		this.bgPngModel.changeSignal.add(		this.changeBgPng, 		this);
+		this.turtlePngModel.changeSignal.add(	this.changeTurtlePng, 	this);
+		this.turtleModel.changeSignal.add(		this.changeTurtle, 		this);
 	};
 
 	ModelFacade.prototype.removeListeners = function(){
-		this.colorModel.changeSignal.remove(this.changeColor, this);
-		this.bgModel.changeSignal.remove(this.changeBg, this);
-		this.widthModel.changeSignal.remove(this.changeWidth, this);
-		this.playingModel.changeSignal.remove(this.changePlaying, this);
-		this.speedModel.changeSignal.remove(this.changeSpeed, this);
-		this.allowProgModel.changeSignal.remove(this.changeAllowProg, this);
+		this.colorModel.changeSignal.remove(		this.changeColor, 		this);
+		this.bgModel.changeSignal.remove(			this.changeBg, 			this);
+		this.widthModel.changeSignal.remove(		this.changeWidth, 		this);
+		this.playingModel.changeSignal.remove(		this.changePlaying, 	this);
+		this.speedModel.changeSignal.remove(		this.changeSpeed, 		this);
+		this.allowProgModel.changeSignal.remove(	this.changeAllowProg, 	this);
+		this.screenModel.changeSignal.remove(		this.changeScreen, 		this);
+		this.bgPngModel.changeSignal.remove(		this.changeBgPng, 		this);
+		this.turtlePngModel.changeSignal.remove(	this.changeTurtlePng, 	this);
+		this.turtleModel.changeSignal.remove(		this.changeTurtle, 		this);
 	};
 
 	ModelFacade.prototype.init = function(){
@@ -182,9 +199,30 @@ function(CommModel, ScreenModel, BgModel,
 		this.setDuration();
 	};
 
-	ModelFacade.prototype.changeBg = function() {
+	ModelFacade.prototype.changeBg = function(value) {
 		this.commTickerModel.reset();
 		this.commModel.reset();
+		if(value){
+			this.bgPngModel.set(null);
+		}
+	};
+
+	ModelFacade.prototype.changeBgPng = function(value) {
+		if(value){
+			this.bgModel.set(null);
+		}
+	};
+
+	ModelFacade.prototype.changeTurtle = function(value) {
+		if(value){
+			this.turtlePngModel.set(null);
+		}
+	};
+
+	ModelFacade.prototype.changeTurtlePng = function(value) {
+		if(value){
+			this.turtleModel.set(null);
+		}
 	};
 
 	ModelFacade.prototype.changeColor = function(value) {
@@ -198,10 +236,24 @@ function(CommModel, ScreenModel, BgModel,
 		this.colorModel.set(json.settings.color, {"force":true});
 		this.speedModel.set(json.settings.speed);
 		this.widthModel.set(json.settings.width);
-		this.bgModel.set(json.settings.bg);
+		if(json.settings.bgPng){
+			this.bgPngModel.set(json.settings.bgPng);
+			this.bgModel.set(null);
+		}
+		else{
+			this.bgPngModel.set(null);
+			this.bgModel.set(json.settings.bg);
+		}
+		if(json.settings.turtlePng){
+			this.turtlePngModel.set(json.settings.turtlePng);
+			this.turtleModel.set(null);
+		}
+		else{
+			this.turtlePngModel.set(null);
+			this.turtleModel.set(json.settings.turtle);
+		}
 		this.gridModel.set(json.settings.grid);
 		this.diagModel.set(json.settings.diag);
-		this.turtleModel.set(json.settings.turtle);
 		this.allowProgModel.set(json.settings.allowProg);
 		this.angleModel.set(json.settings.angle);
 		this.progTypeModel.set(json.settings.prog);
@@ -225,6 +277,8 @@ function(CommModel, ScreenModel, BgModel,
 		settings.prog = 		this.progTypeModel.get();
 		settings.grid = 		this.gridModel.get();
 		settings.turtle = 		this.turtleModel.get();
+		settings.bgPng = 		this.bgPngModel.get();
+		settings.turtlePng = 	this.turtlePngModel.get();
 		settings.color =	 	this.colorModel.get();
 		settings.allowProg =	this.allowProgModel.get();
 		settings.diag =	 		this.diagModel.get();
@@ -239,6 +293,8 @@ function(CommModel, ScreenModel, BgModel,
 	ModelFacade.prototype.destroyModels = function(){
 		this.screenModel.destroy();
 		this.colorModel.destroy();
+		this.bgPngModel.destroy();
+		this.turtlePngModel.destroy();
 		this.speedModel.destroy();
 		this.widthModel.destroy();
 		this.bgModel.destroy();
@@ -255,6 +311,8 @@ function(CommModel, ScreenModel, BgModel,
 		this.progModel.destroy();
 		this.screenModel = null;
 		this.colorModel = null;
+		this.bgPngModel = null;
+		this.turtlePngModel = null;
 		this.speedModel = null;
 		this.widthModel = null;
 		this.bgModel = null;

@@ -19,6 +19,8 @@ define(['jquery'], function($) {
 		'width':2,
 		'grid':0,
 		'prog':0,
+		'turtlePng':null,
+		'bgPng':null,
 		'progNum':0,
 		'allowProg':0,
 		'turtle':0,

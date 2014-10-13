@@ -16,7 +16,6 @@ function(PhaserComponents, Defaults, Events) {
 		var json = Defaults.getChallenge(data.selection);
 		this.modelFacade.setData(json);
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
-		console.log(JSON.stringify(json));
 	};
 	
   	return ChooseChallengeCommand;

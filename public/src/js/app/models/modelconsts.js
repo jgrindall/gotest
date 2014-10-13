@@ -11,6 +11,8 @@ function(){
 
 	ModelConsts.SPEED = 		"speed";
 	ModelConsts.BG = 			"bg";
+	ModelConsts.BG_PNG = 		"bgpng";
+	ModelConsts.TURTLE_PNG = 	"turtlepng";
 	ModelConsts.COLOR = 		"color";
 	ModelConsts.STARTPOS = 		"startpos";
 	ModelConsts.GRID = 			"grid";

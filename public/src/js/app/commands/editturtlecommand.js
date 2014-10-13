@@ -20,6 +20,7 @@ function(PhaserComponents, Events, Assets, ModelConsts,
 		var turtleIndex;
 		if(data.index === 0){
 			turtleIndex = data.selection.index;
+			console.log("turtleIndex ", turtleIndex);
 			this.modelFacade.get(ModelConsts.TURTLE).set(turtleIndex);
 		}
 		else if(data.index === 1){
