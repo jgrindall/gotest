@@ -30,8 +30,8 @@ CloseButton, Assets){
 	};
 
 	Growl.prototype.addTitle = function () {
-		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.title);
-		this.group.add(this.label);
+		this.title = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.title);
+		this.group.add(this.title);
 	};
 	
 	Growl.prototype.addOkButton = function () {
@@ -54,6 +54,10 @@ CloseButton, Assets){
 	};
 	
 	Growl.prototype.destroy = function() {
+		this.group.remove(this.title);
+		this.group.remove(this.label);
+		this.title = null;
+		this.label = null;
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	

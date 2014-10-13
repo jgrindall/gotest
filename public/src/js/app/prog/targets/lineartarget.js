@@ -13,8 +13,8 @@ define( ['app/prog/views/dropview',	'app/assets',
 	};
 
 	LinearTarget.NUM = 			5;
-	LinearTarget.TOP = 			34;
-	LinearTarget.BOTTOM = 		310;
+	LinearTarget.TOP = 			25;
+	LinearTarget.BOTTOM = 		250;
 	LinearTarget.BLOCK_TOP = 	54;
 	LinearTarget.GAP = 			55;
 	LinearTarget.STOP_POS = 	{'x':110, 'y':322};

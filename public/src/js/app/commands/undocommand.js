@@ -1,8 +1,8 @@
 define([
 
-	'app/events/events','phasercomponents','app/models/modelfacade'],
+	'app/events/events','phasercomponents','app/models/modelconsts'],
 
-function(Events, PhaserComponents, ModelFacade) {
+function(Events, PhaserComponents, ModelConsts) {
 	
 	"use strict";
 	
@@ -13,7 +13,7 @@ function(Events, PhaserComponents, ModelFacade) {
 	PhaserComponents.Utils.extends(UndoCommand, PhaserComponents.Commands.AbstractCommand);
 
 	UndoCommand.prototype.execute = function(){
-		this.modelFacade.get(ModelFacade.COMM).undo();
+		this.modelFacade.get(ModelConsts.COMM).undo();
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
 	};
 	

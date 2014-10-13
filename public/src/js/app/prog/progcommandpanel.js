@@ -10,7 +10,7 @@ define(
 
 	'app/prog/controller/progcontrollerfactory', 'app/prog/controller/playcontrollerfactory',
 
-	'app/models/modelfacade', 'app/consts/playingstate'],
+	'app/consts/playingstate', 'app/models/modelconsts'],
 
 	function(PhaserComponents, DragButton, Assets,
 
@@ -22,7 +22,7 @@ define(
 
 		ProgControllerFactory, PlayControllerFactory,
 
-		ModelFacade, PlayingState){
+		PlayingState, ModelConsts){
 	
 	"use strict";
 
@@ -30,10 +30,10 @@ define(
 		this.buttons = [];
 		this.targets = [];
 		AbstractCommandsPanel.call(this, options);
-		this.modelFacade.get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
-		this.modelFacade.get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
-		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
-		this.modelFacade.get(ModelFacade.PROG).changeSignal.add(this.progChanged, this);
+		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.modelFacade.get(ModelConsts.PROG).changeSignal.add(this.progChanged, this);
 	};
 
 	PhaserComponents.Utils.extends(ProgCommandPanel, AbstractCommandsPanel);
@@ -56,9 +56,9 @@ define(
 
 	ProgCommandPanel.prototype.setProgress = function(){
 		var num, total, start, progress, index = -1;
-		num = this.modelFacade.get(ModelFacade.COMMTICKER).get();
-		total = this.modelFacade.get(ModelFacade.COMM).getNum();
-		start = this.modelFacade.get(ModelFacade.COMMTICKER).startNum;
+		num = this.modelFacade.get(ModelConsts.COMMTICKER).get();
+		total = this.modelFacade.get(ModelConsts.COMM).getNum();
+		start = this.modelFacade.get(ModelConsts.COMMTICKER).startNum;
 		progress = num - start;
 		if(num < total){
 			index = this.getBlockIndex(progress);
@@ -192,7 +192,7 @@ define(
 		if(this.dragManager){
 			this.dragManager.clear();
 		}
-		json = this.modelFacade.get(ModelFacade.PROG).get();
+		json = this.modelFacade.get(ModelConsts.PROG).get();
 		numTargets = Math.min(json.length, this.targets.length);
 		for(i = 0; i < numTargets; i++){
 			for(j = 0; j < json[i].length; j++){
@@ -297,7 +297,7 @@ define(
 
 	ProgCommandPanel.prototype.onEdited = function() {
 		if(this.model){
-			this.modelFacade.get(ModelFacade.PROG).set(this.model.toJson(), {"silent":true});
+			this.modelFacade.get(ModelConsts.PROG).set(this.model.toJson(), {"silent":true});
 		}
 		var enable = this.startEnabled();
 		if(enable){
@@ -368,9 +368,9 @@ define(
 	ProgCommandPanel.prototype.destroy = function() {
 		this.disableInput();
 		this.model = null;
-		this.modelFacade.get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
-		this.modelFacade.get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
-		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
+		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.COMM).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.remove(this.playingChanged, this);
 		this.dragManager.editSignal.remove(this.onEdited, this);
 		this.dragManager.destroy();
 		this.dragManager = null;

@@ -2,13 +2,13 @@ define([
 
 	'app/events/events', 'phasercomponents',
 
-	'app/models/modelfacade', 'app/logocommands/logocommandfactory'],
+	'app/models/modelconsts', 'app/logocommands/logocommandfactory'],
 
 function(
 
 	Events, PhaserComponents,
 
-	ModelFacade, LogoCommandFactory) {
+	ModelConsts, LogoCommandFactory) {
 	
 	"use strict";
 	
@@ -20,13 +20,13 @@ function(
 
 	AddCommandCommand.prototype.execute = function(data){
 		var command;
-		data.color = this.modelFacade.get(ModelFacade.COLOR).get();
-		data.width = this.modelFacade.get(ModelFacade.WIDTH).get();
-		data.diag = this.modelFacade.get(ModelFacade.DIAG).get();
-		data.angle = this.modelFacade.get(ModelFacade.ANGLE).get();
-		data.stepLength = this.modelFacade.get(ModelFacade.STEPLENGTH).get();
+		data.color = this.modelFacade.get(ModelConsts.COLOR).get();
+		data.width = this.modelFacade.get(ModelConsts.WIDTH).get();
+		data.diag = this.modelFacade.get(ModelConsts.DIAG).get();
+		data.angle = this.modelFacade.get(ModelConsts.ANGLE).get();
+		data.stepLength = this.modelFacade.get(ModelConsts.STEPLENGTH).get();
 		command = LogoCommandFactory.fromJson(data);
-		this.modelFacade.get(ModelFacade.COMM).add(command);
+		this.modelFacade.get(ModelConsts.COMM).add(command);
 		this.eventDispatcher.trigger({"type":Events.DRAW});
 	};
 	

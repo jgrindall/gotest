@@ -7,7 +7,7 @@ require.config({
 		'phaser': 						'lib/phaser',
 		'phaserstatetrans': 			'lib/phaser-state-transition.min',
 		'phasercomponents':  			'lib/phasercomponents',
-		'filesaver':  					'lib/filesaver',
+		'filesaver':  					'lib/filesaver'
 	}
 });
 

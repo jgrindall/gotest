@@ -1,22 +1,22 @@
 
-define(['phasercomponents', 'app/models/modelfacade'],
+define(['phasercomponents', 'app/models/modelconsts'],
 
-function(PhaserComponents, ModelFacade){
+function(PhaserComponents,  ModelConsts){
 	
 	"use strict";
 	
 	var Indicator = function(options){
 		PhaserComponents.Display.Container.call(this, options);
-		this.modelFacade.get(ModelFacade.COMMTICKER).changeSignal.add(this.setProgress, this);
-		this.modelFacade.get(ModelFacade.COMM).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
 	};
 
 	Indicator.RADIUS = 40;
 	
 	Indicator.prototype.setProgress = function(){
 		var num, total;
-		num = this.modelFacade.get(ModelFacade.COMMTICKER).get();
-		total = this.modelFacade.get(ModelFacade.COMM).getNum();
+		num = this.modelFacade.get(ModelConsts.COMMTICKER).get();
+		total = this.modelFacade.get(ModelConsts.COMM).getNum();
 		this.drawText(num, total);
 	};
 
@@ -26,8 +26,8 @@ function(PhaserComponents, ModelFacade){
 	
 	Indicator.prototype.destroy = function() {
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
-		this.modelFacade.get(ModelFacade.COMMTICKER).changeSignal.remove(this.setProgress, this);
-		this.modelFacade.get(ModelFacade.COMM).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.COMM).changeSignal.remove(this.setProgress, this);
 		this.group.remove(this.label);
 		this.label.destroy();
 		this.label = null;

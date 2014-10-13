@@ -9,7 +9,9 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/progtypemodel', 'app/models/allowprogmodel', 'app/models/turtlemodel', 'app/models/namemodel',
 
-'app/models/commtickermodel', 'app/consts/playingstate', 'app/consts/commspeed'],
+'app/models/commtickermodel', 'app/consts/playingstate', 'app/consts/commspeed',
+
+'app/models/modelconsts'],
 
 function(CommModel, ScreenModel, BgModel,
 
@@ -21,7 +23,9 @@ function(CommModel, ScreenModel, BgModel,
 
 	ProgTypeModel, AllowProgModel, TurtleModel, NameModel,
 
-	CommTickerModel, PlayingState, CommSpeed){
+	CommTickerModel, PlayingState, CommSpeed,
+
+	ModelConsts){
 	
 	"use strict";
 
@@ -29,86 +33,65 @@ function(CommModel, ScreenModel, BgModel,
 		
 	};
 
-	ModelFacade.SPEED = 		"speed";
-	ModelFacade.BG = 			"bg";
-	ModelFacade.COLOR = 		"color";
-	ModelFacade.STARTPOS = 		"startpos";
-	ModelFacade.GRID = 			"grid";
-	ModelFacade.COMM = 			"comm";
-	ModelFacade.SCREEN = 		"screen";
-	ModelFacade.COMMTICKER = 	"commTicker";
-	ModelFacade.PLAYING = 		"playing";
-	ModelFacade.WIDTH = 		"width";
-	ModelFacade.STEPLENGTH = 	"stepLength";
-	ModelFacade.DIAG = 			"diag";
-	ModelFacade.ANGLE = 		"angle";
-	ModelFacade.PROG_TYPE = 	"progType";
-	ModelFacade.ALLOW_PROG = 	"allowProg";
-	ModelFacade.PROG_NUM = 		"progNum";
-	ModelFacade.PROG = 			"prog";
-	ModelFacade.NAME = 			"name";
-	ModelFacade.TURTLE = 		"turtle";
-	ModelFacade.SELECTED_COMM = "selectedComm";
-
 	ModelFacade.prototype.get = function(name){
-		if(name === ModelFacade.SPEED){
+		if(name === ModelConsts.SPEED){
 			return this.speedModel;
 		}
-		else if(name === ModelFacade.BG){
+		else if(name === ModelConsts.BG){
 			return this.bgModel;
 		}
-		else if(name === ModelFacade.STARTPOS){
+		else if(name === ModelConsts.STARTPOS){
 			return this.startPosModel;
 		}
-		else if(name === ModelFacade.SELECTED_COMM){
+		else if(name === ModelConsts.SELECTED_COMM){
 			return this.selCommModel;
 		}
-		else if(name === ModelFacade.ANGLE){
+		else if(name === ModelConsts.ANGLE){
 			return this.angleModel;
 		}
-		else if(name === ModelFacade.COLOR){
+		else if(name === ModelConsts.COLOR){
 			return this.colorModel;
 		}
-		else if(name === ModelFacade.COMM){
+		else if(name === ModelConsts.COMM){
 			return this.commModel;
 		}
-		else if(name === ModelFacade.SCREEN){
+		else if(name === ModelConsts.SCREEN){
 			return this.screenModel;
 		}
-		else if(name === ModelFacade.DIAG){
+		else if(name === ModelConsts.DIAG){
 			return this.diagModel;
 		}
-		else if(name === ModelFacade.NAME){
+		else if(name === ModelConsts.NAME){
 			return this.nameModel;
 		}
-		else if(name === ModelFacade.COMMTICKER){
+		else if(name === ModelConsts.COMMTICKER){
 			return this.commTickerModel;
 		}
-		else if(name === ModelFacade.PLAYING){
+		else if(name === ModelConsts.PLAYING){
 			return this.playingModel;
 		}
-		else if(name === ModelFacade.PROG_NUM){
+		else if(name === ModelConsts.PROG_NUM){
 			return this.progNumModel;
 		}
-		else if(name === ModelFacade.GRID){
+		else if(name === ModelConsts.GRID){
 			return this.gridModel;
 		}
-		else if(name === ModelFacade.WIDTH){
+		else if(name === ModelConsts.WIDTH){
 			return this.widthModel;
 		}
-		else if(name === ModelFacade.STEPLENGTH){
+		else if(name === ModelConsts.STEPLENGTH){
 			return this.stepLengthModel;
 		}
-		else if(name === ModelFacade.PROG_TYPE){
+		else if(name === ModelConsts.PROG_TYPE){
 			return this.progTypeModel;
 		}
-		else if(name === ModelFacade.PROG){
+		else if(name === ModelConsts.PROG){
 			return this.progModel;
 		}
-		else if(name === ModelFacade.ALLOW_PROG){
+		else if(name === ModelConsts.ALLOW_PROG){
 			return this.allowProgModel;
 		}
-		else if(name === ModelFacade.TURTLE){
+		else if(name === ModelConsts.TURTLE){
 			return this.turtleModel;
 		}
 		else{

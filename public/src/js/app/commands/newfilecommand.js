@@ -1,16 +1,16 @@
 define(
 
-	['phasercomponents', 'app/models/modelfacade',
+	['phasercomponents', 
 
 	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider',
 
-	'app/assets', 'app/events/events'],
+	'app/assets', 'app/events/events', 'app/models/modelconsts'],
 
-function(PhaserComponents, ModelFacade,
+function(PhaserComponents, 
 
 	GameBgMenu, BgDataProvider,
 
-	Assets, Events) {
+	Assets, Events, ModelConsts) {
 	
 	"use strict";
 	
@@ -28,10 +28,10 @@ function(PhaserComponents, ModelFacade,
 	NewFileCommand.prototype.onBgChosen = function(data){
 		var selectedPage = data.selection.selectedPage;
 		if(data.index === 1){
-			this.modelFacade.get(ModelFacade.BG).set(selectedPage, {"force":true});
+			this.modelFacade.get(ModelConsts.BG).set(selectedPage, {"force":true});
 		}
 		else if(data.index === 2){
-			this.eventDispatcher.trigger({"type":Events.DESIGN_IMG});
+			this.eventDispatcher.trigger({"type":Events.OPEN_BG_EDITOR});
 		}
 	};
 	

@@ -10,15 +10,18 @@ define([], function(){
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
 	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9', 'map10', 'map11', 'map12'];
-	Assets.TURTLE = 				'turtle';
+	Assets.TURTLES = 				['turtle0', 'turtle1'];
+	Assets.TURTLE_CHOICE = 			'turtleChoice';
+	Assets.MOVER = 					'mover';
 	Assets.CORNERS = 				'corners';
 	Assets.CORNERSX = 				'cornersx';
-	Assets.SOUNDS = 				['clickdown', 'clickup', 'swooshdown', 'swooshup', 'rocket', 'snail'];
+	Assets.SOUNDS = 				['clickdown', 'clickup', 'swooshdown', 'swooshup', 'rocket', 'snail', 'camera'];
 	Assets.CLOSE = 					'close';
 	Assets.MARKER = 				'marker';
+	Assets.CHALLENGES = 			'challenges';
 	Assets.PANEL = 					'panel';
 	Assets.SPEEDDECOR = 			'speeddecor';
-	Assets.SMALL_PANEL = 			'smallpanel';
+	Assets.GAME_SCREEN = 			'gamescreen';
 	Assets.TOOLTIPS = 				['tooltip0', 'tooltip1', 'tooltip2', 'tooltip3', 'tooltip4', 'tooltip5'];
 	Assets.TOOLTIP_IMAGE = 			'tooltipImage';
 	Assets.ALERT = 					'alert';
@@ -56,12 +59,13 @@ define([], function(){
 	Assets.BG = 					'bg';
 	
 	Assets.SPRITESHEETS = [
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":45, 	"h":45},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":160, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtargetsmall.png",	 		"key":Assets.DRAG_TARGET_SMALL,			"w":95, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/tooltipimages.png",	 			"key":Assets.TOOLTIP_IMAGE,				"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/controlbar.png",	 			"key":Assets.CONTROL_BAR,				"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragarrows.png",	 			"key":Assets.DRAG_ARROW,				"w":32, 	"h":32},
-		{"type":"spritesheet", 	"asset":"assets/images/screens/smallpanel.png",	 			"key":Assets.SMALL_PANEL,				"w":225, 	"h":250},
+		{"type":"spritesheet", 	"asset":"assets/images/screens/smallpanel.png",	 			"key":Assets.GAME_SCREEN,				"w":225, 	"h":250},
 		{"type":"spritesheet", 	"asset":"assets/images/settings/settings1.png",	 			"key":Assets.SETTINGS1,					"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/settings/settings2.png",	 			"key":Assets.SETTINGS2,					"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/settings/settings3.png",	 			"key":Assets.SETTINGS3,					"w":160, 	"h":160},
@@ -94,9 +98,10 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle10.png", 				"key":Assets.WIDTHS[10], 				"w":50, 	"h":85},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/toggle.png", 				"key":Assets.TOGGLE, 					"w":120, 	"h":60},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/radiobutton.png", 			"key":Assets.RADIO, 					"w":100, 	"h":40},
-		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.jpg",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5},
+		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.png",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5},
 		{"type":"spritesheet", 	"asset":"assets/images/slider/decor.png",	 				"key":Assets.SPEEDDECOR,				"w":40, 	"h":40},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle.png", 					"key":Assets.TURTLE,					"w":45, 	"h":45}
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/mover.png", 					"key":Assets.MOVER,						"w":80, 	"h":80},
+		{"type":"spritesheet", 	"asset":"assets/images/challenges/challenges.png", 			"key":Assets.CHALLENGES,				"w":200, 	"h":200}
 	];
 	
 	Assets.SOUNDFX = [
@@ -105,10 +110,13 @@ define([], function(){
 		{"type":"sound", 		"asset":["assets/sound/swoosh0.mp3", "assets/sound/swoosh0.wav"], 			"key":Assets.SOUNDS[2]},
 		{"type":"sound", 		"asset":["assets/sound/swoosh1.mp3", "assets/sound/swoosh1.wav"], 			"key":Assets.SOUNDS[3]},
 		{"type":"sound", 		"asset":["assets/sound/rocket.mp3", "assets/sound/rocket.wav"], 			"key":Assets.SOUNDS[4]},
-		{"type":"sound", 		"asset":["assets/sound/snail.mp3", "assets/sound/snail.wav"], 				"key":Assets.SOUNDS[5]}
+		{"type":"sound", 		"asset":["assets/sound/snail.mp3", "assets/sound/snail.wav"], 				"key":Assets.SOUNDS[5]},
+		{"type":"sound", 		"asset":["assets/sound/camera.mp3", "assets/sound/camera.wav"], 			"key":Assets.SOUNDS[6]}
 	];
 	
 	Assets.IMAGES = [
+		{"type":"image", 		"asset":"assets/images/turtle/turtle0.png", 			"key":Assets.TURTLES[0]},
+		{"type":"image", 		"asset":"assets/images/turtle/turtle1.png", 			"key":Assets.TURTLES[1]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip0.png",	 		"key":Assets.TOOLTIPS[0]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip1.png",	 		"key":Assets.TOOLTIPS[1]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip2.png",	 		"key":Assets.TOOLTIPS[2]},

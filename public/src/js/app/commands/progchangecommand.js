@@ -1,8 +1,8 @@
 define(
 
-	['app/models/modelfacade', 'phasercomponents'],
+	['app/models/modelconsts', 'phasercomponents'],
 
-function(ModelFacade, PhaserComponents) {
+function(ModelConsts, PhaserComponents) {
 	
 	"use strict";
 	
@@ -13,7 +13,7 @@ function(ModelFacade, PhaserComponents) {
 	PhaserComponents.Utils.extends(ProgChangeCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ProgChangeCommand.prototype.execute = function(data){
-		this.modelFacade.get(ModelFacade.PROG_TYPE).set(data.value);
+		this.modelFacade.get(ModelConsts.PROG_TYPE).set(data.value);
 	};
 	
   	return ProgChangeCommand;

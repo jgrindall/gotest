@@ -1,8 +1,12 @@
 define(
 
-	['app/consts/playingstate', 'app/models/modelfacade', 'phasercomponents'],
+	['app/consts/playingstate',
 
-function(PlayingState, ModelFacade, PhaserComponents) {
+	'phasercomponents', 'app/models/modelconsts'],
+
+function(PlayingState, 
+	
+	PhaserComponents, ModelConsts) {
 	
 	"use strict";
 	
@@ -13,7 +17,7 @@ function(PlayingState, ModelFacade, PhaserComponents) {
 	PhaserComponents.Utils.extends(FinishCommand, PhaserComponents.Commands.AbstractCommand);
 
 	FinishCommand.prototype.execute = function(){
-		this.modelFacade.get(ModelFacade.PLAYING).set(PlayingState.NOT_PLAYING);
+		this.modelFacade.get(ModelConsts.PLAYING).set(PlayingState.NOT_PLAYING);
 	};
 	
   	return FinishCommand;

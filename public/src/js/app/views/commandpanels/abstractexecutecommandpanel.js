@@ -1,17 +1,16 @@
 
-define([ 'phasercomponents',
+define([ 'phasercomponents', 'app/models/modelconsts',
 
 'app/views/buttons/dirbutton', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/views/commandpanels/markers/markerfactory', 'app/models/modelfacade'
-],
+'app/views/commandpanels/markers/markerfactory'],
 
 
-function(PhaserComponents,
+function(PhaserComponents, ModelConsts, 
 
 DirButton, AbstractCommandsPanel,
 
-MarkerFactory, ModelFacade){
+MarkerFactory){
 	
 	"use strict";
 	
@@ -19,7 +18,7 @@ MarkerFactory, ModelFacade){
 		AbstractCommandsPanel.call(this, options);
 		this.keyHandler = this.onKeyUp.bind(this);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.KEY_UP, this.keyHandler);
-		this.modelFacade.get(ModelFacade.COMMTICKER).resetSignal.add(this.onCommReset, this);
+		this.modelFacade.get(ModelConsts.COMMTICKER).resetSignal.add(this.onCommReset, this);
 		this.commTime = new Date().getTime();
 		this.init();
 	};
@@ -49,7 +48,7 @@ MarkerFactory, ModelFacade){
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.getSelectedCommand = function(){
-		return this.modelFacade.get(ModelFacade.SELECTED_COMM).get();
+		return this.modelFacade.get(ModelConsts.SELECTED_COMM).get();
 	};
 
 	AbstractExecuteCommandsPanel.prototype.recentComm = function() {
@@ -59,7 +58,7 @@ MarkerFactory, ModelFacade){
 
 	AbstractExecuteCommandsPanel.prototype.setSelectedCommand = function(i) {
 		this.commTime = new Date().getTime();
-		this.modelFacade.get(ModelFacade.SELECTED_COMM).set(i);
+		this.modelFacade.get(ModelConsts.SELECTED_COMM).set(i);
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.enableInput = function() {
@@ -78,7 +77,7 @@ MarkerFactory, ModelFacade){
 		var x, y, options, model;
 		x = this.bounds.x + this.bounds.w/2;
 		y = this.bounds.y + AbstractExecuteCommandsPanel.GRID_SIZE/2;
-		model = this.modelFacade.get(ModelFacade.SELECTED_COMM);
+		model = this.modelFacade.get(ModelConsts.SELECTED_COMM);
 		options = {'bounds':{'x':x, 'y':y}, "model":model};
 		this.marker = MarkerFactory.make(this.options.markerType, options);
 		this.group.add(this.marker.view);
@@ -99,7 +98,7 @@ MarkerFactory, ModelFacade){
 	AbstractExecuteCommandsPanel.prototype.destroy = function() {
 		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.KEY_UP, this.keyHandler);
 		this.keyHandler = null;
-		this.modelFacade.get(ModelFacade.COMMTICKER).resetSignal.remove(this.onCommReset, this);
+		this.modelFacade.get(ModelConsts.COMMTICKER).resetSignal.remove(this.onCommReset, this);
 		if(this.grid){
 			this.grid.clickSignal.remove(this.selectComm, this);
 			this.grid.destroy();

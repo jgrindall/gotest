@@ -1,18 +1,22 @@
 
-define(['phasercomponents','app/views/screenchoice', 'app/views/buttons/radiobutton',
+define(['phasercomponents','app/views/popups/screenchoice', 'app/views/buttons/radiobutton',
 
-'app/views/buttons/okbutton', 'app/views/buttons/closebutton', 'app/models/modelfacade', 'app/assets'],
+'app/views/buttons/okbutton', 'app/views/buttons/closebutton',
+
+'app/models/modelconsts', 'app/assets'],
 
 function(PhaserComponents, ScreenChoice, RadioButton,
 
-OkButton, CloseButton, ModelFacade, Assets){
+OkButton, CloseButton,
+
+ModelConsts, Assets){
 	
 	"use strict";
 		
 	var GameScreenMenu = function(options){
-		options.bgasset = 'panel';
+		options.bgasset = Assets.PANEL;
 		PhaserComponents.Display.AbstractPopup.call(this, options);
-		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.add(this.onChanged, this);
+		this.modelFacade.get(ModelConsts.SCREEN).changeSignal.add(this.onChanged, this);
 	};
 	
 	PhaserComponents.Utils.extends(GameScreenMenu, PhaserComponents.Display.AbstractPopup);
@@ -36,7 +40,7 @@ OkButton, CloseButton, ModelFacade, Assets){
 	};
 
 	GameScreenMenu.prototype.initRadio = function () {
-		var screen = this.modelFacade.get(ModelFacade.SCREEN).get();
+		var screen = this.modelFacade.get(ModelConsts.SCREEN).get();
 		if(screen === 3){
 			this.enableRadio();
 		}
@@ -106,7 +110,7 @@ OkButton, CloseButton, ModelFacade, Assets){
 	};
 	
 	GameScreenMenu.prototype.destroy = function() {
-		this.modelFacade.get(ModelFacade.SCREEN).changeSignal.remove(this.onChanged, this);
+		this.modelFacade.get(ModelConsts.SCREEN).changeSignal.remove(this.onChanged, this);
 		this.radio.destroy();
 		this.grid.destroy();
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);

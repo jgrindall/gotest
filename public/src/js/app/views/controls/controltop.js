@@ -1,9 +1,9 @@
 
 define(['phasercomponents', 
 
-'app/models/modelfacade', 'app/consts/showdirections',
+'app/consts/showdirections',
 
-'app/views/controls/controlmenu', 
+'app/views/controls/controlmenu', 'app/models/modelconsts',
 
 'app/assets', 'app/views/components/speedmarkers'
 
@@ -11,9 +11,9 @@ define(['phasercomponents',
 
 function(PhaserComponents,
 
-ModelFacade, ShowDirections,
+ShowDirections,
 
-ControlMenu,
+ControlMenu, ModelConsts,
 
 Assets, SpeedMarkers){
 	
@@ -124,7 +124,7 @@ Assets, SpeedMarkers){
 	ControlTop.prototype.addSpeedSlider = function() {
 		var options, bounds;
 		bounds = {"x":0, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
-		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelFacade.SPEED), "num":4, "bounds":bounds};
+		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelConsts.SPEED), "num":4, "bounds":bounds};
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.speedSlider.view);
 		this.positionSpeed();

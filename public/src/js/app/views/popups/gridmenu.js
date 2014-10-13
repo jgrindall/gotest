@@ -1,25 +1,25 @@
 
 define(['app/assets',
 
-'app/models/modelfacade', 'phasercomponents',
+'phasercomponents', 'app/models/modelconsts',
 
 'app/views/buttons/okbutton', 'app/views/buttons/closebutton', 'app/consts/steplengths'],
 
 function(Assets,
 
-ModelFacade, PhaserComponents,
+PhaserComponents, ModelConsts,
 
 OkButton, CloseButton, StepLengths){
 	
 	"use strict";
 		
 	var GridMenu = function(options){
-		options.bgasset = 'panel';
+		options.bgasset = Assets.PANEL;
 		PhaserComponents.Display.AbstractPopup.call(this, options);
-		this.modelFacade.get(ModelFacade.STEPLENGTH).changeSignal.add(this.setSettings1, this);
-		this.modelFacade.get(ModelFacade.DIAG).changeSignal.add(this.setSettings2, this);
-		this.modelFacade.get(ModelFacade.GRID).changeSignal.add(this.setSettings2, this);
-		this.modelFacade.get(ModelFacade.ALLOW_PROG).changeSignal.add(this.setSettings3, this);
+		this.modelFacade.get(ModelConsts.STEPLENGTH).changeSignal.add(this.setSettings1, this);
+		this.modelFacade.get(ModelConsts.DIAG).changeSignal.add(this.setSettings2, this);
+		this.modelFacade.get(ModelConsts.GRID).changeSignal.add(this.setSettings2, this);
+		this.modelFacade.get(ModelConsts.ALLOW_PROG).changeSignal.add(this.setSettings3, this);
 	};
 	
 	PhaserComponents.Utils.extends(GridMenu, PhaserComponents.Display.AbstractPopup);
@@ -40,19 +40,19 @@ OkButton, CloseButton, StepLengths){
 	};
 	
 	GridMenu.prototype.setSettings1 = function() {
-		this.settings1.goTo(this.modelFacade.get(ModelFacade.STEPLENGTH).get());
+		this.settings1.goTo(this.modelFacade.get(ModelConsts.STEPLENGTH).get());
 	};
 
 	GridMenu.prototype.setSettings3 = function() {
-		this.settings3.goTo(this.modelFacade.get(ModelFacade.ALLOW_PROG).get());
+		this.settings3.goTo(this.modelFacade.get(ModelConsts.ALLOW_PROG).get());
 	};
 
 	GridMenu.prototype.setSettings2 = function() {
 		var grid, diag, frame, frames;
-		grid = this.modelFacade.get(ModelFacade.GRID).get();
+		grid = this.modelFacade.get(ModelConsts.GRID).get();
 		if(this.showDiag){
 			frames = [[5, 4],[3, 2]];
-			diag = this.modelFacade.get(ModelFacade.DIAG).get();
+			diag = this.modelFacade.get(ModelConsts.DIAG).get();
 			frame = frames[grid][diag];
 		}
 		else{
@@ -71,7 +71,7 @@ OkButton, CloseButton, StepLengths){
 		var middle, bounds, options;
 		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
 		bounds = {"x":middle, "y":this.bounds.y + GridMenu.Y1 - 10, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
-		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelFacade.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds};
+		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelConsts.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds};
 		this.lengthSlider = new PhaserComponents.Display.Slider(options);
 		this.view.add(this.lengthSlider.view);
 	};
@@ -80,7 +80,7 @@ OkButton, CloseButton, StepLengths){
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
 		bounds = {"x":middle, "y":this.bounds.y + GridMenu.Y3 - 15};
-		this.diagToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelFacade.DIAG), "bounds":bounds});
+		this.diagToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelConsts.DIAG), "bounds":bounds});
 		this.view.add(this.diagToggle.view);
 	};
 
@@ -88,7 +88,7 @@ OkButton, CloseButton, StepLengths){
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
 		bounds = {"x":middle, "y":this.bounds.y + GridMenu.Y0 - 15};
-		this.progToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelFacade.ALLOW_PROG), "bounds":bounds});
+		this.progToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelConsts.ALLOW_PROG), "bounds":bounds});
 		this.view.add(this.progToggle.view);
 	};
 
@@ -96,7 +96,7 @@ OkButton, CloseButton, StepLengths){
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
 		bounds = {"x":middle, "y":this.bounds.y + GridMenu.Y2 - 15};
-		this.gridToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelFacade.GRID), "bounds":bounds});
+		this.gridToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelConsts.GRID), "bounds":bounds});
 		this.view.add(this.gridToggle.view);
 	};
 
@@ -155,7 +155,7 @@ OkButton, CloseButton, StepLengths){
 	};
 
 	GridMenu.prototype.create = function () {
-		var screenModel = this.modelFacade.get(ModelFacade.SCREEN);
+		var screenModel = this.modelFacade.get(ModelConsts.SCREEN);
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.showDiag = (screenModel.get() > 1);
 		this.addSlider();
@@ -199,10 +199,10 @@ OkButton, CloseButton, StepLengths){
 			this.group.remove(this.diagToggle);
 			this.diagToggle.destroy();
 		}
-		this.modelFacade.get(ModelFacade.STEPLENGTH).changeSignal.remove(this.setSettings1, this);
-		this.modelFacade.get(ModelFacade.DIAG).changeSignal.remove(this.setSettings2, this);
-		this.modelFacade.get(ModelFacade.GRID).changeSignal.remove(this.setSettings2, this);
-		this.modelFacade.get(ModelFacade.ALLOW_PROG).changeSignal.remove(this.setSettings3, this);
+		this.modelFacade.get(ModelConsts.STEPLENGTH).changeSignal.remove(this.setSettings1, this);
+		this.modelFacade.get(ModelConsts.DIAG).changeSignal.remove(this.setSettings2, this);
+		this.modelFacade.get(ModelConsts.GRID).changeSignal.remove(this.setSettings2, this);
+		this.modelFacade.get(ModelConsts.ALLOW_PROG).changeSignal.remove(this.setSettings3, this);
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	

@@ -2,23 +2,23 @@
 
 define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
-'app/views/components/menu', 'app/models/modelfacade', 'app/views/img/imgview',
+'app/views/components/menu', 'app/views/img/imgview',
 
 'app/consts/canvaslayout', 'app/views/controls/controltop', 'app/events/events',
 
 'app/views/background', 'phasercomponents', 'app/views/name/nameview',
 
-'app/assets', 'app/consts/showdirections'],
+'app/assets', 'app/consts/showdirections', 'app/models/modelconsts'],
 
 function($, Canvas, Controls,
 
-Menu, ModelFacade, ImgView,
+Menu, ImgView,
 
 CanvasLayout, ControlTop, Events,
 
 Background, PhaserComponents, NameView,
 
-Assets, ShowDirections){
+Assets, ShowDirections, ModelConsts){
 	
 	"use strict";
 	
@@ -32,9 +32,9 @@ Assets, ShowDirections){
 
 	MainView.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
-		this.closeHandler = this.closeImg.bind(this);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.closeHandler);
-		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ORIENT, this.closeHandler);
+		this.closeHandler = this.removeImg.bind(this);
+		this.imgHandler = this.onImgCaptured.bind(this);
+		this.eventDispatcher.addListener(Events.IMG_CAPTURED, this.imgHandler);
 		this.eventDispatcher.addListener(Events.CLOSE_IMG, this.closeHandler);
 		this.addBg();
 		this.addTop();
@@ -44,17 +44,20 @@ Assets, ShowDirections){
 		this.addName();
 	};
 
-	MainView.prototype.closeImg = function() {
+	MainView.prototype.addImg = function(data) {
+		this.imgView = new ImgView(data);
+    	$("body").append(this.imgView.el);
+	};
+
+	MainView.prototype.onImgCaptured = function(event, obj){
+		this.addImg(obj.data);
+	};
+
+	MainView.prototype.removeImg = function() {
 		if(this.imgView){
 			this.imgView.destroy();
 			this.imgView = null;
 		}
-	};
-	
-	MainView.prototype.addImg = function(data) {
-		this.imgView = new ImgView(data);
-		console.log("add img "+data);
-    	$("body").append(this.imgView.el);
 	};
 
 	MainView.prototype.addTop = function() {
@@ -72,7 +75,7 @@ Assets, ShowDirections){
 	};
 
 	MainView.prototype.addName = function() {
-    	this.nameView = new NameView(this.modelFacade.get(ModelFacade.NAME));
+    	this.nameView = new NameView(this.modelFacade.get(ModelConsts.NAME));
     	$("body").append(this.nameView.el);
 	};
 
@@ -159,7 +162,15 @@ Assets, ShowDirections){
 		this.controls.view.y = y;
 	};
 
+	MainView.prototype.onOrient = function() {
+		this.redraw();
+	};
+
 	MainView.prototype.onResize = function() {
+		this.redraw();
+	};
+
+	MainView.prototype.redraw = function(){
 		this.removeBg();
 		this.addBg();
 		this.group.sendToBack(this.bg.view);
@@ -200,12 +211,12 @@ Assets, ShowDirections){
 	};
 
 	MainView.prototype.destroy = function() {
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.RESIZE, this.closeHandler);
-		this.eventDispatcher.removeListener(PhaserComponents.Events.AppEvents.ORIENT, this.closeHandler);
 		this.eventDispatcher.removeListener(Events.CLOSE_IMG, this.closeHandler);
 		this.closeHandler = null;
-		this.closeImg();
+		this.eventDispatcher.removeListener(Events.IMG_CAPTURED, this.imgHandler);
+		this.imgHandler = null;
 		this.removeMenu();
+		this.removeImg();
 		this.removeTop();
 		this.removeControls();
 		this.removeBg();

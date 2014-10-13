@@ -1,11 +1,11 @@
 
-define(['phasercomponents', 'app/models/modelfacade',
+define(['phasercomponents', 
 
-	'app/consts/commspeed', 'app/assets'],
+	'app/consts/commspeed', 'app/assets', 'app/models/modelconsts'],
 
-function(PhaserComponents, ModelFacade,
+function(PhaserComponents, 
 
-	CommSpeed, Assets){
+	CommSpeed, Assets, ModelConsts){
 	
 	"use strict";
 	
@@ -13,7 +13,7 @@ function(PhaserComponents, ModelFacade,
 		PhaserComponents.Display.Container.call(this, options);
 		this.resizeHandler = this.onResize.bind(this);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.RESIZE, this.resizeHandler);
-		this.modelFacade.get(ModelFacade.SPEED).changeSignal.add(this.speedChanged, this);
+		this.modelFacade.get(ModelConsts.SPEED).changeSignal.add(this.speedChanged, this);
 		this.clickSignal = new Phaser.Signal();
 	};
 
@@ -101,7 +101,7 @@ function(PhaserComponents, ModelFacade,
 		this.resizeHandler = null;
 		this.decor0.animations.destroy();
 		this.decor1.animations.destroy();
-		this.modelFacade.get(ModelFacade.SPEED).changeSignal.remove(this.speedChanged, this);
+		this.modelFacade.get(ModelConsts.SPEED).changeSignal.remove(this.speedChanged, this);
 		this.group.remove(this.decor0);
 		this.group.remove(this.decor1);
 		this.group.remove(this.decor2);

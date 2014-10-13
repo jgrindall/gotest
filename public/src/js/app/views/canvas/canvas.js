@@ -1,13 +1,13 @@
 
-define(['phasercomponents',
+define(['phasercomponents', 'app/models/modelconsts',
 
-'app/views/canvas/map', 'app/views/canvas/drawing', 'app/models/modelfacade',
+'app/views/canvas/map', 'app/views/canvas/drawing',
 
 'app/views/canvas/grid', 'app/views/canvas/corners', 'app/assets'],
 
-function(PhaserComponents,
+function(PhaserComponents, ModelConsts,
 
-Map, Drawing, ModelFacade,
+Map, Drawing,
 
 Grid, Corners, Assets){
 	
@@ -44,8 +44,8 @@ Grid, Corners, Assets){
 
 	Canvas.prototype.addGrid = function() {
 		var sizeModel, visModel;
-		visModel = this.modelFacade.get(ModelFacade.GRID);
-		sizeModel = this.modelFacade.get(ModelFacade.STEPLENGTH);
+		visModel = this.modelFacade.get(ModelConsts.GRID);
+		sizeModel = this.modelFacade.get(ModelConsts.STEPLENGTH);
 		this.grid = new Grid({'bounds':this.bounds, 'sizeModel':sizeModel, 'visModel':visModel});
 		this.group.add(this.grid.view);
 	};

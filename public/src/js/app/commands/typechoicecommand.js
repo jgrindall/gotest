@@ -1,10 +1,10 @@
 define([
 
-	'app/models/modelfacade',
+	'app/models/modelconsts',
 
 	'phasercomponents', 'app/views/popups/gamescreenmenu', 'app/assets'],
 
-function(ModelFacade,
+function(ModelConsts,
 
 	PhaserComponents, GameScreenMenu, Assets) {
 	
@@ -20,16 +20,16 @@ function(ModelFacade,
 		var screenModel, radioModel, options;
 		screenModel = new PhaserComponents.Model.ButtonGridModel();
 		radioModel = new PhaserComponents.Model.ButtonGridModel();
-		screenModel.set(this.modelFacade.get(ModelFacade.SCREEN).get());
-		radioModel.set(this.modelFacade.get(ModelFacade.ANGLE).get());
+		screenModel.set(this.modelFacade.get(ModelConsts.SCREEN).get());
+		radioModel.set(this.modelFacade.get(ModelConsts.ANGLE).get());
 		options = {"screenModel":screenModel, "radioModel":radioModel, "sfx":Assets.SOUNDS[2]};
 		this.alertManager.make(GameScreenMenu, options, this.onScreenChosen.bind(this)); 
 	};
 	
 	TypeChoiceCommand.prototype.onScreenChosen = function(data) {
 		if(data.index === 0){
-			this.modelFacade.get(ModelFacade.SCREEN).set(data.selection.screenIndex);
-			this.modelFacade.get(ModelFacade.ANGLE).set(data.selection.radioIndex);
+			this.modelFacade.get(ModelConsts.SCREEN).set(data.selection.screenIndex);
+			this.modelFacade.get(ModelConsts.ANGLE).set(data.selection.radioIndex);
 		}
 	};
 	

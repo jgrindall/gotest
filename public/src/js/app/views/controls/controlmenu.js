@@ -1,15 +1,15 @@
 
 define(['app/views/buttons/controlmenubutton',
 
-'phasercomponents', 'app/models/modelfacade',
+'phasercomponents', 
 
-'app/consts/playingstate', 'app/events/events'],
+'app/consts/playingstate', 'app/events/events', 'app/models/modelconsts'],
 
 function(ControlMenuButton,
 
-PhaserComponents, ModelFacade,
+PhaserComponents,
 
-PlayingState, Events){
+PlayingState, Events, ModelConsts){
 	
 	"use strict";
 	
@@ -19,7 +19,7 @@ PlayingState, Events){
 		options.numY = 1;
 		options.data = [{'num':5}, {'num':6}, {'num':7}, {'num':8}, {'num':9}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
-		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
 		this.disableButtonAt(1);
 	};
@@ -67,7 +67,7 @@ PlayingState, Events){
 
 	ControlMenu.prototype.destroy = function(){
 		this.clickSignal.remove(this.menuClick, this);
-		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.remove(this.playingChanged, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.remove(this.playingChanged, this);
 		PhaserComponents.Display.ButtonBar.prototype.destroy.call(this);
 	};
 

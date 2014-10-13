@@ -1,8 +1,8 @@
 define(
 
-	['app/models/modelfacade', 'phasercomponents'],
+	['app/models/modelconsts', 'phasercomponents'],
 
-function(ModelFacade,  PhaserComponents) {
+function(ModelConsts,  PhaserComponents) {
 	
 	"use strict";
 	
@@ -13,7 +13,7 @@ function(ModelFacade,  PhaserComponents) {
 	PhaserComponents.Utils.extends(StopCommand, PhaserComponents.Commands.AbstractCommand);
 
 	StopCommand.prototype.execute = function(){
-		this.modelFacade.get(ModelFacade.COMMTICKER).stop();
+		this.modelFacade.get(ModelConsts.COMMTICKER).stop();
 	};
 	
   	return StopCommand;

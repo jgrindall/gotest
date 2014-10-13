@@ -28,6 +28,12 @@ function(PhaserComponents, ShowDirections){
 		return false;
 	};
 
+	ShowManager.prototype.start = function(){
+		this.tweens.forEach(function(tween){
+			tween.start();
+		});
+	};
+
 	ShowManager.prototype.add = function(view, num, dir, key){
 		var x, y, ds, options, show, tween0;
 		show = this.show(key);
@@ -38,7 +44,7 @@ function(PhaserComponents, ShowDirections){
 			view.x += ds[0] * view.width * 2;
 			view.y += ds[1] * view.height * 2;
 			options = {'x':x, 'y':y};
-			tween0 = this.game.add.tween(view).to(options, ShowManager.DURATION, Phaser.Easing.Back.InOut, true, num*ShowManager.DELAY, false);
+			tween0 = this.game.add.tween(view).to(options, ShowManager.DURATION, Phaser.Easing.Back.InOut, false, num*ShowManager.DELAY, false);
 			this.tweens.push(tween0);
 		}
 	};

@@ -1,11 +1,15 @@
 
 define(['app/views/buttons/menubutton', 'app/events/events',
 
-'phasercomponents', 'app/models/modelfacade', 'app/consts/playingstate'],
+'phasercomponents', 
+
+'app/consts/playingstate', 'app/models/modelconsts'],
 
 function(MenuButton, Events,
 
-PhaserComponents, ModelFacade, PlayingState){
+PhaserComponents, 
+
+PlayingState, ModelConsts){
 	
 	"use strict";
 	
@@ -16,7 +20,7 @@ PhaserComponents, ModelFacade, PlayingState){
 		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}, {'num':4}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
-		this.modelFacade.get(ModelFacade.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
 	};
 	

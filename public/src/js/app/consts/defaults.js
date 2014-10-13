@@ -1,5 +1,5 @@
 
-define([], function() {
+define(['jquery'], function($) {
 	
 	"use strict";
 	
@@ -7,7 +7,9 @@ define([], function() {
 			
     };
 	
-	Defaults.SETTINGS = {
+	Defaults.CHALLENGE_BG = [6, 2, 4, 10];	
+
+	Defaults.DEFAULT_SETTINGS = {
 		'bg':0,
 		'screen':0,
 		'speed':2,
@@ -23,13 +25,26 @@ define([], function() {
 		'diag':0,
 		'startPos':{'x':0.5, 'y':0.5},
 	};
-
-	Defaults.DEFAULT_JSON = {
-		'settings':Defaults.SETTINGS,
-		'commands':[],
-		'prog':[]
-	};
 	
+	Defaults.getDefaults = function(){
+		var settings = $.extend({}, Defaults.DEFAULT_SETTINGS);
+		return {
+			'settings':settings,
+			'commands':[],
+			'prog':[]
+		};
+	};
+
+	Defaults.getChallenge = function(i){
+		var settings = $.extend({}, Defaults.DEFAULT_SETTINGS);
+		settings.bg = Defaults.CHALLENGE_BG[i];
+		return {
+			'settings':settings,
+			'commands':[],
+			'prog':[]
+		};
+	};
+
 	return Defaults;
 });
 

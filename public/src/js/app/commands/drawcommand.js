@@ -1,8 +1,8 @@
 define(
 
-	['app/models/modelfacade', 'app/consts/playingstate', 'phasercomponents'],
+	['app/models/modelconsts', 'app/consts/playingstate', 'phasercomponents'],
 
-function(ModelFacade, PlayingState, PhaserComponents) {
+function(ModelConsts, PlayingState, PhaserComponents) {
 	
 	"use strict";
 	
@@ -14,10 +14,10 @@ function(ModelFacade, PlayingState, PhaserComponents) {
 
 	DrawCommand.prototype.execute = function(){
 		var playingModel;
-		playingModel = this.modelFacade.get(ModelFacade.PLAYING);
+		playingModel = this.modelFacade.get(ModelConsts.PLAYING);
 		if(playingModel.get() !== PlayingState.PLAYING){
 			playingModel.set(PlayingState.PLAYING);
-			this.modelFacade.get(ModelFacade.COMMTICKER).start();
+			this.modelFacade.get(ModelConsts.COMMTICKER).start();
 		}
 	};
 	

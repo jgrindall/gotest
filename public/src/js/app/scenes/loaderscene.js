@@ -1,11 +1,15 @@
 
 define(['phasercomponents', 'app/assets', 
 
-	'app/views/loaderbar/loaderbar', 'app/views/background'],
+	'app/views/loaderbar/loaderbar', 'app/views/background',
+
+	'app/consts/appconsts'],
 
 function(PhaserComponents, Assets,
 
-	LoaderBar, Background){
+	LoaderBar, Background,
+
+	AppConsts){
 	
 	"use strict";
 	
@@ -13,8 +17,6 @@ function(PhaserComponents, Assets,
 		PhaserComponents.Scene.call(this);
 		this.numLoaded = 0;
 	};
-	
-	LoaderScene.created = false;
 	
 	PhaserComponents.Utils.extends(LoaderScene, PhaserComponents.Scene);
 
@@ -46,15 +48,18 @@ function(PhaserComponents, Assets,
 		this.world.add(this.loaderBar.view);
 	};
 	
-	LoaderScene.prototype.loadProgress = function(data) {
-		var p = Math.round(data.numLoaded * 100 / data.total);
+	LoaderScene.prototype.loadProgress = function(progress) {
+		var p, data;
+		p = Math.round(progress.numLoaded * 100 / progress.total);
 		this.loaderBar.goToPercent(p);
+		if(progress.numLoaded === progress.total){
+			data = {"sceneFrom":AppConsts.LOADER_SCENE};
+			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.CHANGE_SCENE, "data":data});
+		}
 	};
 
 	LoaderScene.prototype.create = function() {
 		this.loaderBar.goToPercent(100);
-		var data = {"scene":this};
-		this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.CHANGE_SCENE, "data":data});
 	};
 
 	LoaderScene.prototype.shutdown = function() {

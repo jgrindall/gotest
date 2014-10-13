@@ -2,13 +2,13 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 
 	'app/assets', 'app/prog/targets/abstracttarget',
 
-	'app/views/components/prognumbutton', 'app/models/modelfacade'],
+	'app/views/components/prognumbutton', 'app/models/modelconsts'],
 
 	function(DropView, PhaserComponents,
 
 		Assets, AbstractTarget,
 
-		ProgNumButton, ModelFacade){
+		ProgNumButton, ModelConsts){
 	
 	"use strict";
 
@@ -54,7 +54,7 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 		x = this.right;
 		y = (LoopTarget.BOTTOM + LoopTarget.TOP + LoopTarget.PADDING_TOP)/2;
 		bounds = {'x':x - ProgNumButton.WIDTH/2, 'y':y - ProgNumButton.WIDTH/2, 'w':ProgNumButton.WIDTH, 'h':ProgNumButton.HEIGHT};
-		model = this.parent.modelFacade.get(ModelFacade.PROG_NUM);
+		model = this.parent.modelFacade.get(ModelConsts.PROG_NUM);
 		this.numButton = new ProgNumButton({"model":model, "sfx":Assets.SOUNDS[1], "bounds":bounds, "asset":Assets.PROG_NUM, "numFrames":9});	
 		this.group.add(this.numButton.view);
 	};

@@ -1,11 +1,11 @@
 
-define(['app/views/buttons/closebutton', 
+define(['app/views/buttons/closebutton', 'app/assets',
 
 'app/views/buttons/okbutton', 'phasercomponents'
 
 ],
 
-function(CloseButton,
+function(CloseButton, Assets,
 
 OkButton, PhaserComponents
 
@@ -14,7 +14,7 @@ OkButton, PhaserComponents
 	"use strict";
 		
 	var SelectorMenu = function(options){
-		options.bgasset = 'panel';
+		options.bgasset = Assets.PANEL;
 		PhaserComponents.Display.AbstractPopup.call(this, options);
 	};
 	

@@ -109,7 +109,7 @@ function($, Phaser, PhaserStateTrans, Utils){
 		this.html = $("html");
 		this.makeGame(config);
 	};
-	
+
 	GameManager.prototype.destroy = function(){
 		this.el.empty();
 		this.game.tweens.removeAll();
@@ -130,7 +130,7 @@ function($, Phaser, PhaserStateTrans, Utils){
 	};
 
 	GameManager.prototype.makeGame = function(config){
-		var w, h, size;
+		var w, h, size, canvas;
 		size = this.getSize();
 		w = size.w;
     	h = size.h;
@@ -145,7 +145,8 @@ function($, Phaser, PhaserStateTrans, Utils){
 		this.game.cy = h/2;
 		this.body.width(w).height(h + this.options.paddingBottom);
 		this.el.width(w).height(h);
-		$("canvas").width(w).height(h).attr("width", w).attr("height", h);
+		canvas = $("#"+this.options.containerTagId+" canvas");
+		canvas.width(w).height(h).attr("width", w).attr("height", h);
 	};
 
 	GameManager.prototype.resize = function(){
@@ -926,7 +927,7 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
         Injector.getInstance().map("keymanager",                                                ["eventDispatcher"],                                        [eventDispatcher]);
         Injector.getInstance().map("view",                                                      ["game", "eventDispatcher", "alertManager"],                [game, eventDispatcher, alertManager]);
         Injector.getInstance().map("abstractcommand",                                           ["game", "eventDispatcher", "alertManager", "storage"],     [game, eventDispatcher, alertManager, storage]);
-        Injector.getInstance().map("scene",                                                     ["game", "eventDispatcher", "world"],                       [game, eventDispatcher, game.world]);
+        Injector.getInstance().map("scene",                                                     ["game", "eventDispatcher", "world", "alertManager"],       [game, eventDispatcher, game.world, alertManager]);
         Injector.getInstance().map("playsoundcommand",                                          ["soundManager"],                                           [soundManager]);
     };
 
@@ -1083,6 +1084,11 @@ define('phasercomponents/display/view',
 		
 	};
 
+	View.prototype.moveTo = function(x, y){
+		this.view.x = x;
+		this.view.y = y;
+	};
+	
 	View.prototype.destroy = function(){
 		this.options = null;
 		this.bounds = null;
@@ -1136,11 +1142,6 @@ define('phasercomponents/display/interactivesprite',
 	InteractiveSprite.prototype.removeListeners = function(){
 		this.sprite.events.onInputUp.remove(this.onMouseUp, this);
 		this.sprite.events.onInputDown.remove(this.onMouseDown, this);
-	};
-	
-	InteractiveSprite.prototype.moveTo = function(x, y){
-		this.sprite.x = x;
-		this.sprite.y = y;
 	};
 
 	InteractiveSprite.prototype.enableInput = function(){
@@ -2635,8 +2636,17 @@ Container, Utils){
 	Utils.extends(AbstractPopup, Container);
 	
 	AbstractPopup.prototype.addPanel = function () {
-		this.panel = new Phaser.Sprite(this.game, this.bounds.x, this.bounds.y, this.options.bgasset);
-		this.group.add(this.panel);
+		if(this.options.bgasset){
+			this.panel = new Phaser.Sprite(this.game, this.bounds.x, this.bounds.y, this.options.bgasset);
+			this.group.add(this.panel);
+		}
+	};
+
+	AbstractPopup.prototype.removePanel = function () {
+		if(this.panel){
+			this.group.remove(this.panel);
+			this.panel = null;
+		}
 	};
 	
 	AbstractPopup.prototype.useBg = function () {
@@ -2711,6 +2721,7 @@ Container, Utils){
 	AbstractPopup.prototype.destroy = function () {
 		this.removeTweens();
 		this.destroyButtons();
+		this.removePanel();
 		this.selectSignal.dispose();
 		this.selectSignal = null;
 		this.buttonGroup = null;

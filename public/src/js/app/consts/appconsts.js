@@ -7,9 +7,9 @@ define([], function() {
 			
     };
 	
-	AppConsts.LOADER_SCENE = "loaderScene";
-	AppConsts.ACTIVITY_SCENE = "activityScene";
-	
+	AppConsts.LOADER_SCENE = 		"loaderScene";
+	AppConsts.ACTIVITY_SCENE = 		"activityScene";
+
 	return AppConsts;
 });
 

@@ -1,10 +1,14 @@
 define( ['phasercomponents', 
 
-	'app/prog/controller/abstractplaycontroller', 'app/models/modelfacade'],
+	'app/prog/controller/abstractplaycontroller',
+
+	'app/models/modelconsts'],
 
 	function(PhaserComponents,
 
-		AbstractPlayController, ModelFacade){
+		AbstractPlayController,
+
+		ModelConsts){
 	
 	"use strict";
 
@@ -16,7 +20,7 @@ define( ['phasercomponents',
 
 	LoopPlayController.prototype.addCommands = function(commands){
 		var rpt, i, j, that = this, command;
-		rpt = this.parent.modelFacade.get(ModelFacade.PROG_NUM).get() + 1;
+		rpt = this.parent.modelFacade.get(ModelConsts.PROG_NUM).get() + 1;
 		for(i = 1; i <= rpt; i++){
 			for(j = 0; j < commands.length; j++){
 				command = commands[j];

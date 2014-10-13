@@ -10,6 +10,7 @@ define(['app/views/popups/growl', 'app/assets', 'app/utils/errorcodes'],
 		};
 
 		Error.show = function(alertManager, code){
+			console.log("error "+code);
 			var s = ErrorCodes.MESSAGES[code];
 			s = s + "\n(error code " + code + ")";
 			alertManager.make(Growl, {"title":"Error", "label":s, "sfx":Assets.SOUNDS[2]}, null);

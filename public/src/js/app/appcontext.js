@@ -1,5 +1,5 @@
 
-define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands/savecommand',
+define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands/savecommand',
 
 	'app/commands/printcommand', 'app/commands/undocommand', 'app/commands/downloadcommand',
 
@@ -7,23 +7,27 @@ define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'ap
 
 	'app/commands/typechoicecommand', 'app/commands/gridchoicecommand',
 
-	'app/commands/addcommandcommand', 'app/commands/drawcommand',
+	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/choosechallengecommand',
 
-	'app/commands/preshutdowncommand', 'app/commands/postshutdowncommand',	
+	'app/commands/preshutdowncommand', 
 
-	'app/commands/startupcommand', 'app/commands/progchangecommand', 
+	'app/commands/startupcommand', 'app/commands/progchangecommand', 'app/commands/editturtlecommand', 
 
-	'app/commands/finishcommand', 'app/commands/replaycommand', 'app/commands/designimgcommand', 
+	'app/commands/openbgeditorcommand', 'app/commands/openturtleeditorcommand', 
+
+	'app/commands/finishcommand', 'app/commands/replaycommand',
 
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
-	'app/scenes/loaderscene', 'app/scenes/activityscene',
+	'app/scenes/loaderscene', 'app/scenes/activityscene', 
 
 	'app/assets', 'app/storage/purplemashadapter',
 
-	'app/views/showmanager', 'app/models/modelfacade'],
+	'app/views/showmanager', 'app/models/modelfacade',
 
-	function($, NewFileCommand, LoadCommand, SaveCommand,
+	'app/consts/defaults'],
+
+	function(NewFileCommand, LoadCommand, SaveCommand,
 
 		PrintCommand, UndoCommand, DownloadCommand,
 
@@ -31,13 +35,15 @@ define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'ap
 
 		TypeChoiceCommand, GridChoiceCommand,
 
-		AddCommandCommand, DrawCommand,
+		AddCommandCommand, DrawCommand, ChooseChallengeCommand,
 
-		PreShutdownCommand, PostShutdownCommand,
+		PreShutdownCommand, 
 
-		StartUpCommand, ProgChangeCommand,
+		StartUpCommand, ProgChangeCommand, EditTurtleCommand,
 
-		FinishCommand, ReplayCommand, DesignImgCommand,
+		OpenBgEditorCommand, OpenTurtleEditorCommand,
+
+		FinishCommand, ReplayCommand,
 
 		Events, PhaserComponents, AppConsts,
 
@@ -45,7 +51,9 @@ define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'ap
 
 		Assets, PurpleMashAdapter,
 
-		ShowManager, ModelFacade) {
+		ShowManager, ModelFacade,
+
+		Defaults) {
 	
 	"use strict";
 
@@ -76,18 +84,18 @@ define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'ap
         PhaserComponents.Injector.getInstance().map("filedownloader",						["eventDispatcher"],            		[eventDispatcher]);
         PhaserComponents.Injector.getInstance().map("view",									["showManager", "modelFacade"],         [this.showManager, this.modelFacade]);
         PhaserComponents.Injector.getInstance().map("abstractcommand",						["modelFacade"],            			[this.modelFacade]);
+        PhaserComponents.Injector.getInstance().map("scene",								["showManager"],            			[this.showManager]);
         this.showManager.init();
         this.modelFacade.init();
+        this.modelFacade.setData(Defaults.getDefaults());
     };
 
-	AppContext.prototype.startActivity = function(){
-		this.gameManager.goToScene(AppConsts.ACTIVITY_SCENE);
-	};
-
     AppContext.prototype.onChangeScene = function(event, obj){
-    	if(obj.data.scene instanceof LoaderScene){
-    		this.startActivity();
-    		$("html").css("background", "#191919");
+    	if(obj.data.sceneTo){
+    		this.gameManager.goToScene(obj.data.sceneTo);
+    	}
+    	else if(obj.data.sceneFrom === AppConsts.LOADER_SCENE){
+    		this.eventDispatcher.trigger({"type":Events.START_ACTIVITY});
     	}
     };
  	
@@ -97,15 +105,15 @@ define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'ap
 
     AppContext.prototype.addStorage = function(){
     	var adapter = new PurpleMashAdapter();
-		if(Math.random() < 0.5){
+		if(Math.random() < 0){
 			console.log("using PM");
 			this.storage.setAdapter(adapter);
 		}
     };
 
     AppContext.prototype.mapScenes = function(){
-    	this.gameManager.mapScene(AppConsts.LOADER_SCENE, LoaderScene, true);
-		this.gameManager.mapScene(AppConsts.ACTIVITY_SCENE, ActivityScene);
+    	this.gameManager.mapScene(AppConsts.LOADER_SCENE, 		LoaderScene, true);
+		this.gameManager.mapScene(AppConsts.ACTIVITY_SCENE, 	ActivityScene);
     };
 
     AppContext.prototype.addSounds = function(){
@@ -115,6 +123,7 @@ define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'ap
     	this.soundManager.add(Assets.SOUNDS[3], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[3]));
     	this.soundManager.add(Assets.SOUNDS[4], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[4]));
     	this.soundManager.add(Assets.SOUNDS[5], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[5]));
+    	this.soundManager.add(Assets.SOUNDS[6], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[6]));
     };
 
     AppContext.prototype.mapCommands = function(){
@@ -130,14 +139,16 @@ define(['jquery', 'app/commands/newfilecommand', 'app/commands/loadcommand', 'ap
 		this.commandMap.map(Events.TYPE_CHOICE, 								TypeChoiceCommand);
 		this.commandMap.map(Events.GRID_CHOICE, 								GridChoiceCommand);
 		this.commandMap.map(Events.ADD_COMMAND, 								AddCommandCommand);
-		this.commandMap.map(Events.STARTUP, 									StartUpCommand);
+		this.commandMap.map(Events.START_ACTIVITY, 								StartUpCommand);
 		this.commandMap.map(Events.DRAW, 										DrawCommand);
 		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
 		this.commandMap.map(Events.DOWNLOAD, 									DownloadCommand);
 		this.commandMap.map(Events.FINISHED, 									FinishCommand);
-		this.commandMap.map(Events.DESIGN_IMG, 									DesignImgCommand);
+		this.commandMap.map(Events.CHOOSE_CHALLENGE, 							ChooseChallengeCommand);
+		this.commandMap.map(Events.OPEN_BG_EDITOR, 								OpenBgEditorCommand);
+		this.commandMap.map(Events.OPEN_TURTLE_EDITOR, 							OpenTurtleEditorCommand);
+		this.commandMap.map(Events.EDIT_TURTLE, 								EditTurtleCommand);
 		this.commandMap.map(PhaserComponents.Events.AppEvents.PRE_SHUTDOWN, 	PreShutdownCommand);
-		this.commandMap.map(PhaserComponents.Events.AppEvents.POST_SHUTDOWN, 	PostShutdownCommand);
     };
 	
 	AppContext.prototype.preload = function(){

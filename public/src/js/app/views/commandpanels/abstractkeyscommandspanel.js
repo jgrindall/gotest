@@ -1,7 +1,7 @@
 
 define(['app/views/buttons/keybutton',
 
-'phasercomponents',
+'phasercomponents', 
 
 'app/views/commandpanels/abstractexecutecommandpanel'
 

@@ -1,9 +1,9 @@
 define(
 
 
-	['app/consts/playingstate', 'app/models/modelfacade', 'phasercomponents'],
+	['app/consts/playingstate', 'phasercomponents', 'app/models/modelconsts'],
 
-function(PlayingState, ModelFacade, PhaserComponents) {
+function(PlayingState, PhaserComponents, ModelConsts) {
 	
 	"use strict";
 	
@@ -14,8 +14,8 @@ function(PlayingState, ModelFacade, PhaserComponents) {
 	PhaserComponents.Utils.extends(ReplayCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ReplayCommand.prototype.execute = function(){
-		this.modelFacade.get(ModelFacade.PLAYING).set(PlayingState.REPLAYING);
-		this.modelFacade.get(ModelFacade.COMMTICKER).replay();
+		this.modelFacade.get(ModelConsts.PLAYING).set(PlayingState.REPLAYING);
+		this.modelFacade.get(ModelConsts.COMMTICKER).replay();
 	};
 	
   	return ReplayCommand;
