@@ -156,8 +156,7 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.positionControls = function() {
 		var x, y;
-		//TODO 20??
-		x = this.game.w - Controls.WIDTH - 20;
+		x = this.game.w - Controls.WIDTH;
 		y = 0;
 		this.controls.view.x = x;
 		this.controls.view.y = y;

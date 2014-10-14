@@ -112,11 +112,19 @@ define(
 		}
 	};
 	
+	ProgCommandPanel.prototype.onClear = function(){
+		if(this.dragManager){
+			this.dragManager.clear();
+		}
+		this.onEdited();
+	};
+
 	ProgCommandPanel.prototype.create = function() {
 		AbstractCommandsPanel.prototype.create.call(this);
 		this.progButtons = new ProgButtons(this.options);
 		this.progButtons.buttonSignal.add(this.clickButton, this);
 		this.dragContainer = new ProgDragContainer(this.options);
+		this.dragContainer.clearSignal.add(this.onClear, this);
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.dragContainer.view, this.game, {"model":this.options.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.dragManager.editSignal.add(this.onEdited, this);
 		this.group.add(this.progButtons.view);
@@ -151,6 +159,7 @@ define(
 		this.progButtons.destroy();
 		this.progButtons = null;
 		this.group.remove(this.dragContainer.view);
+		this.dragContainer.clearSignal.remove(this.onClear, this);
 		this.dragContainer.destroy();
 		this.dragContainer = null;
 		this.options.targetObj.destroy();

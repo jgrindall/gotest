@@ -1,7 +1,11 @@
 
-define( ['phasercomponents', 'app/prog/targets/abstracttarget', 'app/assets'],
+define( ['phasercomponents', 'app/prog/targets/abstracttarget',
 
-	function(PhaserComponents, AbstractTarget, Assets){
+	'app/assets', 'app/prog/views/dropview'],
+
+	function(PhaserComponents, AbstractTarget,
+
+		Assets, DropView){
 	
 	"use strict";
 
@@ -11,13 +15,14 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget', 'app/assets'],
 	
 	DblLinearTarget.NUM = 			10;
 	DblLinearTarget.TOP = 			24;
-	DblLinearTarget.LEFTX = 		40;
-	DblLinearTarget.RIGHTX = 		95;
+	DblLinearTarget.LEFTX = 		28;
+	DblLinearTarget.RIGHTX = 		81;
 	DblLinearTarget.BOTTOM = 		295;
 	DblLinearTarget.BLOCK_TOP = 	50;
 	DblLinearTarget.FIRST_Y = 		53;
 	DblLinearTarget.GAP = 			55;
-	DblLinearTarget.STOP_POS = 		{'x':205, 'y':320};
+	DblLinearTarget.START_POS = 	{'x':94, 'y':0};
+	DblLinearTarget.STOP_POS = 		{'x':170, 'y':320};
 
 	PhaserComponents.Utils.extends(DblLinearTarget, AbstractTarget);
 	
@@ -43,7 +48,7 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget', 'app/assets'],
 	DblLinearTarget.prototype.addBlocks = function(){
 		var i, column, row, numTargets = DblLinearTarget.NUM, bounds, xpos, y0, w;
 		xpos = [this.left, this.right];
-		w = 50;
+		w = DropView.SMALL_WIDTH/2;
 		y0 = this.bounds.y + DblLinearTarget.BLOCK_TOP;
 		for(i = 0; i < numTargets; i++){
 			column = Math.round(i/numTargets);

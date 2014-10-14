@@ -1106,10 +1106,7 @@ define('phasercomponents/display/view',
 
 	Object.defineProperty(View.prototype, "view", {
 		get : function(){
-			return (this._view || this.sprite || this.group);
-		},
-		set:function(v){
-			this._view = v;
+			return (this.sprite || this.group);
 		}
 	});
 

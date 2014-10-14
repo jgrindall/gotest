@@ -17,10 +17,15 @@ define( ['app/prog/views/dropview',	'app/assets',
 	LinearTarget.BOTTOM = 		250;
 	LinearTarget.BLOCK_TOP = 	54;
 	LinearTarget.GAP = 			55;
-	LinearTarget.STOP_POS = 	{'x':110, 'y':322};
+	LinearTarget.START_POS = 	{'x':114, 'y':0};
+	LinearTarget.STOP_POS = 	{'x':114, 'y':322};
 	LinearTarget.HEIGHT =		500;
 
 	PhaserComponents.Utils.extends(LinearTarget, AbstractTarget);
+
+	LinearTarget.prototype.init = function(){
+		this.middle += 25;
+	};
 
 	LinearTarget.prototype.decorate = function(){
 		var p0, p1;

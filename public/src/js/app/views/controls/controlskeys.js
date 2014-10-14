@@ -49,7 +49,7 @@ Events, ModelConsts){
 	ControlsKeys.prototype.positionPanel = function() {
 		var x, y;
 		if(this.commandsPanel){
-			x = 16;
+			x = 0;
 			y = 50 + (this.game.h - 200 - AbstractCommandsPanel.HEIGHT)/2;
 			y = Math.max(y, 50);
 			this.commandsPanel.view.x = x;

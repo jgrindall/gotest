@@ -29,6 +29,7 @@ define(
 	var ProgDragContainer = function(options){
 		this.targets = [];
 		this.playSignal = new Phaser.Signal();
+		this.clearSignal = new Phaser.Signal();
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
@@ -72,7 +73,9 @@ define(
 	};
 		
 	ProgDragContainer.prototype.addPlay = function() {
-		var options = {"bounds":{'x':this.bounds.x + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
+		var options, bounds;
+		bounds = this.options.targetObj.constructor.START_POS;
+		options = {"bounds":bounds};
 		this.playButton = new PlayButton(options);
 		this.group.add(this.playButton.view);
 		this.playButton.mouseUpSignal.add(this.clickPlay, this);
@@ -88,10 +91,13 @@ define(
 	};
 
 	ProgDragContainer.prototype.addClear = function() {
-		var options = {"bounds":{'x':this.bounds.x + 100 + (this.bounds.w - PlayButton.WIDTH)/2, 'y':this.bounds.y + 10, 'w':PlayButton.WIDTH, 'h':PlayButton.HEIGHT}};
+		var options, bounds;
+		bounds = this.options.targetObj.constructor.START_POS
+		options = {"bounds":{'x':bounds.x + 100, 'y':bounds.y + 15}};
 		this.clearButton = new CloseButton(options);
 		this.clearButton.view.scale = {'x':0.5, 'y':0.5};
 		this.group.add(this.clearButton.view);
+		this.clearButton.mouseUpSignal.add(this.clickClear, this);
 		this.clearButton.enableInput();
 	};
 
@@ -101,10 +107,7 @@ define(
 	};
 
 	ProgDragContainer.prototype.clickClear = function() {
-		if(this.dragManager){
-			this.dragManager.clear();
-		}
-		this.onEdited();
+		this.clearSignal.dispatch();
 	};
 
 	ProgDragContainer.prototype.getBlockIndex = function(num){
@@ -231,6 +234,10 @@ define(
 		this.group.remove(this.clearButton.view);
 		this.group.remove(this.stopButton.view);
 		this.group.remove(this.playButton.view);
+		this.playSignal.dispose();
+		this.clearSignal.dispose();
+		this.playSignal = null;
+		this.clearSignal = null;
 		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.remove(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.remove(this.setProgress, this);
 		this.playButton.mouseUpSignal.remove(this.clickPlay, this);

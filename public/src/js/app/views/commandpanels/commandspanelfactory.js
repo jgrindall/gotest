@@ -95,8 +95,8 @@ TargetFactory
 		for(i = 1; i <= num; i++){
 			h = [];
 			if(double){
-				h.push({"accept":[0], "bounds":{'x':-20, 'y':0}});
-				h.push({"accept":[1], "bounds":{'x':20, 'y':0}});
+				h.push({"accept":[0], "bounds":{'x':-15, 'y':0}});
+				h.push({"accept":[1], "bounds":{'x':14, 'y':0}});
 			}
 			else{
 				h.push({"accept":[0], "bounds":{'x':0, 'y':0}});

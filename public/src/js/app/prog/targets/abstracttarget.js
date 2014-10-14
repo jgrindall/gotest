@@ -17,8 +17,13 @@ define( ['app/prog/views/dropview'],
 		this.game = parent.game;
 		this.gfx = new Phaser.Graphics(this.game, 0, 0);
 		this.parent.addGfx(this.gfx);
+		this.init();
 		this.decorate();
 		this.addBlocks();
+	};
+
+	AbstractTarget.prototype.init = function(){
+		
 	};
 
 	AbstractTarget.prototype.circle = function(p){

@@ -39,7 +39,7 @@ define(
 	};
 
 	ProgButtons.prototype.getButtonPos = function(i, j){
-		return {'x':this.bounds.x + 32*i, 'y':this.bounds.y + 10 + 40*j};
+		return {'x':6 + this.bounds.x + 30*i, 'y':this.bounds.y + 10 + 40*j};
 	};
 
 	ProgButtons.prototype.addButtons = function(){
@@ -73,7 +73,7 @@ define(
 	};
 
 	ProgButtons.prototype.addDomain = function() {
-		this.domain = new Phaser.Sprite(this.game, -12, 0, Assets.DRAG_DOMAIN);
+		this.domain = new Phaser.Sprite(this.game, 0, 0, Assets.DRAG_DOMAIN);
 		this.group.add(this.domain);
 	};
 	
