@@ -24,8 +24,18 @@ function(PhaserComponents,
 	VScrollBar.prototype.create = function(){
 		PhaserComponents.Display.InteractiveSprite.prototype.create.call(this);
 		this.scrollPos = 0;
+		this.resize(VScrollBar.HEIGHT);
+		this.hide();
+	};
+
+	VScrollBar.prototype.hide = function(y){
+		this.disableInput();
+		this.view.visible = false;
+	};
+
+	VScrollBar.prototype.show = function(y){
 		this.enableInput();
-		this.resize(100);
+		this.view.visible = true;
 	};
 
 	VScrollBar.prototype.moveTo = function(y){

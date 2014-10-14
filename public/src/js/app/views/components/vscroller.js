@@ -98,12 +98,12 @@ function(PhaserComponents,
 		this.removeListeners();
 		this.removeMoveListeners();
 		this.scale();
-		if(H > h){
+		if(H > h + 2){
 			this.addListeners();
-			this.scrollBar.visible = true;
+			this.scrollBar.show();
 		}
 		else{
-			this.scrollBar.visible = false;
+			this.scrollBar.hide();
 		}
 	};
 

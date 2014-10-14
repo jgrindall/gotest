@@ -123,7 +123,7 @@ define(
 	};
 
 	ProgDragContainer.prototype.getContentHeight = function(){
-		return 1000;
+		return this.options.targetObj.constructor.HEIGHT || this.bounds.h;
 	};
 
 	ProgDragContainer.prototype.isEmpty = function(hitZoneRow) {

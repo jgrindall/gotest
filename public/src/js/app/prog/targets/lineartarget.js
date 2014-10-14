@@ -19,7 +19,7 @@ define( ['app/prog/views/dropview',	'app/assets',
 	LinearTarget.GAP = 			55;
 	LinearTarget.START_POS = 	{'x':114, 'y':0};
 	LinearTarget.STOP_POS = 	{'x':114, 'y':322};
-	LinearTarget.HEIGHT =		500;
+	//LinearTarget.HEIGHT =		600;
 
 	PhaserComponents.Utils.extends(LinearTarget, AbstractTarget);
 
