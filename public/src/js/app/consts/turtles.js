@@ -9,7 +9,7 @@ function(){
 		
 	};
 
-	Turtles.NUM = 2;
+	Turtles.NUM = 4;
 	
 	return Turtles;
 

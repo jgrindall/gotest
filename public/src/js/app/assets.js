@@ -10,7 +10,7 @@ define([], function(){
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
 	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9', 'map10', 'map11', 'map12'];
-	Assets.TURTLES = 				['turtle0', 'turtle1'];
+	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
 	Assets.MOVER = 					'mover';
 	Assets.CORNERS = 				'corners';
@@ -118,6 +118,8 @@ define([], function(){
 	Assets.IMAGES = [
 		{"type":"image", 		"asset":"assets/images/turtle/turtle0.png", 			"key":Assets.TURTLES[0]},
 		{"type":"image", 		"asset":"assets/images/turtle/turtle1.png", 			"key":Assets.TURTLES[1]},
+		{"type":"image", 		"asset":"assets/images/turtle/turtle2.png", 			"key":Assets.TURTLES[2]},
+		{"type":"image", 		"asset":"assets/images/turtle/turtle3.png", 			"key":Assets.TURTLES[3]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip0.png",	 		"key":Assets.TOOLTIPS[0]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip1.png",	 		"key":Assets.TOOLTIPS[1]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip2.png",	 		"key":Assets.TOOLTIPS[2]},

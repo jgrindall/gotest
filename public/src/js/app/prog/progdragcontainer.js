@@ -1,28 +1,24 @@
 define(
 
-	['phasercomponents', 'jquery', 'app/views/buttons/dragbutton', 'app/assets',
+	['phasercomponents', 'app/consts/commandpaneltypes',
 
-	'app/prog/views/dragview', 'app/prog/accepter', 'app/consts/commandpaneltypes',
-
-	'app/views/commandpanels/abstractcommandspanel', 'app/views/buttons/closebutton',
+	'app/views/buttons/closebutton',
 
 	'app/views/buttons/playbutton', 'app/views/buttons/stopbutton', 'app/events/events', 
 
-	'app/prog/controller/progcontrollerfactory', 'app/prog/controller/playcontrollerfactory',
+	'app/prog/controller/progcontrollerfactory',
 
-	'app/consts/playingstate', 'app/models/modelconsts', 'app/views/components/vscroller'],
+	'app/models/modelconsts'],
 
-	function(PhaserComponents, $, DragButton, Assets,
+	function(PhaserComponents, CommandPanelTypes, 
 
-		DragView, Accepter, CommandPanelTypes, 
-
-		AbstractCommandsPanel, CloseButton,
+		CloseButton,
 
 		PlayButton, StopButton, Events,
 
-		ProgControllerFactory, PlayControllerFactory,
+		ProgControllerFactory,
 
-		PlayingState, ModelConsts, VScroller){
+		ModelConsts){
 	
 	"use strict";
 
@@ -92,7 +88,7 @@ define(
 
 	ProgDragContainer.prototype.addClear = function() {
 		var options, bounds;
-		bounds = this.options.targetObj.constructor.START_POS
+		bounds = this.options.targetObj.constructor.START_POS;
 		options = {"bounds":{'x':bounds.x + 100, 'y':bounds.y + 15}};
 		this.clearButton = new CloseButton(options);
 		this.clearButton.view.scale = {'x':0.5, 'y':0.5};

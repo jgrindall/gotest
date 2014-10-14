@@ -2150,6 +2150,238 @@ function(Phaser, Container, Utils){
 
 
 
+define('phasercomponents/display/scroll/vscrollbar',
+
+	['phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
+
+function(InteractiveSprite, Utils){
+
+	
+	
+	var VScrollBar  = function(options){
+		InteractiveSprite.call(this, options);
+	};
+	
+	VScrollBar.WIDTH = 20;
+	VScrollBar.HEIGHT = 100;
+
+	Utils.extends(VScrollBar, InteractiveSprite);
+	
+	VScrollBar.prototype.create = function(){
+		InteractiveSprite.prototype.create.call(this);
+		this.scrollPos = 0;
+		this.resize(VScrollBar.HEIGHT);
+		this.hide();
+	};
+
+	VScrollBar.prototype.hide = function(){
+		this.disableInput();
+		this.view.visible = false;
+	};
+
+	VScrollBar.prototype.show = function(){
+		this.enableInput();
+		this.view.visible = true;
+	};
+
+	VScrollBar.prototype.moveTo = function(y){
+		this.sprite.y = y;
+		this.scrollPos = y;
+	};
+	
+	VScrollBar.prototype.resize = function(h){
+		var scale = h/VScrollBar.HEIGHT;
+		this.sprite.scale = {'x':1, 'y':scale};
+	};
+
+	VScrollBar.prototype.destroy = function(){
+		InteractiveSprite.prototype.destroy.call(this);
+	};
+
+	return VScrollBar;
+});
+	
+
+
+
+
+define('phasercomponents/display/scroll/vscroller',
+
+	['phasercomponents/display/container', 'phasercomponents/utils/utils',
+
+	'phasercomponents/display/scroll/vscrollbar'],
+
+function(Container, Utils, 
+
+	VScrollBar){
+	
+	
+	
+	var VScroller  = function(options){
+		Container.call(this, options);
+	};
+	
+	Utils.extends(VScroller, Container);
+	
+	VScroller.prototype.create = function(){
+		Container.prototype.create.call(this);
+		this.addMask();
+		this.addScrollBar();
+		this.scrollBar.view.alpha = 0.5;
+	};
+
+	VScroller.prototype.addListeners = function(){
+		this.scrollBar.mouseDownSignal.add(this.startDragging, this);
+	};
+
+	VScroller.prototype.removeListeners = function(){
+		this.scrollBar.mouseDownSignal.remove(this.startDragging, this);
+	};
+
+	VScroller.prototype.addScrollBar = function(){
+		var options ={};
+		options.bounds = {'x':this.bounds.x + this.bounds.w - VScrollBar.WIDTH - 2, 'y':this.bounds.y, 'w':VScrollBar.WIDTH, 'h':VScrollBar.HEIGHT};
+		options.asset = this.options.scrollBarAsset;
+		this.scrollBar = new VScrollBar(options);
+    	this.group.add(this.scrollBar.view);
+	};
+
+	VScroller.prototype.move = function(pointer) {
+		var localPoint, dy, newY;
+		localPoint = this.game.input.getLocalPosition(this.group, pointer);
+		dy = localPoint.y - this.mouse0;
+		newY = this.y0 + dy;
+		newY = this.bound(newY);
+		this.goTo(newY);
+	};
+
+	VScroller.prototype.bound = function(y){
+		var min, max, H, h, Hminush;
+		H = this.getContentHeight();
+		h = this.getScrollHeight();
+		Hminush = H - h;
+		min = 0;
+		max = (h/H)*Hminush;
+		return Math.max(Math.min(y, max), min);
+	};
+
+	VScroller.prototype.goTo = function(y){
+		if(this.contents){
+			var H, h, Hminush, cy;
+			H = this.getContentHeight();
+			h = this.getScrollHeight();
+			Hminush = H - h;
+			cy = -y*H/h;
+			this.scrollBar.moveTo(y);
+			this.contents.view.y = cy;
+		}
+	};
+
+	VScroller.prototype.onUp = function() {
+		this.removeMoveListeners();
+		this.scrollBar.view.alpha = 0.5;
+	};
+
+	VScroller.prototype.removeMoveListeners = function(){
+		this.game.input.onUp.remove(this.onUp, this);
+		this.game.input.moveCallback = null;
+		this.game.input.mouse.mouseOutCallback = null;
+	};
+
+	VScroller.prototype.getContentHeight = function() {
+		return this.contents.getContentHeight();
+	};
+
+	VScroller.prototype.getScrollHeight = function() {
+		return this.bounds.h;
+	};
+
+	VScroller.prototype.update = function() {
+		var H, h;
+		H = this.getContentHeight();
+		h = this.getScrollHeight();
+		this.removeListeners();
+		this.removeMoveListeners();
+		this.scale();
+		if(H > h + 1){
+			this.addListeners();
+			this.scrollBar.show();
+		}
+		else{
+			this.scrollBar.hide();
+		}
+	};
+
+	VScroller.prototype.scale = function() {
+		if(this.contents){
+			var H, h, barH;
+			H = this.getContentHeight();
+			h = this.getScrollHeight();
+			barH = h*h/H;
+			this.scrollBar.resize(h*h/H);
+		}
+	};
+	
+	VScroller.prototype.startDragging = function() {
+		var localPoint = this.game.input.getLocalPosition(this.group, this.game.input.activePointer);
+		this.mouse0 = localPoint.y;
+		this.y0 = this.scrollBar.scrollPos;
+		this.addMoveListeners();
+		this.scrollBar.view.alpha = 1;
+	};
+	
+	VScroller.prototype.mouseOutCallback = function() {
+		this.onUp();
+	};
+
+	VScroller.prototype.addMoveListeners = function(){
+		this.game.input.onUp.add(this.onUp, this);
+		this.game.input.moveCallback = this.move.bind(this);
+		this.game.input.mouse.mouseOutCallback = this.mouseOutCallback.bind(this);
+	};
+
+	VScroller.prototype.setContents = function(contents){
+		this.removeContents();
+		this.contents = contents;
+		this.group.add(this.contents.view);
+		this.contents.view.mask = this.mask;
+		this.update();
+	};
+
+	VScroller.prototype.addMask = function(){
+		this.mask = new Phaser.Graphics(this.game, 0, 0);
+		this.mask.beginFill(0xff0000);
+    	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
+    	this.mask.endFill();
+    	this.group.add(this.mask);
+	};
+
+	VScroller.prototype.removeContents = function(){
+		if(this.contents){
+			this.contents.view.mask = null;
+			this.group.remove(this.contents.view);
+			this.contents.destroy();
+			this.contents = null;
+		}
+	};
+
+	VScroller.prototype.destroy = function(){
+		this.removeContents();
+		this.removeListeners();
+		this.removeMoveListeners();
+		this.group.remove(this.mask);
+		this.group.remove(this.scrollBar);
+		this.contents = null;
+		this.mask = null;
+		Container.prototype.destroy.call(this);
+	};
+
+	return VScroller;
+});
+	
+
+
+
 define('phasercomponents/scene',
 
 	['phasercomponents/injector'],
@@ -3254,6 +3486,7 @@ define('phasercomponents',[
 	'phasercomponents/events/appevents',
 	'phasercomponents/display/slider/slider',
 	'phasercomponents/display/scroller/scroller',
+	'phasercomponents/display/scroll/vscroller',
 	'phasercomponents/scene',
 	'phasercomponents/display/view',
 	'phasercomponents/utils/storage',
@@ -3300,6 +3533,7 @@ define('phasercomponents',[
 		AppEvents,
 		Slider, 
 		Scroller,
+		VScroller,
 		Scene,
 		View,
 		Storage,
@@ -3349,6 +3583,7 @@ define('phasercomponents',[
         'RadioButtons': 		RadioButtons,
         'ToggleButton': 		ToggleButton,
         'LoaderBar': 			LoaderBar,
+        'VScroller': 			VScroller
     };
 
     var Model = {

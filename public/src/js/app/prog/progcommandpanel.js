@@ -1,32 +1,24 @@
 define(
 
-	['phasercomponents', 'app/views/buttons/dragbutton', 'app/assets',
+	['phasercomponents', 
 
-	'app/prog/views/dragview', 'app/prog/accepter', 'app/consts/commandpaneltypes',
+	'app/prog/views/dragview', 'app/prog/accepter', 'app/views/commandpanels/abstractcommandspanel',
 
-	'app/views/commandpanels/abstractcommandspanel', 'app/views/buttons/closebutton',
+	'app/prog/progbuttons', 'app/prog/progdragcontainer',
 
-	'app/views/buttons/playbutton', 'app/views/buttons/stopbutton',
+	'app/prog/controller/playcontrollerfactory', 'app/assets',
 
-	'app/events/events', 'app/prog/progbuttons', 'app/prog/progdragcontainer',
+	'app/consts/playingstate', 'app/models/modelconsts'],
 
-	'app/prog/controller/progcontrollerfactory', 'app/prog/controller/playcontrollerfactory',
+	function(PhaserComponents, 
 
-	'app/consts/playingstate', 'app/models/modelconsts', 'app/views/components/vscroller'],
+		DragView, Accepter, AbstractCommandsPanel,
 
-	function(PhaserComponents, DragButton, Assets,
+		ProgButtons, ProgDragContainer,
 
-		DragView, Accepter, CommandPanelTypes, 
+		PlayControllerFactory, Assets,
 
-		AbstractCommandsPanel, CloseButton,
-
-		PlayButton, StopButton,
-
-		Events, ProgButtons, ProgDragContainer,
-
-		ProgControllerFactory, PlayControllerFactory,
-
-		PlayingState, ModelConsts, VScroller){
+		PlayingState, ModelConsts){
 	
 	"use strict";
 
@@ -128,7 +120,7 @@ define(
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.dragContainer.view, this.game, {"model":this.options.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.dragManager.editSignal.add(this.onEdited, this);
 		this.group.add(this.progButtons.view);
-		this.scroller = new VScroller({'bounds':this.bounds});
+		this.scroller = new PhaserComponents.Display.VScroller({'bounds':this.bounds, 'scrollBarAsset':Assets.VSCROLLBAR});
 		this.group.add(this.scroller.view);
 		this.scroller.setContents(this.dragContainer);
 		this.initDrag();

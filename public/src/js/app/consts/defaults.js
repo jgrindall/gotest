@@ -10,11 +10,11 @@ define(['jquery'], function($) {
 	Defaults.CHALLENGE_BG = 			[6, 2, 4, 10];
 	Defaults.CHALLENGE_SCREEN = 		[0, 1, 2, 3];
 	Defaults.CHALLENGE_COLOR = 			[0, 3, 8, 3];
-	Defaults.CHALLENGE_STEP_LENGTH = 	[4, 3, 3, 1];
+	Defaults.CHALLENGE_STEP_LENGTH = 	[4, 3, 3, 3];
 	Defaults.CHALLENGE_GRID = 			[1, 1, 1, 1];
 	Defaults.CHALLENGE_PROG = 			[0, 0, 2, 1];
 	Defaults.CHALLENGE_ALLOW_PROG = 	[0, 0, 1, 1];
-	Defaults.CHALLENGE_TURTLE = 		[0, 1, 1, 0];
+	Defaults.CHALLENGE_TURTLE = 		[0, 1, 3, 2];
 	Defaults.CHALLENGE_DIAG = 			[0, 0, 1, 1];
 	Defaults.CHALLENGE_START_POS = 		[{'x':0.12, 'y':0.25}, {'x':0.1, 'y':0.1}, {'x':0.2, 'y':0.82}, {'x':0.2, 'y':0.2}];
 

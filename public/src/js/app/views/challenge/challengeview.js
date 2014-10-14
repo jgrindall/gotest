@@ -73,7 +73,8 @@ CloseButton, Assets){
 	};
 
 	ChallengeView.prototype.addTitle = function() {
-		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 10, this.bounds.y + 7, "Welcome to 2Go!  Choose a challenge or skip");
+		var s = "Welcome to 2Go!  Choose a challenge or skip to just dive in!";
+		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 10, this.bounds.y + 7, s);
  		this.group.add(this.label);
 	};
 

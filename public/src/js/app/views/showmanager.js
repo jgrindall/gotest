@@ -10,8 +10,8 @@ function(PhaserComponents, ShowDirections){
 		this.tweens = [];
 	};
 	
-	ShowManager.DELAY = 250;
-	ShowManager.DURATION = 600;
+	ShowManager.DELAY = 180;
+	ShowManager.DURATION = 500;
 
 	ShowManager.prototype.init = function(){
 		PhaserComponents.Injector.getInstance().injectInto(this, "showmanager");
@@ -41,8 +41,8 @@ function(PhaserComponents, ShowDirections){
 			x = view.x;
 			y = view.y;
 			ds = ShowDirections.DIR[dir];
-			view.x += ds[0] * view.width * 2;
-			view.y += ds[1] * view.height * 2;
+			view.x += ds[0] * view.width * 4;
+			view.y += ds[1] * view.height * 4;
 			options = {'x':x, 'y':y};
 			tween0 = this.game.add.tween(view).to(options, ShowManager.DURATION, Phaser.Easing.Back.InOut, false, num*ShowManager.DELAY, false);
 			this.tweens.push(tween0);

@@ -1,28 +1,8 @@
 define(
 
-	['phasercomponents', 'app/views/buttons/dragbutton', 'app/assets',
+	['phasercomponents', 'app/views/buttons/dragbutton', 'app/assets'],
 
-	'app/prog/views/dragview', 'app/prog/accepter', 'app/consts/commandpaneltypes',
-
-	'app/views/commandpanels/abstractcommandspanel', 'app/views/buttons/closebutton',
-
-	'app/views/buttons/playbutton', 'app/views/buttons/stopbutton', 'app/events/events', 
-
-	'app/prog/controller/progcontrollerfactory', 'app/prog/controller/playcontrollerfactory',
-
-	'app/consts/playingstate', 'app/models/modelconsts'],
-
-	function(PhaserComponents, DragButton, Assets,
-
-		DragView, Accepter, CommandPanelTypes, 
-
-		AbstractCommandsPanel, CloseButton,
-
-		PlayButton, StopButton, Events,
-
-		ProgControllerFactory, PlayControllerFactory,
-
-		PlayingState, ModelConsts){
+	function(PhaserComponents, DragButton, Assets){
 	
 	"use strict";
 
