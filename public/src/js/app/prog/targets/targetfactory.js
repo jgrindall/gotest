@@ -4,7 +4,7 @@ define( ['app/prog/targets/lineartarget', 'app/prog/targets/dbllineartarget',
 
 	function(LinearTarget, DblLinearTarget,
 
-		LoopTarget, ProgTypes){
+		LoopTarget, LongTarget, ProgTypes){
 	
 	"use strict";
 
@@ -21,6 +21,9 @@ define( ['app/prog/targets/lineartarget', 'app/prog/targets/dbllineartarget',
 		}
 		else if(type === ProgTypes.LOOP){
 			return new LoopTarget();
+		}
+		else if(type === ProgTypes.LONG){
+			return new LongTarget();
 		}
 	};
 
