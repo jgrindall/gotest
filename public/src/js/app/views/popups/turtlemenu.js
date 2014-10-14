@@ -18,16 +18,16 @@ TurtleChoice){
 	"use strict";
 		
 	var TurtleMenu = function(options){
-		options.bgasset = Assets.PANEL;
+		options.bgasset = Assets.ALERT;
 		PhaserComponents.Display.AbstractPopup.call(this, options);
 		this.model.changeSignal.add(this.onChanged, this);
 	};
 	
 	PhaserComponents.Utils.extends(TurtleMenu, PhaserComponents.Display.AbstractPopup);
 
-	TurtleMenu.WIDTH = 720;
-	TurtleMenu.HEIGHT = 540;
-	
+	TurtleMenu.WIDTH = 420;
+	TurtleMenu.HEIGHT = 250;
+
 	TurtleMenu.prototype.addOkButton = function () {
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT + 3};
