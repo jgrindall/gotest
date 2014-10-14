@@ -1089,6 +1089,14 @@ define('phasercomponents/display/view',
 		this.view.y = y;
 	};
 	
+	View.prototype.getContentHeight = function(){
+		return this.bounds.h;
+	};
+	
+	View.prototype.getContentWidth = function(){
+		return this.bounds.w;
+	};
+
 	View.prototype.destroy = function(){
 		this.options = null;
 		this.bounds = null;
@@ -1098,7 +1106,10 @@ define('phasercomponents/display/view',
 
 	Object.defineProperty(View.prototype, "view", {
 		get : function(){
-			return (this.sprite || this.group);
+			return (this._view || this.sprite || this.group);
+		},
+		set:function(v){
+			this._view = v;
 		}
 	});
 
@@ -1158,30 +1169,15 @@ define('phasercomponents/display/interactivesprite',
 			this.sprite.inputEnabled = false;
 		}
 	};
-
-	InteractiveSprite.prototype.hitData = function(){
-		var hits, pointer, localPoint;
-		if(!this.sprite.inputEnabled){
-			return {'hits':false};
-		}
-		pointer = this.game.input.activePointer;
-		localPoint = this.game.input.getLocalPosition(this.sprite, pointer);
-		hits = this.game.input.hitTest(this.sprite, pointer, localPoint);
-		return  {'hits':hits, 'localPoint':localPoint};
-	};
 	
 	InteractiveSprite.prototype.onMouseUp = function(){
-		var hitData = this.hitData();
-		if(hitData.hits){
-			this.mouseUpSignal.dispatch({"target":this, "localPoint":hitData.localPoint});
-		}
+		var localPoint = this.game.input.getLocalPosition(this.sprite, this.game.input.activePointer);
+		this.mouseUpSignal.dispatch({"target":this, "localPoint":localPoint});
 	};
 	
 	InteractiveSprite.prototype.onMouseDown = function(){
-		var hitData = this.hitData();
-		if(hitData.hits){
-			this.mouseDownSignal.dispatch({"target":this, "localPoint":hitData.localPoint});
-		}
+		var localPoint = this.game.input.getLocalPosition(this.sprite, this.game.input.activePointer);
+		this.mouseDownSignal.dispatch({"target":this, "localPoint":localPoint});
 	};
 	
 	InteractiveSprite.prototype.destroy = function(){
@@ -1840,7 +1836,6 @@ InteractiveSprite, Utils, AppEvents){
 	};	
 	
 	Slider.prototype.onUp = function() {
-		this.dragging = false;
 		this.removeMoveListeners();
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
@@ -1879,7 +1874,6 @@ InteractiveSprite, Utils, AppEvents){
 	};
 	
 	Slider.prototype.startDragging = function() {
-		this.dragging = true;
 		this.addMoveListeners();
 	};
 	

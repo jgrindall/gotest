@@ -19,7 +19,7 @@ ControlsKeys, ControlsPens, ShowDirections){
 		PhaserComponents.Display.Container.call(this, options);
 	};
 
-	Controls.WIDTH = 320;
+	Controls.WIDTH = 280;
 	
 	PhaserComponents.Utils.extends(Controls, PhaserComponents.Display.Container);
 

@@ -32,8 +32,8 @@ function(PhaserComponents, Events,
 	StartUpCommand.prototype.loadChallenges = function(){
 		var that = this;
 		setTimeout(function(){
-			that.eventDispatcher.trigger({"type":Events.SHOW_ALL});
-			//that.eventDispatcher.trigger({"type":Events.SHOW_CHALLENGES});
+			//that.eventDispatcher.trigger({"type":Events.SHOW_ALL});
+			that.eventDispatcher.trigger({"type":Events.SHOW_CHALLENGES});
 		}, 100);
 	};
 

@@ -52,7 +52,7 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 		asset = Assets.GRIDS[index];
 		this.tile = new Phaser.TileSprite(this.game, this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h, asset);
 		this.tile.tilePosition = new PIXI.Point(-offset.x, -offset.y);
-		this.tile.alpha = 0.15;
+		this.tile.alpha = 0.4;
 		this.group.add(this.tile);
 	};
 

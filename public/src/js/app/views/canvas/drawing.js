@@ -54,7 +54,6 @@ FdCommand, StepLengths){
 	PhaserComponents.Utils.extends(Drawing, PhaserComponents.Display.Container);
 
 	Drawing.prototype.turtleChanged = function(value){
-		console.log("turtle png changed", value);
 		if(value !== null){
 			this.turtle.addTurtle();
 			this.turtle.reset(this.startPos);
@@ -62,7 +61,6 @@ FdCommand, StepLengths){
 	};
 
 	Drawing.prototype.turtlePngChanged = function(pngData){
-		console.log("turtle png changed", pngData);
 		var img;
 		if(pngData !== null){
 			img = new Image();

@@ -12,13 +12,11 @@ define( ['app/prog/views/dropview'],
 
 	AbstractTarget.prototype.build = function(parent){
 		this.parent = parent;
-		this.group = parent.group;
 		this.bounds = parent.bounds;
 		this.middle = this.bounds.x + this.bounds.w/2;
 		this.game = parent.game;
-		this.targets = parent.targets;
 		this.gfx = new Phaser.Graphics(this.game, 0, 0);
-		this.group.add(this.gfx);
+		this.parent.addGfx(this.gfx);
 		this.decorate();
 		this.addBlocks();
 	};
@@ -40,19 +38,16 @@ define( ['app/prog/views/dropview'],
 
 	AbstractTarget.prototype.addTarget = function(options){
 		var target = new DropView(options);
-		this.targets.push(target);
-		this.group.add(target.view);
+		this.parent.addTarget(target);
 	};
 
 	AbstractTarget.prototype.destroy = function(){
-		this.group.remove(this.gfx);
+		this.parent.removeGfx(this.gfx);
 		this.gfx.destroy();
 		this.gfx = null;
-		this.parent = null;
-		this.group = null;
+		this.container = null;
 		this.bounds = null;
 		this.game = null;
-		this.targets = null;
 	};
 
 	return AbstractTarget;

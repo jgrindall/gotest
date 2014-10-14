@@ -26,6 +26,7 @@ define([], function(){
 	Assets.TOOLTIP_IMAGE = 			'tooltipImage';
 	Assets.ALERT = 					'alert';
 	Assets.IPAD = 					'ipad';
+	Assets.VSCROLLBAR =				'vscrollbar';
 	Assets.LEFT = 					'left';
 	Assets.RIGHT = 					'right';
 	Assets.OK_BUTTON = 				'okbutton';
@@ -149,7 +150,8 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/popups/ipad.png",	 			"key":Assets.IPAD},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
 		{"type":"image", 		"asset":"assets/images/maps/corners.jpg",	 			"key":Assets.CORNERS},
-		{"type":"image", 		"asset":"assets/images/prog/dragdomains.png",	 		"key":Assets.DRAG_DOMAIN}
+		{"type":"image", 		"asset":"assets/images/prog/dragdomains.png",	 		"key":Assets.DRAG_DOMAIN},
+		{"type":"image", 		"asset":"assets/images/scroll/vscrollbar.png",	 		"key":Assets.VSCROLLBAR}
 	];
 	
 	

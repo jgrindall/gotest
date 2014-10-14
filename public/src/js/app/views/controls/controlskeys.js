@@ -31,8 +31,6 @@ Events, ModelConsts){
 		this.modelFacade.get(ModelConsts.PROG_TYPE).changeSignal.add(this.onScreenChanged, this);
 		this.modelFacade.get(ModelConsts.ALLOW_PROG).changeSignal.add(this.onProgAllowedChanged, this);
 	};
-
-	ControlsKeys.WIDTH = 320;
 	
 	PhaserComponents.Utils.extends(ControlsKeys, PhaserComponents.Display.Container);
 
@@ -134,7 +132,7 @@ Events, ModelConsts){
 		this.removeCommandsPanel();
 		type = this.modelFacade.get(ModelConsts.SCREEN).get();
 		prog = this.modelFacade.get(ModelConsts.PROG_TYPE).get();
-		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':this.bounds.h - 50};
+		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':this.bounds.h - 195};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
 			this.group.add(this.commandsPanel.view);

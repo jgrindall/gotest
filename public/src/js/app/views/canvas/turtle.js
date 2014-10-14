@@ -221,9 +221,9 @@ function(Phaser, PhaserComponents,
 	Turtle.prototype.addMask = function() {
 		this.mask = new Phaser.Graphics(this.game, 0, 0);
 		this.mask.beginFill(0xff0000);
-    		this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
-    		this.mask.endFill();
-    		this.group.add(this.mask);
+    	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
+    	this.mask.endFill();
+    	this.group.add(this.mask);
 	};
 	
 	Turtle.prototype.destroy = function() {
