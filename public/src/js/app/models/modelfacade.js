@@ -5,7 +5,9 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/playingmodel', 'app/models/gridmodel', 'app/models/anglemodel', 'app/models/progmodel',
 
-'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel', 'app/models/prognummodel',
+'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
+
+'app/models/prognummodel',
 
 'app/models/progtypemodel', 'app/models/allowprogmodel', 'app/models/turtlemodel', 'app/models/namemodel',
 
@@ -21,7 +23,9 @@ function(CommModel, ScreenModel, BgModel,
 
 	PlayingModel, GridModel, AngleModel, ProgModel,
 
-	WidthModel, StepLengthModel, DiagModel, ProgNumModel,
+	WidthModel, StepLengthModel, DiagModel,
+
+	ProgNumModel,
 
 	ProgTypeModel, AllowProgModel, TurtleModel, NameModel,
 
@@ -42,7 +46,7 @@ function(CommModel, ScreenModel, BgModel,
 		else if(name === ModelConsts.BG){
 			return this.bgModel;
 		}
-		else if(name === ModelConsts.STARTPOS){
+		else if(name === ModelConsts.START_POS){
 			return this.startPosModel;
 		}
 		else if(name === ModelConsts.SELECTED_COMM){

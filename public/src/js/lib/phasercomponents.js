@@ -87,9 +87,9 @@ define('phasercomponents/utils/utils',[], function(){
 
 
 
-define('phasercomponents/gamemanager',
+define(
 
-	['jquery', 'phaser', 'phaserstatetrans', 'phasercomponents/utils/utils'],
+	'phasercomponents/gamemanager',['jquery', 'phaser', 'phaserstatetrans', 'phasercomponents/utils/utils'],
 
 function($, Phaser, PhaserStateTrans, Utils){
 	
@@ -240,9 +240,9 @@ function($, Phaser, PhaserStateTrans, Utils){
 
 
 
-define('phasercomponents/injector',
+define(
 
-    [],
+    'phasercomponents/injector',[],
 
 	function() {
 	
@@ -311,9 +311,9 @@ define('phasercomponents/injector',
 });
 
 
-define('phasercomponents/commands/commandmap',
+define(
 
-	['phasercomponents/injector'],
+	'phasercomponents/commands/commandmap',['phasercomponents/injector'],
 
 function(Injector) {
 	
@@ -429,9 +429,9 @@ function($) {
 
 
 
-define('phasercomponents/utils/abstractstorageadapter',
+define(
 
-	[],
+	'phasercomponents/utils/abstractstorageadapter',[],
 
 function(){
 	
@@ -463,9 +463,9 @@ function(){
 
 
 
-define('phasercomponents/utils/localstorageadapter',
+define(
 
-	['phasercomponents/utils/utils','phasercomponents/utils/abstractstorageadapter'],
+	'phasercomponents/utils/localstorageadapter',['phasercomponents/utils/utils','phasercomponents/utils/abstractstorageadapter'],
 
 function(Utils, AbstractStorageAdapter){
 	
@@ -521,9 +521,9 @@ function(Utils, AbstractStorageAdapter){
 
 
 
-define('phasercomponents/utils/storage',
+define(
 
-	['phasercomponents/utils/localstorageadapter'],
+	'phasercomponents/utils/storage',['phasercomponents/utils/localstorageadapter'],
 
 function(LocalStorageAdapter){
 	
@@ -607,9 +607,9 @@ function() {
 
 
 
-define('phasercomponents/utils/keymanager',
+define(
 
-	['jquery', 'phasercomponents/injector', 'phasercomponents/events/appevents'],
+	'phasercomponents/utils/keymanager',['jquery', 'phasercomponents/injector', 'phasercomponents/events/appevents'],
 
 	function($, Injector, AppEvents){
 	
@@ -681,9 +681,9 @@ define('phasercomponents/utils/soundmanager',[], function(){
 });
 
 
-define('phasercomponents/utils/alertmanager',
+define(
 
-	['jquery', 'phaser', 'phasercomponents/injector', 'phasercomponents/events/appevents'], 
+	'phasercomponents/utils/alertmanager',['jquery', 'phaser', 'phasercomponents/injector', 'phasercomponents/events/appevents'], 
 
 function($, Phaser, Injector, AppEvents){
 
@@ -779,9 +779,9 @@ function($, Phaser, Injector, AppEvents){
 
 
 
-define('phasercomponents/commands/abstractcommand',
+define(
 
-	['phasercomponents/injector'], function(Injector){
+	'phasercomponents/commands/abstractcommand',['phasercomponents/injector'], function(Injector){
 	
 	
 	
@@ -833,9 +833,9 @@ function(Utils,
 });
 
 
-define('phasercomponents/commands/postshutdowncommand',
+define(
 
-	['phasercomponents/utils/utils', 'phasercomponents/commands/abstractcommand'],
+	'phasercomponents/commands/postshutdowncommand',['phasercomponents/utils/utils', 'phasercomponents/commands/abstractcommand'],
 
 function(Utils, AbstractCommand) {
 	
@@ -881,7 +881,7 @@ function(Utils, AbstractCommand, Injector) {
 
 
 
-define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
+define( 'phasercomponents/context',['jquery', 'phasercomponents/gamemanager',
 
 	'phasercomponents/commands/commandmap', 'phasercomponents/events/eventdispatcher', 'phasercomponents/utils/storage',
 
@@ -1062,9 +1062,9 @@ define('phasercomponents/context', ['jquery', 'phasercomponents/gamemanager',
 
 
 
-define('phasercomponents/display/view',
+define(
 
-	['phasercomponents/injector'], function(Injector){
+	'phasercomponents/display/view',['phasercomponents/injector'], function(Injector){
 	
 	
 	
@@ -1118,9 +1118,9 @@ define('phasercomponents/display/view',
 
 
 
-define('phasercomponents/display/interactivesprite',
+define(
 
-	['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/interactivesprite',['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils'],
 
 	function(Phaser, View, Utils){
 	
@@ -1194,9 +1194,9 @@ define('phasercomponents/display/interactivesprite',
 
 
 
-define('phasercomponents/display/movieclip',
+define(
 
-	['phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/movieclip',['phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
 
 	function(InteractiveSprite, Utils){
 	
@@ -1249,9 +1249,9 @@ define('phasercomponents/display/movieclip',
 });
 
 
-define('phasercomponents/display/container',
+define(
 
-	['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/container',['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils'],
 
 function(Phaser, View, Utils){
 	
@@ -1284,9 +1284,9 @@ function(Phaser, View, Utils){
 
 
 
-define('phasercomponents/display/buttons/abstractbutton',
+define(
 	
-['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils',
+'phasercomponents/display/buttons/abstractbutton',['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils',
 
 'phasercomponents/events/appevents'],
 
@@ -1470,9 +1470,9 @@ function(Phaser, Injector){
 	
 
 
-define('phasercomponents/models/incrementmodel',
+define(
 
-	['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
+	'phasercomponents/models/incrementmodel',['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
 
 function(AbstractModel, Utils){
 	
@@ -1496,9 +1496,9 @@ function(AbstractModel, Utils){
 	
 
 
-define('phasercomponents/models/togglemodel',
+define(
 
-	['phasercomponents/models/incrementmodel', 'phasercomponents/utils/utils'],
+	'phasercomponents/models/togglemodel',['phasercomponents/models/incrementmodel', 'phasercomponents/utils/utils'],
 
 function(IncrementModel, Utils){
 	
@@ -1516,9 +1516,9 @@ function(IncrementModel, Utils){
 	
 
 
-define('phasercomponents/models/movieclipmodel',
+define(
 
-	['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
+	'phasercomponents/models/movieclipmodel',['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
 
 function(AbstractModel, Utils){
 	
@@ -1536,9 +1536,9 @@ function(AbstractModel, Utils){
 	
 
 
-define('phasercomponents/display/buttongrid/buttongridmodel',
+define(
 
-	['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/buttongrid/buttongridmodel',['phasercomponents/models/abstractmodel', 'phasercomponents/utils/utils'],
 
 function(AbstractModel, Utils){
 	
@@ -1680,9 +1680,9 @@ ButtonGridModel, Utils){
 
 
 
-define('phasercomponents/display/buttongrid/buttonbar',
+define(
 
-	['phasercomponents/display/buttongrid/buttongrid', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/buttongrid/buttonbar',['phasercomponents/display/buttongrid/buttongrid', 'phasercomponents/utils/utils'],
 
 function(ButtonGrid, Utils){
 	
@@ -1743,9 +1743,9 @@ function(ButtonGrid, Utils){
 
 
 
-define('phasercomponents/display/buttongrid/tabbuttonbar',
+define(
 
-	['phasercomponents/display/buttongrid/buttonbar', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/buttongrid/tabbuttonbar',['phasercomponents/display/buttongrid/buttonbar', 'phasercomponents/utils/utils'],
 
 function(ButtonBar, Utils){
 	
@@ -1981,9 +1981,9 @@ InteractiveSprite, Utils, AppEvents){
 
 	
 
-define('phasercomponents/display/scroller/scroller',
+define(
 
-	['phaser', 'phasercomponents/display/container', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/scroller/scroller',['phaser', 'phasercomponents/display/container', 'phasercomponents/utils/utils'],
 
 function(Phaser, Container, Utils){
 	
@@ -2150,9 +2150,9 @@ function(Phaser, Container, Utils){
 
 
 
-define('phasercomponents/display/scroll/vscrollbar',
+define(
 
-	['phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/scroll/vscrollbar',['phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
 
 function(InteractiveSprite, Utils){
 
@@ -2205,9 +2205,7 @@ function(InteractiveSprite, Utils){
 
 
 
-define('phasercomponents/display/scroll/vscroller',
-
-	['phasercomponents/display/container', 'phasercomponents/utils/utils',
+define('phasercomponents/display/scroll/vscroller',['phasercomponents/display/container', 'phasercomponents/utils/utils',
 
 	'phasercomponents/display/scroll/vscrollbar'],
 
@@ -2382,9 +2380,9 @@ function(Container, Utils,
 
 
 
-define('phasercomponents/scene',
+define(
 
-	['phasercomponents/injector'],
+	'phasercomponents/scene',['phasercomponents/injector'],
 
 	function(Injector){
 	
@@ -2468,9 +2466,9 @@ function(Container, Utils){
 
 
 
-define('phasercomponents/display/scroller/pager',
+define(
 
-	['phasercomponents/display/scroller/groupmarker',
+	'phasercomponents/display/scroller/pager',['phasercomponents/display/scroller/groupmarker',
 
 	'phasercomponents/display/scroller/scroller', 'phasercomponents/utils/utils'],
 
@@ -2530,9 +2528,9 @@ function(GroupMarker, Scroller, Utils){
 
 
 
-define('phasercomponents/display/buttons/multibutton',
+define(
 
-	['phasercomponents/display/movieclip', 'phasercomponents/utils/utils', 'phasercomponents/events/appevents'],
+	'phasercomponents/display/buttons/multibutton',['phasercomponents/display/movieclip', 'phasercomponents/utils/utils', 'phasercomponents/events/appevents'],
 
 function(MovieClip, Utils, AppEvents){
 	
@@ -2583,9 +2581,9 @@ function(MovieClip, Utils, AppEvents){
 
 
 
-define('phasercomponents/display/buttongrid/steppermodel',
+define(
 
-	['phasercomponents/models/incrementmodel', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/buttons/steppermodel',['phasercomponents/models/incrementmodel', 'phasercomponents/utils/utils'],
 
 function(IncrementModel, Utils){
 	
@@ -2601,8 +2599,6 @@ function(IncrementModel, Utils){
 
 });
 	
-
-define("phasercomponents/display/buttons/steppermodel", function(){});
 
 
 define('phasercomponents/display/buttons/stepperbutton',[ 
@@ -2682,9 +2678,9 @@ define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
 
 
 
-define('phasercomponents/display/buttons/radiobuttons',
+define(
 
-	['phasercomponents/display/container', 'phasercomponents/utils/utils',
+	'phasercomponents/display/buttons/radiobuttons',['phasercomponents/display/container', 'phasercomponents/utils/utils',
 
 	'phasercomponents/display/buttongrid/buttonbar',
 
@@ -2753,9 +2749,9 @@ function(Container, Utils,
 
 
 
-define('phasercomponents/display/buttons/togglebutton',
+define(
 
-	['phasercomponents/display/buttons/stepperbutton', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/buttons/togglebutton',['phasercomponents/display/buttons/stepperbutton', 'phasercomponents/utils/utils'],
 
 function(StepperButton, Utils){
 	
@@ -2960,9 +2956,9 @@ Container, Utils){
 
 
 
-define('phasercomponents/display/loaderbar',
+define(
 
-	['phasercomponents/display/movieclip', 'phasercomponents/utils/utils'], 
+	'phasercomponents/display/loaderbar',['phasercomponents/display/movieclip', 'phasercomponents/utils/utils'], 
 
 	function(MovieClip, Utils){
 	
@@ -2991,7 +2987,7 @@ define('phasercomponents/display/loaderbar',
 });
 
 
-define('phasercomponents/drag/abstractaccepter', [], function(){
+define( 'phasercomponents/drag/abstractaccepter',[], function(){
 	
 	
 
@@ -3007,9 +3003,9 @@ define('phasercomponents/drag/abstractaccepter', [], function(){
 });
 
 
-define('phasercomponents/drag/abstractdragview',
+define(
 
-	['phasercomponents/utils/utils', 'phasercomponents/display/interactivesprite'],
+	'phasercomponents/drag/abstractdragview',['phasercomponents/utils/utils', 'phasercomponents/display/interactivesprite'],
 
 	function(Utils, InteractiveSprite){
 	
@@ -3040,9 +3036,9 @@ define('phasercomponents/drag/abstractdragview',
 });
 
 
-define('phasercomponents/drag/abstractdropview',
+define(
 
-	['phasercomponents/utils/utils', 'phasercomponents/display/movieclip'],
+	'phasercomponents/drag/abstractdropview',['phasercomponents/utils/utils', 'phasercomponents/display/movieclip'],
 
 	function(Utils, MovieClip){
 
@@ -3065,7 +3061,7 @@ define('phasercomponents/drag/abstractdropview',
 	return AbstractDropView;
 });
 
-define('phasercomponents/drag/dragfailtypes', [], function(){
+define( 'phasercomponents/drag/dragfailtypes',[], function(){
 	
 	
 
@@ -3080,9 +3076,9 @@ define('phasercomponents/drag/dragfailtypes', [], function(){
 });
 
 
-define('phasercomponents/drag/dragmanager',
+define(
 
-	['phasercomponents/drag/dragfailtypes', 'phaser'],
+	'phasercomponents/drag/dragmanager',['phasercomponents/drag/dragfailtypes', 'phaser'],
 
 	function(DragFailTypes, Phaser){
 	
@@ -3295,7 +3291,7 @@ define('phasercomponents/drag/dragmanager',
 });
 
 
-define('phasercomponents/drag/dragmodel', [], function(){
+define( 'phasercomponents/drag/dragmodel',[], function(){
 	
 	
 
@@ -3354,7 +3350,7 @@ define('phasercomponents/drag/dragmodel', [], function(){
 });
 
 
-define('phasercomponents/drag/hitzone', [], function(){
+define( 'phasercomponents/drag/hitzone',[], function(){
 	
 	
 
@@ -3402,7 +3398,7 @@ define('phasercomponents/drag/hitzone', [], function(){
 });
 
 
-define('phasercomponents/drag/hitzonerow', [], function(){
+define( 'phasercomponents/drag/hitzonerow',[], function(){
 	
 	
 

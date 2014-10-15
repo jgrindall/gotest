@@ -1,13 +1,15 @@
 
 define( ['app/logocommands/movecommand',
 
-'app/logocommands/turncommand',
+'app/logocommands/turncommand', 'app/logocommands/transportcommand',
 
 'app/logocommands/fdcommand',
 
 'app/logocommands/commandtypes'],
 
-function(MoveCommand, TurnCommand,
+function(MoveCommand,
+
+	TurnCommand, TransportCommand,
 
 FdCommand, CommandTypes){
 	
@@ -26,6 +28,9 @@ FdCommand, CommandTypes){
 		}
 		else if(json.type === CommandTypes.FD){
 			return new FdCommand(json);
+		}
+		else if(json.type === CommandTypes.TRANSPORT){
+			return new TransportCommand(json);
 		}
 	};
 	

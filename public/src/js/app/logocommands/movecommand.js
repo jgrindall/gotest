@@ -1,9 +1,5 @@
 
-define(
-
-	'app/logocommands/movecommand',
-
-	['app/logocommands/abstractlogocommand', 'app/logocommands/commandtypes', 'phasercomponents'], 
+define(	['app/logocommands/abstractlogocommand', 'app/logocommands/commandtypes', 'phasercomponents'], 
 
 	function(AbstractLogoCommand, CommandTypes, PhaserComponents){
 	

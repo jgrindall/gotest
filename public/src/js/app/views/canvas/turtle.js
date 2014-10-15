@@ -75,18 +75,24 @@ function(Phaser, PhaserComponents,
 		return t;
 	};
 
+	Turtle.prototype.showMove = function(){
+		this.mover.visible = true;
+	};
+	
+	Turtle.prototype.hideMove = function(){
+		this.mover.visible = false;
+	};
+	
 	Turtle.prototype.enableMove = function(){
 		if(this.turtle){
 			this.turtle.enableInput();
 		}
-		this.mover.visible = true;
 	};
 
 	Turtle.prototype.disableMove = function(){
 		if(this.turtle){
 			this.turtle.disableInput();
 		}
-		this.mover.visible = false;
 	};
 
 	Turtle.prototype.downHandler = function(){

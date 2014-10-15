@@ -11,9 +11,10 @@ function(){
 		
 	};
 	
-	CommandTypes.MOVE = 'move';
-	CommandTypes.TURN = 'turn';
-	CommandTypes.FD = 	'fd';
+	CommandTypes.MOVE = 		'move';
+	CommandTypes.TURN = 		'turn';
+	CommandTypes.FD = 			'fd';
+	CommandTypes.TRANSPORT = 	'transport';
 	
 	return CommandTypes;
 

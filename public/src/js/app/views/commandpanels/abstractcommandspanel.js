@@ -30,7 +30,7 @@ Events){
 	AbstractCommandsPanel.prototype.onResize = function(){
 		
 	};
-	
+
 	AbstractCommandsPanel.prototype.addCommand = function(direction, type){
 		this.addCommands(direction, type, 1);
 	};

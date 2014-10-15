@@ -97,7 +97,7 @@ function(Phaser, PhaserComponents, Events){
 			this.setCommandNum(this.commandNum - 1);
 		}
 	};
-	
+
 	CommTickerModel.prototype.nextCommand = function() {
 		this.setCommandNum(this.commandNum + 1);
 		if(this.commandNum === this.getNum()){

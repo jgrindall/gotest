@@ -5,9 +5,9 @@ define(['phasercomponents',
 
 'app/models/modelconsts',
 
-'app/logocommands/movecommand',
+'app/logocommands/movecommand', 'app/logocommands/commandtypes',
 
-'app/logocommands/turncommand',
+'app/logocommands/turncommand', 'app/logocommands/transportcommand',
 
 'app/events/events', 'app/consts/playingstate',
 
@@ -19,9 +19,9 @@ Turtle, Paths,
 
 ModelConsts,
 
-MoveCommand,
+MoveCommand, CommandTypes,
 
-TurnCommand,
+TurnCommand, TransportCommand,
 
 Events, PlayingState,
 
@@ -33,11 +33,11 @@ FdCommand, StepLengths){
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.COMMTICKER).executeSignal.add(this.commandExecute, this);
 		this.modelFacade.get(ModelConsts.COMMTICKER).resetSignal.add(this.onReset, this);
-		this.modelFacade.get(ModelConsts.STARTPOS).changeSignal.add(this.onChangeStartPos, this);
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.SCREEN).changeSignal.add(this.onChangeScreen, this);
 		this.modelFacade.get(ModelConsts.TURTLE).changeSignal.add(this.turtleChanged, this);
 		this.modelFacade.get(ModelConsts.TURTLE_PNG).changeSignal.add(this.turtlePngChanged, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.rotateHandler = this.onRotateTurtle.bind(this);
 		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, this.rotateHandler);
 		this.onReset();
@@ -57,6 +57,15 @@ FdCommand, StepLengths){
 		if(value !== null){
 			this.turtle.addTurtle();
 			this.turtle.reset(this.startPos);
+		}
+	};
+
+	Drawing.prototype.playingChanged = function(data){
+		if(data.playing === PlayingState.PLAYING){
+			this.turtle.disableMove();
+		}
+		else if(data.playing === PlayingState.NOT_PLAYING){
+			this.turtle.enableMove();
 		}
 	};
 
@@ -84,18 +93,13 @@ FdCommand, StepLengths){
 		}
 	};
 
-	Drawing.prototype.onChangeStartPos = function(){
-		this.setStart();
-		this.turtle.reset(this.startPos);
-	};
-
 	Drawing.prototype.setProgress = function(){
 		var total = this.modelFacade.get(ModelConsts.COMM).getNum();
 		if(total > 0){
-			this.turtle.disableMove();
+			this.turtle.hideMove();
 		}
 		else{
-			this.turtle.enableMove();
+			this.turtle.showMove();
 		}
 	};
 
@@ -108,13 +112,10 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.setStart = function(){
-		var x, y, pos;
-		pos = this.modelFacade.get(ModelConsts.STARTPOS).get();
-		if(pos){
-			x = this.bounds.x + this.bounds.w * pos.x;
-			y = this.bounds.y + this.bounds.h * pos.y;
-			this.startPos = {'x':x, 'y':y};
-		}
+		var pos;
+		pos = this.modelFacade.get(ModelConsts.START_POS).get();
+		this.startPos = this.fractionToPos(pos);
+		this.turtle.move(pos);
 	};
 
 	Drawing.prototype.commandExecute = function(data){
@@ -128,6 +129,9 @@ FdCommand, StepLengths){
 		}
 		else if(this.command instanceof FdCommand){
 			this.executeFd();
+		}
+		else if(this.command instanceof TransportCommand){
+			this.executeTransport();
 		}
 	};
 	
@@ -147,7 +151,6 @@ FdCommand, StepLengths){
 				scale = (this.angle % 90 === 0) ? 1 : Drawing.RT2;
 			}
 			if(this.command.direction === 7){
-				//backwards!
 				scale *= -1;
 			}	
 		}
@@ -193,6 +196,12 @@ FdCommand, StepLengths){
 		this.createLine();
 	};
 	
+	Drawing.prototype.executeTransport = function() {
+		this.endPos = this.command.direction;
+		this.turtle.move(this.endPos);
+		this.commandFinished();
+	};
+	
 	Drawing.prototype.executeFd = function() {
 		this.setEndPoint();
 		this.moveTurtle();
@@ -206,10 +215,31 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.turtleMoved = function(pos) {
-		var p = {'x':(pos.x - this.bounds.x)/this.bounds.w, 'y':(pos.y - this.bounds.y)/this.bounds.h};
-		p.x = Math.round(p.x * 100)/100;
-		p.y = Math.round(p.y * 100)/100;
-		this.modelFacade.get(ModelConsts.STARTPOS).set(p);
+		var json = {'type':CommandTypes.TRANSPORT, 'direction':pos, 'index':0, 'total':1};
+		this.eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
+	};
+
+	Drawing.prototype.round = function(n, ten) {
+		return Math.round(n * ten)/ten;
+	};
+
+	Drawing.prototype.fractionToPos = function(p) {
+		var pos, x, y, ten = 10;
+		x = (p.x * this.bounds.w) + this.bounds.x;
+		y = (p.y * this.bounds.h) + this.bounds.y;
+		x = this.round(x, ten);
+		y = this.round(y, ten);
+		pos = {'x':x, 'y':y};
+		return pos;
+	};
+
+	Drawing.prototype.posToFraction = function(pos) {
+		var ten, p;
+		ten = 1000;
+		p = {'x':(pos.x - this.bounds.x)/this.bounds.w, 'y':(pos.y - this.bounds.y)/this.bounds.h};
+		p.x = this.round(p.x, ten);
+		p.y = this.round(p.y, ten);
+		return p;
 	};
 
 	Drawing.prototype.create = function() {
@@ -240,11 +270,11 @@ FdCommand, StepLengths){
 		this.eventDispatcher.removeListener(Events.ROTATE_TURTLE, this.rotateHandler);
 		this.modelFacade.get(ModelConsts.COMMTICKER).executeSignal.remove(this.commandExecute, this);
 		this.modelFacade.get(ModelConsts.COMMTICKER).resetSignal.remove(this.onReset, this);
-		this.modelFacade.get(ModelConsts.STARTPOS).changeSignal.remove(this.onChangeStartPos, this);
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.remove(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.SCREEN).changeSignal.remove(this.onChangeScreen, this);
 		this.modelFacade.get(ModelConsts.TURTLE_PNG).changeSignal.remove(this.turtlePngChanged, this);
 		this.modelFacade.get(ModelConsts.TURTLE).changeSignal.remove(this.turtleChanged, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.remove(this.playingChanged, this);
 		this.onEditorDone = null;
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
