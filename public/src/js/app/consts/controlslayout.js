@@ -10,6 +10,7 @@ function(){
 	};
 	
 	ControlsLayout.PEN_HEIGHT = 	100;
+	ControlsLayout.MIN_WIDTH = 		280;
 
 	return ControlsLayout;
 

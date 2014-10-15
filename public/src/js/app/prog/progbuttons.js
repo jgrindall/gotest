@@ -14,6 +14,8 @@ define(
 
 	PhaserComponents.Utils.extends(ProgButtons, PhaserComponents.Display.Container);
 
+	ProgButtons.WIDTH = 80;
+
 	ProgButtons.prototype.clickButton = function(data){
 		this.buttonSignal.dispatch(data);
 	};

@@ -18,8 +18,6 @@ ControlsKeys, ControlsPens, ShowDirections){
 	var Controls  = function(options){
 		PhaserComponents.Display.Container.call(this, options);
 	};
-
-	Controls.MIN_WIDTH = 280;
 	
 	PhaserComponents.Utils.extends(Controls, PhaserComponents.Display.Container);
 

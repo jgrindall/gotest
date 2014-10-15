@@ -1,6 +1,6 @@
 define(
 
-	['phasercomponents', 'app/consts/commandpaneltypes',
+	['jquery', 'phasercomponents', 'app/consts/commandpaneltypes',
 
 	'app/views/buttons/closebutton',
 
@@ -10,7 +10,7 @@ define(
 
 	'app/models/modelconsts'],
 
-	function(PhaserComponents, CommandPanelTypes, 
+	function($, PhaserComponents, CommandPanelTypes, 
 
 		CloseButton,
 
@@ -26,6 +26,7 @@ define(
 		this.targets = [];
 		this.playSignal = new Phaser.Signal();
 		this.clearSignal = new Phaser.Signal();
+		options.bounds = $.extend(options.bounds, {'x':0, 'w':ProgDragContainer.WIDTH});
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
@@ -33,6 +34,8 @@ define(
 	};
 
 	PhaserComponents.Utils.extends(ProgDragContainer, PhaserComponents.Display.Container);
+
+	ProgDragContainer.WIDTH = 225;
 
 	ProgDragContainer.prototype.addTargets = function(){
 		this.options.targetObj.build(this);

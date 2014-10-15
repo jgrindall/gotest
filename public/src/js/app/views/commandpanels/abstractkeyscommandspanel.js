@@ -1,7 +1,7 @@
 
 define(['app/views/buttons/keybutton',
 
-'phasercomponents', 
+'phasercomponents', 'app/consts/controlslayout',
 
 'app/views/commandpanels/abstractexecutecommandpanel'
 
@@ -9,7 +9,9 @@ define(['app/views/buttons/keybutton',
 
 function(KeyButton,
 
-PhaserComponents, AbstractExecuteCommandsPanel
+PhaserComponents, ControlsLayout,
+
+AbstractExecuteCommandsPanel
 
 ){
 	"use strict";
@@ -24,6 +26,17 @@ PhaserComponents, AbstractExecuteCommandsPanel
 	AbstractKeysCommandsPanel.prototype.init = function() {
 		var comm = this.getSelectedCommand();
 		this.selectComm({"index":comm});
+	};
+
+	AbstractKeysCommandsPanel.prototype.onResize = function() {
+		AbstractExecuteCommandsPanel.prototype.onResize.call(this);
+		this.positionKeys();
+	};
+
+	AbstractKeysCommandsPanel.prototype.positionKeys = function(){
+		if(this.keys){
+			this.keys.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2;
+		}
 	};
 
 	AbstractKeysCommandsPanel.prototype.create = function() {

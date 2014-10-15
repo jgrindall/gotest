@@ -51,9 +51,19 @@ define(
 		}
 	};
 
+	ProgCommandPanel.prototype.positionButtons = function(){
+		var availableWidth = this.bounds.w - ProgDragContainer.WIDTH - ProgButtons.WIDTH;
+		this.progButtons.view.x = 4 + availableWidth/3;
+	};
+
+	ProgCommandPanel.prototype.positionDrag = function(){
+		var availableWidth = this.bounds.w - ProgDragContainer.WIDTH - ProgButtons.WIDTH;
+		this.scroller.view.x = ProgButtons.WIDTH + 2*availableWidth/3;
+	};
+
 	ProgCommandPanel.prototype.onResize = function(){
-		console.log(" PROG CP is "+this.bounds.w);
-		this.progButtons.view.x = (this.bounds.w - 280)/4;
+		this.positionButtons();
+		this.positionDrag();
 	};
 
 	ProgCommandPanel.prototype.disableInput = function(){

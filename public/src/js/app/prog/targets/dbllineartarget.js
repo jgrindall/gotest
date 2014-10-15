@@ -15,14 +15,14 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget',
 	
 	DblLinearTarget.NUM = 			10;
 	DblLinearTarget.TOP = 			24;
-	DblLinearTarget.LEFTX = 		28;
-	DblLinearTarget.RIGHTX = 		81;
-	DblLinearTarget.BOTTOM = 		295;
+	DblLinearTarget.LEFTX = 		68;
+	DblLinearTarget.RIGHTX = 		50;
+	DblLinearTarget.BOTTOM = 		293;
 	DblLinearTarget.BLOCK_TOP = 	50;
 	DblLinearTarget.FIRST_Y = 		53;
 	DblLinearTarget.GAP = 			55;
 	DblLinearTarget.START_POS = 	{'x':-55, 'y':0};
-	DblLinearTarget.STOP_POS = 		{'x':31, 'y':320};
+	DblLinearTarget.STOP_POS = 		{'x':0, 'y':317};
 
 	PhaserComponents.Utils.extends(DblLinearTarget, AbstractTarget);
 	

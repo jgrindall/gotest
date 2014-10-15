@@ -23,11 +23,11 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	LoopTarget.BOTTOM = 			294;
 	LoopTarget.PADDING_BOTTOM = 	50;
 	LoopTarget.PADDING_TOP = 		50;
-	LoopTarget.LINE_WIDTH = 		90;
+	LoopTarget.LINE_WIDTH = 		105;
 	LoopTarget.BLOCK_TOP = 			54;
 	LoopTarget.GAP = 				54;
-	LoopTarget.START_POS = 			{'x':-38, 'y':0};
-	LoopTarget.STOP_POS = 			{'x':-38, 'y':320};
+	LoopTarget.START_POS = 			{'x':-78, 'y':0};
+	LoopTarget.STOP_POS = 			{'x':-78, 'y':320};
 
 	LoopTarget.prototype.build = function(parent){
 		AbstractTarget.prototype.build.call(this, parent);
@@ -35,7 +35,7 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	};
 
 	LoopTarget.prototype.init = function(){
-		this.middle += 11;
+		this.middle -= 25;
 	};
 
 	LoopTarget.prototype.decorate = function(){

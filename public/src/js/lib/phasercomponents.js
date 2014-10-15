@@ -26,6 +26,10 @@ define('phasercomponents/utils/utils',[], function(){
    		return msTouch || t0 || t1;
 	};
 
+	Utils.clone = function(json){
+		return JSON.parse(JSON.stringify(json));
+	};
+
 	Utils.isIos7 = function(){
 		return Utils.isTouch() && navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i);	
 	};
@@ -2225,7 +2229,7 @@ function(Container, Utils,
 		Container.prototype.create.call(this);
 		this.addMask();
 		this.addScrollBar();
-		this.scrollBar.view.alpha = 0.5;
+		this.scrollBar.view.alpha = 0.4;
 	};
 
 	VScroller.prototype.addListeners = function(){
@@ -2342,13 +2346,14 @@ function(Container, Utils,
 		this.removeContents();
 		this.contents = contents;
 		this.group.add(this.contents.view);
-		this.contents.view.mask = this.mask;
+		//this.contents.view.mask = this.mask;
 		this.update();
 	};
 
 	VScroller.prototype.addMask = function(){
 		this.mask = new Phaser.Graphics(this.game, 0, 0);
 		this.mask.beginFill(0xff0000);
+		this.mask.alpha = 0.2;
     	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
     	this.mask.endFill();
     	this.group.add(this.mask);

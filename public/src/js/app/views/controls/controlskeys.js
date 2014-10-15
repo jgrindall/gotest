@@ -62,7 +62,7 @@ Events, ModelConsts, ControlBar){
 	ControlsKeys.prototype.positionControlBar = function() {
 		var x, y;
 		x = (this.bounds.w - ControlBar.WIDTH)/2;
-		y = this.game.h - ControlsLayout.PEN_HEIGHT - 43;
+		y = this.game.h - ControlsLayout.PEN_HEIGHT - 40;
 		this.controlBar.view.x = x;
 		this.controlBar.view.y = y;
 	};
@@ -132,7 +132,7 @@ Events, ModelConsts, ControlBar){
 	ControlsKeys.prototype.addCommandsPanel = function() {
 		var bounds, type, prog, surrounds;
 		this.removeCommandsPanel();
-		surrounds = 202;
+		surrounds = 180;
 		type = this.modelFacade.get(ModelConsts.SCREEN).get();
 		prog = this.modelFacade.get(ModelConsts.PROG_TYPE).get();
 		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':this.bounds.h - surrounds};

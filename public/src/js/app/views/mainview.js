@@ -1,6 +1,8 @@
 
 
-define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
+define(['jquery', 'app/views/canvas/canvas', 
+
+'app/views/controls/controls', 'app/consts/controlslayout',
 
 'app/views/components/menu', 'app/views/img/imgview',
 
@@ -10,7 +12,9 @@ define(['jquery', 'app/views/canvas/canvas', 'app/views/controls/controls',
 
 'app/assets', 'app/consts/showdirections', 'app/models/modelconsts'],
 
-function($, Canvas, Controls,
+function($, Canvas,
+
+	Controls, ControlsLayout,
 
 Menu, ImgView,
 
@@ -107,7 +111,7 @@ Assets, ShowDirections, ModelConsts){
 		scale = this.getCanvasScale();
 		w = CanvasLayout.REF_WIDTH * scale;
 		h = CanvasLayout.REF_HEIGHT * scale;
-		x = (this.game.w - Controls.MIN_WIDTH - w)/2;
+		x = (this.game.w - ControlsLayout.MIN_WIDTH - w)/2;
 		y = MainView.TOP_PADDING + (this.game.h - h - MainView.TOP_PADDING)/2;
 		this.canvas.view.x = x;
 		this.canvas.view.y = y;
@@ -117,7 +121,7 @@ Assets, ShowDirections, ModelConsts){
 	MainView.prototype.getCanvasScale = function() {
 		var rect, size, scale, ratio;
 		ratio = CanvasLayout.REF_WIDTH/CanvasLayout.REF_HEIGHT;
-		rect = {"w":this.game.w - Controls.MIN_WIDTH, "h":this.game.h - MainView.TOP_PADDING};
+		rect = {"w":this.game.w - ControlsLayout.MIN_WIDTH, "h":this.game.h - MainView.TOP_PADDING};
 		size = PhaserComponents.Utils.fitRect(rect, ratio);
 		scale = size.w / CanvasLayout.REF_WIDTH;
 		return Math.max(scale, 0.1);
@@ -158,9 +162,8 @@ Assets, ShowDirections, ModelConsts){
 		var availableWidth, scale, left, empty;
 		scale = this.getCanvasScale();
 		empty = this.game.w - scale*CanvasLayout.REF_WIDTH;
-		left = (empty - Controls.MIN_WIDTH)/2;
+		left = (empty - ControlsLayout.MIN_WIDTH)/2;
 		availableWidth = empty - left;
-		console.log("cAV ", this.game.w, scale, empty, left, availableWidth);
 		return availableWidth;
 	};
 

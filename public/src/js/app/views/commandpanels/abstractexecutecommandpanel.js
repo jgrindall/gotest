@@ -3,14 +3,14 @@ define([ 'phasercomponents', 'app/models/modelconsts',
 
 'app/views/buttons/dirbutton', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/views/commandpanels/markers/markerfactory'],
+'app/views/commandpanels/markers/markerfactory', 'app/consts/controlslayout'],
 
 
 function(PhaserComponents, ModelConsts, 
 
 DirButton, AbstractCommandsPanel,
 
-MarkerFactory){
+MarkerFactory, ControlsLayout){
 	
 	"use strict";
 	
@@ -28,6 +28,16 @@ MarkerFactory){
 	AbstractExecuteCommandsPanel.GRID_SIZE = 		175;
 	AbstractExecuteCommandsPanel.KEY_TIME = 		2500;
 	AbstractExecuteCommandsPanel.NULL_BUTTON = 		4;
+
+	AbstractExecuteCommandsPanel.prototype.onResize = function() {
+		this.positionGrid();
+	};
+
+	AbstractExecuteCommandsPanel.prototype.positionGrid = function(){
+		if(this.grid){
+			this.grid.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2;
+		}
+	};
 
 	AbstractExecuteCommandsPanel.prototype.onKeyUp = function() {
 		
@@ -68,7 +78,7 @@ MarkerFactory){
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.create = function() {
-		PhaserComponents.Display.Container.prototype.create.call(this);
+		AbstractCommandsPanel.prototype.create.call(this);
 		this.addGrid();
 		this.addMarker();
 	};
@@ -103,7 +113,7 @@ MarkerFactory){
 			this.grid.clickSignal.remove(this.selectComm, this);
 			this.grid.destroy();
 		}
-		PhaserComponents.Display.Container.prototype.destroy.call(this);
+		AbstractCommandsPanel.prototype.destroy.call(this);
 	};
 	
 	return AbstractExecuteCommandsPanel;

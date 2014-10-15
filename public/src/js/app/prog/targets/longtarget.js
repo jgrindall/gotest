@@ -24,7 +24,7 @@ define( ['app/prog/views/dropview',	'app/assets',
 	PhaserComponents.Utils.extends(LongTarget, AbstractTarget);
 
 	LongTarget.prototype.init = function(){
-		this.middle += 25;
+		this.middle -= 5;
 	};
 
 	LongTarget.prototype.decorate = function(){
