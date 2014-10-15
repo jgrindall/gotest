@@ -21,8 +21,8 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget',
 	DblLinearTarget.BLOCK_TOP = 	50;
 	DblLinearTarget.FIRST_Y = 		53;
 	DblLinearTarget.GAP = 			55;
-	DblLinearTarget.START_POS = 	{'x':94, 'y':0};
-	DblLinearTarget.STOP_POS = 		{'x':170, 'y':320};
+	DblLinearTarget.START_POS = 	{'x':-55, 'y':0};
+	DblLinearTarget.STOP_POS = 		{'x':31, 'y':320};
 
 	PhaserComponents.Utils.extends(DblLinearTarget, AbstractTarget);
 	

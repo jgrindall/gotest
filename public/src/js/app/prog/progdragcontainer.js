@@ -69,8 +69,10 @@ define(
 	};
 		
 	ProgDragContainer.prototype.addPlay = function() {
-		var options, bounds;
-		bounds = this.options.targetObj.constructor.START_POS;
+		var options, bounds, x, y;
+		x = (this.bounds.x + this.bounds.w/2) + this.options.targetObj.constructor.START_POS.x;
+		y = this.options.targetObj.constructor.START_POS.y;
+		bounds = {'x':x, 'y':y};
 		options = {"bounds":bounds};
 		this.playButton = new PlayButton(options);
 		this.group.add(this.playButton.view);
@@ -78,8 +80,10 @@ define(
 	};
 
 	ProgDragContainer.prototype.addStop = function() {
-		var options, bounds;
-		bounds = this.options.targetObj.constructor.STOP_POS;
+		var options, bounds, x, y;
+		x = this.bounds.x + this.bounds.w/2 + this.options.targetObj.constructor.STOP_POS.x;
+		y = this.options.targetObj.constructor.STOP_POS.y;
+		bounds = bounds = {'x':x, 'y':y};
 		options = {"bounds":bounds};
 		this.stopButton = new StopButton(options);
 		this.group.add(this.stopButton.view);
@@ -88,7 +92,7 @@ define(
 
 	ProgDragContainer.prototype.addClear = function() {
 		var options, bounds;
-		bounds = this.options.targetObj.constructor.START_POS;
+		bounds = this.playButton.bounds;
 		options = {"bounds":{'x':bounds.x + 100, 'y':bounds.y + 15}};
 		this.clearButton = new CloseButton(options);
 		this.clearButton.view.scale = {'x':0.5, 'y':0.5};

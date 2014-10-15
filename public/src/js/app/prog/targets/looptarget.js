@@ -26,8 +26,8 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	LoopTarget.LINE_WIDTH = 		90;
 	LoopTarget.BLOCK_TOP = 			54;
 	LoopTarget.GAP = 				54;
-	LoopTarget.START_POS = 			{'x':107, 'y':0};
-	LoopTarget.STOP_POS = 			{'x':98, 'y':320};
+	LoopTarget.START_POS = 			{'x':-38, 'y':0};
+	LoopTarget.STOP_POS = 			{'x':-38, 'y':320};
 
 	LoopTarget.prototype.build = function(parent){
 		AbstractTarget.prototype.build.call(this, parent);

@@ -66,9 +66,10 @@ Assets, ModelConsts){
 		var x, y;
 		x = this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2;
 		y = this.game.h - ControlsLayout.PEN_HEIGHT;
-		this.colorPicker.view.x = x;
+		this.colorPicker.view.x = Math.max(x, 0);
 		this.colorPicker.view.y = y;
 	};
+	
 	ControlsPens.prototype.positionWidthPicker = function() {
 		var x, y;
 		x = this.bounds.x + this.bounds.w - WidthPicker.WIDTH + 10;

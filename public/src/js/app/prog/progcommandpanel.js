@@ -51,6 +51,11 @@ define(
 		}
 	};
 
+	ProgCommandPanel.prototype.onResize = function(){
+		console.log(" PROG CP is "+this.bounds.w);
+		this.progButtons.view.x = (this.bounds.w - 280)/4;
+	};
+
 	ProgCommandPanel.prototype.disableInput = function(){
 		this.dragManager.disableInput();
 		this.dragContainer.disableInput();

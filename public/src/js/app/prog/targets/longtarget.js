@@ -15,11 +15,11 @@ define( ['app/prog/views/dropview',	'app/assets',
 	LongTarget.NUM = 			5;
 	LongTarget.TOP = 			25;
 	LongTarget.BOTTOM = 		250;
-	LongTarget.BLOCK_TOP = 	54;
+	LongTarget.BLOCK_TOP = 		54;
 	LongTarget.GAP = 			55;
-	LongTarget.START_POS = 	{'x':114, 'y':0};
-	LongTarget.STOP_POS = 	{'x':114, 'y':322};
-	LongTarget.HEIGHT =		500;
+	LongTarget.START_POS = 		{'x':-23, 'y':0};
+	LongTarget.STOP_POS = 		{'x':-23, 'y':322};
+	LongTarget.HEIGHT =			500;
 
 	PhaserComponents.Utils.extends(LongTarget, AbstractTarget);
 

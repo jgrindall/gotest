@@ -7,7 +7,7 @@ define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
 
 'app/views/commandpanels/commandspanelfactory', 'app/views/buttons/controlbarbutton',
 
-'app/events/events', 'app/models/modelconsts'
+'app/events/events', 'app/models/modelconsts', 'app/views/components/controlbar'
 
 ],
 
@@ -19,7 +19,7 @@ ShowDirections,
 
 CommandsPanelFactory, ControlBarButton,
 
-Events, ModelConsts){
+Events, ModelConsts, ControlBar){
 	
 	"use strict";
 	
@@ -47,19 +47,21 @@ Events, ModelConsts){
 	};
 
 	ControlsKeys.prototype.positionPanel = function() {
-		var x, y;
+		var x, y, availableWidth;
 		if(this.commandsPanel){
 			x = 0;
 			y = 50 + (this.game.h - 200 - AbstractCommandsPanel.HEIGHT)/2;
 			y = Math.max(y, 50);
+			this.commandsPanel.bounds.w = this.bounds.w;
 			this.commandsPanel.view.x = x;
 			this.commandsPanel.view.y = y;
+			this.commandsPanel.onResize();
 		}
 	};
 
 	ControlsKeys.prototype.positionControlBar = function() {
 		var x, y;
-		x = 0;
+		x = (this.bounds.w - ControlBar.WIDTH)/2;
 		y = this.game.h - ControlsLayout.PEN_HEIGHT - 43;
 		this.controlBar.view.x = x;
 		this.controlBar.view.y = y;
@@ -104,9 +106,9 @@ Events, ModelConsts){
 	ControlsKeys.prototype.addControlBar = function() {
 		var options, bounds, model;
 		model = this.modelFacade.get(ModelConsts.PROG_TYPE);
-		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':50};
+		bounds = {'x':0, 'y':0, 'w':ControlBar.WIDTH, 'h':ControlBar.HEIGHT};
 		options = {"model":model,"bounds":bounds, "numX":4, "performSelect":true, "numY":1, "buttonClass":ControlBarButton, "data":[{'num':0}, {'num':1}, {'num':2}, {'num':3}]};
-		this.controlBar = new PhaserComponents.Display.TabButtonBar(options);
+		this.controlBar = new ControlBar(options);
 		this.controlBar.clickSignal.add(this.barClick, this);
 		this.group.add(this.controlBar.view);
 		this.controlBar.view.visible = (this.modelFacade.get(ModelConsts.ALLOW_PROG).get() === 1);
@@ -128,11 +130,12 @@ Events, ModelConsts){
 	};
 
 	ControlsKeys.prototype.addCommandsPanel = function() {
-		var bounds, type, prog;
+		var bounds, type, prog, surrounds;
 		this.removeCommandsPanel();
+		surrounds = 202;
 		type = this.modelFacade.get(ModelConsts.SCREEN).get();
 		prog = this.modelFacade.get(ModelConsts.PROG_TYPE).get();
-		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':this.bounds.h - 195};
+		bounds = {'x':0, 'y':0, 'w':this.bounds.w, 'h':this.bounds.h - surrounds};
 		this.commandsPanel = CommandsPanelFactory.make(type, prog, bounds);
 		if(this.commandsPanel){
 			this.group.add(this.commandsPanel.view);

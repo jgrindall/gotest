@@ -107,7 +107,7 @@ Assets, ShowDirections, ModelConsts){
 		scale = this.getCanvasScale();
 		w = CanvasLayout.REF_WIDTH * scale;
 		h = CanvasLayout.REF_HEIGHT * scale;
-		x = (this.game.w - Controls.WIDTH - w)/2;
+		x = (this.game.w - Controls.MIN_WIDTH - w)/2;
 		y = MainView.TOP_PADDING + (this.game.h - h - MainView.TOP_PADDING)/2;
 		this.canvas.view.x = x;
 		this.canvas.view.y = y;
@@ -117,7 +117,7 @@ Assets, ShowDirections, ModelConsts){
 	MainView.prototype.getCanvasScale = function() {
 		var rect, size, scale, ratio;
 		ratio = CanvasLayout.REF_WIDTH/CanvasLayout.REF_HEIGHT;
-		rect = {"w":this.game.w - Controls.WIDTH, "h":this.game.h - MainView.TOP_PADDING};
+		rect = {"w":this.game.w - Controls.MIN_WIDTH, "h":this.game.h - MainView.TOP_PADDING};
 		size = PhaserComponents.Utils.fitRect(rect, ratio);
 		scale = size.w / CanvasLayout.REF_WIDTH;
 		return Math.max(scale, 0.1);
@@ -154,12 +154,26 @@ Assets, ShowDirections, ModelConsts){
 		}
 	};
 
+	MainView.prototype.controlsAvailableWidth = function() {
+		var availableWidth, scale, left, empty;
+		scale = this.getCanvasScale();
+		empty = this.game.w - scale*CanvasLayout.REF_WIDTH;
+		left = (empty - Controls.MIN_WIDTH)/2;
+		availableWidth = empty - left;
+		console.log("cAV ", this.game.w, scale, empty, left, availableWidth);
+		return availableWidth;
+	};
+
 	MainView.prototype.positionControls = function() {
-		var x, y;
-		x = this.game.w - Controls.WIDTH;
+		var x, y, availableWidth, scale;
+		scale = this.getCanvasScale();
+		availableWidth = this.controlsAvailableWidth();
+		x = this.game.w - availableWidth;
 		y = 0;
 		this.controls.view.x = x;
 		this.controls.view.y = y;
+		this.controls.bounds.w = availableWidth;
+		this.controls.onResize();
 	};
 
 	MainView.prototype.onOrient = function() {
@@ -181,7 +195,7 @@ Assets, ShowDirections, ModelConsts){
 	};
 
 	MainView.prototype.addControls = function() {
-		var bounds = {"x":0, "y":0, "w": Controls.WIDTH, "h":this.game.h};
+		var bounds = {"x":0, "y":0, "w": this.controlsAvailableWidth(), "h":this.game.h};
 		this.controls = new Controls({"bounds":bounds});
 		this.group.add(this.controls.view);
 		this.positionControls();
