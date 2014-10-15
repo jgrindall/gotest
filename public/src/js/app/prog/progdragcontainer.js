@@ -35,7 +35,7 @@ define(
 
 	PhaserComponents.Utils.extends(ProgDragContainer, PhaserComponents.Display.Container);
 
-	ProgDragContainer.WIDTH = 225;
+	ProgDragContainer.WIDTH = 222;
 
 	ProgDragContainer.prototype.addTargets = function(){
 		this.options.targetObj.build(this);

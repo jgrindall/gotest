@@ -2346,7 +2346,7 @@ function(Container, Utils,
 		this.removeContents();
 		this.contents = contents;
 		this.group.add(this.contents.view);
-		//this.contents.view.mask = this.mask;
+		this.contents.view.mask = this.mask;
 		this.update();
 	};
 
