@@ -11,6 +11,7 @@ function(Phaser, PhaserComponents, Events){
 	
 	var CommTickerModel  = function(){
 		this.commandProvider = null;
+		this.startNum = 0;
 		this.commandNum = 0;
 		this.duration = 0;
 		this.executeSignal = new Phaser.Signal();

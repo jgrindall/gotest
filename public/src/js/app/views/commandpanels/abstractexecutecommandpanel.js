@@ -35,7 +35,7 @@ MarkerFactory, ControlsLayout){
 
 	AbstractExecuteCommandsPanel.prototype.positionGrid = function(){
 		if(this.grid){
-			this.grid.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2;
+			this.grid.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2 + 3;
 		}
 	};
 

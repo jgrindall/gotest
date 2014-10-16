@@ -11,6 +11,7 @@ define( [], function(){
 		this.width = 		json.width;
 		this.diag = 		json.diag;
 		this.angle = 		json.angle;
+		this.type = 		json.type;
 		this.stepLength = 	json.stepLength;
 	};
 	

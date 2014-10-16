@@ -2,9 +2,11 @@ define(
 
 	['jquery', 'phasercomponents', 'app/consts/commandpaneltypes',
 
-	'app/views/buttons/closebutton',
+	'app/views/buttons/closebutton', 'app/logocommands/commandtypes',
 
-	'app/views/buttons/playbutton', 'app/views/buttons/stopbutton', 'app/events/events', 
+	'app/views/buttons/playbutton', 'app/views/buttons/stopbutton',
+
+	'app/events/events', 'app/consts/playingstate',
 
 	'app/prog/controller/progcontrollerfactory',
 
@@ -12,9 +14,11 @@ define(
 
 	function($, PhaserComponents, CommandPanelTypes, 
 
-		CloseButton,
+		CloseButton, CommandTypes,
 
-		PlayButton, StopButton, Events,
+		PlayButton, StopButton,
+
+		Events, PlayingState,
 
 		ProgControllerFactory,
 
@@ -30,6 +34,7 @@ define(
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.progController = ProgControllerFactory.make(this.options.type, this);
 	};
 
@@ -47,6 +52,12 @@ define(
 		this.addPlay();
 		this.addStop();
 		this.addClear();
+	};
+
+	ProgDragContainer.prototype.playingChanged = function(data){
+		if(data.playing === PlayingState.NOT_PLAYING){
+			this.color(-1);
+		}
 	};
 
 	ProgDragContainer.prototype.addGfx = function(gfx){
@@ -118,9 +129,12 @@ define(
 		numCommands = this.getNumCommands();
 		sum = numCommands[0];
 		index = 0;
-		while(sum <= num){
+		var k = 0;
+		console.log("BI ", num, numCommands, sum, index);
+		while(sum <= num && k < 10000){
 			index = (index + 1) % numCommands.length;
 			sum += numCommands[index];
+			k++;
 		}
 		return index;
 	};
@@ -190,14 +204,27 @@ define(
 	};
 
 	ProgDragContainer.prototype.setProgress = function(){
-		var num, total, start, progress, index = -1;
+		var num, total, start, progress, index = -1, command, type;
 		num = this.modelFacade.get(ModelConsts.COMMTICKER).get();
-		total = this.modelFacade.get(ModelConsts.COMM).getNum();
-		start = this.modelFacade.get(ModelConsts.COMMTICKER).startNum;
-		progress = num - start;
-		if(num < total){
-			index = this.getBlockIndex(progress);
+		command = this.modelFacade.get(ModelConsts.COMMTICKER).getCurrentCommand();
+		if(command){
+			console.log("progress command ", JSON.stringify(command.toJson()));
+			type = command.type;
+			console.log("progress type ", type);
+			if(type !== CommandTypes.TRANSPORT){
+				console.log("progress num ", num);
+				total = this.modelFacade.get(ModelConsts.COMM).getNum();
+				console.log("progress total ",  total);
+				start = this.modelFacade.get(ModelConsts.COMMTICKER).startNum;
+				console.log("progress start ", start);
+				progress = num - start;
+				console.log("progress progress ", progress);
+				if(num < total){
+					index = this.getBlockIndex(progress);
+				}	
+			}
 		}
+		console.log("progress index ", index);
 		this.color(index);
 	};
 
@@ -243,6 +270,7 @@ define(
 		this.clearSignal = null;
 		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.remove(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.remove(this.setProgress, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.playButton.mouseUpSignal.remove(this.clickPlay, this);
 		this.clearButton.mouseUpSignal.remove(this.clickClear, this);
 		this.stopButton.mouseUpSignal.remove(this.clickStop, this);

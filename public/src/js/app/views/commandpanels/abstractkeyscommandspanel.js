@@ -35,7 +35,7 @@ AbstractExecuteCommandsPanel
 
 	AbstractKeysCommandsPanel.prototype.positionKeys = function(){
 		if(this.keys){
-			this.keys.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2;
+			this.keys.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2 + 3;
 		}
 	};
 
