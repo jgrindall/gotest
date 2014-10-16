@@ -94,7 +94,7 @@ FdCommand, StepLengths){
 	};
 
 	Drawing.prototype.setProgress = function(){
-		var total = this.modelFacade.get(ModelConsts.COMM).getNum();
+		var total = this.modelFacade.get(ModelConsts.COMM).getNum(true);
 		if(total > 0){
 			this.turtle.hideMove();
 		}
