@@ -23,12 +23,14 @@ function($, PhaserComponents,
 	OpenBgEditorCommand.prototype.drawRandom = function(options){
 		var graph, c, i;
 		$("body").append("<canvas id='sketch' style='position:absolute;top:10px;left:10px;background:white;' width='600' height='400'></canvas>");
-		$("body").append("<button id='sketch_button' style='position:absolute;top:10px;left:10px;'>Ok</button>");
+		$("body").append("<button id='sketch_button' style='position:absolute;top:10px;left:15px;font-size: 150%;'>Ok</button>");
+		$("body").append("<p id='sketch_msg' style='position:absolute;top:10px;background:white;left:160px;'>Imagine this is the 2Simple drawing API</p>");
 		graph = $('#sketch');
 		$("#sketch_button").click(function(){
 			var data = document.getElementById("sketch").toDataURL("image/png");
 			options.success(data);
 			$("#sketch_button").remove();
+			$("#sketch_msg").remove();
 			$("#sketch").remove();
 		});
         c = graph[0].getContext('2d');
