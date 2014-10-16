@@ -31,11 +31,18 @@ MarkerFactory, ControlsLayout){
 
 	AbstractExecuteCommandsPanel.prototype.onResize = function() {
 		this.positionGrid();
+		this.positionMarker();
 	};
 
 	AbstractExecuteCommandsPanel.prototype.positionGrid = function(){
 		if(this.grid){
 			this.grid.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2 + 3;
+		}
+	};
+
+	AbstractExecuteCommandsPanel.prototype.positionMarker = function(){
+		if(this.marker){
+			this.marker.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2 + 172;
 		}
 	};
 
@@ -82,7 +89,7 @@ MarkerFactory, ControlsLayout){
 		this.addGrid();
 		this.addMarker();
 	};
-	
+
 	AbstractExecuteCommandsPanel.prototype.addMarker = function() {
 		var x, y, options, model;
 		x = this.bounds.x + this.bounds.w/2;
@@ -91,6 +98,7 @@ MarkerFactory, ControlsLayout){
 		options = {'bounds':{'x':x, 'y':y}, "model":model};
 		this.marker = MarkerFactory.make(this.options.markerType, options);
 		this.group.add(this.marker.view);
+		this.positionMarker();
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.addGrid = function() {
@@ -103,6 +111,7 @@ MarkerFactory, ControlsLayout){
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.selectComm, this);
 		this.group.add(this.grid.view);
+		this.positionGrid();
 	};
 	
 	AbstractExecuteCommandsPanel.prototype.destroy = function() {

@@ -1,11 +1,11 @@
 
 define(['app/logocommands/logocommandfactory',
 
-'phasercomponents'],
+'phasercomponents', 'app/logocommands/commandtypes'],
 
 function(LogoCommandFactory,
 
-PhaserComponents){
+PhaserComponents, CommandTypes){
 	
 	"use strict";
 		
@@ -41,8 +41,19 @@ PhaserComponents){
 		return jsonArray;
 	};
 	
-	CommModel.prototype.getNum = function() {
-		return this.commands.length;
+	CommModel.prototype.getNum = function(excludeTransport) {
+		var n = 0;
+		if(excludeTransport){
+			this.commands.forEach(function(c){
+				if(c.type !== CommandTypes.TRANSPORT){
+					n++;
+				}
+			});
+			return n;
+		}
+		else{
+			return this.commands.length;
+		}
 	};
 	
 	CommModel.prototype.getTop = function() {
