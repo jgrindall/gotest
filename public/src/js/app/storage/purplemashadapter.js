@@ -71,7 +71,7 @@ function(PhaserComponents) {
 				console.log("parsed ", data);
 			}
 			console.log("success");
-			callback({'success':true, 'data':{"response":data}});
+			callback({'success':true, 'response':data});
 		}
 		catch(e){
 			callback({'success':false, 'data':null});
