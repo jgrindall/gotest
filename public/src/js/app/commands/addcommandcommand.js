@@ -1,12 +1,12 @@
 define([
 
-	'app/events/events', 'phasercomponents', 'app/logocommands/commandtypes',
+	'app/events/events', 'phasercomponents',
 
 	'app/models/modelconsts', 'app/logocommands/logocommandfactory'],
 
 function(
 
-	Events, PhaserComponents, CommandTypes, 
+	Events, PhaserComponents, 
 
 	ModelConsts, LogoCommandFactory) {
 	
