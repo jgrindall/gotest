@@ -36,13 +36,13 @@ MarkerFactory, ControlsLayout){
 
 	AbstractExecuteCommandsPanel.prototype.positionGrid = function(){
 		if(this.grid){
-			this.grid.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2 + 3;
+			this.grid.view.x = (this.bounds.w - AbstractExecuteCommandsPanel.GRID_SIZE)/2;
 		}
 	};
 
 	AbstractExecuteCommandsPanel.prototype.positionMarker = function(){
 		if(this.marker){
-			this.marker.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2 + 172;
+			this.marker.view.x = (this.bounds.w - AbstractExecuteCommandsPanel.GRID_SIZE)/2 + 88;
 		}
 	};
 
@@ -106,7 +106,7 @@ MarkerFactory, ControlsLayout){
 		data = this.getGridData();
 		w = this.game.w;
 		h = this.game.h;
-		bounds = {"x":this.bounds.x + (this.bounds.w - AbstractExecuteCommandsPanel.GRID_SIZE)/2, "y":this.bounds.y, "w":AbstractExecuteCommandsPanel.GRID_SIZE, "h":AbstractExecuteCommandsPanel.GRID_SIZE};
+		bounds = {"x":this.bounds.x, "y":this.bounds.y, "w":AbstractExecuteCommandsPanel.GRID_SIZE, "h":AbstractExecuteCommandsPanel.GRID_SIZE};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": DirButton, "data":data};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.selectComm, this);

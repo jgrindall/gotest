@@ -35,7 +35,7 @@ AbstractExecuteCommandsPanel
 
 	AbstractKeysCommandsPanel.prototype.positionKeys = function(){
 		if(this.keys){
-			this.keys.view.x = (this.bounds.w - ControlsLayout.MIN_WIDTH)/2 + 3;
+			this.keys.view.x = (this.bounds.w - AbstractExecuteCommandsPanel.GRID_SIZE)/2;
 		}
 	};
 
@@ -58,7 +58,7 @@ AbstractExecuteCommandsPanel
 		data = this.getKeyData();
 		w = this.game.w;
 		h = this.game.h;
-		bounds = {"x":this.bounds.x + (this.bounds.w - AbstractExecuteCommandsPanel.GRID_SIZE)/2, "y":this.bounds.y + AbstractExecuteCommandsPanel.GRID_SIZE + 20, "w":AbstractExecuteCommandsPanel.GRID_SIZE, "h":AbstractExecuteCommandsPanel.GRID_SIZE};
+		bounds = {"x":this.bounds.x, "y":this.bounds.y + AbstractExecuteCommandsPanel.GRID_SIZE + 20, "w":AbstractExecuteCommandsPanel.GRID_SIZE, "h":AbstractExecuteCommandsPanel.GRID_SIZE};
 		options = {"bounds":bounds, "numX": 3, "numY": 3, "buttonClass": KeyButton, "data":data};
 		this.keys = new PhaserComponents.Display.ButtonGrid(options);
 		this.keys.clickSignal.add(this.selectKey, this);
