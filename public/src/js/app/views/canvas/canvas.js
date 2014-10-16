@@ -20,7 +20,7 @@ Grid, Corners, Assets){
 	PhaserComponents.Utils.extends(Canvas, PhaserComponents.Display.Container);
 
 	Canvas.prototype.addCorners = function() {
-		this.corners = new Corners({"bounds":this.options.bounds, "top":Assets.CORNERS, "right":Assets.CORNERS, "left":Assets.CORNERS, "bottom":Assets.CORNERS, "topleft":Assets.CORNERSX, "topright":Assets.CORNERSX, "bottomleft":Assets.CORNERSX, "bottomright":Assets.CORNERSX});
+		this.corners = new Corners({"bounds":this.bounds, "top":Assets.CORNERS, "right":Assets.CORNERS, "left":Assets.CORNERS, "bottom":Assets.CORNERS, "topleft":Assets.CORNERSX, "topright":Assets.CORNERSX, "bottomleft":Assets.CORNERSX, "bottomright":Assets.CORNERSX});
 		this.group.add(this.corners.group);
 	};
 

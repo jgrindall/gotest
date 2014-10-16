@@ -52,6 +52,7 @@ Events, ModelConsts, ControlBar){
 			x = 0;
 			y = 50 + (this.game.h - 200 - AbstractCommandsPanel.HEIGHT)/2;
 			y = Math.max(y, 50);
+			console.log("change w to ", this.bounds.w);
 			this.commandsPanel.bounds.w = this.bounds.w;
 			this.commandsPanel.view.x = x;
 			this.commandsPanel.view.y = y;

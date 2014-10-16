@@ -58,7 +58,7 @@ define(
 
 	ProgCommandPanel.prototype.positionDrag = function(){
 		var availableWidth = this.bounds.w - ProgDragContainer.WIDTH - ProgButtons.WIDTH;
-		this.scroller.view.x = ProgButtons.WIDTH + 2*availableWidth/3;
+		this.dragContainer.view.x = ProgButtons.WIDTH + 2*availableWidth/3;
 	};
 
 	ProgCommandPanel.prototype.onResize = function(){
@@ -78,6 +78,8 @@ define(
 
 	ProgCommandPanel.prototype.addDrag = function(type, index, turn, bounds){
 		bounds = bounds || {'x':0, 'y':0};
+		bounds.x -= this.dragContainer.view.x;
+		bounds.x += this.progButtons.view.x;
 		bounds.y -= this.dragContainer.view.y;
 		var drag = new DragView({"type":type, "turn":turn, "index":index, 'bounds':bounds});
 		this.dragContainer.addDrag(drag);
@@ -135,9 +137,7 @@ define(
 		this.dragManager = new PhaserComponents.Drag.DragManager(this.dragContainer.view, this.game, {"model":this.options.model, "fail":PhaserComponents.Drag.DragFailTypes.FAIL_REMOVE});
 		this.dragManager.editSignal.add(this.onEdited, this);
 		this.group.add(this.progButtons.view);
-		this.scroller = new PhaserComponents.Display.VScroller({'bounds':this.bounds, 'scrollBarAsset':Assets.VSCROLLBAR});
-		this.group.add(this.scroller.view);
-		this.scroller.setContents(this.dragContainer);
+		this.group.add(this.dragContainer.view);
 		this.initDrag();
 		this.playController = PlayControllerFactory.make(this.options.targets, this);
 		this.dragContainer.playSignal.add(this.onPlay, this);

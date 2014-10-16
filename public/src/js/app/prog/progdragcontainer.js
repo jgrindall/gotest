@@ -208,23 +208,16 @@ define(
 		num = this.modelFacade.get(ModelConsts.COMMTICKER).get();
 		command = this.modelFacade.get(ModelConsts.COMMTICKER).getCurrentCommand();
 		if(command){
-			console.log("progress command ", JSON.stringify(command.toJson()));
 			type = command.type;
-			console.log("progress type ", type);
 			if(type !== CommandTypes.TRANSPORT){
-				console.log("progress num ", num);
 				total = this.modelFacade.get(ModelConsts.COMM).getNum();
-				console.log("progress total ",  total);
 				start = this.modelFacade.get(ModelConsts.COMMTICKER).startNum;
-				console.log("progress start ", start);
 				progress = num - start;
-				console.log("progress progress ", progress);
 				if(num < total){
 					index = this.getBlockIndex(progress);
 				}	
 			}
 		}
-		console.log("progress index ", index);
 		this.color(index);
 	};
 

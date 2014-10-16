@@ -2220,6 +2220,7 @@ function(Container, Utils,
 	
 	
 	var VScroller  = function(options){
+		console.log("vscroller constructor ", JSON.stringify(options.bounds));
 		Container.call(this, options);
 	};
 	
@@ -2346,7 +2347,7 @@ function(Container, Utils,
 		this.removeContents();
 		this.contents = contents;
 		this.group.add(this.contents.view);
-		this.contents.view.mask = this.mask;
+		//this.contents.view.mask = this.mask;
 		this.update();
 	};
 
@@ -2354,6 +2355,7 @@ function(Container, Utils,
 		this.mask = new Phaser.Graphics(this.game, 0, 0);
 		this.mask.beginFill(0xff0000);
 		this.mask.alpha = 0.2;
+		console.log("drawing mask", JSON.stringify(this.options.bounds));
     	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
     	this.mask.endFill();
     	this.group.add(this.mask);
