@@ -55,6 +55,7 @@ function(Phaser, PhaserComponents,
 		this.mover.events.onInputUp.add(this.onMoverUp, this);
 		this.group.add(this.mover);
 		this.mover.anchor.setTo(0.5, 0.5);
+		this.game.add.tween(this.mover).to( {'angle':360}, 2000, Phaser.Easing.Back.InOut, true, 1000, false);
 	};
 
 	Turtle.prototype.create = function() {
