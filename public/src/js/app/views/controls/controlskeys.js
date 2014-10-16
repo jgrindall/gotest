@@ -47,7 +47,7 @@ Events, ModelConsts, ControlBar){
 	};
 
 	ControlsKeys.prototype.positionPanel = function() {
-		var x, y, availableWidth;
+		var x, y;
 		if(this.commandsPanel){
 			x = 0;
 			y = 50 + (this.game.h - 200 - AbstractCommandsPanel.HEIGHT)/2;
