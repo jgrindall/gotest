@@ -1,7 +1,7 @@
 
 define(['app/views/buttons/keybutton',
 
-'phasercomponents', 'app/consts/controlslayout',
+'phasercomponents', 
 
 'app/views/commandpanels/abstractexecutecommandpanel'
 
@@ -9,7 +9,7 @@ define(['app/views/buttons/keybutton',
 
 function(KeyButton,
 
-PhaserComponents, ControlsLayout,
+PhaserComponents,
 
 AbstractExecuteCommandsPanel
 

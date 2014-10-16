@@ -6,7 +6,7 @@ define(
 
 	'app/prog/progbuttons', 'app/prog/progdragcontainer',
 
-	'app/prog/controller/playcontrollerfactory', 'app/assets',
+	'app/prog/controller/playcontrollerfactory', 
 
 	'app/consts/playingstate', 'app/models/modelconsts'],
 
@@ -16,7 +16,7 @@ define(
 
 		ProgButtons, ProgDragContainer,
 
-		PlayControllerFactory, Assets,
+		PlayControllerFactory, 
 
 		PlayingState, ModelConsts){
 	

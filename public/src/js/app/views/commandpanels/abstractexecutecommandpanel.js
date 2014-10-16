@@ -3,14 +3,14 @@ define([ 'phasercomponents', 'app/models/modelconsts',
 
 'app/views/buttons/dirbutton', 'app/views/commandpanels/abstractcommandspanel',
 
-'app/views/commandpanels/markers/markerfactory', 'app/consts/controlslayout'],
+'app/views/commandpanels/markers/markerfactory'],
 
 
 function(PhaserComponents, ModelConsts, 
 
 DirButton, AbstractCommandsPanel,
 
-MarkerFactory, ControlsLayout){
+MarkerFactory){
 	
 	"use strict";
 	
