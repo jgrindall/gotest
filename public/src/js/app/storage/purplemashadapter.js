@@ -57,14 +57,17 @@ function(PhaserComponents) {
 	};
 
 	PurpleMashAdapter.prototype.onFileLoaded = function(callback, result){
+
 		var data = result.data;
 		console.log("\nonFileLoaded1 ", callback);
 		console.log("\nonFileLoaded2 ", result);
 		console.log("\nonFileLoaded3 ", JSON.stringify(result));
-		console.log("\nonFileLoaded4 ", data);
-		console.log("\nonFileLoaded5 ", JSON.stringify(data));
+		console.log("\nonFileLoaded4 ", (typeof result)));
+		console.log("\nonFileLoaded5 ", data);
+		console.log("\nonFileLoaded6 ", JSON.stringify(data));
+		console.log("\nonFileLoaded7 ", (typeof data)));
 		try{
-			console.log("try" + (typeof data));
+			console.log("try! " + (typeof data));
 			if(data && typeof data === 'object'){
 				console.log("object");
 				data = JSON.parse(data);
