@@ -55,6 +55,7 @@ function(PhaserComponents) {
 
 	PurpleMashAdapter.prototype.onFileLoaded = function(callback, result){
 		var data;
+		console.log("0  ", callback);
 		console.log("1  ", result);
 		console.log("2  ", typeof result);
 		console.log("3  ", JSON.stringify(result));
