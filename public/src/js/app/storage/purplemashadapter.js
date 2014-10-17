@@ -63,20 +63,21 @@ function(PhaserComponents) {
 			if((typeof result) === 'string'){
 				console.log("\nonFileLoaded2 ");
 				result = JSON.parse(result);
-				console.log("\nonFileLoaded2 ", result);
-				console.log("\nonFileLoaded3 ", JSON.stringify(result));
-				data = result.data;
-				console.log("\nonFileLoaded4 ", data);
-				console.log("\nonFileLoaded5 ", JSON.stringify(data));
-				if(data){
-					callback({'success':true, 'response':data});
-				}
-				else{
-					callback({'success':false, 'response':null});
-				}
+			}
+			console.log("\nonFileLoaded2 ", result);
+			console.log("\nonFileLoaded3 ", JSON.stringify(result));
+			data = result.data;
+			console.log("\nonFileLoaded4 ", data, (typeof data);
+			console.log("\nonFileLoaded5 ", JSON.stringify(data));
+			if(data){
+				callback({'success':true, 'response':data});
+			}
+			else{
+				callback({'success':false, 'response':null});
 			}
 		}
 		catch(e){
+			console.log("\nonFileLoaded6 ", e);
 			callback({'success':false, 'response':null});
 		}
 	};
