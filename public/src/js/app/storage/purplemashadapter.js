@@ -99,8 +99,13 @@ function(PhaserComponents) {
 			options = {};
 			options.thumb = PurpleMashAdapter.THUMB;
 			options.filter = PurpleMashAdapter.FILTER_LOAD;
-			options.path = keyPath;
+			if(keyPath){
+				options.path = keyPath;
+			}
 			options.onOpen = this.onFileLoaded.bind(this, callback);
+			console.log("hit window.DocumentHandler with the following options:");
+			console.log(JSON.stringify(options));
+			console.log("-----------------");
 			window.DocumentHandler.open(options);
 		}
 		else{
