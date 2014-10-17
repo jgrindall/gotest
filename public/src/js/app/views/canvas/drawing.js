@@ -197,7 +197,7 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.executeTransport = function() {
-		this.endPos = this.command.direction;
+		this.endPos = this.fractionToPos(this.command.direction);
 		this.turtle.move(this.endPos);
 		this.commandFinished();
 	};
@@ -215,31 +215,35 @@ FdCommand, StepLengths){
 	};
 	
 	Drawing.prototype.turtleMoved = function(pos) {
-		var json = {'type':CommandTypes.TRANSPORT, 'direction':pos, 'index':0, 'total':1};
+		var p, json;
+		p = this.posToFraction(pos);
+		json = {'type':CommandTypes.TRANSPORT, 'direction':p, 'index':0, 'total':1};
 		this.eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
 	};
 
+	Drawing.prototype.roundPoint = function(p, ten) {
+		var x, y;
+		x = this.round(p.x, ten);
+		y = this.round(p.y, ten);
+		return {'x':x, 'y':y};
+	};
+	
 	Drawing.prototype.round = function(n, ten) {
 		return Math.round(n * ten)/ten;
 	};
 
 	Drawing.prototype.fractionToPos = function(p) {
-		var pos, x, y, ten = 10;
+		var pos, x, y;
 		x = (p.x * this.bounds.w) + this.bounds.x;
 		y = (p.y * this.bounds.h) + this.bounds.y;
-		x = this.round(x, ten);
-		y = this.round(y, ten);
 		pos = {'x':x, 'y':y};
-		return pos;
+		return this.roundPoint(p, 10);
 	};
 
 	Drawing.prototype.posToFraction = function(pos) {
-		var ten, p;
-		ten = 1000;
+		var p;
 		p = {'x':(pos.x - this.bounds.x)/this.bounds.w, 'y':(pos.y - this.bounds.y)/this.bounds.h};
-		p.x = this.round(p.x, ten);
-		p.y = this.round(p.y, ten);
-		return p;
+		return this.roundPoint(p, 1000);
 	};
 
 	Drawing.prototype.create = function() {
