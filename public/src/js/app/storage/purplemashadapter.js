@@ -36,14 +36,12 @@ function(PhaserComponents) {
 
 	PurpleMashAdapter.prototype.saveForKeyPath = function(keyPath, data, callback){
 		var options;
-		console.log("saveForKeyPath window.DocumentHandler ", window.DocumentHandler);
 		if(window.DocumentHandler){
 			options = {};
 			options.thumb = PurpleMashAdapter.THUMB;
 			options.filter = PurpleMashAdapter.FILTER_SAVE;
 			options.onSave = this.onFileSaved.bind(this, callback);
 			options.data = JSON.stringify(data);
-			console.log("options ", options);
 			window.DocumentHandler.save(options);
 		}
 		else{
@@ -52,27 +50,31 @@ function(PhaserComponents) {
 	};
 
 	PurpleMashAdapter.prototype.onFileSaved = function(callback, result){
-		console.log("onFileSaved ", callback, result, JSON.stringify(result));
 		callback({"success":true, "data":result});
 	};
 
 	PurpleMashAdapter.prototype.onFileLoaded = function(callback, result){
 		var data;
-		console.log("\nonFileLoaded1 ", result);
+		console.log("1  ", result);
+		console.log("2  ", typeof result);
+		console.log("3  ", JSON.stringify(result));
 		try{
 			if((typeof result) === 'string'){
-				console.log("\nonFileLoaded2 ");
 				result = JSON.parse(result);
 			}
-			console.log("\nonFileLoaded2 ", result);
-			console.log("\nonFileLoaded3 ", JSON.stringify(result));
+			console.log("4  ", result);
+			console.log("5  ", typeof result);
+			console.log("6  ", JSON.stringify(result));
 			data = result.data;
-			console.log("\nonFileLoaded4 ", data, (typeof data));
+			console.log("7  ", data);
+			console.log("8  ", typeof data);
+			console.log("9  ", JSON.stringify(data));
 			if((typeof data) === 'string'){
-				console.log("\nonFileLoaded4.5 ");
 				data = JSON.parse(data);
 			}
-			console.log("\nonFileLoaded5 ", JSON.stringify(data));
+			console.log("10  ", data);
+			console.log("11  ", typeof data);
+			console.log("12  ", JSON.stringify(data));
 			if(data){
 				callback({'success':true, 'response':data});
 			}
@@ -81,21 +83,18 @@ function(PhaserComponents) {
 			}
 		}
 		catch(e){
-			console.log("\nonFileLoaded6 ", e);
 			callback({'success':false, 'response':null});
 		}
 	};
 
 	PurpleMashAdapter.prototype.getForKeyPath = function(keyPath, callback){
 		var options;
-		console.log("getForKeyPath window.DocumentHandler ", window.DocumentHandler);
 		if(window.DocumentHandler){
 			options = {};
 			options.thumb = PurpleMashAdapter.THUMB;
 			options.filter = PurpleMashAdapter.FILTER_LOAD;
 			options.path = keyPath;
 			options.onOpen = this.onFileLoaded.bind(this, callback);
-			console.log("options ", options);
 			window.DocumentHandler.open(options);
 		}
 		else{
