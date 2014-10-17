@@ -62,7 +62,7 @@ function(PhaserComponents) {
 		console.log("\nonFileLoaded1 ", callback);
 		console.log("\nonFileLoaded2 ", result);
 		console.log("\nonFileLoaded3 ", JSON.stringify(result));
-		console.log("\nonFileLoaded4 ", (typeof result)));
+		console.log("\nonFileLoaded4 ", (typeof result));
 		console.log("\nonFileLoaded5 ", data);
 		console.log("\nonFileLoaded6 ", JSON.stringify(data));
 		console.log("\nonFileLoaded7 ", (typeof data)));
