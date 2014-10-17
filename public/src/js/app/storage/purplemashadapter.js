@@ -64,7 +64,7 @@ function(PhaserComponents) {
 		console.log("\nonFileLoaded4 ", data);
 		console.log("\nonFileLoaded5 ", JSON.stringify(data));
 		try{
-			console.log("try");
+			console.log("try" + (typeof data));
 			if(data && typeof data === 'object'){
 				console.log("object");
 				data = JSON.parse(data);
@@ -74,7 +74,7 @@ function(PhaserComponents) {
 			callback({'success':true, 'response':data});
 		}
 		catch(e){
-			callback({'success':false, 'data':null});
+			callback({'success':false, 'response':null});
 		}
 	};
 
