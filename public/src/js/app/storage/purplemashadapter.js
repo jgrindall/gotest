@@ -57,24 +57,24 @@ function(PhaserComponents) {
 	};
 
 	PurpleMashAdapter.prototype.onFileLoaded = function(callback, result){
-
-		var data = result.data;
-		console.log("\nonFileLoaded1 ", callback);
-		console.log("\nonFileLoaded2 ", result);
-		console.log("\nonFileLoaded3 ", JSON.stringify(result));
-		console.log("\nonFileLoaded4 ", (typeof result));
-		console.log("\nonFileLoaded5 ", data);
-		console.log("\nonFileLoaded6 ", JSON.stringify(data));
-		console.log("\nonFileLoaded7 ", (typeof data));
+		var data;
+		console.log("\nonFileLoaded1 ", result);
 		try{
-			console.log("try! " + (typeof data));
-			if(data && typeof data === 'object'){
-				console.log("object");
-				data = JSON.parse(data);
-				console.log("parsed ", data);
+			if((typeof result) === 'string'){
+				console.log("\nonFileLoaded2 ");
+				result = JSON.parse(result);
+				console.log("\nonFileLoaded2 ", result);
+				console.log("\nonFileLoaded3 ", JSON.stringify(result));
+				data = result.data;
+				console.log("\nonFileLoaded4 ", data);
+				console.log("\nonFileLoaded5 ", JSON.stringify(data));
+				if(data){
+					callback({'success':true, 'response':data});
+				}
+				else{
+					callback({'success':false, 'response':null});
+				}
 			}
-			console.log("success");
-			callback({'success':true, 'response':data});
 		}
 		catch(e){
 			callback({'success':false, 'response':null});
