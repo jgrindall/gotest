@@ -65,7 +65,7 @@ function(PhaserComponents) {
 		console.log("\nonFileLoaded4 ", (typeof result));
 		console.log("\nonFileLoaded5 ", data);
 		console.log("\nonFileLoaded6 ", JSON.stringify(data));
-		console.log("\nonFileLoaded7 ", (typeof data)));
+		console.log("\nonFileLoaded7 ", (typeof data));
 		try{
 			console.log("try! " + (typeof data));
 			if(data && typeof data === 'object'){
