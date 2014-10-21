@@ -1,7 +1,7 @@
 
-define(['jquery', 'phasercomponents', 'app/events/events'],
+define(['phasercomponents', 'app/events/events'],
 
-function($, PhaserComponents, Events){
+function(PhaserComponents, Events){
 	
 	"use strict";
 		

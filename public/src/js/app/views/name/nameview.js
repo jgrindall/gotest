@@ -1,7 +1,7 @@
 
-define(['jquery', 'phasercomponents'],
+define(['phasercomponents'],
 
-function($, PhaserComponents){
+function(PhaserComponents){
 	
 	"use strict";
 		

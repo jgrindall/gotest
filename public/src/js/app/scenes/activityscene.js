@@ -1,11 +1,11 @@
 
-define(['jquery', 'phasercomponents', 'app/scenes/interactivescene',
+define(['phasercomponents', 'app/scenes/interactivescene',
 
 'app/events/events', 
 
 'app/views/mainview', 'app/assets', 'app/views/challenge/challengeview'],
 
-function($, PhaserComponents, InteractiveScene, 
+function(PhaserComponents, InteractiveScene, 
 
 Events, MainView, Assets, ChallengeView){
 	

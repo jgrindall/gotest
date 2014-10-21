@@ -93,9 +93,9 @@ define('phasercomponents/utils/utils',[], function(){
 
 define(
 
-	'phasercomponents/gamemanager',['jquery', 'phaser', 'phaserstatetrans', 'phasercomponents/utils/utils'],
+	'phasercomponents/gamemanager',['phaser', 'phaserstatetrans', 'phasercomponents/utils/utils'],
 
-function($, Phaser, PhaserStateTrans, Utils){
+function(Phaser, PhaserStateTrans, Utils){
 	
 	
 	
@@ -378,9 +378,9 @@ function(Injector) {
 
 
 
-define('phasercomponents/events/eventdispatcher',['jquery'],
+define('phasercomponents/events/eventdispatcher',[],
 
-function($) {
+function() {
 	
 	/* A simple event aggregator */
 
@@ -613,7 +613,7 @@ function() {
 
 define(
 
-	'phasercomponents/utils/keymanager',['jquery', 'phasercomponents/injector', 'phasercomponents/events/appevents'],
+	'phasercomponents/utils/keymanager',['phasercomponents/injector', 'phasercomponents/events/appevents'],
 
 	function($, Injector, AppEvents){
 	
@@ -687,7 +687,7 @@ define('phasercomponents/utils/soundmanager',[], function(){
 
 define(
 
-	'phasercomponents/utils/alertmanager',['jquery', 'phaser', 'phasercomponents/injector', 'phasercomponents/events/appevents'], 
+	'phasercomponents/utils/alertmanager',['phaser', 'phasercomponents/injector', 'phasercomponents/events/appevents'], 
 
 function($, Phaser, Injector, AppEvents){
 
@@ -885,7 +885,7 @@ function(Utils, AbstractCommand, Injector) {
 
 
 
-define( 'phasercomponents/context',['jquery', 'phasercomponents/gamemanager',
+define( 'phasercomponents/context',['phasercomponents/gamemanager',
 
 	'phasercomponents/commands/commandmap', 'phasercomponents/events/eventdispatcher', 'phasercomponents/utils/storage',
 
@@ -897,7 +897,7 @@ define( 'phasercomponents/context',['jquery', 'phasercomponents/gamemanager',
 
 	'phasercomponents/commands/playsoundcommand', 'phasercomponents/utils/utils'],
 
-	function($, GameManager,
+	function(GameManager,
 
 		CommandMap, EventDispatcher, Storage,
 

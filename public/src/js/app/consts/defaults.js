@@ -1,5 +1,5 @@
 
-define(['jquery'], function($) {
+define([], function() {
 	
 	"use strict";
 	

@@ -1,5 +1,5 @@
 
-define(['jquery', 'app/views/buttons/arrowbutton',
+define(['app/views/buttons/arrowbutton',
 
 'app/views/components/selectormenu', 'app/views/buttons/markerbutton',
 
@@ -7,7 +7,7 @@ define(['jquery', 'app/views/buttons/arrowbutton',
 
 ],
 
-function($, ArrowButton, 
+function(ArrowButton, 
 
 SelectorMenu, MarkerButton,
 

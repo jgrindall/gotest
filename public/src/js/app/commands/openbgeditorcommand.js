@@ -1,10 +1,10 @@
 define(
 
-	['jquery', 'phasercomponents',
+	['phasercomponents',
 
 	'app/models/modelconsts'],
 
-function($, PhaserComponents,
+function(PhaserComponents,
 
 	ModelConsts) {
 	
@@ -34,7 +34,7 @@ function($, PhaserComponents,
 		console.log("PMClipArtPicker = ", 	window.PMClipArtPicker);
 		console.log("ClipArtHelper = ", 	window.ClipArtHelper);
 		console.log("onSuccess = ", 		onSuccess);
-		new window.PMClipArtPicker({"onSelectImage": onSuccess});
+		new window.PMClipArtPicker({"onSelectImage": onSuccess, "background":true});
 	};
 
 	OpenBgEditorCommand.prototype.drawRandom = function(options){

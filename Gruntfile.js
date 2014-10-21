@@ -51,7 +51,8 @@ module.exports = function(grunt) {
                     define:true,
                     Phaser:true,
                     console:true,
-                    PIXI:true
+                    PIXI:true,
+                    $:true
                  }
             },
             all: ['public/src/js/app/**/*.js']
@@ -68,7 +69,6 @@ module.exports = function(grunt) {
                     findNestedDependencies: true,
                     optimize: "uglify",
                     paths: {
-                        jquery:                        'lib/zepto',
                         html2canvas:                   'lib/html2canvas',
                         phaser: 			           'lib/phaser',
                         phaserstatetrans: 	           'lib/phaser-state-transition.min',

@@ -1,6 +1,6 @@
 
 
-define(['jquery', 'app/views/canvas/canvas', 
+define(['app/views/canvas/canvas', 
 
 'app/views/controls/controls', 'app/consts/controlslayout',
 
@@ -12,7 +12,7 @@ define(['jquery', 'app/views/canvas/canvas',
 
 'app/assets', 'app/consts/showdirections', 'app/models/modelconsts'],
 
-function($, Canvas,
+function(Canvas,
 
 	Controls, ControlsLayout,
 

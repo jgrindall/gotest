@@ -2,7 +2,6 @@
 
 require.config({
 	paths: {
-		'jquery': 						'lib/zepto',
 		'html2canvas': 					'lib/html2canvas',
 		'phaser': 						'lib/phaser',
 		'phaserstatetrans': 			'lib/phaser-state-transition.min',
@@ -13,7 +12,7 @@ require.config({
 
 require(['phaser'], function(Phaser){
 	
-	require(['jquery', 'app/appcontext'], function($, AppContext){
+	require(['app/appcontext'], function(AppContext){
 	
 		$(document).ready(function(){
 			var options = {"containerTagId":"game", "scaleType":"fill", "paddingBottom":45, "minHeight":570, "minWidth":860};

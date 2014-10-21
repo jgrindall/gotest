@@ -1,10 +1,10 @@
 define(
 
-	['jquery', 'phasercomponents',
+	['phasercomponents',
 
 	'app/models/modelconsts'],
 
-function($, PhaserComponents,
+function(PhaserComponents,
 
 	ModelConsts) {
 	

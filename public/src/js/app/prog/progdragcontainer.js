@@ -1,6 +1,6 @@
 define(
 
-	['jquery', 'phasercomponents', 'app/consts/commandpaneltypes',
+	['phasercomponents', 'app/consts/commandpaneltypes',
 
 	'app/views/buttons/closebutton', 'app/logocommands/commandtypes',
 
@@ -12,7 +12,7 @@ define(
 
 	'app/models/modelconsts'],
 
-	function($, PhaserComponents, CommandPanelTypes, 
+	function(PhaserComponents, CommandPanelTypes, 
 
 		CloseButton, CommandTypes,
 
