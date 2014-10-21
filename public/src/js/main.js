@@ -13,6 +13,10 @@ require.config({
 
 require(['phaser'], function(Phaser){
 	
+	alert("before app loaded, window.$ is ", window.$);
+
+	alert("window.jquery is ", window.jquery);
+
 	require(['jquery', 'app/appcontext'], function($, AppContext){
 	
 		$(document).ready(function(){
