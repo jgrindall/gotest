@@ -129,12 +129,9 @@ define(
 		numCommands = this.getNumCommands();
 		sum = numCommands[0];
 		index = 0;
-		var k = 0;
-		console.log("BI ", num, numCommands, sum, index);
-		while(sum <= num && k < 10000){
+		while(sum <= num){
 			index = (index + 1) % numCommands.length;
 			sum += numCommands[index];
-			k++;
 		}
 		return index;
 	};

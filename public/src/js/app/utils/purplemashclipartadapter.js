@@ -6,12 +6,11 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 		"use strict";
 		
 		var PurpleMashClipartAdapter = function(){
-			console.log("E ", ErrorCodes, Error);
+			
 		};
 		
 		PurpleMashClipartAdapter.prototype.open = function(options){
 			var onSuccess, obj;
-			console.log("open ", options, options.success);
 			onSuccess = this.idSelected.bind(this, options);
 			obj = {"onSelectImage": onSuccess, "background":options.background};
 			if(window.PMClipArtPicker){
@@ -28,14 +27,11 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 		};
 
 		PurpleMashClipartAdapter.prototype.idSelected = function(options, id){
-			console.log("callback id = ", id, options, options.success);
 			var src, that = this;
 			if(window.ClipArtHelper){
 				try{
 					window.ClipArtHelper.getImage(id, function(data){
 						src = data.src;
-						console.log("getImage = ", data, JSON.stringify(data));
-						console.log("src = ", src);
 						if(that.isBase64(src)){
 							options.success(src);
 						}
@@ -64,7 +60,6 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 		};
 
 		PurpleMashClipartAdapter.prototype.isBase64 = function(obj){
-			console.log("isbase64", obj, (typeof obj), obj.substring(0, 22));
 			if((typeof obj) === 'string' && obj.substring(0, 22) === "data:image/png;base64,"){
 				return true;
 			}
@@ -85,7 +80,9 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 	        	dataURL = canvas.toDataURL("image/png");
 	        	options.success(dataURL);
 	        	canvas = null;
+	        	context = null;
 	        	img.onload = null;
+	        	img = null;
    	 		};
    	 		img.src = url;
 		};
