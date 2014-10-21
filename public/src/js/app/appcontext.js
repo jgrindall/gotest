@@ -107,9 +107,14 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     AppContext.prototype.addClipart = function(){
     	var regexp = new RegExp('purple', 'g');
     	this.clipart = new Clipart();
+    	console.log("p0 ",regexp, window.location);
     	if(regexp.test(window.location)){
-			this.clipart.setAdapter(new PurpleMashClipartAdapter());
+    		var p = new PurpleMashClipartAdapter();
+    		console.log("p1 ",p);
+    		console.log("p2 ",this.clipart);
+			this.clipart.setAdapter(p);
 		}
+		console.log("p3 ");
     };
 
     AppContext.prototype.addStorage = function(){
