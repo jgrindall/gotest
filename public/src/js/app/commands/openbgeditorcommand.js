@@ -16,9 +16,26 @@ function($, PhaserComponents,
 	
 	PhaserComponents.Utils.extends(OpenBgEditorCommand, PhaserComponents.Commands.AbstractCommand);
 
+	OpenBgEditorCommand.prototype.onImgSelected = function(id){
+		console.log("callback id = ", id, JSON.stringify(id));
+		ClipArtHelper.getImage(id, function(data){
+			console.log("getImage = ", data, JSON.stringify(data));
+			console.log("src = ", data.src);
+		});
+	};
+
 	OpenBgEditorCommand.prototype.onDrawFinished = function(data){
 		this.modelFacade.get(ModelConsts.BG_PNG).set(data);
-	};
+	});
+
+	OpenBgEditorCommand.prototype.openPM = function(){
+		console.log("using PM editor");
+		console.log("PMClipArtPicker = ", 	PMClipArtPicker);
+		console.log("ClipArtHelper = ", 	ClipArtHelper);
+		console.log("onSuccess = ", 		onSuccess);
+		var onSuccess = this.onImgSelected.bind(this);
+		new PMClipArtPicker({"onSelectImage": onSuccess});
+	});
 
 	OpenBgEditorCommand.prototype.drawRandom = function(options){
 		var graph, c, i;
@@ -45,7 +62,8 @@ function($, PhaserComponents,
 	};
 		
 	OpenBgEditorCommand.prototype.execute = function(){
-		this.drawRandom({"success":this.onDrawFinished.bind(this)});
+		this.openPM();
+		//this.drawRandom({"success":this.onDrawFinished.bind(this)});
 	};
 	
   	return OpenBgEditorCommand;
