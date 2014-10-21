@@ -26,7 +26,7 @@ function($, PhaserComponents,
 
 	OpenBgEditorCommand.prototype.onDrawFinished = function(data){
 		this.modelFacade.get(ModelConsts.BG_PNG).set(data);
-	});
+	};
 
 	OpenBgEditorCommand.prototype.openPM = function(){
 		console.log("using PM editor");
@@ -35,7 +35,7 @@ function($, PhaserComponents,
 		console.log("onSuccess = ", 		onSuccess);
 		var onSuccess = this.onImgSelected.bind(this);
 		new PMClipArtPicker({"onSelectImage": onSuccess});
-	});
+	};
 
 	OpenBgEditorCommand.prototype.drawRandom = function(options){
 		var graph, c, i;
