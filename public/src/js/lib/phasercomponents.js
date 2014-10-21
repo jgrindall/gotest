@@ -1428,8 +1428,6 @@ function(Phaser, Injector){
 	};
 	
 	AbstractModel.prototype.decideTrigger = function(val, force) {
-		console.log("decideTrigger ", this, val, force);
-		console.log("decideTrigger ", (typeof val), (val === this.value));
 		if(force){
 			return true;
 		}
@@ -1443,7 +1441,7 @@ function(Phaser, Injector){
 			return (JSON.stringify(val) !== JSON.stringify(this.value));
 		}
 		else {
-			return (val === this.value);
+			return (val !== this.value);
 		}
 	};
 
@@ -1456,7 +1454,6 @@ function(Phaser, Injector){
 			silent = true;
 		}
 		trigger = !silent && this.decideTrigger(val, force);
-		console.log("trigger ", trigger);
 		this.value = val;
 		if(trigger){
 			this.trigger();
