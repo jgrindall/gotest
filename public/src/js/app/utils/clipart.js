@@ -9,6 +9,10 @@ define(['app/utils/localclipartadapter'],
 			this.adapter = new LocalClipartAdapter();
 		};
 		
+		Clipart.prototype.setAdapter = function(adapter){
+			this.adapter = adapter;
+		};
+
 		Clipart.prototype.openBg = function(options){
 			this.adapter.openBg(options);
 		};
