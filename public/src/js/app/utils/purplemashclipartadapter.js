@@ -11,6 +11,7 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 		
 		PurpleMashClipartAdapter.prototype.open = function(options){
 			var onSuccess, obj;
+			console.log("open ", options, options.success);
 			onSuccess = this.idSelected.bind(this, options);
 			obj = {"onSelectImage": onSuccess, "background":options.background};
 			if(window.PMClipArtPicker){
@@ -27,7 +28,7 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 		};
 
 		PurpleMashClipartAdapter.prototype.idSelected = function(options, id){
-			console.log("callback id = ", id);
+			console.log("callback id = ", id, options, options.success);
 			var src;
 			if(window.ClipArtHelper){
 				try{
