@@ -1,14 +1,16 @@
 
-define(['app/utils/errorcodes', 'app/utils/error'],
+define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/errorcodes', 'app/utils/error'],
 
-	function(ErrorCodes, Error){
+	function(PhaserComponents, AbstractClipartAdapter, ErrorCodes, Error){
 	
 		"use strict";
 		
 		var PurpleMashClipartAdapter = function(){
-			
+			AbstractClipartAdapter.call(this);
 		};
 		
+		PhaserComponents.Utils.extends(PurpleMashClipartAdapter, AbstractClipartAdapter);
+
 		PurpleMashClipartAdapter.prototype.open = function(options){
 			var onSuccess, obj;
 			onSuccess = this.idSelected.bind(this, options);
@@ -18,11 +20,11 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 					new window.PMClipArtPicker(obj);
 				}
 				catch(e){
-					//Error.show(this.alertManager, ErrorCodes.NO_PRINTERS);
+					Error.show(this.alertManager, ErrorCodes.PM_CLIPART_ERROR);
 				}
 			}
 			else{
-				//Error.show(this.alertManager, ErrorCodes.NO_PRINTERS);
+				Error.show(this.alertManager, ErrorCodes.NO_PM_CLIPART);
 			}
 		};
 
@@ -41,11 +43,11 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 					});
 				}
 				catch(e){
-					//Error.show(this.alertManager, ErrorCodes.NO_PRINTERS);
+					Error.show(this.alertManager, ErrorCodes.PM_CLIPART_HELPER_ERROR);
 				}
 			}
 			else{
-				//Error.show(this.alertManager, ErrorCodes.NO_PRINTERS);
+				Error.show(this.alertManager, ErrorCodes.NO_CLIPART_HELPER);
 			}
 		};
 

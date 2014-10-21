@@ -72,11 +72,10 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 	};
 
 	AppContext.prototype.inject = function(){
-        var game, eventDispatcher, alertManager;
+        var game, eventDispatcher;
         PhaserComponents.Context.prototype.inject.call(this);
         game = this.gameManager.game;
         eventDispatcher = this.eventDispatcher;
-        alertManager = this.alertManager;
         this.showManager = new ShowManager();
         this.modelFacade = new ModelFacade();
         this.addClipart();
@@ -86,6 +85,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
         PhaserComponents.Injector.getInstance().map("view",									["showManager", "modelFacade"],         [this.showManager, this.modelFacade]);
         PhaserComponents.Injector.getInstance().map("abstractcommand",						["modelFacade", "clipart"],            	[this.modelFacade, this.clipart]);
         PhaserComponents.Injector.getInstance().map("scene",								["showManager"],            			[this.showManager]);
+        PhaserComponents.Injector.getInstance().map("clipartadapter", 						["alertManager"],						[this.alertManager]);
         this.showManager.init();
         this.modelFacade.init();
         this.modelFacade.setData(Defaults.getDefaults());

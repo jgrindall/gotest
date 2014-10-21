@@ -1,14 +1,16 @@
 
-define([],
+define(['phasercomponents', 'app/utils/abstractclipartadapter'],
 
-	function(){
+	function(PhaserComponents, AbstractClipartAdapter){
 	
 		"use strict";
 		
 		var LocalClipartAdapter = function(){
-			
+			AbstractClipartAdapter.call(this);
 		};
 		
+		PhaserComponents.Utils.extends(LocalClipartAdapter, AbstractClipartAdapter);
+
 		LocalClipartAdapter.prototype.openBg = function(options){
 			var graph, context, i;
 			this.addCanvas(options, {"w":600, "h":400});
