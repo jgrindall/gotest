@@ -4,8 +4,6 @@ define([], function(){
 
 	alert("not using zepto, returning whatever value of jquery is found  "+window.$+"  "+window.jquery);
 
-
-
 	if(window.$){
 
 		return window.$;
