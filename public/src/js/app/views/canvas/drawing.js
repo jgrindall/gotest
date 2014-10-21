@@ -56,6 +56,7 @@ FdCommand, StepLengths){
 	Drawing.prototype.turtleChanged = function(value){
 		if(value !== null){
 			this.turtle.addTurtle();
+			console.log("turtleChanged", JSON.stringify(this.startPos));
 			this.turtle.reset(this.startPos);
 		}
 	};
@@ -105,6 +106,7 @@ FdCommand, StepLengths){
 
 	Drawing.prototype.onReset = function(){
 		this.setStart();
+		console.log("onReset", JSON.stringify(this.startPos));
 		this.turtle.reset(this.startPos);
 		this.angle = -90;
 		this.setTurtle();
@@ -115,6 +117,7 @@ FdCommand, StepLengths){
 		var pos;
 		pos = this.modelFacade.get(ModelConsts.START_POS).get();
 		this.startPos = this.fractionToPos(pos);
+		console.log("setStart", JSON.stringify(this.startPos));
 		this.turtle.move(pos);
 	};
 
@@ -237,7 +240,7 @@ FdCommand, StepLengths){
 		x = (p.x * this.bounds.w) + this.bounds.x;
 		y = (p.y * this.bounds.h) + this.bounds.y;
 		pos = {'x':x, 'y':y};
-		return this.roundPoint(p, 10);
+		return this.roundPoint(pos, 10);
 	};
 
 	Drawing.prototype.posToFraction = function(pos) {
