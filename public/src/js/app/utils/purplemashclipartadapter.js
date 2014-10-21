@@ -28,12 +28,19 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 
 		PurpleMashClipartAdapter.prototype.idSelected = function(options, id){
 			console.log("callback id = ", id);
+			var src;
 			if(window.ClipArtHelper){
 				try{
 					window.ClipArtHelper.getImage(id, function(data){
+						src = data.src;
 						console.log("getImage = ", data, JSON.stringify(data));
-						console.log("src = ", data.src);
-						//options.callback(data.src);
+						console.log("src = ", src);
+						if(this.isBase64(src)){
+							options.success(src);
+						}
+						else{
+							this.imgUrlToBase64(src, options);
+						}
 					});
 				}
 				catch(e){
@@ -55,7 +62,15 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 			this.open(options);
 		};
 
-		PurpleMashClipartAdapter.prototype.imgUrlToBase64 = function(url, callback){
+		PurpleMashClipartAdapter.prototype.isBase64 = function(obj){
+			console.log(obj, (typeof obj), obj.substring(0, 22));
+			if((typeof obj) === 'string' && obj.substring(0, 22) === "data:image/png;base64,"){
+				return true;
+			}
+			return false;
+		};
+
+		PurpleMashClipartAdapter.prototype.imgUrlToBase64 = function(url, options){
     		var canvas, context, img;
     		canvas = document.createElement('canvas');
         	context = canvas.getContext('2d');
@@ -67,8 +82,9 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 	        	canvas.width = img.width;
 	        	context.drawImage(img, 0, 0);
 	        	dataURL = canvas.toDataURL("image/png");
-	        	callback.call(this, dataURL);
-	        	canvas = null; 
+	        	options.success(dataURL);
+	        	canvas = null;
+	        	img.onload = null;
    	 		};
    	 		img.src = url;
 		};
