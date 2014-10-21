@@ -1440,6 +1440,9 @@ function(Phaser, Injector){
 		else if(typeof val === 'object'){
 			return (JSON.stringify(val) !== JSON.stringify(this.value));
 		}
+		else {
+			return (val === this.value);
+		}
 	};
 
 	AbstractModel.prototype.set = function(val, options) {
