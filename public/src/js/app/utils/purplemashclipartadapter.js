@@ -29,18 +29,18 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 
 		PurpleMashClipartAdapter.prototype.idSelected = function(options, id){
 			console.log("callback id = ", id, options, options.success);
-			var src;
+			var src, that = this;
 			if(window.ClipArtHelper){
 				try{
 					window.ClipArtHelper.getImage(id, function(data){
 						src = data.src;
 						console.log("getImage = ", data, JSON.stringify(data));
 						console.log("src = ", src);
-						if(this.isBase64(src)){
+						if(that.isBase64(src)){
 							options.success(src);
 						}
 						else{
-							this.imgUrlToBase64(src, options);
+							that.imgUrlToBase64(src, options);
 						}
 					});
 				}
@@ -64,7 +64,7 @@ define(['app/utils/errorcodes', 'app/utils/error'],
 		};
 
 		PurpleMashClipartAdapter.prototype.isBase64 = function(obj){
-			console.log(obj, (typeof obj), obj.substring(0, 22));
+			console.log("isbase64", obj, (typeof obj), obj.substring(0, 22));
 			if((typeof obj) === 'string' && obj.substring(0, 22) === "data:image/png;base64,"){
 				return true;
 			}
