@@ -18,7 +18,7 @@ function($, PhaserComponents,
 
 	OpenBgEditorCommand.prototype.onImgSelected = function(id){
 		console.log("callback id = ", id, JSON.stringify(id));
-		ClipArtHelper.getImage(id, function(data){
+		window.ClipArtHelper.getImage(id, function(data){
 			console.log("getImage = ", data, JSON.stringify(data));
 			console.log("src = ", data.src);
 		});
@@ -29,12 +29,12 @@ function($, PhaserComponents,
 	};
 
 	OpenBgEditorCommand.prototype.openPM = function(){
-		console.log("using PM editor");
-		console.log("PMClipArtPicker = ", 	PMClipArtPicker);
-		console.log("ClipArtHelper = ", 	ClipArtHelper);
-		console.log("onSuccess = ", 		onSuccess);
 		var onSuccess = this.onImgSelected.bind(this);
-		new PMClipArtPicker({"onSelectImage": onSuccess});
+		console.log("using PM editor");
+		console.log("PMClipArtPicker = ", 	window.PMClipArtPicker);
+		console.log("ClipArtHelper = ", 	window.ClipArtHelper);
+		console.log("onSuccess = ", 		onSuccess);
+		new window.PMClipArtPicker({"onSelectImage": onSuccess});
 	};
 
 	OpenBgEditorCommand.prototype.drawRandom = function(options){
