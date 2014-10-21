@@ -615,7 +615,7 @@ define(
 
 	'phasercomponents/utils/keymanager',['phasercomponents/injector', 'phasercomponents/events/appevents'],
 
-	function($, Injector, AppEvents){
+	function(Injector, AppEvents){
 	
 	
 	
@@ -689,7 +689,7 @@ define(
 
 	'phasercomponents/utils/alertmanager',['phaser', 'phasercomponents/injector', 'phasercomponents/events/appevents'], 
 
-function($, Phaser, Injector, AppEvents){
+function(Phaser, Injector, AppEvents){
 
 	
 	
