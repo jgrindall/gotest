@@ -14,7 +14,7 @@ define( ['app/prog/views/dropview',	'app/assets',
 
 	LinearTarget.NUM = 			5;
 	LinearTarget.TOP = 			25;
-	LinearTarget.BOTTOM = 		250;
+	LinearTarget.BOTTOM = 		345;
 	LinearTarget.BLOCK_TOP = 	54;
 	LinearTarget.GAP = 			55;
 	LinearTarget.START_POS = 	{'x':-61, 'y':0};
@@ -30,7 +30,7 @@ define( ['app/prog/views/dropview',	'app/assets',
 	LinearTarget.prototype.decorate = function(){
 		var p0, p1;
 		p0 = {'x':this.middle, 'y':LinearTarget.TOP};
-		p1 = {'x':p0.x, 'y':this.parent.game.h + LinearTarget.TOP - LinearTarget.BOTTOM};
+		p1 = {'x':p0.x, 'y':LinearTarget.BOTTOM};
 		this.drawLine(p0, p1);
 	};
 
