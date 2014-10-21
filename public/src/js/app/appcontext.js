@@ -21,11 +21,11 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/scenes/loaderscene', 'app/scenes/activityscene', 
 
-	'app/assets', 'app/storage/purplemashadapter',
+	'app/assets', 'app/storage/purplemashstorageadapter',
 
 	'app/views/showmanager', 'app/models/modelfacade',
 
-	'app/consts/defaults'],
+	'app/consts/defaults', 'app/utils/clipart', 'app/utils/purplemashclipartadapter'],
 
 	function(NewFileCommand, LoadCommand, SaveCommand,
 
@@ -49,11 +49,11 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		LoaderScene, ActivityScene,
 
-		Assets, PurpleMashAdapter,
+		Assets, PurpleMashStorageAdapter,
 
 		ShowManager, ModelFacade,
 
-		Defaults) {
+		Defaults, Clipart, PurpleMashClipartAdapter) {
 	
 	"use strict";
 
@@ -79,11 +79,12 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
         alertManager = this.alertManager;
         this.showManager = new ShowManager();
         this.modelFacade = new ModelFacade();
+        this.addClipart();
         PhaserComponents.Injector.getInstance().mapArray(["nameview","imgview"],			["game", "eventDispatcher"],            [game, eventDispatcher]);
         PhaserComponents.Injector.getInstance().map("showmanager",							["game"],            					[game, eventDispatcher]);
         PhaserComponents.Injector.getInstance().map("filedownloader",						["eventDispatcher"],            		[eventDispatcher]);
         PhaserComponents.Injector.getInstance().map("view",									["showManager", "modelFacade"],         [this.showManager, this.modelFacade]);
-        PhaserComponents.Injector.getInstance().map("abstractcommand",						["modelFacade"],            			[this.modelFacade]);
+        PhaserComponents.Injector.getInstance().map("abstractcommand",						["modelFacade", "clipart"],            	[this.modelFacade, this.clipart]);
         PhaserComponents.Injector.getInstance().map("scene",								["showManager"],            			[this.showManager]);
         this.showManager.init();
         this.modelFacade.init();
@@ -103,12 +104,18 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     	this.keyManager.setCodes([37, 38, 39, 40, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105]);
     };
 
-    AppContext.prototype.addStorage = function(){
-    	var adapter, regexp;
-    	adapter = new PurpleMashAdapter();
-    	regexp = new RegExp('purple', 'g');
+    AppContext.prototype.addClipart = function(){
+    	var regexp = new RegExp('purple', 'g');
+    	this.clipart = new Clipart();
     	if(regexp.test(window.location)){
-			this.storage.setAdapter(adapter);
+			this.clipart.setAdapter(new PurpleMashClipartAdapter());
+		}
+    };
+
+    AppContext.prototype.addStorage = function(){
+    	var regexp = new RegExp('purple', 'g');
+    	if(regexp.test(window.location)){
+			this.storage.setAdapter(new PurpleMashStorageAdapter());
 		}
     };
 
