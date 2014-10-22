@@ -43,7 +43,7 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter'],
 
 		LocalClipartAdapter.prototype.openTurtle = function(options){
 			var graph, context;
-			this.addCanvas(options, {"w":50, "h":50});
+			this.addCanvas(options, {"w":50, "h":90});
 			graph = $('#sketch');
 	        context = graph[0].getContext('2d');
 	   	 	context.lineWidth = 3;

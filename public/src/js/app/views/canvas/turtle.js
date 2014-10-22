@@ -141,13 +141,19 @@ function(Phaser, PhaserComponents,
 	};
 	
 	Turtle.prototype.addTurtleUsingKey = function(key) {
-		var bounds;
+		var bounds, w, h, scale;
 		bounds = {'x':0, 'y':0};
 		this.removeTurtle();
 		this.turtle = new PhaserComponents.Display.InteractiveSprite({"bounds":bounds, "numFrames":1, "asset":key});
 		this.group.add(this.turtle.view);
 		this.turtle.view.anchor.setTo(0.5, 0.5);
 		this.turtle.view.mask = this.mask;
+		w = this.turtle.view.width;
+		h = this.turtle.view.height;
+		scale = Math.max(w, h)/50;
+		if(scale > 1){
+			this.turtle.view.scale = {'x':1/scale, 'y':1/scale};
+		}
 		this.turtle.mouseDownSignal.add(this.downHandler, this);
 		this.enableMove();
 	};
