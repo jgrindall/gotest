@@ -12,9 +12,13 @@ define(['phasercomponents', 'app/assets'],
 	};
 	
 	OkButton.WIDTH = 180;
-	OkButton.HEIGHT = 70;
+	OkButton.HEIGHT = 100;
 	
 	PhaserComponents.Utils.extends(OkButton, PhaserComponents.Display.AbstractButton);
+
+	OkButton.prototype.create = function(){
+		PhaserComponents.Display.AbstractButton.prototype.create.call(this);
+	};
 
 	return OkButton;
 	

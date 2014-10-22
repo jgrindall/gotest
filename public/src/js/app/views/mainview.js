@@ -41,6 +41,7 @@ Assets, ShowDirections, ModelConsts){
 		this.eventDispatcher.addListener(Events.IMG_CAPTURED, this.imgHandler);
 		this.eventDispatcher.addListener(Events.CLOSE_IMG, this.closeHandler);
 		this.addBg();
+		this.addTopBar();
 		this.addTop();
 		this.addCanvas();
 		this.addControls();
@@ -66,15 +67,15 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.addTop = function() {
 		var bounds = this.bounds;
-		this.top = new ControlTop({"bounds":bounds});
-		this.group.add(this.top.view);
+		this.controlTop = new ControlTop({"bounds":bounds});
+		this.group.add(this.controlTop.view);
 	};
 
 	MainView.prototype.removeTop = function(){
-		if(this.top){
-			this.group.remove(this.top.view);
-			this.top.destroy();
-			this.top = null;
+		if(this.controlTop){
+			this.group.remove(this.controlTop.view);
+			this.controlTop.destroy();
+			this.controlTop = null;
 		}
 	};
 
@@ -135,6 +136,19 @@ Assets, ShowDirections, ModelConsts){
 		this.showManager.add(this.canvas.view, 5, ShowDirections.UP);
 	};
 	
+	MainView.prototype.addTopBar = function(){
+		this.topBar = new Phaser.TileSprite(this.game, 0, 0, this.game.w, 49, Assets.TOPBAR);
+		this.group.add(this.topBar);
+	};
+
+	MainView.prototype.removeTopBar = function(){
+		if(this.topBar){
+			this.group.remove(this.topBar);
+			this.topBar.destroy(true);
+			this.topBar = null;
+		}
+	};
+
 	MainView.prototype.addMenu = function() {
 		var bounds = {'x':0, 'y':0, 'w':Menu.WIDTH, 'h':Menu.HEIGHT};
 		this.menu = new Menu({"bounds":bounds});
@@ -189,12 +203,15 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.redraw = function(){
 		this.removeBg();
+		this.removeTopBar();
 		this.addBg();
-		this.group.sendToBack(this.bg.view);
-		this.top.onResize();
+		this.addTopBar();
+		this.controlTop.onResize();
 		this.controls.onResize();
 		this.positionCanvas();
 		this.positionControls();
+		this.group.sendToBack(this.topBar);
+		this.group.sendToBack(this.bg.view);
 	};
 
 	MainView.prototype.addControls = function() {

@@ -20,7 +20,7 @@ function(BgPanel, BgData, Assets){
 		paddingX = 50;
 		paddingY = 50;
 		w = scroller.bounds.w - 2*paddingX;
-		h = scroller.bounds.h - 2*paddingY - 25;
+		h = scroller.bounds.h - 2*paddingY - 50;
 		bounds = {"x":paddingX + scroller.bounds.x + i * this.game.w, "y":paddingY + scroller.bounds.y, "w":w, "h":h};
 		options = {"bounds":bounds, "bgasset":Assets.MAPS[i]};
 		panel = new BgPanel(options);

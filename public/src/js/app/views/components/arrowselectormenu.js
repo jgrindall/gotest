@@ -66,7 +66,7 @@ PhaserComponents, Assets)
 	};
 	
 	ArrowSelectorMenu.prototype.addPager = function () {
-		var options = $.extend(!{}, this.options, {'markerButtonClass':MarkerButton,'bgasset':Assets.PANEL, 'snapX':this.game.w});
+		var options = $.extend({}, this.options, {'markerButtonClass':MarkerButton,'bgasset':Assets.PANEL, 'snapX':this.game.w});
 		this.pager = new PhaserComponents.Display.Pager(options);
 		this.pager.pageSignal.add(this.choose, this);
 		this.pager.selectSignal.add(this.onSelected, this);

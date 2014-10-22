@@ -2,7 +2,7 @@ define(
 
 	['phasercomponents', 'app/consts/commandpaneltypes',
 
-	'app/views/buttons/closebutton', 'app/logocommands/commandtypes',
+	'app/views/buttons/clearbutton', 'app/logocommands/commandtypes',
 
 	'app/views/buttons/playbutton', 'app/views/buttons/stopbutton',
 
@@ -14,7 +14,7 @@ define(
 
 	function(PhaserComponents, CommandPanelTypes, 
 
-		CloseButton, CommandTypes,
+		ClearButton, CommandTypes,
 
 		PlayButton, StopButton,
 
@@ -108,7 +108,7 @@ define(
 		var options, bounds;
 		bounds = this.playButton.bounds;
 		options = {"bounds":{'x':bounds.x + 100, 'y':bounds.y + 15}};
-		this.clearButton = new CloseButton(options);
+		this.clearButton = new ClearButton(options);
 		this.clearButton.view.scale = {'x':0.5, 'y':0.5};
 		this.group.add(this.clearButton.view);
 		this.clearButton.mouseUpSignal.add(this.clickClear, this);

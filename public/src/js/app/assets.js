@@ -13,10 +13,12 @@ define([], function(){
 	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
 	Assets.MOVER = 					'mover';
+	Assets.TOPBAR = 				'topBar';
 	Assets.CORNERS = 				'corners';
 	Assets.CORNERSX = 				'cornersx';
 	Assets.SOUNDS = 				['clickdown', 'clickup', 'swooshdown', 'swooshup', 'rocket', 'snail', 'camera'];
 	Assets.CLOSE = 					'close';
+	Assets.CLEAR = 					'clear';
 	Assets.MARKER = 				'marker';
 	Assets.CHALLENGES = 			'challenges';
 	Assets.PANEL = 					'panel';
@@ -58,8 +60,11 @@ define([], function(){
 	Assets.TOGGLE = 				'toggle';
 	Assets.RADIO = 					'radio';
 	Assets.BG = 					'bg';
+	Assets.YES = 					'yes';
+	Assets.SMILE = 					'smile';
 	
 	Assets.SPRITESHEETS = [
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/yes.png",	 				"key":Assets.YES,						"w":73, 	"h":73},
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":45, 	"h":45},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":150, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtargetsmall.png",	 		"key":Assets.DRAG_TARGET_SMALL,			"w":80, 	"h":50},
@@ -77,7 +82,8 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/leftright.png", 				"key":Assets.LEFTRIGHT, 				"w":60, 	"h":80},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/keys.png", 					"key":Assets.KEYS, 						"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/close.png", 					"key":Assets.CLOSE, 					"w":50, 	"h":50},
-		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Assets.OK_BUTTON, 				"w":180, 	"h":70},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/clear.png", 					"key":Assets.CLEAR, 					"w":50, 	"h":50},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/okButton.png", 				"key":Assets.OK_BUTTON, 				"w":180, 	"h":100},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/next.png", 					"key":Assets.NEXT_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/start.png", 					"key":Assets.START_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/skip.png", 					"key":Assets.SKIP_BUTTON, 				"w":180, 	"h":70},
@@ -116,6 +122,8 @@ define([], function(){
 	];
 	
 	Assets.IMAGES = [
+		{"type":"image", 		"asset":"assets/images/buttons/smile.png",	 			"key":Assets.SMILE},
+		{"type":"image", 		"asset":"assets/images/bg/topbar.png", 					"key":Assets.TOPBAR},
 		{"type":"image", 		"asset":"assets/images/turtle/turtle0.png", 			"key":Assets.TURTLES[0]},
 		{"type":"image", 		"asset":"assets/images/turtle/turtle1.png", 			"key":Assets.TURTLES[1]},
 		{"type":"image", 		"asset":"assets/images/turtle/turtle2.png", 			"key":Assets.TURTLES[2]},

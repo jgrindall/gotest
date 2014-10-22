@@ -2500,7 +2500,7 @@ function(GroupMarker, Scroller, Utils){
 		Scroller.prototype.addChildren.call(this);
 		buttonClass = this.options.markerButtonClass;
 		numPages = this.numPages();
-		bounds = {'x':this.bounds.x + this.bounds.w/2 - (numPages/2)*buttonClass.WIDTH, 'y':this.bounds.y + this.bounds.h - 83};
+		bounds = {'x':this.bounds.x + this.bounds.w/2 - (numPages/2)*buttonClass.WIDTH, 'y':this.bounds.y + this.bounds.h - 110};
 		if(numPages >= 2){
 			this.groupMarker = new GroupMarker({"num":numPages, "buttonClass":buttonClass, "bounds":bounds});
 			this.group.add(this.groupMarker.group);
@@ -2905,7 +2905,7 @@ Container, Utils){
 	
 	AbstractPopup.prototype.buttonUp = function(data) {
 		var index, selectionData;
-		index = this.buttonGroup.getIndex(data.target.sprite);
+		index = this.buttonGroup.getIndex(data.target.view);
 		selectionData = this.getData();
 		this.selectSignal.dispatch({"index":index, "selection":selectionData});
 	};
@@ -2913,7 +2913,7 @@ Container, Utils){
 	AbstractPopup.prototype.addButton = function (ClassRef, bounds) {
 		var b = new ClassRef({'bounds':bounds});
 		b.mouseUpSignal.add(this.buttonUp, this);
-		this.buttonGroup.add(b.sprite);
+		this.buttonGroup.add(b.view);
 		this.buttons.push(b);
 		this.group.bringToTop(this.buttonGroup);
 	};

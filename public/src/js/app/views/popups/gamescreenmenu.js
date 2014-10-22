@@ -1,13 +1,13 @@
 
 define(['phasercomponents','app/views/popups/screenchoice', 'app/views/buttons/radiobutton',
 
-'app/views/buttons/okbutton', 'app/views/buttons/closebutton',
+'app/views/buttons/okbuttoncontainer', 'app/views/buttons/closebutton',
 
 'app/models/modelconsts', 'app/assets'],
 
 function(PhaserComponents, ScreenChoice, RadioButton,
 
-OkButton, CloseButton,
+OkButtonContainer, CloseButton,
 
 ModelConsts, Assets){
 	
@@ -25,9 +25,9 @@ ModelConsts, Assets){
 	GameScreenMenu.HEIGHT = 540;
 	
 	GameScreenMenu.prototype.addOkButton = function () {
-		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT + 3};
-		this.addButton(OkButton, bounds);
+		var middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
+		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT + 3};
+		this.addButton(OkButtonContainer, bounds);
 	};
 	
 	GameScreenMenu.prototype.onChanged = function(data){
@@ -60,7 +60,7 @@ ModelConsts, Assets){
 	};
 
 	GameScreenMenu.prototype.addCloseButton = function () {
-		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y };
+		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH, "y":this.bounds.y };
 		this.addButton(CloseButton, bounds);
 	};
 

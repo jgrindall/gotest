@@ -3,13 +3,17 @@ define(['app/assets',
 
 'phasercomponents', 'app/models/modelconsts',
 
-'app/views/buttons/okbutton', 'app/views/buttons/closebutton', 'app/consts/steplengths'],
+'app/views/buttons/okbuttoncontainer', 'app/views/buttons/okbutton',
+
+'app/views/buttons/closebutton', 'app/consts/steplengths'],
 
 function(Assets,
 
 PhaserComponents, ModelConsts,
 
-OkButton, CloseButton, StepLengths){
+OkButtonContainer, OkButton,
+
+CloseButton, StepLengths){
 	
 	"use strict";
 		
@@ -26,17 +30,17 @@ OkButton, CloseButton, StepLengths){
 
 	GridMenu.WIDTH = 	720;
 	GridMenu.HEIGHT = 	540;
-	GridMenu.Y0 = 		60;
-	GridMenu.Y1 = 		180;
-	GridMenu.Y2 = 		300;
-	GridMenu.Y3 = 		420;
+	GridMenu.Y0 = 		55;
+	GridMenu.Y1 = 		170;
+	GridMenu.Y2 = 		285;
+	GridMenu.Y3 = 		400;
 	
 	
 	GridMenu.prototype.addOkButton = function () {
 		var middle, bounds;
-		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT/2 - 30};
-		this.addButton(OkButton, bounds);
+		middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
+		bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT/2 - 47};
+		this.addButton(OkButtonContainer, bounds);
 	};
 	
 	GridMenu.prototype.setSettings1 = function() {
@@ -63,7 +67,7 @@ OkButton, CloseButton, StepLengths){
 	};
 
 	GridMenu.prototype.addCloseButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y};
+		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH, "y":this.bounds.y};
 		this.addButton(CloseButton, bounds);
 	};
 	

@@ -1,7 +1,7 @@
 
 define(['phasercomponents',
 
-'app/views/buttons/okbutton', 'app/views/buttons/closebutton',
+'app/views/buttons/okbuttoncontainer', 'app/views/buttons/closebutton',
 
 'app/assets', 'app/views/buttons/addbutton',
 
@@ -9,7 +9,7 @@ define(['phasercomponents',
 
 function(PhaserComponents, 
 
-OkButton, CloseButton,
+OkButtonContainer, CloseButton,
 
 Assets, AddButton,
 
@@ -29,9 +29,9 @@ TurtleChoice){
 	TurtleMenu.HEIGHT = 250;
 
 	TurtleMenu.prototype.addOkButton = function () {
-		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT + 3};
-		this.addButton(OkButton, bounds);
+		var middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
+		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT + 3};
+		this.addButton(OkButtonContainer, bounds);
 	};
 	
 	TurtleMenu.prototype.addAdd = function () {
@@ -41,7 +41,7 @@ TurtleChoice){
 	};
 
 	TurtleMenu.prototype.addCloseButton = function () {
-		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y };
+		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH, "y":this.bounds.y };
 		this.addButton(CloseButton, bounds);
 	};
 
@@ -51,7 +51,7 @@ TurtleChoice){
 
 	TurtleMenu.prototype.addGrid = function() {
 		var options, bounds;
-		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 30, 'w':this.bounds.w, 'h':this.bounds.h - 31};
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h - 31};
 		options = {"model":this.model, "bounds":bounds, "numX": 4, "numY": 1, "buttonClass": TurtleChoice};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.onChanged, this);
@@ -59,7 +59,7 @@ TurtleChoice){
 	};
 
 	TurtleMenu.prototype.addTitle = function() {
-		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 10, this.bounds.y + 7, "Choose a turtle!");
+		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 14, this.bounds.y + 10, "Choose a turtle!");
  		this.group.add(this.label);
 	};
 

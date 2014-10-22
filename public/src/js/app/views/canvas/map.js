@@ -13,6 +13,7 @@ PhaserComponents, Assets){
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.BG).changeSignal.add(this.updateImage, this);
 		this.modelFacade.get(ModelConsts.BG_PNG).changeSignal.add(this.updatePngImage, this);
+		//TODO - background color is 0xc8c8c8
 	};
 	
 	PhaserComponents.Utils.extends(Map, PhaserComponents.Display.Container);

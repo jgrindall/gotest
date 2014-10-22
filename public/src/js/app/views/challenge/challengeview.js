@@ -2,13 +2,13 @@
 
 define(['phasercomponents', 'app/views/challenge/challengebutton',
 
-'app/views/buttons/skipbutton', 'app/views/buttons/okbutton',
+'app/views/buttons/skipbutton', 'app/views/buttons/okbuttoncontainer',
 
 'app/views/buttons/closebutton', 'app/assets'],
 
 function(PhaserComponents, ChallengeButton,
 
-SkipButton, OkButton, 
+SkipButton, OkButtonContainer, 
 
 CloseButton, Assets){
 	
@@ -26,9 +26,9 @@ CloseButton, Assets){
 	ChallengeView.HEIGHT = 540;
 
 	ChallengeView.prototype.addOkButton = function () {
-		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT};
-		this.addButton(OkButton, bounds);
+		var middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
+		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT};
+		this.addButton(OkButtonContainer, bounds);
 	};
 
 	ChallengeView.prototype.addSkipButton = function () {

@@ -1,13 +1,13 @@
 
 define(['app/views/buttons/closebutton', 'app/assets',
 
-'app/views/buttons/okbutton', 'phasercomponents'
+'app/views/buttons/okbuttoncontainer', 'phasercomponents'
 
 ],
 
 function(CloseButton, Assets,
 
-OkButton, PhaserComponents
+OkButtonContainer, PhaserComponents
 
 ){
 	
@@ -30,9 +30,9 @@ OkButton, PhaserComponents
 	};
 	
 	SelectorMenu.prototype.addOkButton = function () {
-		var middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButton.HEIGHT + 4};
-		this.addButton(OkButton, bounds);
+		var middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
+		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT + 4};
+		this.addButton(OkButtonContainer, bounds);
 	};
 	
 	SelectorMenu.prototype.destroy = function () {
@@ -40,7 +40,7 @@ OkButton, PhaserComponents
 	};
 	
 	SelectorMenu.prototype.addCloseButton = function () {
-		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH - 10, "y":this.bounds.y};
+		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH, "y":this.bounds.y};
 		this.addButton(CloseButton, bounds);
 	};
 	
