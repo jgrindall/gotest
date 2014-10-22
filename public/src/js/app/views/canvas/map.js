@@ -13,7 +13,6 @@ PhaserComponents, Assets){
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.BG).changeSignal.add(this.updateImage, this);
 		this.modelFacade.get(ModelConsts.BG_PNG).changeSignal.add(this.updatePngImage, this);
-		//TODO - background color is 0xc8c8c8
 	};
 	
 	PhaserComponents.Utils.extends(Map, PhaserComponents.Display.Container);
@@ -37,6 +36,20 @@ PhaserComponents, Assets){
 		}
 	};
 
+	Map.prototype.addBacking = function() {
+		this.gfx = new Phaser.Graphics(this.game, 0, 0);
+		this.group.add(this.gfx);
+		this.gfx.lineStyle(0, 0x000000, 0);
+		this.gfx.beginFill(0xc8c8c8, 1);
+		this.gfx.drawRect(1, 1, this.bounds.w - 1, this.bounds.h - 1);
+		this.gfx.endFill();
+	};
+
+	Map.prototype.removeBacking = function(){
+		this.group.remove(this.gfx);
+		this.gfx = null;
+	};
+
 	Map.prototype.addMapUsingKey = function(key) {
 		var p = 5;
 		this.removeSprite();
@@ -51,6 +64,7 @@ PhaserComponents, Assets){
 	
 	Map.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
+		this.addBacking();
 		this.updateImage();	
 	};
 	
@@ -66,6 +80,7 @@ PhaserComponents, Assets){
 		this.modelFacade.get(ModelConsts.BG).changeSignal.remove(this.updateImage, this);
 		this.modelFacade.get(ModelConsts.BG_PNG).changeSignal.remove(this.updatePngImage, this);
 		this.removeSprite();
+		this.removeBacking();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
