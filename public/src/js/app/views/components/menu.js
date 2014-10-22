@@ -15,16 +15,16 @@ PlayingState, ModelConsts){
 	
 	var Menu  = function(options){
 		options.buttonClass = MenuButton;
-		options.numX = 5;
+		options.numX = 4;
 		options.numY = 1;
-		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}, {'num':4}];
+		options.data = [{'num':0}, {'num':1}, {'num':2}, {'num':3}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
 	};
 	
-	Menu.WIDTH = 280;
+	Menu.WIDTH = 200;
 	Menu.HEIGHT = 50;
 
 	PhaserComponents.Utils.extends(Menu, PhaserComponents.Display.ButtonBar);
@@ -50,9 +50,6 @@ PlayingState, ModelConsts){
 			this.eventDispatcher.trigger({"type":Events.SAVE});
 		}
 		else if(i === 3){
-			this.eventDispatcher.trigger({"type":Events.PRINT});
-		}
-		else if(i === 4){
 			this.eventDispatcher.trigger({"type":Events.DOWNLOAD});
 		}
 	};

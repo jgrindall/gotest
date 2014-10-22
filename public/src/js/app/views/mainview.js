@@ -42,6 +42,7 @@ Assets, ShowDirections, ModelConsts){
 		this.eventDispatcher.addListener(Events.CLOSE_IMG, this.closeHandler);
 		this.addBg();
 		this.addTopBar();
+		this.addBrand();
 		this.addTop();
 		this.addCanvas();
 		this.addControls();
@@ -107,6 +108,11 @@ Assets, ShowDirections, ModelConsts){
 		}
 	};
 
+	MainView.prototype.positionBrand = function() {
+		this.brand.x = this.game.w - 393;
+		this.brand.y = 9;
+	};
+
 	MainView.prototype.positionCanvas = function() {
 		var scale, w, h, x, y;
 		scale = this.getCanvasScale();
@@ -156,11 +162,25 @@ Assets, ShowDirections, ModelConsts){
 		this.showManager.add(this.menu.view, 0, ShowDirections.DOWN);
 	};
 
+	MainView.prototype.addBrand = function() {
+		this.brand = new Phaser.Sprite(this.game, 0, 0, Assets.BRAND);
+		this.group.add(this.brand);
+		this.positionBrand();
+	};
+
 	MainView.prototype.removeMenu = function() {
 		if(this.menu){
 			this.group.remove(this.menu.view);
 			this.menu.destroy();
 			this.menu = null;
+		}
+	};
+
+	MainView.prototype.removeBrand = function() {
+		if(this.brand){
+			this.group.remove(this.brand);
+			this.brand.destroy();
+			this.brand = null;
 		}
 	};
 	
@@ -210,6 +230,8 @@ Assets, ShowDirections, ModelConsts){
 		this.controls.onResize();
 		this.positionCanvas();
 		this.positionControls();
+		this.positionBrand();
+		this.group.sendToBack(this.brand);
 		this.group.sendToBack(this.topBar);
 		this.group.sendToBack(this.bg.view);
 	};
@@ -255,6 +277,7 @@ Assets, ShowDirections, ModelConsts){
 		this.removeControls();
 		this.removeBg();
 		this.removeCanvas();
+		this.removeBrand();
 		this.removeName();
 	};
 	

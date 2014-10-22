@@ -62,6 +62,7 @@ define([], function(){
 	Assets.BG = 					'bg';
 	Assets.YES = 					'yes';
 	Assets.SMILE = 					'smile';
+	Assets.BRAND = 					'brand';
 	
 	Assets.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/yes.png",	 				"key":Assets.YES,						"w":73, 	"h":73},
@@ -161,7 +162,8 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
 		{"type":"image", 		"asset":"assets/images/maps/corners.jpg",	 			"key":Assets.CORNERS},
 		{"type":"image", 		"asset":"assets/images/prog/dragdomains.png",	 		"key":Assets.DRAG_DOMAIN},
-		{"type":"image", 		"asset":"assets/images/scroll/vscrollbar.png",	 		"key":Assets.VSCROLLBAR}
+		{"type":"image", 		"asset":"assets/images/scroll/vscrollbar.png",	 		"key":Assets.VSCROLLBAR},
+		{"type":"image", 		"asset":"assets/images/bg/2s_logo.png",	 				"key":Assets.BRAND}
 	];
 	
 	
