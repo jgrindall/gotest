@@ -47,8 +47,7 @@ PlayingState, Events, ModelConsts){
 			this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
 		}
 		else if(index === 5){
-			alert("back");
-			//this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
+			this.eventDispatcher.trigger({"type":Events.BACK});
 		} 
 	};
 

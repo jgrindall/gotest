@@ -9,6 +9,7 @@ function() {
 	};
 
 	Events.NEW_FILE 			= 		"newFile";
+	Events.BACK 				= 		"back";
 	Events.LOAD 				= 		"load";
 	Events.SAVE					= 		"save";
 	Events.PRINT				= 		"print";

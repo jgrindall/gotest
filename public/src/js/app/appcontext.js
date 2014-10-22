@@ -15,7 +15,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/openbgeditorcommand', 'app/commands/openturtleeditorcommand', 
 
-	'app/commands/finishcommand', 'app/commands/replaycommand',
+	'app/commands/finishcommand', 'app/commands/replaycommand','app/commands/backcommand',
 
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
@@ -43,7 +43,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		OpenBgEditorCommand, OpenTurtleEditorCommand,
 
-		FinishCommand, ReplayCommand,
+		FinishCommand, ReplayCommand, BackCommand,
 
 		Events, PhaserComponents, AppConsts,
 
@@ -150,6 +150,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.ADD_COMMAND, 								AddCommandCommand);
 		this.commandMap.map(Events.START_ACTIVITY, 								StartUpCommand);
 		this.commandMap.map(Events.DRAW, 										DrawCommand);
+		this.commandMap.map(Events.BACK, 										BackCommand);
 		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
 		this.commandMap.map(Events.DOWNLOAD, 									DownloadCommand);
 		this.commandMap.map(Events.FINISHED, 									FinishCommand);
