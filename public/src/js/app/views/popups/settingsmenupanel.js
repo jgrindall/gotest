@@ -3,59 +3,48 @@ define(['app/assets',
 
 'phasercomponents', 'app/models/modelconsts',
 
-'app/views/buttons/okbuttoncontainer', 'app/views/buttons/okbutton',
+'app/views/buttons/okbutton',
 
-'app/views/buttons/closebutton', 'app/consts/steplengths'],
+'app/consts/steplengths'],
 
 function(Assets,
 
 PhaserComponents, ModelConsts,
 
-OkButtonContainer, OkButton,
+OkButton,
 
-CloseButton, StepLengths){
+StepLengths){
 	
 	"use strict";
 		
-	var GridMenu = function(options){
-		options.bgasset = Assets.PANEL;
-		PhaserComponents.Display.AbstractPopup.call(this, options);
+	var SettingsMenuPanel = function(options){
+		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.STEPLENGTH).changeSignal.add(this.setSettings1, this);
 		this.modelFacade.get(ModelConsts.DIAG).changeSignal.add(this.setSettings2, this);
 		this.modelFacade.get(ModelConsts.GRID).changeSignal.add(this.setSettings2, this);
 		this.modelFacade.get(ModelConsts.ALLOW_PROG).changeSignal.add(this.setSettings3, this);
 	};
 	
-	PhaserComponents.Utils.extends(GridMenu, PhaserComponents.Display.AbstractPopup);
+	PhaserComponents.Utils.extends(SettingsMenuPanel, PhaserComponents.Display.Container);
 
-	GridMenu.WIDTH = 	720;
-	GridMenu.HEIGHT = 	540;
-	GridMenu.Y0 = 		55;
-	GridMenu.Y1 = 		170;
-	GridMenu.Y2 = 		285;
-	GridMenu.Y3 = 		400;
+	SettingsMenuPanel.Y0 = 		55;
+	SettingsMenuPanel.Y1 = 		170;
+	SettingsMenuPanel.Y2 = 		285;
+	SettingsMenuPanel.Y3 = 		400;
 	
-	
-	GridMenu.prototype.addOkButton = function () {
-		var middle, bounds;
-		middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT/2 - 47};
-		this.addButton(OkButtonContainer, bounds);
-	};
-	
-	GridMenu.prototype.setSettings1 = function() {
+	SettingsMenuPanel.prototype.setSettings1 = function() {
 		this.settings1.goTo(this.modelFacade.get(ModelConsts.STEPLENGTH).get());
 	};
 
-	GridMenu.prototype.setSettings3 = function() {
+	SettingsMenuPanel.prototype.setSettings3 = function() {
 		this.settings3.goTo(this.modelFacade.get(ModelConsts.ALLOW_PROG).get());
 	};
 
-	GridMenu.prototype.setSettings2 = function() {
+	SettingsMenuPanel.prototype.setSettings2 = function() {
 		var grid, diag, frame, frames;
 		grid = this.modelFacade.get(ModelConsts.GRID).get();
 		if(this.showDiag){
-			frames = [[5, 4],[3, 2]];
+			frames = [[5, 4], [3, 2]];
 			diag = this.modelFacade.get(ModelConsts.DIAG).get();
 			frame = frames[grid][diag];
 		}
@@ -65,71 +54,70 @@ CloseButton, StepLengths){
 		}
 		this.settings2.goTo(frame);
 	};
-
-	GridMenu.prototype.addCloseButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - CloseButton.WIDTH, "y":this.bounds.y};
-		this.addButton(CloseButton, bounds);
-	};
 	
-	GridMenu.prototype.addSlider = function(){
+	SettingsMenuPanel.prototype.getData = function(){
+		return {};
+	};
+
+	SettingsMenuPanel.prototype.addSlider = function(){
 		var middle, bounds, options;
 		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + GridMenu.Y1 - 10, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
+		bounds = {"x":middle, "y":this.bounds.y + SettingsMenuPanel.Y1 - 10, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
 		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelConsts.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds};
 		this.lengthSlider = new PhaserComponents.Display.Slider(options);
 		this.view.add(this.lengthSlider.view);
 	};
 
-	GridMenu.prototype.addDiagToggle = function(){
+	SettingsMenuPanel.prototype.addDiagToggle = function(){
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + GridMenu.Y3 - 15};
+		bounds = {"x":middle, "y":this.bounds.y + SettingsMenuPanel.Y3 - 15};
 		this.diagToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelConsts.DIAG), "bounds":bounds});
 		this.view.add(this.diagToggle.view);
 	};
 
-	GridMenu.prototype.addProgToggle = function(){
+	SettingsMenuPanel.prototype.addProgToggle = function(){
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + GridMenu.Y0 - 15};
+		bounds = {"x":middle, "y":this.bounds.y + SettingsMenuPanel.Y0 - 15};
 		this.progToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelConsts.ALLOW_PROG), "bounds":bounds});
 		this.view.add(this.progToggle.view);
 	};
 
-	GridMenu.prototype.addGridToggle = function(){
+	SettingsMenuPanel.prototype.addGridToggle = function(){
 		var middle, bounds;
 		middle = this.bounds.x + this.bounds.w/2 - (PhaserComponents.Display.ToggleButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + GridMenu.Y2 - 15};
+		bounds = {"x":middle, "y":this.bounds.y + SettingsMenuPanel.Y2 - 15};
 		this.gridToggle = new PhaserComponents.Display.ToggleButton({"asset":"toggle", "model": this.modelFacade.get(ModelConsts.GRID), "bounds":bounds});
 		this.view.add(this.gridToggle.view);
 	};
 
-	GridMenu.prototype.addDiagLabel = function(){
-		this.diagLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + GridMenu.Y3, "Stretch diags");
+	SettingsMenuPanel.prototype.addDiagLabel = function(){
+		this.diagLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y3, "Stretch diags");
 		this.group.add(this.diagLabel);
 	};
 
-	GridMenu.prototype.addProgLabel = function(){
-		this.progLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + GridMenu.Y0, "Allow programming");
+	SettingsMenuPanel.prototype.addProgLabel = function(){
+		this.progLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y0, "Allow programming");
 		this.group.add(this.progLabel);
 	};
 
-	GridMenu.prototype.addGridLabel = function(){
-		this.gridLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + GridMenu.Y2, "Toggle grid");
+	SettingsMenuPanel.prototype.addGridLabel = function(){
+		this.gridLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y2, "Toggle grid");
 		this.group.add(this.gridLabel);
 	};
 
-	GridMenu.prototype.addStepLengthLabel = function(){
-		this.stepLengthLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + GridMenu.Y1, "Step length");
+	SettingsMenuPanel.prototype.addStepLengthLabel = function(){
+		this.stepLengthLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y1, "Step length");
 		this.group.add(this.stepLengthLabel);
 	};
 	
-	GridMenu.prototype.addTitle = function() {
+	SettingsMenuPanel.prototype.addTitle = function() {
 		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 9, this.options.label);
  		this.group.add(this.label);
 	};
 
-	GridMenu.prototype.addLabels = function(){
+	SettingsMenuPanel.prototype.addLabels = function(){
 		this.addStepLengthLabel();
 		this.addGridLabel();
 		if(this.showDiag){
@@ -137,30 +125,30 @@ CloseButton, StepLengths){
 		}
 	};
 
-	GridMenu.prototype.addSettings1 = function () {
+	SettingsMenuPanel.prototype.addSettings1 = function () {
 		var bounds = {'x':this.bounds.x + this.bounds.w - 170, 'y':this.bounds.y + 115, 'w':160, 'h':160};
 		this.settings1 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":6, "asset":Assets.SETTINGS1});
 		this.group.add(this.settings1.view);
 		this.setSettings1();
 	};
 
-	GridMenu.prototype.addSettings3 = function () {
+	SettingsMenuPanel.prototype.addSettings3 = function () {
 		var bounds = {'x':this.bounds.x + this.bounds.w - 170, 'y':this.bounds.y + 5, 'w':160, 'h':160};
 		this.settings3 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":2, "asset":Assets.SETTINGS3});
 		this.group.add(this.settings3.view);
 		this.setSettings3();
 	};
 
-	GridMenu.prototype.addSettings2 = function () {
+	SettingsMenuPanel.prototype.addSettings2 = function () {
 		var bounds = {'x':this.bounds.x + this.bounds.w - 170, 'y':this.bounds.y + 305, 'w':160, 'h':160};
 		this.settings2 = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":6, "asset":Assets.SETTINGS2});
 		this.group.add(this.settings2.view);
 		this.setSettings2();
 	};
 
-	GridMenu.prototype.create = function () {
+	SettingsMenuPanel.prototype.create = function () {
 		var screenModel = this.modelFacade.get(ModelConsts.SCREEN);
-		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
+		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.showDiag = (screenModel.get() > 1);
 		this.addSlider();
 		this.addTitle();
@@ -174,11 +162,9 @@ CloseButton, StepLengths){
 		if(this.showDiag){
 			this.addDiagToggle();
 		}
-		this.addOkButton();
-		this.addCloseButton();
 	};
 	
-	GridMenu.prototype.removeLabels = function() {
+	SettingsMenuPanel.prototype.removeLabels = function() {
 		this.group.remove(this.diagLabel);
 		this.group.remove(this.progLabel);
 		this.group.remove(this.gridLabel);
@@ -186,7 +172,7 @@ CloseButton, StepLengths){
 		this.group.remove(this.label);
 	};
 
-	GridMenu.prototype.destroy = function() {
+	SettingsMenuPanel.prototype.destroy = function() {
 		this.group.remove(this.lengthSlider);
 		this.group.remove(this.settings1);
 		this.group.remove(this.settings2);
@@ -207,10 +193,10 @@ CloseButton, StepLengths){
 		this.modelFacade.get(ModelConsts.DIAG).changeSignal.remove(this.setSettings2, this);
 		this.modelFacade.get(ModelConsts.GRID).changeSignal.remove(this.setSettings2, this);
 		this.modelFacade.get(ModelConsts.ALLOW_PROG).changeSignal.remove(this.setSettings3, this);
-		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
+		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	
-	return GridMenu;
+	return SettingsMenuPanel;
 	
 });
 	

@@ -5,7 +5,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/rewindcommand', 'app/commands/stopcommand',
 
-	'app/commands/typechoicecommand', 'app/commands/gridchoicecommand',
+	'app/commands/gridchoicecommand',
 
 	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/choosechallengecommand',
 
@@ -33,7 +33,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		RewindCommand, StopCommand, 
 
-		TypeChoiceCommand, GridChoiceCommand,
+		GridChoiceCommand,
 
 		AddCommandCommand, DrawCommand, ChooseChallengeCommand,
 
@@ -145,7 +145,6 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.UNDO,										UndoCommand);
 		this.commandMap.map(Events.REWIND, 										RewindCommand);
 		this.commandMap.map(Events.STOP, 										StopCommand);
-		this.commandMap.map(Events.TYPE_CHOICE, 								TypeChoiceCommand);
 		this.commandMap.map(Events.GRID_CHOICE, 								GridChoiceCommand);
 		this.commandMap.map(Events.ADD_COMMAND, 								AddCommandCommand);
 		this.commandMap.map(Events.START_ACTIVITY, 								StartUpCommand);

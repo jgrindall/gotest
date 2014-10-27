@@ -9,7 +9,7 @@ define([], function(){
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
-	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9', 'map10', 'map11', 'map12'];
+	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6'];
 	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
 	Assets.MOVER = 					'mover';
@@ -52,6 +52,7 @@ define([], function(){
 	Assets.MARKERS = 				'markers';
 	Assets.SLIDERBG = 				'sliderbg';
 	Assets.SLIDERHL = 				'sliderhl';
+	Assets.TAB_BUTTON = 			'tabbutton';
 	Assets.SLIDERHANDLE = 			'sliderhandle';
 	Assets.DRAG_TARGET =			'dragtarget';
 	Assets.DRAG_TARGET_SMALL =		'dragtargetsmall';
@@ -65,6 +66,7 @@ define([], function(){
 	Assets.BRAND = 					'brand';
 	
 	Assets.SPRITESHEETS = [
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/tab.png",	 				"key":Assets.TAB_BUTTON,				"w":100, 	"h":30},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/yes.png",	 				"key":Assets.YES,						"w":73, 	"h":73},
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":45, 	"h":45},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":150, 	"h":50},
@@ -154,12 +156,6 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/maps/map4.png", 					"key":Assets.MAPS[4]},
 		{"type":"image", 		"asset":"assets/images/maps/map5.png", 					"key":Assets.MAPS[5]},
 		{"type":"image", 		"asset":"assets/images/maps/map6.png", 					"key":Assets.MAPS[6]},
-		{"type":"image", 		"asset":"assets/images/maps/map7.png", 					"key":Assets.MAPS[7]},
-		{"type":"image", 		"asset":"assets/images/maps/map8.png", 					"key":Assets.MAPS[8]},
-		{"type":"image", 		"asset":"assets/images/maps/map9.png", 					"key":Assets.MAPS[9]},
-		{"type":"image", 		"asset":"assets/images/maps/map10.png", 				"key":Assets.MAPS[10]},
-		{"type":"image", 		"asset":"assets/images/maps/map11.png", 				"key":Assets.MAPS[11]},
-		{"type":"image", 		"asset":"assets/images/maps/map12.png", 				"key":Assets.MAPS[12]},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/ipad.png",	 			"key":Assets.IPAD},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},

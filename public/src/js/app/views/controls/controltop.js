@@ -69,14 +69,14 @@ Assets, SpeedMarkers){
 
 	ControlTop.prototype.positionMarkers = function() {
 		var x, y = 3;
-		x = this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2 - 95;
+		x = this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2 - 53;
 		this.speedMarkers.view.x = x;
 		this.speedMarkers.view.y = y;
 	};
 
 	ControlTop.prototype.positionSpeed = function() {
 		var x, y = 3;
-		x = this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2 - 95;
+		x = this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2 - 53;
 		this.speedSlider.view.x = x;
 		this.speedSlider.view.y = y;
 	};

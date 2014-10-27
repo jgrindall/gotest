@@ -700,12 +700,16 @@ function(Phaser, Injector, AppEvents){
 	AlertManager.prototype.init = function(){
 		this.inject();
 		this.closeHandler = this.close.bind(this);
-		this.eventDispatcher.addListener(AppEvents.RESIZE, this.closeHandler);
-		this.eventDispatcher.addListener(AppEvents.ORIENT, this.closeHandler);
+		this.eventDispatcher.addListener(AppEvents.RESIZE, this.reOpen);
+		this.eventDispatcher.addListener(AppEvents.ORIENT, this.reOpen);
 	};
 
 	AlertManager.prototype.inject = function(){
 		Injector.getInstance().injectInto(this, "alertmanager");
+	};
+
+	AlertManager.prototype.reOpen = function(){
+		this.close();
 	};
 
 	AlertManager.prototype.removeBg = function(){
@@ -769,8 +773,8 @@ function(Phaser, Injector, AppEvents){
 
 	AlertManager.prototype.destroy = function(){
 		this.close();
-		this.eventDispatcher.removeListener(AppEvents.RESIZE, this.closeHandler);
-		this.eventDispatcher.removeListener(AppEvents.ORIENT, this.closeHandler);
+		this.eventDispatcher.removeListener(AppEvents.RESIZE, this.reOpen);
+		this.eventDispatcher.removeListener(AppEvents.ORIENT, this.reOpen);
 		this.closeHandler = null;
 		Injector.getInstance().unInject(this);
 	};
@@ -2390,6 +2394,111 @@ function(Container, Utils,
 
 
 
+define('phasercomponents/display/tabpanel/tabpanel',['phasercomponents/display/container',
+
+	'phasercomponents/utils/utils', 'phasercomponents/display/buttongrid/tabbuttonbar'
+
+],
+
+function(Container,
+
+	Utils, TabButtonBar
+
+){
+	
+	
+	
+	var TabPanel = function(options){
+		Container.call(this, options);
+	};
+	
+	Utils.extends(TabPanel, Container);
+
+	TabPanel.prototype.create = function(){
+		Container.prototype.create.call(this);
+		this.addButtonBar();
+		this.addPanels();
+		this.showPanel(0);
+	};
+	
+	TabPanel.prototype.getData = function(){
+		var i, panel, data = [];
+		for(i = 0; i < this.options.panels.length; i++){
+			panel = this.options.panels[i];
+			data.push(panel.getData());
+		}
+		return data;
+	};
+
+	TabPanel.prototype.addButtonBar = function(){
+		var options, bounds, data, i, w, h;
+		w = this.options.panels.length * this.options.buttonClass.WIDTH;
+		h = this.options.buttonClass.HEIGHT;
+		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':w, 'h':h};
+		data = [];
+		for(i = 0; i < this.options.panels.length; i++){
+			data.push({"num":i});	
+		}
+		options = {"bounds":bounds, "numX":this.options.panels.length, "performSelect":true, "numY":1, "buttonClass":this.options.buttonClass, "data":data};
+		this.buttonBar = new TabButtonBar(options);
+		this.buttonBar.clickSignal.add(this.barClick, this);
+		this.group.add(this.buttonBar.view);
+	};
+	
+	TabPanel.prototype.barClick = function(data){
+		this.showPanel(data.index);
+	};
+
+	TabPanel.prototype.showPanel = function(index){
+		var i, panel;
+		for(i = 0; i < this.options.panels.length; i++){
+			panel = this.options.panels[i];
+			panel.view.visible = (i === index);
+		}
+	};
+
+	TabPanel.prototype.addPanels = function(){
+		var i, panel, that = this;
+		for(i = 0; i < this.options.panels.length; i++){
+			panel = this.options.panels[i];
+			that.group.add(panel.view);
+		}
+	};
+
+	TabPanel.prototype.removeButtons = function(){
+		this.buttonBar.clickSignal.remove(this.barClick, this);
+		this.group.remove(this.buttonBar.view);
+		this.buttonBar = null;
+	};
+
+	TabPanel.prototype.removePanels = function(){
+		var that = this;
+		this.options.panels.forEach(function(panel){
+			that.group.remove(panel.view);
+			panel.destroy(true);
+		});
+	};
+
+	TabPanel.prototype.destroy = function(){
+		this.removePanels();
+		this.removeButtons();
+		Container.prototype.destroy.call(this);
+	};
+
+	return TabPanel;
+
+});
+
+
+
+
+
+
+
+
+
+
+
 define(
 
 	'phasercomponents/scene',['phasercomponents/injector'],
@@ -3493,6 +3602,7 @@ define('phasercomponents',[
 	'phasercomponents/display/slider/slider',
 	'phasercomponents/display/scroller/scroller',
 	'phasercomponents/display/scroll/vscroller',
+	'phasercomponents/display/tabpanel/tabpanel',
 	'phasercomponents/scene',
 	'phasercomponents/display/view',
 	'phasercomponents/utils/storage',
@@ -3540,6 +3650,7 @@ define('phasercomponents',[
 		Slider, 
 		Scroller,
 		VScroller,
+		TabPanel,
 		Scene,
 		View,
 		Storage,
@@ -3578,7 +3689,6 @@ define('phasercomponents',[
         'Preloader': 			Preloader,
         'AbstractPopup':  		AbstractPopup,
         'ButtonGrid': 			ButtonGrid,
-    	'TabButtonBar': 		TabButtonBar,
         'ButtonBar': 			ButtonBar,
         'Slider': 				Slider,
         'Scroller': 			Scroller,
@@ -3589,7 +3699,9 @@ define('phasercomponents',[
         'RadioButtons': 		RadioButtons,
         'ToggleButton': 		ToggleButton,
         'LoaderBar': 			LoaderBar,
-        'VScroller': 			VScroller
+        'VScroller': 			VScroller,
+        'TabButtonBar': 		TabButtonBar,
+        'TabPanel': 			TabPanel
     };
 
     var Model = {

@@ -109,7 +109,7 @@ Assets, ShowDirections, ModelConsts){
 	};
 
 	MainView.prototype.positionBrand = function() {
-		this.brand.x = this.game.w - 393;
+		this.brand.x = this.game.w - 343;
 		this.brand.y = 9;
 	};
 
