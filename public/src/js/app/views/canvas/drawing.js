@@ -75,7 +75,7 @@ FdCommand, StepLengths){
 			img = new Image();
 			img.src = pngData;
 			this.game.cache.addImage(Turtle.EDITOR_KEY, pngData, img);
-			this.turtle.addTurtleUsingKey(Turtle.EDITOR_KEY);
+			this.turtle.addTurtleUsingKey(Turtle.EDITOR_KEY, 1);
 			this.turtle.reset(this.startPos);
 		}
 	};

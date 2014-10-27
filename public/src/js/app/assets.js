@@ -9,7 +9,7 @@ define([], function(){
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
-	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6'];
+	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8'];
 	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
 	Assets.MOVER = 					'mover';
@@ -156,6 +156,8 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/maps/map4.png", 					"key":Assets.MAPS[4]},
 		{"type":"image", 		"asset":"assets/images/maps/map5.png", 					"key":Assets.MAPS[5]},
 		{"type":"image", 		"asset":"assets/images/maps/map6.png", 					"key":Assets.MAPS[6]},
+		{"type":"image", 		"asset":"assets/images/maps/map7.png", 					"key":Assets.MAPS[7]},
+		{"type":"image", 		"asset":"assets/images/maps/map8.png", 					"key":Assets.MAPS[8]},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/ipad.png",	 			"key":Assets.IPAD},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
