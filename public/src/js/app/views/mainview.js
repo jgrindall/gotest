@@ -139,7 +139,7 @@ Assets, ShowDirections, ModelConsts){
 		this.canvas = new Canvas({"bounds":bounds});
 		this.group.add(this.canvas.view);
 		this.positionCanvas();
-		this.showManager.add(this.canvas.view, 5, ShowDirections.UP);
+		//this.showManager.add(this.canvas.view, 5, ShowDirections.UP);
 	};
 	
 	MainView.prototype.addTopBar = function(){

@@ -51,8 +51,8 @@ TurtleChoice){
 
 	TurtleMenu.prototype.addGrid = function() {
 		var options, bounds;
-		bounds = {'x':this.bounds.x, 'y':this.bounds.y, 'w':this.bounds.w, 'h':this.bounds.h - 31};
-		options = {"model":this.model, "bounds":bounds, "numX": 7, "numY": 1, "buttonClass": TurtleChoice};
+		bounds = {'x':this.bounds.x + 69, 'y':this.bounds.y + 44, 'w':300, 'h':130};
+		options = {"model":this.model, "bounds":bounds, "numX": 4, "numY": 2, "buttonClass": TurtleChoice};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.onChanged, this);
 		this.group.add(this.grid.group);

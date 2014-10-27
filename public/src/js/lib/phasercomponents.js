@@ -1603,6 +1603,7 @@ ButtonGridModel, Utils){
 
 	ButtonGrid.prototype.onSelectedChanged = function(value){
 		this.showSelected(value);
+		console.log("button grid click ", value);
 		this.changeSignal.dispatch({"index":value, "grid":this});
 	};
 	
@@ -1677,7 +1678,10 @@ ButtonGridModel, Utils){
 		});
 		Container.prototype.destroy.call(this);
 		this.buttonGroup.destroy(true);
+		this.changeSignal.dispose();
+		this.clickSignal.dispose();
 		this.changeSignal = null;
+		this.clickSignal = null;
 		this.buttons = [];
 		this.model = null;
 		this.signal = null;
@@ -2431,6 +2435,7 @@ function(Container,
 	};
 
 	TabPanel.prototype.addButtonBar = function(){
+		console.log("addButtonBar");
 		var options, bounds, data, i, w, h;
 		w = this.options.panels.length * this.options.buttonClass.WIDTH;
 		h = this.options.buttonClass.HEIGHT;
@@ -2441,11 +2446,13 @@ function(Container,
 		}
 		options = {"bounds":bounds, "numX":this.options.panels.length, "performSelect":true, "numY":1, "buttonClass":this.options.buttonClass, "data":data};
 		this.buttonBar = new TabButtonBar(options);
-		this.buttonBar.clickSignal.add(this.barClick, this);
+		console.log("ADD LISTENER ", this.buttonBar.changeSignal);
+		this.buttonBar.changeSignal.add(this.barClick, this);
 		this.group.add(this.buttonBar.view);
 	};
 	
 	TabPanel.prototype.barClick = function(data){
+		console.log("barClick!!  ", data.index);
 		this.showPanel(data.index);
 	};
 
@@ -2453,6 +2460,7 @@ function(Container,
 		var i, panel;
 		for(i = 0; i < this.options.panels.length; i++){
 			panel = this.options.panels[i];
+			console.log("showPanel i = ", i, panel, (i === index));
 			panel.view.visible = (i === index);
 		}
 	};
@@ -2466,8 +2474,9 @@ function(Container,
 	};
 
 	TabPanel.prototype.removeButtons = function(){
-		this.buttonBar.clickSignal.remove(this.barClick, this);
+		this.buttonBar.changeSignal.remove(this.barClick, this);
 		this.group.remove(this.buttonBar.view);
+		this.buttonBar.destroy(true);
 		this.buttonBar = null;
 	};
 

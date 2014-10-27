@@ -1,13 +1,13 @@
 
 define(['phaser', 'phasercomponents',
 
-	'app/assets',
+	'app/assets', 'app/consts/turtles',
 
 	'app/events/events', 'app/models/modelconsts'],
 
 function(Phaser, PhaserComponents, 
 
-	Assets,
+	Assets, Turtles,
 
 	Events, ModelConsts){
 	
@@ -23,7 +23,7 @@ function(Phaser, PhaserComponents,
 
 	Turtle.EDITOR_KEY = 'turtleEditorImage';
 	Turtle.DEFAULT_FRAMES = 4;
-	
+
 	PhaserComponents.Utils.extends(Turtle, PhaserComponents.Display.Container);
 
 	Turtle.prototype.removeMover = function() {
@@ -56,7 +56,7 @@ function(Phaser, PhaserComponents,
 		this.mover.events.onInputUp.add(this.onMoverUp, this);
 		this.group.add(this.mover);
 		this.mover.anchor.setTo(0.5, 0.5);
-		this.game.add.tween(this.mover).to( {'angle':360}, 2000, Phaser.Easing.Back.InOut, true, 1000, false);
+		this.game.add.tween(this.mover).to( {'angle':360}, 1500, Phaser.Easing.Back.InOut, true, 500, false);
 	};
 
 	Turtle.prototype.create = function() {
@@ -134,7 +134,7 @@ function(Phaser, PhaserComponents,
 	Turtle.prototype.removeTurtle = function() {
 		if(this.turtle){
 			this.turtle.mouseDownSignal.remove(this.downHandler, this);
-			this.turtle.animations.destroy();
+			this.turtle.sprite.animations.destroy();
 			this.group.remove(this.turtle.view);
 			this.turtle.destroy(true);
 			this.turtle = null;
@@ -143,7 +143,7 @@ function(Phaser, PhaserComponents,
 	};
 	
 	Turtle.prototype.getFrames = function(numFrames) {
-		var r = [];
+		var i, r = [];
 		for(i = 0; i < numFrames; i++){
 			r.push(i);
 		}
@@ -155,7 +155,7 @@ function(Phaser, PhaserComponents,
 		bounds = {'x':0, 'y':0};
 		this.removeTurtle();
 		this.turtle = new PhaserComponents.Display.InteractiveSprite({"bounds":bounds, "numFrames":numFrames, "asset":key});
-		this.turtle.animations.add('move', this.getFrames(numFrames), 20, true);
+		this.turtle.sprite.animations.add('move', this.getFrames(numFrames), 24, true);
 		this.group.add(this.turtle.view);
 		this.turtle.view.anchor.setTo(0.5, 0.5);
 		this.turtle.view.mask = this.mask;
@@ -171,7 +171,7 @@ function(Phaser, PhaserComponents,
 
 	Turtle.prototype.addTurtle = function() {
 		var index = this.modelFacade.get(ModelConsts.TURTLE).get() || 0;
-		this.addTurtleUsingKey(Assets.TURTLES[index], 1);
+		this.addTurtleUsingKey(Assets.TURTLES[index], Turtles.FRAMES[index]);
 	};
 	
 	Turtle.prototype.setTo = function(theta) {
@@ -232,17 +232,16 @@ function(Phaser, PhaserComponents,
 			this.move(p);
 		}
 		else{
-			this.playAnim();
 			this.moveTween = this.game.add.tween(this.turtle.view).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
 		}
 	};
 	
 	Turtle.prototype.stopAnim = function() {
-		this.turtle.animations.stop('move');
+		this.turtle.sprite.animations.stop('move');
 	};
 
 	Turtle.prototype.playAnim = function() {
-		this.turtle.animations.play('move');
+		this.turtle.sprite.animations.play('move');
 	};
 
 	Turtle.prototype.move = function(p) {

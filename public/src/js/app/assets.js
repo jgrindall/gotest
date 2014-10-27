@@ -9,8 +9,8 @@ define([], function(){
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
-	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8'];
-	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6'];
+	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9'];
+	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6', 'turtle7'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
 	Assets.MOVER = 					'mover';
 	Assets.TOPBAR = 				'topBar';
@@ -66,6 +66,14 @@ define([], function(){
 	Assets.BRAND = 					'brand';
 	
 	Assets.SPRITESHEETS = [
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle0.png", 				"key":Assets.TURTLES[0],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle1.png", 				"key":Assets.TURTLES[1],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle2.png", 				"key":Assets.TURTLES[2],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle3.png", 				"key":Assets.TURTLES[3],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle4.png", 				"key":Assets.TURTLES[4],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle5.png", 				"key":Assets.TURTLES[5],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle6.png", 				"key":Assets.TURTLES[6],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle7.png", 				"key":Assets.TURTLES[7],				"w":45, 	"h":45},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tab.png",	 				"key":Assets.TAB_BUTTON,				"w":100, 	"h":30},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/yes.png",	 				"key":Assets.YES,						"w":73, 	"h":73},
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":45, 	"h":45},
@@ -127,13 +135,6 @@ define([], function(){
 	Assets.IMAGES = [
 		{"type":"image", 		"asset":"assets/images/buttons/smile.png",	 			"key":Assets.SMILE},
 		{"type":"image", 		"asset":"assets/images/bg/topbar.png", 					"key":Assets.TOPBAR},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle0.png", 			"key":Assets.TURTLES[0]},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle1.png", 			"key":Assets.TURTLES[1]},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle2.png", 			"key":Assets.TURTLES[2]},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle3.png", 			"key":Assets.TURTLES[3]},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle4.png", 			"key":Assets.TURTLES[4]},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle5.png", 			"key":Assets.TURTLES[5]},
-		{"type":"image", 		"asset":"assets/images/turtle/turtle6.png", 			"key":Assets.TURTLES[6]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip0.png",	 		"key":Assets.TOOLTIPS[0]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip1.png",	 		"key":Assets.TOOLTIPS[1]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip2.png",	 		"key":Assets.TOOLTIPS[2]},
@@ -158,6 +159,7 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/maps/map6.png", 					"key":Assets.MAPS[6]},
 		{"type":"image", 		"asset":"assets/images/maps/map7.png", 					"key":Assets.MAPS[7]},
 		{"type":"image", 		"asset":"assets/images/maps/map8.png", 					"key":Assets.MAPS[8]},
+		{"type":"image", 		"asset":"assets/images/maps/map9.png", 					"key":Assets.MAPS[9]},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/ipad.png",	 			"key":Assets.IPAD},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},

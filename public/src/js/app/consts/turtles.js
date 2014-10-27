@@ -9,7 +9,7 @@ function(){
 		
 	};
 
-	Turtles.NUM = 4;
+	Turtles.FRAMES = [30, 27, 27, 9, 26, 26, 16, 1];
 	
 	return Turtles;
 

@@ -1,6 +1,6 @@
-define([],
+define(['app/assets'],
 
-function() {
+function(Assets) {
 	
 	"use strict";
 	
@@ -8,7 +8,7 @@ function() {
 		
 	};
 
-	BgData.BACKGROUNDS = ['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8'];
+	BgData.BACKGROUNDS = Assets.MAPS;
 
   	return BgData;
 });

@@ -63,9 +63,15 @@ FdCommand, StepLengths){
 	Drawing.prototype.playingChanged = function(data){
 		if(data === PlayingState.NOT_PLAYING){
 			this.turtle.enableMove();
+			this.turtle.stopAnim();
 		}
-		else {
+		else if(data === PlayingState.PLAYING){
 			this.turtle.disableMove();
+			this.turtle.playAnim();
+		}
+		else if(data === PlayingState.REPLAYING){
+			this.turtle.disableMove();
+			this.turtle.stopAnim();
 		}
 	};
 
