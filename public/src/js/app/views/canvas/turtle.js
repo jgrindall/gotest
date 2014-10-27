@@ -160,7 +160,7 @@ function(Phaser, PhaserComponents,
 
 	Turtle.prototype.addTurtle = function() {
 		var index = this.modelFacade.get(ModelConsts.TURTLE).get() || 0;
-		this.addTurtleUsingKey(Assets.TURTLES[index]);
+		this.addTurtleUsingKey(Assets.TURTLES[index], 1);
 	};
 	
 	Turtle.prototype.setTo = function(theta) {
