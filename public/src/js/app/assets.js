@@ -119,7 +119,7 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.png",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5},
 		{"type":"spritesheet", 	"asset":"assets/images/slider/decor.png",	 				"key":Assets.SPEEDDECOR,				"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/mover.png", 					"key":Assets.MOVER,						"w":80, 	"h":80},
-		{"type":"spritesheet", 	"asset":"assets/images/challenges/challenges.png", 			"key":Assets.CHALLENGES,				"w":200, 	"h":200}
+		{"type":"spritesheet", 	"asset":"assets/images/challenges/challenges.png", 			"key":Assets.CHALLENGES,				"w":175, 	"h":175}
 	];
 	
 	Assets.SOUNDFX = [

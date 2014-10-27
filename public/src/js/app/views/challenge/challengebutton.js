@@ -16,8 +16,8 @@ function(Phaser, PhaserComponents, Assets
 		this.mouseUpSignal = new Phaser.Signal();
 	};
 	
-	ChallengeButton.WIDTH = 200;
-	ChallengeButton.HEIGHT = 200;
+	ChallengeButton.WIDTH = 175;
+	ChallengeButton.HEIGHT = 175;
 	
 	PhaserComponents.Utils.extends(ChallengeButton, PhaserComponents.Display.Container);
 

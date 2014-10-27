@@ -12,7 +12,7 @@ function(PhaserComponents, Events,
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 
-	StartUpCommand.CHALLENGES = false;
+	StartUpCommand.CHALLENGES = true;
 
 	PhaserComponents.Utils.extends(StartUpCommand, PhaserComponents.Commands.AbstractCommand);
 
