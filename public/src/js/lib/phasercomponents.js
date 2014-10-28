@@ -1611,7 +1611,6 @@ ButtonGridModel, Utils){
 
 	ButtonGrid.prototype.onSelectedChanged = function(value){
 		this.showSelected(value);
-		console.log("button grid click ", value);
 		this.changeSignal.dispatch({"index":value, "grid":this});
 	};
 	

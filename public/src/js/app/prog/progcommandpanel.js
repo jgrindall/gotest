@@ -157,6 +157,7 @@ define(
 
 	ProgCommandPanel.prototype.destroy = function() {
 		this.disableInput();
+		this.modelFacade.get(ModelConsts.PROG).changeSignal.remove(this.load, this);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.remove(this.playingChanged, this);
 		this.dragManager.editSignal.remove(this.onEdited, this);
 		this.dragManager.destroy();

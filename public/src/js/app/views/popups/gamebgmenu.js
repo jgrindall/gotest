@@ -33,7 +33,7 @@ AddButton, ChallengeButton
 	};
 
 	GameBgMenu.prototype.addChallenge = function () {
-		var bounds = {"x":this.bounds.x + 10, "y":this.bounds.y + this.bounds.h - AddButton.HEIGHT + 4};
+		var bounds = {"x":this.bounds.x - 12, "y":this.bounds.y + this.bounds.h - AddButton.HEIGHT + 4};
 		this.addButton(ChallengeButton, bounds);
 	};
 

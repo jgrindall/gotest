@@ -262,7 +262,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.angleModel.set(json.settings.angle);
 		this.progTypeModel.set(json.settings.prog);
 		this.stepLengthModel.set(json.settings.stepLength);
-		this.startPosModel.set(json.settings.startPos);
+		this.startPosModel.set(json.settings.startPos, {"force":true});
 		this.nameModel.set(json.settings.name);
 		this.progNumModel.set(json.settings.progNum);
 		this.commModel.set(json.commands);

@@ -19,6 +19,7 @@ Growl, Assets) {
 	ChooseChallengeCommand.prototype.execute = function(data){
 		var json, that = this;
 		json = Defaults.getChallenge(data.selection);
+		console.log("json is ", JSON.stringify(json));
 		this.modelFacade.setData(json);
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 		setTimeout(function(){

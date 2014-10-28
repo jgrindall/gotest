@@ -32,6 +32,8 @@ Events, MainView, Assets, ChallengeView){
 	ActivityScene.prototype.onShowAll = function(){
 		this.showManager.start();
 		this.eventDispatcher.trigger({"type":Events.REPLAY});
+		this.eventDispatcher.removeListener(Events.SHOW_ALL, this.showHandler);
+		this.showHandler = null;
 	};
 
 	ActivityScene.prototype.addChallenge = function(){
@@ -58,9 +60,7 @@ Events, MainView, Assets, ChallengeView){
 
 	ActivityScene.prototype.destroy = function(){
 		this.eventDispatcher.removeListener(Events.SHOW_CHALLENGES, this.challengeHandler);
-		this.eventDispatcher.removeListener(Events.SHOW_ALL, this.showHandler);
 		this.challengeHandler = null;
-		this.showHandler = null;
 		InteractiveScene.prototype.destroy.call(this);
 	};
 

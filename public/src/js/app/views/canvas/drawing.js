@@ -36,6 +36,7 @@ FdCommand, StepLengths){
 		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.SCREEN).changeSignal.add(this.onChangeScreen, this);
 		this.modelFacade.get(ModelConsts.TURTLE).changeSignal.add(this.turtleChanged, this);
+		this.modelFacade.get(ModelConsts.START_POS).changeSignal.add(this.startChanged, this);
 		this.modelFacade.get(ModelConsts.TURTLE_PNG).changeSignal.add(this.turtlePngChanged, this);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.rotateHandler = this.onRotateTurtle.bind(this);
@@ -58,6 +59,10 @@ FdCommand, StepLengths){
 			this.turtle.addTurtle();
 			this.turtle.reset(this.startPos);
 		}
+	};
+
+	Drawing.prototype.startChanged = function(){
+		this.setStart();
 	};
 
 	Drawing.prototype.playingChanged = function(data){
@@ -121,7 +126,7 @@ FdCommand, StepLengths){
 		var pos;
 		pos = this.modelFacade.get(ModelConsts.START_POS).get();
 		this.startPos = this.fractionToPos(pos);
-		this.turtle.move(pos);
+		this.turtle.move(this.startPos);
 	};
 
 	Drawing.prototype.commandExecute = function(data){
