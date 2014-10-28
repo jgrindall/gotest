@@ -16,7 +16,7 @@ define([], function() {
 	Colors.ORANGE = 	0xf39811;
 	Colors.YELLOW = 	0xf9e238;
 	Colors.BLACK = 		0x111111;
-	Colors.GREY = 		0x999999;
+	Colors.GREY = 		0x808080;
 	Colors.RED = 		0xeb2d2a;
 	
 	Colors.ALL = [Colors.RED, Colors.ORANGE, Colors.YELLOW, Colors.GREEN, Colors.BLUE,
