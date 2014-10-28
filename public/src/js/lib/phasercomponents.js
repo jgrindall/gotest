@@ -1500,6 +1500,14 @@ function(AbstractModel, Utils){
 		var newValue = (this.get() + 1) % this.num;
 		this.set(newValue);
 	};
+
+	IncrementModel.prototype.decrement = function() {
+		var newValue = (this.get() - 1) % this.num;
+		if(newValue < 0){
+			newValue += this.num;
+		}
+		this.set(newValue);
+	};
 	
 	return IncrementModel;
 
@@ -2757,18 +2765,56 @@ function(MovieClip, Utils, AppEvents, StepperModel){
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
 		}
-		this.model.increment();
+		this.performStep();
 	};
 	
+	StepperButton.prototype.performStep = function(){
+		this.model.increment();
+	};
+
 	StepperButton.prototype.destroy = function(){
 		this.model.changeSignal.remove(this.onChanged, this);
 		this.mouseUpSignal.remove(this.onStep, this);
 		this.model = null;
 		this.sprite.destroy(true);
 		this.options = null;
+		MovieClip.prototype.destroy.call(this);
 	};
 
 	return StepperButton;
+
+});
+
+
+
+
+define('phasercomponents/display/buttons/vstepperbutton',[ 
+	
+'phasercomponents/display/buttons/stepperbutton', 'phasercomponents/utils/utils'],
+
+function(StepperButton, Utils){
+	
+	
+	
+	var VStepperButton = function(options){
+		StepperButton.call(this, options);
+	};
+
+	Utils.extends(VStepperButton, StepperButton);
+
+	VStepperButton.prototype.performStep = function(){
+		var y, localPoint;
+		localPoint = this.game.input.getLocalPosition(this.sprite, this.game.input.activePointer);
+		y = localPoint.y;
+		if( y <= this.bounds.h/2){
+			this.model.increment();
+		}
+		else{
+			this.model.decrement();
+		}
+	};
+
+	return VStepperButton;
 
 });
 
@@ -3623,6 +3669,7 @@ define('phasercomponents',[
 	'phasercomponents/display/scroller/pager',
 	'phasercomponents/display/buttons/multibutton',
 	'phasercomponents/display/buttons/stepperbutton',
+	'phasercomponents/display/buttons/vstepperbutton',
 	'phasercomponents/display/buttons/radiobuttons',
 	'phasercomponents/display/buttons/togglebutton',
 	'phasercomponents/preloader',
@@ -3671,6 +3718,7 @@ define('phasercomponents',[
 		Pager,
 		MultiButton,
 		StepperButton,
+		VStepperButton,
 		RadioButtons,
 		ToggleButton,
 		Preloader,
@@ -3705,6 +3753,7 @@ define('phasercomponents',[
         'View': 				View,
         'MultiButton': 			MultiButton,
         'StepperButton': 		StepperButton,
+        'VStepperButton': 		VStepperButton,
         'RadioButtons': 		RadioButtons,
         'ToggleButton': 		ToggleButton,
         'LoaderBar': 			LoaderBar,

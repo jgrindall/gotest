@@ -72,7 +72,7 @@ Assets, ModelConsts){
 	
 	ControlsPens.prototype.positionWidthPicker = function() {
 		var x, y;
-		x = this.bounds.x + this.bounds.w - WidthPicker.WIDTH + 10;
+		x = this.bounds.x + this.bounds.w - WidthPicker.WIDTH;
 		y = this.game.h - WidthPicker.HEIGHT;
 		this.widthPicker.view.x = x;
 		this.widthPicker.view.y = y;
