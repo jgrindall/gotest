@@ -54,17 +54,18 @@ PlayingState, ModelConsts){
 		}
 	};
 
-	Menu.prototype.playingChanged = function(data){
-		if(data.playing === PlayingState.PLAYING){
+	Menu.prototype.playingChanged = function(value){
+		if(value === PlayingState.PLAYING){
 			this.disableInput();
 		}
-		else if(data.playing === PlayingState.NOT_PLAYING){
+		else if(value === PlayingState.NOT_PLAYING){
 			this.enableInput();
 		}
 	};
 
 	Menu.prototype.destroy = function(){
 		this.clickSignal.add(this.menuClick, this);
+		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.remove(this.playingChanged, this);
 		PhaserComponents.Display.ButtonBar.prototype.destroy.call(this);
 	};
 
