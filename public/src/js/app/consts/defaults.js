@@ -7,19 +7,19 @@ define([], function() {
 			
     };
 
-	Defaults.CHALLENGE_BG = 			[4, 2, 0, 5];
-	Defaults.CHALLENGE_SCREEN = 		[0, 1, 2, 3];
-	Defaults.CHALLENGE_COLOR = 			[0, 0, 2, 0];
-	Defaults.CHALLENGE_STEP_LENGTH = 	[4, 4, 4, 4];
-	Defaults.CHALLENGE_GRID = 			[1, 1, 1, 1];
-	Defaults.CHALLENGE_PROG = 			[0, 0, 1, 2];
-	Defaults.CHALLENGE_ALLOW_PROG = 	[0, 0, 1, 1];
-	Defaults.CHALLENGE_TURTLE = 		[1, 2, 6, 2];
-	Defaults.CHALLENGE_DIAG = 			[0, 0, 1, 1];
-	Defaults.CHALLENGE_START_POS = 		[{'x':0.8, 'y':0.1}, {'x':0.5, 'y':0.7}, {'x':0.195, 'y':0.895}, {'x':0.5, 'y':0.1}];
+	Defaults.CHALLENGE_BG = 			[4, 2, 0, 6, 5, 9];
+	Defaults.CHALLENGE_SCREEN = 		[0, 1, 2, 2, 3, 3];
+	Defaults.CHALLENGE_COLOR = 			[0, 0, 2, 0, 0, 9];
+	Defaults.CHALLENGE_STEP_LENGTH = 	[4, 4, 2, 2, 2, 2];
+	Defaults.CHALLENGE_GRID = 			[1, 1, 1, 1, 1, 0];
+	Defaults.CHALLENGE_PROG = 			[0, 0, 1, 2, 2, 3];
+	Defaults.CHALLENGE_ALLOW_PROG = 	[0, 0, 1, 1, 1, 1];
+	Defaults.CHALLENGE_TURTLE = 		[1, 2, 6, 7, 2, 8];
+	Defaults.CHALLENGE_DIAG = 			[0, 0, 1, 1, 1, 1];
+	Defaults.CHALLENGE_START_POS = 		[{'x':0.8, 'y':0.1}, {'x':0.5, 'y':0.7}, {'x':0.2, 'y':0.9}, {'x':0.05, 'y':0.8}, {'x':0.5, 'y':0.1}, {'x':0.5, 'y':0.5}];
 
 	Defaults.DEFAULT_SETTINGS = {
-		'bg':1,
+		'bg':0,
 		'screen':0,
 		'speed':2,
 		'color':0,
@@ -32,7 +32,7 @@ define([], function() {
 		'bgPng':null,
 		'progNum':0,
 		'allowProg':0,
-		'turtle':3,
+		'turtle':6,
 		'diag':0,
 		'startPos':{'x':0.5, 'y':0.5},
 	};

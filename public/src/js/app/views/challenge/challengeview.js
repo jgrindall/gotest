@@ -43,13 +43,14 @@ CloseButton, Assets){
 	};
 	
 	ChallengeView.prototype.addGrid = function(){
-		var options, bounds, p, size, x, y;
+		var options, bounds, p, w, h, x, y;
 		p = 40;
-		size = 2*ChallengeButton.WIDTH + p;
-		x = this.bounds.x + (this.bounds.w - size)/2;
-		y = this.bounds.y + (this.bounds.h - size)/2 - 8;
-		bounds = {'x':x, 'y':y, 'w':size, 'h':size};
-		options = {"bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ChallengeButton};
+		w = 3*ChallengeButton.WIDTH + p;
+		h = 2*ChallengeButton.WIDTH + p;
+		x = this.bounds.x + (this.bounds.w - w)/2;
+		y = this.bounds.y + (this.bounds.h - h)/2 - 8;
+		bounds = {'x':x, 'y':y, 'w':w, 'h':h};
+		options = {"bounds":bounds, "numX": 3, "numY": 2, "buttonClass": ChallengeButton};
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.onChanged, this);
 		this.group.add(this.grid.group);

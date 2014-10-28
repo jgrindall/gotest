@@ -9,8 +9,8 @@ define([], function(){
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4'];
-	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9'];
-	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6', 'turtle7'];
+	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9', 'map10'];
+	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6', 'turtle7', 'turtle8', 'turtle9'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
 	Assets.MOVER = 					'mover';
 	Assets.TOPBAR = 				'topBar';
@@ -74,6 +74,8 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle5.png", 				"key":Assets.TURTLES[5],				"w":45, 	"h":45},
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle6.png", 				"key":Assets.TURTLES[6],				"w":45, 	"h":45},
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle7.png", 				"key":Assets.TURTLES[7],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle8.png", 				"key":Assets.TURTLES[8],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle9.png", 				"key":Assets.TURTLES[9],				"w":45, 	"h":45},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tab.png",	 				"key":Assets.TAB_BUTTON,				"w":100, 	"h":30},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/yes.png",	 				"key":Assets.YES,						"w":73, 	"h":73},
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":45, 	"h":45},
@@ -159,6 +161,7 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/maps/map7.png", 					"key":Assets.MAPS[7]},
 		{"type":"image", 		"asset":"assets/images/maps/map8.png", 					"key":Assets.MAPS[8]},
 		{"type":"image", 		"asset":"assets/images/maps/map9.png", 					"key":Assets.MAPS[9]},
+		{"type":"image", 		"asset":"assets/images/maps/map10.png", 				"key":Assets.MAPS[10]},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/ipad.png",	 			"key":Assets.IPAD},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},

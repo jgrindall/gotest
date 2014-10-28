@@ -11,7 +11,7 @@ function(Phaser, PhaserComponents, Assets
 	
 	var TurtleChoice = function(options){
 		options.asset = Assets.TURTLE_CHOICE;
-		options.numFrames = 8;
+		options.numFrames = 10;
 		PhaserComponents.Display.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
