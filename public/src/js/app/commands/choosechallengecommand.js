@@ -1,8 +1,12 @@
 define(
 
-	['phasercomponents', 'app/consts/defaults', 'app/events/events'],
+	['phasercomponents', 'app/consts/defaults', 'app/events/events',
 
-function(PhaserComponents, Defaults, Events) {
+	'app/views/popups/growl', 'app/assets'],
+
+function(PhaserComponents, Defaults, Events, 
+
+Growl, Assets) {
 	
 	"use strict";
 	
@@ -13,9 +17,13 @@ function(PhaserComponents, Defaults, Events) {
 	PhaserComponents.Utils.extends(ChooseChallengeCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ChooseChallengeCommand.prototype.execute = function(data){
-		var json = Defaults.getChallenge(data.selection);
+		var json, that = this;
+		json = Defaults.getChallenge(data.selection);
 		this.modelFacade.setData(json);
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
+		setTimeout(function(){
+			that.alertManager.make(Growl, {"title":"Message", "label":Defaults.MESSAGES[data.selection], "sfx":Assets.SOUNDS[2]}, null);
+		}, 300);
 	};
 	
   	return ChooseChallengeCommand;

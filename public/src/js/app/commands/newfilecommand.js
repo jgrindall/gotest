@@ -33,6 +33,9 @@ function(PhaserComponents,
 		else if(data.index === 2){
 			this.eventDispatcher.trigger({"type":Events.OPEN_BG_EDITOR});
 		}
+		else if(data.index === 3){
+			this.eventDispatcher.trigger({"type":Events.SHOW_CHALLENGES});
+		}
 	};
 	
   	return NewFileCommand;

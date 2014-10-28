@@ -7,16 +7,25 @@ define([], function() {
 			
     };
 
+	Defaults.MESSAGES = 				[];
+	Defaults.MESSAGES.push("Guide the fish to the treasure!");
+	Defaults.MESSAGES.push("Guide the car to bank, and then to the hospital!");
+	Defaults.MESSAGES.push("Fly to both of the poppies!");
+	Defaults.MESSAGES.push("Get to the cheese!");
+	Defaults.MESSAGES.push("Drive the car around the track!");
+	Defaults.MESSAGES.push("Write a program to draw a star shape!");
+	
+
 	Defaults.CHALLENGE_BG = 			[4, 2, 0, 6, 5, 9];
 	Defaults.CHALLENGE_SCREEN = 		[0, 1, 2, 2, 3, 3];
 	Defaults.CHALLENGE_COLOR = 			[0, 0, 2, 0, 0, 9];
-	Defaults.CHALLENGE_STEP_LENGTH = 	[4, 4, 2, 2, 2, 2];
+	Defaults.CHALLENGE_STEP_LENGTH = 	[4, 2, 2, 2, 2, 2];
 	Defaults.CHALLENGE_GRID = 			[1, 1, 1, 1, 1, 0];
 	Defaults.CHALLENGE_PROG = 			[0, 0, 1, 2, 2, 3];
 	Defaults.CHALLENGE_ALLOW_PROG = 	[0, 0, 1, 1, 1, 1];
 	Defaults.CHALLENGE_TURTLE = 		[1, 2, 6, 7, 2, 8];
 	Defaults.CHALLENGE_DIAG = 			[0, 0, 1, 1, 1, 1];
-	Defaults.CHALLENGE_START_POS = 		[{'x':0.8, 'y':0.1}, {'x':0.5, 'y':0.7}, {'x':0.2, 'y':0.9}, {'x':0.05, 'y':0.8}, {'x':0.5, 'y':0.1}, {'x':0.5, 'y':0.5}];
+	Defaults.CHALLENGE_START_POS = 		[{'x':0.8, 'y':0.1}, {'x':0.8, 'y':0.2}, {'x':0.2, 'y':0.9}, {'x':0.05, 'y':0.8}, {'x':0.5, 'y':0.1}, {'x':0.5, 'y':0.5}];
 
 	Defaults.DEFAULT_SETTINGS = {
 		'bg':0,

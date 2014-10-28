@@ -1,11 +1,11 @@
 
-define(['phasercomponents',
+define(['phaser', 'phasercomponents',
 
 'app/views/buttons/okbuttoncontainer',
 
 'app/views/buttons/closebutton', 'app/assets'],
 
-function(PhaserComponents,
+function(Phaser, PhaserComponents,
 
 OkButtonContainer,
 
@@ -27,6 +27,13 @@ CloseButton, Assets){
 		this.label = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + this.bounds.w/2, this.bounds.y + 90, this.options.label);
 		this.label.x -= this.label.width/2;
 		this.group.add(this.label);
+	};
+
+	Growl.prototype.addImage = function () {
+		if(this.options.img){
+			this.img = new Phaser.Sprite(this.game, 0, 0, this.options.img);
+			this.group.add(this.img);
+		}
 	};
 
 	Growl.prototype.addTitle = function () {
@@ -56,6 +63,10 @@ CloseButton, Assets){
 	Growl.prototype.destroy = function() {
 		this.group.remove(this.title);
 		this.group.remove(this.label);
+		if(this.img){
+			this.group.remove(this.img);
+		}
+		this.img = null;
 		this.title = null;
 		this.label = null;
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);

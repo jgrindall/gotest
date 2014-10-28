@@ -1,13 +1,17 @@
 
 define(
 
-	['app/views/components/arrowselectormenu', 'phasercomponents', 'app/views/buttons/addbutton'
+	['app/views/components/arrowselectormenu', 'phasercomponents',
+
+	'app/views/buttons/addbutton', 'app/views/buttons/challengebutton'
 
 ],
 
 function(
 
-ArrowSelectorMenu, PhaserComponents, AddButton
+ArrowSelectorMenu, PhaserComponents,
+
+AddButton, ChallengeButton
 
 ){
 	
@@ -25,6 +29,12 @@ ArrowSelectorMenu, PhaserComponents, AddButton
 	GameBgMenu.prototype.create = function () {
 		ArrowSelectorMenu.prototype.create.call(this);
 		this.addAdd();
+		this.addChallenge();
+	};
+
+	GameBgMenu.prototype.addChallenge = function () {
+		var bounds = {"x":this.bounds.x + 10, "y":this.bounds.y + this.bounds.h - AddButton.HEIGHT + 4};
+		this.addButton(ChallengeButton, bounds);
 	};
 
 	GameBgMenu.prototype.addAdd = function () {

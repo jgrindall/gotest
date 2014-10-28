@@ -38,6 +38,7 @@ define([], function(){
 	Assets.SKIP_BUTTON = 			'skipbutton';
 	Assets.PLAY_BUTTON =			'playButton';
 	Assets.STOP_BUTTON =			'stopButton';
+	Assets.CHALLENGE_BUTTON =		'challengeButton';
 	Assets.DRAG_ARROW = 			'dragarrow';
 	Assets.BUTTON = 				'button';
 	Assets.CONTROL_BAR =			'controlbar';
@@ -103,6 +104,7 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/play.png", 					"key":Assets.PLAY_BUTTON, 				"w":100, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/stop.png", 					"key":Assets.STOP_BUTTON, 				"w":100, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/addMyButton.png", 			"key":Assets.ADD_BUTTON, 				"w":180, 	"h":70},
+		{"type":"spritesheet", 	"asset":"assets/images/buttons/challengebutton.png", 		"key":Assets.CHALLENGE_BUTTON, 			"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Assets.MARKER, 					"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 						"key":Assets.PENS, 						"w":235, 	"h":125},
 		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle0.png", 				"key":Assets.WIDTHS[0], 				"w":50, 	"h":85},
