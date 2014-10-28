@@ -23,7 +23,7 @@ Growl, Assets) {
 		this.modelFacade.setData(json);
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 		setTimeout(function(){
-			that.alertManager.make(Growl, {"title":"Message", "label":Defaults.MESSAGES[data.selection], "sfx":Assets.SOUNDS[2]}, null);
+			that.alertManager.make(Growl, {"title":"Challenge", "label":Defaults.MESSAGES[data.selection], "sfx":Assets.SOUNDS[2]}, null);
 		}, 300);
 	};
 	
