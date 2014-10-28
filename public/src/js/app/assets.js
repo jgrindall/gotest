@@ -8,7 +8,7 @@ define([], function(){
 	};
 
 	Assets.LOADER_BAR = 			'loaderBar';
-	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4', 'grid5'];
+	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3', 'grid4'];
 	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9'];
 	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6', 'turtle7'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
@@ -146,7 +146,6 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/grids/grid2.png", 				"key":Assets.GRIDS[2]},
 		{"type":"image", 		"asset":"assets/images/grids/grid3.png", 				"key":Assets.GRIDS[3]},
 		{"type":"image", 		"asset":"assets/images/grids/grid4.png", 				"key":Assets.GRIDS[4]},
-		{"type":"image", 		"asset":"assets/images/grids/grid5.png", 				"key":Assets.GRIDS[5]},
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Assets.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhl.png", 			"key":Assets.SLIDERHL},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Assets.SLIDERHANDLE},
