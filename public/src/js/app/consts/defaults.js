@@ -19,7 +19,7 @@ define([], function() {
 	Defaults.CHALLENGE_START_POS = 		[{'x':0.8, 'y':0.1}, {'x':0.5, 'y':0.63}, {'x':0.2, 'y':0.762}, {'x':0.5, 'y':0.1}];
 
 	Defaults.DEFAULT_SETTINGS = {
-		'bg':0,
+		'bg':1,
 		'screen':0,
 		'speed':2,
 		'color':0,
@@ -32,7 +32,7 @@ define([], function() {
 		'bgPng':null,
 		'progNum':0,
 		'allowProg':0,
-		'turtle':0,
+		'turtle':3,
 		'diag':0,
 		'startPos':{'x':0.5, 'y':0.5},
 	};
