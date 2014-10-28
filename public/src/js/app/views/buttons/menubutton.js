@@ -8,6 +8,7 @@ define(['phasercomponents', 'app/assets'],
 	var MenuButton = function(options){
 		var frame0;
 		options.asset = Assets.BUTTON;
+		options.disabledAlpha = 1;
 		if(options.data.num < 4){
 			options.sfx = Assets.SOUNDS[0];
 		}
