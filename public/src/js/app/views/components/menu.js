@@ -40,7 +40,6 @@ PlayingState, ModelConsts){
 
 	Menu.prototype.menuClick = function(data) {
 		var i = data.index;
-		console.log("i", i);
 		if(i === 0){
 			this.eventDispatcher.trigger({"type":Events.NEW_FILE});
 		}
