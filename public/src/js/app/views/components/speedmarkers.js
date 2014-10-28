@@ -1,11 +1,7 @@
 
-define(['phasercomponents', 
+define(['phasercomponents'],
 
-	'app/consts/commspeed', 'app/assets', 'app/models/modelconsts'],
-
-function(PhaserComponents, 
-
-	CommSpeed, Assets, ModelConsts){
+function(PhaserComponents){
 	
 	"use strict";
 	
