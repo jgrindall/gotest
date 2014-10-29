@@ -16,7 +16,7 @@ define([], function(){
 	Assets.TOPBAR = 				'topBar';
 	Assets.CORNERS = 				'corners';
 	Assets.CORNERSX = 				'cornersx';
-	Assets.SOUNDS = 				['clickdown', 'clickup', 'swooshdown', 'swooshup', 'rocket', 'snail', 'camera'];
+	Assets.SOUNDS = 				['clickdown', 'clickup', 'swooshdown', 'swooshup'];
 	Assets.CLOSE = 					'close';
 	Assets.CLEAR = 					'clear';
 	Assets.MARKER = 				'marker';
@@ -130,10 +130,7 @@ define([], function(){
 		{"type":"sound", 		"asset":["assets/sound/click0.mp3", "assets/sound/click0.wav"], 			"key":Assets.SOUNDS[0]},
 		{"type":"sound", 		"asset":["assets/sound/click1.mp3", "assets/sound/click1.wav"], 			"key":Assets.SOUNDS[1]},
 		{"type":"sound", 		"asset":["assets/sound/swoosh0.mp3", "assets/sound/swoosh0.wav"], 			"key":Assets.SOUNDS[2]},
-		{"type":"sound", 		"asset":["assets/sound/swoosh1.mp3", "assets/sound/swoosh1.wav"], 			"key":Assets.SOUNDS[3]},
-		{"type":"sound", 		"asset":["assets/sound/rocket.mp3", "assets/sound/rocket.wav"], 			"key":Assets.SOUNDS[4]},
-		{"type":"sound", 		"asset":["assets/sound/snail.mp3", "assets/sound/snail.wav"], 				"key":Assets.SOUNDS[5]},
-		{"type":"sound", 		"asset":["assets/sound/camera.mp3", "assets/sound/camera.wav"], 			"key":Assets.SOUNDS[6]}
+		{"type":"sound", 		"asset":["assets/sound/swoosh1.mp3", "assets/sound/swoosh1.wav"], 			"key":Assets.SOUNDS[3]}
 	];
 	
 	Assets.IMAGES = [
