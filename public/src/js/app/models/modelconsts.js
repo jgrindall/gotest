@@ -15,6 +15,7 @@ function(){
 	ModelConsts.TURTLE_PNG = 		"turtlepng";
 	ModelConsts.COLOR = 			"color";
 	ModelConsts.START_POS = 		"startpos";
+	ModelConsts.UNUSED = 			"unused";
 	ModelConsts.GRID = 				"grid";
 	ModelConsts.COMM = 				"comm";
 	ModelConsts.SCREEN = 			"screen";

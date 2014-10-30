@@ -46,7 +46,7 @@ define(
 		index = data.target.options.index;
 		turn = data.target.options.turn;
 		if(this.dragManager && this.dragManager.enabled){
-			drag = this.addDrag(type, index, turn, {'x':data.target.view.x, 'y':data.target.view.y});
+			drag = this.addDrag(type, index, turn, {'x':data.target.view.x, 'y':data.target.view.y}, true);
 			this.dragManager.startDrag(drag);
 		}
 	};
@@ -88,11 +88,15 @@ define(
 	};
 
 	ProgCommandPanel.prototype.load = function(){
-		var json, i, j, obj, drag, numTargets, objAllowed;
+		var json, i, j, obj, drag, numTargets, objAllowed, unused;
 		if(this.dragManager){
 			this.dragManager.clear();
 		}
 		json = this.modelFacade.get(ModelConsts.PROG).get();
+		unused = this.modelFacade.get(ModelConsts.UNUSED).get();
+		if(unused && unused.length >= 1){
+			json = json.concat(unused);
+		}
 		numTargets = Math.min(json.length, this.options.targetObj.constructor.NUM);
 		for(i = 0; i < numTargets; i++){
 			for(j = 0; j < json[i].length; j++){
@@ -104,6 +108,13 @@ define(
 				}
 			}
 		}
+		if(this.options.targetObj.constructor.NUM < json.length){
+			unused = json.splice(this.options.targetObj.constructor.NUM);
+		}
+		else{
+			unused = [];
+		}
+		this.modelFacade.get(ModelConsts.UNUSED).set(unused);
 		this.onEdited();
 	};
 
@@ -150,7 +161,8 @@ define(
 
 	ProgCommandPanel.prototype.onEdited = function() {
 		if(this.options.model){
-			this.modelFacade.get(ModelConsts.PROG).set(this.options.model.toJson(), {"silent":true});
+			var json = this.options.model.toJson();
+			this.modelFacade.get(ModelConsts.PROG).set(json, {"silent":true});
 		}
 		this.dragContainer.checkStartEnabled();
 	};

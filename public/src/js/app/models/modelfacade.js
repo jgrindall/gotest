@@ -7,7 +7,7 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/widthmodel', 'app/models/steplengthmodel', 'app/models/diagmodel',
 
-'app/models/prognummodel',
+'app/models/prognummodel', 'app/models/unusedprogmodel',
 
 'app/models/progtypemodel', 'app/models/allowprogmodel', 'app/models/turtlemodel', 'app/models/namemodel',
 
@@ -25,7 +25,7 @@ function(CommModel, ScreenModel, BgModel,
 
 	WidthModel, StepLengthModel, DiagModel,
 
-	ProgNumModel,
+	ProgNumModel, UnusedProgModel,
 
 	ProgTypeModel, AllowProgModel, TurtleModel, NameModel,
 
@@ -66,6 +66,9 @@ function(CommModel, ScreenModel, BgModel,
 		}
 		else if(name === ModelConsts.DIAG){
 			return this.diagModel;
+		}
+		else if(name === ModelConsts.UNUSED){
+			return this.unusedModel;
 		}
 		else if(name === ModelConsts.NAME){
 			return this.nameModel;
@@ -121,6 +124,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.gridModel = new GridModel();
 		this.stepLengthModel = new StepLengthModel();
 		this.widthModel = new WidthModel();
+		this.unusedModel = new UnusedProgModel();
 		this.playingModel = new PlayingModel();
 		this.screenModel = new ScreenModel();
 		this.commTickerModel = new CommTickerModel();

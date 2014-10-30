@@ -3367,6 +3367,9 @@ define(
 		if(hitzone){
 			view.snap(this.targets[rowIndex], hitzone.bounds);
 		}
+		else{
+			console.log("FAIL");
+		}
 	};
 
 	DragManager.prototype.drop = function(){
