@@ -126,6 +126,9 @@ define(
 
 	ProgDragContainer.prototype.getBlockIndex = function(num){
 		var sum, numCommands, index = 0;
+		if(num === 0){
+			return 0;
+		}
 		numCommands = this.getNumCommands();
 		sum = numCommands[0];
 		index = 0;
