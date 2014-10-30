@@ -22,10 +22,11 @@ PhaserComponents, CommandTypes){
 	};
 	
 	CommModel.prototype.set = function(commands) {
-		var that = this;
+		var that = this, cmd;
 		this.reset();
 		commands.forEach(function(c){
-			that.add(LogoCommandFactory.fromJson(c), false);
+			cmd = LogoCommandFactory.fromJson(c);
+			that.add(cmd, false);
 		});
 	};
 	
