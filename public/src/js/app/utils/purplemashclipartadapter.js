@@ -34,7 +34,6 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 				try{
 					window.ClipArtHelper.getImage(id, function(data){
 						src = data.src;
-						console.log("loading src ", src);
 						if(that.isBase64(src)){
 							options.success(src);
 						}
