@@ -1178,10 +1178,12 @@ define(
 	InteractiveSprite.prototype.onMouseUp = function(){
 		var localPoint = this.game.input.getLocalPosition(this.sprite, this.game.input.activePointer);
 		this.mouseUpSignal.dispatch({"target":this, "localPoint":localPoint});
+		this.mouseUpPoint = localPoint;
 	};
 	
 	InteractiveSprite.prototype.onMouseDown = function(){
 		var localPoint = this.game.input.getLocalPosition(this.sprite, this.game.input.activePointer);
+		this.mouseDownPoint = localPoint;
 		this.mouseDownSignal.dispatch({"target":this, "localPoint":localPoint});
 	};
 	
@@ -1193,6 +1195,8 @@ define(
 		this.mouseUpSignal = null;
 		this.sprite.destroy(true);
 		this.sprite = null;
+		this.mouseDownPoint = null;
+		this.mouseUpPoint = null;
 		View.prototype.destroy.call(this);
 	};
 
@@ -2801,16 +2805,16 @@ function(StepperButton, Utils){
 
 	Utils.extends(VStepperButton, StepperButton);
 
+	VStepperButton.prototype.onMouseUp = function(){
+		StepperButton.prototype.onMouseUp.call(this);
+		var frame = Math.round(this.options.numFrames * (this.bounds.h - this.mouseUpPoint.y) / this.bounds.h);
+		frame = Math.max(Math.min(frame, this.options.numFrames), 0);
+		console.log("p", JSON.stringify(this.mouseUpPoint), JSON.stringify(this.mouseDownPoint), frame);
+		this.model.set(frame);
+	};
+
 	VStepperButton.prototype.performStep = function(){
-		var y, localPoint;
-		localPoint = this.game.input.getLocalPosition(this.sprite, this.game.input.activePointer);
-		y = localPoint.y;
-		if( y <= this.bounds.h/2){
-			this.model.increment();
-		}
-		else{
-			this.model.decrement();
-		}
+		
 	};
 
 	return VStepperButton;

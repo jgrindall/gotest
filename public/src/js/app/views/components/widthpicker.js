@@ -28,6 +28,7 @@ function(PhaserComponents,
 	WidthPicker.prototype.init = function(){
 		this.load();
 		PhaserComponents.Display.VStepperButton.prototype.init.call(this);
+
 	};
 
 	WidthPicker.prototype.load = function(){
