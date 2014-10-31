@@ -1142,6 +1142,10 @@ define(
 	
 	Utils.extends(InteractiveSprite, View);
 	
+	InteractiveSprite.prototype.loadTexture = function(s){
+		this.sprite.loadTexture(s);
+	};
+
 	InteractiveSprite.prototype.addListeners = function(){
 		this.sprite.events.onInputDown.add(this.onMouseDown, this);
 		this.sprite.events.onInputUp.add(this.onMouseUp, this);
@@ -1954,10 +1958,22 @@ InteractiveSprite, Utils, AppEvents){
 
 	AbstractSlider.prototype.addListeners = function(){
 		this.handle.mouseDownSignal.add(this.startDragging, this);
+		if(this.bg){
+			this.bg.mouseDownSignal.add(this.bgDown, this);
+		}
+		if(this.hl){
+			this.hl.mouseDownSignal.add(this.hlDown, this);
+		}
 	};
 	
 	AbstractSlider.prototype.removeListeners = function(){
 		this.handle.mouseDownSignal.remove(this.startDragging, this);
+		if(this.bg){
+			this.bg.mouseDownSignal.remove(this.bgDown, this);
+		}
+		if(this.hl){
+			this.hl.mouseDownSignal.remove(this.hlDown, this);
+		}
 		this.removeMoveListeners();
 	};
 	
@@ -1988,15 +2004,27 @@ InteractiveSprite, Utils, AppEvents){
 		this.bg.loadTexture(bg);
 	};
 
+	AbstractSlider.prototype.bgDown = function(){
+		//console.log("bg Down");
+	};
+
+	AbstractSlider.prototype.hlDown = function(){
+		//console.log("hl Down");
+	};
+
 	AbstractSlider.prototype.addBg = function(){
-		this.bg = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderbg);
-		this.group.add(this.bg);
+		if(this.options.sliderbg){
+			var options = {"asset":this.options.sliderbg, "bounds":{'x':this.bounds.x, 'y':this.bounds.y}};
+			this.bg = new InteractiveSprite(options);
+			this.group.add(this.bg.view);
+		}
 	};
 
 	AbstractSlider.prototype.addHighlight = function(){
 		if(this.options.sliderhl){
-			this.hl = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderhl);
-			this.group.add(this.hl);
+			var options = {"asset":this.options.sliderhl, "bounds":{'x':this.bounds.x, 'y':this.bounds.y}};
+			this.hl = new InteractiveSprite(options);
+			this.group.add(this.hl.view);
 		}
 	};
 
@@ -2014,7 +2042,7 @@ InteractiveSprite, Utils, AppEvents){
 	   		this.mask.drawRect(0, 0, this.bounds.w, this.bounds.h);
 	   		this.mask.endFill();
 	   		this.group.add(this.mask);
-	   		this.hl.mask = this.mask;
+	   		this.hl.view.mask = this.mask;
 	   	}
 	};
 
@@ -2028,7 +2056,7 @@ InteractiveSprite, Utils, AppEvents){
 
 	AbstractSlider.prototype.removeHighlight = function(){
 		if(this.hl){
-			this.hl.mask = null;
+			this.hl.view.mask = null;
 			this.group.remove(this.hl);
 			this.hl.destroy(true);
 			this.hl = null;
