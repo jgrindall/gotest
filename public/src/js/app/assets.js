@@ -51,10 +51,13 @@ define([], function(){
 	Assets.SETTINGS3 = 				'settings3';
 	Assets.KEYS = 					'keys';
 	Assets.MARKERS = 				'markers';
+	Assets.TAB_BUTTON = 			'tabbutton';
 	Assets.SLIDERBG = 				'sliderbg';
 	Assets.SLIDERHL = 				'sliderhl';
-	Assets.TAB_BUTTON = 			'tabbutton';
 	Assets.SLIDERHANDLE = 			'sliderhandle';
+	Assets.WIDTHBG = 				'widthbg';
+	Assets.WIDTHHL = 				'widthhl';
+	Assets.WIDTHHANDLE = 			'widthhandle';
 	Assets.DRAG_TARGET =			'dragtarget';
 	Assets.DRAG_TARGET_SMALL =		'dragtargetsmall';
 	Assets.PENS = 					'pens';
@@ -150,6 +153,9 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Assets.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhl.png", 			"key":Assets.SLIDERHL},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Assets.SLIDERHANDLE},
+		{"type":"image", 		"asset":"assets/images/slider/widthbg.png", 			"key":Assets.WIDTHBG},
+		{"type":"image", 		"asset":"assets/images/slider/widthhl.png", 			"key":Assets.WIDTHHL},
+		{"type":"image", 		"asset":"assets/images/slider/widthhandle.png", 		"key":Assets.WIDTHHANDLE},
 		{"type":"image", 		"asset":"assets/images/maps/map0.png", 					"key":Assets.MAPS[0]},
 		{"type":"image", 		"asset":"assets/images/maps/map1.png", 					"key":Assets.MAPS[1]},
 		{"type":"image", 		"asset":"assets/images/maps/map2.png", 					"key":Assets.MAPS[2]},

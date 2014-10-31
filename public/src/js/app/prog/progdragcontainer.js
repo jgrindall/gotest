@@ -221,7 +221,6 @@ define(
 		this.color(index);
 	};
 
-
 	ProgDragContainer.prototype.color = function(index){
 		var i, target;
 		for(i = 0; i < this.targets.length; i++){

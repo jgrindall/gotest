@@ -1796,7 +1796,7 @@ function(ButtonBar, Utils){
 
 
 
-define('phasercomponents/display/slider/slider',['phaser', 'phasercomponents/display/container',
+define('phasercomponents/display/slider/abstractslider',['phaser', 'phasercomponents/display/container',
 
 'phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils', 'phasercomponents/events/appevents'],
 
@@ -1806,9 +1806,8 @@ InteractiveSprite, Utils, AppEvents){
 	
 	
 	
-	var Slider = function(options){
+	var AbstractSlider = function(options){
 		var index;
-		this.stepDist = (Slider.WIDTH - Slider.HANDLEWIDTH) / options.num;
 		options.model.changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
 		index = this.model.get();
@@ -1817,48 +1816,82 @@ InteractiveSprite, Utils, AppEvents){
 		}
 	};
 	
-	Slider.WIDTH = 			210;
-	Slider.HEIGHT = 		40;
-	Slider.HANDLEWIDTH = 	40;
-	Slider.HANDLEHEIGHT = 	40;
-	Slider.TOLERANCE = 		25;
+	AbstractSlider.TOLERANCE = 25;
 
-	Utils.extends(Slider, Container);
+	Utils.extends(AbstractSlider, Container);
+
+	AbstractSlider.prototype.getSize = function(){
+		return this.bounds[this.options.sizeKey];
+	};
+
+	AbstractSlider.prototype.getHandleSize = function(){
+		return this.options.handleSize[this.options.sizeKey];
+	};
+
+	AbstractSlider.prototype.getOrigin = function(){
+		return this.bounds[this.options.dirKey];
+	};
+
+	AbstractSlider.prototype.setMask = function(p){
+		console.log("setMask", p);
+		this.mask.scale[this.options.dirKey] = Math.max(p, 0.01);
+	};
 	
-	Slider.prototype.onChanged = function(value){
+	AbstractSlider.prototype.getViewOrigin = function(){
+		return this.view[this.options.dirKey];
+	};
+
+	AbstractSlider.prototype.getMousePos = function(p) {
+		return p[this.options.dirKey];
+	};
+
+	AbstractSlider.prototype.moveHandleTo = function(d) {
+		this.handle.sprite[this.options.dirKey] = this.bounds.x + d;	
+	};
+
+	AbstractSlider.prototype.getHandlePos = function() {
+		return this.handle.sprite[this.options.dirKey] - this.getOrigin();
+	};
+
+	AbstractSlider.prototype.getStepDist = function(){
+		return (this.getSize() - this.getHandleSize()) / this.options.num;
+	};
+
+	AbstractSlider.prototype.onChanged = function(value){
 		this.goTo(value);
 	};
 	
-	Slider.prototype.goTo = function(n) {
-		this.posHandle(this.bounds.x + this.view.x + Slider.HANDLEWIDTH/2 + (n * this.stepDist));
+	AbstractSlider.prototype.goTo = function(n) {
+		console.log("goTo", n);
+		this.posHandle(this.getHandleSize()/2 + (n * this.getStepDist()));
 	};
 	
-	Slider.prototype.toMin = function() {
+	AbstractSlider.prototype.toMin = function() {
 		this.model.set(0);
 	};
 
-	Slider.prototype.toMax = function() {
+	AbstractSlider.prototype.toMax = function() {
 		this.model.set(this.options.num);
 	};
 
-	Slider.prototype.posHandle = function(x) {
-		var p = (x - this.bounds.x - this.view.x)/this.bounds.w;
-		this.handle.sprite.x = x - this.view.x;
+	AbstractSlider.prototype.posHandle = function(d) {
+		var p = d/this.getSize();
+		this.moveHandleTo(d);
 		this.setMask(p);
 	};
 
-	Slider.prototype.disableInput = function() {
+	AbstractSlider.prototype.disableInput = function() {
 		this.handle.disableInput();
 		this.removeListeners();
 	};
 	
-	Slider.prototype.enableInput = function() {
+	AbstractSlider.prototype.enableInput = function() {
 		this.handle.enableInput();
 		this.handle.sprite.input.useHandCursor = true;
 		this.addListeners();
 	};	
 	
-	Slider.prototype.onUp = function() {
+	AbstractSlider.prototype.onUp = function() {
 		this.removeMoveListeners();
 		if(this.options.sfx){
 			this.eventDispatcher.trigger({"type":AppEvents.PLAY_SOUND, "data":this.options.sfx});
@@ -1866,66 +1899,66 @@ InteractiveSprite, Utils, AppEvents){
 		this.snap();
 	};
 	
-	Slider.prototype.snap = function() {
-		var num;
-		num = (this.handle.sprite.x - Slider.HANDLEWIDTH/2 - this.bounds.x) / this.stepDist;
+	AbstractSlider.prototype.snap = function() {
+		var num = (this.getHandlePos() - this.getHandleSize()/2) / this.getStepDist();
 		num = Math.round(num);
 		this.model.set(num);
 	};
 
-	Slider.prototype.isOutside = function(x, y) {
-		if(x < this.bounds.x + this.view.x - Slider.TOLERANCE || x > this.bounds.x + this.view.x + Slider.WIDTH + Slider.TOLERANCE){
+	AbstractSlider.prototype.isOutside = function(localPoint) {
+		if(localPoint.x < - AbstractSlider.TOLERANCE || localPoint.x > this.bounds.w + AbstractSlider.TOLERANCE){
 			return true;
 		}
-		else if(y < this.bounds.y  + this.view.y - Slider.TOLERANCE || y > this.bounds.y  + this.view.y + Slider.HEIGHT + Slider.TOLERANCE){
+		else if(localPoint.y < - AbstractSlider.TOLERANCE || localPoint.y > this.bounds.h + AbstractSlider.TOLERANCE){
 			return true;
 		}
 		return false;
 	};
 	
-	Slider.prototype.move = function(pointer, x, y) {
-		var xpos, xmin, xmax;
-		if(this.isOutside(x, y)){
+	AbstractSlider.prototype.move = function() {
+		var d, localPoint;
+		localPoint = this.game.input.getLocalPosition(this.group, this.game.input.activePointer);
+		localPoint.x -= this.bounds.x;
+		localPoint.y -= this.bounds.y;
+		if(this.isOutside(localPoint)){
 			this.onUp();
 		}
 		else{
-			xmin = this.view.x + this.bounds.x + Slider.HANDLEWIDTH/2;
-			xmax = this.view.x + this.bounds.x + Slider.WIDTH - Slider.HANDLEWIDTH/2;
-			xpos = Math.min(Math.max(x, xmin), xmax);
-			this.posHandle(xpos);
+			d = Math.min(Math.max(this.getMousePos(localPoint), this.getHandleSize()/2), this.getSize() - this.getHandleSize()/2);
+			this.posHandle(d);
 		}
 	};
 	
-	Slider.prototype.startDragging = function() {
+	AbstractSlider.prototype.startDragging = function() {
 		this.addMoveListeners();
 	};
 	
-	Slider.prototype.addMoveListeners = function(){
+	AbstractSlider.prototype.addMoveListeners = function(){
 		this.game.input.onUp.add(this.onUp, this);
 		this.game.input.moveCallback = this.move.bind(this);
 		this.game.input.mouse.mouseOutCallback = this.mouseOutCallback.bind(this);
 	};
 
-	Slider.prototype.removeMoveListeners = function(){
+	AbstractSlider.prototype.removeMoveListeners = function(){
 		this.game.input.onUp.remove(this.onUp, this);
 		this.game.input.moveCallback = null;
 		this.game.input.mouse.mouseOutCallback = null;
 	};
 
-	Slider.prototype.addListeners = function(){
+	AbstractSlider.prototype.addListeners = function(){
 		this.handle.mouseDownSignal.add(this.startDragging, this);
 	};
 	
-	Slider.prototype.removeListeners = function(){
+	AbstractSlider.prototype.removeListeners = function(){
 		this.handle.mouseDownSignal.remove(this.startDragging, this);
 		this.removeMoveListeners();
 	};
 	
-	Slider.prototype.mouseOutCallback = function() {
+	AbstractSlider.prototype.mouseOutCallback = function() {
 		this.onUp();
 	};
 	
-	Slider.prototype.removeHandle = function(){
+	AbstractSlider.prototype.removeHandle = function(){
 		if(this.handle){
 			this.group.remove(this.handle.sprite);
 			this.handle.destroy();
@@ -1933,31 +1966,27 @@ InteractiveSprite, Utils, AppEvents){
 		}
 	};
 
-	Slider.prototype.addHandle = function(){
+	AbstractSlider.prototype.addHandle = function(){
 		var x, y, options;
-		x = this.bounds.x + Slider.HANDLEHEIGHT/2;
-		y = this.bounds.y + Slider.HANDLEHEIGHT/2;
+		x = this.bounds.x + this.options.handleSize.w/2;
+		y = this.bounds.y + this.options.handleSize.h/2;
 		options = {"asset":this.options.handle, "bounds":{'x':x, 'y':y}};
 		this.handle = new InteractiveSprite(options);
 		this.handle.sprite.anchor.setTo(0.5, 0.5);
 		this.group.add(this.handle.sprite);
 	};
 	
-	Slider.prototype.addBg = function(){
+	AbstractSlider.prototype.addBg = function(){
 		this.bg = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderbg);
 		this.group.add(this.bg);
 	};
 
-	Slider.prototype.addHighlight = function(){
+	AbstractSlider.prototype.addHighlight = function(){
 		this.hl = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderhl);
 		this.group.add(this.hl);
 	};
-	
-	Slider.prototype.setMask = function(p){
-		this.mask.scale.x = p;
-	};
 
-	Slider.prototype.addMask = function(){
+	AbstractSlider.prototype.addMask = function(){
 		this.mask = new Phaser.Graphics(this.game, this.bounds.x, this.bounds.y);
    		this.mask.beginFill(0xff0000);
    		this.mask.drawRect(0, 0, this.bounds.w, this.bounds.h);
@@ -1966,7 +1995,7 @@ InteractiveSprite, Utils, AppEvents){
    		this.hl.mask = this.mask;
 	};
 
-	Slider.prototype.removeBg = function(){
+	AbstractSlider.prototype.removeBg = function(){
 		if(this.bg){
 			this.group.remove(this.bg);
 			this.bg.destroy(true);
@@ -1974,7 +2003,7 @@ InteractiveSprite, Utils, AppEvents){
 		}
 	};
 
-	Slider.prototype.removeHighlight = function(){
+	AbstractSlider.prototype.removeHighlight = function(){
 		if(this.hl){
 			this.group.remove(this.hl);
 			this.hl.destroy(true);
@@ -1982,7 +2011,7 @@ InteractiveSprite, Utils, AppEvents){
 		}
 	};
 
-	Slider.prototype.create = function(){
+	AbstractSlider.prototype.create = function(){
 		Container.prototype.create.call(this);
 		this.addBg();
 		this.addHighlight();
@@ -1991,7 +2020,7 @@ InteractiveSprite, Utils, AppEvents){
 		this.enableInput();
 	};
 	
-	Slider.prototype.destroy = function(){
+	AbstractSlider.prototype.destroy = function(){
 		this.removeListeners();
 		this.removeBg();
 		this.removeHandle();
@@ -2000,7 +2029,57 @@ InteractiveSprite, Utils, AppEvents){
 		Container.prototype.destroy.call(this);
 	};
 	
+	return AbstractSlider;
+
+});
+
+
+
+
+define('phasercomponents/display/slider/slider',['phasercomponents/utils/utils',
+
+'phasercomponents/display/slider/abstractslider'],
+
+function(Utils,
+
+AbstractSlider){
+	
+	
+	
+	var Slider = function(options){
+		options.dirKey = 'x';
+		options.sizeKey = 'w';
+		AbstractSlider.call(this, options);
+	};
+	
+	Utils.extends(Slider, AbstractSlider);
+
 	return Slider;
+
+});
+
+
+	
+
+define('phasercomponents/display/slider/vslider',['phasercomponents/utils/utils',
+
+'phasercomponents/display/slider/abstractslider'],
+
+function(Utils,
+
+AbstractSlider){
+	
+	
+	
+	var VSlider = function(options){
+		options.dirKey = 'y';
+		options.sizeKey = 'h';
+		AbstractSlider.call(this, options);
+	};
+	
+	Utils.extends(VSlider, AbstractSlider);
+
+	return VSlider;
 
 });
 
@@ -2457,13 +2536,11 @@ function(Container,
 		}
 		options = {"bounds":bounds, "numX":this.options.panels.length, "performSelect":true, "numY":1, "buttonClass":this.options.buttonClass, "data":data};
 		this.buttonBar = new TabButtonBar(options);
-		console.log("ADD LISTENER ", this.buttonBar.changeSignal);
 		this.buttonBar.changeSignal.add(this.barClick, this);
 		this.group.add(this.buttonBar.view);
 	};
 	
 	TabPanel.prototype.barClick = function(data){
-		console.log("barClick!!  ", data.index);
 		this.showPanel(data.index);
 	};
 
@@ -2471,7 +2548,6 @@ function(Container,
 		var i, panel;
 		for(i = 0; i < this.options.panels.length; i++){
 			panel = this.options.panels[i];
-			console.log("showPanel i = ", i, panel, (i === index));
 			panel.view.visible = (i === index);
 		}
 	};
@@ -2809,7 +2885,6 @@ function(StepperButton, Utils){
 		StepperButton.prototype.onMouseUp.call(this);
 		var frame = Math.round(this.options.numFrames * (this.bounds.h - this.mouseUpPoint.y) / this.bounds.h);
 		frame = Math.max(Math.min(frame, this.options.numFrames), 0);
-		console.log("p", JSON.stringify(this.mouseUpPoint), JSON.stringify(this.mouseDownPoint), frame);
 		this.model.set(frame);
 	};
 
@@ -3367,9 +3442,6 @@ define(
 		if(hitzone){
 			view.snap(this.targets[rowIndex], hitzone.bounds);
 		}
-		else{
-			console.log("FAIL");
-		}
 	};
 
 	DragManager.prototype.drop = function(){
@@ -3661,6 +3733,7 @@ define('phasercomponents',[
 	'phasercomponents/events/eventdispatcher',
 	'phasercomponents/events/appevents',
 	'phasercomponents/display/slider/slider',
+	'phasercomponents/display/slider/vslider',
 	'phasercomponents/display/scroller/scroller',
 	'phasercomponents/display/scroll/vscroller',
 	'phasercomponents/display/tabpanel/tabpanel',
@@ -3710,6 +3783,7 @@ define('phasercomponents',[
 		EventDispatcher,
 		AppEvents,
 		Slider, 
+		VSlider, 
 		Scroller,
 		VScroller,
 		TabPanel,
@@ -3754,6 +3828,7 @@ define('phasercomponents',[
         'ButtonGrid': 			ButtonGrid,
         'ButtonBar': 			ButtonBar,
         'Slider': 				Slider,
+        'VSlider': 				VSlider,
         'Scroller': 			Scroller,
         'Pager': 				Pager,
         'View': 				View,

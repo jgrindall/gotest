@@ -1,7 +1,7 @@
 
 define(['phasercomponents', 
 
-'app/consts/showdirections',
+'app/consts/showdirections', 'app/consts/commspeed',
 
 'app/views/controls/controlmenu', 'app/models/modelconsts',
 
@@ -11,7 +11,7 @@ define(['phasercomponents',
 
 function(PhaserComponents,
 
-ShowDirections,
+ShowDirections, CommSpeed,
 
 ControlMenu, ModelConsts,
 
@@ -25,6 +25,9 @@ Assets, SpeedMarkers){
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.alertHandler);
 	};
 	
+	ControlTop.SPEED_SLIDER_WIDTH = 210;
+	ControlTop.SPEED_SLIDER_HEIGHT = 40;
+
 	PhaserComponents.Utils.extends(ControlTop, PhaserComponents.Display.Container);
 
 	ControlTop.prototype.create = function() {
@@ -69,14 +72,14 @@ Assets, SpeedMarkers){
 
 	ControlTop.prototype.positionMarkers = function() {
 		var x, y = 3;
-		x = this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2 - 53;
+		x = this.game.w/2 - this.speedSlider.bounds.w/2 - 53;
 		this.speedMarkers.view.x = x;
 		this.speedMarkers.view.y = y;
 	};
 
 	ControlTop.prototype.positionSpeed = function() {
 		var x, y = 3;
-		x = this.game.w/2 - PhaserComponents.Display.Slider.WIDTH/2 - 53;
+		x = this.game.w/2 - this.speedSlider.bounds.w/2 - 53;
 		this.speedSlider.view.x = x;
 		this.speedSlider.view.y = y;
 	};
@@ -104,7 +107,7 @@ Assets, SpeedMarkers){
 	};
 	
 	ControlTop.prototype.addSpeedMarkers = function() {
-		var bounds = {"x":0, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
+		var bounds = {"x":0, "y":0, "w":ControlTop.SPEED_SLIDER_WIDTH, "h":ControlTop.SPEED_SLIDER_HEIGHT};
 		this.speedMarkers = new SpeedMarkers({"bounds":bounds, "asset":Assets.SPEEDDECOR});
 		this.speedMarkers.clickSignal.add(this.clickMarker, this);
 		this.group.add(this.speedMarkers.view);
@@ -123,8 +126,9 @@ Assets, SpeedMarkers){
 
 	ControlTop.prototype.addSpeedSlider = function() {
 		var options, bounds;
-		bounds = {"x":0, "y":0, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
-		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelConsts.SPEED), "num":4, "bounds":bounds};
+		bounds = {"x":0, "y":0, "w":ControlTop.SPEED_SLIDER_WIDTH, "h":ControlTop.SPEED_SLIDER_HEIGHT};
+		options = {"sfx":Assets.SOUNDS[1],"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelConsts.SPEED), "num":CommSpeed.ALL.length - 1, "bounds":bounds};
+		options.handleSize = {'w':40, 'h':40};
 		this.speedSlider = new PhaserComponents.Display.Slider(options);
 		this.group.add(this.speedSlider.view);
 		this.positionSpeed();

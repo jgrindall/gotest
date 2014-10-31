@@ -27,11 +27,13 @@ StepLengths){
 	
 	PhaserComponents.Utils.extends(SettingsMenuPanel, PhaserComponents.Display.Container);
 
-	SettingsMenuPanel.Y0 = 		55;
-	SettingsMenuPanel.Y1 = 		170;
-	SettingsMenuPanel.Y2 = 		285;
-	SettingsMenuPanel.Y3 = 		400;
-	
+	SettingsMenuPanel.Y0 = 				55;
+	SettingsMenuPanel.Y1 = 				170;
+	SettingsMenuPanel.Y2 = 				285;
+	SettingsMenuPanel.Y3 = 				400;
+	SettingsMenuPanel.SLIDER_WIDTH =	210;
+	SettingsMenuPanel.SLIDER_HEIGHT = 	40;
+
 	SettingsMenuPanel.prototype.setSettings1 = function() {
 		this.settings1.goTo(this.modelFacade.get(ModelConsts.STEPLENGTH).get());
 	};
@@ -62,8 +64,9 @@ StepLengths){
 	SettingsMenuPanel.prototype.addSlider = function(){
 		var middle, bounds, options;
 		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + SettingsMenuPanel.Y1 - 10, "w":PhaserComponents.Display.Slider.WIDTH, "h":PhaserComponents.Display.Slider.HEIGHT};
+		bounds = {"x":middle, "y":this.bounds.y + SettingsMenuPanel.Y1 - 10, "w":SettingsMenuPanel.SLIDER_WIDTH, "h":SettingsMenuPanel.SLIDER_HEIGHT};
 		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelConsts.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds};
+		options.handleSize = {'w':40, 'h':40};
 		this.lengthSlider = new PhaserComponents.Display.Slider(options);
 		this.view.add(this.lengthSlider.view);
 	};
