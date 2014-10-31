@@ -1092,6 +1092,10 @@ define(
 		
 	};
 
+	View.prototype.getPos = function(){
+		return {'x':this.view.x, 'y':this.view.y};
+	};
+
 	View.prototype.moveTo = function(x, y){
 		this.view.x = x;
 		this.view.y = y;

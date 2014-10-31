@@ -17,6 +17,7 @@ function(PhaserComponents,
 	PhaserComponents.Utils.extends(OpenBgEditorCommand, PhaserComponents.Commands.AbstractCommand);
 
 	OpenBgEditorCommand.prototype.onImgSelected = function(base64Data){
+		this.modelFacade.get(ModelConsts.CHALLENGE).set(null);
 		this.modelFacade.get(ModelConsts.BG_PNG).set(base64Data);
 	};
 

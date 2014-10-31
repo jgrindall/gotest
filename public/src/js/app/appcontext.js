@@ -9,7 +9,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/choosechallengecommand',
 
-	'app/commands/preshutdowncommand', 
+	'app/commands/preshutdowncommand', 'app/commands/checkchallengecommand',
 
 	'app/commands/startupcommand', 'app/commands/progchangecommand', 'app/commands/editturtlecommand', 
 
@@ -37,7 +37,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		AddCommandCommand, DrawCommand, ChooseChallengeCommand,
 
-		PreShutdownCommand, 
+		PreShutdownCommand, CheckChallengeCommand,
 
 		StartUpCommand, ProgChangeCommand, EditTurtleCommand,
 
@@ -146,6 +146,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.ADD_COMMAND, 								AddCommandCommand);
 		this.commandMap.map(Events.START_ACTIVITY, 								StartUpCommand);
 		this.commandMap.map(Events.DRAW, 										DrawCommand);
+		this.commandMap.map(Events.CHECK_CHALLENGE, 							CheckChallengeCommand);
 		this.commandMap.map(Events.BACK, 										BackCommand);
 		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
 		this.commandMap.map(Events.DOWNLOAD, 									DownloadCommand);

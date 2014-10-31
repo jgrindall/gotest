@@ -142,6 +142,10 @@ function(Phaser, PhaserComponents,
 		}
 	};
 	
+	Turtle.prototype.getPos = function() {
+		return this.turtle.getPos();
+	};
+
 	Turtle.prototype.getFrames = function(numFrames) {
 		var i, r = [];
 		for(i = 0; i < numFrames; i++){

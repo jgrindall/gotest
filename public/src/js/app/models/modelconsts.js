@@ -14,6 +14,7 @@ function(){
 	ModelConsts.BG_PNG = 			"bgpng";
 	ModelConsts.TURTLE_PNG = 		"turtlepng";
 	ModelConsts.COLOR = 			"color";
+	ModelConsts.CHALLENGE = 		"challenge";
 	ModelConsts.START_POS = 		"startpos";
 	ModelConsts.UNUSED = 			"unused";
 	ModelConsts.GRID = 				"grid";

@@ -1,5 +1,5 @@
 
-define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel', 
+define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel', 'app/models/challengemodel',
 
 'app/models/colormodel', 'app/models/speedmodel', 'app/models/startposmodel', 'app/models/selectedcommmodel',
 
@@ -17,7 +17,7 @@ define(['app/models/commmodel', 'app/models/screenmodel', 'app/models/bgmodel',
 
 'app/models/modelconsts'],
 
-function(CommModel, ScreenModel, BgModel,
+function(CommModel, ScreenModel, BgModel, ChallengeModel,
 
 	ColorModel, SpeedModel, StartPosModel, SelectedCommModel,
 
@@ -57,6 +57,9 @@ function(CommModel, ScreenModel, BgModel,
 		}
 		else if(name === ModelConsts.COLOR){
 			return this.colorModel;
+		}
+		else if(name === ModelConsts.CHALLENGE){
+			return this.challengeModel;
 		}
 		else if(name === ModelConsts.COMM){
 			return this.commModel;
@@ -125,6 +128,7 @@ function(CommModel, ScreenModel, BgModel,
 		this.stepLengthModel = new StepLengthModel();
 		this.widthModel = new WidthModel();
 		this.unusedModel = new UnusedProgModel();
+		this.challengeModel = new ChallengeModel();
 		this.playingModel = new PlayingModel();
 		this.screenModel = new ScreenModel();
 		this.commTickerModel = new CommTickerModel();
