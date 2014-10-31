@@ -27,6 +27,14 @@ define([], function() {
 	ChallengeData.CHALLENGE_DIAG = 			[1, 1, 1, 1, 1, 1];
 	ChallengeData.CHALLENGE_START_POS = 	[{'x':0.8, 'y':0.1}, {'x':0.8, 'y':0.2}, {'x':0.2, 'y':0.9}, {'x':0.05, 'y':0.8}, {'x':0.5, 'y':0.1}, {'x':0.5, 'y':0.5}];
 
+	ChallengeData.TARGETS = [];
+	ChallengeData.TARGETS.push ( [{'x':200, 'y':200}, {'x':500, 'y':500}] );
+	ChallengeData.TARGETS.push ( [{'x':200, 'y':200}, {'x':500, 'y':500}] );
+	ChallengeData.TARGETS.push ( [{'x':200, 'y':200}, {'x':500, 'y':500}] );
+	ChallengeData.TARGETS.push ( [{'x':200, 'y':200}, {'x':500, 'y':500}] );
+	ChallengeData.TARGETS.push ( [{'x':200, 'y':200}, {'x':500, 'y':500}] );
+	ChallengeData.TARGETS.push ( [{'x':200, 'y':200}, {'x':500, 'y':500}] );
+
 	return ChallengeData;
 });
 
