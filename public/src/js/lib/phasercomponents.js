@@ -1833,8 +1833,9 @@ InteractiveSprite, Utils, AppEvents){
 	};
 
 	AbstractSlider.prototype.setMask = function(p){
-		console.log("setMask", p);
-		this.mask.scale[this.options.dirKey] = Math.max(p, 0.01);
+		if(this.mask){
+			this.mask.scale[this.options.dirKey] = Math.max(p, 0.01);
+		}
 	};
 	
 	AbstractSlider.prototype.getViewOrigin = function(){
@@ -1862,7 +1863,6 @@ InteractiveSprite, Utils, AppEvents){
 	};
 	
 	AbstractSlider.prototype.goTo = function(n) {
-		console.log("goTo", n);
 		this.posHandle(this.getHandleSize()/2 + (n * this.getStepDist()));
 	};
 	
@@ -1902,6 +1902,7 @@ InteractiveSprite, Utils, AppEvents){
 	AbstractSlider.prototype.snap = function() {
 		var num = (this.getHandlePos() - this.getHandleSize()/2) / this.getStepDist();
 		num = Math.round(num);
+		num = Math.min(Math.max(0, num), this.options.num);
 		this.model.set(num);
 	};
 
@@ -1976,23 +1977,39 @@ InteractiveSprite, Utils, AppEvents){
 		this.group.add(this.handle.sprite);
 	};
 	
+	AbstractSlider.prototype.setBackground = function(bg){
+		this.options.sliderbg = bg;
+		this.bg.loadTexture(bg);
+	};
+
 	AbstractSlider.prototype.addBg = function(){
 		this.bg = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderbg);
 		this.group.add(this.bg);
 	};
 
 	AbstractSlider.prototype.addHighlight = function(){
-		this.hl = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderhl);
-		this.group.add(this.hl);
+		if(this.options.sliderhl){
+			this.hl = new Phaser.Sprite(this.game,  this.bounds.x, this.bounds.y, this.options.sliderhl);
+			this.group.add(this.hl);
+		}
+	};
+
+	AbstractSlider.prototype.removeMask = function(){
+		if(this.mask){
+			this.group.remove(this.mask);
+	   		this.mask = null;
+		}
 	};
 
 	AbstractSlider.prototype.addMask = function(){
-		this.mask = new Phaser.Graphics(this.game, this.bounds.x, this.bounds.y);
-   		this.mask.beginFill(0xff0000);
-   		this.mask.drawRect(0, 0, this.bounds.w, this.bounds.h);
-   		this.mask.endFill();
-   		this.group.add(this.mask);
-   		this.hl.mask = this.mask;
+		if(this.options.sliderhl){
+			this.mask = new Phaser.Graphics(this.game, this.bounds.x, this.bounds.y);
+	   		this.mask.beginFill(0xff0000);
+	   		this.mask.drawRect(0, 0, this.bounds.w, this.bounds.h);
+	   		this.mask.endFill();
+	   		this.group.add(this.mask);
+	   		this.hl.mask = this.mask;
+	   	}
 	};
 
 	AbstractSlider.prototype.removeBg = function(){
@@ -2005,6 +2022,7 @@ InteractiveSprite, Utils, AppEvents){
 
 	AbstractSlider.prototype.removeHighlight = function(){
 		if(this.hl){
+			this.hl.mask = null;
 			this.group.remove(this.hl);
 			this.hl.destroy(true);
 			this.hl = null;
@@ -2025,6 +2043,7 @@ InteractiveSprite, Utils, AppEvents){
 		this.removeBg();
 		this.removeHandle();
 		this.removeHighlight();
+		this.removeMask();
 		this.model.changeSignal.remove(this.onChanged, this);		
 		Container.prototype.destroy.call(this);
 	};
@@ -2321,7 +2340,6 @@ function(Container, Utils,
 	
 	
 	var VScroller  = function(options){
-		console.log("vscroller constructor ", JSON.stringify(options.bounds));
 		Container.call(this, options);
 	};
 	
@@ -2456,7 +2474,6 @@ function(Container, Utils,
 		this.mask = new Phaser.Graphics(this.game, 0, 0);
 		this.mask.beginFill(0xff0000);
 		this.mask.alpha = 0.2;
-		console.log("drawing mask", JSON.stringify(this.options.bounds));
     	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
     	this.mask.endFill();
     	this.group.add(this.mask);
@@ -2525,7 +2542,6 @@ function(Container,
 	};
 
 	TabPanel.prototype.addButtonBar = function(){
-		console.log("addButtonBar");
 		var options, bounds, data, i, w, h;
 		w = this.options.panels.length * this.options.buttonClass.WIDTH;
 		h = this.options.buttonClass.HEIGHT;

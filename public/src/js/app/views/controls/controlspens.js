@@ -3,7 +3,7 @@ define(['phasercomponents', 'app/views/components/colorpicker',
 
 'app/views/components/widthpicker', 'app/consts/controlslayout',
 
-'app/consts/colors', 'app/consts/penwidths', 
+'app/consts/colors',
 
 'app/assets', 'app/models/modelconsts'
 
@@ -13,7 +13,7 @@ function(PhaserComponents, ColorPicker,
 
 WidthPicker, ControlsLayout,
 
-Colors, PenWidths,
+Colors, 
 
 Assets, ModelConsts){
 	

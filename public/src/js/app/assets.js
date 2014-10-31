@@ -55,13 +55,11 @@ define([], function(){
 	Assets.SLIDERBG = 				'sliderbg';
 	Assets.SLIDERHL = 				'sliderhl';
 	Assets.SLIDERHANDLE = 			'sliderhandle';
-	Assets.WIDTHBG = 				'widthbg';
-	Assets.WIDTHHL = 				'widthhl';
+	Assets.WIDTHBGS = 				['widthbg0', 'widthbg1', 'widthbg2', 'widthbg3', 'widthbg4', 'widthbg5', 'widthbg6', 'widthbg7', 'widthbg8', 'widthbg9', 'widthbg10'];
 	Assets.WIDTHHANDLE = 			'widthhandle';
 	Assets.DRAG_TARGET =			'dragtarget';
 	Assets.DRAG_TARGET_SMALL =		'dragtargetsmall';
 	Assets.PENS = 					'pens';
-	Assets.WIDTHS = 				['width0', 'width1', 'width2', 'width3', 'width4', 'width5', 'width6', 'width7', 'width8', 'width9', 'width10'];
 	Assets.TOGGLE = 				'toggle';
 	Assets.RADIO = 					'radio';
 	Assets.BG = 					'bg';
@@ -110,17 +108,6 @@ define([], function(){
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/challengebutton.png", 		"key":Assets.CHALLENGE_BUTTON, 			"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/pagination.png", 			"key":Assets.MARKER, 					"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/pens/pens.png", 						"key":Assets.PENS, 						"w":235, 	"h":125},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle0.png", 				"key":Assets.WIDTHS[0], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle1.png", 				"key":Assets.WIDTHS[1], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle2.png", 				"key":Assets.WIDTHS[2], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle3.png", 				"key":Assets.WIDTHS[3], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle4.png", 				"key":Assets.WIDTHS[4], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle5.png", 				"key":Assets.WIDTHS[5], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle6.png", 				"key":Assets.WIDTHS[6], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle7.png", 				"key":Assets.WIDTHS[7], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle8.png", 				"key":Assets.WIDTHS[8], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle9.png", 				"key":Assets.WIDTHS[9], 				"w":50, 	"h":85},
-		{"type":"spritesheet", 	"asset":"assets/images/pens/squiggle10.png", 				"key":Assets.WIDTHS[10], 				"w":50, 	"h":85},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/toggle.png", 				"key":Assets.TOGGLE, 					"w":120, 	"h":60},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/radiobutton.png", 			"key":Assets.RADIO, 					"w":100, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/maps/cornersx.png",	 				"key":Assets.CORNERSX,					"w":5, 		"h":5},
@@ -153,9 +140,18 @@ define([], function(){
 		{"type":"image", 		"asset":"assets/images/slider/sliderbg.png", 			"key":Assets.SLIDERBG},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhl.png", 			"key":Assets.SLIDERHL},
 		{"type":"image", 		"asset":"assets/images/slider/sliderhandle.png", 		"key":Assets.SLIDERHANDLE},
-		{"type":"image", 		"asset":"assets/images/slider/widthbg.png", 			"key":Assets.WIDTHBG},
-		{"type":"image", 		"asset":"assets/images/slider/widthhl.png", 			"key":Assets.WIDTHHL},
-		{"type":"image", 		"asset":"assets/images/slider/widthhandle.png", 		"key":Assets.WIDTHHANDLE},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg0.png", 				"key":Assets.WIDTHBGS[0]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg1.png", 				"key":Assets.WIDTHBGS[1]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg2.png", 				"key":Assets.WIDTHBGS[2]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg3.png", 				"key":Assets.WIDTHBGS[3]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg4.png", 				"key":Assets.WIDTHBGS[4]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg5.png", 				"key":Assets.WIDTHBGS[5]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg6.png", 				"key":Assets.WIDTHBGS[6]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg7.png", 				"key":Assets.WIDTHBGS[7]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg8.png", 				"key":Assets.WIDTHBGS[8]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg9.png", 				"key":Assets.WIDTHBGS[9]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg10.png", 			"key":Assets.WIDTHBGS[10]},
+		{"type":"image", 		"asset":"assets/images/pens/widthhandle.png", 			"key":Assets.WIDTHHANDLE},
 		{"type":"image", 		"asset":"assets/images/maps/map0.png", 					"key":Assets.MAPS[0]},
 		{"type":"image", 		"asset":"assets/images/maps/map1.png", 					"key":Assets.MAPS[1]},
 		{"type":"image", 		"asset":"assets/images/maps/map2.png", 					"key":Assets.MAPS[2]},
