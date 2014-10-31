@@ -3494,8 +3494,19 @@ define(
 		}
 	};
 
+	DragManager.prototype.clearCurrent = function(){
+		var row, zone, view;
+		row = this.model.rowAtIndex(this.dropPosition.rowIndex);
+		zone = row.getZoneAt(this.dropPosition.zoneIndex);
+		view = zone.view;
+		zone.clear();
+		this.removeView(view);
+		console.log("REMOVE ",this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
+	};
+
 	DragManager.prototype.drop = function(){
 		if(this.dropPosition && this.dropPosition.rowIndex >= 0){
+			this.clearCurrent();
 			this.snapTo(this.draggedView, this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
 			this.targets[this.dropPosition.rowIndex].highlight(false);
 			this.editSignal.dispatch();
@@ -3534,10 +3545,11 @@ define(
 	};
 
 	DragManager.prototype.setDropPosition = function(){
-		var rowIndex, zoneIndex;
+		var rowIndex, zoneData, zoneIndex;
 		rowIndex = this.getClosest();
 		if(rowIndex >= 0){
-			zoneIndex = this.model.getZoneIndex(this.draggedView, rowIndex);
+			zoneData = this.model.getZoneIndex(this.draggedView, rowIndex);
+			zoneIndex = zoneData.index;
 			if(zoneIndex === -1){
 				rowIndex = -1;
 			}
@@ -3625,6 +3637,10 @@ define( 'phasercomponents/drag/dragmodel',[], function(){
 		});
 	};
 
+	DragModel.prototype.rowAtIndex = function(i){
+		return this.rows[i];
+	};
+
 	DragModel.prototype.addRow = function(row){
 		this.rows.push(row);
 	};
@@ -3663,7 +3679,7 @@ define( 'phasercomponents/drag/hitzone',[], function(){
 	};
 
 	HitZone.prototype.willAccept = function(view){
-		var accept = (this.view === null && this.accepter.willAccept(view));
+		var accept = this.accepter.willAccept(view);
 		return accept;
 	};
 
@@ -3709,15 +3725,16 @@ define( 'phasercomponents/drag/hitzonerow',[], function(){
 	};
 
 	HitZoneRow.prototype.getAcceptedIndex = function(view){
-		var i, index = -1, hitzone;
+		var i, index = -1, full = false, hitzone;
 		for(i = 0; i < this.hitzones.length; i++){
 			hitzone = this.hitzones[i];
 			if(hitzone.willAccept(view)){
+				full = (hitzone.view !== null);
 				index = i;
 				break;
 			}
 		}
-		return index;
+		return {"index":index, "replacing":full};
 	};
 
 	HitZoneRow.prototype.toJson = function(){
@@ -3734,6 +3751,10 @@ define( 'phasercomponents/drag/hitzonerow',[], function(){
 			hitzone.add(view);
 		}
 		return hitzone;
+	};
+
+	HitZoneRow.prototype.getZoneAt = function(zoneIndex){
+		return this.hitzones[zoneIndex];
 	};
 
 	HitZoneRow.prototype.clear = function(){
