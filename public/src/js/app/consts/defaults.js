@@ -16,7 +16,7 @@ define([], function() {
 	Defaults.MESSAGES.push("Write a program to draw a star shape!");
 	
 
-	Defaults.CHALLENGE_BG = 			[4, 2, 0, 6, 5, 9];
+	Defaults.CHALLENGE_BG = 			[4, 2, 0, 6, 5, 10];
 	Defaults.CHALLENGE_SCREEN = 		[0, 1, 2, 2, 3, 3];
 	Defaults.CHALLENGE_COLOR = 			[0, 0, 2, 0, 0, 9];
 	Defaults.CHALLENGE_STEP_LENGTH = 	[4, 2, 2, 2, 2, 2];
@@ -24,8 +24,10 @@ define([], function() {
 	Defaults.CHALLENGE_PROG = 			[0, 0, 1, 2, 2, 3];
 	Defaults.CHALLENGE_ALLOW_PROG = 	[0, 0, 1, 1, 1, 1];
 	Defaults.CHALLENGE_TURTLE = 		[1, 2, 6, 7, 2, 8];
-	Defaults.CHALLENGE_DIAG = 			[0, 0, 1, 1, 1, 1];
+	Defaults.CHALLENGE_DIAG = 			[1, 1, 1, 1, 1, 1];
 	Defaults.CHALLENGE_START_POS = 		[{'x':0.8, 'y':0.1}, {'x':0.8, 'y':0.2}, {'x':0.2, 'y':0.9}, {'x':0.05, 'y':0.8}, {'x':0.5, 'y':0.1}, {'x':0.5, 'y':0.5}];
+
+	Defaults.TURTLE_MAP = [6, 3, 2, 5, 1, 2, 7, 4, 6, 0, 8, 9];
 
 	Defaults.DEFAULT_SETTINGS = {
 		'bg':0,
@@ -42,7 +44,7 @@ define([], function() {
 		'progNum':0,
 		'allowProg':0,
 		'turtle':6,
-		'diag':0,
+		'diag':1,
 		'startPos':{'x':0.5, 'y':0.5},
 	};
 	

@@ -4,13 +4,17 @@ define(
 
 	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider',
 
-	'app/assets', 'app/events/events', 'app/models/modelconsts'],
+	'app/assets', 'app/events/events',
+
+	'app/models/modelconsts', 'app/consts/defaults'],
 
 function(PhaserComponents, 
 
 	GameBgMenu, BgDataProvider,
 
-	Assets, Events, ModelConsts) {
+	Assets, Events, 
+
+	ModelConsts, Defaults) {
 	
 	"use strict";
 	
@@ -29,6 +33,7 @@ function(PhaserComponents,
 		var selectedPage = data.selection.selectedPage;
 		if(data.index === 1){
 			this.modelFacade.get(ModelConsts.BG).set(selectedPage, {"force":true});
+			this.modelFacade.get(ModelConsts.TURTLE).set(Defaults.TURTLE_MAP[selectedPage]);
 		}
 		else if(data.index === 2){
 			this.eventDispatcher.trigger({"type":Events.OPEN_BG_EDITOR});
