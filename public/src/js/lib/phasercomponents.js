@@ -3501,7 +3501,6 @@ define(
 		view = zone.view;
 		zone.clear();
 		this.removeView(view);
-		console.log("REMOVE ",this.dropPosition.rowIndex, this.dropPosition.zoneIndex);
 	};
 
 	DragManager.prototype.drop = function(){
