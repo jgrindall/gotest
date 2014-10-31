@@ -1810,6 +1810,7 @@ InteractiveSprite, Utils, AppEvents){
 		var index;
 		options.model.changeSignal.add(this.onChanged, this);
 		Container.call(this, options);
+		this.centreHandle();
 		index = this.model.get();
 		if(index !== null){
 			this.goTo(index);
@@ -1820,6 +1821,11 @@ InteractiveSprite, Utils, AppEvents){
 
 	Utils.extends(AbstractSlider, Container);
 
+	AbstractSlider.prototype.centreHandle = function(){
+		this.handle.sprite.x = this.bounds.x + this.bounds.w/2;
+		this.handle.sprite.y = this.bounds.y + this.bounds.h/2;
+	};
+	
 	AbstractSlider.prototype.getSize = function(){
 		return this.bounds[this.options.sizeKey];
 	};
@@ -1847,7 +1853,7 @@ InteractiveSprite, Utils, AppEvents){
 	};
 
 	AbstractSlider.prototype.moveHandleTo = function(d) {
-		this.handle.sprite[this.options.dirKey] = this.bounds.x + d;	
+		this.handle.sprite[this.options.dirKey] = this.bounds.x + d;
 	};
 
 	AbstractSlider.prototype.getHandlePos = function() {

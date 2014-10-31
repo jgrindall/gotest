@@ -16,14 +16,14 @@ function(PhaserComponents,
 		options.num = PenWidths.ALL.length - 1;
 		options.handle = Assets.WIDTHHANDLE;
 		options.sliderbg = Assets.WIDTHBGS[0];
-		options.handleSize = {'w':50, 'h':30};
+		options.handleSize = {'w':40, 'h':20};
 		PhaserComponents.Display.VSlider.call(this, options);
 		this.modelFacade.get(ModelConsts.COLOR).changeSignal.add(this.changeColor, this);
 		this.changeColor();
 	};
 
-	WidthPicker.WIDTH = 50;
-	WidthPicker.HEIGHT = 85;
+	WidthPicker.WIDTH = 45;
+	WidthPicker.HEIGHT = 75;
 	
 	PhaserComponents.Utils.extends(WidthPicker, PhaserComponents.Display.VSlider);
 	
