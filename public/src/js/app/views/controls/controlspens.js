@@ -75,10 +75,6 @@ Assets, ModelConsts){
 		this.colorPicker.view.y = y;
 	};
 
-	ControlsPens.prototype.positionWidthPickers = function() {
-
-	};
-
 	ControlsPens.prototype.positionWidthPicker = function() {
 		var x, y;
 		x = this.bounds.x + this.bounds.w - WidthPicker.WIDTH;
@@ -90,13 +86,14 @@ Assets, ModelConsts){
 	ControlsPens.prototype.positionWidthPicker2 = function() {
 		var x, y;
 		x = this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2;
-		y = this.game.h - ControlsLayout.PEN_HEIGHT - 50;
+		y = this.game.h - ControlsLayout.PEN_HEIGHT - 42;
 		this.widthPicker2.view.x = Math.max(x, 0);
 		this.widthPicker2.view.y = y;
 	};
 	
 	ControlsPens.prototype.onResize = function() {
 		this.positionColorPicker();
+		this.positionWidthPicker();
 		this.positionWidthPicker2();
 	};
 

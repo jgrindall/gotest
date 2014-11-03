@@ -32,6 +32,9 @@ Events, ModelConsts, ControlBar){
 		this.modelFacade.get(ModelConsts.ALLOW_PROG).changeSignal.add(this.onProgAllowedChanged, this);
 	};
 	
+	ControlsKeys.TOP_PADDING = 47;
+	ControlsKeys.BOTTOM_PADDING = 220;
+
 	PhaserComponents.Utils.extends(ControlsKeys, PhaserComponents.Display.Container);
 
 	ControlsKeys.prototype.create = function() {
@@ -50,8 +53,8 @@ Events, ModelConsts, ControlBar){
 		var x, y;
 		if(this.commandsPanel){
 			x = 0;
-			y = 50 + (this.game.h - 200 - AbstractCommandsPanel.HEIGHT)/2;
-			y = Math.max(y, 50);
+			y = ControlsKeys.TOP_PADDING + (this.game.h - ControlsKeys.BOTTOM_PADDING - AbstractCommandsPanel.HEIGHT)/2;
+			y = Math.max(y, ControlsKeys.TOP_PADDING);
 			this.commandsPanel.bounds.w = this.bounds.w;
 			this.commandsPanel.view.x = x;
 			this.commandsPanel.view.y = y;
@@ -62,7 +65,7 @@ Events, ModelConsts, ControlBar){
 	ControlsKeys.prototype.positionControlBar = function() {
 		var x, y;
 		x = (this.bounds.w - ControlBar.WIDTH)/2;
-		y = this.game.h - ControlsLayout.PEN_HEIGHT - 77;
+		y = this.game.h - ControlsLayout.PEN_HEIGHT - 87;
 		this.controlBar.view.x = x;
 		this.controlBar.view.y = y;
 	};
