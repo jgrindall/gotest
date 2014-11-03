@@ -62,7 +62,7 @@ Events, ModelConsts, ControlBar){
 	ControlsKeys.prototype.positionControlBar = function() {
 		var x, y;
 		x = (this.bounds.w - ControlBar.WIDTH)/2;
-		y = this.game.h - ControlsLayout.PEN_HEIGHT - 40;
+		y = this.game.h - ControlsLayout.PEN_HEIGHT - 77;
 		this.controlBar.view.x = x;
 		this.controlBar.view.y = y;
 	};

@@ -57,6 +57,8 @@ define(['app/consts/turtles'], function(Turtles){
 	Assets.SLIDERHANDLE = 			'sliderhandle';
 	Assets.WIDTHBGS = 				['widthbg0', 'widthbg1', 'widthbg2', 'widthbg3', 'widthbg4', 'widthbg5', 'widthbg6', 'widthbg7', 'widthbg8', 'widthbg9', 'widthbg10'];
 	Assets.WIDTHHANDLE = 			'widthhandle';
+	Assets.WIDTHBGS2 = 				['widthbg20', 'widthbg21', 'widthbg22', 'widthbg23', 'widthbg24', 'widthbg25', 'widthbg26', 'widthbg27', 'widthbg28', 'widthbg29', 'widthbg210'];
+	Assets.WIDTHHANDLE2 = 			'widthhandle2';
 	Assets.DRAG_TARGET =			'dragtarget';
 	Assets.DRAG_TARGET_SMALL =		'dragtargetsmall';
 	Assets.PENS = 					'pens';
@@ -152,6 +154,18 @@ define(['app/consts/turtles'], function(Turtles){
 		{"type":"image", 		"asset":"assets/images/pens/widthbg9.png", 				"key":Assets.WIDTHBGS[9]},
 		{"type":"image", 		"asset":"assets/images/pens/widthbg10.png", 			"key":Assets.WIDTHBGS[10]},
 		{"type":"image", 		"asset":"assets/images/pens/widthhandle.png", 			"key":Assets.WIDTHHANDLE},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg20.png", 			"key":Assets.WIDTHBGS2[0]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg21.png", 			"key":Assets.WIDTHBGS2[1]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg22.png", 			"key":Assets.WIDTHBGS2[2]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg23.png", 			"key":Assets.WIDTHBGS2[3]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg24.png", 			"key":Assets.WIDTHBGS2[4]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg25.png", 			"key":Assets.WIDTHBGS2[5]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg26.png", 			"key":Assets.WIDTHBGS2[6]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg27.png", 			"key":Assets.WIDTHBGS2[7]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg28.png", 			"key":Assets.WIDTHBGS2[8]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg29.png", 			"key":Assets.WIDTHBGS2[9]},
+		{"type":"image", 		"asset":"assets/images/pens/widthbg210.png", 			"key":Assets.WIDTHBGS2[10]},
+		{"type":"image", 		"asset":"assets/images/pens/widthhandle2.png", 			"key":Assets.WIDTHHANDLE2},
 		{"type":"image", 		"asset":"assets/images/maps/map0.png", 					"key":Assets.MAPS[0]},
 		{"type":"image", 		"asset":"assets/images/maps/map1.png", 					"key":Assets.MAPS[1]},
 		{"type":"image", 		"asset":"assets/images/maps/map2.png", 					"key":Assets.MAPS[2]},

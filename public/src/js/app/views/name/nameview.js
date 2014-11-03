@@ -36,8 +36,9 @@ function(PhaserComponents, MainViewLayout, CanvasLayout){
 	NameView.prototype.onResize = function(){
 		var w, pos;
 		pos = MainViewLayout.getCanvasPos(this.game.w, this.game.h);
-		w = pos.x + pos.scale*CanvasLayout.REF_WIDTH;
-		this.el.width(w);
+		this.el.width(pos.scale*CanvasLayout.REF_WIDTH);
+		console.log("pos ",pos);
+		this.el.css("left", pos.x);
 	};
 
 	NameView.prototype.filter = function(s){
