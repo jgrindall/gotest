@@ -32,7 +32,7 @@ function(PhaserComponents,
 	NewFileCommand.prototype.onBgChosen = function(data){
 		var selectedPage = data.selection.selectedPage;
 		if(data.index === 1){
-			this.modelFacade.get(ModelConsts.CHALLENGE).set(null);
+			this.modelFacade.get(ModelConsts.CHALLENGE).reset();
 			this.modelFacade.get(ModelConsts.BG).set(selectedPage, {"force":true});
 			this.modelFacade.get(ModelConsts.TURTLE).set(Defaults.TURTLE_MAP[selectedPage]);
 		}

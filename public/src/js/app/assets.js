@@ -25,7 +25,7 @@ define(['app/consts/turtles'], function(Turtles){
 	Assets.SPEEDDECOR = 			'speeddecor';
 	Assets.GAME_SCREEN = 			'gamescreen';
 	Assets.TOOLTIPS = 				['tooltip0', 'tooltip1', 'tooltip2', 'tooltip3', 'tooltip4', 'tooltip5'];
-	Assets.TOOLTIP_IMAGE = 			'tooltipImage';
+	Assets.TOOLTIP_IMAGES = 		['tooltipImage0'];
 	Assets.ALERT = 					'alert';
 	Assets.IPAD = 					'ipad';
 	Assets.VSCROLLBAR =				'vscrollbar';
@@ -83,7 +83,6 @@ define(['app/consts/turtles'], function(Turtles){
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":45, 	"h":45},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":150, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtargetsmall.png",	 		"key":Assets.DRAG_TARGET_SMALL,			"w":80, 	"h":50},
-		{"type":"spritesheet", 	"asset":"assets/images/prog/tooltipimages.png",	 			"key":Assets.TOOLTIP_IMAGE,				"w":160, 	"h":160},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/controlbar.png",	 			"key":Assets.CONTROL_BAR,				"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragarrows.png",	 			"key":Assets.DRAG_ARROW,				"w":32, 	"h":32},
 		{"type":"spritesheet", 	"asset":"assets/images/screens/smallpanel.png",	 			"key":Assets.GAME_SCREEN,				"w":225, 	"h":250},
@@ -132,6 +131,7 @@ define(['app/consts/turtles'], function(Turtles){
 		{"type":"image", 		"asset":"assets/images/popups/tooltip3.png",	 		"key":Assets.TOOLTIPS[3]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip4.png",	 		"key":Assets.TOOLTIPS[4]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip5.png",	 		"key":Assets.TOOLTIPS[5]},
+		{"type":"image", 		"asset":"assets/images/popups/tooltipImages0.png",	 	"key":Assets.TOOLTIP_IMAGES[0]},
 		{"type":"image", 		"asset":"assets/images/grids/grid0.png", 				"key":Assets.GRIDS[0]},
 		{"type":"image", 		"asset":"assets/images/grids/grid1.png", 				"key":Assets.GRIDS[1]},
 		{"type":"image", 		"asset":"assets/images/grids/grid2.png", 				"key":Assets.GRIDS[2]},

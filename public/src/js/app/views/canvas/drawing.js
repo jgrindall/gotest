@@ -120,6 +120,7 @@ FdCommand, StepLengths){
 		this.angle = -90;
 		this.setTurtle();
 		this.paths.clear();
+		this.eventDispatcher.trigger({"type":Events.CHECK_POSITION, "data":this.startPos});
 	};
 	
 	Drawing.prototype.setStart = function(){

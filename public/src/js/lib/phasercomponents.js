@@ -699,9 +699,9 @@ function(Phaser, Injector, AppEvents){
 	
 	AlertManager.prototype.init = function(){
 		this.inject();
-		this.closeHandler = this.close.bind(this);
-		this.eventDispatcher.addListener(AppEvents.RESIZE, this.reOpen);
-		this.eventDispatcher.addListener(AppEvents.ORIENT, this.reOpen);
+		this.reOpenHandler = this.reOpen.bind(this);
+		this.eventDispatcher.addListener(AppEvents.RESIZE, this.reOpenHandler);
+		this.eventDispatcher.addListener(AppEvents.ORIENT, this.reOpenHandler);
 	};
 
 	AlertManager.prototype.inject = function(){
@@ -760,8 +760,12 @@ function(Phaser, Injector, AppEvents){
 			this.addBg();
 		}
 		this.game.world.add(this.alert.group);
-		this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
-		this.alert.showMe();
+		if(this.alert.useAnimate()){
+			this.alert.showMe();
+		}
+		if(this.alert.disableOnShow()){
+			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
+		}
 	};
 
 	AlertManager.prototype.buttonClick = function(callback, data){
@@ -773,9 +777,9 @@ function(Phaser, Injector, AppEvents){
 
 	AlertManager.prototype.destroy = function(){
 		this.close();
-		this.eventDispatcher.removeListener(AppEvents.RESIZE, this.reOpen);
-		this.eventDispatcher.removeListener(AppEvents.ORIENT, this.reOpen);
-		this.closeHandler = null;
+		this.eventDispatcher.removeListener(AppEvents.RESIZE, this.reOpenHandler);
+		this.eventDispatcher.removeListener(AppEvents.ORIENT, this.reOpenHandler);
+		this.reOpenHandler = null;
 		Injector.getInstance().unInject(this);
 	};
 
@@ -3155,7 +3159,9 @@ Container, Utils){
 		this.buttons = [];
 		this.selectSignal = new Phaser.Signal();
 		Container.call(this, options);
-		this.group.y = this.game.h + 50;
+		if(this.useAnimate()){
+			this.group.y = this.game.h + 50;
+		}
 	};
 	
 	Utils.extends(AbstractPopup, Container);
@@ -3175,6 +3181,14 @@ Container, Utils){
 	};
 	
 	AbstractPopup.prototype.useBg = function () {
+		return true;
+	};
+
+	AbstractPopup.prototype.useAnimate = function(){
+		return true;
+	};
+
+	AbstractPopup.prototype.disableOnShow = function(){
 		return true;
 	};
 

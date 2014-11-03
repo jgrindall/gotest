@@ -236,7 +236,7 @@ function(Phaser, PhaserComponents,
 			this.move(p);
 		}
 		else{
-			this.moveTween = this.game.add.tween(this.turtle.view).to( {'x':p.x, 'y':p.y}, time*0.95, Phaser.Easing.Linear.None, true, 0, false);
+			this.moveTween = this.game.add.tween(this.turtle.view).to( {'x':p.x, 'y':p.y}, time*1, Phaser.Easing.Linear.None, true, 0, false);
 		}
 	};
 	

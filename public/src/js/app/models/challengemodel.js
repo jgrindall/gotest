@@ -12,11 +12,24 @@ function(PhaserComponents, ChallengeData,
 	var ChallengeModel  = function(){
 		PhaserComponents.Model.AbstractModel.call(this);
 		this.hit = [];
+		this.shown = false;
 		this.changeSignal.add(this.onChange, this);
 	};
 	
 	PhaserComponents.Utils.extends(ChallengeModel, PhaserComponents.Model.ToggleModel);
 	
+	ChallengeModel.prototype.setChallenge = function(i){
+		this.shown = false;
+		this.hit = [];
+		this.set(i);
+	};
+
+	ChallengeModel.prototype.reset = function(){
+		this.shown = false;
+		this.hit = [];
+		this.set(null);
+	};
+
 	ChallengeModel.prototype.challengeHit = function(p0, p1){
 		var dx, dy, d;
 		dx = p0.x - p1.x;
@@ -49,13 +62,18 @@ function(PhaserComponents, ChallengeData,
 				}
 			}
 		}
+		this.shown = true;
 		this.eventDispatcher.trigger({"type":Events.CHALLENGE_DONE});
 	};
 
 	ChallengeModel.prototype.check = function(p){
-		if(this.get() !== null){
+		if(this.get() !== null && !this.shown){
 			this.verifyPoint(p);
 		}
+	};
+
+	ChallengeModel.prototype.onChange = function(){
+
 	};
 
 	ChallengeModel.prototype.onChange = function(){

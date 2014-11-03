@@ -3,13 +3,13 @@ define(['phasercomponents',
 
 'app/views/buttons/nextbutton', 'app/views/buttons/skipbutton', 'app/views/buttons/startbutton',
 
-'app/assets'],
+'app/assets', 'app/views/buttons/okbuttoncontainer'],
 
 function(PhaserComponents,
 
 NextButton, SkipButton, StartButton,
 
-Assets){
+Assets, OkButtonContainer){
 	
 	"use strict";
 		
@@ -22,34 +22,37 @@ Assets){
 
 	ToolTip.WIDTH = 420;
 	ToolTip.HEIGHT = 250;
-	ToolTip.DX = 50;
+	ToolTip.WAIT = 7;
 
 	ToolTip.prototype.addText = function () {
-		this.label = PhaserComponents.TextFactory.make('small', this.game, ToolTip.DX + this.bounds.x + this.bounds.w/2, this.bounds.y + 55, this.options.label);
+		var x, y;
+		x = this.bounds.x + 216;
+		y = this.bounds.y + 70;
+		this.label = PhaserComponents.TextFactory.make('small', this.game, x, y, this.options.label);
 		this.label.x -= this.label.width/2;
-		this.label.x += this.options.dx;
 		this.group.add(this.label);
+	};
+
+	ToolTip.prototype.addOkButton = function () {
+		var middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
+		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT};
+		this.addButton(OkButtonContainer, bounds);
+	};
+
+	ToolTip.prototype.showMe = function(){
+
 	};
 
 	ToolTip.prototype.useBg = function () {
 		return false;
 	};
-	
-	ToolTip.prototype.addSkipButton = function () {
-		var middle, bounds;
-		middle = this.bounds.x + this.bounds.w/2 - (SkipButton.WIDTH/2);
-		bounds = {"x":middle - 100 + this.options.dx, "y":this.bounds.y + this.bounds.h - SkipButton.HEIGHT};
-		this.addButton(SkipButton, bounds);
+
+	ToolTip.prototype.disableOnShow = function(){
+		return false;
 	};
 
-	ToolTip.prototype.addNextButton = function () { 
-		var middle, bounds, ClassRef = NextButton;
-		if(this.options.end){
-			ClassRef = StartButton;
-		}
-		middle = this.bounds.x + this.bounds.w/2 - (ClassRef.WIDTH/2);
-		bounds = {"x":middle + 100 + this.options.dx, "y":this.bounds.y + this.bounds.h - ClassRef.HEIGHT};
-		this.addButton(ClassRef, bounds);
+	ToolTip.prototype.useAnimate = function(){
+		return false;
 	};
 
 	ToolTip.prototype.onShown = function () {
@@ -57,21 +60,61 @@ Assets){
 	};
 
 	ToolTip.prototype.addImage = function () {
-		var bounds = {'x':this.bounds.x, 'y':this.bounds.y + 15};
-		this.img = new PhaserComponents.Display.MovieClip({"bounds":bounds, "numFrames":5, "asset":Assets.TOOLTIP_IMAGE});
-		this.img.goTo(this.options.num);
-		this.group.add(this.img.view);
+		var x, y;
+		x = this.bounds.x + 74;
+		y = this.bounds.y + 23;
+		if(this.options.imageAsset){
+			this.img = new Phaser.Sprite(this.game, x, y, this.options.imageAsset);
+			this.group.add(this.img);
+		}
 	};
 
 	ToolTip.prototype.create = function () {
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addText();
-		this.addSkipButton();
-		this.addNextButton();
 		this.addImage();
+		this.addOkButton();
+		this.addListener();
+		this.wait();
 	};
 	
+	ToolTip.prototype.onMouseUp = function(){
+		this.selectSignal.dispatch({"index":0});
+	};
+
+	ToolTip.prototype.addListener = function(){
+		this.panel.inputEnabled = true;
+		this.panel.events.onInputUp.add(this.onMouseUp, this);
+	};
+
+	ToolTip.prototype.removeListener = function(){
+		this.panel.inputEnabled = false;
+		this.panel.events.onInputUp.remove(this.onMouseUp, this);
+	};
+
+	ToolTip.prototype.forceClose = function(){
+		this.fadeTween = this.game.add.tween(this.view).to( {'alpha': 0}, 0, Phaser.Easing.Linear.None, true, 600, false);
+   		this.fadeTween.onComplete.add(this.tweenDone, this);
+	};
+
+	ToolTip.prototype.tweenDone = function(){
+		this.selectSignal.dispatch({"index":0});
+	};
+
+	ToolTip.prototype.wait = function(){
+		var that = this;
+		this.waitTimeout = setTimeout(function(){
+			that.forceClose();
+		}, ToolTip.WAIT*1000);
+	};
+
 	ToolTip.prototype.destroy = function() {
+		this.removeListener();
+   		if(this.fadeTween){
+   			this.fadeTween.stop();
+   			this.fadeTween.onComplete.remove(this.tweenDone, this);
+		}
+		clearTimeout(this.waitTimeout);
 		PhaserComponents.Display.AbstractPopup.prototype.destroy.call(this);
 	};
 	

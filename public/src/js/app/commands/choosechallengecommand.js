@@ -18,7 +18,7 @@ Growl, Assets, ModelConsts, ChallengeData) {
 
 	ChooseChallengeCommand.prototype.execute = function(data){
 		var json, that = this;
-		this.modelFacade.get(ModelConsts.CHALLENGE).set(data.selection);
+		this.modelFacade.get(ModelConsts.CHALLENGE).setChallenge(data.selection);
 		json = Defaults.getChallenge(data.selection);
 		this.eventDispatcher.trigger({"type":Events.REWIND});
 		this.modelFacade.setData(json);
