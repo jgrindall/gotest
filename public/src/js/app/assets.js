@@ -1,5 +1,5 @@
 
-define([], function(){
+define(['app/consts/turtles'], function(Turtles){
 	
 	"use strict";
 	
@@ -68,16 +68,16 @@ define([], function(){
 	Assets.BRAND = 					'brand';
 	
 	Assets.SPRITESHEETS = [
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle0.png", 				"key":Assets.TURTLES[0],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle1.png", 				"key":Assets.TURTLES[1],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle2.png", 				"key":Assets.TURTLES[2],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle3.png", 				"key":Assets.TURTLES[3],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle4.png", 				"key":Assets.TURTLES[4],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle5.png", 				"key":Assets.TURTLES[5],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle6.png", 				"key":Assets.TURTLES[6],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle7.png", 				"key":Assets.TURTLES[7],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle8.png", 				"key":Assets.TURTLES[8],				"w":45, 	"h":45},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle9.png", 				"key":Assets.TURTLES[9],				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle0.png", 				"key":Assets.TURTLES[0],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle1.png", 				"key":Assets.TURTLES[1],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle2.png", 				"key":Assets.TURTLES[2],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle3.png", 				"key":Assets.TURTLES[3],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle4.png", 				"key":Assets.TURTLES[4],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle5.png", 				"key":Assets.TURTLES[5],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle6.png", 				"key":Assets.TURTLES[6],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle7.png", 				"key":Assets.TURTLES[7],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle8.png", 				"key":Assets.TURTLES[8],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle9.png", 				"key":Assets.TURTLES[9],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tab.png",	 				"key":Assets.TAB_BUTTON,				"w":100, 	"h":30},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/yes.png",	 				"key":Assets.YES,						"w":73, 	"h":73},
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":45, 	"h":45},

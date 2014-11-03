@@ -31,14 +31,14 @@ function() {
 	Events.SHOW_TOUCH_IMG		= 		"showTouchImg";
 	Events.FINISHED				= 		"finished";
 	Events.DOWNLOAD				= 		"download";
-	Events.CHECK_CHALLENGE		=		"checkChallenge";
+	Events.CHECK_POSITION		=		"checkPosition";
 	Events.STOP					= 		"stop";
 	Events.SHOW_CHALLENGES		= 		"showChallenges";
 	Events.START_ACTIVITY		= 		"startactivity";
 	Events.CHOOSE_CHALLENGE	 	=		"chooseChallenge";
 	Events.ROTATE_TURTLE		=		"rotateTurtle";
 	Events.CHALLENGE_DONE		=		"challengeDone";
-	
+
   	return Events;
 });
 

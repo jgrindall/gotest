@@ -5,7 +5,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/rewindcommand', 'app/commands/stopcommand',
 
-	'app/commands/gridchoicecommand',
+	'app/commands/gridchoicecommand', 'app/commands/checkoutsidecommand',
 
 	'app/commands/addcommandcommand', 'app/commands/drawcommand', 'app/commands/choosechallengecommand',
 
@@ -33,9 +33,9 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		PrintCommand, UndoCommand, DownloadCommand,
 
-		RewindCommand, StopCommand, 
+		RewindCommand, StopCommand,
 
-		GridChoiceCommand,
+		GridChoiceCommand, CheckOutsideCommand,
 
 		AddCommandCommand, DrawCommand, ChooseChallengeCommand,
 
@@ -150,7 +150,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.ADD_COMMAND, 								AddCommandCommand);
 		this.commandMap.map(Events.START_ACTIVITY, 								StartUpCommand);
 		this.commandMap.map(Events.DRAW, 										DrawCommand);
-		this.commandMap.map(Events.CHECK_CHALLENGE, 							CheckChallengeCommand);
+		this.commandMap.map(Events.CHECK_POSITION, 								CheckChallengeCommand);
+		this.commandMap.map(Events.CHECK_POSITION, 								CheckOutsideCommand);
 		this.commandMap.map(Events.BACK, 										BackCommand);
 		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
 		this.commandMap.map(Events.DOWNLOAD, 									DownloadCommand);
