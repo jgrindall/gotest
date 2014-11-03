@@ -15,7 +15,9 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/openbgeditorcommand', 'app/commands/openturtleeditorcommand', 
 
-	'app/commands/finishcommand', 'app/commands/replaycommand','app/commands/backcommand',
+	'app/commands/finishcommand', 'app/commands/replaycommand',
+
+	'app/commands/backcommand', 'app/commands/challengedonecommand',
 
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
@@ -43,7 +45,9 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		OpenBgEditorCommand, OpenTurtleEditorCommand,
 
-		FinishCommand, ReplayCommand, BackCommand,
+		FinishCommand, ReplayCommand,
+
+		BackCommand, ChallengeDoneCommand,
 
 		Events, PhaserComponents, AppConsts,
 
@@ -155,6 +159,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.OPEN_BG_EDITOR, 								OpenBgEditorCommand);
 		this.commandMap.map(Events.OPEN_TURTLE_EDITOR, 							OpenTurtleEditorCommand);
 		this.commandMap.map(Events.EDIT_TURTLE, 								EditTurtleCommand);
+		this.commandMap.map(Events.CHALLENGE_DONE, 								ChallengeDoneCommand);
 		this.commandMap.map(PhaserComponents.Events.AppEvents.PRE_SHUTDOWN, 	PreShutdownCommand);
     };
 	
