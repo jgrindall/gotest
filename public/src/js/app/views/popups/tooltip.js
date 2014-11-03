@@ -1,13 +1,9 @@
 
 define(['phasercomponents',
 
-'app/views/buttons/nextbutton', 'app/views/buttons/skipbutton', 'app/views/buttons/startbutton',
-
 'app/assets', 'app/views/buttons/okbuttoncontainer'],
 
 function(PhaserComponents,
-
-NextButton, SkipButton, StartButton,
 
 Assets, OkButtonContainer){
 	

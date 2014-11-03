@@ -1,12 +1,12 @@
 define(
 
-	['phasercomponents', 'app/models/modelconsts', 
+	['phasercomponents', 
 
-	'app/consts/turtles', 'app/consts/canvaslayout', 'app/views/popups/tooltip', 'app/assets'],
+	'app/consts/turtles', 'app/consts/canvaslayout', 'app/views/popups/tooltip'],
 
-function(PhaserComponents, ModelConsts,
+function(PhaserComponents,
 
-	Turtles, CanvasLayout, ToolTip, Assets) {
+	Turtles, CanvasLayout, ToolTip) {
 	
 	"use strict";
 	
