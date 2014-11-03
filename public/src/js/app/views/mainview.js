@@ -1,6 +1,6 @@
 
 
-define(['app/views/canvas/canvas', 
+define(['app/views/canvas/canvas', 'app/views/mainviewlayout',
 
 'app/views/controls/controls', 'app/consts/controlslayout',
 
@@ -12,7 +12,7 @@ define(['app/views/canvas/canvas',
 
 'app/assets', 'app/consts/showdirections', 'app/models/modelconsts'],
 
-function(Canvas,
+function(Canvas, MainViewLayout,
 
 	Controls, ControlsLayout,
 
@@ -31,8 +31,6 @@ Assets, ShowDirections, ModelConsts){
 	};
 	
 	PhaserComponents.Utils.extends(MainView, PhaserComponents.Display.Container);
-
-	MainView.TOP_PADDING = 50;
 
 	MainView.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
@@ -82,7 +80,7 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.addName = function() {
     	this.nameView = new NameView(this.modelFacade.get(ModelConsts.NAME));
-    	$("body").append(this.nameView.el);
+    	$("div#game").append(this.nameView.el);
 	};
 
 	MainView.prototype.removeBg = function() {
@@ -114,24 +112,10 @@ Assets, ShowDirections, ModelConsts){
 	};
 
 	MainView.prototype.positionCanvas = function() {
-		var scale, w, h, x, y;
-		scale = this.getCanvasScale();
-		w = CanvasLayout.REF_WIDTH * scale;
-		h = CanvasLayout.REF_HEIGHT * scale;
-		x = (this.game.w - ControlsLayout.MIN_WIDTH - w)/2;
-		y = MainView.TOP_PADDING + (this.game.h - h - MainView.TOP_PADDING)/2;
-		this.canvas.view.x = x;
-		this.canvas.view.y = y;
-		this.canvas.view.scale = {'x':scale, 'y':scale};
-	};
-
-	MainView.prototype.getCanvasScale = function() {
-		var rect, size, scale, ratio;
-		ratio = CanvasLayout.REF_WIDTH/CanvasLayout.REF_HEIGHT;
-		rect = {"w":this.game.w - ControlsLayout.MIN_WIDTH, "h":this.game.h - MainView.TOP_PADDING};
-		size = PhaserComponents.Utils.fitRect(rect, ratio);
-		scale = size.w / CanvasLayout.REF_WIDTH;
-		return Math.max(scale, 0.1);
+		var pos = MainViewLayout.getCanvasPos(this.game.w, this.game.h);
+		this.canvas.view.x = pos.x;
+		this.canvas.view.y = pos.y;
+		this.canvas.view.scale = {'x':pos.scale, 'y':pos.scale};
 	};
 
 	MainView.prototype.addCanvas = function() {
@@ -139,7 +123,6 @@ Assets, ShowDirections, ModelConsts){
 		this.canvas = new Canvas({"bounds":bounds});
 		this.group.add(this.canvas.view);
 		this.positionCanvas();
-		//this.showManager.add(this.canvas.view, 5, ShowDirections.UP);
 	};
 	
 	MainView.prototype.addTopBar = function(){
@@ -194,7 +177,7 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.controlsAvailableWidth = function() {
 		var availableWidth, scale, left, empty;
-		scale = this.getCanvasScale();
+		scale = MainViewLayout.getCanvasScale(this.game.w, this.game.h);
 		empty = this.game.w - scale*CanvasLayout.REF_WIDTH;
 		left = (empty - ControlsLayout.MIN_WIDTH)/2;
 		availableWidth = empty - left;
@@ -203,7 +186,7 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.positionControls = function() {
 		var x, y, availableWidth, scale;
-		scale = this.getCanvasScale();
+		scale = MainViewLayout.getCanvasScale(this.game.w, this.game.h);
 		availableWidth = this.controlsAvailableWidth();
 		x = this.game.w - availableWidth;
 		y = 0;
