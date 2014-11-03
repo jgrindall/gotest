@@ -719,9 +719,13 @@ function(Phaser, Injector, AppEvents){
 		}
 	};
 
-	AlertManager.prototype.close = function(callback){
-		var that = this;
-		if(this.alert){
+	AlertManager.prototype.close = function(callback, name){
+		var that = this, close;
+		close = true;
+		if(name && this.alert && this.alert.options.name !== name){
+			close = false;
+		}
+		if(this.alert && close){
 			this.alert.selectSignal.remove(this.callbackProxy);
 			this.alert.hideMe();
 			that.removeBg();
