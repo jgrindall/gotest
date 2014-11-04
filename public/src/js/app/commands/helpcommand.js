@@ -12,13 +12,21 @@ function(PhaserComponents, Growl,
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
+	HelpCommand.MESSAGE = "Choose a background and use the commands\nto move around. Try using the flow charts to\nlearn about programming, and choose a\nchallenge to test yourself!";
+
 	PhaserComponents.Utils.extends(HelpCommand, PhaserComponents.Commands.AbstractCommand);
 
 	HelpCommand.prototype.execute = function(){
-		var index = this.modelFacade.get(ModelConsts.CHALLENGE).get();
+		var msg, title, index = this.modelFacade.get(ModelConsts.CHALLENGE).get();
 		if(index !== null){
-			this.alertManager.make(Growl, {"title":"Challenge", "label":ChallengeData.MESSAGES[index], "sfx":Assets.SOUNDS[2]}, null);
+			msg = ChallengeData.MESSAGES[index];
+			title = "Challenge";
 		}
+		else{
+			msg = HelpCommand.MESSAGE;
+			title = "Help";
+		}
+		this.alertManager.make(Growl, {"title":title, "label":msg, "sfx":Assets.SOUNDS[2]}, null);
 	};
 	
   	return HelpCommand;
