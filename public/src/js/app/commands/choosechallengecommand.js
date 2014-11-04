@@ -24,7 +24,7 @@ Growl, Assets, ModelConsts, ChallengeData) {
 		this.modelFacade.setData(json);
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 		setTimeout(function(){
-			that.eventDispatcher.trigger({"type":HELP});
+			that.eventDispatcher.trigger({"type":Events.HELP});
 		}, 400);
 	};
 	
