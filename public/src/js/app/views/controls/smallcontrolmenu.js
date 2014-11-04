@@ -24,7 +24,7 @@ PlayingState, Events, ModelConsts){
 		this.disableButtonAt(1);
 	};
 	
-	SmallControlMenu.WIDTH = 140;
+	SmallControlMenu.WIDTH = 123;
 	SmallControlMenu.HEIGHT = 50;
 
 	PhaserComponents.Utils.extends(SmallControlMenu, PhaserComponents.Display.ButtonBar);

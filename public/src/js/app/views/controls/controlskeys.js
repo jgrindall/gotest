@@ -56,8 +56,8 @@ SmallControlMenu){
 
 	ControlsKeys.prototype.positionSmallMenu = function() {
 		var x, y;
-		x = (this.bounds.w - ControlBar.WIDTH)/2;
-		y = this.game.h - ControlsLayout.PEN_HEIGHT - 87;
+		x = (this.bounds.w/2) + (this.bounds.w/2 - SmallControlMenu.WIDTH)/2;
+		y = this.game.h - ControlsLayout.PEN_HEIGHT - 90;
 		this.smallMenu.view.x = x;
 		this.smallMenu.view.y = y;
 	};
@@ -77,7 +77,7 @@ SmallControlMenu){
 
 	ControlsKeys.prototype.positionControlBar = function() {
 		var x, y;
-		x = (this.bounds.w - ControlBar.WIDTH)/2;
+		x = (this.bounds.w/2 - ControlBar.WIDTH)/2;
 		y = this.game.h - ControlsLayout.PEN_HEIGHT - 87;
 		this.controlBar.view.x = x;
 		this.controlBar.view.y = y;
@@ -86,6 +86,7 @@ SmallControlMenu){
 	ControlsKeys.prototype.onResize = function() {
 		this.positionControlBar();
 		this.positionPanel();
+		this.positionSmallMenu();
 	};
 
 	ControlsKeys.prototype.onScreenChanged = function() {

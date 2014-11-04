@@ -1,6 +1,6 @@
-define(['phasercomponents', 'app/events/events'],
+define(['phasercomponents'],
 
-function(PhaserComponents, Events) {
+function(PhaserComponents) {
 	
 	"use strict";
 	
@@ -11,7 +11,7 @@ function(PhaserComponents, Events) {
 	PhaserComponents.Utils.extends(VideoCommand, PhaserComponents.Commands.AbstractCommand);
 
 	VideoCommand.prototype.execute = function(){
-		alert("videos");
+		window.alert("videos");
 	};
 	
   	return VideoCommand;
