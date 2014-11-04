@@ -29,7 +29,7 @@ PhaserComponents, ChallengeData){
 				cPoint = challenges[i];
 				this.addHotspotAt(cPoint);
 				if(ordered){
-					this.hotspots[i].alpha = ( (i === 0) ? 1 : 0.3 );
+					this.hotspots[i].alpha = ( (i === 0) ? 1 : 0.25 );
 				}
 			}
 		}
@@ -100,9 +100,9 @@ PhaserComponents, ChallengeData){
 		radius = ChallengeData.RADIUS - 4;
 		gfx = new Phaser.Graphics(this.game, 0, 0);
 		gfx.lineStyle(0, 0x000000, 0);
-		gfx.beginFill(0xFFEFCE, 0.3);
+		gfx.beginFill(0xFFEFCE, 0.35);
 		gfx.drawCircle(0, 0, ChallengeData.RADIUS);
-		gfx.beginFill(0xFFFFFF, 0.25);
+		gfx.beginFill(0xFFFFFF, 0.3);
 		gfx.drawCircle(0, 0, radius);
 		gfx.endFill();
 		gfx.mask = this.mask;
