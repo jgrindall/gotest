@@ -25,7 +25,7 @@ ModelConsts) {
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 		setTimeout(function(){
 			that.eventDispatcher.trigger({"type":Events.HELP});
-		}, 400);
+		}, 50);
 	};
 	
   	return ChooseChallengeCommand;

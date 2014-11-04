@@ -9,7 +9,7 @@ define(['app/consts/turtles'], function(Turtles){
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3'];
-	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9', 'map10', 'map11', 'map12', 'map13'];
+	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9', 'map10', 'map11', 'map12', 'map13', 'map14', 'map15', 'map16'];
 	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6', 'turtle7', 'turtle8', 'turtle9'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
 	Assets.MOVER = 					'mover';
@@ -180,6 +180,9 @@ define(['app/consts/turtles'], function(Turtles){
 		{"type":"image", 		"asset":"assets/images/maps/map11.png", 				"key":Assets.MAPS[11]},
 		{"type":"image", 		"asset":"assets/images/maps/map12.png", 				"key":Assets.MAPS[12]},
 		{"type":"image", 		"asset":"assets/images/maps/map13.png", 				"key":Assets.MAPS[13]},
+		{"type":"image", 		"asset":"assets/images/maps/map14.png", 				"key":Assets.MAPS[14]},
+		{"type":"image", 		"asset":"assets/images/maps/map15.png", 				"key":Assets.MAPS[15]},
+		{"type":"image", 		"asset":"assets/images/maps/map16.png", 				"key":Assets.MAPS[16]},
 		{"type":"image", 		"asset":"assets/images/popups/panel.png",	 			"key":Assets.PANEL},
 		{"type":"image", 		"asset":"assets/images/popups/ipad.png",	 			"key":Assets.IPAD},
 		{"type":"image", 		"asset":"assets/images/popups/alert.png",	 			"key":Assets.ALERT},
