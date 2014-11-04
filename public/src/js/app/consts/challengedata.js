@@ -28,6 +28,8 @@ define([], function() {
 	ChallengeData.CHALLENGE_DIAG = 			[1, 1, 1, 1, 1, 1];
 	ChallengeData.CHALLENGE_START_POS = 	[{'x':0.8, 'y':0.1}, {'x':0.8, 'y':0.2}, {'x':0.2, 'y':0.9}, {'x':0.05, 'y':0.8}, {'x':0.5, 'y':0.1}, {'x':0.5, 'y':0.5}];
 
+	ChallengeData.ORDERED = 				[false, true, false, false, true, false];
+
 	ChallengeData.TARGETS = [];
 	ChallengeData.TARGETS.push ( [{'x':282, 'y':540}] );
 	ChallengeData.TARGETS.push ( [{'x':734, 'y':568}, 	{'x':280, 'y':222}] );

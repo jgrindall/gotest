@@ -58,7 +58,7 @@ define(
 
 	ProgCommandPanel.prototype.positionDrag = function(){
 		var availableWidth = this.bounds.w - ProgDragContainer.WIDTH - ProgButtons.WIDTH;
-		this.dragContainer.view.x = 10 + ProgButtons.WIDTH + 2*availableWidth/3;
+		this.dragContainer.view.x = ProgButtons.WIDTH + 2*availableWidth/3;
 	};
 
 	ProgCommandPanel.prototype.onResize = function(){

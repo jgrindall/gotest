@@ -13,6 +13,7 @@ function(PhaserComponents, ChallengeData,
 		PhaserComponents.Model.AbstractModel.call(this);
 		this.hit = [];
 		this.shown = false;
+		this.hitSignal = new Phaser.Signal();
 		this.changeSignal.add(this.onChange, this);
 	};
 	
@@ -30,8 +31,22 @@ function(PhaserComponents, ChallengeData,
 		this.set(null);
 	};
 
-	ChallengeModel.prototype.challengeHit = function(p0, p1){
-		var dx, dy, d;
+	ChallengeModel.prototype.nextToHit = function(){
+		var i, challenges;
+		challenges = ChallengeData.TARGETS[this.get()];
+		for(i = 0; i < challenges.length; i++){
+			if(!this.hit[i]){
+				return i;
+			}
+		}
+	};
+
+	ChallengeModel.prototype.challengeHit = function(i, p0, p1){
+		var ordered, dx, dy, d;
+		ordered = ChallengeData.ORDERED[this.get()];
+		if(ordered && this.nextToHit() !== i){
+			return false;
+		}
 		dx = p0.x - p1.x;
 		dy = p0.y - p1.y;
 		d = dx*dx + dy*dy;
@@ -44,8 +59,9 @@ function(PhaserComponents, ChallengeData,
 		if(challenges && challenges.length >=1 ){
 			for(i = 0; i < challenges.length; i++){
 				cPoint = challenges[i];
-				if(this.challengeHit(p, cPoint)){
+				if(this.challengeHit(i, p, cPoint)){
 					this.hit[i] = true;
+					this.hitSignal.dispatch({"index":i});
 				}
 			}
 			this.checkAllHit();
@@ -82,6 +98,8 @@ function(PhaserComponents, ChallengeData,
 
 	ChallengeModel.prototype.destroy = function(){
 		this.changeSignal.remove(this.onChange, this);
+		this.hitSignal.dispose();
+		this.hitSignal = null;
 		PhaserComponents.Model.AbstractModel.prototype.destroy.call(this);
 	};
 
