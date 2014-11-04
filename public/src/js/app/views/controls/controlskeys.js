@@ -7,7 +7,9 @@ define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
 
 'app/views/commandpanels/commandspanelfactory', 'app/views/buttons/controlbarbutton',
 
-'app/events/events', 'app/models/modelconsts', 'app/views/components/controlbar'
+'app/events/events', 'app/models/modelconsts', 'app/views/components/controlbar', 
+
+'app/views/controls/smallcontrolmenu'
 
 ],
 
@@ -19,7 +21,9 @@ ShowDirections,
 
 CommandsPanelFactory, ControlBarButton,
 
-Events, ModelConsts, ControlBar){
+Events, ModelConsts, ControlBar,
+
+SmallControlMenu){
 	
 	"use strict";
 	
@@ -41,6 +45,7 @@ Events, ModelConsts, ControlBar){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addControlBar();
 		this.addCommandsPanel();
+		this.addSmallMenu();
 	};
 
 	ControlsKeys.prototype.onProgAllowedChanged = function(value) {
@@ -49,6 +54,14 @@ Events, ModelConsts, ControlBar){
 		}
 	};
 
+	ControlsKeys.prototype.positionSmallMenu = function() {
+		var x, y;
+		x = (this.bounds.w - ControlBar.WIDTH)/2;
+		y = this.game.h - ControlsLayout.PEN_HEIGHT - 87;
+		this.smallMenu.view.x = x;
+		this.smallMenu.view.y = y;
+	};
+	
 	ControlsKeys.prototype.positionPanel = function() {
 		var x, y;
 		if(this.commandsPanel){
@@ -104,6 +117,14 @@ Events, ModelConsts, ControlBar){
 		if(this.controlBar){
 			this.controlBar.enableInput();
 		}
+	};
+
+	ControlsKeys.prototype.addSmallMenu = function(){
+		var bounds = {'x':0, 'y':0, 'w':SmallControlMenu.WIDTH, 'h':SmallControlMenu.HEIGHT};
+		this.smallMenu = new SmallControlMenu({"bounds":bounds});
+		this.group.add(this.smallMenu.view);
+		this.positionSmallMenu();
+		this.showManager.add(this.smallMenu.view, 2, ShowDirections.UP);
 	};
 
 	ControlsKeys.prototype.addControlBar = function() {

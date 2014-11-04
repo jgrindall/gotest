@@ -3,7 +3,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/printcommand', 'app/commands/undocommand', 'app/commands/downloadcommand',
 
-	'app/commands/rewindcommand', 'app/commands/stopcommand',
+	'app/commands/rewindcommand', 'app/commands/stopcommand', 'app/commands/videocommand',
 
 	'app/commands/gridchoicecommand', 'app/commands/checkoutsidecommand',
 
@@ -33,7 +33,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		PrintCommand, UndoCommand, DownloadCommand,
 
-		RewindCommand, StopCommand,
+		RewindCommand, StopCommand, VideoCommand,
 
 		GridChoiceCommand, CheckOutsideCommand,
 
@@ -153,6 +153,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.CHECK_POSITION, 								CheckChallengeCommand);
 		this.commandMap.map(Events.CHECK_POSITION, 								CheckOutsideCommand);
 		this.commandMap.map(Events.BACK, 										BackCommand);
+		this.commandMap.map(Events.VIDEO, 										VideoCommand);
 		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
 		this.commandMap.map(Events.DOWNLOAD, 									DownloadCommand);
 		this.commandMap.map(Events.FINISHED, 									FinishCommand);
