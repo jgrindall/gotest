@@ -24,7 +24,7 @@ Growl, Assets, ModelConsts, ChallengeData) {
 		this.modelFacade.setData(json);
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 		setTimeout(function(){
-			that.alertManager.make(Growl, {"title":"Challenge", "label":ChallengeData.MESSAGES[data.selection], "sfx":Assets.SOUNDS[2]}, null);
+			that.eventDispatcher.trigger({"type":HELP});
 		}, 400);
 	};
 	
