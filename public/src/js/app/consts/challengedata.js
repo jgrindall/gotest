@@ -17,7 +17,7 @@ define([], function() {
 	ChallengeData.MESSAGES.push("Drive the car around the track!");
 	ChallengeData.MESSAGES.push("Write a program to draw a star shape!");
 	
-	ChallengeData.CHALLENGE_BG = 			[4, 2, 0, 6, 5, 10];
+	ChallengeData.CHALLENGE_BG = 			[4, 2, 0, 7, 5, 11];
 	ChallengeData.CHALLENGE_SCREEN = 		[0, 1, 2, 2, 3, 3];
 	ChallengeData.CHALLENGE_COLOR = 		[0, 0, 2, 0, 0, 2];
 	ChallengeData.CHALLENGE_STEP_LENGTH = 	[3, 2, 2, 2, 2, 2];
