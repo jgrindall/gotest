@@ -17,7 +17,7 @@ function(BgPanel, BgData, Assets){
 	
 	BgDataProvider.prototype.getPageAt = function(i, scroller){
 		var options, panel, bounds, w, h, paddingX, paddingY;
-		paddingX = 50;
+		paddingX = 90;
 		paddingY = 50;
 		w = scroller.bounds.w - 2*paddingX;
 		h = scroller.bounds.h - 2*paddingY - 50;

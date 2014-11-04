@@ -31,11 +31,11 @@ define([], function() {
 	ChallengeData.ORDERED = 				[false, true, false, false, true, false];
 
 	ChallengeData.TARGETS = [];
-	ChallengeData.TARGETS.push ( [{'x':282, 'y':540}] );
-	ChallengeData.TARGETS.push ( [{'x':734, 'y':568}, 	{'x':280, 'y':222}] );
+	ChallengeData.TARGETS.push ( [{'x':280, 'y':540}] );
+	ChallengeData.TARGETS.push ( [{'x':641, 'y':539}, 	{'x':280, 'y':300}] );
 	ChallengeData.TARGETS.push ( [{'x':520, 'y':63}, 	{'x':638, 'y':423}] );
-	ChallengeData.TARGETS.push ( [{'x':450, 'y':302}] );
-	ChallengeData.TARGETS.push ( [{'x':638, 'y':53}, 	{'x':638, 'y':308},		{'x':279, 'y':308},		{'x':279, 'y':549},		{'x':156, 'y':549}, 	{'x':156, 'y':308}, 	{'x':156, 'y':56}, 	{'x':279, 'y':58}] );
+	ChallengeData.TARGETS.push ( [{'x':460, 'y':299}] );
+	ChallengeData.TARGETS.push ( [{'x':640, 'y':59}, 	{'x':640, 'y':300},		{'x':279, 'y':300},		{'x':279, 'y':540},		{'x':159, 'y':540}, 	{'x':159, 'y':300}, 	{'x':159, 'y':59}, 	{'x':280, 'y':59}] );
 	ChallengeData.TARGETS.push ( [] );
 
 	ChallengeData.WELL_DONE_MESSAGE = "Well done, you've cracked it!";

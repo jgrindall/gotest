@@ -29,7 +29,7 @@ PhaserComponents, ChallengeData){
 				cPoint = challenges[i];
 				this.addHotspotAt(cPoint);
 				if(ordered){
-					this.hotspots[i].alpha =  ( (i === 0) ? 1 : 0.2 );
+					this.hotspots[i].alpha = ( (i === 0) ? 1 : 0.3 );
 				}
 			}
 		}
