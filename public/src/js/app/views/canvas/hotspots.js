@@ -29,7 +29,7 @@ PhaserComponents, ChallengeData){
 				cPoint = challenges[i];
 				this.addHotspotAt(cPoint);
 				if(ordered){
-					this.hotspots[i].visible = (i === 0);
+					this.hotspots[i].alpha =  ( (i === 0) ? 1 : 0.2 );
 				}
 			}
 		}
@@ -46,7 +46,7 @@ PhaserComponents, ChallengeData){
 		if(ordered){
 			gfx = this.hotspots[i + 1];
 			if(gfx){
-				gfx.visible = true;
+				gfx.alpha = 1;
 			}
 		}
 	};

@@ -41,6 +41,7 @@ PlayingState, ModelConsts){
 	Menu.prototype.menuClick = function(data) {
 		var i = data.index;
 		if(i === 0){
+			console.log("newfile!!");
 			this.eventDispatcher.trigger({"type":Events.NEW_FILE});
 		}
 		else if(i === 1){
