@@ -16,7 +16,7 @@ function(){
 	PenWidths.VTHICH = 	4;
 
 	// need to be even to look nice
-	PenWidths.ALL = [16, 12, 6, 4, 2];
+	PenWidths.ALL = [2, 4, 6, 12, 16];
 	
 	return PenWidths;
 
