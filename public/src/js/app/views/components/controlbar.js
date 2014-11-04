@@ -9,7 +9,7 @@ function(PhaserComponents){
 		PhaserComponents.Display.TabButtonBar.call(this, options);
 	};
 
-	ControlBar.WIDTH = 166;
+	ControlBar.WIDTH = 240;
 	ControlBar.HEIGHT = 50;
 	
 	PhaserComponents.Utils.extends(ControlBar, PhaserComponents.Display.TabButtonBar);

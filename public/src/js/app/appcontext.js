@@ -15,7 +15,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/openbgeditorcommand', 'app/commands/openturtleeditorcommand', 
 
-	'app/commands/finishcommand', 'app/commands/replaycommand',
+	'app/commands/finishcommand', 'app/commands/replaycommand',  'app/commands/helpcommand',
 
 	'app/commands/backcommand', 'app/commands/challengedonecommand',
 
@@ -45,7 +45,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		OpenBgEditorCommand, OpenTurtleEditorCommand,
 
-		FinishCommand, ReplayCommand,
+		FinishCommand, ReplayCommand, HelpCommand,
 
 		BackCommand, ChallengeDoneCommand,
 
@@ -150,6 +150,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.ADD_COMMAND, 								AddCommandCommand);
 		this.commandMap.map(Events.START_ACTIVITY, 								StartUpCommand);
 		this.commandMap.map(Events.DRAW, 										DrawCommand);
+		this.commandMap.map(Events.HELP, 										HelpCommand);
 		this.commandMap.map(Events.CHECK_POSITION, 								CheckChallengeCommand);
 		this.commandMap.map(Events.CHECK_POSITION, 								CheckOutsideCommand);
 		this.commandMap.map(Events.BACK, 										BackCommand);

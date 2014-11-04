@@ -21,6 +21,7 @@ function() {
 	Events.ADD_COMMAND			= 		"addCommand";
 	Events.SHOW_ALL				=		"showAll";
 	Events.DRAW					= 		"draw";
+	Events.HELP					= 		"help";
 	Events.VIDEO				= 		"video";
 	Events.REPLAY				= 		"replay";
 	Events.IMG_CAPTURED			= 		"imgCaptured";

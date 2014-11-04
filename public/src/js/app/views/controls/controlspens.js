@@ -1,7 +1,7 @@
 
 define(['phasercomponents', 'app/views/components/colorpicker',
 
-'app/views/components/widthpicker', 'app/views/components/widthpicker2',
+'app/views/components/widthpicker2',
 
 'app/consts/controlslayout',
 
@@ -13,7 +13,7 @@ define(['phasercomponents', 'app/views/components/colorpicker',
 
 function(PhaserComponents, ColorPicker,
 
-WidthPicker, WidthPicker2,
+WidthPicker2,
 
 ControlsLayout,
 
@@ -37,7 +37,6 @@ Assets, ModelConsts){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addColorPicker();
 		this.addWidthPicker();
-		this.addWidthPicker2();
 	};
 
 	ControlsPens.prototype.onAlert = function(event, data) {
@@ -69,7 +68,7 @@ Assets, ModelConsts){
 
 	ControlsPens.prototype.positionColorPicker = function() {
 		var x, y;
-		x = this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2;
+		x = this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2;
 		y = this.game.h - ControlsLayout.PEN_HEIGHT;
 		this.colorPicker.view.x = Math.max(x, 0);
 		this.colorPicker.view.y = y;
@@ -77,24 +76,15 @@ Assets, ModelConsts){
 
 	ControlsPens.prototype.positionWidthPicker = function() {
 		var x, y;
-		x = this.bounds.x + this.bounds.w - WidthPicker.WIDTH;
-		y = this.game.h - WidthPicker.HEIGHT - 10;
-		this.widthPicker.view.x = x;
-		this.widthPicker.view.y = y;
-	};
-
-	ControlsPens.prototype.positionWidthPicker2 = function() {
-		var x, y;
-		x = this.bounds.x + (this.bounds.w - ColorPicker.WIDTH - WidthPicker.WIDTH)/2;
+		x = this.bounds.x + (this.bounds.w - ColorPicker.WIDTH)/2;
 		y = this.game.h - ControlsLayout.PEN_HEIGHT - 42;
-		this.widthPicker2.view.x = Math.max(x, 0);
-		this.widthPicker2.view.y = y;
+		this.widthPicker.view.x = Math.max(x, 0);
+		this.widthPicker.view.y = y;
 	};
 	
 	ControlsPens.prototype.onResize = function() {
 		this.positionColorPicker();
 		this.positionWidthPicker();
-		this.positionWidthPicker2();
 	};
 
 	ControlsPens.prototype.addColorPicker = function() {
@@ -104,20 +94,11 @@ Assets, ModelConsts){
 		this.positionColorPicker();
 	};
 	
-	ControlsPens.prototype.addWidthPicker2 = function() {
+	ControlsPens.prototype.addWidthPicker = function() {
 		var options, bounds;
 		bounds = {"x":0, "y":0, "w":WidthPicker2.WIDTH, "h":WidthPicker2.HEIGHT};
 		options = {"sfx":Assets.SOUNDS[1], "model": this.modelFacade.get(ModelConsts.WIDTH), "bounds":bounds};
-		this.widthPicker2 = new WidthPicker2(options);
-		this.group.add(this.widthPicker2.view);
-		this.positionWidthPicker2();
-	};
-
-	ControlsPens.prototype.addWidthPicker = function() {
-		var options, bounds;
-		bounds = {"x":0, "y":0, "w":WidthPicker.WIDTH, "h":WidthPicker.HEIGHT};
-		options = {"sfx":Assets.SOUNDS[1], "model": this.modelFacade.get(ModelConsts.WIDTH), "bounds":bounds};
-		this.widthPicker = new WidthPicker(options);
+		this.widthPicker = new WidthPicker2(options);
 		this.group.add(this.widthPicker.view);
 		this.positionWidthPicker();
 	};
@@ -135,11 +116,6 @@ Assets, ModelConsts){
 			this.group.remove(this.widthPicker.view);
 			this.widthPicker.destroy();
 			this.widthPicker = null;
-		}
-		if(this.widthPicker2){
-			this.group.remove(this.widthPicker2.view);
-			this.widthPicker2.destroy();
-			this.widthPicker2 = null;
 		}
 	};
 

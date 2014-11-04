@@ -32,16 +32,16 @@ PlayingState, Events, ModelConsts){
 	ControlMenu.prototype.menuClick = function(data) {
 		var index = data.index;
 		if(index === 0){
-			this.eventDispatcher.trigger({"type":Events.STOP});
-		}
-		if(index === 1){
 			this.eventDispatcher.trigger({"type":Events.REWIND});
 		}
-		else if(index === 2){
+		else if(index === 1){
 			this.eventDispatcher.trigger({"type":Events.UNDO});
 		}
-		else if(index === 3){
+		else if(index === 2){
 			this.eventDispatcher.trigger({"type":Events.GRID_CHOICE});
+		}
+		else if(index === 3){
+			this.eventDispatcher.trigger({"type":Events.HELP});
 		}
 		else if(index === 4){
 			this.eventDispatcher.trigger({"type":Events.VIDEO});

@@ -7,9 +7,7 @@ define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
 
 'app/views/commandpanels/commandspanelfactory', 'app/views/buttons/controlbarbutton',
 
-'app/events/events', 'app/models/modelconsts', 'app/views/components/controlbar', 
-
-'app/views/controls/smallcontrolmenu'
+'app/events/events', 'app/models/modelconsts', 'app/views/components/controlbar'
 
 ],
 
@@ -21,9 +19,7 @@ ShowDirections,
 
 CommandsPanelFactory, ControlBarButton,
 
-Events, ModelConsts, ControlBar,
-
-SmallControlMenu){
+Events, ModelConsts, ControlBar){
 	
 	"use strict";
 	
@@ -45,21 +41,12 @@ SmallControlMenu){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addControlBar();
 		this.addCommandsPanel();
-		this.addSmallMenu();
 	};
 
 	ControlsKeys.prototype.onProgAllowedChanged = function(value) {
 		if(this.controlBar){
 			this.controlBar.view.visible = (value === 1);
 		}
-	};
-
-	ControlsKeys.prototype.positionSmallMenu = function() {
-		var x, y;
-		x = (this.bounds.w/2) + (this.bounds.w/2 - SmallControlMenu.WIDTH)/2;
-		y = this.game.h - ControlsLayout.PEN_HEIGHT - 90;
-		this.smallMenu.view.x = x;
-		this.smallMenu.view.y = y;
 	};
 	
 	ControlsKeys.prototype.positionPanel = function() {
@@ -77,7 +64,7 @@ SmallControlMenu){
 
 	ControlsKeys.prototype.positionControlBar = function() {
 		var x, y;
-		x = (this.bounds.w/2 - ControlBar.WIDTH)/2;
+		x = (this.bounds.w - ControlBar.WIDTH)/2;
 		y = this.game.h - ControlsLayout.PEN_HEIGHT - 87;
 		this.controlBar.view.x = x;
 		this.controlBar.view.y = y;
@@ -86,7 +73,6 @@ SmallControlMenu){
 	ControlsKeys.prototype.onResize = function() {
 		this.positionControlBar();
 		this.positionPanel();
-		this.positionSmallMenu();
 	};
 
 	ControlsKeys.prototype.onScreenChanged = function() {
@@ -118,14 +104,6 @@ SmallControlMenu){
 		if(this.controlBar){
 			this.controlBar.enableInput();
 		}
-	};
-
-	ControlsKeys.prototype.addSmallMenu = function(){
-		var bounds = {'x':0, 'y':0, 'w':SmallControlMenu.WIDTH, 'h':SmallControlMenu.HEIGHT};
-		this.smallMenu = new SmallControlMenu({"bounds":bounds});
-		this.group.add(this.smallMenu.view);
-		this.positionSmallMenu();
-		this.showManager.add(this.smallMenu.view, 2, ShowDirections.UP);
 	};
 
 	ControlsKeys.prototype.addControlBar = function() {
