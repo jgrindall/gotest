@@ -7,6 +7,8 @@ define([], function() {
 			
     };
 
+	ChallengeData.RADIUS = 50;
+	
 	ChallengeData.MESSAGES = [];
 	ChallengeData.MESSAGES.push("Guide the fish to the treasure!");
 	ChallengeData.MESSAGES.push("Guide the car to bank, and then to the hospital!");
