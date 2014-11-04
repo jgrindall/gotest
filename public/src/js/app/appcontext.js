@@ -108,18 +108,24 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     	this.keyManager.setCodes([37, 38, 39, 40, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105]);
     };
 
+    AppContext.prototype.isLive = function(){
+    	var regexp0, regexp1;
+    	regexp0 = new RegExp('purple', 'g');
+    	regexp1 = new RegExp('simple', 'g');
+    	return (regexp0.test(window.location) || regexp1.test(window.location));
+    };
+
     AppContext.prototype.addClipart = function(){
-    	var regexp = new RegExp('purple', 'g');
+    	var adapter;
     	this.clipart = new Clipart();
-    	if(regexp.test(window.location)){
-    		var p = new PurpleMashClipartAdapter();
-			this.clipart.setAdapter(p);
+    	if(this.isLive()){
+    		adapter = new PurpleMashClipartAdapter();
+			this.clipart.setAdapter(adapter);
 		}
     };
 
     AppContext.prototype.addStorage = function(){
-    	var regexp = new RegExp('purple', 'g');
-    	if(regexp.test(window.location)){
+    	if(this.isLive()){
 			this.storage.setAdapter(new PurpleMashStorageAdapter());
 		}
     };
