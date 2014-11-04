@@ -31,23 +31,27 @@ PhaserComponents, ChallengeData){
 	};
 
 	Hotspots.prototype.addHotspotAt = function(p) {
-		var gfx, tween;
+		var gfx, tween, scale, delay, time;
 		gfx = this.getHotspot();
 		this.group.add(gfx);
-		gfx.x = p.x + ChallengeData.RADIUS;
-		gfx.y = p.y + ChallengeData.RADIUS;
-		tween = this.game.add.tween(gfx.scale).to( {'x': 1.025, 'y':1.025}, Math.random()*50 + 250, Phaser.Easing.Linear.None, true, Math.random()*200, Number.MAX_VALUE, true);
+		gfx.x = p.x;
+		gfx.y = p.y;
+		scale = 1.01 + Math.random()*0.04;
+		delay = Math.random()*200;
+		time = Math.random()*75 + 150;
+		tween = this.game.add.tween(gfx.scale).to( {'x':scale , 'y':scale}, time, Phaser.Easing.Linear.None, true, delay, Number.MAX_VALUE, true);
 		this.hotspots.push(gfx);
 		this.tweens.push(tween);
 	};
 
 	Hotspots.prototype.getHotspot = function() {
 		var gfx = new Phaser.Graphics(this.game, 0, 0);
-		gfx.lineStyle(4, 0xF3E5AB, 0.5);
-		gfx.beginFill(0xc8c8c8, 0.3);
+		gfx.lineStyle(0, 0x000000, 0);
+		gfx.beginFill(0xFFEFCE, 0.3);
 		gfx.drawCircle(0, 0, ChallengeData.RADIUS);
+		gfx.beginFill(0xFFFFFF, 0.25);
+		gfx.drawCircle(0, 0, ChallengeData.RADIUS - 4);
 		gfx.endFill();
-		gfx.pivot.setTo(ChallengeData.RADIUS, ChallengeData.RADIUS);
 		return gfx;
 	};
 
