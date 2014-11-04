@@ -30,6 +30,10 @@ PhaserComponents, ChallengeData){
 				this.addHotspotAt(cPoint);
 				if(ordered){
 					this.hotspots[i].alpha = ( (i === 0) ? 1 : 0.25 );
+					this.animateHotspotAt(i, (i === 0));
+				}
+				else{
+					this.animateHotspotAt(i, true);
 				}
 			}
 		}
@@ -47,6 +51,7 @@ PhaserComponents, ChallengeData){
 			gfx = this.hotspots[i + 1];
 			if(gfx){
 				gfx.alpha = 1;
+				this.animateHotspotAt(i + 1, true);
 			}
 		}
 	};
@@ -81,18 +86,34 @@ PhaserComponents, ChallengeData){
 		}
 	};
 
+	Hotspots.prototype.animateHotspotAt = function(i, useLarge) {
+		var tween, gfx, scale, delay, time;
+		this.removeTweenAt(i);
+		scale = 1.01 + Math.random()*0.06;
+		delay = Math.random()*200;
+		time = Math.random()*120 + 100;
+		gfx = this.hotspots[i];
+		if(gfx){
+			if(useLarge){
+				gfx.scale = {'x':1, 'y':1};
+			}
+			else{
+				scale = scale*0.67;
+				gfx.scale = {'x':0.67, 'y':0.67};
+				time *= 2;
+			}
+			tween = this.game.add.tween(gfx.scale).to( {'x':scale , 'y':scale}, time, Phaser.Easing.Linear.None, true, delay, Number.MAX_VALUE, true);
+			this.tweens[i] = tween;
+		}
+	};
+
 	Hotspots.prototype.addHotspotAt = function(p) {
-		var gfx, tween, scale, delay, time;
+		var gfx, 
 		gfx = this.getHotspot();
 		this.group.add(gfx);
 		gfx.x = p.x;
 		gfx.y = p.y;
-		scale = 1.01 + Math.random()*0.04;
-		delay = Math.random()*200;
-		time = Math.random()*120 + 150;
-		tween = this.game.add.tween(gfx.scale).to( {'x':scale , 'y':scale}, time, Phaser.Easing.Linear.None, true, delay, Number.MAX_VALUE, true);
 		this.hotspots.push(gfx);
-		this.tweens.push(tween);
 	};
 
 	Hotspots.prototype.getHotspot = function() {

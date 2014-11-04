@@ -12,7 +12,7 @@ define([], function() {
 	ChallengeData.MESSAGES = [];
 	ChallengeData.MESSAGES.push("Guide the fish to the treasure!");
 	ChallengeData.MESSAGES.push("Guide the car to bank, and then to the hospital!");
-	ChallengeData.MESSAGES.push("Fly to both of the poppies!");
+	ChallengeData.MESSAGES.push("Make the bee visit both of the poppies!");
 	ChallengeData.MESSAGES.push("Get to the cheese!");
 	ChallengeData.MESSAGES.push("Drive the car around the track!");
 	ChallengeData.MESSAGES.push("Write a program to draw a star shape!");
