@@ -22,7 +22,7 @@ function(PhaserComponents, ChallengeData,
 	ChallengeModel.prototype.setChallenge = function(i){
 		this.shown = false;
 		this.hit = [];
-		this.set(i);
+		this.set(i, {"force":true});
 	};
 
 	ChallengeModel.prototype.reset = function(){
