@@ -9,7 +9,7 @@ function(){
 		
 	};
 
-	StepLengths.ALL = [15, 30, 60, 90, 120];
+	StepLengths.ALL = [15, 30, 60, 120];
 	
 	return StepLengths;
 
