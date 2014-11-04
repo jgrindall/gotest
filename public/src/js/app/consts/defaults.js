@@ -42,6 +42,7 @@ define(['app/consts/challengedata'], function(ChallengeData) {
 		settings.bg = 			ChallengeData.CHALLENGE_BG[i];
 		settings.screen = 		ChallengeData.CHALLENGE_SCREEN[i];
 		settings.color = 		ChallengeData.CHALLENGE_COLOR[i];
+		settings.angle =		ChallengeData.ANGLE[i];
 		settings.stepLength = 	ChallengeData.CHALLENGE_STEP_LENGTH[i];
 		settings.grid = 		ChallengeData.CHALLENGE_GRID[i];
 		settings.prog = 		ChallengeData.CHALLENGE_PROG[i];
