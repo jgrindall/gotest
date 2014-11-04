@@ -108,7 +108,7 @@ PhaserComponents, ChallengeData){
 	};
 
 	Hotspots.prototype.addHotspotAt = function(p) {
-		var gfx, 
+		var gfx;
 		gfx = this.getHotspot();
 		this.group.add(gfx);
 		gfx.x = p.x;

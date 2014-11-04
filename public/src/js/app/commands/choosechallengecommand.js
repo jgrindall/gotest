@@ -2,11 +2,11 @@ define(
 
 	['phasercomponents', 'app/consts/defaults', 'app/events/events',
 
-	'app/views/popups/growl', 'app/assets', 'app/models/modelconsts', 'app/consts/challengedata'],
+	'app/models/modelconsts'],
 
 function(PhaserComponents, Defaults, Events, 
 
-Growl, Assets, ModelConsts, ChallengeData) {
+ModelConsts) {
 	
 	"use strict";
 	
