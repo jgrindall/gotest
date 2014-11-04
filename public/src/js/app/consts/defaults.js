@@ -15,7 +15,7 @@ define(['app/consts/challengedata'], function(ChallengeData) {
 		'speed':2,
 		'color':0,
 		'angle':0,
-		'stepLength':4,
+		'stepLength':3,
 		'width':2,
 		'grid':0,
 		'prog':0,

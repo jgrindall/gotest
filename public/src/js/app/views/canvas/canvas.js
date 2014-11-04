@@ -1,13 +1,13 @@
 
 define(['phasercomponents', 'app/models/modelconsts',
 
-'app/views/canvas/map', 'app/views/canvas/drawing',
+'app/views/canvas/map', 'app/views/canvas/drawing', 'app/views/canvas/hotspots',
 
 'app/views/canvas/grid', 'app/views/canvas/corners', 'app/assets'],
 
 function(PhaserComponents, ModelConsts,
 
-Map, Drawing,
+Map, Drawing, Hotspots,
 
 Grid, Corners, Assets){
 	
@@ -27,6 +27,7 @@ Grid, Corners, Assets){
 	Canvas.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addMap();
+		this.addHotspots();
 		this.addGrid();
 		this.addDrawing();
 		this.addCorners();
@@ -35,6 +36,11 @@ Grid, Corners, Assets){
 	Canvas.prototype.addDrawing = function() {
 		this.drawing = new Drawing({'bounds':this.bounds});
 		this.group.add(this.drawing.view);
+	};
+
+	Canvas.prototype.addHotspots = function() {
+		this.hotspots = new Hotspots({'bounds':this.bounds});
+		this.group.add(this.hotspots.view);
 	};
 	
 	Canvas.prototype.addMap = function() {
@@ -58,6 +64,14 @@ Grid, Corners, Assets){
 		}
 	};
 	
+	Canvas.prototype.removeHotspots = function() {
+		if(this.hotspots){
+			this.group.remove(this.hotspots.view);
+			this.hotspots.destroy();
+			this.hotspots = null;
+		}
+	};
+
 	Canvas.prototype.removeGrid = function() {
 		if(this.grid){
 			this.group.remove(this.grid.view);
