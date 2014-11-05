@@ -93,9 +93,111 @@ define('phasercomponents/utils/utils',[], function(){
 
 define(
 
-	'phasercomponents/gamemanager',['phaser', 'phaserstatetrans', 'phasercomponents/utils/utils'],
+    'phasercomponents/injector',[],
 
-function(Phaser, PhaserStateTrans, Utils){
+	function() {
+	
+	
+
+   	var Injector = function (){
+   	    this.classRefs = {};
+    };
+
+    Injector.prototype.map = function(key, varNames, vals){
+        var obj = this.classRefs[key];
+        if(obj){
+            obj.varNames = obj.varNames.concat(varNames);
+            obj.vals = obj.vals.concat(vals);
+        }
+        else{
+            this.classRefs[key] = {"varNames":varNames, "vals":vals};
+        }
+    };
+
+    Injector.prototype.mapArray = function(keys, varNames, vals){
+        var that = this;
+        keys.forEach(function(key){
+            that.map(key, varNames, vals);
+        });
+    };
+
+    Injector.getInstance = function(){
+        if(!Injector.instance){
+            Injector.instance = new Injector();
+        }
+        return Injector.instance;
+    };
+
+    Injector.prototype.shutdown = function(){
+        this.classRefs = {};
+    };
+
+    Injector.shutdown = function(){
+        Injector.getInstance().shutdown();
+        Injector.instance = null;
+    };
+
+    Injector.prototype.unInject = function(_instance){
+        _instance.game = null;
+        _instance.world = null;
+        _instance.eventDispatcher = null;
+    };
+
+    Injector.prototype.getObj = function(key){
+       return this.classRefs[key];
+    };
+
+    Injector.prototype.injectInto = function(_instance, key){
+        var obj, i;
+        obj = this.getObj(key);
+        if(obj){
+            for(i = 0; i < obj.varNames.length; i++){
+                _instance[obj.varNames[i]] = obj.vals[i];
+            }
+        }
+    };
+
+	return Injector;
+	
+});
+
+
+define('phasercomponents/events/appevents',[],
+
+function() {
+
+	
+	
+	var AppEvents = function(){
+		
+	};
+
+	AppEvents.ALERT_SHOWN =			"app:alertShown";
+	AppEvents.CHANGE_SCENE =		"app:changeScene";
+	AppEvents.PLAY_SOUND =			"app:playSound";
+	AppEvents.PRE_SHUTDOWN =		"app:preShutdown";
+	AppEvents.POST_SHUTDOWN =		"app:postShutdown";
+	AppEvents.RESIZE =				"app:resize";
+	AppEvents.ORIENT =				"app:orient";
+	AppEvents.KEY_UP =				"app:keyUp";
+
+  	return AppEvents;
+});
+
+
+
+
+
+
+define(
+
+	'phasercomponents/gamemanager',['phaser', 'phaserstatetrans',
+
+	'phasercomponents/utils/utils', 'phasercomponents/injector', 'phasercomponents/events/appevents'],
+
+function(Phaser, PhaserStateTrans,
+
+	Utils, Injector, AppEvents){
 	
 	
 	
@@ -114,16 +216,26 @@ function(Phaser, PhaserStateTrans, Utils){
 		this.makeGame(config);
 	};
 
+	GameManager.prototype.onResume = function(){
+		var that = this;
+		setTimeout(function(){
+			that.resize();
+			that.eventDispatcher.trigger({"type":AppEvents.RESIZE});
+		}, 200);
+	};
+
 	GameManager.prototype.destroy = function(){
 		this.el.empty();
 		this.game.tweens.removeAll();
-		this.game.stage.disableVisibilityChange = true;
+		this.game.stage.disableVisibilityChange = false;
 		this.game.stage.destroy();
 		this.game.destroy();
 		this.game.stage = null;
+		this.game.onResume.remove(this.onResume, this);
 		this.game = null;
 		this.transitions = null;
 		this.options = null;
+		Injector.getInstance().unInject(this);
 	};
 
 	GameManager.prototype.mapScene = function(key, scene, first){
@@ -162,9 +274,11 @@ function(Phaser, PhaserStateTrans, Utils){
 	};
 
 	GameManager.prototype.start = function(){
+		Injector.getInstance().injectInto(this, "gamemanager");
 		var settings = {'duration': 1500, 'properties': {'alpha': 0, 'scale': {'x': 2, 'y': 2}}};
 		this.transitions = this.game.plugins.add(PhaserStateTrans);
 		this.transitions.settings(settings);
+		this.game.onResume.add(this.onResume, this);
 		this.game.state.start(this.firstSceneKey);
 	};
 
@@ -239,78 +353,6 @@ function(Phaser, PhaserStateTrans, Utils){
 	};
 
 	return GameManager;
-	
-});
-
-
-
-define(
-
-    'phasercomponents/injector',[],
-
-	function() {
-	
-	
-
-   	var Injector = function (){
-   	    this.classRefs = {};
-    };
-
-    Injector.prototype.map = function(key, varNames, vals){
-        var obj = this.classRefs[key];
-        if(obj){
-            obj.varNames = obj.varNames.concat(varNames);
-            obj.vals = obj.vals.concat(vals);
-        }
-        else{
-            this.classRefs[key] = {"varNames":varNames, "vals":vals};
-        }
-    };
-
-    Injector.prototype.mapArray = function(keys, varNames, vals){
-        var that = this;
-        keys.forEach(function(key){
-            that.map(key, varNames, vals);
-        });
-    };
-
-    Injector.getInstance = function(){
-        if(!Injector.instance){
-            Injector.instance = new Injector();
-        }
-        return Injector.instance;
-    };
-
-    Injector.prototype.shutdown = function(){
-        this.classRefs = {};
-    };
-
-    Injector.shutdown = function(){
-        Injector.getInstance().shutdown();
-        Injector.instance = null;
-    };
-
-    Injector.prototype.unInject = function(_instance){
-        _instance.game = null;
-        _instance.world = null;
-        _instance.eventDispatcher = null;
-    };
-
-    Injector.prototype.getObj = function(key){
-       return this.classRefs[key];
-    };
-
-    Injector.prototype.injectInto = function(_instance, key){
-        var obj, i;
-        obj = this.getObj(key);
-        if(obj){
-            for(i = 0; i < obj.varNames.length; i++){
-                _instance[obj.varNames[i]] = obj.vals[i];
-            }
-        }
-    };
-
-	return Injector;
 	
 });
 
@@ -582,32 +624,6 @@ function(LocalStorageAdapter){
 	return Storage;
 	
 });
-
-
-define('phasercomponents/events/appevents',[],
-
-function() {
-
-	
-	
-	var AppEvents = function(){
-		
-	};
-
-	AppEvents.ALERT_SHOWN =			"app:alertShown";
-	AppEvents.CHANGE_SCENE =		"app:changeScene";
-	AppEvents.PLAY_SOUND =			"app:playSound";
-	AppEvents.PRE_SHUTDOWN =		"app:preShutdown";
-	AppEvents.POST_SHUTDOWN =		"app:postShutdown";
-	AppEvents.RESIZE =				"app:resize";
-	AppEvents.ORIENT =				"app:orient";
-	AppEvents.KEY_UP =				"app:keyUp";
-
-  	return AppEvents;
-});
-
-
-
 
 
 
@@ -945,6 +961,7 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
         Injector.getInstance().map("abstractcommand",                                           ["game", "eventDispatcher", "alertManager", "storage"],     [game, eventDispatcher, alertManager, storage]);
         Injector.getInstance().map("scene",                                                     ["game", "eventDispatcher", "world", "alertManager"],       [game, eventDispatcher, game.world, alertManager]);
         Injector.getInstance().map("playsoundcommand",                                          ["soundManager"],                                           [soundManager]);
+        Injector.getInstance().map("gamemanager",                                               ["eventDispatcher"],                                        [eventDispatcher]);
     };
 
     Context.prototype.onChangeScene = function(){
@@ -982,7 +999,7 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
     };
 
     Context.prototype.scrollTop = function(){
-        window.alert("scrollTop??");
+        //window.alert("scrollTop??");
         //window.scrollTo(0, 0);
     };
 
