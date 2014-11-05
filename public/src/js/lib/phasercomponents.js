@@ -246,7 +246,7 @@ function(Phaser, PhaserStateTrans,
 	};
 
 	GameManager.prototype.makeGame = function(config){
-		var w, h, size, canvas;
+		var w, h, size, canvas, worldScaleX, worldScaleY;
 		size = this.getSize();
 		w = size.w;
     	h = size.h;
@@ -255,10 +255,13 @@ function(Phaser, PhaserStateTrans,
 		}
 		this.game.width = w;
 		this.game.height = h;
-		this.game.w = w;
-		this.game.h = h;
-		this.game.cx = w/2;
-		this.game.cy = h/2;
+		worldScaleX = Math.max(1, w/this.options.maxWidth);
+		worldScaleY = Math.max(1, h/this.options.maxHeight);
+		this.game.worldScale = Math.max(worldScaleX, worldScaleY);
+		this.game.w = w/this.game.worldScale;
+		this.game.h = h/this.game.worldScale;
+		this.game.cx = this.game.w/2;
+		this.game.cy = this.game.h/2;
 		this.body.width(w).height(h + this.options.paddingBottom);
 		this.el.width(w).height(h);
 		canvas = $("#"+this.options.containerTagId+" canvas");
@@ -1711,7 +1714,6 @@ ButtonGridModel, Utils){
 		if(this.options.performSelect){
 			this.model.set(index);
 		}
-		console.log("CLICK", index);
 		this.clickSignal.dispatch({"index":index, "grid":this});
 	};
 	
@@ -2681,14 +2683,26 @@ function(Container,
 
 define(
 
-	'phasercomponents/scene',['phasercomponents/injector'],
+	'phasercomponents/scene',['phasercomponents/injector', 'phaser', 'phasercomponents/events/appevents'],
 
-	function(Injector){
+	function(Injector, Phaser, AppEvents){
 	
 	
 	
 	var Scene  = function(){
 		this.inject();
+		this.resizeHandler = this.rescale.bind(this);
+		this.eventDispatcher.addListener(AppEvents.RESIZE, this.resizeHandler);
+	};
+
+	Scene.prototype.rescale = function(){
+		this.group.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
+	};
+
+	Scene.prototype.preload = function(){
+		this.group = new Phaser.Group(this.game, null);
+		this.world.add(this.group);
+		this.rescale();
 	};
 
 	Scene.prototype.inject = function() {
@@ -2696,7 +2710,14 @@ define(
 	};
 
 	Scene.prototype.shutdown = function() {
+		this.eventDispatcher.removeListener(AppEvents.RESIZE, this.resizeHandler);
+		this.resizeHandler = null;
 		Injector.getInstance().unInject(this);
+		if(this.group && this.world){
+			this.world.remove(this.group);
+			this.group.destroy(true);
+			this.group = null;
+		}	
 	};
 
 	return Scene;
