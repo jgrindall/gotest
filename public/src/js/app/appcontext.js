@@ -158,7 +158,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.START_ACTIVITY, 								StartUpCommand);
 		this.commandMap.map(Events.DRAW, 										DrawCommand);
 		this.commandMap.map(Events.HELP, 										HelpCommand);
-		this.commandMap.map(Events.CHECK_POSITION, 								CheckChallengeCommand);
+		this.commandMap.map(Events.CHECK_CHALLENGE, 							CheckChallengeCommand);
 		this.commandMap.map(Events.CHECK_POSITION, 								CheckOutsideCommand);
 		this.commandMap.map(Events.BACK, 										BackCommand);
 		this.commandMap.map(Events.VIDEO, 										VideoCommand);
