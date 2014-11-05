@@ -5,9 +5,6 @@ var madge = require("madge");
 
 app.configure(function(){
 	app.use(express.static(__dirname+"/public"));
-	app.use(express.basicAuth(function(user, pass) {
- 		return user === 't00Simple' && pass === 't00Go';
-	}));
 });
 
 app.render = function(res, path){
