@@ -35,7 +35,7 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	};
 
 	LoopTarget.prototype.init = function(){
-		this.middle -= 25;
+		this.middle -= 26;
 	};
 
 	LoopTarget.prototype.decorate = function(){

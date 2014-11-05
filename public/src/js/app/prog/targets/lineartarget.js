@@ -24,7 +24,7 @@ define( ['app/prog/views/dropview',	'app/assets',
 	PhaserComponents.Utils.extends(LinearTarget, AbstractTarget);
 
 	LinearTarget.prototype.init = function(){
-		this.middle -= 10;
+		
 	};
 
 	LinearTarget.prototype.decorate = function(){

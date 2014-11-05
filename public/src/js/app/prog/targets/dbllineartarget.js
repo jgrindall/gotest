@@ -26,6 +26,10 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget',
 
 	PhaserComponents.Utils.extends(DblLinearTarget, AbstractTarget);
 	
+	DblLinearTarget.prototype.init = function(){
+		this.middle += 9;
+	};
+
 	DblLinearTarget.prototype.decorate = function(){
    		var p0, p1, p2, p3, p4, p5, p6;
    		this.left = this.middle - DblLinearTarget.LEFTX;
