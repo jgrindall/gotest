@@ -745,7 +745,7 @@ function(Phaser, Injector, AppEvents){
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
 		this.game.world.add(this.bg);
-		this.game.add.tween(this.bg).to( {'alpha':0.75}, 500, Phaser.Easing.Linear.None, true, 50, false);
+		this.game.add.tween(this.bg).to( {'alpha':0.85}, 250, Phaser.Easing.Linear.None, true, 20, false);
 	};
 	
 	AlertManager.prototype.make = function(ClassRef, options, callback, bounds){
@@ -982,7 +982,8 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
     };
 
     Context.prototype.scrollTop = function(){
-        window.scrollTo(0, 0);
+        window.alert("scrollTop??");
+        //window.scrollTo(0, 0);
     };
 
     Context.prototype.onOrient = function(){
@@ -1693,6 +1694,7 @@ ButtonGridModel, Utils){
 		if(this.options.performSelect){
 			this.model.set(index);
 		}
+		console.log("CLICK", index);
 		this.clickSignal.dispatch({"index":index, "grid":this});
 	};
 	
@@ -2303,7 +2305,10 @@ function(Phaser, Container, Utils){
 			}
 			child.destroy();
 		});
-		this.moveTween.stop();
+		if(this.moveTween){
+			this.moveTween.stop();
+			this.moveTween = null;
+		}
 		this.removeListeners();
 		this.pageSignal.dispose();
 		this.selectSignal.dispose();
