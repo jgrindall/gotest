@@ -21,6 +21,7 @@ function(PhaserComponents, Assets,
 	PhaserComponents.Utils.extends(LoaderScene, PhaserComponents.Scene);
 
 	LoaderScene.prototype.preload = function() {
+		PhaserComponents.Scene.prototype.preload.apply(this);
 		this.addChildren();
 		this.preloader = new PhaserComponents.Display.Preloader(this.game, Assets.DATA);
 		this.preloader.loadSignal.add(this.loadProgress, this);
@@ -36,7 +37,7 @@ function(PhaserComponents, Assets,
 		var bounds;
 		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
 		this.bg = new Background({"asset":Assets.BG, "bounds":bounds});
-		this.world.add(this.bg.view);
+		this.group.add(this.bg.view);
 	};
 
 	LoaderScene.prototype.addBar = function() {
@@ -45,7 +46,7 @@ function(PhaserComponents, Assets,
 		y = this.game.cy - 20;
 		bounds = {"x":x, "y":y};
 		this.loaderBar = new LoaderBar({'bounds':bounds, 'asset':Assets.LOADER_BAR, 'numFrames':21});
-		this.world.add(this.loaderBar.view);
+		this.group.add(this.loaderBar.view);
 	};
 	
 	LoaderScene.prototype.loadProgress = function(progress) {

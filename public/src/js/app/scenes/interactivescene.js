@@ -13,6 +13,10 @@ function(PhaserComponents, IPad){
 	
 	PhaserComponents.Utils.extends(InteractiveScene, PhaserComponents.Scene);
 
+	InteractiveScene.prototype.preload = function() {
+		PhaserComponents.Scene.prototype.preload.apply(this);
+	};
+
 	InteractiveScene.prototype.create = function(){
 		this.addMain();
 		this.addListeners();
@@ -54,7 +58,7 @@ function(PhaserComponents, IPad){
 	InteractiveScene.prototype.showIPad = function() {
 		if(!this.ipad){
 			this.ipad = new IPad({"bounds":this.bounds});
-			this.world.add(this.ipad.view);
+			this.group.add(this.ipad.view);
 			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.ALERT_SHOWN, "shown":true});
 		}
 	};
@@ -62,7 +66,7 @@ function(PhaserComponents, IPad){
 	InteractiveScene.prototype.removeIPad = function() {
 		if(this.ipad){
 			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.ALERT_SHOWN, "shown":false});
-			this.world.remove(this.ipad.view);
+			this.group.remove(this.ipad.view);
 			this.ipad.destroy();
 			this.ipad = null;
 		}
@@ -76,7 +80,7 @@ function(PhaserComponents, IPad){
 
 	InteractiveScene.prototype.removeMain = function() {
 		if(this.mainView){
-			this.world.remove(this.mainView.view);
+			this.group.remove(this.mainView.view);
 			this.mainView.destroy();
 			this.mainView = null;
 		}

@@ -21,6 +21,10 @@ Events, MainView, Assets, ChallengeView){
 		$("html").css("background", "#202020");
 	};
 
+	ActivityScene.prototype.preload = function(){
+		InteractiveScene.prototype.preload.call(this);
+	};
+
 	ActivityScene.prototype.addListeners = function(){
 		InteractiveScene.prototype.addListeners.call(this);
 		this.challengeHandler = this.addChallenge.bind(this);
@@ -55,7 +59,7 @@ Events, MainView, Assets, ChallengeView){
 		var bounds;
 		bounds = {'x':0, 'y':0, 'w':this.game.w, 'h':this.game.h};
 		this.mainView = new MainView({"bounds":bounds});
-		this.world.add(this.mainView.view);
+		this.group.add(this.mainView.view);
 	};
 
 	ActivityScene.prototype.destroy = function(){
