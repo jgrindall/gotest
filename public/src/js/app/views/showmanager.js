@@ -17,8 +17,9 @@ function(PhaserComponents, ShowDirections){
 		PhaserComponents.Injector.getInstance().injectInto(this, "showmanager");
 	};
 
-	ShowManager.prototype.show = function(key){
+	ShowManager.prototype.show = function(){
 		return false;
+		/*
 		if(!key){
 			return true;
 		}
@@ -27,6 +28,7 @@ function(PhaserComponents, ShowDirections){
 			return true;
 		}
 		return false;
+		*/
 	};
 
 	ShowManager.prototype.start = function(){
