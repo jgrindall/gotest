@@ -41,7 +41,6 @@ PlayingState, ModelConsts){
 	Menu.prototype.menuClick = function(data) {
 		var i = data.index;
 		if(i === 0){
-			console.log("newfile!!");
 			this.eventDispatcher.trigger({"type":Events.NEW_FILE});
 		}
 		else if(i === 1){
@@ -65,7 +64,7 @@ PlayingState, ModelConsts){
 	};
 
 	Menu.prototype.destroy = function(){
-		this.clickSignal.add(this.menuClick, this);
+		this.clickSignal.remove(this.menuClick, this);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.remove(this.playingChanged, this);
 		PhaserComponents.Display.ButtonBar.prototype.destroy.call(this);
 	};
