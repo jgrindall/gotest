@@ -65,6 +65,9 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		PhaserComponents.Context.call(this, options);
     };
 	
+	// if live on purplemash
+    AppContext.LIVE = true;
+
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
 	AppContext.prototype.mapFonts = function(){
@@ -109,6 +112,9 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     };
 
     AppContext.prototype.isLive = function(){
+    	if(AppContext.LIVE){
+    		return true;
+    	}
     	var regexp0, regexp1;
     	regexp0 = new RegExp('purple', 'g');
     	regexp1 = new RegExp('simple', 'g');
