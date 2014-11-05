@@ -169,7 +169,7 @@ Assets, ShowDirections, ModelConsts){
 	
 	MainView.prototype.removeControls = function() {
 		if(this.controls){
-			this.world.remove(this.controls.view);
+			this.group.remove(this.controls.view);
 			this.controls.destroy();
 			this.controls = null;
 		}
