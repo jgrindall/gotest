@@ -10,14 +10,14 @@ define([], function() {
 	ChallengeData.RADIUS = 50;
 
 	ChallengeData.MESSAGES = [];
-	ChallengeData.MESSAGES.push("Guide the fish to the treasure chest!");
-	ChallengeData.MESSAGES.push("Drive the car to bank, and then to the hospital!");
-	ChallengeData.MESSAGES.push("Visit the four island ports in order and\nthen go to the lighthouse!");
-	ChallengeData.MESSAGES.push("Get little red riding hood to\nGranny's cottage. Don't get\neaten on the way!");
-	ChallengeData.MESSAGES.push("Make the bee visit both of the poppies!");
-	ChallengeData.MESSAGES.push("Travel along the flight-path to\nget to the spaceman!");
-	ChallengeData.MESSAGES.push("Get to the cheese by finding\nyour way through the maze!");
-	ChallengeData.MESSAGES.push("Drive the car around the track by repeating\nthe 'turn 90 degree' and 'move forward'\ncommands. Click on '×1' to change how\nmany times they repeat!");
+	ChallengeData.MESSAGES.push("Guide the fish to the treasure chest");
+	ChallengeData.MESSAGES.push("Drive the car to bank, and then to the hospital");
+	ChallengeData.MESSAGES.push("Visit the four island ports in order and\nthen go to the lighthouse");
+	ChallengeData.MESSAGES.push("Get little red riding hood to\nGranny's cottage. Don't get\neaten on the way");
+	ChallengeData.MESSAGES.push("Make the bee visit both of the poppies");
+	ChallengeData.MESSAGES.push("Travel along the flight-path to\nget to the spaceman");
+	ChallengeData.MESSAGES.push("Get to the cheese by finding\nyour way through the maze");
+	ChallengeData.MESSAGES.push("Drive the car around the track by repeating\nthe 'turn 90 degree' and 'move forward'\ncommands. Click on '×1' to change how\nmany times they repeat");
 	
 	ChallengeData.CHALLENGE_BG = 			[4, 2, 8, 3, 0, 1, 7, 5];
 	ChallengeData.CHALLENGE_SCREEN = 		[0, 1, 2, 1, 2, 1, 2, 3];
