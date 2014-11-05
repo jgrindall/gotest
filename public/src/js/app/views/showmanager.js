@@ -10,8 +10,8 @@ function(PhaserComponents, ShowDirections){
 		this.tweens = [];
 	};
 	
-	ShowManager.DELAY = 180;
-	ShowManager.DURATION = 500;
+	ShowManager.DELAY = 75;
+	ShowManager.DURATION = 250;
 
 	ShowManager.prototype.init = function(){
 		PhaserComponents.Injector.getInstance().injectInto(this, "showmanager");
