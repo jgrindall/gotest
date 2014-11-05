@@ -126,33 +126,17 @@ PhaserComponents, ChallengeData){
 		gfx.beginFill(0xFFFFFF, 0.3);
 		gfx.drawCircle(0, 0, radius);
 		gfx.endFill();
-		//gfx.mask = this.mask;
 		return gfx;
 	};
 
 	Hotspots.prototype.create = function() {
 		PhaserComponents.Display.Container.prototype.create.call(this);
-		this.addMask();
-	};
-	
-	Hotspots.prototype.addMask = function(){
-		this.mask = new Phaser.Graphics(this.game, 0, 0);
-		this.mask.beginFill(0xff0000, 0.65);
-    	this.mask.drawRect(this.bounds.x, this.bounds.y, this.bounds.w, this.bounds.h);
-    	this.mask.endFill();
-    	this.group.add(this.mask);
-	};
-
-	Hotspots.prototype.removeMask = function(){
-		this.group.remove(this.mask);
-    	this.mask = null;
 	};
 
 	Hotspots.prototype.removeHotspotAt = function(i) {
 		var gfx = this.hotspots[i];
 		if(gfx){
 			this.group.remove(gfx);
-			gfx.mask = null;
 			gfx.destroy();
 			gfx = null;
 		}
