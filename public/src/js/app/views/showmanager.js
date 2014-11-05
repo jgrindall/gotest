@@ -18,6 +18,7 @@ function(PhaserComponents, ShowDirections){
 	};
 
 	ShowManager.prototype.show = function(key){
+		return false;
 		if(!key){
 			return true;
 		}
