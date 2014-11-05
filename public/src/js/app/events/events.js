@@ -34,6 +34,7 @@ function() {
 	Events.FINISHED				= 		"finished";
 	Events.DOWNLOAD				= 		"download";
 	Events.CHECK_POSITION		=		"checkPosition";
+	Events.CHECK_CHALLENGE		=		"checkChallenge";
 	Events.STOP					= 		"stop";
 	Events.SHOW_CHALLENGES		= 		"showChallenges";
 	Events.START_ACTIVITY		= 		"startactivity";
