@@ -11,7 +11,7 @@ function(Phaser, PhaserComponents, Assets
 	
 	var ChallengeButton = function(options){
 		options.asset = Assets.CHALLENGES;
-		options.numFrames = 6;
+		options.numFrames = 8;
 		PhaserComponents.Display.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
