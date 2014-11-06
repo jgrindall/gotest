@@ -22,7 +22,7 @@ define( ['phasercomponents', 'app/prog/targets/abstracttarget',
 	DblLinearTarget.FIRST_Y = 		53;
 	DblLinearTarget.GAP = 			55;
 	DblLinearTarget.START_POS = 	{'x':-65, 'y':0};
-	DblLinearTarget.STOP_POS = 		{'x':0, 'y':317};
+	DblLinearTarget.STOP_POS = 		{'x':9, 'y':317};
 
 	PhaserComponents.Utils.extends(DblLinearTarget, AbstractTarget);
 	
