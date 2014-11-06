@@ -260,6 +260,7 @@ function(Phaser, PhaserStateTrans,
 		this.game.worldScale = Math.max(worldScaleX, worldScaleY);
 		this.game.w = w/this.game.worldScale;
 		this.game.h = h/this.game.worldScale;
+		console.log("game size", "w", w, "h", h, "worldScaleX", worldScaleX, "worldScaleY", worldScaleY, "worldScale", this.game.worldScale, "this.game.w", this.game.w, "this.game.h", this.game.h);
 		this.game.cx = this.game.w/2;
 		this.game.cy = this.game.h/2;
 		this.body.width(w).height(h + this.options.paddingBottom);
@@ -2038,11 +2039,11 @@ InteractiveSprite, Utils, AppEvents){
 	};
 
 	AbstractSlider.prototype.bgDown = function(){
-		//console.log("bg Down");
+		//bg Down
 	};
 
 	AbstractSlider.prototype.hlDown = function(){
-		//console.log("hl Down");
+		//hl Down
 	};
 
 	AbstractSlider.prototype.addBg = function(){
