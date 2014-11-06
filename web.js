@@ -11,8 +11,8 @@ app.render = function(res, path){
 	res.sendfile(path);
 };
 
-app.get('/src2', function(req, res) {
-	app.render(res, "public/src/index2.html");
+app.get('/container', function(req, res) {
+	app.render(res, "public/src/container.html");
 });
 
 app.get('/src', function(req, res) {

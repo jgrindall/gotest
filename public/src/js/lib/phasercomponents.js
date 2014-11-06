@@ -283,6 +283,7 @@ function(Phaser, PhaserStateTrans,
 		this.transitions = this.game.plugins.add(PhaserStateTrans);
 		this.transitions.settings(settings);
 		this.game.onResume.add(this.onResume, this);
+		this.game.world.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
 		this.game.state.start(this.firstSceneKey);
 	};
 
@@ -343,8 +344,8 @@ function(Phaser, PhaserStateTrans,
 		else{
 			size = this.getSizeFit();
 		}
-		size.w = size.w * window.devicePixelRatio;
-		size.h = size.h * window.devicePixelRatio;
+		//size.w = size.w * window.devicePixelRatio;
+		//size.h = size.h * window.devicePixelRatio;
 		if(size.h < this.options.minHeight){
 			size.w -= GameManager.SCROLL_BAR_SIZE;
 			size.h = this.options.minHeight;
@@ -1377,6 +1378,7 @@ function(Phaser, View, Utils,
 
 	AbstractButton.prototype.create = function(){
 		this.sprite = new Phaser.Button(this.game, this.bounds.x, this.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
+		//this.sprite.scale = {'x':0.5, 'y':0.5};
 		this.resetFrames();
 		this.sprite.inputEnabled = false;
 		this.enableInput();
@@ -2698,7 +2700,8 @@ define(
 
 	Scene.prototype.rescale = function(){
 		if(this.group){
-			this.group.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
+			console.log("scale world to ", this.game.worldScale);
+			//this.group.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
 		}
 	};
 

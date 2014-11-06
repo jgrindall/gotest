@@ -50,12 +50,14 @@ function(PhaserComponents, Assets,
 	};
 	
 	LoaderScene.prototype.loadProgress = function(progress) {
-		var p, data;
+		var p, data, that = this;
 		p = Math.round(progress.numLoaded * 100 / progress.total);
 		this.loaderBar.goToPercent(p);
 		if(progress.numLoaded === progress.total){
 			data = {"sceneFrom":AppConsts.LOADER_SCENE};
-			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.CHANGE_SCENE, "data":data});
+			setTimeout(function(){
+				that.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.CHANGE_SCENE, "data":data});
+			}, 2000);
 		}
 	};
 
