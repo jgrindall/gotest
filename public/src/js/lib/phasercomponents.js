@@ -2697,7 +2697,9 @@ define(
 	};
 
 	Scene.prototype.rescale = function(){
-		this.group.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
+		if(this.group){
+			this.group.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
+		}
 	};
 
 	Scene.prototype.preload = function(){
