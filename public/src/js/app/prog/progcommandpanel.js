@@ -53,7 +53,7 @@ define(
 
 	ProgCommandPanel.prototype.positionButtons = function(){
 		var availableWidth = this.bounds.w - ProgDragContainer.WIDTH - ProgButtons.WIDTH;
-		this.progButtons.view.x = availableWidth/2 + 15;
+		this.progButtons.view.x = availableWidth/2 + 16;
 		this.progButtons.view.y = 16;
 	};
 
