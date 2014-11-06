@@ -256,21 +256,25 @@ function(Phaser, PhaserStateTrans,
 		}
 		this.game.width = w;
 		this.game.height = h;
-		worldScaleX = Math.max(1, w/this.options.maxWidth);
+		worldScaleX = 1;
 		worldScaleY = Math.max(1, h/this.options.maxHeight);
 		this.game.worldScale = Math.max(worldScaleX, worldScaleY);
-		if(this.game.world){
-			this.game.world.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
-		}
 		this.game.w = w/this.game.worldScale;
 		this.game.h = h/this.game.worldScale;
 		console.log("game size", "w", w, "h", h, "worldScaleX", worldScaleX, "worldScaleY", worldScaleY, "worldScale", this.game.worldScale, "this.game.w", this.game.w, "this.game.h", this.game.h);
 		this.game.cx = this.game.w/2;
 		this.game.cy = this.game.h/2;
+		this.scaleWorld();
 		this.body.width(w).height(h + this.options.paddingBottom);
 		this.el.width(w).height(h);
 		canvas = $("#"+this.options.containerTagId+" canvas");
 		canvas.width(w).height(h).attr("width", w).attr("height", h);
+	};
+
+	GameManager.prototype.scaleWorld = function(){
+		if(this.game.world){
+			this.game.world.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
+		}	
 	};
 
 	GameManager.prototype.resize = function(){

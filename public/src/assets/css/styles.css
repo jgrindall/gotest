@@ -8,7 +8,7 @@ html, body{
 html{
     height:100%;
     width:100%;
-    background-color:#444444;
+    background-color:#ffffff;
     background-image:url(../images/bg/bg.png);
     overflow: hidden;
 }
@@ -19,11 +19,11 @@ body{
 
 div#game{
     padding:0;
-    background:#5b6465;
+    background:#ffffff;
     width:100%;
     height:100%;
 }
 
 div#game canvas{
-    background:#5b6465;
+    background:#ffffff;
 }
