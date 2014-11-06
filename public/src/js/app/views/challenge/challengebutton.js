@@ -31,7 +31,7 @@ function(Phaser, PhaserComponents, Assets
 	};
 	
 	ChallengeButton.prototype.deselect = function(){
-		this.panel.view.alpha = 0.3;
+		this.panel.view.alpha = 0.5;
 	};
 	
 	ChallengeButton.prototype.mouseUp = function(){

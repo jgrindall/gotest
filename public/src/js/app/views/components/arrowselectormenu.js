@@ -53,7 +53,7 @@ PhaserComponents, Assets)
 	};
 	
 	ArrowSelectorMenu.prototype.addTitle = function() {
-		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 8, this.options.label);
+		this.label = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 20, this.bounds.y + 8, this.options.label);
  		this.group.add(this.label);
 	};
 

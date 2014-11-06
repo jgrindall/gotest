@@ -37,7 +37,7 @@ CloseButton, Assets){
 	};
 
 	Growl.prototype.addTitle = function () {
-		this.title = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.title);
+		this.title = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 20, this.bounds.y + 10, this.options.title);
 		this.group.add(this.title);
 	};
 	

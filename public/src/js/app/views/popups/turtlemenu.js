@@ -59,7 +59,7 @@ TurtleChoice){
 	};
 
 	TurtleMenu.prototype.addTitle = function() {
-		this.label = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 14, this.bounds.y + 10, "Choose a turtle!");
+		this.label = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 14, this.bounds.y + 10, "Choose a turtle!");
  		this.group.add(this.label);
 	};
 

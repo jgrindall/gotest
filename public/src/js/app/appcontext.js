@@ -71,11 +71,16 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
 	AppContext.prototype.mapFonts = function(){
-		PhaserComponents.TextFactory.registerFont('vsmall',	{"size":12, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
-		PhaserComponents.TextFactory.registerFont('small', 	{"size":18, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
-		PhaserComponents.TextFactory.registerFont('medium', {"size":22, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
-		PhaserComponents.TextFactory.registerFont('large', 	{"size":45, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
-		PhaserComponents.TextFactory.registerFont('vlarge', {"size":60, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
+		PhaserComponents.TextFactory.registerFont('vsmall',	{"size":12, "align":'center', "fontName":'TooSimple', "color":'#000000'});
+		PhaserComponents.TextFactory.registerFont('small', 	{"size":18, "align":'center', "fontName":'TooSimple', "color":'#000000'});
+		PhaserComponents.TextFactory.registerFont('medium', {"size":22, "align":'center', "fontName":'TooSimple', "color":'#000000'});
+		PhaserComponents.TextFactory.registerFont('large', 	{"size":45, "align":'center', "fontName":'TooSimple', "color":'#000000'});
+		PhaserComponents.TextFactory.registerFont('vlarge', {"size":60, "align":'center', "fontName":'TooSimple', "color":'#000000'});
+		PhaserComponents.TextFactory.registerFont('vsmallheader',	{"size":12, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
+		PhaserComponents.TextFactory.registerFont('smallheader', 	{"size":18, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
+		PhaserComponents.TextFactory.registerFont('mediumheader', 	{"size":22, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
+		PhaserComponents.TextFactory.registerFont('largeheader', 	{"size":45, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
+		PhaserComponents.TextFactory.registerFont('vlargeheader', 	{"size":60, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
 	};
 
 	AppContext.prototype.inject = function(){

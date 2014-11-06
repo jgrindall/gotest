@@ -65,7 +65,7 @@ GameScreenMenuPanel, SettingsMenuPanel){
 	};
 
 	GridMenu.prototype.addLabel = function () {
-		this.title = PhaserComponents.TextFactory.make('medium', this.game, this.bounds.x + 16, this.bounds.y + 10, "Settings");
+		this.title = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 16, this.bounds.y + 10, "Settings");
 		this.group.add(this.title);
 	};
 
