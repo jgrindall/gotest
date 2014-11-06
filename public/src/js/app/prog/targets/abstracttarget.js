@@ -9,7 +9,8 @@ define( ['app/prog/views/dropview'],
 	};
 
 	AbstractTarget.LINE_THICK = 8;
-
+	AbstractTarget.LINE_COLOR = 0x662d91;
+	
 	AbstractTarget.prototype.build = function(parent){
 		this.parent = parent;
 		this.bounds = parent.bounds;
@@ -28,7 +29,7 @@ define( ['app/prog/views/dropview'],
 
 	AbstractTarget.prototype.circle = function(p){
 		this.gfx.lineStyle(0, 0x000000, 0);
-		this.gfx.beginFill(0xffffff, 1);
+		this.gfx.beginFill(AbstractTarget.LINE_COLOR, 1);
 		this.gfx.drawCircle(p.x, p.y, AbstractTarget.LINE_THICK/2);
 		this.gfx.endFill();
 	};
@@ -36,7 +37,7 @@ define( ['app/prog/views/dropview'],
 	AbstractTarget.prototype.drawLine = function(p0, p1){
 		this.circle(p0);
 		this.circle(p1);
-		this.gfx.lineStyle(AbstractTarget.LINE_THICK, 0xffffff, 1);
+		this.gfx.lineStyle(AbstractTarget.LINE_THICK, AbstractTarget.LINE_COLOR, 1);
    		this.gfx.moveTo(p0.x, p0.y);
    		this.gfx.lineTo(p1.x, p1.y);
 	};
