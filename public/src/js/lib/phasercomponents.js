@@ -761,12 +761,12 @@ function(Phaser, Injector, AppEvents){
 	
 	AlertManager.prototype.addBg = function(){
 		this.bg = new Phaser.Graphics(this.game, 0, 0);
-		this.bg.beginFill(0x000000);
+		this.bg.beginFill(0xaaaaaa);
 		this.bg.alpha = 0;
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
 		this.game.world.add(this.bg);
-		this.game.add.tween(this.bg).to( {'alpha':0.85}, 250, Phaser.Easing.Linear.None, true, 20, false);
+		this.game.add.tween(this.bg).to( {'alpha':0.925}, 250, Phaser.Easing.Linear.None, true, 20, false);
 	};
 	
 	AlertManager.prototype.make = function(ClassRef, options, callback, bounds){
