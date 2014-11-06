@@ -53,15 +53,16 @@ define(
 
 	ProgCommandPanel.prototype.positionButtons = function(){
 		var availableWidth = this.bounds.w - ProgDragContainer.WIDTH - ProgButtons.WIDTH;
-		this.progButtons.view.x = 9 + availableWidth/3;
+		this.progButtons.view.x = availableWidth/2 + 15;
+		this.progButtons.view.y = 16;
 	};
 
 	ProgCommandPanel.prototype.positionDrag = function(){
-		var availableWidth = this.bounds.w - ProgDragContainer.WIDTH - ProgButtons.WIDTH;
-		this.dragContainer.view.x = ProgButtons.WIDTH + 2*availableWidth/3;
+		this.dragContainer.view.x = this.progButtons.view.x + 64;
 	};
 
 	ProgCommandPanel.prototype.onResize = function(){
+		AbstractCommandsPanel.prototype.onResize.call(this);
 		this.positionButtons();
 		this.positionDrag();
 	};

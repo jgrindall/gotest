@@ -23,7 +23,7 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 	LoopTarget.BOTTOM = 			294;
 	LoopTarget.PADDING_BOTTOM = 	50;
 	LoopTarget.PADDING_TOP = 		50;
-	LoopTarget.LINE_WIDTH = 		105;
+	LoopTarget.LINE_WIDTH = 		100;
 	LoopTarget.BLOCK_TOP = 			54;
 	LoopTarget.GAP = 				54;
 	LoopTarget.START_POS = 			{'x':-74, 'y':0};

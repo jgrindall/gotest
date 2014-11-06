@@ -1,13 +1,13 @@
 
 define([ 'phasercomponents', 
 
-'app/events/events'
+'app/events/events', 'app/assets'
 ],
 
 
 function(PhaserComponents,
 
-Events){
+Events, Assets, ProgDragContainer, ProgButtons){
 	
 	"use strict";
 	
@@ -28,7 +28,29 @@ Events){
 	};
 
 	AbstractCommandsPanel.prototype.onResize = function(){
-		
+		this.layoutBass();
+	};
+
+	AbstractCommandsPanel.prototype.layoutBass = function(){
+		var availableWidth = this.bounds.w - 274;
+		this.base.x = availableWidth/2;
+	};
+
+	AbstractCommandsPanel.prototype.addBase = function(){
+		this.base = new Phaser.Sprite(this.game, 0, 0, Assets.BASE);
+		this.base.alpha = 0.7;
+		this.group.add(this.base);
+	};
+	
+	AbstractCommandsPanel.prototype.removeBase = function(){
+		this.group.remove(this.base);
+		this.base.destroy();
+		this.base = null;
+	};
+
+	AbstractCommandsPanel.prototype.create = function(){
+		PhaserComponents.Display.Container.prototype.create.call(this);
+		this.addBase();
 	};
 
 	AbstractCommandsPanel.prototype.addCommand = function(direction, type){
@@ -44,6 +66,7 @@ Events){
 	};
 	
 	AbstractCommandsPanel.prototype.destroy = function() {
+		this.removeBase();
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	

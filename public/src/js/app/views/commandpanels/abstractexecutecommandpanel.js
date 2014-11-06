@@ -30,6 +30,7 @@ MarkerFactory){
 	AbstractExecuteCommandsPanel.NULL_BUTTON = 		4;
 
 	AbstractExecuteCommandsPanel.prototype.onResize = function() {
+		AbstractCommandsPanel.prototype.onResize.call(this);
 		this.positionGrid();
 		this.positionMarker();
 	};

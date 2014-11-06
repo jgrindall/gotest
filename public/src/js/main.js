@@ -18,8 +18,8 @@ require(['phaser'], function(Phaser){
 			var options = {
 				"containerTagId":"game", 
 				"paddingBottom":0, 
-				"minHeight":600, 
-				"minWidth":885, 
+				"minHeight":620, 
+				"minWidth":920, 
 				"maxHeight":960, 
 				"maxWidth":1280
 			};

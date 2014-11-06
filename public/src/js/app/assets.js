@@ -12,6 +12,7 @@ define(['app/consts/turtles'], function(Turtles){
 	Assets.MAPS = 					['map0', 'map1', 'map2', 'map3', 'map4', 'map5', 'map6', 'map7', 'map8', 'map9', 'map10', 'map11', 'map12', 'map13', 'map14', 'map15', 'map16'];
 	Assets.TURTLES = 				['turtle0', 'turtle1', 'turtle2', 'turtle3', 'turtle4', 'turtle5', 'turtle6', 'turtle7', 'turtle8', 'turtle9'];
 	Assets.TURTLE_CHOICE = 			'turtleChoice';
+	Assets.BASE = 					'base';
 	Assets.MOVER = 					'mover';
 	Assets.TOPBAR = 				'topBar';
 	Assets.CORNERS = 				'corners';
@@ -126,6 +127,7 @@ define(['app/consts/turtles'], function(Turtles){
 	];
 	
 	Assets.IMAGES = [
+		{"type":"image", 		"asset":"assets/images/prog/base.png",	 				"key":Assets.BASE},
 		{"type":"image", 		"asset":"assets/images/buttons/smile.png",	 			"key":Assets.SMILE},
 		{"type":"image", 		"asset":"assets/images/bg/topbar.png", 					"key":Assets.TOPBAR},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip0.png",	 		"key":Assets.TOOLTIPS[0]},
