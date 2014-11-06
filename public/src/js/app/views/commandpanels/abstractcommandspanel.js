@@ -7,7 +7,7 @@ define([ 'phasercomponents',
 
 function(PhaserComponents,
 
-Events, Assets, ProgDragContainer, ProgButtons){
+Events, Assets){
 	
 	"use strict";
 	
