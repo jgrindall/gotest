@@ -250,6 +250,7 @@ function(Phaser, PhaserStateTrans,
 		size = this.getSize();
 		w = size.w;
     	h = size.h;
+    	console.log("getSize", w, h);
     	if(!this.game){
 			this.game = new Phaser.Game(w, h, Phaser.CANVAS, this.options.containerTagId, config);
 		}
@@ -258,6 +259,9 @@ function(Phaser, PhaserStateTrans,
 		worldScaleX = Math.max(1, w/this.options.maxWidth);
 		worldScaleY = Math.max(1, h/this.options.maxHeight);
 		this.game.worldScale = Math.max(worldScaleX, worldScaleY);
+		if(this.game.world){
+			this.game.world.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
+		}
 		this.game.w = w/this.game.worldScale;
 		this.game.h = h/this.game.worldScale;
 		console.log("game size", "w", w, "h", h, "worldScaleX", worldScaleX, "worldScaleY", worldScaleY, "worldScale", this.game.worldScale, "this.game.w", this.game.w, "this.game.h", this.game.h);
@@ -337,15 +341,7 @@ function(Phaser, PhaserStateTrans,
 	};
 
 	GameManager.prototype.getSize = function(){
-		var size;
-		if(this.options.scaleType === "fill"){
-			size = this.getSizeFill();
-		}
-		else{
-			size = this.getSizeFit();
-		}
-		//size.w = size.w * window.devicePixelRatio;
-		//size.h = size.h * window.devicePixelRatio;
+		var size = this.getSizeFill();
 		if(size.h < this.options.minHeight){
 			size.w -= GameManager.SCROLL_BAR_SIZE;
 			size.h = this.options.minHeight;
@@ -997,15 +993,8 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
     	$(window).on("resize", this.resizeHandler);
         this.orientHandler = Utils.debounce(this.onOrient.bind(this), 500);
         $(window).on("orientationchange", this.orientHandler);
-        document.addEventListener('focusout', this.scrollTop.bind(this));
         this.sceneHandler = this.onChangeScene.bind(this);
         this.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.sceneHandler);
-        this.scrollTop();
-    };
-
-    Context.prototype.scrollTop = function(){
-        //window.alert("scrollTop??");
-        //window.scrollTo(0, 0);
     };
 
     Context.prototype.onOrient = function(){
@@ -1013,7 +1002,6 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
         setTimeout(function(){
             that.gameManager.orient();
             that.eventDispatcher.trigger({"type":AppEvents.ORIENT});
-            that.scrollTop();
         }, 300);
     };
 
@@ -1022,7 +1010,6 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
         setTimeout(function(){
             that.gameManager.resize();
             that.eventDispatcher.trigger({"type":AppEvents.RESIZE});
-            that.scrollTop();
         }, 300);
     };
 
