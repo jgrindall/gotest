@@ -57,7 +57,7 @@ function(PhaserComponents, Assets,
 			data = {"sceneFrom":AppConsts.LOADER_SCENE};
 			setTimeout(function(){
 				that.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.CHANGE_SCENE, "data":data});
-			}, 2000);
+			}, 200);
 		}
 	};
 
