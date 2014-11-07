@@ -20,6 +20,11 @@ define(['phasercomponents', 'app/assets'],
 	
 	PhaserComponents.Utils.extends(MenuButton, PhaserComponents.Display.AbstractButton);
 
+	MenuButton.prototype.mouseUp = function(){
+		console.log("press menu button");
+		PhaserComponents.Display.AbstractButton.prototype.mouseUp.call(this);
+	};
+
 	return MenuButton;
 	
 });
