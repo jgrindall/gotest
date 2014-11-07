@@ -116,6 +116,7 @@ Events, ModelConsts, ControlBar){
 		this.group.add(this.controlBar.view);
 		this.controlBar.view.visible = (this.modelFacade.get(ModelConsts.ALLOW_PROG).get() === 1);
 		this.positionControlBar();
+		this.group.bringToTop(this.controlBar.view);
 		this.showManager.add(this.controlBar.view, 3, ShowDirections.UP);
 	};
 
@@ -145,7 +146,7 @@ Events, ModelConsts, ControlBar){
 			this.positionPanel();
 			this.showManager.add(this.commandsPanel.view, 3, ShowDirections.LEFT, "commandsPanel");
 			if(this.controlBar){
-				this.group.bringToTop(this.controlBar);
+				this.group.bringToTop(this.controlBar.view);
 			}
 		}
 	};
