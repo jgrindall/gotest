@@ -40,7 +40,7 @@ function(PhaserComponents, Events,
 			else{
 				that.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 			}
-		}, 100);
+		}, 250);
 	};
 
 	StartUpCommand.prototype.loadFile = function(data){
