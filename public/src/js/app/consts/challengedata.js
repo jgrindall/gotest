@@ -17,7 +17,7 @@ define([], function() {
 	ChallengeData.MESSAGES.push("Make the bee visit both of the poppies");
 	ChallengeData.MESSAGES.push("Travel along the flight-path to\nget to the spaceman");
 	ChallengeData.MESSAGES.push("Get to the cheese by finding\nyour way through the maze");
-	ChallengeData.MESSAGES.push("Drive the car around the track by repeating\nthe 'turn 90 degree' and 'move forward'\ncommands. Click on '×1' to change how\nmany times they repeat");
+	ChallengeData.MESSAGES.push("Drive the car around the track by repeating\nthe 'turn 90 degrees' and 'move forward'\ncommands. Click on '×1' to change how\nmany times they repeat");
 	
 	ChallengeData.CHALLENGE_BG = 			[4, 2, 8, 3, 0, 1, 7, 5];
 	ChallengeData.CHALLENGE_SCREEN = 		[0, 1, 2, 1, 2, 1, 2, 3];
