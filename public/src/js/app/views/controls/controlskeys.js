@@ -1,9 +1,7 @@
 
-define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
+define(['phasercomponents', 
 
-'app/consts/controlslayout',
-
-'app/consts/showdirections',
+'app/consts/showdirections', 'app/views/mainviewlayout',
 
 'app/views/commandpanels/commandspanelfactory', 'app/views/buttons/controlbarbutton',
 
@@ -11,11 +9,9 @@ define(['phasercomponents', 'app/views/commandpanels/abstractcommandspanel',
 
 ],
 
-function(PhaserComponents, AbstractCommandsPanel,
+function(PhaserComponents,
 
-ControlsLayout,
-
-ShowDirections,
+ShowDirections, MainViewLayout,
 
 CommandsPanelFactory, ControlBarButton,
 
@@ -50,11 +46,11 @@ Events, ModelConsts, ControlBar){
 	};
 	
 	ControlsKeys.prototype.positionPanel = function() {
-		var x, y;
+		var x, y, pos;
+		pos = MainViewLayout.getCanvasPos(this.game.w, this.game.h);
 		if(this.commandsPanel){
 			x = 0;
-			y = ControlsKeys.TOP_PADDING + (this.game.h - ControlsKeys.BOTTOM_PADDING - AbstractCommandsPanel.HEIGHT)/2;
-			y = Math.max(y, ControlsKeys.TOP_PADDING);
+			y = pos.y;
 			this.commandsPanel.bounds.w = this.bounds.w;
 			this.commandsPanel.view.x = x;
 			this.commandsPanel.view.y = y;
@@ -63,9 +59,10 @@ Events, ModelConsts, ControlBar){
 	};
 
 	ControlsKeys.prototype.positionControlBar = function() {
-		var x, y;
+		var x, y, pos;
 		x = (this.bounds.w - ControlBar.WIDTH)/2;
-		y = this.game.h - ControlsLayout.PEN_HEIGHT - 89;
+		pos = MainViewLayout.getCanvasPos(this.game.w, this.game.h);
+		y = pos.y + 376;
 		this.controlBar.view.x = x;
 		this.controlBar.view.y = y;
 	};
