@@ -227,7 +227,7 @@ function(Phaser, PhaserStateTrans,
 	GameManager.prototype.destroy = function(){
 		this.el.empty();
 		this.game.tweens.removeAll();
-		this.game.stage.disableVisibilityChange = false;
+		this.game.stage.disableVisibilityChange = true;
 		this.game.stage.destroy();
 		this.game.destroy();
 		this.game.stage = null;
@@ -250,7 +250,6 @@ function(Phaser, PhaserStateTrans,
 		size = this.getSize();
 		w = size.w;
     	h = size.h;
-    	console.log("getSize", w, h);
     	if(!this.game){
 			this.game = new Phaser.Game(w, h, Phaser.CANVAS, this.options.containerTagId, config);
 		}
@@ -261,7 +260,6 @@ function(Phaser, PhaserStateTrans,
 		this.game.worldScale = Math.max(worldScaleX, worldScaleY);
 		this.game.w = w/this.game.worldScale;
 		this.game.h = h/this.game.worldScale;
-		console.log("game size", "w", w, "h", h, "worldScaleX", worldScaleX, "worldScaleY", worldScaleY, "worldScale", this.game.worldScale, "this.game.w", this.game.w, "this.game.h", this.game.h);
 		this.game.cx = this.game.w/2;
 		this.game.cy = this.game.h/2;
 		this.scaleWorld();
