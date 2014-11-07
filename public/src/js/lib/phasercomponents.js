@@ -728,18 +728,21 @@ function(Phaser, Injector, AppEvents){
 	};
 
 	AlertManager.prototype.reOpen = function(){
-		this.close();
+		if(this.bg){
+			this.redrawBg();
+		}
 	};
 
 	AlertManager.prototype.removeBg = function(){
 		if(this.bg){
+			this.group.remove(this.bg);
 			this.bg.destroy();
 			this.bg = null;
 		}
 	};
 
 	AlertManager.prototype.close = function(callback, name){
-		var that = this, close;
+		var close;
 		close = true;
 		if(name && this.alert && this.alert.options.name !== name){
 			close = false;
@@ -747,24 +750,38 @@ function(Phaser, Injector, AppEvents){
 		if(this.alert && close){
 			this.alert.selectSignal.remove(this.callbackProxy);
 			this.alert.hideMe();
-			that.removeBg();
-			that.alert.destroy();
-			that.alert = null;
-			that.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
+			this.group.remove(this.alert.group);
+			this.removeBg();
+			this.alert.destroy();
+			this.alert = null;
+			this.game.world.remove(this.group);
+			this.group.destroy();
+			this.group = null;
+			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":false});
 			if(callback && typeof(callback) === "function"){
 				callback();
 			}
 		}
 	};
 	
-	AlertManager.prototype.addBg = function(){
-		this.bg = new Phaser.Graphics(this.game, 0, 0);
+	AlertManager.prototype.redrawBg = function(){
+		this.bg.clear();
 		this.bg.beginFill(0xaaaaaa);
-		this.bg.alpha = 0;
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
-		this.game.world.add(this.bg);
-		this.game.add.tween(this.bg).to( {'alpha':0.925}, 250, Phaser.Easing.Linear.None, true, 20, false);
+	};
+
+	AlertManager.prototype.addBg = function(animate){
+		this.bg = new Phaser.Graphics(this.game, 0, 0);
+		this.bg.beginFill(0xaaaaaa);
+    	this.bg.drawRect(0, 0, this.game.w, this.game.h);
+    	this.bg.endFill();
+    	this.bg.alpha = 0.925;
+		this.group.add(this.bg);
+		if(animate){
+			this.bg.alpha = 0;
+			this.game.add.tween(this.bg).to( {'alpha':0.925}, 250, Phaser.Easing.Linear.None, true, 20, false);
+		}
 	};
 	
 	AlertManager.prototype.make = function(ClassRef, options, callback, bounds){
@@ -773,6 +790,7 @@ function(Phaser, Injector, AppEvents){
 		this.callbackProxy = this.buttonClick.bind(this, callback);
 		x = (this.game.w - ClassRef.WIDTH)/2;
 		y = (this.game.h - ClassRef.HEIGHT)/2;
+		this.group = new Phaser.Group(this.game, null);
 		newBounds = bounds || {"x":x, "y":y};
 		newBounds.w = ClassRef.WIDTH;
 		newBounds.h = ClassRef.HEIGHT;
@@ -780,9 +798,10 @@ function(Phaser, Injector, AppEvents){
 		this.alert = new ClassRef(newOptions);
 		this.alert.selectSignal.add(this.callbackProxy);
 		if(this.alert.useBg()){
-			this.addBg();
+			this.addBg(true);
 		}
-		this.game.world.add(this.alert.group);
+		this.game.world.add(this.group);
+		this.group.add(this.alert.group);
 		if(this.alert.useAnimate()){
 			this.alert.showMe();
 		}
