@@ -44,13 +44,9 @@ GameScreenMenuPanel, SettingsMenuPanel){
 	};
 
 	GridMenu.prototype.addTab = function () {
-		var options, bounds, panels, panel0, panel1, screenModel, radioModel;
+		var options, bounds, panels, panel0, panel1;
 		bounds = this.bounds;
-		screenModel = new PhaserComponents.Model.ButtonGridModel();
-		radioModel = new PhaserComponents.Model.ButtonGridModel();
-		screenModel.set(this.modelFacade.get(ModelConsts.SCREEN).get());
-		radioModel.set(this.modelFacade.get(ModelConsts.ANGLE).get());
-		panel0 = new GameScreenMenuPanel({"bounds":this.bounds, "screenModel":screenModel, "radioModel":radioModel, "sfx":Assets.SOUNDS[2]});
+		panel0 = new GameScreenMenuPanel({"bounds":this.bounds, "screenModel":this.options.screenModel, "radioModel":this.options.radioModel, "sfx":Assets.SOUNDS[2]});
 		panel1 = new SettingsMenuPanel({"bounds":this.bounds});
 		panels = [panel0, panel1];
 		options = {"bounds":bounds, "panels":panels, "buttonClass":TabButton};

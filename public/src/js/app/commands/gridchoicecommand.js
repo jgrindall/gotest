@@ -18,6 +18,9 @@ function(PhaserComponents, GridMenu,
 
 	GridChoiceCommand.prototype.execute = function(){
 		var options = {"label":"Settings", "sfx":Assets.SOUNDS[2]};
+		options.screenModel = this.modelFacade.get(ModelConsts.SCREEN);
+		options.radioModel = new PhaserComponents.Model.ButtonGridModel();
+		options.radioModel.set(this.modelFacade.get(ModelConsts.ANGLE).get());
 		this.alertManager.make(GridMenu, options, this.onDataChosen.bind(this)); 
 	};
 	
@@ -25,7 +28,6 @@ function(PhaserComponents, GridMenu,
 		var sel0, sel1;
 		sel0 = data.selection[0];
 		sel1 = data.selection[1];
-		this.modelFacade.get(ModelConsts.SCREEN).set(sel0.screenIndex);
 		this.modelFacade.get(ModelConsts.ANGLE).set(sel0.radioIndex);
 	};
 

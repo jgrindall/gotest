@@ -2011,7 +2011,9 @@ InteractiveSprite, Utils, AppEvents){
 	};
 	
 	AbstractSlider.prototype.removeListeners = function(){
-		this.handle.mouseDownSignal.remove(this.startDragging, this);
+		if(this.handle){
+			this.handle.mouseDownSignal.remove(this.startDragging, this);
+		}
 		if(this.bg){
 			this.bg.mouseDownSignal.remove(this.bgDown, this);
 		}

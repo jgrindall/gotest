@@ -73,6 +73,7 @@ ModelConsts, Assets){
 		var options, bounds;
 		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 30, 'w':this.bounds.w, 'h':this.bounds.h - 31};
 		options = {"model":this.options.screenModel, "bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
+		options.performSelect = true;
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.onChanged, this);
 		this.group.add(this.grid.group);
