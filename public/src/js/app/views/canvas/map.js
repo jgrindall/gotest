@@ -32,6 +32,8 @@ PhaserComponents, Assets){
 			img = new Image();
 			img.src = pngData;
 			this.game.cache.addImage(Map.EDITOR_KEY, pngData, img);
+			window.alert("updatePngImage");
+			window.alert(this.game.cache.getImage(Map.EDITOR_KEY));
 			setTimeout(function(){
 				that.addYourImage();
 			}, 100);

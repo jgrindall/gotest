@@ -1,7 +1,7 @@
 
 define(['app/assets',
 
-'phasercomponents',
+'phasercomponents',F
 
 'app/views/buttons/okbuttoncontainer',
 
