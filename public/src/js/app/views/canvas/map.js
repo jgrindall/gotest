@@ -30,11 +30,8 @@ PhaserComponents, Assets){
 		var img, that = this;
 		if(pngData !== null){
 			img = new Image();
-			window.alert("updatePngImage");
 			img.onload = function(){
 				that.game.cache.addImage(Map.EDITOR_KEY, pngData, img);
-				window.alert("1 "+that.game.cache.getImage(Map.EDITOR_KEY));
-				window.alert("2 "+that.game.cache.getImage(Map.EDITOR_KEY).complete);
 				that.addYourImage();
 			};
 			img.src = pngData;

@@ -84,12 +84,12 @@ FdCommand, StepLengths){
 		var img, that = this;
 		if(pngData !== null){
 			img = new Image();
-			img.src = pngData;
-			this.game.cache.addImage(Turtle.EDITOR_KEY, pngData, img);
-			setTimeout(function(){
+			img.onload = function(){
+				that.game.cache.addImage(Turtle.EDITOR_KEY, pngData, img);
 				that.turtle.addTurtleUsingKey(Turtle.EDITOR_KEY, 1);
 				that.turtle.reset(that.startPos);
-			}, 100);
+			};
+			img.src = pngData;
 		}
 	};
 
