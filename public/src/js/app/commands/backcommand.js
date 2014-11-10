@@ -13,8 +13,13 @@ function(PhaserComponents) {
 	PhaserComponents.Utils.extends(BackCommand, PhaserComponents.Commands.AbstractCommand);
 
 	BackCommand.prototype.execute = function(){
-		window.alert("back");
-		window.history.back();
+		if(window.closeApplication && typeof window.closeApplication === 'function'){
+			window.closeApplication();
+		}
+		else{
+			console.log("window.closeApplication is "+window.closeApplication);
+			//window.history.back();
+		}
 	};
 	
   	return BackCommand;
