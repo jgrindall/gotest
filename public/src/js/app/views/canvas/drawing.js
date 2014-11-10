@@ -81,13 +81,15 @@ FdCommand, StepLengths){
 	};
 
 	Drawing.prototype.turtlePngChanged = function(pngData){
-		var img;
+		var img, that = this;
 		if(pngData !== null){
 			img = new Image();
 			img.src = pngData;
 			this.game.cache.addImage(Turtle.EDITOR_KEY, pngData, img);
-			this.turtle.addTurtleUsingKey(Turtle.EDITOR_KEY, 1);
-			this.turtle.reset(this.startPos);
+			setTimeout(function(){
+				that.turtle.addTurtleUsingKey(Turtle.EDITOR_KEY, 1);
+				that.turtle.reset(this.startPos);
+			}, 100);
 		}
 	};
 
