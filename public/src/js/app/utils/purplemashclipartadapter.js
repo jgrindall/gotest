@@ -63,11 +63,11 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 		};
 
 		PurpleMashClipartAdapter.prototype.isJpg = function(obj){
-			return obj.substring(0, 22) === "data:image/png;base64,"
+			return obj.substring(0, 22) === "data:image/png;base64,";
 		};
 
 		PurpleMashClipartAdapter.prototype.isPng = function(obj){
-			return obj.substring(0, 22) === "data:image/jpeg;base64,"
+			return obj.substring(0, 22) === "data:image/jpeg;base64,";
 		};
 
 		PurpleMashClipartAdapter.prototype.isBase64 = function(obj){
