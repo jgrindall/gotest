@@ -26,7 +26,7 @@ function(PhaserComponents) {
 			    url: "/mashcontent/videos/2graph/03.2Graph Spend PTA Money.flv.mp4"
 			}];
 			options = {title: "2Go - Help Videos"};
-			PMVideo.launch(args, options);
+			window.PMVideo.launch(args, options);
 		}
 		else{
 			console.log("window.PMVideo is "+window.PMVideo);
