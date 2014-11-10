@@ -73,6 +73,15 @@ define( ['app/prog/views/dropview', 'phasercomponents',
 		}
 	};
 
+	LoopTarget.prototype.destroy = function(){
+		if(this.numButton){
+			this.parent.removeLoopButton(this.numButton.view);
+			this.numButton.destroy();
+			this.numButton = null;
+		}
+		AbstractTarget.prototype.destroy.call(this);
+	};
+
 	return LoopTarget;
 });
 

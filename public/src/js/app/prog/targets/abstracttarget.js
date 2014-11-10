@@ -48,9 +48,11 @@ define( ['app/prog/views/dropview'],
 	};
 
 	AbstractTarget.prototype.destroy = function(){
-		this.parent.removeGfx(this.gfx);
-		this.gfx.destroy();
-		this.gfx = null;
+		if(this.gfx){
+			this.parent.removeGfx(this.gfx);
+			this.gfx.destroy();
+			this.gfx = null;
+		}
 		this.container = null;
 		this.bounds = null;
 		this.game = null;

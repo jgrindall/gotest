@@ -233,6 +233,10 @@ define(
 		this.group.add(b);
 	};
 
+	ProgDragContainer.prototype.removeLoopButton = function(b) {
+		this.group.remove(b);
+	};
+
 	ProgDragContainer.prototype.removeTargets = function() {
 		var target, i;
 		for(i = 0; i < this.targets.length; i++){
@@ -253,6 +257,7 @@ define(
 	};
 
 	ProgDragContainer.prototype.destroy = function() {
+		this.options.targetObj.destroy();
 		this.group.remove(this.clearButton.view);
 		this.group.remove(this.stopButton.view);
 		this.group.remove(this.playButton.view);

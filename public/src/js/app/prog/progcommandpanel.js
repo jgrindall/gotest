@@ -170,6 +170,7 @@ define(
 
 	ProgCommandPanel.prototype.destroy = function() {
 		this.disableInput();
+		this.options.targetObj.destroy();
 		this.modelFacade.get(ModelConsts.PROG).changeSignal.remove(this.load, this);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.remove(this.playingChanged, this);
 		this.dragManager.editSignal.remove(this.onEdited, this);
@@ -183,7 +184,7 @@ define(
 		this.dragContainer.clearSignal.remove(this.onClear, this);
 		this.dragContainer.destroy();
 		this.dragContainer = null;
-		this.options.targetObj.destroy();
+		this.options.targetObj = null;
 		this.options.model = null;
 		this.options = null;
 		AbstractCommandsPanel.prototype.destroy.call(this);
