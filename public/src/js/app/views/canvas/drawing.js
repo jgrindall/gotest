@@ -88,6 +88,7 @@ FdCommand, StepLengths){
 				that.game.cache.addImage(Turtle.EDITOR_KEY, pngData, img);
 				that.turtle.addTurtleUsingKey(Turtle.EDITOR_KEY, 1);
 				that.turtle.reset(that.startPos);
+				img.onload = null;
 			};
 			img.src = pngData;
 		}

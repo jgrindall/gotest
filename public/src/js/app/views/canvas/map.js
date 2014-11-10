@@ -33,6 +33,7 @@ PhaserComponents, Assets){
 			img.onload = function(){
 				that.game.cache.addImage(Map.EDITOR_KEY, pngData, img);
 				that.addYourImage();
+				img.onload = null;
 			};
 			img.src = pngData;
 		}
