@@ -1,7 +1,7 @@
 
 define(['app/assets',
 
-'phasercomponents', 'app/models/modelconsts',
+'phasercomponents',
 
 'app/views/buttons/okbuttoncontainer',
 
@@ -13,7 +13,7 @@ define(['app/assets',
 
 function(Assets,
 
-PhaserComponents, ModelConsts,
+PhaserComponents, 
 
 OkButtonContainer,
 
