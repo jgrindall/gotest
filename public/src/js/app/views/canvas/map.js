@@ -30,13 +30,16 @@ PhaserComponents, Assets){
 		var img, that = this;
 		if(pngData !== null){
 			img = new Image();
-			img.src = pngData;
-			this.game.cache.addImage(Map.EDITOR_KEY, pngData, img);
 			window.alert("updatePngImage");
-			window.alert(this.game.cache.getImage(Map.EDITOR_KEY));
-			window.alert(this.game.cache.getImage(Map.EDITOR_KEY).complete);
-			setTimeout(function(){
+			img.onload = function(){
+				window.alert(that.game.cache.getImage(Map.EDITOR_KEY));
+				window.alert(that.game.cache.getImage(Map.EDITOR_KEY).complete);
+				that.game.cache.addImage(Map.EDITOR_KEY, pngData, img);
 				that.addYourImage();
+			};
+			img.src = pngData;
+			setTimeout(function(){
+				//that.addYourImage();
 			}, 5000);
 		}
 	};
