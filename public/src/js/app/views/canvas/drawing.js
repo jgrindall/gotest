@@ -88,7 +88,7 @@ FdCommand, StepLengths){
 			this.game.cache.addImage(Turtle.EDITOR_KEY, pngData, img);
 			setTimeout(function(){
 				that.turtle.addTurtleUsingKey(Turtle.EDITOR_KEY, 1);
-				that.turtle.reset(this.startPos);
+				that.turtle.reset(that.startPos);
 			}, 100);
 		}
 	};
