@@ -27,6 +27,7 @@ PhaserComponents, Assets){
 	};
 
 	Map.prototype.updatePngImage = function(pngData) {
+		window.alert("loading from "+pngData);
 		var img, that = this;
 		if(pngData !== null){
 			img = new Image();
