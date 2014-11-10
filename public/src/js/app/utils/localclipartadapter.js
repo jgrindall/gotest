@@ -19,7 +19,8 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter'],
 	   	 	context.lineWidth = 3;
 	    	context.strokeStyle = '#0000bb';
 		    context.beginPath();
-		    context.moveTo(10, 50);
+		    context.moveTo(0, 0);
+		    context.lineTo(50, 50);
 		    for(i = 1; i <= 20; i++){
 				context.lineTo(600 * Math.random(), 400 * Math.random());
 		    }

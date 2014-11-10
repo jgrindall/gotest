@@ -27,12 +27,14 @@ PhaserComponents, Assets){
 	};
 
 	Map.prototype.updatePngImage = function(pngData) {
-		var img;
+		var img, that = this;
 		if(pngData !== null){
 			img = new Image();
 			img.src = pngData;
 			this.game.cache.addImage(Map.EDITOR_KEY, pngData, img);
-			this.addYourImage();
+			setTimeout(function(){
+				that.addYourImage();
+			}, 100);
 		}
 	};
 
