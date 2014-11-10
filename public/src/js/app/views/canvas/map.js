@@ -35,6 +35,7 @@ PhaserComponents, Assets){
 				that.addYourImage();
 				img.onload = null;
 			};
+			window.alert("loading from "+pngData);
 			img.src = pngData;
 		}
 	};
