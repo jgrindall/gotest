@@ -34,7 +34,7 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 				try{
 					window.ClipArtHelper.getImage(id, function(data){
 						src = data.src;
-						window.alert("src "+src.substring(0, 50)+"   " +that.isBase64(src));
+						//window.alert("src "+src.substring(0, 50)+"   " +that.isBase64(src));
 						if(that.isBase64(src)){
 							options.success(src);
 						}
@@ -93,7 +93,7 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 	        	canvas.width = img.width;
 	        	context.drawImage(img, 0, 0);
 	        	dataURL = canvas.toDataURL("image/png");
-	        	window.alert("imgUrlToBase64 dataURL "+dataURL.substring(0,50));
+	        	//window.alert("imgUrlToBase64 dataURL "+dataURL.substring(0,50));
 	        	options.success(dataURL);
 	        	canvas = null;
 	        	context = null;
