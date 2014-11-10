@@ -27,7 +27,7 @@ PhaserComponents, Assets){
 	};
 
 	Map.prototype.updatePngImage = function(pngData) {
-		window.alert("loading from "+pngData);
+		window.alert("loading from "+pngData.substring(0, 50));
 		var img, that = this;
 		if(pngData !== null){
 			img = new Image();
@@ -36,7 +36,7 @@ PhaserComponents, Assets){
 				that.addYourImage();
 				img.onload = null;
 			};
-			window.alert("loading from "+pngData);
+			window.alert("loading from "+pngData.substring(0, 50));
 			img.src = pngData;
 		}
 	};
