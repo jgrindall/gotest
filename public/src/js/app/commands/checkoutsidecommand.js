@@ -16,7 +16,7 @@ function(PhaserComponents,
 	
 	PhaserComponents.Utils.extends(CheckOutsideCommand, PhaserComponents.Commands.AbstractCommand);
 
-	CheckOutsideCommand.prototype.onClick = function(data){
+	CheckOutsideCommand.prototype.onClick = function(){
 		this.alertManager.close();
 	};
 

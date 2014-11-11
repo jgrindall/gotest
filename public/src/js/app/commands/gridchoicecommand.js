@@ -28,6 +28,7 @@ function(PhaserComponents, GridMenu,
 		var sel0, sel1;
 		sel0 = data.selection[0];
 		sel1 = data.selection[1];
+		this.alertManager.close();
 		this.modelFacade.get(ModelConsts.ANGLE).set(sel0.radioIndex);
 	};
 

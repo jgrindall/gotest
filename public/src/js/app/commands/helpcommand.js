@@ -17,8 +17,14 @@ function(PhaserComponents, ChallengeGrowl,
 	PhaserComponents.Utils.extends(HelpCommand, PhaserComponents.Commands.AbstractCommand);
 
 	HelpCommand.prototype.onClick = function(data){
+		var index = this.modelFacade.get(ModelConsts.CHALLENGE).get();
 		if(data.index === 2){
-			alert("SOUND PLAYS");
+			if(index === null){
+				this.alertManager.close();
+			}
+			else{
+				this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":ChallengeData.VOICEOVER[index]});
+			}
 		}
 		else{
 			this.alertManager.close();

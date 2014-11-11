@@ -67,7 +67,7 @@ GameScreenMenuPanel, SettingsMenuPanel){
 
 	GridMenu.prototype.addOkButton = function () {
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
-		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT + 3};
+		var bounds = {"x":middle + 2, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT + 3};
 		this.addButton(OkButtonContainer, bounds);
 	};
 

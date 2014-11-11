@@ -1,5 +1,5 @@
 
-define([], function() {
+define(['app/assets'], function(Assets) {
 	
 	"use strict";
 	
@@ -43,6 +43,15 @@ define([], function() {
 	ChallengeData.TARGETS.push ( [{'x':460, 'y':299}] );
 	ChallengeData.TARGETS.push ( [{'x':640, 'y':59}, 	{'x':640, 'y':540},		{'x':159, 'y':540}, 	{'x':159, 'y':59}] );
 
+	ChallengeData.VOICEOVER = [];
+	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
 
 	ChallengeData.WELL_DONE_MESSAGE = "Congratulations, you've cracked it!";
 	ChallengeData.TOLERANCE = 50;

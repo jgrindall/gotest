@@ -27,13 +27,13 @@ StepLengths){
 	
 	PhaserComponents.Utils.extends(SettingsMenuPanel, PhaserComponents.Display.Container);
 
-	SettingsMenuPanel.Y0 = 				[85, 95];
+	SettingsMenuPanel.Y0 = 				[90, 95];
 	SettingsMenuPanel.Y1 = 				[190, 230];
-	SettingsMenuPanel.Y2 = 				[295, 375];
-	SettingsMenuPanel.Y3 = 				[400, 400];
+	SettingsMenuPanel.Y2 = 				[290, 375];
+	SettingsMenuPanel.Y3 = 				[390, 400];
 
 	SettingsMenuPanel.Y4 = 				[124, 163];
-	SettingsMenuPanel.Y6 = 				[283, 311];
+	SettingsMenuPanel.Y6 = 				[274, 311];
 
 	SettingsMenuPanel.SLIDER_WIDTH =	210;
 	SettingsMenuPanel.SLIDER_HEIGHT = 	40;
@@ -69,7 +69,7 @@ StepLengths){
 	SettingsMenuPanel.prototype.addSlider = function(){
 		var middle, bounds, options;
 		middle = this.bounds.x + this.bounds.w/2 - (OkButton.WIDTH/2);
-		bounds = {"x":middle, "y":this.bounds.y + SettingsMenuPanel.Y1[this.getShowDiag()] - 10, "w":SettingsMenuPanel.SLIDER_WIDTH, "h":SettingsMenuPanel.SLIDER_HEIGHT};
+		bounds = {"x":middle - 15, "y":this.bounds.y + SettingsMenuPanel.Y1[this.getShowDiag()] - 10, "w":SettingsMenuPanel.SLIDER_WIDTH, "h":SettingsMenuPanel.SLIDER_HEIGHT};
 		options = {"handle":Assets.SLIDERHANDLE, "sliderbg":Assets.SLIDERBG, "sliderhl":Assets.SLIDERHL, "model": this.modelFacade.get(ModelConsts.STEPLENGTH), "num":StepLengths.ALL.length - 1, "bounds":bounds};
 		options.handleSize = {'w':40, 'h':40};
 		this.lengthSlider = new PhaserComponents.Display.Slider(options);
