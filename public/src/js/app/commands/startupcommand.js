@@ -12,8 +12,6 @@ function(PhaserComponents, Events,
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 
-	StartUpCommand.CHALLENGES = true;
-
 	PhaserComponents.Utils.extends(StartUpCommand, PhaserComponents.Commands.AbstractCommand);
 
 	StartUpCommand.prototype.toScene = function(key){
@@ -33,13 +31,9 @@ function(PhaserComponents, Events,
 
 	StartUpCommand.prototype.loadChallenges = function(){
 		var that = this;
+		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 		setTimeout(function(){
-			if(StartUpCommand.CHALLENGES){
-				that.eventDispatcher.trigger({"type":Events.SHOW_CHALLENGES});
-			}
-			else{
-				that.eventDispatcher.trigger({"type":Events.SHOW_ALL});
-			}
+			that.eventDispatcher.trigger({"type":Events.NEW_FILE});
 		}, 250);
 	};
 

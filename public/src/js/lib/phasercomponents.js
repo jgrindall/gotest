@@ -30,8 +30,13 @@ define('phasercomponents/utils/utils',[], function(){
 		return JSON.parse(JSON.stringify(json));
 	};
 
-	Utils.isIos7 = function(){
-		return Utils.isTouch() && navigator.userAgent.match(/iPad;.*CPU.*OS 7_\d/i);	
+	Utils.isIos78 = function(){
+		var regexp7, regexp8, touch, match;
+		regexp7 = /iPad;.*CPU.*OS 7_\d/i;
+		regexp8 = /iPad;.*CPU.*OS 8_\d/i;
+		touch = Utils.isTouch();
+		match = (navigator.userAgent.match(regexp7) !== null || navigator.userAgent.match(regexp8) !== null);
+		return Utils.isTouch() && match;	
 	};
 
 	Utils.isPortrait = function(){
@@ -307,16 +312,15 @@ function(Phaser, PhaserStateTrans,
 	};
 
 	GameManager.prototype.getAvailableSize = function(){
-		var w, h;
+		var w, h, top, doc, ios78;
+		doc = document.documentElement;
+		top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
 		this.stopScrollBars();
 		w = this.body.width();
-		h = this.body.height();
+		h = this.body.height() - top;
 		this.enableScrollBars();
-		if (Utils.isIos7() && Utils.isLandscape() ) {
-    		h = 672;
-		}
+		ios78 = Utils.isIos78();
 		h -= this.options.paddingBottom;
-		window.alert("w, h" +  w + "," + h + "," + Utils.isIos7() + "," + Utils.isLandscape());
 		return {"w":w, "h":h};
 	};
 
@@ -691,6 +695,10 @@ define('phasercomponents/utils/soundmanager',[], function(){
 
 	SoundManager.prototype.destroy = function(){
 		this.sounds = {};
+	};
+
+	SoundManager.prototype.stop = function(){
+		
 	};
 
 	SoundManager.prototype.play = function(key){
