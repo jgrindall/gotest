@@ -21,6 +21,7 @@ function(PhaserComponents, ChallengeGrowl,
 		if(data.index === 2){
 			if(index === null){
 				this.alertManager.close();
+				this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":null});
 			}
 			else{
 				this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":ChallengeData.VOICEOVER[index]});
@@ -28,6 +29,7 @@ function(PhaserComponents, ChallengeGrowl,
 		}
 		else{
 			this.alertManager.close();
+			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":null});
 		}
 	};
 

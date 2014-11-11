@@ -715,10 +715,26 @@ define('phasercomponents/utils/soundmanager',[], function(){
 		
 	};
 
+	SoundManager.prototype.stopAll = function(){
+		var key, sound;
+		for (key in this.sounds) {
+			sound = this.sounds[key];
+			if(sound && sound.isPlaying){
+				sound.stop();
+			}
+		}
+	};
+
 	SoundManager.prototype.play = function(key){
-		var sound = this.sounds[key];
-		if(sound){
-			sound.play("", 0, 0.5, false, true);
+		var sound;
+		if(key === null){
+			this.stopAll();
+		}
+		else{
+			sound = this.sounds[key];
+			if(sound){
+				sound.play("", 0, 0.5, false, true);
+			}
 		}
 	};
 	
