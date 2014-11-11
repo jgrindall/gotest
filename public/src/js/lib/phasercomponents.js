@@ -316,7 +316,7 @@ function(Phaser, PhaserStateTrans,
     		h = 672;
 		}
 		h -= this.options.paddingBottom;
-		window.alert("w, h", w, h, Utils.isIos7(), Utils.isLandscape());
+		window.alert("w, h" +  w + "," + h + "," + Utils.isIos7() + "," + Utils.isLandscape());
 		return {"w":w, "h":h};
 	};
 
@@ -812,9 +812,11 @@ function(Phaser, Injector, AppEvents){
 	};
 
 	AlertManager.prototype.buttonClick = function(callback, data){
-		this.close();
 		if(callback){
 			callback(data);
+		}
+		else{
+			this.close();
 		}
 	};
 

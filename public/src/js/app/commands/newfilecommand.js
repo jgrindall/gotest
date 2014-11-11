@@ -31,6 +31,7 @@ function(PhaserComponents,
 	
 	NewFileCommand.prototype.onBgChosen = function(data){
 		var selectedPage = data.selection.selectedPage;
+		this.alertManager.close();
 		if(data.index === 1){
 			this.modelFacade.get(ModelConsts.CHALLENGE).reset();
 			this.modelFacade.get(ModelConsts.BG).set(selectedPage, {"force":true});

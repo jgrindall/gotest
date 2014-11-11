@@ -1,8 +1,8 @@
-define(['phasercomponents', 'app/views/popups/growl',
+define(['phasercomponents', 'app/views/popups/challengegrowl',
 
 	'app/models/modelconsts', 'app/consts/challengedata', 'app/assets'],
 
-function(PhaserComponents, Growl,
+function(PhaserComponents, ChallengeGrowl,
 
 	ModelConsts, ChallengeData, Assets) {
 	
@@ -16,6 +16,15 @@ function(PhaserComponents, Growl,
 
 	PhaserComponents.Utils.extends(HelpCommand, PhaserComponents.Commands.AbstractCommand);
 
+	HelpCommand.prototype.onClick = function(data){
+		if(data.index === 2){
+			alert("SOUND PLAYS");
+		}
+		else{
+			this.alertManager.close();
+		}
+	};
+
 	HelpCommand.prototype.execute = function(){
 		var msg, title, index = this.modelFacade.get(ModelConsts.CHALLENGE).get();
 		if(index !== null){
@@ -26,7 +35,7 @@ function(PhaserComponents, Growl,
 			msg = HelpCommand.MESSAGE;
 			title = "Help";
 		}
-		this.alertManager.make(Growl, {"title":title, "label":msg, "sfx":Assets.SOUNDS[2]}, null);
+		this.alertManager.make(ChallengeGrowl, {"title":title, "label":msg, "sfx":Assets.SOUNDS[2]}, this.onClick.bind(this));
 	};
 	
   	return HelpCommand;

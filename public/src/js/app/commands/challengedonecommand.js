@@ -16,8 +16,12 @@ function(PhaserComponents, ChallengeData,
 	
 	PhaserComponents.Utils.extends(ChallengeDoneCommand, PhaserComponents.Commands.AbstractCommand);
 
+	ChallengeDoneCommand.prototype.onClick = function(data){
+		console.log("data", data);
+	};
+
 	ChallengeDoneCommand.prototype.execute = function(){
-		this.alertManager.make(Growl, {"title":"Challenge", "label":ChallengeData.WELL_DONE_MESSAGE, "sfx":Assets.SOUNDS[2]}, null);
+		this.alertManager.make(Growl, {"title":"Challenge", "label":ChallengeData.WELL_DONE_MESSAGE, "sfx":Assets.SOUNDS[2]}, this.onClick.bind(this));
 	};
 	
   	return ChallengeDoneCommand;

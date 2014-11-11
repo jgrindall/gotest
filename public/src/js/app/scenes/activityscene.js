@@ -47,6 +47,7 @@ Events, MainView, Assets, ChallengeView){
 	};
 
 	ActivityScene.prototype.onChooseChallenge = function(data){
+		this.alertManager.close();
 		if(data.index === 0 && data.selection !== null){
 			this.eventDispatcher.trigger({"type":Events.CHOOSE_CHALLENGE, "data":data});
 		}
