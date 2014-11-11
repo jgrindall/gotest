@@ -325,10 +325,9 @@ function(Phaser, PhaserStateTrans,
 		touch = Utils.isTouch();
 		mini = this.isMini();
 		if(mini){
-			h -= 40;
+			h -= 27;
 		}
 		h -= this.options.paddingBottom;
-		window.alert("W, H " + w + "," + h + "," + this.body.height() + "," + top + "," + ios78+", "+touch+", "+mini);
 		return {"w":w, "h":h};
 	};
 
