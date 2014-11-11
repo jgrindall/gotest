@@ -44,14 +44,14 @@ define(['app/assets'], function(Assets) {
 	ChallengeData.TARGETS.push ( [{'x':640, 'y':59}, 	{'x':640, 'y':540},		{'x':159, 'y':540}, 	{'x':159, 'y':59}] );
 
 	ChallengeData.VOICEOVER = [];
-	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
-	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
-	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
-	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
-	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
-	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
-	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
-	ChallengeData.VOICEOVER.push(Assets.SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[0]);
+	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[1]);
+	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[2]);
+	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[3]);
+	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[4]);
+	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[5]);
+	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[6]);
+	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[7]);
 
 	ChallengeData.WELL_DONE_MESSAGE = "Congratulations, you've cracked it!";
 	ChallengeData.TOLERANCE = 50;

@@ -717,6 +717,9 @@ function(Phaser, Injector, AppEvents){
 
 	};
 	
+	AlertManager.BG_COLOR = 0x555555;
+	AlertManager.BG_ALPHA = 0.93;
+
 	AlertManager.prototype.init = function(){
 		this.inject();
 		this.reOpenHandler = this.reOpen.bind(this);
@@ -767,17 +770,17 @@ function(Phaser, Injector, AppEvents){
 	
 	AlertManager.prototype.redrawBg = function(){
 		this.bg.clear();
-		this.bg.beginFill(0xaaaaaa);
+		this.bg.beginFill(AlertManager.BG_COLOR);
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
 	};
 
 	AlertManager.prototype.addBg = function(animate){
 		this.bg = new Phaser.Graphics(this.game, 0, 0);
-		this.bg.beginFill(0x777777);
+		this.bg.beginFill(AlertManager.BG_COLOR);
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
-    	this.bg.alpha = 0.925;
+    	this.bg.alpha = AlertManager.BG_ALPHA;
 		this.group.add(this.bg);
 		if(animate){
 			this.bg.alpha = 0;
