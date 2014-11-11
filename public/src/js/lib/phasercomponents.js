@@ -321,7 +321,7 @@ function(Phaser, PhaserStateTrans,
 		this.enableScrollBars();
 		ios78 = Utils.isIos78();
 		h -= this.options.paddingBottom;
-		window.alert("w, h " + w + "," + h + "," + this.body.height() + "," + top + "," + ios78);
+		window.alert("W, H " + w + "," + h + "," + this.body.height() + "," + top + "," + ios78);
 		return {"w":w, "h":h};
 	};
 
