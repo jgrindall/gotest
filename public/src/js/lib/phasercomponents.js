@@ -16,6 +16,13 @@ define('phasercomponents/utils/utils',[], function(){
 		SubClassRef.prototype.constructor = SubClassRef;
 	};
 
+	Utils.isMini = function(){
+		var w, h;
+		w = this.body.width();
+		h = this.body.height();
+		return (Utils.isTouch() && Utils.isIos78() && w === 980 && h === 662);
+	};
+	
 	Utils.isTouch = function(){
 		var msTouch, t0, t1, el = document.createElement('div');
 		msTouch = window.navigator.msMaxTouchPoints;
@@ -31,11 +38,13 @@ define('phasercomponents/utils/utils',[], function(){
 	};
 
 	Utils.isIos78 = function(){
-		var regexp7, regexp8, touch, match;
+		var regexp7, regexp8, regexp9, regexp10, touch, match;
 		regexp7 = /iPad;.*CPU.*OS 7_\d/i;
 		regexp8 = /iPad;.*CPU.*OS 8_\d/i;
+		regexp9 = /iPad;.*CPU.*OS 9_\d/i;
+		regexp10 = /iPad;.*CPU.*OS 10_\d/i;
 		touch = Utils.isTouch();
-		match = (navigator.userAgent.match(regexp7) !== null || navigator.userAgent.match(regexp8) !== null);
+		match = (navigator.userAgent.match(regexp7) !== null || navigator.userAgent.match(regexp8) !== null || navigator.userAgent.match(regexp9) !== null || navigator.userAgent.match(regexp10) !== null);
 		return Utils.isTouch() && match;	
 	};
 
@@ -312,7 +321,7 @@ function(Phaser, PhaserStateTrans,
 	};
 
 	GameManager.prototype.getAvailableSize = function(){
-		var w, h, top, doc, ios78;
+		var w, h, top, doc, ios78, touch, mini;
 		doc = document.documentElement;
 		top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
 		this.stopScrollBars();
@@ -320,8 +329,13 @@ function(Phaser, PhaserStateTrans,
 		h = this.body.height() - top;
 		this.enableScrollBars();
 		ios78 = Utils.isIos78();
+		touch = Utils.isTouch();
+		mini = Utils.isMini();
+		if(mini){
+			h -= 40;
+		}
 		h -= this.options.paddingBottom;
-		window.alert("W, H " + w + "," + h + "," + this.body.height() + "," + top + "," + ios78);
+		window.alert("W, H " + w + "," + h + "," + this.body.height() + "," + top + "," + ios78+", "+touch+", "+mini);
 		return {"w":w, "h":h};
 	};
 
