@@ -44,7 +44,7 @@ define([], function() {
 	ChallengeData.TARGETS.push ( [{'x':640, 'y':59}, 	{'x':640, 'y':540},		{'x':159, 'y':540}, 	{'x':159, 'y':59}] );
 
 
-	ChallengeData.WELL_DONE_MESSAGE = "Well done, you've cracked it";
+	ChallengeData.WELL_DONE_MESSAGE = "Congratulations, you've cracked it";
 	ChallengeData.TOLERANCE = 50;
 	ChallengeData.TOLERANCE_SQUARED = ChallengeData.TOLERANCE*ChallengeData.TOLERANCE;
 	return ChallengeData;

@@ -316,6 +316,7 @@ function(Phaser, PhaserStateTrans,
     		h = 672;
 		}
 		h -= this.options.paddingBottom;
+		window.alert("w, h", w, h, Utils.isIos7(), Utils.isLandscape());
 		return {"w":w, "h":h};
 	};
 
