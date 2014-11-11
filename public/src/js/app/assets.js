@@ -69,6 +69,7 @@ define(['app/consts/turtles'], function(Turtles){
 	Assets.YES = 					'yes';
 	Assets.SMILE = 					'smile';
 	Assets.BRAND = 					'brand';
+	Assets.VOICEOVER =				'voiceover';
 	
 	Assets.SPRITESHEETS = [
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle0.png", 				"key":Assets.TURTLES[0],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
@@ -129,6 +130,7 @@ define(['app/consts/turtles'], function(Turtles){
 	Assets.IMAGES = [
 		{"type":"image", 		"asset":"assets/images/prog/base.png",	 				"key":Assets.BASE},
 		{"type":"image", 		"asset":"assets/images/buttons/smile.png",	 			"key":Assets.SMILE},
+		{"type":"image", 		"asset":"assets/images/buttons/voiceover.png",	 		"key":Assets.VOICEOVER},
 		{"type":"image", 		"asset":"assets/images/bg/topbar.png", 					"key":Assets.TOPBAR},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip0.png",	 		"key":Assets.TOOLTIPS[0]},
 		{"type":"image", 		"asset":"assets/images/popups/tooltip1.png",	 		"key":Assets.TOOLTIPS[1]},

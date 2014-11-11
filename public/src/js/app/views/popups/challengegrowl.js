@@ -3,13 +3,13 @@ define(['phaser', 'phasercomponents',
 
 'app/views/buttons/okbuttoncontainer',
 
-'app/views/buttons/closebutton', 'app/assets'],
+'app/views/buttons/closebutton', 'app/assets', 'app/views/buttons/voiceoverbutton'],
 
 function(Phaser, PhaserComponents,
 
 OkButtonContainer,
 
-CloseButton, Assets){
+CloseButton, Assets, VoiceOverButton){
 	
 	"use strict";
 		
@@ -53,8 +53,8 @@ CloseButton, Assets){
 	};
 
 	ChallengeGrowl.prototype.addVOButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - 55, "y":this.bounds.y + this.bounds.h - CloseButton.HEIGHT};
-		this.addButton(CloseButton, bounds);
+		var bounds = {"x":this.bounds.x + this.bounds.w - 55, "y":this.bounds.y + this.bounds.h - VoiceOverButton.HEIGHT};
+		this.addButton(VoiceOverButton, bounds);
 	};
 	
 	ChallengeGrowl.prototype.create = function () {

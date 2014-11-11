@@ -17,7 +17,7 @@ function(PhaserComponents, ChallengeData,
 	PhaserComponents.Utils.extends(ChallengeDoneCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ChallengeDoneCommand.prototype.onClick = function(data){
-		console.log("data", data);
+		this.alertManager.close();
 	};
 
 	ChallengeDoneCommand.prototype.execute = function(){
