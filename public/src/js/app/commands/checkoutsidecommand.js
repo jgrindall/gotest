@@ -18,7 +18,7 @@ function(PhaserComponents,
 
 	CheckOutsideCommand.prototype.execute = function(data){
 		var bounds, msg;
-		msg = "Oops, it looks like you've gone off\nthe screen!  To get back to the start\nyou can the click rewind button.";
+		msg = "Oops, it looks like you've gone off\nthe screen.  To get back to the start\nyou can the click rewind button.";
 		if(data.x < -Turtles.WIDTH/2 || data.x > CanvasLayout.REF_WIDTH + Turtles.WIDTH/2 || data.y < -Turtles.HEIGHT/2 || data.y > CanvasLayout.REF_HEIGHT + Turtles.HEIGHT/2){
 			bounds = {'x':this.game.w - 610, 'y':28};
 			this.alertManager.make(ToolTip, {"name":"outside", "title":"Message", "label":msg, "arrow":4, "imageAsset":null}, null, bounds);

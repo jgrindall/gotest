@@ -773,7 +773,7 @@ function(Phaser, Injector, AppEvents){
 
 	AlertManager.prototype.addBg = function(animate){
 		this.bg = new Phaser.Graphics(this.game, 0, 0);
-		this.bg.beginFill(0xaaaaaa);
+		this.bg.beginFill(0x777777);
     	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	this.bg.endFill();
     	this.bg.alpha = 0.925;

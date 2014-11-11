@@ -12,7 +12,7 @@ function(PhaserComponents, Growl,
 		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	HelpCommand.MESSAGE = "Choose a background and use the commands\nto move around. Try using the flow charts to\nlearn about programming, and choose a\nchallenge to test yourself!";
+	HelpCommand.MESSAGE = "Choose a background and use the commands\nto move around. Try using the flow charts to\nlearn about programming, and choose a\nchallenge to test yourself";
 
 	PhaserComponents.Utils.extends(HelpCommand, PhaserComponents.Commands.AbstractCommand);
 

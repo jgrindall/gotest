@@ -23,7 +23,7 @@ define([],
 		ErrorCodes.PM_CLIPART_HELPER_ERROR = 	9;
 		ErrorCodes.NO_CLIPART_HELPER = 			10;
 
-		ErrorCodes.MESSAGES.push("Error saving your file!");
+		ErrorCodes.MESSAGES.push("Error saving your file.");
 		ErrorCodes.MESSAGES.push("Format error, unable to load your file.");
 		ErrorCodes.MESSAGES.push("No printers found.");
 		ErrorCodes.MESSAGES.push("Error, unable to load your file.");
