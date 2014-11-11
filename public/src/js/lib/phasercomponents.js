@@ -325,7 +325,7 @@ function(Phaser, PhaserStateTrans,
 		touch = Utils.isTouch();
 		mini = this.isMini();
 		if(mini){
-			h -= 27;
+			h -= 26;
 		}
 		h -= this.options.paddingBottom;
 		return {"w":w, "h":h};
