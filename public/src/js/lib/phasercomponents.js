@@ -15,13 +15,6 @@ define('phasercomponents/utils/utils',[], function(){
 		SubClassRef.prototype = new F();
 		SubClassRef.prototype.constructor = SubClassRef;
 	};
-
-	Utils.isMini = function(){
-		var w, h;
-		w = this.body.width();
-		h = this.body.height();
-		return (Utils.isTouch() && Utils.isIos78() && w === 980 && h === 662);
-	};
 	
 	Utils.isTouch = function(){
 		var msTouch, t0, t1, el = document.createElement('div');
@@ -330,13 +323,20 @@ function(Phaser, PhaserStateTrans,
 		this.enableScrollBars();
 		ios78 = Utils.isIos78();
 		touch = Utils.isTouch();
-		mini = Utils.isMini();
+		mini = this.isMini();
 		if(mini){
 			h -= 40;
 		}
 		h -= this.options.paddingBottom;
 		window.alert("W, H " + w + "," + h + "," + this.body.height() + "," + top + "," + ios78+", "+touch+", "+mini);
 		return {"w":w, "h":h};
+	};
+
+	GameManager.prototype.isMini = function(){
+		var w, h;
+		w = this.body.width();
+		h = this.body.height();
+		return (Utils.isTouch() && Utils.isIos78() && w === 980 && h === 662);
 	};
 
 	GameManager.prototype.getSizeFit = function(){
