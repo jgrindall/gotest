@@ -733,6 +733,9 @@ define('phasercomponents/utils/soundmanager',[], function(){
 		else{
 			sound = this.sounds[key];
 			if(sound){
+				if(sound.isPlaying){
+					sound.stop();
+				}
 				sound.play("", 0, 0.5, false, true);
 			}
 		}
