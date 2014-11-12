@@ -18,6 +18,7 @@ define(['app/consts/turtles'], function(Turtles){
 	Assets.CORNERS = 				'corners';
 	Assets.CORNERSX = 				'cornersx';
 	Assets.SOUNDS = 				['clickdown', 'clickup', 'swooshdown', 'swooshup', 'tinkle'];
+	Assets.HELP_SOUND = 			'helpsound';
 	Assets.CHALLENGE_SOUNDS = 		['challenge0', 'challenge1', 'challenge2', 'challenge3', 'challenge4', 'challenge5', 'challenge6', 'challenge7'];
 	Assets.CLOSE = 					'close';
 	Assets.CLEAR = 					'clear';
@@ -133,7 +134,8 @@ define(['app/consts/turtles'], function(Turtles){
 		{"type":"sound", 		"asset":["assets/sound/challenge4.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[4]},
 		{"type":"sound", 		"asset":["assets/sound/challenge5.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[5]},
 		{"type":"sound", 		"asset":["assets/sound/challenge6.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[6]},
-		{"type":"sound", 		"asset":["assets/sound/challenge7.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[7]}
+		{"type":"sound", 		"asset":["assets/sound/challenge7.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[7]},
+		{"type":"sound", 		"asset":["assets/sound/help.mp3"], 				"key":Assets.HELP_SOUND}
 	];
 	
 	Assets.IMAGES = [

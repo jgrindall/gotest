@@ -20,8 +20,7 @@ function(PhaserComponents, ChallengeGrowl,
 		var index = this.modelFacade.get(ModelConsts.CHALLENGE).get();
 		if(data.index === 2){
 			if(index === null){
-				this.alertManager.close();
-				this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":null});
+				this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":ChallengeData.HELP_VOICEOVER});
 			}
 			else{
 				this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":ChallengeData.VOICEOVER[index]});

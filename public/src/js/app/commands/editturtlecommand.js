@@ -25,6 +25,7 @@ function(PhaserComponents, Events, Assets, ModelConsts,
 		else if(data.index === 1){
 			this.eventDispatcher.trigger({"type":Events.OPEN_TURTLE_EDITOR});	
 		}
+		this.alertManager.close();
 	};
 		
 	EditTurtleCommand.prototype.execute = function(){

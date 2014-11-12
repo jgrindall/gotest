@@ -43,6 +43,8 @@ define(['app/assets'], function(Assets) {
 	ChallengeData.TARGETS.push ( [{'x':460, 'y':299}] );
 	ChallengeData.TARGETS.push ( [{'x':640, 'y':59}, 	{'x':640, 'y':540},		{'x':159, 'y':540}, 	{'x':159, 'y':59}] );
 
+	ChallengeData.HELP_VOICEOVER = Assets.HELP_SOUND;
+
 	ChallengeData.VOICEOVER = [];
 	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[0]);
 	ChallengeData.VOICEOVER.push(Assets.CHALLENGE_SOUNDS[1]);
