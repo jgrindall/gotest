@@ -11,7 +11,7 @@ define(['app/assets',
 
 'app/views/popups/gamescreenmenupanel', 'app/views/popups/settingsmenupanel',
 
-'app/views/buttons/voiceoverbutton'],
+'app/views/buttons/videobutton'],
 
 function(Assets,
 
@@ -25,7 +25,7 @@ TabButton,
 
 GameScreenMenuPanel, SettingsMenuPanel,
 
-VoiceOverButton){
+VideoButton){
 	
 	"use strict";
 		
@@ -45,7 +45,7 @@ VoiceOverButton){
 		this.addCloseButton();
 		this.addOkButton();
 		this.addLabel();
-		this.addVOButton();
+		this.addVideoButton();
 	};
 
 	GridMenu.prototype.addTab = function () {
@@ -76,9 +76,9 @@ VoiceOverButton){
 		this.addButton(OkButtonContainer, bounds);
 	};
 
-	GridMenu.prototype.addVOButton = function () {
-		var bounds = {"x":this.bounds.x + this.bounds.w - 105, "y":this.bounds.y - 2};
-		this.addButton(VoiceOverButton, bounds);
+	GridMenu.prototype.addVideoButton = function () {
+		var bounds = {"x":this.bounds.x + this.bounds.w - 100, "y":this.bounds.y - 4};
+		this.addButton(VideoButton, bounds);
 	};
 
 	GridMenu.prototype.addCloseButton = function () {
