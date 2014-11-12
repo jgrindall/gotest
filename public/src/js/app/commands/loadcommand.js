@@ -19,6 +19,7 @@ function(PhaserComponents, Events,
 	};
 	
 	LoadCommand.prototype.onLoaded = function(data){
+		var code;
 		if(data.success){
 			if(data.response){
 				try{
@@ -35,9 +36,14 @@ function(PhaserComponents, Events,
 			}
 		}
 		else{
-			Error.show(this.alertManager, ErrorCodes.LOAD_ERROR);
+			code = data.response;
+			if(code === null || code === undefined){
+				code = ErrorCodes.LOAD_ERROR;
+			}
+			Error.show(this.alertManager, code);
 		}
 	};
 	
   	return LoadCommand;
 });
+

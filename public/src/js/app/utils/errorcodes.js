@@ -22,6 +22,7 @@ define([],
 		ErrorCodes.NO_PM_CLIPART = 				8;
 		ErrorCodes.PM_CLIPART_HELPER_ERROR = 	9;
 		ErrorCodes.NO_CLIPART_HELPER = 			10;
+		ErrorCodes.WRONG_VERSION = 				11;
 
 		ErrorCodes.MESSAGES.push("Error saving your file.");
 		ErrorCodes.MESSAGES.push("Format error, unable to load your file.");
@@ -34,7 +35,8 @@ define([],
 		ErrorCodes.MESSAGES.push("A clipboard error has occurred.");
 		ErrorCodes.MESSAGES.push("A clipboard error has occurred.");
 		ErrorCodes.MESSAGES.push("A clipboard error has occurred.");
-
+		ErrorCodes.MESSAGES.push("You have tried to open a file\nbelonging to an older version\nof 2Go. Launching...");
+		
 		return ErrorCodes;
 
 	}

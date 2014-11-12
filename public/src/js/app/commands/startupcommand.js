@@ -22,11 +22,14 @@ function(PhaserComponents, Events,
 		this.toScene(AppConsts.ACTIVITY_SCENE);
 	};
 
-	StartUpCommand.prototype.onDefaultsError = function(){
+	StartUpCommand.prototype.onDefaultsError = function(code){
 		var that = this;
+		if(code === null || code === undefined){
+			code = ErrorCodes.LOAD_DEFAULTS_ERROR;
+		}
 		setTimeout(function(){
-			Error.show(that.alertManager, ErrorCodes.LOAD_DEFAULTS_ERROR);
-		}, 100);
+			Error.show(that.alertManager, code);
+		}, 250);
 	};
 
 	StartUpCommand.prototype.loadChallenges = function(){
@@ -54,7 +57,7 @@ function(PhaserComponents, Events,
 		}
 		else{
 			this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
-			this.onDefaultsError();
+			this.onDefaultsError(data.response);
 		}
 	};
 

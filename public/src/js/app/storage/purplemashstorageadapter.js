@@ -1,6 +1,6 @@
-define(['phasercomponents'],
+define(['phasercomponents', 'app/utils/errorcodes'],
 
-function(PhaserComponents) {
+function(PhaserComponents, ErrorCodes) {
 	
 	"use strict";
 	
@@ -12,8 +12,8 @@ function(PhaserComponents) {
 
 	PurpleMashStorageAdapter.THUMB = 			'/css/pmfilebrowser/2go.png';
 	PurpleMashStorageAdapter.FILTER_SEP =		',';
-	PurpleMashStorageAdapter.FILTER_LOAD = 	['.2go','.0pa'].join(PurpleMashStorageAdapter.FILTER_SEP);
-	PurpleMashStorageAdapter.FILTER_SAVE = 	'.2go';
+	PurpleMashStorageAdapter.FILTER_LOAD = 		['.2go','.0pa'].join(PurpleMashStorageAdapter.FILTER_SEP);
+	PurpleMashStorageAdapter.FILTER_SAVE = 		'.2go';
 
 	PurpleMashStorageAdapter.prototype.loadDefaults = function(callback){
 		if(window.AppVariables && window.AppVariables.getServerVars){
@@ -57,7 +57,7 @@ function(PhaserComponents) {
 		var data;
 		try{
 			if (result.path && result.path.substr(result.path.length - 4) === ".0go") {
-				callback({'success':false, 'response':null});
+				callback({'success':false, 'response':ErrorCodes.WRONG_VERSION});
 				window.parent.openExistingDocument({
 					"fullpath": result.path,
 					"launcher": "2go"
