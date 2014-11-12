@@ -56,18 +56,27 @@ function(PhaserComponents) {
 	PurpleMashStorageAdapter.prototype.onFileLoaded = function(callback, result){
 		var data;
 		try{
-			if((typeof result) === 'string'){
-				result = JSON.parse(result);
-			}
-			data = result.data;
-			if((typeof data) === 'string'){
-				data = JSON.parse(data);
-			}
-			if(data){
-				callback({'success':true, 'response':data});
+			if (result.path && result.path.substr(result.path.length - 4) === ".0go") {
+				callback({'success':false, 'response':null});
+				window.parent.openExistingDocument({
+					"fullpath": result.path,
+					"launcher": "2go"
+				});
 			}
 			else{
-				callback({'success':false, 'response':null});
+				if((typeof result) === 'string'){
+					result = JSON.parse(result);
+				}
+				data = result.data;
+				if((typeof data) === 'string'){
+					data = JSON.parse(data);
+				}
+				if(data){
+					callback({'success':true, 'response':data});
+				}
+				else{
+					callback({'success':false, 'response':null});
+				}
 			}
 		}
 		catch(e){
