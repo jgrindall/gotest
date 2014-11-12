@@ -31,7 +31,7 @@ function(){
 	Help.SETTINGS_VIDEO_LABELS.push("Settings");
 
 	Help.SETTINGS_VIDEO_URLS = [];
-	Help.VIDEO_URLS.push("/mashcontent/videos/2GoHTML5/2go_settings.mp4");
+	Help.SETTINGS_VIDEO_URLS.push("/mashcontent/videos/2GoHTML5/2go_settings.mp4");
 	
 	Help.SETTINGS_VIDEO_TITLE = ["2Go - Settings help"];
 
