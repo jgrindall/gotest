@@ -2,11 +2,11 @@ define(
 
 	['phasercomponents', 'app/views/popups/gridmenu',
 
-	'app/assets', 'app/models/modelconsts'],
+	'app/assets', 'app/models/modelconsts', 'app/events/events'],
 
 function(PhaserComponents, GridMenu,
 
-	Assets, ModelConsts) {
+	Assets, ModelConsts, Events) {
 	
 	"use strict";
 	
@@ -26,10 +26,18 @@ function(PhaserComponents, GridMenu,
 	
 	GridChoiceCommand.prototype.onDataChosen = function(data){
 		var sel0, sel1;
-		sel0 = data.selection[0];
-		sel1 = data.selection[1];
-		this.alertManager.close();
-		this.modelFacade.get(ModelConsts.ANGLE).set(sel0.radioIndex);
+		if(data.index === 2){
+			this.eventDispatcher.trigger({"type":Events.SETTINGS_VIDEO});
+		}
+		else if(data.index === 1){
+			this.alertManager.close();
+			sel0 = data.selection[0];
+			sel1 = data.selection[1];
+			this.modelFacade.get(ModelConsts.ANGLE).set(sel0.radioIndex);
+		}
+		else if(data.index === 0){
+			this.alertManager.close();
+		}
 	};
 
   	return GridChoiceCommand;

@@ -17,7 +17,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/commands/finishcommand', 'app/commands/replaycommand',  'app/commands/helpcommand',
 
-	'app/commands/backcommand', 'app/commands/challengedonecommand',
+	'app/commands/backcommand', 'app/commands/challengedonecommand', 'app/commands/settingsvideocommand',
 
 	'app/events/events', 'phasercomponents', 'app/consts/appconsts',
 
@@ -47,7 +47,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		FinishCommand, ReplayCommand, HelpCommand,
 
-		BackCommand, ChallengeDoneCommand,
+		BackCommand, ChallengeDoneCommand, SettingsVideoCommand,
 
 		Events, PhaserComponents, AppConsts,
 
@@ -182,6 +182,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.CHECK_POSITION, 								CheckOutsideCommand);
 		this.commandMap.map(Events.BACK, 										BackCommand);
 		this.commandMap.map(Events.VIDEO, 										VideoCommand);
+		this.commandMap.map(Events.SETTINGS_VIDEO, 								SettingsVideoCommand);
 		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
 		this.commandMap.map(Events.DOWNLOAD, 									DownloadCommand);
 		this.commandMap.map(Events.FINISHED, 									FinishCommand);

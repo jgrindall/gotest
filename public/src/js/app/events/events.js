@@ -23,6 +23,7 @@ function() {
 	Events.DRAW					= 		"draw";
 	Events.HELP					= 		"help";
 	Events.VIDEO				= 		"video";
+	Events.SETTINGS_VIDEO		= 		"settingsvideo";
 	Events.REPLAY				= 		"replay";
 	Events.IMG_CAPTURED			= 		"imgCaptured";
 	Events.OPEN_BG_EDITOR		= 		"openBgEditor";

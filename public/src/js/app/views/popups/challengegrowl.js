@@ -52,8 +52,8 @@ CloseButton, Assets, VoiceOverButton){
 		this.addButton(CloseButton, bounds);
 	};
 
-	ChallengeGrowl.prototype.addVOButton = function () { 
-		var bounds = {"x":this.bounds.x + this.bounds.w - 55, "y":this.bounds.y + this.bounds.h - VoiceOverButton.HEIGHT};
+	ChallengeGrowl.prototype.addVOButton = function () {
+		var bounds = {"x":this.bounds.x + this.bounds.w - 110, "y":this.bounds.y};
 		this.addButton(VoiceOverButton, bounds);
 	};
 	
