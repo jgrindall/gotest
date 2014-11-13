@@ -11,7 +11,7 @@ function(Phaser, PhaserComponents, Assets
 	
 	var ChallengeButton = function(options){
 		options.asset = Assets.CHALLENGES;
-		options.numFrames = 8;
+		options.numFrames = 16;
 		PhaserComponents.Display.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
@@ -27,11 +27,11 @@ function(Phaser, PhaserComponents, Assets
 	};
 	
 	ChallengeButton.prototype.select = function(){
-		this.panel.view.alpha = 1;
+		this.panel.goTo(2*this.options.index + 1);
 	};
 	
 	ChallengeButton.prototype.deselect = function(){
-		this.panel.view.alpha = 0.4;
+		this.panel.goTo(2*this.options.index);
 	};
 	
 	ChallengeButton.prototype.mouseUp = function(){
@@ -43,7 +43,7 @@ function(Phaser, PhaserComponents, Assets
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
 		this.group.add(this.panel.view);
-		this.panel.goTo(this.options.index);
+		this.deselect();
 	};
 	
 	ChallengeButton.prototype.destroy = function(){

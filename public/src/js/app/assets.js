@@ -86,7 +86,7 @@ define(['app/consts/turtles'], function(Turtles){
 		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtle9.png", 				"key":Assets.TURTLES[9],				"w":Turtles.WIDTH, 	"h":Turtles.HEIGHT},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/tab.png",	 				"key":Assets.TAB_BUTTON,				"w":100, 	"h":30},
 		{"type":"spritesheet", 	"asset":"assets/images/buttons/yes.png",	 				"key":Assets.YES,						"w":73, 	"h":73},
-		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":45, 	"h":45},
+		{"type":"spritesheet", 	"asset":"assets/images/turtle/turtles.png",	 				"key":Assets.TURTLE_CHOICE,				"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtarget.png",	 			"key":Assets.DRAG_TARGET,				"w":150, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/dragtargetsmall.png",	 		"key":Assets.DRAG_TARGET_SMALL,			"w":80, 	"h":50},
 		{"type":"spritesheet", 	"asset":"assets/images/prog/controlbar.png",	 			"key":Assets.CONTROL_BAR,				"w":40, 	"h":40},

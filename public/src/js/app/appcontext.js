@@ -196,7 +196,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 	
 	AppContext.prototype.preload = function(){
 		this.gameManager.game.load.image(Assets.BG, 'assets/images/bg/bg.png');
-		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/loader/bar.png', 435, 40);
+		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/loader/bar.png', 427, 40);
 	};
 	
 	return AppContext;

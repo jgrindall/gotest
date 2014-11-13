@@ -11,13 +11,13 @@ function(Phaser, PhaserComponents, Assets
 	
 	var TurtleChoice = function(options){
 		options.asset = Assets.TURTLE_CHOICE;
-		options.numFrames = 10;
+		options.numFrames = 20;
 		PhaserComponents.Display.Container.call(this, options);
 		this.mouseUpSignal = new Phaser.Signal();
 	};
 	
-	TurtleChoice.WIDTH = 	45;
-	TurtleChoice.HEIGHT = 	45;
+	TurtleChoice.WIDTH = 	50;
+	TurtleChoice.HEIGHT = 	50;
 	
 	PhaserComponents.Utils.extends(TurtleChoice, PhaserComponents.Display.Container);
 
@@ -28,10 +28,12 @@ function(Phaser, PhaserComponents, Assets
 	
 	TurtleChoice.prototype.select = function(){
 		this.panel.view.alpha = 1;
+		this.panel.goTo(2*this.options.index + 1);
 	};
 	
 	TurtleChoice.prototype.deselect = function(){
-		this.panel.view.alpha = 0.3;
+		this.panel.view.alpha = 0.6;
+		this.panel.goTo(2*this.options.index);
 	};
 	
 	TurtleChoice.prototype.mouseUp = function(){
@@ -43,7 +45,7 @@ function(Phaser, PhaserComponents, Assets
 		this.panel.enableInput();
 		this.panel.mouseUpSignal.add(this.mouseUp, this);
 		this.group.add(this.panel.view);
-		this.panel.goTo(this.options.index);
+		this.deselect();
 	};
 	
 	TurtleChoice.prototype.destroy = function(){

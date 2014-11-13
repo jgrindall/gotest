@@ -2,13 +2,13 @@
 
 define(['phasercomponents', 'app/views/challenge/challengebutton',
 
-'app/views/buttons/skipbutton', 'app/views/buttons/okbuttoncontainer',
+'app/views/buttons/okbuttoncontainer',
 
 'app/views/buttons/closebutton', 'app/assets'],
 
 function(PhaserComponents, ChallengeButton,
 
-SkipButton, OkButtonContainer, 
+OkButtonContainer, 
 
 CloseButton, Assets){
 	
@@ -29,12 +29,6 @@ CloseButton, Assets){
 		var middle = this.bounds.x + this.bounds.w/2 - (OkButtonContainer.WIDTH/2);
 		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - OkButtonContainer.HEIGHT};
 		this.addButton(OkButtonContainer, bounds);
-	};
-
-	ChallengeView.prototype.addSkipButton = function () {
-		var middle = this.bounds.x + this.bounds.w/2 - (SkipButton.WIDTH/2);
-		var bounds = {"x":middle + 200, "y":this.bounds.y + this.bounds.h - SkipButton.HEIGHT};
-		this.addButton(SkipButton, bounds);
 	};
 	
 	ChallengeView.prototype.addCloseButton = function () { 
@@ -93,7 +87,6 @@ CloseButton, Assets){
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addGrid();
 		this.addOkButton();
-		this.addSkipButton();
 		this.addTitle();
 		this.addCloseButton();
 	};
