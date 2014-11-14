@@ -46,6 +46,7 @@ function(PhaserComponents, Events,
 	};
 
 	StartUpCommand.prototype.onDefaultsLoaded = function(data){
+		console.log("onDefaultsLoaded", data);
 		this.toActivity();
 		if(data.success){
 			if(data.response){
