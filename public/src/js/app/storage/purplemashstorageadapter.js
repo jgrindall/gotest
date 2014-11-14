@@ -16,11 +16,12 @@ function(PhaserComponents, ErrorCodes) {
 	PurpleMashStorageAdapter.FILTER_SAVE = 		'.2go';
 
 	PurpleMashStorageAdapter.prototype.loadDefaults = function(callback){
+		console.log("window.AppVariables is ", window.AppVariables);
+		console.log("window.AppVariables.getServerVars is ", window.AppVariables.getServerVars);
 		if(window.AppVariables && window.AppVariables.getServerVars){
 			window.AppVariables.getServerVars(this.onDefaultsLoaded.bind(this, callback));
 		}
 		else{
-			console.log("window.AppVariables is ", window.AppVariables, window.AppVariables.getServerVars);
 			callback({"success":false, "data":null});
 		}
 	};
