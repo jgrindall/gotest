@@ -41,24 +41,32 @@ function(PhaserComponents, Events,
 	};
 
 	StartUpCommand.prototype.loadFile = function(data){
-		this.modelFacade.setData(data);
+		console.log("loadFile!!", data);
+		var that = this;
+		this.toActivity();
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
+		setTimeout(function(){
+			that.modelFacade.setData(data);
+			that.eventDispatcher.trigger({"type":Events.REPLAY});
+		}, 1000);
 	};
 
 	StartUpCommand.prototype.onDefaultsLoaded = function(data){
 		console.log("onDefaultsLoaded", data);
-		this.toActivity();
 		if(data.success){
 			if(data.response){
+				console.log("loadFile", data.response);
 				this.loadFile(data.response);
 			}
 			else{
+				this.toActivity();
 				this.loadChallenges();
 			}
 		}
 		else{
+			this.toActivity();
 			this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
-			this.onDefaultsError(data.response);
+			this.loadChallenges();
 		}
 	};
 
