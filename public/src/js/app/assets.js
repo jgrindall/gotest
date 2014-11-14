@@ -122,20 +122,20 @@ define(['app/consts/turtles'], function(Turtles){
 	];
 	
 	Assets.SOUNDFX = [
-		{"type":"sound", 		"asset":["assets/sound/click0.mp3"], 			"key":Assets.SOUNDS[0]},
-		{"type":"sound", 		"asset":["assets/sound/click1.mp3"], 			"key":Assets.SOUNDS[1]},
-		{"type":"sound", 		"asset":["assets/sound/swoosh0.mp3"], 			"key":Assets.SOUNDS[2]},
-		{"type":"sound", 		"asset":["assets/sound/swoosh1.mp3"], 			"key":Assets.SOUNDS[3]},
-		{"type":"sound", 		"asset":["assets/sound/tinkle.mp3"], 			"key":Assets.SOUNDS[4]},
-		{"type":"sound", 		"asset":["assets/sound/challenge0.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[0]},
-		{"type":"sound", 		"asset":["assets/sound/challenge1.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[1]},
-		{"type":"sound", 		"asset":["assets/sound/challenge2.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[2]},
-		{"type":"sound", 		"asset":["assets/sound/challenge3.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[3]},
-		{"type":"sound", 		"asset":["assets/sound/challenge4.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[4]},
-		{"type":"sound", 		"asset":["assets/sound/challenge5.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[5]},
-		{"type":"sound", 		"asset":["assets/sound/challenge6.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[6]},
-		{"type":"sound", 		"asset":["assets/sound/challenge7.mp3"], 		"key":Assets.CHALLENGE_SOUNDS[7]},
-		{"type":"sound", 		"asset":["assets/sound/help.mp3"], 				"key":Assets.HELP_SOUND}
+		{"type":"sound", 		"asset":["assets/sound/click0.mp3", "assets/sound/click0.wav"], 				"key":Assets.SOUNDS[0]},
+		{"type":"sound", 		"asset":["assets/sound/click1.mp3", "assets/sound/click1.wav"], 				"key":Assets.SOUNDS[1]},
+		{"type":"sound", 		"asset":["assets/sound/swoosh0.mp3", "assets/sound/swoosh0.wav"], 				"key":Assets.SOUNDS[2]},
+		{"type":"sound", 		"asset":["assets/sound/swoosh1.mp3", "assets/sound/swoosh1.wav"], 				"key":Assets.SOUNDS[3]},
+		{"type":"sound", 		"asset":["assets/sound/tinkle.mp3", "assets/sound/tinkle.wav"], 				"key":Assets.SOUNDS[4]},
+		{"type":"sound", 		"asset":["assets/sound/challenge0.mp3", "assets/sound/challenge0.wav"], 		"key":Assets.CHALLENGE_SOUNDS[0]},
+		{"type":"sound", 		"asset":["assets/sound/challenge1.mp3", "assets/sound/challenge1.wav"], 		"key":Assets.CHALLENGE_SOUNDS[1]},
+		{"type":"sound", 		"asset":["assets/sound/challenge2.mp3", "assets/sound/challenge2.wav"], 		"key":Assets.CHALLENGE_SOUNDS[2]},
+		{"type":"sound", 		"asset":["assets/sound/challenge3.mp3", "assets/sound/challenge3.wav"], 		"key":Assets.CHALLENGE_SOUNDS[3]},
+		{"type":"sound", 		"asset":["assets/sound/challenge4.mp3", "assets/sound/challenge4.wav"], 		"key":Assets.CHALLENGE_SOUNDS[4]},
+		{"type":"sound", 		"asset":["assets/sound/challenge5.mp3", "assets/sound/challenge5.wav"], 		"key":Assets.CHALLENGE_SOUNDS[5]},
+		{"type":"sound", 		"asset":["assets/sound/challenge6.mp3", "assets/sound/challenge6.wav"], 		"key":Assets.CHALLENGE_SOUNDS[6]},
+		{"type":"sound", 		"asset":["assets/sound/challenge7.mp3", "assets/sound/challenge7.wav"], 		"key":Assets.CHALLENGE_SOUNDS[7]},
+		{"type":"sound", 		"asset":["assets/sound/help.mp3", "assets/sound/help.wav"], 					"key":Assets.HELP_SOUND}
 	];
 	
 	Assets.IMAGES = [
