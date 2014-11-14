@@ -16,8 +16,8 @@ function(PhaserComponents, ErrorCodes) {
 	PurpleMashStorageAdapter.FILTER_SAVE = 		'.2go';
 
 	PurpleMashStorageAdapter.prototype.loadDefaults = function(callback){
-		console.log("window.AppVariables is ", window.AppVariables);
-		console.log("window.AppVariables.getServerVars is ", window.AppVariables.getServerVars);
+		console.log("1window.AppVariables is ", window.AppVariables);
+		console.log("2window.AppVariables.getServerVars is ", window.AppVariables.getServerVars);
 		if(window.AppVariables && window.AppVariables.getServerVars){
 			window.AppVariables.getServerVars(this.onDefaultsLoaded.bind(this, callback));
 		}
@@ -27,8 +27,9 @@ function(PhaserComponents, ErrorCodes) {
 	};
 
 	PurpleMashStorageAdapter.prototype.onDefaultsLoaded = function(callback){
+		console.log("3window.AppVariables is ", window.AppVariables);
 		var fullPath = window.AppVariables.get("fullPath");
-		console.log("PM onDefaultsLoaded", fullPath);
+		console.log("4PM onDefaultsLoaded", fullPath);
 		if(fullPath){
 			this.getForKeyPath(fullPath, callback);
 		}
