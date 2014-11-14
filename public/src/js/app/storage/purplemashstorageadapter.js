@@ -20,12 +20,14 @@ function(PhaserComponents, ErrorCodes) {
 			window.AppVariables.getServerVars(this.onDefaultsLoaded.bind(this, callback));
 		}
 		else{
+			console.log("window.AppVariables is ", window.AppVariables, window.AppVariables.getServerVars);
 			callback({"success":false, "data":null});
 		}
 	};
 
 	PurpleMashStorageAdapter.prototype.onDefaultsLoaded = function(callback){
 		var fullPath = window.AppVariables.get("fullPath");
+		console.log("PM onDefaultsLoaded", fullPath);
 		if(fullPath){
 			this.getForKeyPath(fullPath, callback);
 		}
