@@ -105,7 +105,7 @@ module.exports = function(grunt) {
             main: {
                 expand:true,
                 cwd: 'public/src/', 
-                src: ['assets/**/*.png','assets/**/*.jpg','assets/**/*.mp3','assets/**/*.ttf','assets/**/*.json'],
+                src: ['assets/**/*.png','assets/**/*.jpg','assets/**/*.gif','assets/**/*.mp3','assets/**/*.wav','assets/**/*.ttf','assets/**/*.json'],
                 dest: 'public/build/'
             }
         }
