@@ -58,6 +58,7 @@ function(PhaserComponents, ErrorCodes) {
 	};
 
 	PurpleMashStorageAdapter.prototype.onFileLoaded = function(callback, result){
+		console.log("result is ", result);
 		var data;
 		try{
 			if (result.path && result.path.substr(result.path.length - 4) === ".0go") {
