@@ -27,9 +27,9 @@ PhaserComponents, Assets){
 	};
 
 	Map.prototype.updatePngImage = function(pngData) {
-		console.log("loading from "+pngData.substring(0, 50));
 		var img, that = this;
 		if(pngData !== null){
+			console.log("loading from "+pngData.substring(0, 50));
 			img = new Image();
 			img.onload = function(){
 				that.game.cache.addImage(Map.EDITOR_KEY, pngData, img);
