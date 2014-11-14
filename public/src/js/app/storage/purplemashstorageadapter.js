@@ -98,6 +98,7 @@ function(PhaserComponents, ErrorCodes) {
 			if(keyPath){
 				options.path = keyPath;
 			}
+			console.log("window.DocumentHandler.open options = ", options);
 			options.onOpen = this.onFileLoaded.bind(this, callback);
 			window.DocumentHandler.open(options);
 		}
