@@ -20,6 +20,7 @@ function(PhaserComponents, Events,
 	
 	LoadCommand.prototype.onLoaded = function(data){
 		var code;
+		console.log("onLoaded ", data);
 		if(data.success){
 			if(data.response){
 				try{
