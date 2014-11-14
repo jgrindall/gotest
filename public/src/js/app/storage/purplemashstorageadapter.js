@@ -82,7 +82,9 @@ function(PhaserComponents, ErrorCodes) {
 				}
 				console.log("4onFileLoaded data is ", data);
 				if(data){
+					console.log("4onFileLoaded data is ", data, callback);
 					callback({'success':true, 'response':data});
+					console.log("done");
 				}
 				else{
 					callback({'success':false, 'response':null});
