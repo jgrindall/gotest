@@ -59,7 +59,7 @@ function(PhaserComponents, ErrorCodes) {
 	};
 
 	PurpleMashStorageAdapter.prototype.onFileLoaded = function(callback, result){
-		console.log("1onFileLoaded result is ", result);
+		console.log("1 onFileLoaded result is ", result);
 		var data;
 		try{
 			if (result.path && result.path.substr(result.path.length - 4) === ".0go") {
@@ -75,15 +75,15 @@ function(PhaserComponents, ErrorCodes) {
 					result = JSON.parse(result);
 				}
 				data = result.data;
-				console.log("2onFileLoaded result is ", result);
-				console.log("3onFileLoaded data is ", data);
+				console.log("2 onFileLoaded result is ", result);
+				console.log("3 onFileLoaded data is ", data);
 				if((typeof data) === 'string'){
 					console.log("2parse string");
 					data = JSON.parse(data);
 				}
-				console.log("4onFileLoaded data is ", data);
+				console.log("4 onFileLoaded data is ", data);
 				if(data){
-					console.log("4onFileLoaded data is ", data, callback);
+					console.log("5 onFileLoaded data is ", data, callback);
 					callback({'success':true, 'response':data});
 					console.log("done");
 				}

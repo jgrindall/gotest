@@ -48,7 +48,7 @@ function(PhaserComponents, Events,
 		setTimeout(function(){
 			that.modelFacade.setData(data);
 			that.eventDispatcher.trigger({"type":Events.REPLAY});
-		}, 1000);
+		}, 10);
 	};
 
 	StartUpCommand.prototype.onDefaultsLoaded = function(data){
