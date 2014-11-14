@@ -80,6 +80,7 @@ function(PhaserComponents, ErrorCodes) {
 					console.log("2parse string");
 					data = JSON.parse(data);
 				}
+				console.log("4onFileLoaded data is ", data);
 				if(data){
 					callback({'success':true, 'response':data});
 				}
