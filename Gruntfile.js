@@ -69,11 +69,13 @@ module.exports = function(grunt) {
                     findNestedDependencies: true,
                     optimize: "uglify",
                     paths: {
-                        html2canvas:                   'lib/html2canvas',
-                        phaser: 			           'lib/phaser',
-                        phaserstatetrans: 	           'lib/phaser-state-transition.min',
-                        phasercomponents:              'lib/phasercomponents',
-                        filesaver:                     'lib/filesaver'
+                        'html2canvas':                  'lib/html2canvas',
+                        'phaser': 			            'lib/phaser',
+                        'phaserstatetrans': 	        'lib/phaser-state-transition.min',
+                        'phasercomponents':             'lib/phasercomponents',
+                        'filesaver':                    'lib/filesaver',
+                        'downloadify':                  'lib/downloadify.min',
+                        'swfobject':                    'lib/swfobject'
                     }
                 }
             },

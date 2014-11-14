@@ -25,7 +25,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/assets', 'app/storage/purplemashstorageadapter',
 
-	'app/views/showmanager', 'app/models/modelfacade',
+	'app/views/showmanager', 'app/models/modelfacade', 'app/utils/filedownloader',
 
 	'app/consts/defaults', 'app/utils/clipart', 'app/utils/purplemashclipartadapter'],
 
@@ -55,7 +55,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		Assets, PurpleMashStorageAdapter,
 
-		ShowManager, ModelFacade,
+		ShowManager, ModelFacade, FileDownLoader,
 
 		Defaults, Clipart, PurpleMashClipartAdapter) {
 	
@@ -90,6 +90,8 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
         eventDispatcher = this.eventDispatcher;
         this.showManager = new ShowManager();
         this.modelFacade = new ModelFacade();
+        this.fileDownLoader = new FileDownLoader();
+        this.fileDownLoader.initFlash();
         this.addClipart();
         PhaserComponents.Injector.getInstance().mapArray(["nameview","imgview"],			["game", "eventDispatcher"],            [game, eventDispatcher]);
         PhaserComponents.Injector.getInstance().map("showmanager",							["game"],            					[game, eventDispatcher]);
@@ -98,6 +100,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
         PhaserComponents.Injector.getInstance().map("abstractcommand",						["modelFacade", "clipart"],            	[this.modelFacade, this.clipart]);
         PhaserComponents.Injector.getInstance().map("scene",								["showManager"],            			[this.showManager]);
         PhaserComponents.Injector.getInstance().map("clipartadapter", 						["alertManager"],						[this.alertManager]);
+        PhaserComponents.Injector.getInstance().map("downloadcommand", 						["fileDownLoader"],						[this.fileDownLoader]);
         this.showManager.init();
         this.modelFacade.init();
         this.modelFacade.setData(Defaults.getDefaults());

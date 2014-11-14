@@ -1,10 +1,10 @@
 define(
 
-	['phasercomponents', 'app/utils/filedownloader',
+	['phasercomponents',
 
 	'app/utils/message'],
 
-	function(PhaserComponents, FileDownloader,
+	function(PhaserComponents, 
 
 	Message) {
 	
@@ -12,6 +12,7 @@ define(
 
 	var DownloadCommand = function(){
 		PhaserComponents.Commands.AbstractCommand.call(this);
+		PhaserComponents.Injector.getInstance().injectInto(this, 'downloadcommand');
 	};
 
 	PhaserComponents.Utils.extends(DownloadCommand, PhaserComponents.Commands.AbstractCommand);
@@ -21,7 +22,7 @@ define(
 			Message.show(this.alertManager, Message.SCREENSHOT);
 		}
 		else{
-			new FileDownloader().download();
+			this.fileDownLoader.download();
 		}
 	};
 	

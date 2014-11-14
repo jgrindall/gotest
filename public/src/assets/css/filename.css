@@ -1,0 +1,126 @@
+div._2gofilenamecontainer{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left:0;
+	z-index: 10000; 
+}
+
+div._2gofilenamebg{
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left:0;
+	background: #444;
+	opacity: 0.85;
+}
+
+div._2gofilename{
+	background-image:url('../images/popups/alert.png');
+	position: fixed;
+	width: 421px;
+	height: 250px;
+	top: 50%;
+	left:50%;
+	margin-left:-210px;
+	margin-top: -125px;
+}
+
+div._2gofilenameclose{
+	background-image:url('../images/buttons/close.png');
+	background-size: 200px 50px;
+	width:50px;
+	height:50px;
+	position:absolute;
+	left: 370px;
+	cursor: pointer;
+	cursor: hand;
+}
+
+input._2gofilenameinput{
+	border:1px solid #888;
+	font-family: TooSimple;
+	width:250px;
+	position: absolute;
+	text-align: center;
+	font-size:26px;
+    height: 40px;
+    border-radius:4px;
+    padding:0;
+    left:82px;
+    top:113px;
+}
+
+p._2gofilenametitle{
+	font-family: TooSimple;
+	color:white;
+	text-align: center;
+	font-size:26px;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+	top: 8px;
+	left: 13px;
+}
+
+p._2gofilenamemessage{
+	font-family: TooSimple;
+	color:black;
+	position: absolute;
+	width:100%;
+	height:40px;
+	text-align: center;
+	font-size:20px;
+	padding: 0;
+	margin: 0;
+	top:67px;
+}
+
+div._2gofilenameokcontainer{
+	background-image:url('../images/buttons/okButton.png');
+	background-size: 360px 200px;
+	width:180px;
+	height:100px;
+	position: absolute;
+	top: 153px;
+	left: 117px;
+	cursor: pointer;
+	cursor: hand;
+}
+
+div._2gofilenameokyellow{
+	background-image:url('../images/buttons/smile.png');
+	background-size: 36px 36px;
+	width:36px;
+	height:36px;
+	position: relative;
+	top: 23px;
+	left: 72px;
+}
+
+div._2gofilenameokyes{
+	background-image:url('../images/buttons/yes.gif');
+	background-size: 32px 32px;
+	width:32px;
+	height:32px;
+	position: relative;
+	left:1px;
+}
+
+p._2gofilenameerror{
+	color:red;
+	font-family: TooSimple;
+	position: absolute;
+	width:116px;
+	height:40px;
+	text-align: center;
+	font-size:14px;
+	padding: 0;
+	margin: 0;
+	top: 183px;
+	right: 20px;
+}
+
+
