@@ -19,7 +19,6 @@ function(PhaserComponents, Events){
 	ImgView.TOP = 		40;
 
 	ImgView.prototype.addElements = function(){
-		var left, w, ratio;
 		this.img = $("<img class='img_download' src='"+this.data+"'/>");
 		this.container = $("<div class='img_container'></div>");
 		this.bg = $("<div class='img_bg'></div>");
@@ -33,7 +32,6 @@ function(PhaserComponents, Events){
 		this.imgPanel.append(this.img);
 		this.imgPanel.append(this.close);
 		this.imgPanel.append(this.mouse);
-		console.log("add container");
 		this.body.append(this.container);
 	};
 	

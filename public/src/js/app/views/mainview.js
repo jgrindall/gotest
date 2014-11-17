@@ -33,7 +33,6 @@ Assets, ShowDirections, ModelConsts){
 	PhaserComponents.Utils.extends(MainView, PhaserComponents.Display.Container);
 
 	MainView.prototype.create = function() {
-		var that = this;
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.closeHandler = this.removeImg.bind(this);
 		this.imgHandler = this.onImgCaptured.bind(this);
