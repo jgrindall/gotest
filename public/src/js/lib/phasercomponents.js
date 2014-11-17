@@ -658,7 +658,7 @@ define(
 	
 	
 	var KeyManager = function(){
-		
+		this.classCheck = null;
 	};
 
 	KeyManager.prototype.init = function(){
@@ -667,7 +667,7 @@ define(
 	
 	KeyManager.prototype.keyDown = function(event){
 		var code = event.keyCode, obj;
-		if(event.target.nodeName.toLowerCase() === "input" && !event.target.hasClass("_2go")){
+		if(event.target.nodeName.toLowerCase() === "input" && this.classCheck && !$(event.target).hasClass(this.classCheck)){
 			// do nothing
 			return;
 		}
@@ -677,6 +677,10 @@ define(
 			obj = {"type":AppEvents.KEY_UP, "data":{"keyCode":code}};
 			this.eventDispatcher.trigger(obj);
 		}
+	};
+
+	KeyManager.prototype.setClass = function(c){
+		this.classCheck = c;
 	};
 
 	KeyManager.prototype.destroy = function(){
