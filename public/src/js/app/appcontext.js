@@ -166,6 +166,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     	this.soundManager.add(Assets.CHALLENGE_SOUNDS[6], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[6]));
     	this.soundManager.add(Assets.CHALLENGE_SOUNDS[7], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[7]));
     	this.soundManager.add(Assets.HELP_SOUND, new Phaser.Sound(this.gameManager.game, Assets.HELP_SOUND));
+    	this.soundManager.fallback(Assets.SOUNDFX);
     };
 
     AppContext.prototype.mapCommands = function(){

@@ -787,6 +787,28 @@ define('phasercomponents/utils/soundmanager',[], function(){
 		
 	};
 
+	SoundManager.isIE9 = function(){
+
+	};
+
+	SoundManager.prototype.addTag = function(key, assets){
+		var s, id = "_2goaudio_"+key;
+		s = "<!--[if lt IE 9]><audio id='"+id+"'>";
+		assets.forEach(function(asset){
+			s += "<source src='"+asset+"'/>";
+		});
+		s += "</audio><![endif]-->";
+		//["assets/sound/click0.ogg", "assets/sound/click0.wav"]
+		$("body").append(s);
+	};
+
+	SoundManager.prototype.fallback = function(a){
+		var that = this;
+		a.forEach(function(obj){
+			that.addTag(obj.key, obj.asset);
+		});
+	};
+
 	SoundManager.prototype.stopAll = function(){
 		var key, sound;
 		for (key in this.sounds) {
