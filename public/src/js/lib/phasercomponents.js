@@ -515,7 +515,7 @@ function() {
 	
 	
 	var EventDispatcher = function(){
-		this.el = $(document);
+		this.el = $("div#game");
 	};
 	
 	EventDispatcher.prototype.addListener = function(name, method) {

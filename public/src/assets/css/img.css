@@ -5,31 +5,38 @@ div.img_container{
     position: fixed;
     top: 0;
     left: 0;
+    z-index:10000;
 }
 
 div.img_container img.img_download{
-    width:100%;
+    width:700px;
+    position: relative;
+    left:9px;
+    top:5px;
+    max-height:420px;
 }
 
 div.img_container div.img_panel{
-    height:400px;
-    position:fixed;
+    height:541px;
+    width:720px;
+    position:absolute;
     left:50%;
     top:50%;
-    margin-top:-200px;
-    border:2px solid #303535;
-    border-radius:6px;
-    background:#444a4a;
+    margin-top:-270px;
+    margin-left:-360px;
+    border:none;
+    background-image:url('../images/popups/panel.png');
 }
 
 div.img_container div.img_panel_top{
-    background:#363b3b;
     height:40px;
+    position: relative;
+    left:6px;
+    top:3px;
 }
 
 div.img_container div.img_panel_top span{
     color: white;
-    font-weight: bold;
     font-size: 20px;
     position: absolute;
     top: 5px;
@@ -37,8 +44,8 @@ div.img_container div.img_panel_top span{
 }
 
 div.img_container div.img_bg{
-    background: black;
-    opacity:0.6;
+    background: #666;
+    opacity:0.9;
     width:100%;
     height:100%;
 }
@@ -60,6 +67,6 @@ div.img_container div.img_mouse{
     position: absolute;
     background-size: 333px 50px;
     background-repeat: no-repeat;
-    margin-left:-161px;
-    left:50%;
+    top:480px;
+    left:200px;
 }

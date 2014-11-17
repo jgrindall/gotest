@@ -103,6 +103,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
         PhaserComponents.Injector.getInstance().map("downloadcommand", 						["fileDownLoader"],						[this.fileDownLoader]);
         this.showManager.init();
         this.modelFacade.init();
+        this.fileDownLoader.init();
         this.modelFacade.setData(Defaults.getDefaults());
     };
 

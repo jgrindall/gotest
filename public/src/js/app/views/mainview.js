@@ -33,6 +33,7 @@ Assets, ShowDirections, ModelConsts){
 	PhaserComponents.Utils.extends(MainView, PhaserComponents.Display.Container);
 
 	MainView.prototype.create = function() {
+		var that = this;
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.closeHandler = this.removeImg.bind(this);
 		this.imgHandler = this.onImgCaptured.bind(this);
@@ -50,7 +51,6 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.addImg = function(data) {
 		this.imgView = new ImgView(data);
-    	$("body").append(this.imgView.el);
 	};
 
 	MainView.prototype.onImgCaptured = function(event, obj){
@@ -250,6 +250,7 @@ Assets, ShowDirections, ModelConsts){
 	};
 
 	MainView.prototype.destroy = function() {
+		console.log("destroy mainview");
 		this.eventDispatcher.removeListener(Events.CLOSE_IMG, this.closeHandler);
 		this.closeHandler = null;
 		this.eventDispatcher.removeListener(Events.IMG_CAPTURED, this.imgHandler);

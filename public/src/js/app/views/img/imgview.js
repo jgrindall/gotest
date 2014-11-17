@@ -6,6 +6,7 @@ function(PhaserComponents, Events){
 	"use strict";
 		
 	var ImgView = function(data){
+		console.log("ImgView, ", data);
 		this.data = data;
 		this.body = $("body");
 		PhaserComponents.Injector.getInstance().injectInto(this, "imgview");
@@ -32,10 +33,7 @@ function(PhaserComponents, Events){
 		this.imgPanel.append(this.img);
 		this.imgPanel.append(this.close);
 		this.imgPanel.append(this.mouse);
-		ratio = this.body.width()/this.body.height();
-		w = (ImgView.HEIGHT - ImgView.BOTTOM - ImgView.TOP) * ratio;
-		left = -w/2;
-		this.imgPanel.css("margin-left", left).width(w);
+		console.log("add container");
 		this.body.append(this.container);
 	};
 	

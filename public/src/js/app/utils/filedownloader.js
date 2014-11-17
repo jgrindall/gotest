@@ -14,8 +14,6 @@ define(['phasercomponents', 'filesaver',
 		"use strict";
 		
 		var FileDownloader = function(){
-			PhaserComponents.Injector.getInstance().injectInto(this, "filedownloader");
-			this.processing = false;
 			this.flash = false;
 			this.message = Message;
 		};
@@ -56,56 +54,12 @@ define(['phasercomponents', 'filesaver',
 			return buffer;
 		};
 
-		FileDownloader.prototype.getFlashData = function(){
-			if(!this.canvas && !this.processing){
-				this.download();
-			}
-			else{
-				return this.canvas.toDataURL("image/png");
-			}
-		};
-
-		FileDownloader.prototype.flashSaved = function(){
-			this.canvas = null;
-			console.log("saved");
-		};
-		
-		FileDownloader.prototype.flashCancelled = function(){
-			this.canvas = null;
-			console.log("cancelled");
+		FileDownloader.prototype.init = function(){
+			PhaserComponents.Injector.getInstance().injectInto(this, "filedownloader");
 		};
 		
 		FileDownloader.prototype.initFlash = function(){
 			return;
-			/*
-			var options;
-			if(swfobject.hasFlashPlayerVersion("9.0.0")){
-				try{
-					this.el = document.getElementById('flash');
-					if(this.el === null){
-						$("body").append("<div id='flash' style='position:absolute;top:0;left:0;'></div>");
-						this.el = document.getElementById('flash');
-					}
-					options = {};
-					options.filename = 			FileDownloader.FILENAME;
-					options.data = 				this.getFlashData.bind(this);
-					options.onComplete = 		this.flashSaved.bind(this);
-					options.onCancel = 			this.flashCancelled.bind(this);
-					options.onError = 			this.message.bind(this);
-					options.swf = 				'assets/flash/downloadify.swf';
-					options.downloadImage = 	'assets/flash/download.png';
-					options.width = 			100;
-					options.height = 			30;
-					options.transparent = 		true;
-					options.append = 			true;
-					Downloadify.create("flash", options );
-					this.flash = true;
-				}
-				catch(e){
-
-				}
-			}
-			*/
 		};
 
 		FileDownloader.prototype.onClickClose = function(){
@@ -125,7 +79,7 @@ define(['phasercomponents', 'filesaver',
 			this.filename = $("._2gofilenameinput").val();
 			if(this.validate()){
 				this.onClickClose();
-				this.startDownload();
+				this.saveBlob();
 			}
 			else{
 				$("._2gofilenameerror").show();
@@ -145,7 +99,7 @@ define(['phasercomponents', 'filesaver',
 			e.stopPropagation();
 		};
 
-		FileDownloader.prototype.download = function(){
+		FileDownloader.prototype.openFilename = function(){
 			var pop, box;
 			pop = $("<div class='_2gofilenamecontainer'></div>");
 			pop.append("<div class='_2gofilenamebg'></div>");
@@ -166,13 +120,11 @@ define(['phasercomponents', 'filesaver',
 			$("._2gofilenameinput").keydown(this.onKeyDown.bind(this));
 		};
 
-		FileDownloader.prototype.startDownload = function(){
+		FileDownloader.prototype.download = function(){
 			var options = {"onrendered" : this.onRendered.bind(this)};
-			console.log("html2canvas", html2canvas);
 			if(html2canvas){
 				try{
 					html2canvas(document.body, options);
-					this.processing = true;
 				}
 				catch(e){
 					this.message();
@@ -232,20 +184,22 @@ define(['phasercomponents', 'filesaver',
 		};
 
 		FileDownloader.prototype.displayImage = function(imgData){
-			this.eventDispatcher.trigger({"type":Events.IMG_CAPTURED, "data":imgData});
+			var obj = {"type":Events.IMG_CAPTURED, "data":imgData};
+			this.eventDispatcher.trigger(obj);
 		};
 
 		FileDownloader.prototype.onRendered = function(canvas){
 			this.canvas = canvas;
-			this.processing = false;
-			console.log("onRendered", canvas, this.flash, window.Blob, filesaver);
 			if(!this.flash){
 				if(canvas){
 					if(window.Blob && filesaver){
-						this.saveBlob();
+						this.openFilename();
 					}
 					else if(canvas.toDataURL){
 						this.fallback();
+					}
+					else{
+						this.message();
 					}
 				}
 				else{

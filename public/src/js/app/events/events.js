@@ -25,11 +25,10 @@ function() {
 	Events.VIDEO				= 		"video";
 	Events.SETTINGS_VIDEO		= 		"settingsvideo";
 	Events.REPLAY				= 		"replay";
-	Events.IMG_CAPTURED			= 		"imgCaptured";
+	Events.IMG_CAPTURED			= 		"imgIsCaptured";
 	Events.OPEN_BG_EDITOR		= 		"openBgEditor";
 	Events.EDIT_TURTLE			= 		"editTurtle";
 	Events.OPEN_TURTLE_EDITOR	= 		"openTurtleEditor";
-	Events.IMG_CAPTURED			= 		"imgCaptured";
 	Events.CLOSE_IMG			= 		"closeImg";
 	Events.SHOW_TOUCH_IMG		= 		"showTouchImg";
 	Events.FINISHED				= 		"finished";
