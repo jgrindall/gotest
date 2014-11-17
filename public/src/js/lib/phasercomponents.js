@@ -807,14 +807,14 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 			s += "<source src='"+asset+"'/>";
 		});
 		s += "</audio>";
-		window.alert.log("s is ", s);
+		window.alert("s is ", s);
 		$("body").append(s);
 	};
 
 	SoundManager.prototype.fallback = function(a){
 		var that = this;
 		if(SoundManager.isIE9()){
-			window.alert.log("add sounds");
+			window.alert("add sounds");
 			a.forEach(function(obj){
 				that.addTag(obj.key, obj.asset);
 			});
