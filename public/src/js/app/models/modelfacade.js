@@ -275,6 +275,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		this.progNumModel.set(json.settings.progNum);
 		this.commModel.set(json.commands);
 		this.progModel.set(json.prog);
+		this.challengeModel.set(json.challenge);
 	};
 
 	ModelFacade.prototype.getJson = function() {
@@ -296,6 +297,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		settings.diag =	 		this.diagModel.get();
 		settings.progNum =	 	this.progNumModel.get();
 		settings.name =	 		this.nameModel.get();
+		settings.challenge = 	this.challengeModel.get();
 		json.commands = 		this.commModel.toJson();
 		json.prog = 			this.progModel.get();
 		json.settings = settings;
@@ -304,6 +306,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 	
 	ModelFacade.prototype.destroyModels = function(){
 		this.screenModel.destroy();
+		this.challengeModel.destroy();
 		this.colorModel.destroy();
 		this.bgPngModel.destroy();
 		this.turtlePngModel.destroy();
@@ -327,6 +330,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		this.turtlePngModel = null;
 		this.speedModel = null;
 		this.widthModel = null;
+		this.challengeModel = null;
 		this.bgModel = null;
 		this.gridModel = null;
 		this.diagModel = null;
