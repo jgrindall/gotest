@@ -1,12 +1,8 @@
 define(
 
-	['phasercomponents', 'app/consts/defaults', 'app/events/events',
+	['phasercomponents', 'app/consts/defaults', 'app/events/events'],
 
-	'app/models/modelconsts'],
-
-function(PhaserComponents, Defaults, Events, 
-
-ModelConsts) {
+function(PhaserComponents, Defaults, Events) {
 	
 	"use strict";
 	
@@ -18,14 +14,13 @@ ModelConsts) {
 
 	ChooseChallengeCommand.prototype.execute = function(data){
 		var json, that = this;
-		console.log("ccc ", data.selection);
 		json = Defaults.getChallenge(data.selection);
 		this.eventDispatcher.trigger({"type":Events.REWIND});
 		this.modelFacade.setData(json);
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 		setTimeout(function(){
 			that.eventDispatcher.trigger({"type":Events.HELP});
-		}, 50);
+		}, 100);
 	};
 	
   	return ChooseChallengeCommand;

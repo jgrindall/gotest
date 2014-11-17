@@ -792,7 +792,7 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 		
 	};
 
-	SoundManager.isIE9 = function(){
+	SoundManager.needsTags = function(){
 		return Utils.isIE() === 9;
 	};
 
@@ -812,7 +812,7 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 
 	SoundManager.prototype.fallback = function(a){
 		var that = this;
-		if(SoundManager.isIE9()){
+		if(SoundManager.needsTags()){
 			window.alert("add sounds");
 			a.forEach(function(obj){
 				that.addTag(obj.key, obj.asset);
@@ -827,21 +827,40 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 		}
 	};
 
+	SoundManager.prototype.stopTag = function(key){
+		var tags = $("#"+this.getId(key));
+		try{
+			if(tags && tags.length === 1){
+				tags[0].pause();
+			}
+		}
+		catch(e){
+			console.log("tag error ", e);
+		}
+	};
+
 	SoundManager.prototype.stopKey = function(key){
 		var sound;
-		if(SoundManager.isIE9()){
-			try{
-				$("#"+this.getId(key))[0].pause();
-			}
-			catch(e){
-				console.log("ie9 error ", e);
-			}
+		if(SoundManager.needsTags()){
+			this.stopTag(key);
 		}
 		else{
 			sound = this.sounds[key];
 			if(sound && sound.isPlaying){
 				sound.stop();
 			}
+		}
+	};
+
+	SoundManager.prototype.playTag = function(key){
+		var tags = $("#"+this.getId(key));
+		try{
+			if(tags && tags.length === 1){
+				tags[0].play();
+			}
+		}
+		catch(e){
+			console.log("tag error ", e);
 		}
 	};
 
@@ -852,13 +871,8 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 		}
 		else{
 			this.stopKey(key);
-			if(SoundManager.isIE9()){
-				try{
-					$("#"+this.getId(key))[0].play();
-				}
-				catch(e){
-					console.log("ie9 error ", e);
-				}
+			if(SoundManager.needsTags()){
+				this.playTag(key);
 			}
 			else{
 				sound = this.sounds[key];
