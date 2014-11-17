@@ -244,6 +244,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 	};
 
 	ModelFacade.prototype.setData = function(json){
+		console.log("MF setData", json);
 		this.screenModel.set(json.settings.screen);
 		this.colorModel.set(json.settings.color, {"force":true});
 		this.speedModel.set(json.settings.speed);
@@ -273,9 +274,9 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		this.startPosModel.set(json.settings.startPos, {"force":true});
 		this.nameModel.set(json.settings.name);
 		this.progNumModel.set(json.settings.progNum);
+		this.challengeModel.setChallenge(json.settings.challenge);
 		this.commModel.set(json.commands);
 		this.progModel.set(json.prog);
-		this.challengeModel.set(json.challenge);
 	};
 
 	ModelFacade.prototype.getJson = function() {

@@ -20,6 +20,10 @@ function(PhaserComponents, ChallengeData,
 	PhaserComponents.Utils.extends(ChallengeModel, PhaserComponents.Model.ToggleModel);
 	
 	ChallengeModel.prototype.setChallenge = function(i){
+		if(i === null || i === undefined){
+			this.reset();
+			return;
+		}
 		this.shown = false;
 		this.hit = [];
 		this.set(i, {"force":true});

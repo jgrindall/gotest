@@ -22,6 +22,7 @@ PhaserComponents, ChallengeData){
 	Hotspots.prototype.onChallengeChange = function(value){
 		var challenges, i, cPoint, ordered;
 		this.removeHotspots();
+		console.log("va",value);
 		if(value !== null){
 			challenges = ChallengeData.TARGETS[value];
 			ordered = ChallengeData.ORDERED[value];

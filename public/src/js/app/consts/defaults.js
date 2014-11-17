@@ -17,6 +17,7 @@ define(['app/consts/challengedata'], function(ChallengeData) {
 		'angle':0,
 		'stepLength':3,
 		'width':2,
+		'challenge':null,
 		'grid':0,
 		'prog':0,
 		'turtlePng':null,
@@ -41,6 +42,7 @@ define(['app/consts/challengedata'], function(ChallengeData) {
 		var settings = $.extend({}, Defaults.DEFAULT_SETTINGS);
 		settings.bg = 			ChallengeData.CHALLENGE_BG[i];
 		settings.screen = 		ChallengeData.CHALLENGE_SCREEN[i];
+		settings.challenge = 	i;
 		settings.color = 		ChallengeData.CHALLENGE_COLOR[i];
 		settings.angle =		ChallengeData.ANGLE[i];
 		settings.stepLength = 	ChallengeData.CHALLENGE_STEP_LENGTH[i];

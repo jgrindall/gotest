@@ -18,7 +18,7 @@ ModelConsts) {
 
 	ChooseChallengeCommand.prototype.execute = function(data){
 		var json, that = this;
-		this.modelFacade.get(ModelConsts.CHALLENGE).setChallenge(data.selection);
+		console.log("ccc ", data.selection);
 		json = Defaults.getChallenge(data.selection);
 		this.eventDispatcher.trigger({"type":Events.REWIND});
 		this.modelFacade.setData(json);
