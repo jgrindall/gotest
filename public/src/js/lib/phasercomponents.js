@@ -813,7 +813,6 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 	SoundManager.prototype.fallback = function(a){
 		var that = this;
 		if(SoundManager.needsTags()){
-			window.alert("add sounds");
 			a.forEach(function(obj){
 				that.addTag(obj.key, obj.asset);
 			});
