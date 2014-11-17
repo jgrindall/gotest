@@ -52,7 +52,8 @@ module.exports = function(grunt) {
                     Phaser:true,
                     console:true,
                     PIXI:true,
-                    $:true
+                    $:true,
+                    _:true
                  }
             },
             all: ['public/src/js/app/**/*.js']
