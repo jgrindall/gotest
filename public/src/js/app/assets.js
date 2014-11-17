@@ -122,7 +122,7 @@ define(['app/consts/turtles'], function(Turtles){
 	];
 	
 	Assets.SOUNDFX = [
-		{"type":"sound", 		"asset":["assets/sound/click0.mp3", "assets/sound/click0.wav"], 				"key":Assets.SOUNDS[0]},
+		{"type":"sound", 		"asset":["assets/sound/click0.mp3", "assets/sound/click0.ogg", "assets/sound/click0.wav"], 				"key":Assets.SOUNDS[0]},
 		{"type":"sound", 		"asset":["assets/sound/click1.mp3", "assets/sound/click1.wav"], 				"key":Assets.SOUNDS[1]},
 		{"type":"sound", 		"asset":["assets/sound/swoosh0.mp3", "assets/sound/swoosh0.wav"], 				"key":Assets.SOUNDS[2]},
 		{"type":"sound", 		"asset":["assets/sound/swoosh1.mp3", "assets/sound/swoosh1.wav"], 				"key":Assets.SOUNDS[3]},

@@ -15,7 +15,9 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 			var onSuccess, obj;
 			onSuccess = this.idSelected.bind(this, options);
 			obj = {"onSelectImage": onSuccess, "background":options.background};
-			obj.additionalFolders = [{"label" : '2go turtles', "value" : '/2go/turtles'}];
+			if(options.additionalFolders){
+				obj.additionalFolders = [{"label" : '2go turtles', "value" : '/2go/turtles'}];
+			}
 			console.log("window.PMClipArtPicker is ", window.PMClipArtPicker);
 			console.log("options are ", obj);
 			if(window.PMClipArtPicker){
@@ -60,11 +62,13 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 
 		PurpleMashClipartAdapter.prototype.openBg = function(options){
 			options.background = true;
+			options.additionalFolders = false;
 			this.open(options);
 		};
 
 		PurpleMashClipartAdapter.prototype.openTurtle = function(options){
 			options.background = false;
+			options.additionalFolders = true;
 			this.open(options);
 		};
 
