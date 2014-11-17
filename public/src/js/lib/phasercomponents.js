@@ -665,8 +665,15 @@ define(
 		Injector.getInstance().injectInto(this, "keymanager");
 	};
 	
+	KeyManager.prototype.keyDown2 = function(event){
+		console.log("key 2!!", event);
+	};
+	
 	KeyManager.prototype.keyDown = function(event){
 		var code = event.keyCode, obj;
+		console.log("EVENT", event);
+		console.log(event.target);
+		console.log(event.currentTarget);
 		if(this.codes && this.codes.indexOf(code) >= 0){
 			event.stopPropagation();
 			event.preventDefault();
@@ -687,6 +694,7 @@ define(
 	KeyManager.prototype.startListening = function(){
 		if(this.codes.length >= 1){
 			$(document).on('keydown', this.keyDown.bind(this));
+			$("#game").on('keydown', this.keyDown2.bind(this));
 		}
 	};
 	
