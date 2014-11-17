@@ -798,7 +798,7 @@ define('phasercomponents/utils/soundmanager',[], function(){
 			s += "<source src='"+asset+"'/>";
 		});
 		s += "</audio><![endif]-->";
-		//["assets/sound/click0.ogg", "assets/sound/click0.wav"]
+		console.log("s is ", s);
 		$("body").append(s);
 	};
 
