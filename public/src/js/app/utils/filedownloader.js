@@ -168,6 +168,7 @@ define(['phasercomponents', 'filesaver',
 
 		FileDownloader.prototype.startDownload = function(){
 			var options = {"onrendered" : this.onRendered.bind(this)};
+			console.log("html2canvas", html2canvas);
 			if(html2canvas){
 				try{
 					html2canvas(document.body, options);
@@ -237,6 +238,7 @@ define(['phasercomponents', 'filesaver',
 		FileDownloader.prototype.onRendered = function(canvas){
 			this.canvas = canvas;
 			this.processing = false;
+			console.log("onRendered", canvas, this.flash, window.Blob, filesaver);
 			if(!this.flash){
 				if(canvas){
 					if(window.Blob && filesaver){
