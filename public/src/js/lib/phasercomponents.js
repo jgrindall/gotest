@@ -807,7 +807,6 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 			s += "<source src='"+asset+"'/>";
 		});
 		s += "</audio>";
-		window.alert("s is ", s);
 		$("body").append(s);
 	};
 
@@ -831,7 +830,12 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 	SoundManager.prototype.stopKey = function(key){
 		var sound;
 		if(SoundManager.isIE9()){
-			$("#"+this.getId(key)).pause();
+			try{
+				$("#"+this.getId(key))[0].pause();
+			}
+			catch(e){
+				console.log("ie9 error ", e);
+			}
 		}
 		else{
 			sound = this.sounds[key];
@@ -849,7 +853,12 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 		else{
 			this.stopKey(key);
 			if(SoundManager.isIE9()){
-				$("#"+this.getId(key)).play();
+				try{
+					$("#"+this.getId(key))[0].play();
+				}
+				catch(e){
+					console.log("ie9 error ", e);
+				}
 			}
 			else{
 				sound = this.sounds[key];
