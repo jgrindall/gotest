@@ -94,6 +94,11 @@ define('phasercomponents/utils/utils',[], function(){
 		return JSON.parse(JSON.stringify(json));
 	};
 
+	Utils.isIE = function() {
+  		var myNav = navigator.userAgent.toLowerCase();
+  		return (myNav.indexOf('msie') !== -1) ? parseInt(myNav.split('msie')[1]) : false;
+	};
+
 	Utils.isIos78 = function(){
 		var regexp7, regexp8, regexp9, regexp10, touch, match;
 		regexp7 = /iPad;.*CPU.*OS 7_\d/i;
@@ -767,7 +772,7 @@ define(
 });
 
 
-define('phasercomponents/utils/soundmanager',[], function(){
+define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], function(Utils){
 	
 	
 	
@@ -788,30 +793,47 @@ define('phasercomponents/utils/soundmanager',[], function(){
 	};
 
 	SoundManager.isIE9 = function(){
+		return Utils.isIE() === 9;
+	};
 
+	SoundManager.prototype.getId = function(key){
+		return "_2goaudio_"+key;
 	};
 
 	SoundManager.prototype.addTag = function(key, assets){
-		var s, id = "_2goaudio_"+key;
-		s = "<!--[if lt IE 9]><audio id='"+id+"'>";
+		var s, id = this.getId(key);
+		s = "<audio id='"+id+"'>";
 		assets.forEach(function(asset){
 			s += "<source src='"+asset+"'/>";
 		});
-		s += "</audio><![endif]-->";
-		console.log("s is ", s);
+		s += "</audio>";
+		window.alert.log("s is ", s);
 		$("body").append(s);
 	};
 
 	SoundManager.prototype.fallback = function(a){
 		var that = this;
-		a.forEach(function(obj){
-			that.addTag(obj.key, obj.asset);
-		});
+		if(SoundManager.isIE9()){
+			window.alert.log("add sounds");
+			a.forEach(function(obj){
+				that.addTag(obj.key, obj.asset);
+			});
+		}
 	};
 
 	SoundManager.prototype.stopAll = function(){
-		var key, sound;
+		var key;
 		for (key in this.sounds) {
+			this.stopKey(key);
+		}
+	};
+
+	SoundManager.prototype.stopKey = function(key){
+		var sound;
+		if(SoundManager.isIE9()){
+			$("#"+this.getId(key)).pause();
+		}
+		else{
 			sound = this.sounds[key];
 			if(sound && sound.isPlaying){
 				sound.stop();
@@ -825,12 +847,15 @@ define('phasercomponents/utils/soundmanager',[], function(){
 			this.stopAll();
 		}
 		else{
-			sound = this.sounds[key];
-			if(sound){
-				if(sound.isPlaying){
-					sound.stop();
+			this.stopKey(key);
+			if(SoundManager.isIE9()){
+				$("#"+this.getId(key)).play();
+			}
+			else{
+				sound = this.sounds[key];
+				if(sound){
+					sound.play("", 0, 0.5, false, true);
 				}
-				sound.play("", 0, 0.5, false, true);
 			}
 		}
 	};
