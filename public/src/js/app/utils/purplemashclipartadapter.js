@@ -4,7 +4,7 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 	function(PhaserComponents, AbstractClipartAdapter, ErrorCodes, Error){
 	
 		"use strict";
-		
+
 		var PurpleMashClipartAdapter = function(){
 			AbstractClipartAdapter.call(this);
 		};
@@ -15,6 +15,9 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 			var onSuccess, obj;
 			onSuccess = this.idSelected.bind(this, options);
 			obj = {"onSelectImage": onSuccess, "background":options.background};
+			obj.additionalFolders = [{"label" : '2go turtles', "value" : '/2go/turtles'}];
+			console.log("window.PMClipArtPicker is ", window.PMClipArtPicker);
+			console.log("options are ", obj);
 			if(window.PMClipArtPicker){
 				try{
 					new window.PMClipArtPicker(obj);
@@ -30,11 +33,14 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 
 		PurpleMashClipartAdapter.prototype.idSelected = function(options, id){
 			var src, that = this;
+			console.log("you selected an image");
+			console.log("window.ClipArtHelper is ", window.ClipArtHelper);
+			console.log("options is ", options , " \n and id is ", id);
 			if(window.ClipArtHelper){
 				try{
 					window.ClipArtHelper.getImage(id, function(data){
 						src = data.src;
-						//window.alert("src "+src.substring(0, 50)+"   " +that.isBase64(src));
+						console.log("getImage callback data is ", data);
 						if(that.isBase64(src)){
 							options.success(src);
 						}
