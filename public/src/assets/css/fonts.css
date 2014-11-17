@@ -1,5 +1,10 @@
 
-@font-face{
-    font-family: TooSimple;
-    src: url("../fonts/Trebuchet-MS.ttf") format('truetype');
+@font-face {
+	font-family: 'TooSimple';
+	src: url('../fonts/trebuchet.eot');
+	src: url('../fonts/Trebuchet-MS.woff') format('woff'),
+	     url('../fonts/Trebuchet-MS.ttf')  format('truetype')
 }
+
+
+
