@@ -151,7 +151,7 @@ define(['phasercomponents', 'filesaver',
 			pop.append("<div class='_2gofilenamebg'></div>");
 			box = $("<div class='_2gofilename'></div>");
 			box.append("<div class='_2gofilenameclose'></div>");
-			box.append("<input maxlength = '12' class='_2gofilenameinput' type='text'></input>");
+			box.append("<input maxlength = '12' class='_2go _2gofilenameinput' type='text'></input>");
 			box.append("<p class='_2gofilenametitle'>Download</p>");
 			box.append("<p class='_2gofilenameerror'>Please enter at least 3 characters</p>");
 			box.append("<p class='_2gofilenamemessage'>Please choose a filename</p>");
