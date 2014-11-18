@@ -59,6 +59,7 @@ PhaserComponents, ChallengeData, PlayingState){
 
 	Hotspots.prototype.explodeHotspotAt = function(i) {
 		var gfx, playingState;
+		window.alert("JG testing. Please ignore. Explode at " + i);
 		playingState = this.modelFacade.get(ModelConsts.PLAYING).get();
 		gfx = this.hotspots[i];
 		if(gfx){
