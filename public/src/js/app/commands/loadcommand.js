@@ -43,6 +43,7 @@ function(PhaserComponents, Events,
 			}
 			Error.show(this.alertManager, code);
 		}
+		this.eventDispatcher.dispatch({"type":PhaserComponents.Events.AppEvents.FORCE_RESIZE});
 	};
 	
   	return LoadCommand;

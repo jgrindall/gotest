@@ -260,6 +260,7 @@ function() {
 	AppEvents.RESIZE =				"app:resize";
 	AppEvents.ORIENT =				"app:orient";
 	AppEvents.KEY_UP =				"app:keyUp";
+	AppEvents.FORCE_RESIZE =		"app:forceResize";
 
   	return AppEvents;
 });
@@ -1192,9 +1193,13 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
 
     Context.prototype.removeListeners = function(){
         $(window).off("resize");
-        this.resizeHandler = null;
         $(window).off("orientationchange");
+        this.eventDispatcher.removeListener(AppEvents.FORCE_RESIZE, this.forceResizeHandler);
+        this.eventDispatcher.removeListener(AppEvents.CHANGE_SCENE, this.sceneHandler);
+        this.sceneHandler = null;
         this.orientHandler = null;
+        this.resizeHandler = null;
+        this.forceResizeHandler = null;
     };
 
     Context.prototype.addListeners = function(){
@@ -1204,6 +1209,15 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
         $(window).on("orientationchange", this.orientHandler);
         this.sceneHandler = this.onChangeScene.bind(this);
         this.eventDispatcher.addListener(AppEvents.CHANGE_SCENE, this.sceneHandler);
+        this.forceResizeHandler = this.forceResize.bind(this);
+        this.eventDispatcher.addListener(AppEvents.FORCE_RESIZE, this.forceResizeHandler);
+    };
+
+    Context.prototype.forceResize = function(){
+        var that = this;
+        setTimeout(function(){
+            that.onResize();
+        }, 200);
     };
 
     Context.prototype.onOrient = function(){
@@ -1266,8 +1280,6 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
 	};
 	
      Context.prototype.shutdown = function(){
-        this.eventDispatcher.removeListener(AppEvents.CHANGE_SCENE, this.sceneHandler);
-        this.sceneHandler = null;
         this.eventDispatcher.trigger({"type":AppEvents.PRE_SHUTDOWN});
         this.removeListeners();
         this.commandMap.destroy();
