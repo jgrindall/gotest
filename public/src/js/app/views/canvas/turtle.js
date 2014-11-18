@@ -37,6 +37,11 @@ function(Phaser, PhaserComponents,
 		}
 	};
 
+	Turtle.prototype.animate = function(){
+		var ie9 = (PhaserComponents.Utils.isIE() === 9);
+		return !ie9;
+	};
+
 	Turtle.prototype.onMoverUp = function() {
 		var pointer, localPoint;
 		pointer = this.game.input.activePointer;
@@ -50,7 +55,9 @@ function(Phaser, PhaserComponents,
 		this.removeMover();
 		this.mover = new Phaser.Sprite(this.game, 0, 0, Assets.MOVER);
 		this.mover.animations.add('play', [0, 1, 2, 3, 4], 12, true);
-		this.mover.animations.play('play');
+		if(this.animate()){
+			this.mover.animations.play('play');
+		}
 		this.mover.inputEnabled = true;
 		this.mover.input.useHandCursor = true;
 		this.mover.events.onInputUp.add(this.onMoverUp, this);
@@ -241,11 +248,15 @@ function(Phaser, PhaserComponents,
 	};
 	
 	Turtle.prototype.stopAnim = function() {
-		this.turtle.sprite.animations.stop('move');
+		if(this.animate()){
+			this.turtle.sprite.animations.stop('move');
+		}
 	};
 
 	Turtle.prototype.playAnim = function() {
-		this.turtle.sprite.animations.play('move');
+		if(this.animate()){
+			this.turtle.sprite.animations.play('move');
+		}
 	};
 
 	Turtle.prototype.move = function(p) {
