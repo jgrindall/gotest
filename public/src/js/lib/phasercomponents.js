@@ -94,6 +94,10 @@ define('phasercomponents/utils/utils',[], function(){
 		return JSON.parse(JSON.stringify(json));
 	};
 
+	Utils.useTagsForSound = function() {
+		return (Utils.isIE() === 9);
+	};
+
 	Utils.isIE = function() {
   		var myNav = navigator.userAgent.toLowerCase();
   		return (myNav.indexOf('msie') !== -1) ? parseInt(myNav.split('msie')[1]) : false;
@@ -792,10 +796,6 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 		
 	};
 
-	SoundManager.needsTags = function(){
-		return Utils.isIE() === 9;
-	};
-
 	SoundManager.prototype.getId = function(key){
 		return "_2goaudio_"+key;
 	};
@@ -812,7 +812,7 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 
 	SoundManager.prototype.fallback = function(a){
 		var that = this;
-		if(SoundManager.needsTags()){
+		if(Utils.useTagsForSound()){
 			a.forEach(function(obj){
 				that.addTag(obj.key, obj.asset);
 			});
@@ -840,7 +840,7 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 
 	SoundManager.prototype.stopKey = function(key){
 		var sound;
-		if(SoundManager.needsTags()){
+		if(Utils.useTagsForSound()){
 			this.stopTag(key);
 		}
 		else{
@@ -870,7 +870,7 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 		}
 		else{
 			this.stopKey(key);
-			if(SoundManager.needsTags()){
+			if(Utils.useTagsForSound()){
 				this.playTag(key);
 			}
 			else{
@@ -3335,7 +3335,7 @@ function(StepperButton, Utils){
 
 
 
-define('phasercomponents/preloader',['phaser'], function(Phaser){
+define('phasercomponents/preloader',['phaser', 'phasercomponents/utils/utils'], function(Phaser, Utils){
 	
 	
 	
@@ -3365,7 +3365,9 @@ define('phasercomponents/preloader',['phaser'], function(Phaser){
 			this.game.load.tilemap(key, asset, null, Phaser.Tilemap.TILED_JSON);
 		}
 		else if(type === "sound"){
-			this.game.load.audio(key, asset);
+			if(!Utils.useTagsForSound()){
+				this.game.load.audio(key, asset);
+			}
 		}
 	};
 	
