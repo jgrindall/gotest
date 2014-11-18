@@ -1,7 +1,6 @@
 
 @font-face {
 	font-family: 'TooSimple';
-	src: url('../fonts/trebuchet.eot?#iefix') format('embedded-opentype'), 
-	     url('../fonts/Trebuchet-MS.woff') format('woff'), 
+	src: url('../fonts/Trebuchet-MS.woff') format('woff'), 
 	     url('../fonts/Trebuchet-MS.ttf')  format('truetype')
 	}

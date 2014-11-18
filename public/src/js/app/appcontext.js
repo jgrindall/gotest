@@ -152,21 +152,25 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
     };
 
     AppContext.prototype.addSounds = function(){
-    	this.soundManager.add(Assets.SOUNDS[0], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[0]));
-    	this.soundManager.add(Assets.SOUNDS[1], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[1]));
-    	this.soundManager.add(Assets.SOUNDS[2], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[2]));
-    	this.soundManager.add(Assets.SOUNDS[3], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[3]));
-    	this.soundManager.add(Assets.SOUNDS[4], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[4]));
-    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[0], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[0]));
-    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[1], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[1]));
-    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[2], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[2]));
-    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[3], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[3]));
-    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[4], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[4]));
-    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[5], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[5]));
-    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[6], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[6]));
-    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[7], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[7]));
-    	this.soundManager.add(Assets.HELP_SOUND, new Phaser.Sound(this.gameManager.game, Assets.HELP_SOUND));
-    	this.soundManager.fallback(Assets.SOUNDFX);
+    	if(PhaserComponents.Utils.useTagsForSound()){
+    		this.soundManager.fallback(Assets.SOUNDFX);
+    	}
+    	else{
+	    	this.soundManager.add(Assets.SOUNDS[0], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[0]));
+	    	this.soundManager.add(Assets.SOUNDS[1], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[1]));
+	    	this.soundManager.add(Assets.SOUNDS[2], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[2]));
+	    	this.soundManager.add(Assets.SOUNDS[3], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[3]));
+	    	this.soundManager.add(Assets.SOUNDS[4], new Phaser.Sound(this.gameManager.game, Assets.SOUNDS[4]));
+	    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[0], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[0]));
+	    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[1], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[1]));
+	    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[2], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[2]));
+	    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[3], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[3]));
+	    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[4], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[4]));
+	    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[5], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[5]));
+	    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[6], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[6]));
+	    	this.soundManager.add(Assets.CHALLENGE_SOUNDS[7], new Phaser.Sound(this.gameManager.game, Assets.CHALLENGE_SOUNDS[7]));
+	    	this.soundManager.add(Assets.HELP_SOUND, new Phaser.Sound(this.gameManager.game, Assets.HELP_SOUND));
+    	}
     };
 
     AppContext.prototype.mapCommands = function(){
