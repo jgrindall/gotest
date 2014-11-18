@@ -276,9 +276,8 @@ FdCommand, StepLengths){
 	
 	Drawing.prototype.commandFinished = function() {
 		this.startPos = this.endPos;
-		var pos = this.turtle.getPos();
-		this.eventDispatcher.trigger({"type":Events.CHECK_CHALLENGE, "data":pos});
-		this.eventDispatcher.trigger({"type":Events.CHECK_POSITION, "data":this.startPos});
+		this.eventDispatcher.trigger({"type":Events.CHECK_CHALLENGE, "data":this.endPos});
+		this.eventDispatcher.trigger({"type":Events.CHECK_POSITION, "data":this.endPos});
 		this.modelFacade.get(ModelConsts.COMMTICKER).nextCommand();
 	};
 	

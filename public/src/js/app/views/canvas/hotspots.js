@@ -12,6 +12,7 @@ PhaserComponents, ChallengeData, PlayingState){
 	var Hotspots  = function(options){
 		this.hotspots = [];
 		this.tweens = [];
+		this.explodeTween = null;
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.CHALLENGE).changeSignal.add(this.onChallengeChange, this);
 		this.modelFacade.get(ModelConsts.CHALLENGE).hitSignal.add(this.onHit, this);
@@ -59,9 +60,9 @@ PhaserComponents, ChallengeData, PlayingState){
 
 	Hotspots.prototype.explodeHotspotAt = function(i) {
 		var gfx, playingState;
-		window.alert("JG testing. Please ignore. Explode at " + i);
 		playingState = this.modelFacade.get(ModelConsts.PLAYING).get();
 		gfx = this.hotspots[i];
+		//window.alert("JG testing. Please ignore. Explode at " + i + " "+ gfx + " "+playingState+" "+this.explodeTween);
 		if(gfx){
 			if(playingState === PlayingState.REPLAYING){
 				this.removeHotspotAt(i);

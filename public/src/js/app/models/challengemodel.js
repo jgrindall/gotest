@@ -59,7 +59,7 @@ function(PhaserComponents, ChallengeData,
 
 	ChallengeModel.prototype.verifyPoint = function(p){
 		var i, cPoint, challenges;
-		console.log("verify point ", p);
+		//window.alert("verify point "+ p.x+", "+p.y);
 		challenges = ChallengeData.TARGETS[this.get()];
 		if(challenges && challenges.length >=1 ){
 			for(i = 0; i < challenges.length; i++){
@@ -67,7 +67,7 @@ function(PhaserComponents, ChallengeData,
 				if(this.challengeHit(i, p, cPoint)){
 					this.hit[i] = true;
 					this.hitSignal.dispatch({"index":i});
-					console.log("hit! ", i);
+					//window.alert("hit! ", i);
 				}
 			}
 			this.checkAllHit();
