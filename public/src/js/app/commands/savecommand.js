@@ -30,7 +30,7 @@ function(PhaserComponents,
 		else{
 			Error.show(this.alertManager, ErrorCodes.SAVE_ERROR);
 		}
-		this.eventDispatcher.dispatch({"type":PhaserComponents.Events.AppEvents.FORCE_RESIZE});
+		this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.FORCE_RESIZE});
 	};
 	
   	return SaveCommand;
