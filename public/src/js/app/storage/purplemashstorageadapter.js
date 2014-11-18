@@ -16,8 +16,8 @@ function(PhaserComponents, ErrorCodes) {
 	PurpleMashStorageAdapter.FILTER_SAVE = 		'.2go';
 
 	PurpleMashStorageAdapter.prototype.loadDefaults = function(callback){
-		console.log("1window.AppVariables is ", window.AppVariables);
-		console.log("2window.AppVariables.getServerVars is ", window.AppVariables.getServerVars);
+		console.log("1 window.AppVariables is ", window.AppVariables);
+		console.log("2 window.AppVariables.getServerVars is ", window.AppVariables.getServerVars);
 		if(window.AppVariables && window.AppVariables.getServerVars){
 			console.log("load def ", callback);
 			window.AppVariables.getServerVars(this.onDefaultsLoaded.bind(this, callback));
@@ -28,9 +28,9 @@ function(PhaserComponents, ErrorCodes) {
 	};
 
 	PurpleMashStorageAdapter.prototype.onDefaultsLoaded = function(callback){
-		console.log("3window.AppVariables is ", window.AppVariables, callback);
+		console.log("3 window.AppVariables is ", window.AppVariables, callback);
 		var fullPath = window.AppVariables.get("fullPath");
-		console.log("4PM onDefaultsLoaded", fullPath);
+		console.log("4 PM onDefaultsLoaded ", fullPath);
 		if(fullPath){
 			this.getForKeyPath(fullPath, callback);
 		}
@@ -106,7 +106,7 @@ function(PhaserComponents, ErrorCodes) {
 			if(keyPath){
 				options.path = keyPath;
 			}
-			console.log("window.DocumentHandler.open options = ", options);
+			console.log("window.DocumentHandler.open options = ", JSON.stringify(options));
 			options.onOpen = this.onFileLoaded.bind(this, callback);
 			window.DocumentHandler.open(options);
 		}

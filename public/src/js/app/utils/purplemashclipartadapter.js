@@ -19,7 +19,7 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 				obj.additionalFolders = [{"label" : '2go turtles', "value" : '/2go/turtles'}];
 			}
 			console.log("window.PMClipArtPicker is ", window.PMClipArtPicker);
-			console.log("options are ", obj);
+			console.log("options are ", JSON.stringify(obj));
 			if(window.PMClipArtPicker){
 				try{
 					new window.PMClipArtPicker(obj);
