@@ -75,10 +75,10 @@ function(PhaserComponents, MainViewLayout, CanvasLayout){
 		}
 	};
 
-	NameView.prototype.scrollTop = function() {
-		setTimeout(function(){
-			window.scrollTo(0, 0);
-		}, 100);
+	NameView.prototype.scrollTop = function(e) {
+		window.alert("jg scroll "+e.target+" "+e.currentTarget);		
+		//e.stopPropagation();
+		//e.preventDefault();
 	};
 
 	NameView.prototype.onKeyDown = function(event) {
