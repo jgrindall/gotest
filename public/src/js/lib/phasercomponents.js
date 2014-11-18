@@ -1222,7 +1222,7 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
 
     Context.prototype.onOrient = function(){
         var that = this;
-        window.alert("onOrient");
+        //window.alert("onOrient");
         setTimeout(function(){
             that.gameManager.orient();
             that.eventDispatcher.trigger({"type":AppEvents.ORIENT});
@@ -1231,7 +1231,7 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
 
     Context.prototype.onResize = function(){
         var that = this;
-        window.alert("onResize");
+        //window.alert("onResize");
         setTimeout(function(){
             that.gameManager.resize();
             that.eventDispatcher.trigger({"type":AppEvents.RESIZE});
