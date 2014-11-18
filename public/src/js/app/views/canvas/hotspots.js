@@ -1,11 +1,11 @@
 
 define(['phaser', 'app/models/modelconsts', 'app/assets',
 
-	'phasercomponents', 'app/consts/challengedata'],
+	'phasercomponents', 'app/consts/challengedata', 'app/consts/playingstate'],
 
 function(Phaser, ModelConsts, Assets,
 
-PhaserComponents, ChallengeData){
+PhaserComponents, ChallengeData, PlayingState){
 	
 	"use strict";
 	
@@ -58,15 +58,21 @@ PhaserComponents, ChallengeData){
 	};
 
 	Hotspots.prototype.explodeHotspotAt = function(i) {
-		var gfx;
+		var gfx, playingState;
+		playingState = this.modelFacade.get(ModelConsts.PLAYING).get();
 		gfx = this.hotspots[i];
-		if(gfx && !this.explodeTween){
-			this.removeTweenAt(i);
-			this.exploding = i;
-			this.explodeTween = this.game.add.tween(gfx.scale).to( {'x':7 , 'y':7}, 250, Phaser.Easing.Linear.None, true, 0, false, false);
-			this.fadeTween = this.game.add.tween(gfx).to( {'alpha':0}, 250, Phaser.Easing.Linear.None, true, 0, false, false);
-			this.explodeTween.onComplete.add(this.onExploded, this);
-			this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":Assets.SOUNDS[4]});
+		if(gfx){
+			if(playingState === PlayingState.REPLAYING){
+				this.removeHotspotAt(i);
+			}
+			else if(!this.explodeTween){
+				this.removeTweenAt(i);
+				this.exploding = i;
+				this.explodeTween = this.game.add.tween(gfx.scale).to( {'x':7 , 'y':7}, 250, Phaser.Easing.Linear.None, true, 0, false, false);
+				this.fadeTween = this.game.add.tween(gfx).to( {'alpha':0}, 250, Phaser.Easing.Linear.None, true, 0, false, false);
+				this.explodeTween.onComplete.add(this.onExploded, this);
+				this.eventDispatcher.trigger({"type":PhaserComponents.Events.AppEvents.PLAY_SOUND, "data":Assets.SOUNDS[4]});
+			}
 			this.showNext(i);
 		}
 	};
