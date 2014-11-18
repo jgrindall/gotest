@@ -3368,6 +3368,9 @@ define('phasercomponents/preloader',['phaser', 'phasercomponents/utils/utils'], 
 			if(!Utils.useTagsForSound()){
 				this.game.load.audio(key, asset);
 			}
+			else{
+				this.fileLoaded();
+			}
 		}
 	};
 	
