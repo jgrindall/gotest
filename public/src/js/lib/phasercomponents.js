@@ -922,8 +922,9 @@ function(Phaser, Injector, AppEvents){
 	AlertManager.prototype.init = function(){
 		this.inject();
 		this.reOpenHandler = this.reOpen.bind(this);
+		this.orientHandler = this.close.bind(this);
 		this.eventDispatcher.addListener(AppEvents.RESIZE, this.reOpenHandler);
-		this.eventDispatcher.addListener(AppEvents.ORIENT, this.reOpenHandler);
+		this.eventDispatcher.addListener(AppEvents.ORIENT, this.orientHandler);
 	};
 
 	AlertManager.prototype.inject = function(){
@@ -1027,8 +1028,9 @@ function(Phaser, Injector, AppEvents){
 	AlertManager.prototype.destroy = function(){
 		this.close();
 		this.eventDispatcher.removeListener(AppEvents.RESIZE, this.reOpenHandler);
-		this.eventDispatcher.removeListener(AppEvents.ORIENT, this.reOpenHandler);
+		this.eventDispatcher.removeListener(AppEvents.ORIENT, this.orientHandler);
 		this.reOpenHandler = null;
+		this.orientHandler = this.close.bind(this);
 		Injector.getInstance().unInject(this);
 	};
 
