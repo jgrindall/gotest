@@ -12,7 +12,7 @@ function(PhaserComponents, ErrorCodes) {
 
 	PurpleMashStorageAdapter.THUMB = 			'/css/pmfilebrowser/2go.png';
 	PurpleMashStorageAdapter.FILTER_SEP =		',';
-	PurpleMashStorageAdapter.FILTER_LOAD = 		['.2go','.0pa'].join(PurpleMashStorageAdapter.FILTER_SEP);
+	PurpleMashStorageAdapter.FILTER_LOAD = 		['.2go','.0go'].join(PurpleMashStorageAdapter.FILTER_SEP);
 	PurpleMashStorageAdapter.FILTER_SAVE = 		'.2go';
 
 	PurpleMashStorageAdapter.prototype.loadDefaults = function(callback){
