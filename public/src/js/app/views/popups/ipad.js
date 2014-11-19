@@ -34,7 +34,7 @@ Assets){
 
 	IPad.prototype.addImage = function () {
 		var x, y;
-		window.alert(this.game.w+", "+this.game.h+", "+$("body").width()+", "+$("body").height());
+		window.alert($(window).width()+", "+ $(window).height()+", "+this.game.w+", "+this.game.h+", "+$("body").width()+", "+$("body").height());
 		x = ($("body").height() - IPad.WIDTH)/2;
 		y = ($("body").width() - IPad.HEIGHT)/2;
 		this.panel = new Phaser.Sprite(this.game, x, y, Assets.IPAD);
