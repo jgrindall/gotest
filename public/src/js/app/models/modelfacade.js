@@ -244,7 +244,6 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 	};
 
 	ModelFacade.prototype.setData = function(json){
-		console.log("MF setData", json);
 		this.screenModel.set(json.settings.screen);
 		this.colorModel.set(json.settings.color, {"force":true});
 		this.speedModel.set(json.settings.speed);

@@ -23,7 +23,7 @@ require(['phaser'], function(Phaser){
 				"minWidth":940, 
 				"minHeight":620, 
 				"maxWidth":1280,
-				"maxHeight":960 
+				"maxHeight":970 
 			};
 			var app = new AppContext(options);
 			app.start();

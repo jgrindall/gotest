@@ -6,7 +6,6 @@ function(PhaserComponents, Events){
 	"use strict";
 		
 	var ImgView = function(data){
-		console.log("ImgView, ", data);
 		this.data = data;
 		this.body = $("body");
 		PhaserComponents.Injector.getInstance().injectInto(this, "imgview");

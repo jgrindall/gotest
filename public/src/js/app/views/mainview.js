@@ -249,7 +249,6 @@ Assets, ShowDirections, ModelConsts){
 	};
 
 	MainView.prototype.destroy = function() {
-		console.log("destroy mainview");
 		this.eventDispatcher.removeListener(Events.CLOSE_IMG, this.closeHandler);
 		this.closeHandler = null;
 		this.eventDispatcher.removeListener(Events.IMG_CAPTURED, this.imgHandler);

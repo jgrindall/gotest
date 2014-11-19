@@ -16,10 +16,7 @@ function(PhaserComponents, ErrorCodes) {
 	PurpleMashStorageAdapter.FILTER_SAVE = 		'.2go';
 
 	PurpleMashStorageAdapter.prototype.loadDefaults = function(callback){
-		console.log("1 window.AppVariables is ", window.AppVariables);
-		console.log("2 window.AppVariables.getServerVars is ", window.AppVariables.getServerVars);
 		if(window.AppVariables && window.AppVariables.getServerVars){
-			console.log("load def ", callback);
 			window.AppVariables.getServerVars(this.onDefaultsLoaded.bind(this, callback));
 		}
 		else{
@@ -28,9 +25,7 @@ function(PhaserComponents, ErrorCodes) {
 	};
 
 	PurpleMashStorageAdapter.prototype.onDefaultsLoaded = function(callback){
-		console.log("3 window.AppVariables is ", window.AppVariables, callback);
 		var fullPath = window.AppVariables.get("fullPath");
-		console.log("4 PM onDefaultsLoaded ", fullPath);
 		if(fullPath){
 			this.getForKeyPath(fullPath, callback);
 		}
@@ -56,10 +51,10 @@ function(PhaserComponents, ErrorCodes) {
 
 	PurpleMashStorageAdapter.prototype.onFileSaved = function(callback, result){
 		callback({"success":true, "data":result});
+		window.scrollTo(0,0);
 	};
 
 	PurpleMashStorageAdapter.prototype.onFileLoaded = function(callback, result){
-		console.log("1 onFileLoaded result is ", result);
 		var data;
 		try{
 			if (result.path && result.path.substr(result.path.length - 4) === ".0go") {
@@ -71,21 +66,14 @@ function(PhaserComponents, ErrorCodes) {
 			}
 			else{
 				if((typeof result) === 'string'){
-					console.log("1parse string");
 					result = JSON.parse(result);
 				}
 				data = result.data;
-				console.log("2 onFileLoaded result is ", result);
-				console.log("3 onFileLoaded data is ", data);
 				if((typeof data) === 'string'){
-					console.log("2parse string");
 					data = JSON.parse(data);
 				}
-				console.log("4 onFileLoaded data is ", data);
 				if(data){
-					console.log("5 onFileLoaded data is ", data, callback);
 					callback({'success':true, 'response':data});
-					console.log("done");
 				}
 				else{
 					callback({'success':false, 'response':null});
@@ -95,6 +83,7 @@ function(PhaserComponents, ErrorCodes) {
 		catch(e){
 			callback({'success':false, 'response':null});
 		}
+		window.scrollTo(0,0);
 	};
 
 	PurpleMashStorageAdapter.prototype.getForKeyPath = function(keyPath, callback){
@@ -106,7 +95,6 @@ function(PhaserComponents, ErrorCodes) {
 			if(keyPath){
 				options.path = keyPath;
 			}
-			console.log("window.DocumentHandler.open options = ", JSON.stringify(options));
 			options.onOpen = this.onFileLoaded.bind(this, callback);
 			window.DocumentHandler.open(options);
 		}

@@ -41,7 +41,6 @@ function(PhaserComponents, Events,
 	};
 
 	StartUpCommand.prototype.loadFile = function(data){
-		console.log("loadFile!!", data);
 		var that = this;
 		this.toActivity();
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
@@ -52,10 +51,8 @@ function(PhaserComponents, Events,
 	};
 
 	StartUpCommand.prototype.onDefaultsLoaded = function(data){
-		console.log("onDefaultsLoaded", data);
 		if(data.success){
 			if(data.response){
-				console.log("loadFile", data.response);
 				this.loadFile(data.response);
 			}
 			else{

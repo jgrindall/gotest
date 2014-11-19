@@ -18,8 +18,6 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 			if(options.additionalFolders){
 				obj.additionalFolders = [{"label" : '2go turtles', "value" : '/2go/turtles'}];
 			}
-			console.log("window.PMClipArtPicker is ", window.PMClipArtPicker);
-			console.log("options are ", JSON.stringify(obj));
 			if(window.PMClipArtPicker){
 				try{
 					new window.PMClipArtPicker(obj);
@@ -35,14 +33,10 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 
 		PurpleMashClipartAdapter.prototype.idSelected = function(options, id){
 			var src, that = this;
-			console.log("you selected an image");
-			console.log("window.ClipArtHelper is ", window.ClipArtHelper);
-			console.log("options is ", options , " \n and id is ", id);
 			if(window.ClipArtHelper){
 				try{
 					window.ClipArtHelper.getImage(id, function(data){
 						src = data.src;
-						console.log("getImage callback data is ", data);
 						if(that.isBase64(src)){
 							options.success(src);
 						}
@@ -54,10 +48,12 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 				catch(e){
 					Error.show(this.alertManager, ErrorCodes.PM_CLIPART_HELPER_ERROR);
 				}
+				window.scrollTo(0,0);
 			}
 			else{
 				Error.show(this.alertManager, ErrorCodes.NO_CLIPART_HELPER);
 			}
+			window.scrollTo(0,0);
 		};
 
 		PurpleMashClipartAdapter.prototype.openBg = function(options){
