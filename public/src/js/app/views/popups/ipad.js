@@ -50,8 +50,8 @@ Assets){
 
 	IPad.prototype.addBg = function () {
 		this.bg = new Phaser.Graphics(this.game, 0, 0);
-		this.bg.beginFill(0xff0000);
-		this.bg.alpha = 1;
+		this.bg.beginFill(0x000000);
+		this.bg.alpha = 0.96;
     	this.bg.drawRect(0, 0, this.game.w + 100, this.game.h + 100);
     	//window.alert(this.game.w+", "+this.game.h);
     	this.bg.endFill();
