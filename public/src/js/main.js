@@ -6,9 +6,7 @@ require.config({
 		'phaser': 						'lib/phaser',
 		'phaserstatetrans': 			'lib/phaser-state-transition.min',
 		'phasercomponents':  			'lib/phasercomponents',
-		'filesaver':  					'lib/filesaver',
-		'downloadify':  				'lib/downloadify.min',
-		'swfobject':  					'lib/swfobject'
+		'filesaver':  					'lib/filesaver'
 	}
 });
 
