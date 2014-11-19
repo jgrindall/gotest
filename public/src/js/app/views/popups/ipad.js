@@ -34,6 +34,9 @@ Assets){
 
 	IPad.prototype.addImage = function () {
 		var x, y;
+		
+		window.alert("game width = "+this.game.w+"  game height = "+this.game.h+"  body height "+$("body").height()+"   body width"+$("body").width());
+
 		x = (this.game.w - IPad.WIDTH)/2;
 		y = (this.game.h - IPad.HEIGHT)/2;
 		this.panel = new Phaser.Sprite(this.game, x, y, Assets.IPAD);
