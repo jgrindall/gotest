@@ -16,6 +16,7 @@ app.get('/container', function(req, res) {
 });
 
 app.get('/src', function(req, res) {
+	console.log("src");
 	app.render(res, "public/src/index.html");
 });
 

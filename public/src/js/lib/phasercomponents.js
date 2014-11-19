@@ -341,6 +341,7 @@ function(Phaser, PhaserStateTrans,
 		this.game.worldScale = Math.max(worldScaleX, worldScaleY);
 		this.game.w = w/this.game.worldScale;
 		this.game.h = h/this.game.worldScale;
+		//window.alert("makeGame "+w+" "+h+" "+this.game.worldScale+" "+this.game.w+" "+this.game.h);
 		this.game.cx = this.game.w/2;
 		this.game.cy = this.game.h/2;
 		this.scaleWorld();
@@ -388,7 +389,7 @@ function(Phaser, PhaserStateTrans,
 	};
 
 	GameManager.prototype.getAvailableSize = function(){
-		var w, h, top, doc, ios78, touch, mini;
+		var w, h, top, doc, ios78, touch, mini, air;
 		doc = document.documentElement;
 		top = (window.pageYOffset || doc.scrollTop)  - (doc.clientTop || 0);
 		this.stopScrollBars();
@@ -398,11 +399,23 @@ function(Phaser, PhaserStateTrans,
 		ios78 = Utils.isIos78();
 		touch = Utils.isTouch();
 		mini = this.isMini();
+		air = this.isAir();
+		//window.alert("air 26 "+air+" "+w+", "+h);
 		if(mini){
 			h -= 26;
 		}
+		else if(air){
+			h -= 20;
+		}
 		h -= this.options.paddingBottom;
 		return {"w":w, "h":h};
+	};
+
+	GameManager.prototype.isAir = function(){
+		var w, h;
+		w = this.body.width();
+		h = this.body.height();
+		return (Utils.isTouch() && Utils.isIos78() && w === 1024 && h === 692);
 	};
 
 	GameManager.prototype.isMini = function(){

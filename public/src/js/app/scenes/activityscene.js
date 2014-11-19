@@ -18,7 +18,7 @@ Events, MainView, Assets, ChallengeView){
 	PhaserComponents.Utils.extends(ActivityScene, InteractiveScene);
 
 	ActivityScene.prototype.startScene = function(){
-		$("html").css("background", "#202020");
+		$("html").css("background", "#ffffff");
 	};
 
 	ActivityScene.prototype.preload = function(){
