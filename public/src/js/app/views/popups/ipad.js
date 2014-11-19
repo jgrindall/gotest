@@ -34,9 +34,9 @@ Assets){
 
 	IPad.prototype.addImage = function () {
 		var x, y;
-		window.alert($(window).width()+", "+ $(window).height()+", "+this.game.w+", "+this.game.h+", "+$("body").width()+", "+$("body").height());
-		x = ($("body").height() - IPad.WIDTH)/2;
-		y = ($("body").width() - IPad.HEIGHT)/2;
+		//window.alert($(window).width()+", "+ $(window).height()+", "+this.game.w+", "+this.game.h+", "+$("body").width()+", "+$("body").height());
+		x = ($(window).width() - IPad.WIDTH)/2;
+		y = ($(window).height() - IPad.HEIGHT)/2;
 		this.panel = new Phaser.Sprite(this.game, x, y, Assets.IPAD);
 		this.group.add(this.panel);
 	};
@@ -53,7 +53,7 @@ Assets){
 		this.bg = new Phaser.Graphics(this.game, 0, 0);
 		this.bg.beginFill(0x000000);
 		this.bg.alpha = 0.96;
-    	this.bg.drawRect(0, 0, this.game.w + 100, this.game.h + 100);
+    	this.bg.drawRect(0, 0, this.game.w, this.game.h);
     	//window.alert(this.game.w+", "+this.game.h);
     	this.bg.endFill();
 		this.group.add(this.bg);	
