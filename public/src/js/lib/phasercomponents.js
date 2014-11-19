@@ -1008,6 +1008,7 @@ function(Phaser, Injector, AppEvents){
 		if(this.alert.disableOnShow()){
 			this.eventDispatcher.trigger({"type":AppEvents.ALERT_SHOWN, "shown":true});
 		}
+		window.scrollTo(0,0);
 	};
 
 	AlertManager.prototype.buttonClick = function(callback, data){
