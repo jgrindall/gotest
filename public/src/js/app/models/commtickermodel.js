@@ -14,6 +14,7 @@ function(Phaser, PhaserComponents, Events){
 		this.startNum = 0;
 		this.commandNum = 0;
 		this.duration = 0;
+		this.pauseTimeOut = null;
 		this.executeSignal = new Phaser.Signal();
 		this.resetSignal = new Phaser.Signal();
 		PhaserComponents.Model.AbstractModel.call(this);
@@ -29,7 +30,7 @@ function(Phaser, PhaserComponents, Events){
 			this.dispatch(data);
 		}
 		else{
-			setTimeout(function(){
+			this.pauseTimeOut = setTimeout(function(){
 				that.dispatch(data);
 			}, that.duration/2);
 		}
@@ -57,11 +58,17 @@ function(Phaser, PhaserComponents, Events){
 	};
 
 	CommTickerModel.prototype.stop = function(){
+		if(this.pauseTimeOut){
+			clearTimeout(this.pauseTimeOut);
+		}
 		this.commandProvider.removeNext(this.commandNum);
 	};
 
 	CommTickerModel.prototype.reset = function(){
 		this.commandNum = 0;
+		if(this.pauseTimeOut){
+			clearTimeout(this.pauseTimeOut);
+		}
 		this.resetSignal.dispatch();
 		this.trigger();
 	};
