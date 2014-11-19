@@ -400,12 +400,12 @@ function(Phaser, PhaserStateTrans,
 		touch = Utils.isTouch();
 		mini = this.isMini();
 		air = this.isAir();
-		window.alert("check "+this.body.width()+", "+this.body.height()+"  "+mini+"  "+air);
+		//window.alert("check "+this.body.width()+", "+this.body.height()+"  "+mini+"  "+air);
 		/*
 		These iPads have an anmnoying ever-present bar under the address bar, the iPad2does not.
 		*/
 		if(mini){
-			h -= 26;
+			h -= 24;
 		}
 		else if(air){
 			h -= 20;
