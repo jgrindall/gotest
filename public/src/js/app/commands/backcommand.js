@@ -13,11 +13,11 @@ function(PhaserComponents) {
 	PhaserComponents.Utils.extends(BackCommand, PhaserComponents.Commands.AbstractCommand);
 
 	BackCommand.prototype.execute = function(){
-		if(window.pmConfirm && window._T){
+		if(window.closeApplication && window.pmConfirm && window._T){
 			window.pmConfirm({
     			text: window._T('Are you sure you want to exit this program') + '?',
     			title: window._T('Exit') + "?",
-    			onOk: closeApplication,
+    			onOk: window.closeApplication,
     			useNodder: true,
     			width: "250",
     			className: "codeDialog"
