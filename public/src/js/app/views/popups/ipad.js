@@ -53,7 +53,7 @@ Assets){
 		this.bg.beginFill(0xff0000);
 		this.bg.alpha = 1;
     	this.bg.drawRect(0, 0, this.game.w + 100, this.game.h + 100);
-    	window.alert(this.game.w+", "+this.game.h);
+    	//window.alert(this.game.w+", "+this.game.h);
     	this.bg.endFill();
 		this.group.add(this.bg);	
 	};

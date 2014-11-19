@@ -18,8 +18,8 @@ function(PhaserComponents, Help) {
 			window.PMVideo.launch(args, options);
 		}
 		else{
-			console.log("window.PMVideo is "+window.PMVideo);
-			console.log("window.PMVideo.launch is "+window.PMVideo.launch);
+			//console.log("window.PMVideo is "+window.PMVideo);
+			//console.log("window.PMVideo.launch is "+window.PMVideo.launch);
 		}
 	};
 	
