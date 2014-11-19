@@ -851,7 +851,7 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 			}
 		}
 		catch(e){
-			console.log("tag error ", e);
+			//console.log("tag error ", e);
 		}
 	};
 
@@ -876,7 +876,7 @@ define('phasercomponents/utils/soundmanager',['phasercomponents/utils/utils'], f
 			}
 		}
 		catch(e){
-			console.log("tag error ", e);
+			//console.log("tag error ", e);
 		}
 	};
 
@@ -2932,7 +2932,7 @@ define(
 
 	Scene.prototype.rescale = function(){
 		if(this.group){
-			console.log("scale world to ", this.game.worldScale);
+			//console.log("scale world to ", this.game.worldScale);
 			//this.group.scale = {'x':this.game.worldScale, 'y':this.game.worldScale};
 		}
 	};
