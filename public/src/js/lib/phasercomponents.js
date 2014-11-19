@@ -422,10 +422,12 @@ function(Phaser, PhaserStateTrans,
 	};
 
 	GameManager.prototype.isMini = function(){
-		var w, h;
+		var w, h, mini1, mini2;
 		w = this.body.width();
 		h = this.body.height();
-		return (Utils.isTouch() && Utils.isIos78() && w === 980 && h === 662);
+		mini1 = (w === 980 && h === 662);
+		mini2 = (w === 1024 && h === 692) || (w === 1024 && h === 691);
+		return (Utils.isTouch() && Utils.isIos78() && (mini1 || mini2));
 	};
 
 	GameManager.prototype.getSizeFit = function(){
