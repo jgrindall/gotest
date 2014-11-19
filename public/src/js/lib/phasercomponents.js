@@ -401,6 +401,9 @@ function(Phaser, PhaserStateTrans,
 		mini = this.isMini();
 		air = this.isAir();
 		//window.alert("air 26 "+air+" "+w+", "+h);
+		/*
+		These iPads have an anmnoying ever-present bar under the address bar, the iPad2does not.
+		*/
 		if(mini){
 			h -= 26;
 		}
@@ -962,6 +965,7 @@ function(Phaser, Injector, AppEvents){
 				callback();
 			}
 		}
+		window.scrollTo(0,0);
 	};
 	
 	AlertManager.prototype.redrawBg = function(){
