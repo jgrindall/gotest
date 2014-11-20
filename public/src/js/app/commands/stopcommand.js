@@ -1,8 +1,8 @@
 define(
 
-	['app/models/modelconsts', 'phasercomponents'],
+	['app/models/modelconsts', 'phasercomponents', 'app/consts/playingstate'],
 
-function(ModelConsts,  PhaserComponents) {
+function(ModelConsts,  PhaserComponents, PlayingState) {
 	
 	"use strict";
 	
@@ -13,6 +13,7 @@ function(ModelConsts,  PhaserComponents) {
 	PhaserComponents.Utils.extends(StopCommand, PhaserComponents.Commands.AbstractCommand);
 
 	StopCommand.prototype.execute = function(){
+		this.modelFacade.get(ModelConsts.PLAYING).set(PlayingState.NOT_PLAYING);
 		this.modelFacade.get(ModelConsts.COMMTICKER).stop();
 	};
 	
