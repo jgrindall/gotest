@@ -3389,6 +3389,7 @@ define('phasercomponents/preloader',['phaser', 'phasercomponents/utils/utils'], 
 	Preloader.prototype.loadNext = function(){
 		var obj, type, key, asset;
 		obj = this.assets[this.numLoaded];
+		console.log("LOAD: " + JSON.stringify(obj));
 		type = obj.type;
 		key = obj.key;
 		asset = obj.asset;
