@@ -3389,7 +3389,6 @@ define('phasercomponents/preloader',['phaser', 'phasercomponents/utils/utils'], 
 	Preloader.prototype.loadNext = function(){
 		var obj, type, key, asset;
 		obj = this.assets[this.numLoaded];
-		console.log("LOAD: " + JSON.stringify(obj));
 		type = obj.type;
 		key = obj.key;
 		asset = obj.asset;
@@ -3400,7 +3399,7 @@ define('phasercomponents/preloader',['phaser', 'phasercomponents/utils/utils'], 
 			this.game.load.image(key, asset);
 		}
 		else if(type === "spritesheet"){
-			this.game.load.spritesheet(key, asset, obj.w, obj.h);
+			this.game.load.spritesheet(key, asset, obj.w, obj.h, obj.frameMax || -1);
 		}
 		else if(type === "tilemap"){
 			this.game.load.tilemap(key, asset, null, Phaser.Tilemap.TILED_JSON);
