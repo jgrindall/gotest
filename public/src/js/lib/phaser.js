@@ -45171,11 +45171,16 @@ Phaser.AnimationParser = {
 
             x += frameWidth + spacing;
 
-            if (x + frameWidth > width)
-            {
-                x = margin;
-                y += frameHeight + spacing;
-            }
+            var newx = x;
+            
+            // added jgrindall
+			if (x + frameWidth > width)
+			{
+				newx = margin;
+				y += frameHeight + spacing;
+			}
+			x = newx;
+			// end added jgrindall
         }
 
         return data;
