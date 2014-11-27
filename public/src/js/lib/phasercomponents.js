@@ -95,7 +95,7 @@ define('phasercomponents/utils/utils',[], function(){
 	};
 
 	Utils.useTagsForSound = function() {
-		return (Utils.isIE() === 9);
+		return (Utils.isIE() === 9 || Utils.isIE() === 10);
 	};
 
 	Utils.isIE = function() {
