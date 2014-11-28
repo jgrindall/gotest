@@ -11,7 +11,7 @@ define(['app/assets'], function(Assets) {
 
 	ChallengeData.MESSAGES = [];
 	ChallengeData.MESSAGES.push("Guide the fish to the treasure chest");
-	ChallengeData.MESSAGES.push("Drive the car to bank, and then to the hospital");
+	ChallengeData.MESSAGES.push("Drive the car to the bank, and then to the hospital");
 	ChallengeData.MESSAGES.push("Visit the four island ports in order and\nthen go to the lighthouse");
 	ChallengeData.MESSAGES.push("Get little red riding hood to\nGranny's cottage. Don't get\neaten on the way");
 	ChallengeData.MESSAGES.push("Make the bee visit both of the poppies");
