@@ -38,9 +38,8 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.animate = function(){
-		return false;
-		//var ie9 = (PhaserComponents.Utils.isIE() === 9);
-		//return !ie9;
+		var ie9 = (PhaserComponents.Utils.isIE() === 9);
+		return !ie9;
 	};
 
 	Turtle.prototype.onMoverUp = function() {
