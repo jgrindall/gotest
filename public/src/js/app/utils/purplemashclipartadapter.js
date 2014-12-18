@@ -33,14 +33,14 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 
 		PurpleMashClipartAdapter.prototype.idSelected = function(options, id){
 			var src, that = this;
-			console.log("PurpleMash - you selected id ", id);
+			//console.log("PurpleMash - you selected id ", id);
 			if(window.ClipArtHelper){
 				try{
 					window.ClipArtHelper.getImage(id, function(data){
-						console.log("PurpleMash - you got data ", data);
+						//console.log("PurpleMash - you got data ", data);
 						src = data.src;
 						if(that.isBase64(src)){
-							console.log("its base 64, load it");
+							//console.log("its base 64, load it");
 							options.success(src);
 						}
 						else{
@@ -92,19 +92,19 @@ define(['phasercomponents', 'app/utils/abstractclipartadapter', 'app/utils/error
 
 		PurpleMashClipartAdapter.prototype.imgUrlToBase64 = function(url, options){
     		var canvas, context, img;
-    		console.log("get base64 for url ", url);
+    		//console.log("get base64 for url ", url);
     		canvas = document.createElement('canvas');
         	context = canvas.getContext('2d');
         	img = new Image();
    			img.crossOrigin = 'Anonymous';
    			img.onload = function(){
-   				console.log("imgUrlToBase64 loaded");
+   				//console.log("imgUrlToBase64 loaded");
         		var dataURL;
 	        	canvas.height = img.height;
 	        	canvas.width = img.width;
 	        	context.drawImage(img, 0, 0);
 	        	dataURL = canvas.toDataURL("image/png");
-	        	console.log("got base64 from canvas url ", dataURL);
+	        	//console.log("got base64 from canvas url ", dataURL);
 	        	//window.alert("imgUrlToBase64 dataURL "+dataURL.substring(0,50));
 	        	options.success(dataURL);
    	 		};
