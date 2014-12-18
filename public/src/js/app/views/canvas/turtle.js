@@ -38,7 +38,7 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.animate = function(){
-		return true;
+		return false;
 		//var ie9 = (PhaserComponents.Utils.isIE() === 9);
 		//return !ie9;
 	};
@@ -167,7 +167,9 @@ function(Phaser, PhaserComponents,
 		bounds = {'x':0, 'y':0};
 		this.removeTurtle();
 		this.turtle = new PhaserComponents.Display.InteractiveSprite({"bounds":bounds, "numFrames":numFrames, "asset":key});
-		this.turtle.sprite.animations.add('move', this.getFrames(numFrames), 24, true);
+		if(this.animate()){
+			this.turtle.sprite.animations.add('move', this.getFrames(numFrames), 24, true);
+		}
 		this.group.add(this.turtle.view);
 		this.turtle.view.anchor.setTo(0.5, 0.5);
 		this.turtle.view.mask = this.mask;
