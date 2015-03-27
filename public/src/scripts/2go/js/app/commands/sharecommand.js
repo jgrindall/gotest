@@ -16,12 +16,7 @@ function(PhaserComponents,
 
 	ShareCommand.prototype.execute = function(){
 		var json;
-		console.log(this.modelFacade);
-		console.log(this.modelFacade.getJson);
 		json = this.modelFacade.getJson();
-		console.log(json);
-		console.log(this.storage);
-		console.log(this.storage.shareForKeyPath);
 		this.storage.shareForKeyPath(null, json, this.onSaved.bind(this));
 	};
 	
