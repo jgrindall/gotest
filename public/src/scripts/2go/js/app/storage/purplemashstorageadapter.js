@@ -40,6 +40,7 @@ function(PhaserComponents, ErrorCodes) {
 			options = {};
 			options.data = JSON.stringify(data);
 			window.DocumentHandler.share(options);
+			callback({"success":true});
 		}
 		else{
 			callback({"success":false, "data":null});
