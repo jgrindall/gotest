@@ -68,7 +68,7 @@ module.exports = function(grunt) {
                     removeCombined: true,
                     include: ['main'],
                     findNestedDependencies: true,
-                    optimize: "uglify",
+                    optimize: "none",
                     paths: {
                         'html2canvas':                  'lib/html2canvas',
                         'phaser': 			            'lib/phaser',
