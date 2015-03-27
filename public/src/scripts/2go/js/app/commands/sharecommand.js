@@ -9,10 +9,10 @@ function(PhaserComponents,
 	"use strict";
 	
 	var ShareCommand = function(){
-		ShareCommand.Commands.AbstractCommand.call(this);
+		PhaserComponents.Commands.AbstractCommand.call(this);
 	};
 	
-	ShareCommand.Utils.extends(ShareCommand, PhaserComponents.Commands.AbstractCommand);
+	PhaserComponents.Utils.extends(ShareCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ShareCommand.prototype.execute = function(){
 		var json = this.modelFacade.getJson();
