@@ -28,8 +28,8 @@ define(['phasercomponents',
 		};
 
 		PurpleMashTranslatorService.prototype.init = function(data, callback){
-			this._translate = 			window.T.getTranslateFuction(TranslationConsts.SHEET_NAME);
-			this._defaultTranslate = 	window.T.getTranslateFuction(TranslationConsts.DEFAULT_SHEET_NAME);
+			this._translate = 			window.T.getTranslateFunction(TranslationConsts.SHEET_NAME);
+			this._defaultTranslate = 	window.T.getTranslateFunction(TranslationConsts.DEFAULT_SHEET_NAME);
 			callback();
 		};
 
