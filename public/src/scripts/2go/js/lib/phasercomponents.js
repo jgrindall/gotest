@@ -719,6 +719,17 @@ function(LocalStorageAdapter){
 		});
 	};
 
+	Storage.prototype.shareForKeyPath = function(keyPath, dataToShare, callback){
+		this.adapter.shareForKeyPath(keyPath, dataToShare, function(data){
+			if(data.success){
+				callback({"success": true});
+			}
+			else{
+				callback({"success": false});
+			}
+		});
+	};
+
 	Storage.prototype.getForKeyPath = function(keyPath, callback){
 		this.adapter.getForKeyPath(keyPath, function(data){
 			if(data.success){
