@@ -733,7 +733,7 @@ function(LocalStorageAdapter){
 	Storage.prototype.getForKeyPath = function(keyPath, callback){
 		this.adapter.getForKeyPath(keyPath, function(data){
 			if(data.success){
-				callback({"success":true, "response":data.response});
+				callback({"success":true, "response":data.response, 'hide':data.hide});
 			}
 			else{
 				callback({"success":false});
