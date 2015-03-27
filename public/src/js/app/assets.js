@@ -7,7 +7,7 @@ define(['app/consts/turtles'], function(Turtles){
 		
 	};
 
-	Assets.BASE_PATH =				"scripts/2go/assets/";
+	Assets.BASE_PATH =				"/scripts/2go/assets/";
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3'];
