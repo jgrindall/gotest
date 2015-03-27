@@ -15,7 +15,10 @@ function(PhaserComponents,
 	PhaserComponents.Utils.extends(ShareCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ShareCommand.prototype.execute = function(){
-		var json = this.modelFacade.getJson();
+		var json;
+		console.log(this.modelFacade);
+		console.log(this.modelFacade.getJson);
+		json = this.modelFacade.getJson();
 		console.log(this.modelFacade, json, this.storage, this.onSaved);
 		this.storage.shareForKeyPath(null, json, this.onSaved.bind(this));
 	};
@@ -30,4 +33,3 @@ function(PhaserComponents,
 });
 
 
-	
