@@ -19,7 +19,9 @@ function(PhaserComponents,
 		console.log(this.modelFacade);
 		console.log(this.modelFacade.getJson);
 		json = this.modelFacade.getJson();
-		console.log(this.modelFacade, json, this.storage, this.onSaved);
+		console.log(json);
+		console.log(this.storage);
+		console.log(this.storage.shareForKeyPath);
 		this.storage.shareForKeyPath(null, json, this.onSaved.bind(this));
 	};
 	
