@@ -57,11 +57,6 @@ PlayingState, ModelConsts){
 		}
 	};
 
-	// HERE
-options.data = JSON.stringify(data);
-			window.DocumentHandler.save(options);
-
-
 	Menu.prototype.playingChanged = function(value){
 		if(value === PlayingState.PLAYING){
 			this.disableInput();
