@@ -187,6 +187,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		else{
 			duration = 0;
 		}
+		console.log("setDuration", duration);
 		this.commTickerModel.duration = duration;
 	};
 
