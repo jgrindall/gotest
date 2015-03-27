@@ -65,7 +65,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		PhaserComponents.Context.call(this, options);
     };
 	
-	// if live on purplemash
+	// TODO if live on purplemash
     AppContext.LIVE = true;
 
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
