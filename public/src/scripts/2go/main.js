@@ -12,8 +12,6 @@ require.config({
 });
 
 require(['phaser'], function(Phaser){
-	
-	console.log('loaded 0');
 
 	require(['base/appcontext'], function(AppContext){
 	
