@@ -22,7 +22,6 @@ PlayingState, ModelConsts){
 		this.eventDispatcher.addListener(PhaserComponents.Events.AppEvents.ALERT_SHOWN, this.onAlert.bind(this));
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
-		window.alert("Menu", options, options.numX, options.numY);
 	};
 	
 	Menu.WIDTH = 230;
