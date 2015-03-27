@@ -1,5 +1,5 @@
 
-define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/commands/savecommand',
+define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/commands/savecommand', 'base/commands/sharecommand',
 
 	'base/commands/printcommand', 'base/commands/undocommand', 'base/commands/downloadcommand',
 
@@ -29,7 +29,7 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
 
 	'base/consts/defaults', 'base/utils/clipart', 'base/utils/purplemashclipartadapter', 'base/utils/translation'],
 
-	function(NewFileCommand, LoadCommand, SaveCommand,
+	function(NewFileCommand, LoadCommand, SaveCommand, ShareCommand,
 
 		PrintCommand, UndoCommand, DownloadCommand,
 
@@ -179,6 +179,7 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
     	this.commandMap.map(Events.PROG_CHANGE, 								ProgChangeCommand);
 		this.commandMap.map(Events.LOAD, 										LoadCommand);
 		this.commandMap.map(Events.SAVE, 										SaveCommand);
+		this.commandMap.map(Events.SHARE, 										ShareCommand);
 		this.commandMap.map(Events.PRINT, 										PrintCommand);
 		this.commandMap.map(Events.UNDO,										UndoCommand);
 		this.commandMap.map(Events.REWIND, 										RewindCommand);

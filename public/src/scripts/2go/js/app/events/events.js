@@ -33,6 +33,7 @@ function() {
 	Events.SHOW_TOUCH_IMG		= 		"showTouchImg";
 	Events.FINISHED				= 		"finished";
 	Events.DOWNLOAD				= 		"download";
+	Events.SHARE				= 		"share";
 	Events.CHECK_POSITION		=		"checkPosition";
 	Events.CHECK_CHALLENGE		=		"checkChallenge";
 	Events.STOP					= 		"stop";

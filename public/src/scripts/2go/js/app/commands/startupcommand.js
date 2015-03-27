@@ -54,6 +54,9 @@ function(PhaserComponents, Events,
 		if(data.success){
 			if(data.response){
 				this.loadFile(data.response);
+				if(data.hide){
+					window.alert("...and hide the UI");
+				}
 			}
 			else{
 				this.toActivity();

@@ -17,7 +17,7 @@ PlayingState, Events, ModelConsts){
 		options.buttonClass = ControlMenuButton;
 		options.numX = 6;
 		options.numY = 1;
-		options.data = [{'num':4}, {'num':5}, {'num':6}, {'num':7}, {'num':8}, {'num':9}];
+		options.data = [{'num':5}, {'num':6}, {'num':7}, {'num':8}, {'num':9}, {'num':10}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);

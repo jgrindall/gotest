@@ -19,7 +19,7 @@ define(['base/assets'], function(Assets) {
 	ChallengeData.MESSAGES.push("Get to the cheese by finding\nyour way through the maze");
 	ChallengeData.MESSAGES.push("Drive the car around the track by repeating\nthe 'turn 90 degrees' and 'move forward'\ncommands. Click on '×1' to change how\nmany times they repeat");
 	
-	ChallengeData.CHALLENGE_BG = 			[4, 2, 8, 3, 0, 1, 7, 5];
+	ChallengeData.CHALLENGE_BG = 			[4, 2, 9, 3, 0, 1, 8, 5];
 	ChallengeData.CHALLENGE_SCREEN = 		[0, 1, 2, 1, 2, 1, 2, 3];
 	ChallengeData.CHALLENGE_COLOR = 		[0, 0, 0, 0, 2, 0, 0, 0];
 	ChallengeData.CHALLENGE_STEP_LENGTH = 	[3, 2, 2, 2, 2, 2, 2, 2];

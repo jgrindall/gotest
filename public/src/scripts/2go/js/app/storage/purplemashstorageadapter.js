@@ -34,6 +34,18 @@ function(PhaserComponents, ErrorCodes) {
 		}
 	};
 
+	PurpleMashStorageAdapter.prototype.shareForKeyPath = function(keyPath, data, callback){
+		var options;
+		if(window.DocumentHandler){
+			options = {};
+			options.data = JSON.stringify(data);
+			window.DocumentHandler.share(options);
+		}
+		else{
+			callback({"success":false, "data":null});
+		}
+	};
+
 	PurpleMashStorageAdapter.prototype.saveForKeyPath = function(keyPath, data, callback){
 		var options;
 		if(window.DocumentHandler){
@@ -55,7 +67,7 @@ function(PhaserComponents, ErrorCodes) {
 	};
 
 	PurpleMashStorageAdapter.prototype.onFileLoaded = function(callback, result){
-		var data;
+		var data, hide;
 		try{
 			if (result.path && result.path.substr(result.path.length - 4) === ".0go") {
 				callback({'success':false, 'response':ErrorCodes.WRONG_VERSION});
@@ -69,11 +81,16 @@ function(PhaserComponents, ErrorCodes) {
 					result = JSON.parse(result);
 				}
 				data = result.data;
+				console.log('appvars is ', 										window.AppVariables);
+				console.log('ShareDialog is ', 									window.ShareDialog);
+				console.log('window.AppVariables.get("sharedLinkMode") is ', 	window.AppVariables.get("sharedLinkMode"));
+				console.log('window.ShareDialog.SHAREDLINKMODE_PLAY is ', 		window.ShareDialog.SHAREDLINKMODE_PLAY);
+				hide = (window.AppVariables && window.ShareDialog && (window.AppVariables.get("sharedLinkMode") === window.ShareDialog.SHAREDLINKMODE_PLAY));
 				if((typeof data) === 'string'){
 					data = JSON.parse(data);
 				}
 				if(data){
-					callback({'success':true, 'response':data});
+					callback({'success':true, 'response':data, 'hide':hide});
 				}
 				else{
 					callback({'success':false, 'response':null});
