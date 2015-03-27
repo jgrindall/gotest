@@ -9,7 +9,7 @@ module.exports = function(grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'public/src/js/app/',
+                        cwd: 'public/src/scripts/2go/js/app/',
                         src: ['**/*.js'],
                         dest: 'minimised/'
                     }
@@ -56,25 +56,26 @@ module.exports = function(grunt) {
                     _:true
                  }
             },
-            all: ['public/src/js/app/**/*.js']
+            all: ['public/src/scrips/2go/app/**/*.js']
         },
 
 
         requirejs: {
             compile: {
                 options: {
-                    baseUrl: 'public/src/js',
-                    out: 'public/build/js/main.js',
+                    baseUrl:    'public/src/scripts/2go',
+                    out:        'public/build/scripts/2go/main.js',
                     removeCombined: true,
                     include: ['main'],
                     findNestedDependencies: true,
                     optimize: "none",
                     paths: {
-                        'html2canvas':                  'lib/html2canvas',
-                        'phaser': 			            'lib/phaser',
-                        'phaserstatetrans': 	        'lib/phaser-state-transition.min',
-                        'phasercomponents':             'lib/phasercomponents',
-                        'filesaver':                    'lib/filesaver'
+                        'base':                         'js/app',
+                        'html2canvas':                  'js/lib/html2canvas',
+                        'phaser': 			            'js/lib/phaser',
+                        'phaserstatetrans': 	        'js/lib/phaser-state-transition.min',
+                        'phasercomponents':             'js/lib/phasercomponents',
+                        'filesaver':                    'js/lib/filesaver'
                     }
                 }
             },
