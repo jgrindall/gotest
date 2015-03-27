@@ -4,7 +4,7 @@ define(
 
 	'app/views/popups/gamebgmenu', 'app/dataproviders/bgdataprovider',
 
-	'app/assets', 'app/events/events',
+	'app/assets', 'app/events/events', 'app/utils/translation', 'app/utils/translationconsts',
 
 	'app/models/modelconsts', 'app/consts/defaults'],
 
@@ -12,7 +12,7 @@ function(PhaserComponents,
 
 	GameBgMenu, BgDataProvider,
 
-	Assets, Events, 
+	Assets, Events, Translation, TranslationConsts,
 
 	ModelConsts, Defaults) {
 	
@@ -25,7 +25,9 @@ function(PhaserComponents,
 	PhaserComponents.Utils.extends(NewFileCommand, PhaserComponents.Commands.AbstractCommand);
 
 	NewFileCommand.prototype.execute = function(){
-		var options = {'dataProvider': new BgDataProvider(this.game), "label":"Start a new file - choose a background", "sfx":Assets.SOUNDS[2]};
+		var label, options;
+		label = Translation.getForKey(TranslationConsts.KEYS.START_NEW_FILE_KEY);
+		options = {'dataProvider': new BgDataProvider(this.game), "label":label, "sfx":Assets.SOUNDS[2]};
 		this.alertManager.make(GameBgMenu, options, this.onBgChosen.bind(this));
 	};
 	

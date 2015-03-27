@@ -27,7 +27,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 	'app/views/showmanager', 'app/models/modelfacade', 'app/utils/filedownloader',
 
-	'app/consts/defaults', 'app/utils/clipart', 'app/utils/purplemashclipartadapter'],
+	'app/consts/defaults', 'app/utils/clipart', 'app/utils/purplemashclipartadapter', 'app/utils/translation'],
 
 	function(NewFileCommand, LoadCommand, SaveCommand,
 
@@ -57,7 +57,7 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 
 		ShowManager, ModelFacade, FileDownLoader,
 
-		Defaults, Clipart, PurpleMashClipartAdapter) {
+		Defaults, Clipart, PurpleMashClipartAdapter, Translation) {
 	
 	"use strict";
 
@@ -203,10 +203,18 @@ define(['app/commands/newfilecommand', 'app/commands/loadcommand', 'app/commands
 		this.commandMap.map(Events.CHALLENGE_DONE, 								ChallengeDoneCommand);
 		this.commandMap.map(PhaserComponents.Events.AppEvents.PRE_SHUTDOWN, 	PreShutdownCommand);
     };
-	
+		
+    AppContext.prototype.launch = function(){
+    	Translation.init(this.onTranslationLoaded.bind(this));
+    };
+
+    AppContext.prototype.onTranslationLoaded = function(){
+    	PhaserComponents.Context.prototype.launch.call(this);
+    };
+
 	AppContext.prototype.preload = function(){
-		this.gameManager.game.load.image(Assets.BG, 'assets/images/bg/bg.png');
-		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 'assets/images/loader/bar.png', 427, 40);
+		this.gameManager.game.load.image(Assets.BG, 					'assets/images/bg/bg.png');
+		this.gameManager.game.load.spritesheet(Assets.LOADER_BAR, 		'assets/images/loader/bar.png', 427, 40);
 	};
 	
 	return AppContext;

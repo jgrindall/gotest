@@ -1287,6 +1287,11 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
         this.commandMap.map(AppEvents.POST_SHUTDOWN,            PostShutdownCommand);
     };
 
+    Context.prototype.launch = function(){
+        // launch the game
+        this.gameManager.start();
+    };
+
 	Context.prototype.gameCreated = function(){
         this.mapFonts();
         this.eventDispatcher = new EventDispatcher();
@@ -1304,7 +1309,7 @@ define( 'phasercomponents/context',['phasercomponents/gamemanager',
         this.alertManager.init();
         this.setupKeys();
         this.keyManager.startListening();
-		this.gameManager.start();
+        this.launch();
 	};
 	
      Context.prototype.shutdown = function(){
