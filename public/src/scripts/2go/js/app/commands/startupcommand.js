@@ -50,12 +50,26 @@ function(PhaserComponents, Events,
 		}, 10);
 	};
 
+	StartUpCommand.prototype.replaySharedFile = function(data){
+		var that = this;
+		this.toActivity();
+		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
+		setTimeout(function(){
+			that.modelFacade.setData(data);
+			that.eventDispatcher.trigger({"type":Events.REPLAY_SHARE});
+		}, 10);
+	};
+
 	StartUpCommand.prototype.onDefaultsLoaded = function(data){
+		console.log('data!', data);
 		if(data.success){
 			if(data.response){
-				this.loadFile(data.response);
 				if(data.hide){
+					this.replaySharedFile(data.response);
 					window.alert("...and hide the UI");
+				}
+				else{
+					this.loadFile(data.response);
 				}
 			}
 			else{

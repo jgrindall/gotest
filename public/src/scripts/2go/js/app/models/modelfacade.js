@@ -181,6 +181,9 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		if(this.playingModel.get() === PlayingState.PLAYING){
 			duration = CommSpeed.ALL[this.speedModel.get()] * CommSpeed.SPEED_FACTOR;
 		}
+		else if(this.playingModel.get() === PlayingState.REPLAYING_SHARE){
+			duration = 500;
+		}
 		else{
 			duration = 0;
 		}

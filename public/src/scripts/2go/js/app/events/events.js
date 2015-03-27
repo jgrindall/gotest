@@ -25,6 +25,7 @@ function() {
 	Events.VIDEO				= 		"video";
 	Events.SETTINGS_VIDEO		= 		"settingsvideo";
 	Events.REPLAY				= 		"replay";
+	Events.REPLAY_SHARE			= 		"replayshare";
 	Events.IMG_CAPTURED			= 		"imgIsCaptured";
 	Events.OPEN_BG_EDITOR		= 		"openBgEditor";
 	Events.EDIT_TURTLE			= 		"editTurtle";

@@ -86,6 +86,7 @@ function(PhaserComponents, ErrorCodes) {
 				console.log('ShareDialog is ', 									window.ShareDialog);
 				console.log('window.AppVariables.get("sharedLinkMode") is ', 	window.AppVariables.get("sharedLinkMode"));
 				console.log('window.ShareDialog.SHAREDLINKMODE_PLAY is ', 		window.ShareDialog.SHAREDLINKMODE_PLAY);
+				console.log('eq is ', 											(window.AppVariables.get("sharedLinkMode") === window.ShareDialog.SHAREDLINKMODE_PLAY));
 				hide = (window.AppVariables && window.ShareDialog && (window.AppVariables.get("sharedLinkMode") === window.ShareDialog.SHAREDLINKMODE_PLAY));
 				if((typeof data) === 'string'){
 					data = JSON.parse(data);

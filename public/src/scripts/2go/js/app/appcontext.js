@@ -15,7 +15,7 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
 
 	'base/commands/openbgeditorcommand', 'base/commands/openturtleeditorcommand', 
 
-	'base/commands/finishcommand', 'base/commands/replaycommand',  'base/commands/helpcommand',
+	'base/commands/finishcommand', 'base/commands/replaycommand',  'base/commands/replaysharecommand', 'base/commands/helpcommand',
 
 	'base/commands/backcommand', 'base/commands/challengedonecommand', 'base/commands/settingsvideocommand',
 
@@ -45,7 +45,7 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
 
 		OpenBgEditorCommand, OpenTurtleEditorCommand,
 
-		FinishCommand, ReplayCommand, HelpCommand,
+		FinishCommand, ReplayCommand, ReplayShareCommand, HelpCommand,
 
 		BackCommand, ChallengeDoneCommand, SettingsVideoCommand,
 
@@ -195,6 +195,7 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
 		this.commandMap.map(Events.VIDEO, 										VideoCommand);
 		this.commandMap.map(Events.SETTINGS_VIDEO, 								SettingsVideoCommand);
 		this.commandMap.map(Events.REPLAY, 										ReplayCommand);
+		this.commandMap.map(Events.REPLAY_SHARE, 								ReplayShareCommand);
 		this.commandMap.map(Events.DOWNLOAD, 									DownloadCommand);
 		this.commandMap.map(Events.FINISHED, 									FinishCommand);
 		this.commandMap.map(Events.CHOOSE_CHALLENGE, 							ChooseChallengeCommand);
