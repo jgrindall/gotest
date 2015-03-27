@@ -700,7 +700,7 @@ function(LocalStorageAdapter){
 	Storage.prototype.loadDefaults = function(callback){
 		this.adapter.loadDefaults(function(data){
 			if(data.success){
-				callback({"success":true, "response":data.response});
+				callback({"success":true, "response":data.response, 'hide':data.hide});
 			}
 			else{
 				callback({"success":false});
