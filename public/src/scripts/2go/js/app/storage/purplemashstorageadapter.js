@@ -88,10 +88,12 @@ function(PhaserComponents, ErrorCodes) {
 				console.log('window.ShareDialog.SHAREDLINKMODE_PLAY is ', 		window.ShareDialog.SHAREDLINKMODE_PLAY);
 				console.log('eq is ', 											(window.AppVariables.get("sharedLinkMode") === window.ShareDialog.SHAREDLINKMODE_PLAY));
 				hide = (window.AppVariables && window.ShareDialog && (window.AppVariables.get("sharedLinkMode") === window.ShareDialog.SHAREDLINKMODE_PLAY));
+				console.log('hide is ', hide);
 				if((typeof data) === 'string'){
 					data = JSON.parse(data);
 				}
 				if(data){
+					console.log('success loading');
 					callback({'success':true, 'response':data, 'hide':hide});
 				}
 				else{
