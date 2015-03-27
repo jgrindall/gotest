@@ -81,8 +81,8 @@ module.exports = function(grunt) {
             css: {
                 options: {
                     optimizeCss: 'standard',
-                    cssIn: 'public/src/assets/css/main.css',
-                    out: 'public/build/assets/css/main.css'
+                    cssIn:  'public/src/scripts/2go/assets/css/main.css',
+                    out:    'public/build/scripts/2go/assets/css/main.css'
                 }
             }
         },
@@ -103,9 +103,9 @@ module.exports = function(grunt) {
             },
             main: {
                 expand:true,
-                cwd: 'public/src/', 
-                src: ['assets/**/*.png','assets/**/*.jpg','assets/**/*.gif','assets/**/*.mp3','assets/**/*.wav','assets/**/*.ogg','assets/**/*.ttf','assets/**/*.eot','assets/**/*.woff','assets/**/*.json'],
-                dest: 'public/build/'
+                cwd: 'public/src/scripts/2go/assets', 
+                src: ['**/*.png','**/*.jpg','**/*.gif','**/*.mp3','**/*.wav','**/*.ogg','**/*.ttf','**/*.eot','**/*.woff','**/*.json'],
+                dest: 'public/build/scripts/2go/assets'
             }
         }
 

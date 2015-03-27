@@ -3384,19 +3384,27 @@ define('phasercomponents/preloader',['phaser', 'phasercomponents/utils/utils'], 
 	
 	
 	
-	var Preloader = function(game, assets){
+	var Preloader = function(game, assets, basePath){
 		this.numLoaded = 0;
 		this.game = game;
 		this.assets = assets;
+		this.basePath = basePath || '';
 		this.loadSignal = new Phaser.Signal();
 	};
 	
 	Preloader.prototype.loadNext = function(){
-		var obj, type, key, asset;
+		var obj, type, key, asset, that = this;
 		obj = this.assets[this.numLoaded];
 		type = obj.type;
 		key = obj.key;
-		asset = obj.asset;
+		if(_.isArray(obj.asset)){
+			asset = obj.asset.map(function(a){
+				return (that.basePath + a);
+			});
+		}
+		else{
+			asset = this.basePath + obj.asset;
+		}
 		if(!key || !asset){
 			throw "Asset not found";
 		}

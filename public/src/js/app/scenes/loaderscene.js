@@ -23,7 +23,7 @@ function(PhaserComponents, Assets,
 	LoaderScene.prototype.preload = function() {
 		PhaserComponents.Scene.prototype.preload.apply(this);
 		this.addChildren();
-		this.preloader = new PhaserComponents.Display.Preloader(this.game, Assets.DATA);
+		this.preloader = new PhaserComponents.Display.Preloader(this.game, Assets.DATA, Assets.BASE_PATH);
 		this.preloader.loadSignal.add(this.loadProgress, this);
 		this.preloader.start();
 	};
