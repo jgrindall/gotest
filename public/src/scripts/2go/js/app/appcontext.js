@@ -66,14 +66,17 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
     };
 	
 	// TODO if live on purplemash
-    AppContext.LIVE = true;
+    //AppContext.LIVE = true;
 
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
 	AppContext.prototype.mapFonts = function(){
 		PhaserComponents.TextFactory.registerFont('vsmall',	{"size":12, "align":'center', "fontName":'TooSimple', "color":'#000000'});
+		PhaserComponents.TextFactory.registerFont('vsmallwhite',	{"size":12, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
 		PhaserComponents.TextFactory.registerFont('small', 	{"size":18, "align":'center', "fontName":'TooSimple', "color":'#000000'});
 		PhaserComponents.TextFactory.registerFont('medium', {"size":22, "align":'center', "fontName":'TooSimple', "color":'#000000'});
+		PhaserComponents.TextFactory.registerFont('button', {"size":17, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
+		PhaserComponents.TextFactory.registerFont('buttondark', {"size":17, "align":'center', "fontName":'TooSimple', "color":'#000000'});
 		PhaserComponents.TextFactory.registerFont('large', 	{"size":45, "align":'center', "fontName":'TooSimple', "color":'#000000'});
 		PhaserComponents.TextFactory.registerFont('vlarge', {"size":60, "align":'center', "fontName":'TooSimple', "color":'#000000'});
 		PhaserComponents.TextFactory.registerFont('vsmallheader',	{"size":12, "align":'center', "fontName":'TooSimple', "color":'#ffffff'});
