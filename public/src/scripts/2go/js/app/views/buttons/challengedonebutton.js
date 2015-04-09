@@ -6,8 +6,9 @@ define(['phasercomponents', 'base/assets'],
 	"use strict";
 	
 	var ChallengeDoneButton = function(options){
-		options.asset = Assets.CHALLENGE_DONE_BUTTON;
+		options.asset = Assets.CHALLENGE_BUTTON;
 		options.sfx = Assets.SOUNDS[1];
+		options.label = {'key':'button', 'bounds':{'x':63, 'y':24, 'w':88, 'h':40}, 'text':"Try another"};
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 	

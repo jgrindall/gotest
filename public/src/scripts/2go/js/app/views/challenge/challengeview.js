@@ -46,6 +46,20 @@ CloseButton, Assets){
 		y = this.bounds.y + (this.bounds.h - h)/2 - 8;
 		bounds = {'x':x, 'y':y, 'w':w, 'h':h};
 		options = {"bounds":bounds, "numX": 4, "numY": 2, "buttonClass": ChallengeButton};
+		options.labels = [
+			[
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Find the treasure'},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'See the sights'},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'To the lighthouse'},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Live to tell the tale'}
+			],
+			[
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Get buzzy'},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Rescue the spaceman'},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Say cheese!'},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Win the race'}
+			]
+		];
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.onChanged, this);
 		this.group.add(this.grid.group);

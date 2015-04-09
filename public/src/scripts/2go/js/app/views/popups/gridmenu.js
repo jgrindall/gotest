@@ -55,6 +55,12 @@ VideoButton){
 		panel1 = new SettingsMenuPanel({"bounds":this.bounds});
 		panels = [panel0, panel1];
 		options = {"bounds":bounds, "panels":panels, "buttonClass":TabButton};
+		options.labels = [
+			[
+				{'key':'buttondark', 'bounds':{'x':2, 'y':6, 'w':93, 'h':40}, 'text':'Input'},
+				{'key':'buttondark', 'bounds':{'x':2, 'y':6, 'w':93, 'h':40}, 'text':'General'}
+			]
+		];
 		this.tabPanel = new PhaserComponents.Display.TabPanel(options);
 		this.group.add(this.tabPanel.view);
 		this.tabPanel.buttonBar.view.x += 140;

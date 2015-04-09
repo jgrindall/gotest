@@ -59,12 +59,12 @@ ModelConsts, Assets){
 	};
 
 	GameScreenMenuPanel.prototype.addRadio = function() {
-		var bounds, w, h, labels;
+		var bounds, w, h, radioLabels;
 		w = PhaserComponents.Display.RadioButtons.WIDTH;
 		h = PhaserComponents.Display.RadioButtons.HEIGHT;
-		labels = ["45 degrees", "90 degrees"];
+		radioLabels = ["45 degrees", "90 degrees"];
 		bounds = {'x':this.bounds.x + this.bounds.w - w - 13, 'y':this.bounds.y + this.bounds.h - 178, 'w':w, 'h':h};
-		this.radio = new PhaserComponents.Display.RadioButtons({"sfx":Assets.SOUNDS[1], "labels":labels, "fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
+		this.radio = new PhaserComponents.Display.RadioButtons({"sfx":Assets.SOUNDS[1], "radioLabels":radioLabels, "fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);
 		this.initRadio();
 	};
@@ -74,6 +74,16 @@ ModelConsts, Assets){
 		bounds = {'x':this.bounds.x, 'y':this.bounds.y + 30, 'w':this.bounds.w, 'h':this.bounds.h - 31};
 		options = {"model":this.options.screenModel, "bounds":bounds, "numX": 2, "numY": 2, "buttonClass": ScreenChoice};
 		options.performSelect = true;
+		options.labels = [
+			[
+				{'key':'vsmall', 'bounds':{'x':0, 'y':180, 'w':220, 'h':40}, 'text':'Simple up down,\nleft, right'},
+				{'key':'vsmall', 'bounds':{'x':0, 'y':222, 'w':220, 'h':40}, 'text':'Use number keys to say\nhow many steps to take'}
+			],
+			[
+				{'key':'vsmall', 'bounds':{'x':0, 'y':217, 'w':220, 'h':40}, 'text':'Use diagonals and number\nkeys to control the turtle'},
+				{'key':'vsmall', 'bounds':{'x':0, 'y':217, 'w':220, 'h':40}, 'text':'Program the turtle to turn on the\nspot and move forwards or backwards'}
+			]
+		];
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
 		this.grid.clickSignal.add(this.onChanged, this);
 		this.group.add(this.grid.group);

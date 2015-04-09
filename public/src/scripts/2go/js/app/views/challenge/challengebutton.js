@@ -24,14 +24,32 @@ function(Phaser, PhaserComponents, Assets
 	ChallengeButton.prototype.create = function(){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.addBg();
+		this.addLabel();
 	};
 	
 	ChallengeButton.prototype.select = function(){
 		this.panel.goTo(2*this.options.index + 1);
+		if(this._labelView){
+			this._labelView.alpha = 1;
+		}
 	};
 	
+	ChallengeButton.prototype.addLabel = function(){
+        if(this.options.label){
+            this._labelView = PhaserComponents.TextFactory.make(this.options.label.key, this.game, this.options.label.bounds.x, this.options.label.bounds.y, this.options.label.text);
+            this._labelView.x += (this.options.label.bounds.w - this._labelView.width)/2;
+            this._labelView.y = this.options.label.bounds.y;
+            this._labelView.x += this.panel.view.x;
+            this._labelView.y += this.panel.view.y;
+            this.group.add(this._labelView);
+        }
+    };
+
 	ChallengeButton.prototype.deselect = function(){
 		this.panel.goTo(2*this.options.index);
+		if(this._labelView){
+			this._labelView.alpha = 0.4;
+		}
 	};
 	
 	ChallengeButton.prototype.mouseUp = function(){
@@ -50,6 +68,10 @@ function(Phaser, PhaserComponents, Assets
 		this.panel.mouseUpSignal.remove(this.mouseUp, this);
 		this.group.remove(this.panel);
 		this.panel.destroy(true);
+		if(this.options.label){
+			this.group.remove(this._labelView);
+			this._labelView.destroy(true);
+		}
 		PhaserComponents.Display.Container.prototype.destroy.call(this);
 	};
 	

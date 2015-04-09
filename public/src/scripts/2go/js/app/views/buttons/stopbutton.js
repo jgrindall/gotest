@@ -10,6 +10,7 @@ define(
 	var StopButton = function(options){
 		options.disabledAlpha = 1;
 		options.asset = Assets.STOP_BUTTON;
+		options.label = {'key':'button', 'bounds':{'x':2, 'y':15, 'w':80, 'h':40}, 'text':'Stop'};
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 

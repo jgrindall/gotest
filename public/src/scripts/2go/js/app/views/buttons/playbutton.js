@@ -10,6 +10,7 @@ define(
 	var PlayButton = function(options){
 		options.disabledAlpha = 1;
 		options.asset = Assets.PLAY_BUTTON;
+		options.label = {'key':'button', 'bounds':{'x':2, 'y':15, 'w':80, 'h':40}, 'text':'Play'};
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 
