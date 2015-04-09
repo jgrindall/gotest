@@ -1497,11 +1497,46 @@ define(
 
 
 
+define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
+	
+	
+	
+	var TextFactory  = function(){
+		
+	};
+
+	TextFactory.registerFont = function(key, fontData){
+		if(!TextFactory.fonts){
+			TextFactory.fonts = {};
+		}
+		TextFactory.fonts[key] = fontData;
+	};
+
+	TextFactory.make = function(key, game, x, y, label){
+		var fontData, font, text;
+		fontData = TextFactory.fonts[key];
+		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align, "fill":fontData.color};
+		text = new Phaser.Text(game, x, y, label, font);
+		return text;
+	};
+	
+	return TextFactory;
+
+});
+	
+	
+
+
+
 define(
 
-	'phasercomponents/display/movieclip',['phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils'],
+	'phasercomponents/display/movieclip',['phasercomponents/display/interactivesprite', 'phasercomponents/utils/utils',
 
-	function(InteractiveSprite, Utils){
+	'phasercomponents/text/textfactory'],
+
+	function(InteractiveSprite, Utils,
+
+	TextFactory){
 	
 	
 	
@@ -1534,10 +1569,25 @@ define(
 		this.sprite.animations.play('frame'+frameNum);
 	};
 
+	MovieClip.prototype.addLabels = function(){
+		var i, labelView, label;
+		this.labels = [];
+		for(i = 0; i <= this.options.numFrames - 1; i++){
+			label = this.options.labels[i];
+			labelView = TextFactory.make(label.key, this.game, label.bounds.x, label.bounds.y, label.text);
+            labelView.x += (label.bounds.w - labelView.width)/2;
+            this.sprite.addChild(labelView);
+		}
+	};
+
 	MovieClip.prototype.create = function(){
+		var i;
 		InteractiveSprite.prototype.create.call(this);
-		for(var i = 0; i<= this.options.numFrames - 1; i++){
+		for(i = 0; i <= this.options.numFrames - 1; i++){
 			this.sprite.animations.add('frame'+i, [i], 0, true);
+		}
+		if(this.options.labels){
+			this.addLabels();
 		}
 		this.init();
 	};
@@ -1591,11 +1641,11 @@ define(
 	
 'phasercomponents/display/buttons/abstractbutton',['phaser', 'phasercomponents/display/view', 'phasercomponents/utils/utils',
 
-'phasercomponents/events/appevents'],
+'phasercomponents/events/appevents', 'phasercomponents/text/textfactory'],
 
 function(Phaser, View, Utils,
 
-	AppEvents){
+	AppEvents, TextFactory){
 	
 	
 	
@@ -1605,6 +1655,7 @@ function(Phaser, View, Utils,
 		}
 		options.asset = options.asset || 'button';
 		this.frames = options.frames || [0, 1, 2, 3];
+		this._label = options.label;
 		this.mouseDownSignal = new Phaser.Signal();
 		this.mouseUpSignal = new Phaser.Signal();
 		View.call(this, options);
@@ -1630,11 +1681,19 @@ function(Phaser, View, Utils,
 
 	AbstractButton.prototype.create = function(){
 		this.sprite = new Phaser.Button(this.game, this.bounds.x, this.bounds.y, this.options.asset, this.callback, this, this.frames[0], this.frames[1], this.frames[2], this.frames[3]);
-		//this.sprite.scale = {'x':0.5, 'y':0.5};
+		this.addLabel();
 		this.resetFrames();
 		this.sprite.inputEnabled = false;
 		this.enableInput();
 	};
+
+	AbstractButton.prototype.addLabel = function(){
+        if(this._label){
+            this._labelView = TextFactory.make(this._label.key, this.game, this._label.bounds.x, this._label.bounds.y, this._label.text);
+            this._labelView.x += (this._label.bounds.w - this._labelView.width)/2;
+            this.sprite.addChild(this._labelView);
+        }
+    };
 
 	AbstractButton.prototype.mouseUp = function(){
 		if(this.options.sfx){
@@ -1658,7 +1717,6 @@ function(Phaser, View, Utils,
 			this.sprite.inputEnabled = true;
 			this.tweenAlpha(1, true);
 			this.sprite.input.useHandCursor = true;
-			//this.sprite.tint = 0xFFFFFF;
 			this.addListeners();
 		}
 	};
@@ -1667,7 +1725,6 @@ function(Phaser, View, Utils,
 		if(this.sprite.inputEnabled){
 			this.sprite.inputEnabled = false;
 			this.tweenAlpha(this.options.disabledAlpha, false);
-			//this.sprite.tint = 0xdddddd;
 			this.removeListeners();
 		}
 	};
@@ -1698,6 +1755,9 @@ function(Phaser, View, Utils,
 	AbstractButton.prototype.destroy = function(){
 		this.removeListeners();
 		this.stopTweens();
+        if(this._labelView){
+            this._labelView.destroy(true);    
+        }
 		this.sprite.inputEnabled = false;
 		this.sprite.destroy(true);
 		this.mouseDownSignal = null;
@@ -1708,6 +1768,8 @@ function(Phaser, View, Utils,
 	return AbstractButton;
 
 });
+
+
 
 
 
@@ -1948,6 +2010,9 @@ ButtonGridModel, Utils){
 				pos.x += this.marginX;
 				pos.y += this.marginY;
 				options = {"bounds":pos, "index":n, "data":this.options.data[n], "frames":[0, 1, 2, 3], "sfx":this.options.sfx};
+				if(this.options.labels){
+					options.label = this.options.labels[i - 1][j - 1];
+				}
 				b = new ClassRef(options);
 				b.mouseUpSignal.add(this.buttonUp, this);
 				this.buttonGroup.add(b.view);
@@ -2878,6 +2943,7 @@ function(Container,
 			data.push({"num":i});	
 		}
 		options = {"bounds":bounds, "numX":this.options.panels.length, "performSelect":true, "numY":1, "buttonClass":this.options.buttonClass, "data":data};
+		options.labels = this.options.labels;
 		this.buttonBar = new TabButtonBar(options);
 		this.buttonBar.changeSignal.add(this.barClick, this);
 		this.group.add(this.buttonBar.view);
@@ -3264,37 +3330,6 @@ function(StepperButton, Utils){
 
 
 
-define('phasercomponents/text/textfactory',['phaser'], function(Phaser){
-	
-	
-	
-	var TextFactory  = function(){
-		
-	};
-
-	TextFactory.registerFont = function(key, fontData){
-		if(!TextFactory.fonts){
-			TextFactory.fonts = {};
-		}
-		TextFactory.fonts[key] = fontData;
-	};
-
-	TextFactory.make = function(key, game, x, y, label){
-		var fontData, font, text;
-		fontData = TextFactory.fonts[key];
-		font = {"font": fontData.size+"px "+ fontData.fontName, "align": fontData.align, "fill":fontData.color};
-		text = new Phaser.Text(game, x, y, label, font);
-		return text;
-	};
-	
-	return TextFactory;
-
-});
-	
-	
-
-
-
 define(
 
 	'phasercomponents/display/buttons/radiobuttons',['phasercomponents/display/container', 'phasercomponents/utils/utils',
@@ -3334,7 +3369,7 @@ function(Container, Utils,
 		this.buttons.buttons.forEach(function(button, i){
 			var label, bounds;
 			bounds = button.bounds;
-			label = TextFactory.make(that.options.fontKey, that.game, bounds.x + 41, bounds.y + 13, that.options.labels[i]);
+			label = TextFactory.make(that.options.fontKey, that.game, bounds.x + 41, bounds.y + 13, that.options.radioLabels[i]);
 			that.group.add(label);
 		});
 	};
