@@ -7,8 +7,8 @@ define(['base/consts/turtles'], function(Turtles){
 		
 	};
 
-	//Assets.BASE_PATH =			window.location + "/scripts/2go/assets/";
-	Assets.BASE_PATH =				window.location.origin + "/scripts/2go/assets/";
+	Assets.BASE_PATH =				window.location + "scripts/2go/assets/";
+	//Assets.BASE_PATH =			window.location.origin + "/scripts/2go/assets/";
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3'];
@@ -41,11 +41,9 @@ define(['base/consts/turtles'], function(Turtles){
 	Assets.ADD_BUTTON = 			'addbutton';
 	Assets.NEXT_BUTTON = 			'nextbutton';
 	Assets.START_BUTTON = 			'startbutton';
-	Assets.SKIP_BUTTON = 			'skipbutton';
 	Assets.PLAY_BUTTON =			'playButton';
 	Assets.STOP_BUTTON =			'stopButton';
 	Assets.CHALLENGE_BUTTON =		'challengeButton';
-	Assets.CHALLENGE_DONE_BUTTON =	'challengeDoneButton';
 	Assets.DRAG_ARROW = 			'dragarrow';
 	Assets.BUTTON = 				'button';
 	Assets.CONTROL_BAR =			'controlbar';
@@ -108,14 +106,11 @@ define(['base/consts/turtles'], function(Turtles){
 		{"type":"spritesheet", 	"asset":"images/buttons/close.png", 					"key":Assets.CLOSE, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"images/buttons/clear.png", 					"key":Assets.CLEAR, 					"w":50, 	"h":50},
 		{"type":"spritesheet", 	"asset":"images/buttons/okButton.png", 				"key":Assets.OK_BUTTON, 				"w":180, 	"h":100},
-		{"type":"spritesheet", 	"asset":"images/buttons/next.png", 					"key":Assets.NEXT_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"images/buttons/start.png", 					"key":Assets.START_BUTTON, 				"w":180, 	"h":70},
-		{"type":"spritesheet", 	"asset":"images/buttons/skip.png", 					"key":Assets.SKIP_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"images/buttons/play.png", 					"key":Assets.PLAY_BUTTON, 				"w":100, 	"h":50},
 		{"type":"spritesheet", 	"asset":"images/buttons/stop.png", 					"key":Assets.STOP_BUTTON, 				"w":100, 	"h":50},
 		{"type":"spritesheet", 	"asset":"images/buttons/addMyButton.png", 			"key":Assets.ADD_BUTTON, 				"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"images/buttons/challengebutton.png", 		"key":Assets.CHALLENGE_BUTTON, 			"w":180, 	"h":70},
-		{"type":"spritesheet", 	"asset":"images/buttons/challengedonebutton.png", 	"key":Assets.CHALLENGE_DONE_BUTTON, 	"w":180, 	"h":70},
 		{"type":"spritesheet", 	"asset":"images/buttons/pagination.png", 			"key":Assets.MARKER, 					"w":40, 	"h":40},
 		{"type":"spritesheet", 	"asset":"images/pens/pens.png", 						"key":Assets.PENS, 						"w":235, 	"h":125},
 		{"type":"spritesheet", 	"asset":"images/buttons/toggle.png", 				"key":Assets.TOGGLE, 					"w":120, 	"h":60},
