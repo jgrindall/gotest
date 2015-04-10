@@ -9,6 +9,7 @@ function() {
 	};
 
 	Events.NEW_FILE 			= 		"newFile";
+	Events.HIDE_UI 				= 		"hideui";
 	Events.BACK 				= 		"back";
 	Events.LOAD 				= 		"load";
 	Events.SAVE					= 		"save";

@@ -36,8 +36,10 @@ Assets, ShowDirections, ModelConsts){
 		PhaserComponents.Display.Container.prototype.create.call(this);
 		this.closeHandler = this.removeImg.bind(this);
 		this.imgHandler = this.onImgCaptured.bind(this);
+		this.hideHandler = this.onHide.bind(this);
 		this.eventDispatcher.addListener(Events.IMG_CAPTURED, this.imgHandler);
 		this.eventDispatcher.addListener(Events.CLOSE_IMG, this.closeHandler);
+		this.eventDispatcher.addListener(Events.HIDE_UI, this.hideHandler);
 		this.addBg();
 		this.addTopBar();
 		this.addBrand();
@@ -46,6 +48,13 @@ Assets, ShowDirections, ModelConsts){
 		this.addControls();
 		this.addMenu();
 		this.addName();
+	};
+
+	MainView.prototype.onHide = function(){
+		this.controlTop.view.visible = 		false;
+		this.brand.visible = 				false;
+		this.menu.view.visible = 			false;
+		this.controls.view.visible = 		false;
 	};
 
 	MainView.prototype.addImg = function(data) {
@@ -253,6 +262,8 @@ Assets, ShowDirections, ModelConsts){
 		this.closeHandler = null;
 		this.eventDispatcher.removeListener(Events.IMG_CAPTURED, this.imgHandler);
 		this.imgHandler = null;
+		this.eventDispatcher.removeListener(Events.HIDE_UI, this.hideHandler);
+		this.hideHandler = null;
 		this.removeMenu();
 		this.removeImg();
 		this.removeTop();

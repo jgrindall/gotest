@@ -66,7 +66,7 @@ function(PhaserComponents, Events,
 			if(data.response){
 				if(data.hide || 1 === 1){
 					this.replaySharedFile(data.response);
-					window.alert("...and hide the UI");
+					this.eventDispatcher.trigger({"type":Events.HIDE_UI});
 				}
 				else{
 					this.loadFile(data.response);
