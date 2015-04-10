@@ -76,7 +76,7 @@ define([],
 		TranslationConsts.Keys.DOWNLOAD_MSG =					"DOWNLOAD_MSG";
 		TranslationConsts.Keys.DOWNLOAD_ERROR =					"DOWNLOAD_ERROR";
 		TranslationConsts.Keys.PLACEHOLDER =					"PLACEHOLDER";
-
+		TranslationConsts.Keys.OOPS_OFF_SCREEN =				"OOPS_OFF_SCREEN";
 
 		TranslationConsts.Data = {};
 		TranslationConsts.Data[TranslationConsts.Keys.START_NEW_FILE] = 			"Start a new file - choose a background";
@@ -142,7 +142,8 @@ define([],
 		TranslationConsts.Data[TranslationConsts.Keys.DOWNLOAD_MSG] = 				"Please choose a filename";
 		TranslationConsts.Data[TranslationConsts.Keys.DOWNLOAD_TITLE] = 			"Download";
 		TranslationConsts.Data[TranslationConsts.Keys.PLACEHOLDER] = 				"Your name here";
-
+		TranslationConsts.Data[TranslationConsts.Keys.OOPS_OFF_SCREEN] = 			"Oops, it looks like you've gone off\nthe screen.  To get back to the start\nyou can the click rewind button.";
+		
 		return TranslationConsts;
 
 	}

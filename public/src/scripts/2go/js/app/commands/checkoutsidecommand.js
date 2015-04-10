@@ -4,13 +4,13 @@ define(
 
 	'base/consts/turtles', 'base/consts/canvaslayout', 'base/views/popups/tooltip',
 
-	'base/utils/translation', 'base/utils/translationconsts'],
+	'base/utils/translation', 'base/utils/translationconsts', 'base/models/modelconsts'],
 
 function(PhaserComponents,
 
 	Turtles, CanvasLayout, ToolTip,
 
-	Translation, TranslationConsts) {
+	Translation, TranslationConsts, ModelConsts) {
 	
 	"use strict";
 	
@@ -27,8 +27,12 @@ function(PhaserComponents,
 	};
 
 	CheckOutsideCommand.prototype.execute = function(data){
-		var bounds, msg;
-		msg = "Oops, it looks like you've gone off\nthe screen.  To get back to the start\nyou can the click rewind button.";
+		var replaying, bounds, msg;
+		replaying = this.modelFacade.get(ModelConsts.REPLAYING).get();
+		if(replaying){
+			return;
+		}
+		msg = Translation.getForKey(TranslationConsts.Keys.OOPS_OFF_SCREEN);
 		if(data.x < -Turtles.WIDTH/2 || data.x > CanvasLayout.REF_WIDTH + Turtles.WIDTH/2 || data.y < -Turtles.HEIGHT/2 || data.y > CanvasLayout.REF_HEIGHT + Turtles.HEIGHT/2){
 			if(!CheckOutsideCommand.popupShown){
 				bounds = {'x':this.game.w - 610, 'y':28};

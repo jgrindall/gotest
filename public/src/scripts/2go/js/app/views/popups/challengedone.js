@@ -1,13 +1,13 @@
 
 define(['phasercomponents',
 
-'base/views/popups/growl',
+'base/views/popups/growl', 'base/models/modelconsts',
 
 'base/views/buttons/challengedonebutton'],
 
 function(PhaserComponents,
 
-Growl,
+Growl, ModelConsts,
 
 ChallengeDoneButton){
 	
@@ -24,9 +24,10 @@ ChallengeDoneButton){
 	ChallengeDone.HEIGHT = 250;
 	
 	ChallengeDone.prototype.create = function () {
-		var bounds;
+		var bounds, replaying;
+		replaying = this.modelFacade.get(ModelConsts.REPLAYING).get();
 		Growl.prototype.create.call(this);
-		if(this.options.showNext){
+		if(this.options.showNext && !replaying){
 			bounds = {"x":this.bounds.x + this.bounds.w - ChallengeDoneButton.WIDTH - 39, "y":this.bounds.y + this.bounds.h - ChallengeDoneButton.HEIGHT};
 			this.addButton(ChallengeDoneButton, bounds);
 			this.buttons[0].view.x -= 94;
