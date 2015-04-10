@@ -2,13 +2,13 @@
 
 define(['phasercomponents', 'base/views/challenge/challengebutton',
 
-'base/views/buttons/okbuttoncontainer',
+'base/views/buttons/okbuttoncontainer', 'base/utils/translation', 'base/utils/translationconsts',
 
 'base/views/buttons/closebutton', 'base/assets'],
 
 function(PhaserComponents, ChallengeButton,
 
-OkButtonContainer, 
+OkButtonContainer, Translation, TranslationConsts, 
 
 CloseButton, Assets){
 	
