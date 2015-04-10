@@ -121,27 +121,17 @@ define(['base/appsettings', 'base/commands/newfilecommand', 'base/commands/loadc
     	this.keyManager.setClass("_2go");
     };
 
-    AppContext.prototype.isLive = function(){
-    	if(AppSettings.LIVE){
-    		return true;
-    	}
-    	var regexp0, regexp1;
-    	regexp0 = new RegExp('purple', 'g');
-    	regexp1 = new RegExp('simple', 'g');
-    	return (regexp0.test(window.location) || regexp1.test(window.location));
-    };
-
     AppContext.prototype.addClipart = function(){
     	var adapter;
     	this.clipart = new Clipart();
-    	if(this.isLive()){
+    	if(AppSettings.LIVE){
     		adapter = new PurpleMashClipartAdapter();
 			this.clipart.setAdapter(adapter);
 		}
     };
 
     AppContext.prototype.addStorage = function(){
-    	if(this.isLive()){
+    	if(AppSettings.LIVE){
 			this.storage.setAdapter(new PurpleMashStorageAdapter());
 		}
     };

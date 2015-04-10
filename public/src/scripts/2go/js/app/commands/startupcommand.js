@@ -61,9 +61,10 @@ function(PhaserComponents, Events,
 	};
 
 	StartUpCommand.prototype.onDefaultsLoaded = function(data){
+		console.log("data.response is ", data.response);
 		if(data.success){
 			if(data.response){
-				if(data.hide){
+				if(data.hide || 1 === 1){
 					this.replaySharedFile(data.response);
 					window.alert("...and hide the UI");
 				}
