@@ -69,8 +69,12 @@ define([],
 		TranslationConsts.Keys.CHALLENGE_NAME5 =				"CHALLENGE_NAME5";
 		TranslationConsts.Keys.CHALLENGE_NAME6 =				"CHALLENGE_NAME6";
 		TranslationConsts.Keys.CHALLENGE_NAME7 =				"CHALLENGE_NAME7";
+		TranslationConsts.Keys.CHOOSE_CHALLENGE_TITLE =			"CHOOSE_CHALLENGE_TITLE";
 		TranslationConsts.Keys.TURN_45_DEGREES =				"TURN_45_DEGREES";
 		TranslationConsts.Keys.TURN_90_DEGREES =				"TURN_90_DEGREES";
+		TranslationConsts.Keys.DOWNLOAD_TITLE =					"DOWNLOAD_TITLE";
+		TranslationConsts.Keys.DOWNLOAD_MSG =					"DOWNLOAD_MSG";
+		TranslationConsts.Keys.DOWNLOAD_ERROR =					"DOWNLOAD_ERROR";
 
 
 		TranslationConsts.Data = {};
@@ -130,9 +134,13 @@ define([],
 		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME5] = 			"Rescue the spaceman";
 		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME6] = 			"Say cheese!";
 		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME7] = 			"Win the race";
+		TranslationConsts.Data[TranslationConsts.Keys.CHOOSE_CHALLENGE_TITLE] =		"Choose a challenge or skip to just dive in.";
 		TranslationConsts.Data[TranslationConsts.Keys.TURN_45_DEGREES] = 			"45 degrees";
 		TranslationConsts.Data[TranslationConsts.Keys.TURN_90_DEGREES] = 			"90 degrees";
-	
+		TranslationConsts.Data[TranslationConsts.Keys.DOWNLOAD_ERROR] = 			"Please enter at least 3 characters";
+		TranslationConsts.Data[TranslationConsts.Keys.DOWNLOAD_MSG] = 				"Please choose a filename";
+		TranslationConsts.Data[TranslationConsts.Keys.DOWNLOAD_TITLE] = 			"Download";
+
 		return TranslationConsts;
 
 	}

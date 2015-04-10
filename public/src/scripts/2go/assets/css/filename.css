@@ -109,6 +109,15 @@ div._2gofilenameokyes{
 	left:1px;
 }
 
+div._2gofilenameokcontainer p{
+	font-size: 22px;
+  	position: relative;
+  	top: -21px;
+  	left: -32px;
+  	text-align: center;
+  	width: 100px;
+}
+
 p._2gofilenameerror{
 	color:red;
 	font-family: TooSimple;

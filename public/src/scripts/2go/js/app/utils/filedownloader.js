@@ -3,11 +3,15 @@ define(['phasercomponents', 'filesaver',
 
 	'html2canvas', 'base/events/events', 'base/utils/message',
 
+	'base/utils/translation', 'base/utils/translationconsts',
+
 	'base/utils/error', 'base/utils/errorcodes'],
 
 	function(PhaserComponents, filesaver,
 
 		html2canvas, Events, Message,
+
+		Translation, TranslationConsts,
 
 		Error, ErrorCodes){
 	
@@ -100,16 +104,20 @@ define(['phasercomponents', 'filesaver',
 		};
 
 		FileDownloader.prototype.openFilename = function(){
-			var pop, box;
+			var pop, box, title, msg, error, ok;
+			title = 		Translation.getForKey(TranslationConsts.Keys.DOWNLOAD_TITLE);
+			msg = 			Translation.getForKey(TranslationConsts.Keys.DOWNLOAD_MSG);
+			error = 		Translation.getForKey(TranslationConsts.Keys.DOWNLOAD_ERROR);
+			ok = 			Translation.getForKey(TranslationConsts.Keys.OK_BUTTON);
 			pop = $("<div class='_2gofilenamecontainer'></div>");
 			pop.append("<div class='_2gofilenamebg'></div>");
 			box = $("<div class='_2gofilename'></div>");
 			box.append("<div class='_2gofilenameclose'></div>");
 			box.append("<input maxlength = '12' class='_2go _2gofilenameinput' type='text'></input>");
-			box.append("<p class='_2gofilenametitle'>Download</p>");
-			box.append("<p class='_2gofilenameerror'>Please enter at least 3 characters</p>");
-			box.append("<p class='_2gofilenamemessage'>Please choose a filename</p>");
-			box.append("<div class='_2gofilenameokcontainer'><div class='_2gofilenameokyellow'><div class='_2gofilenameokyes'></div></div></div>");
+			box.append("<p class='_2gofilenametitle'>" + title + "</p>");
+			box.append("<p class='_2gofilenameerror'>" + error + "</p>");
+			box.append("<p class='_2gofilenamemessage'>" + msg + "</p>");
+			box.append("<div class='_2gofilenameokcontainer'><div class='_2gofilenameokyellow'><div class='_2gofilenameokyes'></div><p>" + ok + "</p></div></div>");
 			pop.append(box);
 			$("body").append(pop);
 			$("._2gofilenameerror").hide();

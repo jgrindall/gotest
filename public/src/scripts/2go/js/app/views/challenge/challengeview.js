@@ -83,7 +83,7 @@ CloseButton, Assets){
 	};
 
 	ChallengeView.prototype.addTitle = function() {
-		var s = "Choose a challenge or skip to just dive in.";
+		var s = Translation.getForKey(TranslationConsts.Keys.CHOOSE_CHALLENGE_TITLE);
 		this.label = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 10, this.bounds.y + 7, s);
  		this.group.add(this.label);
 	};
