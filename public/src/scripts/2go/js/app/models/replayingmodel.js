@@ -7,7 +7,7 @@ function(PhaserComponents){
 	
 	var ReplayingModel  = function(){
 		PhaserComponents.Model.AbstractModel.call(this);
-		this.value = true;
+		this.value = false;
 	};
 	
 	PhaserComponents.Utils.extends(ReplayingModel, PhaserComponents.Model.AbstractModel);
