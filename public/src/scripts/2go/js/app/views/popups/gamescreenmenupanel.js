@@ -62,7 +62,7 @@ ModelConsts, Assets, Translation, TranslationConsts){
 		var bounds, w, h, radioLabels;
 		w = PhaserComponents.Display.RadioButtons.WIDTH;
 		h = PhaserComponents.Display.RadioButtons.HEIGHT;
-		radioLabels = ["45 degrees", "90 degrees"];
+		radioLabels = [Translation.getForKey(TranslationConsts.Data.TURN_45_DEGREES), Translation.getForKey(TranslationConsts.Data.TURN_90_DEGREES)];
 		bounds = {'x':this.bounds.x + this.bounds.w - w - 13, 'y':this.bounds.y + this.bounds.h - 178, 'w':w, 'h':h};
 		this.radio = new PhaserComponents.Display.RadioButtons({"sfx":Assets.SOUNDS[1], "radioLabels":radioLabels, "fontKey":"vsmall", "buttonClass":RadioButton, "numY":2, "model":this.options.radioModel, "bounds":bounds});	
 		this.group.add(this.radio.group);

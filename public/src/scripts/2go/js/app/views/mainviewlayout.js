@@ -39,7 +39,6 @@ function(CanvasLayout, ModelConsts,
 		if(!MainViewLayout.modelFacade){
 			PhaserComponents.Injector.getInstance().injectInto(MainViewLayout, 'mainviewlayout');
 		}
-		console.log("injected ", MainViewLayout.modelFacade);
 	};
 
 	MainViewLayout.getCanvasScale = function(gameWidth, gameHeight){
@@ -56,8 +55,6 @@ function(CanvasLayout, ModelConsts,
 		scale = size.w / CanvasLayout.REF_WIDTH;
 		return Math.max(scale, 0.1);
 	};
-
-	
 
 	return MainViewLayout;
 

@@ -61,6 +61,16 @@ define([],
 		TranslationConsts.Keys.CHALLENGE5 =						"CHALLENGE5";
 		TranslationConsts.Keys.CHALLENGE6 =						"CHALLENGE6";
 		TranslationConsts.Keys.CHALLENGE7 =						"CHALLENGE7";
+		TranslationConsts.Keys.CHALLENGE_NAME0 =				"CHALLENGE_NAME0";
+		TranslationConsts.Keys.CHALLENGE_NAME1 =				"CHALLENGE_NAME1";
+		TranslationConsts.Keys.CHALLENGE_NAME2 =				"CHALLENGE_NAME2";
+		TranslationConsts.Keys.CHALLENGE_NAME3 =				"CHALLENGE_NAME3";
+		TranslationConsts.Keys.CHALLENGE_NAME4 =				"CHALLENGE_NAME4";
+		TranslationConsts.Keys.CHALLENGE_NAME5 =				"CHALLENGE_NAME5";
+		TranslationConsts.Keys.CHALLENGE_NAME6 =				"CHALLENGE_NAME6";
+		TranslationConsts.Keys.CHALLENGE_NAME7 =				"CHALLENGE_NAME7";
+		TranslationConsts.Keys.TURN_45_DEGREES =				"TURN_45_DEGREES";
+		TranslationConsts.Keys.TURN_90_DEGREES =				"TURN_90_DEGREES";
 
 
 		TranslationConsts.Data = {};
@@ -112,6 +122,16 @@ define([],
 		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE5] = 				"Travel along the flight-path to\nget to the spaceman";
 		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE6] = 				"Get to the cheese by finding\nyour way through the maze";
 		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE7] = 				"Drive the car around the track by repeating\nthe 'turn 90 degrees' and 'move forward'\ncommands. Click on '×1' to change how\nmany times they repeat";
+		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME0] = 			"Find the treasure";
+		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME1] = 			"See the sights";
+		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME2] = 			"To the lighthouse";
+		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME3] = 			"Live to tell the tale";
+		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME4] = 			"Get buzzy";
+		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME5] = 			"Rescue the spaceman";
+		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME6] = 			"Say cheese!";
+		TranslationConsts.Data[TranslationConsts.Keys.CHALLENGE_NAME7] = 			"Win the race";
+		TranslationConsts.Data[TranslationConsts.Keys.TURN_45_DEGREES] = 			"45 degrees";
+		TranslationConsts.Data[TranslationConsts.Keys.TURN_90_DEGREES] = 			"90 degrees";
 	
 		return TranslationConsts;
 

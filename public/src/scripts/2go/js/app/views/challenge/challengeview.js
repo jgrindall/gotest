@@ -48,16 +48,16 @@ CloseButton, Assets){
 		options = {"bounds":bounds, "numX": 4, "numY": 2, "buttonClass": ChallengeButton};
 		options.labels = [
 			[
-				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Find the treasure'},
-				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'See the sights'},
-				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'To the lighthouse'},
-				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Live to tell the tale'}
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.CHALLENGE_NAME0)},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.CHALLENGE_NAME1)},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.CHALLENGE_NAME2)},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.CHALLENGE_NAME3)}
 			],
 			[
-				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Get buzzy'},
-				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Rescue the spaceman'},
-				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Say cheese!'},
-				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':'Win the race'}
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.CHALLENGE_NAME4)},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.CHALLENGE_NAME5)},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.CHALLENGE_NAME6)},
+				{'key':'vsmallwhite', 'bounds':{'x':0, 'y':15, 'w':175, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.CHALLENGE_NAME7)}
 			]
 		];
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);
