@@ -43,6 +43,7 @@ function(PhaserComponents, Events,
 	StartUpCommand.prototype.loadFile = function(data){
 		var that = this;
 		this.toActivity();
+		this.eventDispatcher.trigger({"type":Events.HIDE_UI});
 		this.eventDispatcher.trigger({"type":Events.SHOW_ALL});
 		setTimeout(function(){
 			that.modelFacade.setData(data);
@@ -64,9 +65,8 @@ function(PhaserComponents, Events,
 		console.log("data.response is ", data.response);
 		if(data.success){
 			if(data.response){
-				if(data.hide || 1 === 1){
+				if(data.hide){
 					this.replaySharedFile(data.response);
-					this.eventDispatcher.trigger({"type":Events.HIDE_UI});
 				}
 				else{
 					this.loadFile(data.response);
