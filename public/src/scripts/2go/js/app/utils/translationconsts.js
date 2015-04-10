@@ -75,6 +75,7 @@ define([],
 		TranslationConsts.Keys.DOWNLOAD_TITLE =					"DOWNLOAD_TITLE";
 		TranslationConsts.Keys.DOWNLOAD_MSG =					"DOWNLOAD_MSG";
 		TranslationConsts.Keys.DOWNLOAD_ERROR =					"DOWNLOAD_ERROR";
+		TranslationConsts.Keys.PLACEHOLDER =					"PLACEHOLDER";
 
 
 		TranslationConsts.Data = {};
@@ -140,6 +141,7 @@ define([],
 		TranslationConsts.Data[TranslationConsts.Keys.DOWNLOAD_ERROR] = 			"Please enter at least 3 characters";
 		TranslationConsts.Data[TranslationConsts.Keys.DOWNLOAD_MSG] = 				"Please choose a filename";
 		TranslationConsts.Data[TranslationConsts.Keys.DOWNLOAD_TITLE] = 			"Download";
+		TranslationConsts.Data[TranslationConsts.Keys.PLACEHOLDER] = 				"Your name here";
 
 		return TranslationConsts;
 

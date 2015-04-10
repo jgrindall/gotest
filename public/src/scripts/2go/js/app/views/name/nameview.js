@@ -1,14 +1,19 @@
 
-define(['phasercomponents', 'base/views/mainviewlayout', 'base/consts/canvaslayout'],
+define(['phasercomponents', 'base/views/mainviewlayout', 'base/consts/canvaslayout',
 
-function(PhaserComponents, MainViewLayout, CanvasLayout){
+	'base/utils/translation', 'base/utils/translationconsts'],
+
+function(PhaserComponents, MainViewLayout, CanvasLayout,
+
+	Translation, TranslationConsts){
 	
 	"use strict";
 		
 	var NameView = function(model){
+		var that = this, placeholder;
 		this.model = model;
-		var that = this;
-		this.el = $("<input class='_2go _2goname' maxlength='56' placeholder='Your name here' type='text'>Your name here</input>");
+		placeholder = Translation.getForKey(TranslationConsts.Keys.PLACEHOLDER);
+		this.el = $("<input class='_2go _2goname' maxlength='56' placeholder='" + placeholder + "' type='text'>Your name here</input>");
 		PhaserComponents.Injector.getInstance().injectInto(this, "nameview");
 		this.cacheRegExp();
 		this.addListeners();
