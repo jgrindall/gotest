@@ -13,8 +13,8 @@ define(['phasercomponents',
 	
 		"use strict";
 
-		var LocalTranslatorService = function(){
-			AbstractTranslatorService.call(this);
+		var LocalTranslatorService = function(fallback){
+			AbstractTranslatorService.call(this, fallback);
 		};
 
 		PhaserComponents.Utils.extends(LocalTranslatorService, AbstractTranslatorService);

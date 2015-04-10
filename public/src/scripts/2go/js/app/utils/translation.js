@@ -18,10 +18,10 @@ define([
 		Translation.init = function(callback){
 			console.log("window.T is ", window.T);
 			if(window.T){
-				this._service = new PurpleMashTranslatorService();
+				this._service = new PurpleMashTranslatorService(new LocalTranslatorService());
 			}
 			else{
-				this._service = new LocalTranslatorService();
+				this._service = new LocalTranslatorService(null);
 			}
 			this._service.init({}, callback);
 		};

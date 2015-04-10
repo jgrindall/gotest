@@ -13,18 +13,20 @@ define(['phasercomponents',
 	
 		"use strict";
 
-		var PurpleMashTranslatorService = function(){
-			AbstractTranslatorService.call(this);
+		var PurpleMashTranslatorService = function(fallback){
+			AbstractTranslatorService.call(this, fallback);
 		};
 
 		PhaserComponents.Utils.extends(PurpleMashTranslatorService, AbstractTranslatorService);
 
-		PurpleMashTranslatorService.prototype.getDefaultForKey = function(key){
-			return this._defaultTranslate(key);
-		};
-
 		PurpleMashTranslatorService.prototype.getForKey = function(key){
-			return this._translate(key);
+			var val = this._translate(key);
+			if(!val){
+				if(this._fallback){
+					val = this._fallback.getForKey(key);
+				}
+			}
+			return val;
 		};
 
 		PurpleMashTranslatorService.prototype.init = function(data, callback){

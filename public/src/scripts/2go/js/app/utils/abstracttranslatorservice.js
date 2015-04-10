@@ -5,8 +5,8 @@ define([],
 	
 		"use strict";
 
-		var AbstractTranslatorService = function(){
-			
+		var AbstractTranslatorService = function(fallback){
+			this._fallback = fallback;
 		};
 
 		AbstractTranslatorService.getForKey = function(){
