@@ -26,7 +26,7 @@ function(PhaserComponents,
 
 	NewFileCommand.prototype.execute = function(){
 		var label, options;
-		label = Translation.getForKey(TranslationConsts.KEYS.START_NEW_FILE_KEY);
+		label = Translation.getForKey(TranslationConsts.Keys.START_NEW_FILE);
 		options = {'dataProvider': new BgDataProvider(this.game), "label":label, "sfx":Assets.SOUNDS[2]};
 		this.alertManager.make(GameBgMenu, options, this.onBgChosen.bind(this));
 	};

@@ -1,7 +1,11 @@
 
-define(['base/views/popups/growl', 'base/assets', 'base/utils/errorcodes'],
+define(['base/views/popups/growl', 'base/assets',
 
-	function(Growl, Assets, ErrorCodes){
+	'base/utils/translation', 'base/utils/translationconsts'],
+
+	function(Growl, Assets,
+
+		Translation, TranslationConsts){
 	
 		"use strict";
 		
@@ -10,9 +14,9 @@ define(['base/views/popups/growl', 'base/assets', 'base/utils/errorcodes'],
 		};
 
 		Error.show = function(alertManager, code){
-			var s = ErrorCodes.MESSAGES[code];
-			s = s + "\n(error code " + code + ")";
-			alertManager.make(Growl, {"title":"Error", "label":s, "sfx":Assets.SOUNDS[2]}, null);
+			var s = Translation.getForKey(TranslationConsts.Keys.ERROR_PREFIX + code);
+			s = s + "\n(code " + code + ")";
+			alertManager.make(Growl, {"title":Translation.getForKey(TranslationConsts.Keys.ERROR_TITLE), "label":s, "sfx":Assets.SOUNDS[2]}, null);
 		};
 		
 		return Error;

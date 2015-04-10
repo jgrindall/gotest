@@ -1,5 +1,5 @@
 
-define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/commands/savecommand', 'base/commands/sharecommand',
+define(['base/appsettings', 'base/commands/newfilecommand', 'base/commands/loadcommand', 'base/commands/savecommand', 'base/commands/sharecommand',
 
 	'base/commands/printcommand', 'base/commands/undocommand', 'base/commands/downloadcommand',
 
@@ -29,7 +29,7 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
 
 	'base/consts/defaults', 'base/utils/clipart', 'base/utils/purplemashclipartadapter', 'base/utils/translation'],
 
-	function(NewFileCommand, LoadCommand, SaveCommand, ShareCommand,
+	function(AppSettings, NewFileCommand, LoadCommand, SaveCommand, ShareCommand,
 
 		PrintCommand, UndoCommand, DownloadCommand,
 
@@ -64,9 +64,6 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
    	var AppContext = function (options){
 		PhaserComponents.Context.call(this, options);
     };
-	
-	// TODO if live on purplemash
-    //AppContext.LIVE = true;
 
 	PhaserComponents.Utils.extends(AppContext, PhaserComponents.Context);
 
@@ -125,7 +122,7 @@ define(['base/commands/newfilecommand', 'base/commands/loadcommand', 'base/comma
     };
 
     AppContext.prototype.isLive = function(){
-    	if(AppContext.LIVE){
+    	if(AppSettings.LIVE){
     		return true;
     	}
     	var regexp0, regexp1;

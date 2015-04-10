@@ -2,11 +2,11 @@ define(
 
 	['phasercomponents',
 
-	'base/utils/message'],
+	'base/utils/message', 'base/utils/translation', 'base/utils/translationconsts'],
 
 	function(PhaserComponents, 
 
-	Message) {
+	Message, Translation, TranslationConsts) {
 	
 	"use strict";
 
@@ -19,7 +19,7 @@ define(
 
 	DownloadCommand.prototype.execute = function(){
 		if(PhaserComponents.Utils.isTouch()){
-			Message.show(this.alertManager, Message.SCREENSHOT);
+			Message.show(this.alertManager, Translation.getForKey(TranslationConsts.Keys.SCREENSHOT));
 		}
 		else{
 			this.fileDownLoader.download();

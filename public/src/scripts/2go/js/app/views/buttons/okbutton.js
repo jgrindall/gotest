@@ -1,12 +1,16 @@
 
-define(['phasercomponents', 'base/assets'],
+define(['phasercomponents', 'base/assets',
 
-	function(PhaserComponents, Assets){
+	'base/utils/translation', 'base/utils/translationconsts'],
+
+	function(PhaserComponents, Assets,
+
+		Translation, TranslationConsts){
 	
 	"use strict";
 	
 	var OkButton = function(options){
-		options.label = {'key':'medium', 'bounds':{'x':7, 'y':57, 'w':166, 'h':40}, 'text':'Ok'};
+		options.label = {'key':'medium', 'bounds':{'x':7, 'y':57, 'w':166, 'h':40}, 'text': Translation.getForKey(TranslationConsts.Keys.OK_BUTTON)};
 		options.asset = Assets.OK_BUTTON;
 		options.sfx = Assets.SOUNDS[1];
 		PhaserComponents.Display.AbstractButton.call(this, options);

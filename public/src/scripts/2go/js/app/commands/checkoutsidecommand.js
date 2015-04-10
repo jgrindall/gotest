@@ -2,11 +2,15 @@ define(
 
 	['phasercomponents', 
 
-	'base/consts/turtles', 'base/consts/canvaslayout', 'base/views/popups/tooltip'],
+	'base/consts/turtles', 'base/consts/canvaslayout', 'base/views/popups/tooltip',
+
+	'base/utils/translation', 'base/utils/translationconsts'],
 
 function(PhaserComponents,
 
-	Turtles, CanvasLayout, ToolTip) {
+	Turtles, CanvasLayout, ToolTip,
+
+	Translation, TranslationConsts) {
 	
 	"use strict";
 	
@@ -28,7 +32,7 @@ function(PhaserComponents,
 		if(data.x < -Turtles.WIDTH/2 || data.x > CanvasLayout.REF_WIDTH + Turtles.WIDTH/2 || data.y < -Turtles.HEIGHT/2 || data.y > CanvasLayout.REF_HEIGHT + Turtles.HEIGHT/2){
 			if(!CheckOutsideCommand.popupShown){
 				bounds = {'x':this.game.w - 610, 'y':28};
-				this.alertManager.make(ToolTip, {"name":"outside", "title":"Message", "label":msg, "arrow":4, "imageAsset":null}, this.onClick.bind(this), bounds);
+				this.alertManager.make(ToolTip, {"name":"outside", "title":Translation.getForKey(TranslationConsts.Keys.MESSAGE_TITLE), "label":msg, "arrow":4, "imageAsset":null}, this.onClick.bind(this), bounds);
 				CheckOutsideCommand.popupShown = true;
 			}
 		}

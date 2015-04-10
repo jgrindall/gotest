@@ -5,7 +5,7 @@ define(['phasercomponents',
 
 'base/assets', 'base/views/buttons/addbutton',
 
-'base/views/popups/turtlechoice'],
+'base/views/popups/turtlechoice', 'base/utils/translation', 'base/utils/translationconsts'],
 
 function(PhaserComponents, 
 
@@ -13,7 +13,7 @@ OkButtonContainer, CloseButton,
 
 Assets, AddButton,
 
-TurtleChoice){
+TurtleChoice, Translation, TranslationConsts){
 	
 	"use strict";
 		
@@ -59,7 +59,7 @@ TurtleChoice){
 	};
 
 	TurtleMenu.prototype.addTitle = function() {
-		this.label = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 14, this.bounds.y + 10, "Choose a turtle");
+		this.label = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 14, this.bounds.y + 10, Translation.getForKey(TranslationConsts.Keys.CHOOSE_TURTLE));
  		this.group.add(this.label);
 	};
 

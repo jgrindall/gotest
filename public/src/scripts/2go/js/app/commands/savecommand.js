@@ -2,13 +2,17 @@ define(['phasercomponents',
 
 	'base/utils/message',
 
-	'base/utils/error', 'base/utils/errorcodes'],
+	'base/utils/error', 'base/utils/errorcodes',
+
+	'base/utils/translation', 'base/utils/translationconsts'],
 
 function(PhaserComponents,
 
 	Message,
 
-	Error, ErrorCodes) {
+	Error, ErrorCodes,
+
+	Translation, TranslationConsts) {
 	
 	"use strict";
 	
@@ -25,7 +29,7 @@ function(PhaserComponents,
 	
 	SaveCommand.prototype.onSaved = function(data){
 		if(data.success){
-			Message.show(this.alertManager, Message.SAVE_SUCCESS);
+			Message.show(this.alertManager, Translation.getForKey(TranslationConsts.Keys.SAVE_SUCCESS));
 		}
 		else{
 			Error.show(this.alertManager, ErrorCodes.SAVE_ERROR);

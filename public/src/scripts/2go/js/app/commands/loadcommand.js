@@ -1,10 +1,14 @@
 define(['phasercomponents', 'base/events/events',
 
-	'base/utils/errorcodes', 'base/utils/error', 'base/utils/message'],
+	'base/utils/errorcodes', 'base/utils/error', 'base/utils/message',
+
+	'base/utils/translation', 'base/utils/translationconsts'],
 
 function(PhaserComponents, Events,
 
-	ErrorCodes, Error, Message) {
+	ErrorCodes, Error, Message,
+
+	Translation, TranslationConsts) {
 	
 	"use strict";
 	
@@ -25,7 +29,7 @@ function(PhaserComponents, Events,
 				try{
 					this.modelFacade.setData(data.response);
 					this.eventDispatcher.trigger({"type":Events.REPLAY});
-					Message.show(this.alertManager, Message.LOAD_SUCCESS);
+					Message.show(this.alertManager, Translation.getForKey(TranslationConsts.Keys.LOAD_SUCCESS));
 				}
 				catch(e){
 					Error.show(this.alertManager, ErrorCodes.FORMAT_ERROR);

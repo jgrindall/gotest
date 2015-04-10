@@ -1,7 +1,11 @@
 
-define(['base/views/popups/growl', 'base/assets'],
+define(['base/views/popups/growl', 'base/assets',
 
-	function(Growl, Assets){
+	'base/utils/translation', 'base/utils/translationconsts'],
+
+	function(Growl, Assets,
+
+		Translation, TranslationConsts){
 	
 		"use strict";
 		
@@ -9,16 +13,9 @@ define(['base/views/popups/growl', 'base/assets'],
 			
 		};
 
-		Message.SCREENSHOT = "Use your device to take a screenshot\nand save it to your camera roll.\nIf you're not sure how, ask your teacher.";
-		Message.SAVE_SUCCESS = "Your file has been saved";
-		Message.LOAD_SUCCESS = "Your file has been loaded";
-
-		//MEssage.IMAGE_SAVED = "Your image has been "
-		
 		Message.show = function(alertManager, s){
-			alertManager.make(Growl, {"title":"Message", "label":s, "sfx":Assets.SOUNDS[2]}, null);
+			alertManager.make(Growl, {"title":Translation.getForKey(TranslationConsts.Keys.MESSAGE_TITLE), "label":s, "sfx":Assets.SOUNDS[2]}, null);
 		};
-		
 		
 		return Message;
 

@@ -5,7 +5,7 @@ define(['base/assets',
 
 'base/views/buttons/okbutton',
 
-'base/consts/steplengths'],
+'base/consts/steplengths', 'base/utils/translation', 'base/utils/translationconsts'],
 
 function(Assets,
 
@@ -13,7 +13,7 @@ PhaserComponents, ModelConsts,
 
 OkButton,
 
-StepLengths){
+StepLengths, Translation, TranslationConsts){
 	
 	"use strict";
 		
@@ -106,22 +106,22 @@ StepLengths){
 	};
 
 	SettingsMenuPanel.prototype.addDiagLabel = function(){
-		this.diagLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y3[this.getShowDiag()], "Stretch diags");
+		this.diagLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y3[this.getShowDiag()], Translation.getForKey(TranslationConsts.Keys.STRETCH_DIAGS));
 		this.group.add(this.diagLabel);
 	};
 
 	SettingsMenuPanel.prototype.addProgLabel = function(){
-		this.progLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y0[this.getShowDiag()], "Allow programming");
+		this.progLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y0[this.getShowDiag()], Translation.getForKey(TranslationConsts.Keys.ALLOW_PROG));
 		this.group.add(this.progLabel);
 	};
 
 	SettingsMenuPanel.prototype.addGridLabel = function(){
-		this.gridLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y2[this.getShowDiag()], "Toggle grid");
+		this.gridLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y2[this.getShowDiag()], Translation.getForKey(TranslationConsts.Keys.TOGGLE_GRID));
 		this.group.add(this.gridLabel);
 	};
 
 	SettingsMenuPanel.prototype.addStepLengthLabel = function(){
-		this.stepLengthLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y1[this.getShowDiag()], "Step length");
+		this.stepLengthLabel = PhaserComponents.TextFactory.make('small', this.game, this.bounds.x + 50, this.bounds.y + SettingsMenuPanel.Y1[this.getShowDiag()], Translation.getForKey(TranslationConsts.Keys.STEP_LENGTH));
 		this.group.add(this.stepLengthLabel);
 	};
 	

@@ -20,7 +20,11 @@ define(['phasercomponents',
 		PhaserComponents.Utils.extends(LocalTranslatorService, AbstractTranslatorService);
 
 		LocalTranslatorService.prototype.getForKey = function(key){
-			var data = TranslationConsts.DATA;
+			var data;
+			if(!key){
+				throw new Error("translating the key " + key);
+			}
+			data = TranslationConsts.Data;
 			return data[key];
 		};
 

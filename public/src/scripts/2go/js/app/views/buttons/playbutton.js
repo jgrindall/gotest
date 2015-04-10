@@ -1,16 +1,20 @@
 
 define(
 
-	['phasercomponents', 'base/assets'],
+	['phasercomponents', 'base/assets',
 
-	function(PhaserComponents, Assets){
+	'base/utils/translation', 'base/utils/translationconsts'],
+
+	function(PhaserComponents, Assets,
+
+		Translation, TranslationConsts){
 	
 	"use strict";
 	
 	var PlayButton = function(options){
 		options.disabledAlpha = 1;
 		options.asset = Assets.PLAY_BUTTON;
-		options.label = {'key':'button', 'bounds':{'x':2, 'y':15, 'w':80, 'h':40}, 'text':'Play'};
+		options.label = {'key':'button', 'bounds':{'x':2, 'y':15, 'w':80, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.PLAY_BUTTON)};
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 

@@ -4,13 +4,13 @@ define(
 
 	'base/assets', 'base/views/popups/challengedone', 'base/models/modelconsts',
 
-	'base/events/events'],
+	'base/events/events', 'base/utils/translation', 'base/utils/translationconsts'],
 
 function(PhaserComponents, ChallengeData,
 
 	Assets, ChallengeDone, ModelConsts,
 
-	Events) {
+	Events, Translation, TranslationConsts) {
 	
 	"use strict";
 	
@@ -42,7 +42,7 @@ function(PhaserComponents, ChallengeData,
 		index = this.modelFacade.get(ModelConsts.CHALLENGE).get();
 		num = ChallengeData.TARGETS.length;
 		showNext = (index < num - 1);
-		this.alertManager.make(ChallengeDone, {"title":"Challenge", "label":ChallengeData.WELL_DONE_MESSAGE, "sfx":Assets.SOUNDS[2], "showNext":showNext}, this.onClick.bind(this));
+		this.alertManager.make(ChallengeDone, {"title":Translation.getForKey(TranslationConsts.Keys.CHALLENGE_TITLE), "label":Translation.getForKey(TranslationConsts.Keys.WELL_DONE_MESSAGE), "sfx":Assets.SOUNDS[2], "showNext":showNext}, this.onClick.bind(this));
 	};
 	
   	return ChallengeDoneCommand;

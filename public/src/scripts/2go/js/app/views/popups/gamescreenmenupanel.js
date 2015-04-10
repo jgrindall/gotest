@@ -1,11 +1,11 @@
 
 define(['phasercomponents','base/views/popups/screenchoice', 'base/views/buttons/radiobutton',
 
-'base/models/modelconsts', 'base/assets'],
+'base/models/modelconsts', 'base/assets', 'base/utils/translation', 'base/utils/translationconsts'],
 
 function(PhaserComponents, ScreenChoice, RadioButton,
 
-ModelConsts, Assets){
+ModelConsts, Assets, Translation, TranslationConsts){
 	
 	"use strict";
 		
@@ -76,12 +76,12 @@ ModelConsts, Assets){
 		options.performSelect = true;
 		options.labels = [
 			[
-				{'key':'vsmall', 'bounds':{'x':0, 'y':180, 'w':220, 'h':40}, 'text':'Simple up down,\nleft, right'},
-				{'key':'vsmall', 'bounds':{'x':0, 'y':222, 'w':220, 'h':40}, 'text':'Use number keys to say\nhow many steps to take'}
+				{'key':'vsmall', 'bounds':{'x':0, 'y':180, 'w':220, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.KEYS0)},
+				{'key':'vsmall', 'bounds':{'x':0, 'y':222, 'w':220, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.KEYS1)}
 			],
 			[
-				{'key':'vsmall', 'bounds':{'x':0, 'y':217, 'w':220, 'h':40}, 'text':'Use diagonals and number\nkeys to control the turtle'},
-				{'key':'vsmall', 'bounds':{'x':0, 'y':217, 'w':220, 'h':40}, 'text':'Program the turtle to turn on the\nspot and move forwards or backwards'}
+				{'key':'vsmall', 'bounds':{'x':0, 'y':217, 'w':220, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.KEYS2)},
+				{'key':'vsmall', 'bounds':{'x':0, 'y':217, 'w':220, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.KEYS3)}
 			]
 		];
 		this.grid = new PhaserComponents.Display.ButtonGrid(options);

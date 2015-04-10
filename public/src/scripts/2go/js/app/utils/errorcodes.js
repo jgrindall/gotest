@@ -9,8 +9,6 @@ define([],
 			
 		};
 
-		ErrorCodes.MESSAGES = [];
-
 		ErrorCodes.SAVE_ERROR = 				0;
 		ErrorCodes.FORMAT_ERROR = 				1;
 		ErrorCodes.NO_PRINTERS = 				2;
@@ -25,20 +23,6 @@ define([],
 		ErrorCodes.WRONG_VERSION = 				11;
 		ErrorCodes.SHARE_ERROR = 				12;
 
-		ErrorCodes.MESSAGES.push("Error saving your file.");
-		ErrorCodes.MESSAGES.push("Format error, unable to load your file.");
-		ErrorCodes.MESSAGES.push("No printers found.");
-		ErrorCodes.MESSAGES.push("Error, unable to load your file.");
-		ErrorCodes.MESSAGES.push("Error loading defaults.");
-		ErrorCodes.MESSAGES.push("Sorry, saving images does not seem\nto be supported on your browser.");
-		ErrorCodes.MESSAGES.push("Error loading your file, file not found.");
-		ErrorCodes.MESSAGES.push("A clipboard error has occurred.");
-		ErrorCodes.MESSAGES.push("A clipboard error has occurred.");
-		ErrorCodes.MESSAGES.push("A clipboard error has occurred.");
-		ErrorCodes.MESSAGES.push("A clipboard error has occurred.");
-		ErrorCodes.MESSAGES.push("You have tried to open a file\nbelonging to an older version\nof 2Go. Launching...");
-		ErrorCodes.MESSAGES.push("Error sharing your file.");
-		
 		return ErrorCodes;
 
 	}

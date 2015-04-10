@@ -1,16 +1,20 @@
 
 define(
 
-	['phasercomponents', 'base/assets'],
+	['phasercomponents', 'base/assets',
 
-	function(PhaserComponents, Assets){
+	'base/utils/translation', 'base/utils/translationconsts'],
+
+	function(PhaserComponents, Assets,
+
+		Translation, TranslationConsts){
 	
 	"use strict";
 	
 	var StopButton = function(options){
 		options.disabledAlpha = 1;
 		options.asset = Assets.STOP_BUTTON;
-		options.label = {'key':'button', 'bounds':{'x':2, 'y':15, 'w':80, 'h':40}, 'text':'Stop'};
+		options.label = {'key':'button', 'bounds':{'x':2, 'y':15, 'w':80, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.STOP_BUTTON)};
 		PhaserComponents.Display.AbstractButton.call(this, options);
 	};
 

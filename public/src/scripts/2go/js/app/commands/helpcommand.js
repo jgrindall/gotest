@@ -1,10 +1,14 @@
 define(['phasercomponents', 'base/views/popups/challengegrowl',
 
-	'base/models/modelconsts', 'base/consts/challengedata', 'base/assets'],
+	'base/models/modelconsts', 'base/consts/challengedata', 'base/assets',
+
+	'base/utils/translation', 'base/utils/translationconsts'],
 
 function(PhaserComponents, ChallengeGrowl,
 
-	ModelConsts, ChallengeData, Assets) {
+	ModelConsts, ChallengeData, Assets,
+
+	Translation, TranslationConsts) {
 	
 	"use strict";
 	
@@ -35,12 +39,12 @@ function(PhaserComponents, ChallengeGrowl,
 	HelpCommand.prototype.execute = function(){
 		var msg, title, index = this.modelFacade.get(ModelConsts.CHALLENGE).get();
 		if(index !== null){
-			msg = ChallengeData.MESSAGES[index];
-			title = "Challenge";
+			msg = Translation.getForKey(TranslationConsts.Keys.CHALLENGE_PREFIX + index);
+			title = Translation.getForKey(TranslationConsts.Keys.CHALLENGE_TITLE);
 		}
 		else{
 			msg = HelpCommand.MESSAGE;
-			title = "Help";
+			title = Translation.getForKey(TranslationConsts.Keys.HELP_TITLE);
 		}
 		this.alertManager.make(ChallengeGrowl, {"title":title, "label":msg, "sfx":Assets.SOUNDS[2]}, this.onClick.bind(this));
 	};

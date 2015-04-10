@@ -11,7 +11,7 @@ define(['base/assets',
 
 'base/views/popups/gamescreenmenupanel', 'base/views/popups/settingsmenupanel',
 
-'base/views/buttons/videobutton'],
+'base/views/buttons/videobutton', 'base/utils/translation', 'base/utils/translationconsts'],
 
 function(Assets,
 
@@ -25,7 +25,7 @@ TabButton,
 
 GameScreenMenuPanel, SettingsMenuPanel,
 
-VideoButton){
+VideoButton, Translation, TranslationConsts){
 	
 	"use strict";
 		
@@ -57,8 +57,8 @@ VideoButton){
 		options = {"bounds":bounds, "panels":panels, "buttonClass":TabButton};
 		options.labels = [
 			[
-				{'key':'buttondark', 'bounds':{'x':2, 'y':6, 'w':93, 'h':40}, 'text':'Input'},
-				{'key':'buttondark', 'bounds':{'x':2, 'y':6, 'w':93, 'h':40}, 'text':'General'}
+				{'key':'buttondark', 'bounds':{'x':2, 'y':6, 'w':93, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.TAB0)},
+				{'key':'buttondark', 'bounds':{'x':2, 'y':6, 'w':93, 'h':40}, 'text':Translation.getForKey(TranslationConsts.Keys.TAB1)}
 			]
 		];
 		this.tabPanel = new PhaserComponents.Display.TabPanel(options);
@@ -72,7 +72,7 @@ VideoButton){
 	};
 
 	GridMenu.prototype.addLabel = function () {
-		this.title = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 16, this.bounds.y + 10, "Settings");
+		this.title = PhaserComponents.TextFactory.make('mediumheader', this.game, this.bounds.x + 16, this.bounds.y + 10, Translation.getForKey(TranslationConsts.Keys.SETTINGS));
 		this.group.add(this.title);
 	};
 
