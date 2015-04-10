@@ -40,14 +40,16 @@ Assets, ShowDirections, ModelConsts){
 		this.eventDispatcher.addListener(Events.IMG_CAPTURED, this.imgHandler);
 		this.eventDispatcher.addListener(Events.CLOSE_IMG, this.closeHandler);
 		this.eventDispatcher.addListener(Events.HIDE_UI, this.hideHandler);
+		if(!this.modelFacade.get(ModelConsts.REPLAYING).get()){
+			this.addTopBar();
+			this.addBrand();
+			this.addTop();
+			this.addControls();
+			this.addMenu();
+			this.addName();
+		}
 		this.addBg();
-		this.addTopBar();
-		this.addBrand();
-		this.addTop();
 		this.addCanvas();
-		this.addControls();
-		this.addMenu();
-		this.addName();
 	};
 
 	MainView.prototype.onHide = function(){
@@ -55,6 +57,8 @@ Assets, ShowDirections, ModelConsts){
 		this.brand.visible = 				false;
 		this.menu.view.visible = 			false;
 		this.controls.view.visible = 		false;
+		this.topBar.visible =				false;
+		this.topBar.y =						-100;
 	};
 
 	MainView.prototype.addImg = function(data) {
@@ -115,8 +119,10 @@ Assets, ShowDirections, ModelConsts){
 	};
 
 	MainView.prototype.positionBrand = function() {
-		this.brand.x = this.game.w - 343;
-		this.brand.y = 9;
+		if(this.brand){
+			this.brand.x = this.game.w - 343;
+			this.brand.y = 9;
+		}
 	};
 
 	MainView.prototype.positionCanvas = function() {
@@ -194,14 +200,16 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.positionControls = function() {
 		var x, y, availableWidth, scale;
-		scale = MainViewLayout.getCanvasScale(this.game.w, this.game.h);
-		availableWidth = this.controlsAvailableWidth();
-		x = this.game.w - availableWidth;
-		y = 0;
-		this.controls.view.x = x;
-		this.controls.view.y = y;
-		this.controls.bounds.w = availableWidth;
-		this.controls.onResize();
+		if(this.controls){
+			scale = MainViewLayout.getCanvasScale(this.game.w, this.game.h);
+			availableWidth = this.controlsAvailableWidth();
+			x = this.game.w - availableWidth;
+			y = 0;
+			this.controls.view.x = x;
+			this.controls.view.y = y;
+			this.controls.bounds.w = availableWidth;
+			this.controls.onResize();
+		}
 	};
 
 	MainView.prototype.onOrient = function() {
@@ -214,17 +222,19 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.redraw = function(){
 		this.removeBg();
-		this.removeTopBar();
 		this.addBg();
-		this.addTopBar();
-		this.controlTop.onResize();
-		this.controls.onResize();
-		this.positionCanvas();
-		this.positionControls();
-		this.positionBrand();
-		this.group.sendToBack(this.brand);
-		this.group.sendToBack(this.topBar);
+		this.removeTopBar();
+		if(!this.modelFacade.get(ModelConsts.REPLAYING).get()){
+			this.addTopBar();
+			this.controlTop.onResize();
+			this.controls.onResize();
+			this.group.sendToBack(this.brand);
+			this.group.sendToBack(this.topBar);
+			this.positionControls();
+			this.positionBrand();
+		}
 		this.group.sendToBack(this.bg.view);
+		this.positionCanvas();
 	};
 
 	MainView.prototype.addControls = function() {

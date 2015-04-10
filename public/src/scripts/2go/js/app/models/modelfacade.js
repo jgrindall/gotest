@@ -15,7 +15,7 @@ define(['base/models/commmodel', 'base/models/screenmodel', 'base/models/bgmodel
 
 'base/models/bgpngmodel', 'base/models/turtlepngmodel',
 
-'base/models/modelconsts'],
+'base/models/modelconsts', 'base/models/replayingmodel'],
 
 function(CommModel, ScreenModel, BgModel, ChallengeModel,
 
@@ -31,7 +31,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 
 	CommTickerModel, PlayingState, CommSpeed, BgPngModel, TurtlePngModel,
 
-	ModelConsts){
+	ModelConsts, ReplayingModel){
 	
 	"use strict";
 
@@ -66,6 +66,9 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		}
 		else if(name === ModelConsts.SCREEN){
 			return this.screenModel;
+		}
+		else if(name === ModelConsts.REPLAYING){
+			return this.replayingModel;
 		}
 		else if(name === ModelConsts.DIAG){
 			return this.diagModel;
@@ -120,6 +123,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 	ModelFacade.prototype.makeModels = function(){
 		this.commModel = new CommModel();
 		this.colorModel = new ColorModel();
+		this.replayingModel = new ReplayingModel();
 		this.speedModel = new SpeedModel();
 		this.bgModel = new BgModel();
 		this.angleModel = new AngleModel();
@@ -321,6 +325,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		this.diagModel.destroy();
 		this.turtleModel.destroy();
 		this.allowProgModel.destroy();
+		this.replayingModel.destroy();
 		this.angleModel.destroy();
 		this.progTypeModel.destroy();
 		this.stepLengthModel.destroy();
@@ -343,6 +348,7 @@ function(CommModel, ScreenModel, BgModel, ChallengeModel,
 		this.angleModel = null;
 		this.progTypeModel = null;
 		this.stepLengthModel = null;
+		this.replayingModel = null;
 		this.nameModel = null;
 		this.progNumModel = null;
 		this.commModel = null;

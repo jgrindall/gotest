@@ -20,6 +20,7 @@ function(){
 	ModelConsts.GRID = 				"grid";
 	ModelConsts.COMM = 				"comm";
 	ModelConsts.SCREEN = 			"screen";
+	ModelConsts.REPLAYING = 		"replaying";
 	ModelConsts.COMMTICKER = 		"commTicker";
 	ModelConsts.PLAYING = 			"playing";
 	ModelConsts.WIDTH = 			"width";

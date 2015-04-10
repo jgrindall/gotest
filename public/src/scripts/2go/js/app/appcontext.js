@@ -101,6 +101,7 @@ define(['base/appsettings', 'base/commands/newfilecommand', 'base/commands/loadc
         PhaserComponents.Injector.getInstance().map("scene",								["showManager"],            			[this.showManager]);
         PhaserComponents.Injector.getInstance().map("clipartadapter", 						["alertManager"],						[this.alertManager]);
         PhaserComponents.Injector.getInstance().map("downloadcommand", 						["fileDownLoader"],						[this.fileDownLoader]);
+        PhaserComponents.Injector.getInstance().map("mainviewlayout", 						["modelFacade"],						[this.modelFacade]);
         this.showManager.init();
         this.modelFacade.init();
         this.fileDownLoader.init();
