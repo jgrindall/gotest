@@ -56,7 +56,7 @@ module.exports = function(grunt) {
                     _:true
                  }
             },
-            all: ['public/src/scrips/2go/js/app/**/*.js']
+            all: ['public/src/scripts/2go/js/app/**/*.js']
         },
 
 
