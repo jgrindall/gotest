@@ -62,7 +62,6 @@ function(PhaserComponents, Events,
 	};
 
 	StartUpCommand.prototype.onDefaultsLoaded = function(data){
-		console.log("data.response is ", data.response);
 		if(data.success){
 			if(data.response){
 				if(data.hide){
