@@ -7,7 +7,7 @@ define(['base/consts/challengedata'], function(ChallengeData) {
 			
     };
 
-	Defaults.TURTLE_MAP = [6, 3, 2, 5, 1, 2, 2, 7, 4, 6, 0, 8, 0, 0, 0, 0, 9];
+	Defaults.TURTLE_MAP = [6, 3, 2, 5, 1, 2, 2, 2, 7, 4, 6, 0, 8, 0, 0, 0, 0, 9];
 
 	Defaults.DEFAULT_SETTINGS = {
 		'bg':0,
