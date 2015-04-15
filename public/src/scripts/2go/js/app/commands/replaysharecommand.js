@@ -14,7 +14,6 @@ function(PlayingState, PhaserComponents, ModelConsts) {
 	PhaserComponents.Utils.extends(ReplayShareCommand, PhaserComponents.Commands.AbstractCommand);
 
 	ReplayShareCommand.prototype.execute = function(){
-		console.log("replay share!!");
 		this.modelFacade.get(ModelConsts.PLAYING).set(PlayingState.REPLAYING_SHARE);
 		this.modelFacade.get(ModelConsts.COMMTICKER).replay();
 	};

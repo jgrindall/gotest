@@ -46,8 +46,8 @@ Assets, ShowDirections, ModelConsts){
 			this.addMenu();
 			this.addName();
 			this.addTop();
+			this.addBrand();
 		}
-		this.addBrand();
 		this.addBg();
 		this.addCanvas();
 	};
@@ -120,14 +120,8 @@ Assets, ShowDirections, ModelConsts){
 
 	MainView.prototype.positionBrand = function() {
 		if(this.brand){
-			if(this.modelFacade.get(ModelConsts.REPLAYING).get()){
-				this.brand.x = this.game.w - 90;
-				this.brand.y = 4;
-			}
-			else{
-				this.brand.x = this.game.w - 343;
-				this.brand.y = 9;
-			}
+			this.brand.x = this.game.w - 343;
+			this.brand.y = 9;
 		}
 	};
 
