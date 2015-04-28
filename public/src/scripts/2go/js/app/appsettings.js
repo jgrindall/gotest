@@ -13,6 +13,8 @@ define([],
     regexp1 = new RegExp('simple', 'g');
 
 	AppSettings.LIVE = (regexp0.test(window.location) || regexp1.test(window.location));
+	
+	AppSettings.LIVE = true;
 
 	return AppSettings;
 	

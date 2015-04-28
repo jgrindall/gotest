@@ -17,8 +17,11 @@ define(['base/appsettings', 'base/consts/turtles'],
 	}
 
 	if(!Assets.BASE_PATH){
+		console.log("undef");
 		Assets.BASE_PATH = window.location + "scripts/2go/assets/";
 	}
+
+	Assets.BASE_PATH = "/";
 
 	console.log("BASE_PATH " + Assets.BASE_PATH);
 
