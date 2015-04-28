@@ -22,6 +22,7 @@ define(
 			Message.show(this.alertManager, Translation.getForKey(TranslationConsts.Keys.SCREENSHOT));
 		}
 		else{
+			//TODO window.pmExportCanvas(canvas);
 			this.fileDownLoader.download();
 		}
 	};
