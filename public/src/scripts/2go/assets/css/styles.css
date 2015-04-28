@@ -3,6 +3,7 @@ html, body{
     padding:0;
     margin:0;
     font-family:TooSimple;
+    overflow: hidden;
 }
 
 html{
@@ -10,11 +11,6 @@ html{
     width:100%;
     background-color:#ffffff;
     background-image:url(../images/bg/bg.png);
-    overflow: hidden;
-}
-
-body{
-    overflow: hidden;
 }
 
 div#game{
