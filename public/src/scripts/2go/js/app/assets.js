@@ -10,11 +10,17 @@ define(['base/appsettings', 'base/consts/turtles'],
 	};
 
 	if(AppSettings.LIVE){
-		Assets.BASE_PATH =				window.location.origin + "/scripts/2go/assets/";
+		Assets.BASE_PATH =				(window.location.origin || window.location) + "/scripts/2go/assets/";
 	}
 	else{
 		Assets.BASE_PATH =				window.location + "scripts/2go/assets/";
 	}
+
+	if(!Assets.BASE_PATH){
+		Assets.BASE_PATH = window.location + "scripts/2go/assets/";
+	}
+
+	console.log("BASE_PATH " + Assets.BASE_PATH);
 
 	Assets.LOADER_BAR = 			'loaderBar';
 	Assets.GRIDS = 					['grid0', 'grid1', 'grid2', 'grid3'];
