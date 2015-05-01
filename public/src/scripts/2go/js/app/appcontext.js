@@ -9,7 +9,7 @@ define(['base/appsettings', 'base/commands/newfilecommand', 'base/commands/loadc
 
 	'base/commands/addcommandcommand', 'base/commands/drawcommand', 'base/commands/choosechallengecommand',
 
-	'base/commands/preshutdowncommand', 'base/commands/checkchallengecommand',
+	'base/commands/preshutdowncommand', 'base/commands/checkchallengecommand', 'base/commands/resetdochandlercommand',
 
 	'base/commands/startupcommand', 'base/commands/progchangecommand', 'base/commands/editturtlecommand', 
 
@@ -39,7 +39,7 @@ define(['base/appsettings', 'base/commands/newfilecommand', 'base/commands/loadc
 
 		AddCommandCommand, DrawCommand, ChooseChallengeCommand,
 
-		PreShutdownCommand, CheckChallengeCommand,
+		PreShutdownCommand, CheckChallengeCommand, ResetDocHandlerCommand,
 
 		StartUpCommand, ProgChangeCommand, EditTurtleCommand,
 
@@ -195,6 +195,7 @@ define(['base/appsettings', 'base/commands/newfilecommand', 'base/commands/loadc
 		this.commandMap.map(Events.EDIT_TURTLE, 								EditTurtleCommand);
 		this.commandMap.map(Events.CHALLENGE_DONE, 								ChallengeDoneCommand);
 		this.commandMap.map(PhaserComponents.Events.AppEvents.PRE_SHUTDOWN, 	PreShutdownCommand);
+		this.commandMap.map(Events.RESET_DOC_HANDLER, 							ResetDocHandlerCommand);
     };
 		
     AppContext.prototype.launch = function(){

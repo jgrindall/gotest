@@ -8,6 +8,7 @@ function() {
 		
 	};
 
+	Events.RESET_DOC_HANDLER 	=		"resetdochandler";
 	Events.NEW_FILE 			= 		"newFile";
 	Events.HIDE_UI 				= 		"hideui";
 	Events.BACK 				= 		"back";

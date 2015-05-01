@@ -38,16 +38,13 @@ function(PhaserComponents,
 			this.modelFacade.get(ModelConsts.CHALLENGE).reset();
 			this.modelFacade.get(ModelConsts.BG).set(selectedPage, {"force":true});
 			this.modelFacade.get(ModelConsts.TURTLE).set(Defaults.TURTLE_MAP[selectedPage]);
+			this.eventDispatcher.trigger({"type":Events.RESET_DOC_HANDLER});
 		}
 		else if(data.index === 2){
 			this.eventDispatcher.trigger({"type":Events.OPEN_BG_EDITOR});
 		}
 		else if(data.index === 3){
 			this.eventDispatcher.trigger({"type":Events.SHOW_CHALLENGES});
-		}
-		if(window.DocumentHandler && window.DocumentHandler.reset){
-			console.log("reset DocumentHandler");
-			window.DocumentHandler.reset();
 		}
 	};
 	
