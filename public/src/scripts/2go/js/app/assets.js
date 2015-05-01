@@ -15,7 +15,7 @@ define(['base/appsettings', 'base/consts/turtles'],
 		Assets.BASE_PATH =				(window.location.origin || (window.location.protocol + '//' + window.location.hostname)) + Assets.PATH;
 	}
 	else{
-		Assets.BASE_PATH =				window.location.protocol + '//' + window.location.hostname + Assets.PATH;
+		Assets.BASE_PATH =				window.location.protocol + '//' + window.location.hostname + ":" + window.location.port + "/src" + Assets.PATH;
 	}
 
 	console.log("USING BASE_PATH " + Assets.BASE_PATH);

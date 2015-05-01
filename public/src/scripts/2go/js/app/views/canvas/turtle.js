@@ -85,10 +85,12 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.showMove = function(){
+		console.log("showMove");
 		this.mover.visible = true;
 	};
 	
 	Turtle.prototype.hideMove = function(){
+		console.log("hideMove");
 		this.mover.visible = false;
 	};
 	

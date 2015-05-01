@@ -14,6 +14,7 @@ define([],
 
 	AppSettings.LIVE = (regexp0.test(window.location) || regexp1.test(window.location));
 	
+	// IMPORTNAT: override this to true once it has gone live!
 	AppSettings.LIVE = true;
 
 	return AppSettings;

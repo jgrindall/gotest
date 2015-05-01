@@ -39,6 +39,7 @@ FdCommand, StepLengths){
 		this.modelFacade.get(ModelConsts.START_POS).changeSignal.add(this.startChanged, this);
 		this.modelFacade.get(ModelConsts.TURTLE_PNG).changeSignal.add(this.turtlePngChanged, this);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
+		this.modelFacade.get(ModelConsts.CHALLENGE).changeSignal.add(this.challengeChanged, this);
 		this.rotateHandler = this.onRotateTurtle.bind(this);
 		this.eventDispatcher.addListener(Events.ROTATE_TURTLE, this.rotateHandler);
 		this.onReset();
@@ -65,14 +66,30 @@ FdCommand, StepLengths){
 		this.setStart();
 	};
 
-	Drawing.prototype.playingChanged = function(data){
-		if(data === PlayingState.NOT_PLAYING){
+	Drawing.prototype.challengeChanged = function(data){
+		console.log("challengeChanged chall is ", data);
+		if(data === null){
 			this.turtle.enableMove();
+		}
+		else{
+			this.turtle.disableMove();
+			this.turtle.hideMove();
+		}
+	};
+
+	Drawing.prototype.playingChanged = function(data){
+		var challenge = this.modelFacade.get(ModelConsts.CHALLENGE).get();
+		console.log("playingChanged chall is ", challenge);
+		if(data === PlayingState.NOT_PLAYING){
+			if(challenge ===  null){
+				this.turtle.enableMove();
+			}
 			this.turtle.stopAnim();
 		}
 		else if(data === PlayingState.PLAYING){
+			console.log("play anim");
 			this.turtle.disableMove();
-			this.turtle.playAnim();
+			//this.turtle.playAnim();
 		}
 		else if(data === PlayingState.REPLAYING){
 			this.turtle.disableMove();
@@ -113,7 +130,9 @@ FdCommand, StepLengths){
 			this.turtle.hideMove();
 		}
 		else{
-			this.turtle.showMove();
+			if(this.modelFacade.get(ModelConsts.CHALLENGE).get() === null){
+				this.turtle.showMove();
+			}
 		}
 	};
 
@@ -296,6 +315,7 @@ FdCommand, StepLengths){
 		this.modelFacade.get(ModelConsts.TURTLE_PNG).changeSignal.remove(this.turtlePngChanged, this);
 		this.modelFacade.get(ModelConsts.TURTLE).changeSignal.remove(this.turtleChanged, this);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.remove(this.playingChanged, this);
+		this.modelFacade.get(ModelConsts.CHALLENGE).changeSignal.remove(this.challengeChanged, this);
 		this.onEditorDone = null;
 		this.paths.endSignal.remove(this.commandFinished, this);
 		this.turtle.endSignal.remove(this.commandFinished, this);
