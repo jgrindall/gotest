@@ -45,6 +45,10 @@ function(PhaserComponents,
 		else if(data.index === 3){
 			this.eventDispatcher.trigger({"type":Events.SHOW_CHALLENGES});
 		}
+		if(window.DocumentHandler && window.DocumentHandler.reset){
+			console.log("reset DocumentHandler");
+			window.DocumentHandler.reset();
+		}
 	};
 	
   	return NewFileCommand;
