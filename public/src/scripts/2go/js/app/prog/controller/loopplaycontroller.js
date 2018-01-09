@@ -20,7 +20,7 @@ define( ['phasercomponents',
 
 	LoopPlayController.prototype.addCommands = function(commands){
 		var rpt, i, j, that = this, command;
-		rpt = this.parent.modelFacade.get(ModelConsts.PROG_NUM).get() + 1;
+		rpt = this.parent.modelFacade.get(ModelConsts.PROG_NUM).get() + 2;
 		for(i = 1; i <= rpt; i++){
 			for(j = 0; j < commands.length; j++){
 				command = commands[j];

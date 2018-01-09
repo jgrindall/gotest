@@ -15,7 +15,7 @@ define([], function() {
 	Colors.BROWN = 		0x664344;
 	Colors.ORANGE = 	0xf39811;
 	Colors.YELLOW = 	0xf9e238;
-	Colors.BLACK = 		0x111111;
+	Colors.BLACK = 		0xdddddd;
 	Colors.GREY = 		0x808080;
 	Colors.RED = 		0xeb2d2a;
 	

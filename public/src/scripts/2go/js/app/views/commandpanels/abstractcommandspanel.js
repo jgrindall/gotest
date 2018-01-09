@@ -62,6 +62,10 @@ Events, Assets){
 		for(index = 0; index < total; index++){
 			json = {'type':type, 'direction':direction, 'index':index, 'total':total};
 			this.eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
+			console.log(direction, type, total);
+		}
+		if(type === "move" && direction === 3 && total >= 2){
+			alert("an error occurred");
 		}
 	};
 	

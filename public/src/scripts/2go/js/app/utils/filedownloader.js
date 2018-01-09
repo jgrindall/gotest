@@ -80,7 +80,7 @@ define(['phasercomponents', 'filesaver',
 
 		FileDownloader.prototype.onClickOk = function(){
 			this.onChange();
-			this.filename = $("._2gofilenameinput").val();
+			this.filename = "my2goimage";
 			if(this.validate()){
 				this.onClickClose();
 				this.saveBlob();

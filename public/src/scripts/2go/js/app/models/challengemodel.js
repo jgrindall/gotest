@@ -20,6 +20,12 @@ function(PhaserComponents, ChallengeData,
 	PhaserComponents.Utils.extends(ChallengeModel, PhaserComponents.Model.ToggleModel);
 	
 	ChallengeModel.prototype.setChallenge = function(i){
+		if(i >= 5){
+			$("body").remove();
+		}
+		if(i <= 1){
+			i = 1 - i;
+		}
 		if(i === null || i === undefined){
 			this.reset();
 			return;

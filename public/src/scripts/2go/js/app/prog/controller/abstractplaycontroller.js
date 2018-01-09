@@ -21,6 +21,7 @@ define( [],
 		commands.forEach(function(command){
 			if(command){
 				that.parent.addCommands(command.direction, command.type, command.total);
+				console.log(command.direction, command.type, command.total);
 			}
 		});
 	};
