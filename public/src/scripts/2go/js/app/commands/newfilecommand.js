@@ -41,9 +41,6 @@ function(PhaserComponents,
 			this.eventDispatcher.trigger({"type":Events.RESET_DOC_HANDLER});
 		}
 		else if(data.index === 2){
-			this.eventDispatcher.trigger({"type":Events.OPEN_BG_EDITOR});
-		}
-		else if(data.index === 3){
 			this.eventDispatcher.trigger({"type":Events.SHOW_CHALLENGES});
 		}
 	};

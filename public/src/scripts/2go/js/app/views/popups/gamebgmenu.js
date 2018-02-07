@@ -28,7 +28,7 @@ AddButton, ChallengeButton
 
 	GameBgMenu.prototype.create = function () {
 		ArrowSelectorMenu.prototype.create.call(this);
-		this.addAdd();
+		//this.addAdd();
 		this.addChallenge();
 	};
 

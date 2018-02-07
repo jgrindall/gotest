@@ -70,7 +70,7 @@ TurtleChoice, Translation, TranslationConsts){
 	TurtleMenu.prototype.create = function () {
 		PhaserComponents.Display.AbstractPopup.prototype.create.call(this);
 		this.addOkButton();
-		this.addAdd();
+		//this.addAdd();
 		this.addCloseButton();
 		this.addGrid();
 		this.addTitle();
