@@ -22,7 +22,6 @@
     	"grunt-contrib-copy":"latest",
     	"grunt-contrib-jshint":"latest",
     	"grunt-contrib-clean":"latest",
-      "madge":"latest",
       "grunt-amdcheck":"latest"
   	}
 }
