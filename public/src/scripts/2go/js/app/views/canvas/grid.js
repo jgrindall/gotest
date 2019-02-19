@@ -14,13 +14,14 @@ function(Phaser, PhaserComponents, StepLengths, Assets){
 		this.sizeModel = this.options.sizeModel;
 		this.visModel.changeSignal.add(this.onChangeGrid, this);
 		this.sizeModel.changeSignal.add(this.onChangeSize, this);
-		this.setVisible(this.visModel.get() === 1);
+		//this.setVisible(this.visModel.get() === 1);
 		this.updateImage();
 	};
 	
 	PhaserComponents.Utils.extends(Grid, PhaserComponents.Display.Container);
 	
 	Grid.prototype.onChangeGrid = function(value) {
+		return;
 		this.setVisible(value === 1);
 	};
 

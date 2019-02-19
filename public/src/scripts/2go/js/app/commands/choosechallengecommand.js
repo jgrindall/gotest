@@ -14,6 +14,9 @@ function(PhaserComponents, Defaults, Events) {
 
 	ChooseChallengeCommand.prototype.execute = function(data){
 		var json, that = this;
+		if(data.selection === 3 || data.selection === 7){
+			data.selection = 0;
+		}
 		json = Defaults.getChallenge(data.selection);
 		this.eventDispatcher.trigger({"type":Events.REWIND});
 		this.modelFacade.setData(json);

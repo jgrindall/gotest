@@ -18,6 +18,12 @@ define([
 
 	AddCommandCommand.prototype.execute = function(data){
 		var command, playingModel;
+		if(data.type === "turn" && data.direction === 5){
+			data.direction = 3;
+		}
+		else if(data.type === "move" && data.direction === 7){
+			data.direction = 1;
+		}
 		data.color = 				this.modelFacade.get(ModelConsts.COLOR).get();
 		data.width = 				this.modelFacade.get(ModelConsts.WIDTH).get();
 		data.diag = 				this.modelFacade.get(ModelConsts.DIAG).get();

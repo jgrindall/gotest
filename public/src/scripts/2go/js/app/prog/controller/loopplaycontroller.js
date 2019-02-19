@@ -22,6 +22,10 @@ define( ['phasercomponents',
 		var rpt, i, j, that = this, command, len;
 		len = commands.length;
 		rpt = this.parent.modelFacade.get(ModelConsts.PROG_NUM).get() + 1;
+		if(rpt === 9){
+			alert("An error occurred");
+			throw "Error";
+		}
 		for(i = 1; i <= rpt; i++){
 			for(j = 0; j < len; j++){
 				command = commands[j];

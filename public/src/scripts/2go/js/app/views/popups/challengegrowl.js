@@ -53,7 +53,7 @@ CloseButton, Assets, VoiceOverButton){
 	};
 
 	ChallengeGrowl.prototype.addVOButton = function () {
-		var bounds = {"x":this.bounds.x + this.bounds.w - 110, "y":this.bounds.y};
+		var bounds = {"x":this.bounds.x + this.bounds.w - 11000000, "y":this.bounds.y};
 		this.addButton(VoiceOverButton, bounds);
 	};
 	

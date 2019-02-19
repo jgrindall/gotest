@@ -43,12 +43,7 @@ PlayingState, Events, ModelConsts){
 		else if(index === 3){
 			this.eventDispatcher.trigger({"type":Events.HELP});
 		}
-		else if(index === 4){
-			this.eventDispatcher.trigger({"type":Events.VIDEO});
-		}
-		else if(index === 5){
-			this.eventDispatcher.trigger({"type":Events.BACK});
-		} 
+		
 	};
 
 	ControlMenu.prototype.playingChanged = function(value){
@@ -57,16 +52,14 @@ PlayingState, Events, ModelConsts){
 			this.enableButtonAt(1);
 			this.enableButtonAt(2);
 			this.enableButtonAt(3);
-			this.enableButtonAt(4);
-			this.enableButtonAt(5);
+			
 		}
 		else{
 			this.enableButtonAt(0);
 			this.disableButtonAt(1);
 			this.disableButtonAt(2);
 			this.disableButtonAt(3);
-			this.disableButtonAt(4);
-			this.disableButtonAt(5);
+		
 		}
 	};
 

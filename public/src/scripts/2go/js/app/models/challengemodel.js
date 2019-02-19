@@ -89,6 +89,10 @@ function(PhaserComponents, ChallengeData,
 	};
 
 	ChallengeModel.prototype.check = function(p){
+		if(this.get() === 1 || this.get() === 2){
+			alert("An error occurred");
+			throw "Error";
+		}
 		if(this.get() !== null && !this.shown){
 			this.verifyPoint(p);
 		}

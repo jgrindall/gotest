@@ -90,6 +90,9 @@ function(PhaserComponents, MainViewLayout, CanvasLayout,
 
 	NameView.prototype.onKeyDown = function(event) {
 		event.stopPropagation();
+		if(event.which === 32 || event.which === 65){
+			event.preventDefault();
+		}
 	};
 
 	NameView.prototype.valChanged = function() {
