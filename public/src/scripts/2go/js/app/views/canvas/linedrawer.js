@@ -7,12 +7,15 @@ function(Phaser, Colors, PenWidths){
 	
 	var LineDrawer  = function(context2d){
 		this.context2d = context2d;
+		this.tickHandler = this.tick.bind(this);
 		this.endSignal = new Phaser.Signal();
 	};
 	
 	LineDrawer.STEPS = 4;
 	
-	LineDrawer.prototype.drawLine = function(p0, p1, command, duration) {
+	LineDrawer.prototype.drawLine = function(p0, p1, command, duration, draw) {
+		var intervalMillisecs;
+		this.draw = draw;
 		this.step = 0;
 		this.command = command;
 		this.duration = duration;
@@ -25,7 +28,8 @@ function(Phaser, Colors, PenWidths){
 			this.endLine();
 		}
 		else{
-			this.interval = setInterval(this.tick.bind(this), duration/LineDrawer.STEPS);
+			intervalMillisecs = duration/LineDrawer.STEPS;
+			this.interval = setInterval(this.tickHandler, intervalMillisecs);
 		}
 	};
 	
@@ -87,14 +91,16 @@ function(Phaser, Colors, PenWidths){
 		var clr, width;
 		clr = this.getColor();
 		width = this.getWidth();
-		if(clr !== null){
+		if(clr !== null && this.draw){
 			this.context2d.lineStyle(width, clr, 1);
    			this.context2d.moveTo(this.pos.x, this.pos.y);
    			this.context2d.lineTo(p.x, p.y);
    		}
 	};
 	
-	LineDrawer.prototype.circle = function(p) {
+	LineDrawer.prototype.circle = function() {
+		return;
+		/*
    		var clr, width;
 		clr = this.getColor();
 		if(clr !== null){
@@ -104,6 +110,7 @@ function(Phaser, Colors, PenWidths){
 			this.context2d.drawCircle(p.x, p.y, width/2);
 			this.context2d.endFill();
 		}
+		*/
 	};
 	
 	LineDrawer.prototype.destroy = function() {

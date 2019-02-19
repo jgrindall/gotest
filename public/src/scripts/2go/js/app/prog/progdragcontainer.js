@@ -33,7 +33,6 @@ define(
 		options.bounds = $.extend(options.bounds, {'x':0, 'w':ProgDragContainer.WIDTH});
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.COMMTICKER).changeSignal.add(this.setProgress, this);
-		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.progController = ProgControllerFactory.make(this.options.type, this);
 	};
@@ -125,11 +124,17 @@ define(
 	};
 
 	ProgDragContainer.prototype.getBlockIndex = function(num){
-		var sum, numCommands, index = 0;
+		var sum, numCommands, index = 0, totalNumCommands = 0;
 		if(num === 0){
 			return 0;
 		}
 		numCommands = this.getNumCommands();
+		totalNumCommands = _.reduce(numCommands, function(memo, num){
+			return memo + num;
+		}, 0);
+		if(totalNumCommands === 0){
+			return 0;
+		}
 		sum = numCommands[0];
 		index = 0;
 		while(sum <= num){
