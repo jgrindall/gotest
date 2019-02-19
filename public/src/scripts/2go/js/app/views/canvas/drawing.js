@@ -33,7 +33,6 @@ FdCommand, StepLengths){
 		PhaserComponents.Display.Container.call(this, options);
 		this.modelFacade.get(ModelConsts.COMMTICKER).executeSignal.add(this.commandExecute, this);
 		this.modelFacade.get(ModelConsts.COMMTICKER).resetSignal.add(this.onReset, this);
-		this.modelFacade.get(ModelConsts.COMM).changeSignal.add(this.setProgress, this);
 		this.modelFacade.get(ModelConsts.SCREEN).changeSignal.add(this.onChangeScreen, this);
 		this.modelFacade.get(ModelConsts.TURTLE).changeSignal.add(this.turtleChanged, this);
 		this.modelFacade.get(ModelConsts.START_POS).changeSignal.add(this.startChanged, this);
@@ -142,6 +141,7 @@ FdCommand, StepLengths){
 		this.angle = -90;
 		this.setTurtle();
 		this.paths.clear();
+        this.turtle.showMove();
 		this.eventDispatcher.trigger({"type":Events.CHECK_POSITION, "data":this.startPos});
 	};
 	
@@ -150,6 +150,7 @@ FdCommand, StepLengths){
 		pos = this.modelFacade.get(ModelConsts.START_POS).get();
 		this.startPos = this.fractionToPos(pos);
 		this.turtle.move(this.startPos);
+        this.turtle.showMove();
 	};
 
 	Drawing.prototype.commandExecute = function(data){
@@ -167,6 +168,7 @@ FdCommand, StepLengths){
 		else if(this.command instanceof TransportCommand){
 			this.executeTransport();
 		}
+		this.setProgress();
 	};
 	
 	Drawing.prototype.setAngle = function() {
