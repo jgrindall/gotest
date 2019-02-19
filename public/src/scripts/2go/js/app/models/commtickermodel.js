@@ -37,13 +37,14 @@ function(Phaser, PhaserComponents, Events){
 	};
 
 	CommTickerModel.prototype.update = function(key, index) {
-		var i, command;
-		for(i = this.commandNum + 1; i < this.getNum(); i++){
+		var i, command, num;
+		num = this.getNum();
+		for(i = this.commandNum + 1; i < num; i++){
 			command = this.commandProvider.getCommandAt(i);
 			if(command){
 				command[key] = index;
 			}
-		}
+		}	
 	};
 
 	CommTickerModel.prototype.get = function() {
