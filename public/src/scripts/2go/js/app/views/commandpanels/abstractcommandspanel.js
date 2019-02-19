@@ -1,5 +1,5 @@
 
-define(['phasercomponents', 'base/commands/addcommandcommand','2go/app/assets'],
+define(['phasercomponents', 'base/commands/addcommandcommand','base/assets'],
 
 
 function(PhaserComponents, AddCommandCommand, Assets){
