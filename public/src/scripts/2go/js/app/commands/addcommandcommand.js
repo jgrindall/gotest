@@ -17,7 +17,7 @@ define([
 	PhaserComponents.Utils.extends(AddCommandCommand, PhaserComponents.Commands.AbstractCommand);
 
 	AddCommandCommand.prototype.execute = function(data){
-		var command;
+		var command, playingModel;
 		data.color = 				this.modelFacade.get(ModelConsts.COLOR).get();
 		data.width = 				this.modelFacade.get(ModelConsts.WIDTH).get();
 		data.diag = 				this.modelFacade.get(ModelConsts.DIAG).get();
