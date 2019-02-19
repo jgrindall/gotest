@@ -9,12 +9,13 @@ function() {
 	};
 
 	Events.RESET_DOC_HANDLER 	=		"resetdochandler";
+	Events.BEGIN_PRINT 			=		"beginPrint";
 	Events.NEW_FILE 			= 		"newFile";
 	Events.HIDE_UI 				= 		"hideui";
 	Events.BACK 				= 		"back";
+	Events.PRINT 				= 		"print";
 	Events.LOAD 				= 		"load";
 	Events.SAVE					= 		"save";
-	Events.PRINT				= 		"print";
 	Events.UNDO					= 		"undo";
 	Events.REWIND				= 		"rewind";
 	Events.PROG_CHANGE			= 		"progChange";
