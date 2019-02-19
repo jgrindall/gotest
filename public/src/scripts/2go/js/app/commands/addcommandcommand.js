@@ -1,10 +1,8 @@
 define([
 
-	'base/events/events', 'phasercomponents', 'base/consts/playingstate'
+	'base/events/events', 'phasercomponents', 'base/consts/playingstate',
 
-	'base/models/modelconsts', 'base/logocommands/logocommandfactory'],
-
-function(
+	'base/models/modelconsts', 'base/logocommands/logocommandfactory'], function(
 
 	Events, PhaserComponents, PlayingState,
 
