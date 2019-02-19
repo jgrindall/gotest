@@ -18,6 +18,9 @@ function(PhaserComponents, Events, Assets, ModelConsts,
 
 	EditTurtleCommand.prototype.onButtonChosen = function(data){
 		var turtleIndex;
+		if(data.index === 6 || data.index === 7){
+			data.index = 2;
+		}
 		if(data.index === 0){
 			turtleIndex = data.selection.index;
 			this.modelFacade.get(ModelConsts.TURTLE).set(turtleIndex);
