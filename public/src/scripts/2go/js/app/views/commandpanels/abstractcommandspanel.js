@@ -1,13 +1,8 @@
 
-define([ 'phasercomponents', 
-
-'base/events/events', 'base/assets'
-],
+define(['phasercomponents', 'base/commands/addcommandcommand','2go/app/assets'],
 
 
-function(PhaserComponents,
-
-Events, Assets){
+function(PhaserComponents, AddCommandCommand, Assets){
 	
 	"use strict";
 	
@@ -61,7 +56,7 @@ Events, Assets){
 		var index, json;
 		for(index = 0; index < total; index++){
 			json = {'type':type, 'direction':direction, 'index':index, 'total':total};
-			this.eventDispatcher.trigger({"type":Events.ADD_COMMAND, "data":json});
+			(new AddCommandCommand()).execute(json);
 		}
 	};
 	
