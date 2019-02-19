@@ -18,7 +18,9 @@ function(Phaser, PhaserComponents,
 		this.theta = 0;
 		this.endSignal = new Phaser.Signal();
 		this.movedSignal = new Phaser.Signal();
-		this.enableMove();
+		if(!window.GLOBALS || !window.GLOBALS.print){
+			this.enableMove();
+		}
 	};
 
 	Turtle.EDITOR_KEY = 'turtleEditorImage';
@@ -38,8 +40,10 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.animate = function(){
-		var ie9 = (PhaserComponents.Utils.isIE() === 9);
-		return !ie9;
+		var ie9, printMode;
+        printMode = (window.GLOBALS && window.GLOBALS.print);
+        ie9 = (PhaserComponents.Utils.isIE() === 9);
+		return !ie9 && !printMode;
 	};
 
 	Turtle.prototype.onMoverUp = function() {
@@ -63,15 +67,19 @@ function(Phaser, PhaserComponents,
 		this.mover.events.onInputUp.add(this.onMoverUp, this);
 		this.group.add(this.mover);
 		this.mover.anchor.setTo(0.5, 0.5);
-		this.game.add.tween(this.mover).to( {'angle':360}, 1500, Phaser.Easing.Back.InOut, true, 500, false);
+		this.game.add.tween(this.mover).to( {'angle':360}, 1500, Phaser.Easing.Back.InOut, true, 500);
 	};
 
 	Turtle.prototype.create = function() {
-		PhaserComponents.Display.Container.prototype.create.call(this);
+		var printMode;
+        PhaserComponents.Display.Container.prototype.create.call(this);
+        printMode = (window.GLOBALS && window.GLOBALS.print);
 		this.addMask();
-		this.addMover();
+        if(!printMode){
+            this.addMover();
+            this.mover.mask = this.mask;
+        }
 		this.addTurtle();
-		this.mover.mask = this.mask;
 	};
 
 	Turtle.getAngle = function(t, a){
@@ -85,13 +93,15 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.showMove = function(){
-		console.log("showMove");
-		this.mover.visible = true;
+		if(this.mover){
+			this.mover.visible = true;
+		}
 	};
 	
 	Turtle.prototype.hideMove = function(){
-		console.log("hideMove");
-		this.mover.visible = false;
+		if(this.mover){
+			this.mover.visible = false;
+		}
 	};
 	
 	Turtle.prototype.enableMove = function(){
@@ -107,7 +117,7 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.downHandler = function(){
-		this.addMoveListeners();
+        this.addMoveListeners();
 	};
 
 	Turtle.prototype.onMove = function(pointer){
@@ -131,12 +141,13 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.addMoveListeners = function(){
-		this.game.input.moveCallback = this.onMove.bind(this);
+		this.onMoveHandler = this.onMove.bind(this);
+		this.game.input.addMoveCallback(this.onMoveHandler);
 		this.game.input.onUp.add(this.onUp, this);
 	};
 
 	Turtle.prototype.removeMoveListeners = function(){
-		this.game.input.moveCallback = null;
+		this.game.input.deleteMoveCallback(this.onMoveHandler);
 		this.game.input.onUp.remove(this.onUp, this);
 	};
 
@@ -205,7 +216,7 @@ function(Phaser, PhaserComponents,
 			this.endSignal.dispatch({});
 		}
 		else{
-			this.turnTween = this.game.add.tween(this.turtle.view).to( {'angle':target}, time, Phaser.Easing.Linear.None, true, 0, false);
+			this.turnTween = this.game.add.tween(this.turtle.view).to( {'angle':target}, time, Phaser.Easing.Linear.None, true);
 			this.turnTween.onComplete.add(this.turnComplete, this);
 		}
 	};
@@ -243,11 +254,11 @@ function(Phaser, PhaserComponents,
 	
 	Turtle.prototype.tweenTo = function(p, time) {
 		this.stopMoveTween();
-		if(time === 0){
+		if(time < 20){
 			this.move(p);
 		}
 		else{
-			this.moveTween = this.game.add.tween(this.turtle.view).to( {'x':p.x, 'y':p.y}, time*1, Phaser.Easing.Linear.None, true, 0, false);
+			this.moveTween = this.game.add.tween(this.turtle.view).to( {'x':p.x, 'y':p.y}, time*1, Phaser.Easing.Linear.None, true);
 		}
 	};
 	
@@ -264,9 +275,11 @@ function(Phaser, PhaserComponents,
 	};
 
 	Turtle.prototype.move = function(p) {
-		this.turtle.moveTo(p.x, p.y);
-		this.mover.x = p.x;
-		this.mover.y = p.y;
+        this.turtle.moveTo(p.x, p.y);
+        if(this.mover){
+            this.mover.x = p.x;
+            this.mover.y = p.y;
+        }
 	};
 	
 	Turtle.prototype.addMask = function() {
