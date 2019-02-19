@@ -83,7 +83,7 @@ VideoButton, Translation, TranslationConsts){
 	};
 
 	GridMenu.prototype.addVideoButton = function () {
-		var bounds = {"x":this.bounds.x + this.bounds.w - 100, "y":this.bounds.y - 4};
+		var bounds = {"x":this.bounds.x + this.bounds.w - 1000000, "y":this.bounds.y - 4};
 		this.addButton(VideoButton, bounds);
 	};
 

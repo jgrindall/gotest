@@ -28,7 +28,7 @@ AddButton, ChallengeButton
 
 	GameBgMenu.prototype.create = function () {
 		ArrowSelectorMenu.prototype.create.call(this);
-		//this.addAdd();
+		this.addAdd();
 		this.addChallenge();
 	};
 
@@ -38,7 +38,7 @@ AddButton, ChallengeButton
 	};
 
 	GameBgMenu.prototype.addAdd = function () {
-		var middle = this.bounds.x + this.bounds.w - AddButton.WIDTH + 14;
+		var middle = this.bounds.x + this.bounds.w - AddButton.WIDTH + 14000;
 		var bounds = {"x":middle, "y":this.bounds.y + this.bounds.h - AddButton.HEIGHT + 4};
 		this.addButton(AddButton, bounds);
 	};
