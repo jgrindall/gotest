@@ -15,16 +15,16 @@ PlayingState, Events, ModelConsts){
 	
 	var ControlMenu  = function(options){
 		options.buttonClass = ControlMenuButton;
-		options.numX = 6;
+		options.numX = 4;
 		options.numY = 1;
-		options.data = [{'num':5}, {'num':6}, {'num':7}, {'num':8}, {'num':9}, {'num':10}];
+		options.data = [{'num':5}, {'num':6}, {'num':7}, {'num':8}];
 		PhaserComponents.Display.ButtonBar.call(this, options);
 		this.modelFacade.get(ModelConsts.PLAYING).changeSignal.add(this.playingChanged, this);
 		this.clickSignal.add(this.menuClick, this);
 		this.disableButtonAt(1);
 	};
 	
-	ControlMenu.WIDTH = 252;
+	ControlMenu.WIDTH = 170;
 	ControlMenu.HEIGHT = 50;
 
 	PhaserComponents.Utils.extends(ControlMenu, PhaserComponents.Display.ButtonBar);
