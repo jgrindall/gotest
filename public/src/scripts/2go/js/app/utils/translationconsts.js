@@ -77,6 +77,7 @@ define([],
 		TranslationConsts.Keys.DOWNLOAD_ERROR =					"DOWNLOAD_ERROR";
 		TranslationConsts.Keys.PLACEHOLDER =					"PLACEHOLDER";
 		TranslationConsts.Keys.OOPS_OFF_SCREEN =				"OOPS_OFF_SCREEN";
+		TranslationConsts.Keys.NEW_BUTTON =						"NEW_BUTTON";
 
 		TranslationConsts.Data = {};
 		TranslationConsts.Data[TranslationConsts.Keys.START_NEW_FILE] = 			"Start a new file - choose a background";
