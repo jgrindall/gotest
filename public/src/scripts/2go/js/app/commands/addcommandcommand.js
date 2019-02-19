@@ -1,12 +1,12 @@
 define([
 
-	'base/events/events', 'phasercomponents',
+	'base/events/events', 'phasercomponents', 'base/consts/playingstate'
 
 	'base/models/modelconsts', 'base/logocommands/logocommandfactory'],
 
 function(
 
-	Events, PhaserComponents, 
+	Events, PhaserComponents, PlayingState,
 
 	ModelConsts, LogoCommandFactory) {
 	
@@ -28,6 +28,10 @@ function(
 		command = LogoCommandFactory.fromJson(data);
 		this.modelFacade.get(ModelConsts.COMM).add(command);
 		this.eventDispatcher.trigger({"type":Events.DRAW});
+		playingModel = this.modelFacade.get(ModelConsts.PLAYING);
+		if(playingModel.get() !== PlayingState.PLAYING){
+			this.eventDispatcher.trigger({"type":Events.DRAW});
+		}
 	};
 	
   	return AddCommandCommand;
