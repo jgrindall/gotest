@@ -12,15 +12,23 @@ PhaserComponents, CommandTypes){
 	var CommModel  = function(){
 		PhaserComponents.Model.AbstractModel.call(this);
 		this.commands = [];
+		this.num = 0;
+		this.numExcludingTransport = 0;
 	};
 	
 	PhaserComponents.Utils.extends(CommModel, PhaserComponents.Model.AbstractModel);
 
 	CommModel.prototype.add = function(command) {
 		this.commands.push(command);
-		this.trigger();
+		//console.log("this.commands.length is ", this.commands.length);
+		this.num ++;
+		if(command.type !== CommandTypes.TRANSPORT){
+			this.numExcludingTransport ++;
+		}
+		//this.trigger();
 	};
-	
+		
+
 	CommModel.prototype.set = function(commands) {
 		var that = this, cmd;
 		this.reset();
@@ -43,17 +51,11 @@ PhaserComponents, CommandTypes){
 	};
 	
 	CommModel.prototype.getNum = function(excludeTransport) {
-		var n = 0;
 		if(excludeTransport){
-			this.commands.forEach(function(c){
-				if(c.type !== CommandTypes.TRANSPORT){
-					n++;
-				}
-			});
-			return n;
+			return this.numExcludingTransport;
 		}
 		else{
-			return this.commands.length;
+			return this.num;
 		}
 	};
 	
@@ -66,9 +68,13 @@ PhaserComponents, CommandTypes){
 	};
 
 	CommModel.prototype.removeNext = function(currentNum) {
-		var correctLength = currentNum + 1;
+		var cmd, correctLength = currentNum + 1;
 		while(this.commands.length > correctLength){
-			this.commands.pop();
+			cmd = this.commands.pop();
+			this.num--;
+			if(cmd.type !== CommandTypes.TRANSPORT){
+				this.numExcludingTransport--;
+			}
 		}
 	};
 
@@ -79,6 +85,8 @@ PhaserComponents, CommandTypes){
 	
 	CommModel.prototype.reset = function() {
 		this.commands = [];
+		this.num = 0;
+		this.numExcludingTransport = 0;
 		this.trigger();
 	};
 	
@@ -89,12 +97,17 @@ PhaserComponents, CommandTypes){
 	};
 	
 	CommModel.prototype.removeTop = function() {
-		var topCommand, numToRemove, i;
+		var topCommand, cmd, numToRemove, i;
 		topCommand = this.getTop();
 		numToRemove = topCommand.total;
 		for(i = 1; i<= numToRemove; i++){
-			this.commands.pop();
+			cmd = this.commands.pop();
+			this.num--;
+			if(cmd.type !== CommandTypes.TRANSPORT){
+				this.numExcludingTransport--;
+			}
 		}
+		//update lengths
 		this.trigger();
 	};
 	
