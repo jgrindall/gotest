@@ -19,10 +19,11 @@ define( ['phasercomponents',
 	PhaserComponents.Utils.extends(LoopPlayController, AbstractPlayController);
 
 	LoopPlayController.prototype.addCommands = function(commands){
-		var rpt, i, j, that = this, command;
+		var rpt, i, j, that = this, command, len;
+		len = commands.length;
 		rpt = this.parent.modelFacade.get(ModelConsts.PROG_NUM).get() + 1;
 		for(i = 1; i <= rpt; i++){
-			for(j = 0; j < commands.length; j++){
+			for(j = 0; j < len; j++){
 				command = commands[j];
 				if(command){
 					that.parent.addCommands(command.direction, command.type, command.total);
